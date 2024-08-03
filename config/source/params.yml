@@ -1,0 +1,112 @@
+metadata:
+  keywords:
+    - Security
+    - Privacy
+  description: "BHDicaire's Blog"
+  author: Benoît H. Dicaire
+  image: images/og-image.png
+
+navbar_fixed: true
+theme_switcher: true
+theme_default: system
+
+favicon: images/favicon.png
+logo: images/logo.svg
+logo_darkmode: images/logo.svg
+logo_width: 160px
+logo_height: 32px
+logo_webp: false
+logo_text: BHDicaire
+
+securityTxt:
+  intro: "# Information related to reporting security vulnerabilities of this site."
+  contact: "mailto:security@dicaire.com"
+  expires: 365
+  encryption: "https://bhdicaire.com/pgp.asc"
+  acknowledgements: "https://bhdicaire.com/en/hall-of-fame/"
+  languages: "en,fr"
+  canonical: "https://bhdicaire.com/.well-known/security.txt"
+  policy: "https://bhdicaire.com/en/legal/disclosure/"
+#  hiring: ""
+
+
+mainSections:
+  - blog
+contact_form_action: '#'
+google_tag_manager: ''
+google_adsense: ''
+custom_script: ''
+preloader:
+  enable: false
+  preloader: ''
+navigation_button:
+  enable: false
+  label: get a quote
+  link: contact
+search:
+  enable: true
+  primary_color: '#121212'
+  include_sections:
+    - blog
+    - talk
+  show_image: true
+  show_description: true
+  show_tags: true
+  show_categories: true
+
+site_verification:
+  google: ''
+  bing: ''
+  baidu: ''
+  facebook: ''
+  mastodon: ''
+cookies:
+  enable: false
+  expire_days: 60
+  content: >-
+    This site uses cookies. By continuing to use this website, you agree to
+    their use.
+  button: I Accept
+widgets:
+  sidebar:
+    - categories
+    - tags
+google_map:
+  enable: false
+  map_api_key: AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU
+  map_latitude: '51.5223477'
+  map_longitude: '-0.1622023'
+  map_marker: images/marker.png
+subscription:
+  enable: false
+  mailchimp_form_action: >-
+    https://gmail.us4.list-manage.com/subscribe/post?u=463ee871f45d2d93748e77cad&amp;id=a0a2c6d074
+  mailchimp_form_name: b_463ee871f45d2d93748e77cad_a0a2c6d074
+
+plugins:
+  css:
+    - link: plugins/swiper/swiper-bundle.css
+      lazy: true
+    - link: plugins/glightbox/glightbox.css
+      lazy: true
+    - link: plugins/font-awesome/v6/brands.css
+      lazy: true
+    - link: plugins/font-awesome/v6/solid.css
+      lazy: true
+    - link: plugins/font-awesome/v6/icons.css
+      lazy: true
+  js:
+    - link: js/search.js
+      lazy: false
+    - link: plugins/swiper/swiper-bundle.js
+      lazy: false
+    - link: plugins/glightbox/glightbox.js
+      lazy: true
+    - link: js/gallery-slider.js
+      lazy: true
+    - link: js/tab.js
+      lazy: true
+    - link: js/modal.js
+      lazy: true
+    - link: plugins/youtube-lite.js
+      lazy: true

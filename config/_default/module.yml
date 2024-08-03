@@ -1,0 +1,6 @@
+hugoVersion:
+  extended: true
+  min: 0.115.2
+
+imports:
+  - path: github.com/imfing/hextra
