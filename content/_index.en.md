@@ -61,7 +61,7 @@ layout: hextra-home
     subtitle="Looks great on different screen sizes. Built-in dark mode support, with auto-switching based on user's system preference."
   >}}
   {{< hextra/feature-card
-    title="Build and Host for Free"
+    title="Build and Host for Free!!"
     subtitle="Build with GitHub Actions, and host for free on GitHub Pages. Alternatively it can be hosted on any static hosting service."
   >}}
   {{< hextra/feature-card

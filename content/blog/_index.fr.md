@@ -1,5 +1,8 @@
 ---
 title: "Blog"
+menu:
+  main:
+    Weight: 2
 ---
 
 <div style="text-align: center; margin-top: 1em;">

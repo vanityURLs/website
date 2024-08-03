@@ -1,6 +1,9 @@
 ---
 linkTitle: "Documentation"
 title: Introduction
+menu:
+  main:
+    Weight: 4
 ---
 
 👋 Hello! Welcome to the Hextra documentation!

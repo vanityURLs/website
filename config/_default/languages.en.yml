@@ -3,3 +3,8 @@ languageName: English
 weight: 1
 description: 'Independent Cybersecurity Strategist + Innovation Facilitator'
 dateFormat: 2 January 2006
+menus:
+  main:
+  - name: About
+    pageRef: /about
+    weight: 10
