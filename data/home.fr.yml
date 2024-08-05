@@ -1,0 +1,19 @@
+what:
+  sectionName: Fast and Full-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+
+how:
+  sectionName: Fast and Full-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+
+features:
+- sectionName: Fast and no-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+- sectionName: Fast and Full-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+- sectionName: Markdown is All You Need
+  description: Compose with just Markdown. Enrich with Shortcode components.
+- sectionName: Full Text Search
+  description: Built-in full text search with FlexSearch, no extra setup required.
+- sectionName: Lightweight as a Feather
+  description: "No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary."

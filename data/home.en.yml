@@ -1,0 +1,29 @@
+actionVerbs:
+- sectionName: "Personal Traits/Characteristics"
+  items:
+    - Able
+    - Accuratez
+    - Achiever
+
+aboutHeader: "About Benoît H. Dicaire"
+aboutItems:
+- "I provide technical leadership on information security and privacy initiatives. At ease in the boardroom, war room and the server room. I facilitate alignment  across teams on goals, timelines and outcomes."
+- "Dicaire is pronounced “de-care”."
+
+what:
+  sectionName: Fast and Full-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+
+how:
+  sectionName: Fast and Full-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+
+features:
+- sectionName: Fast and Full-featured
+  description: Simple and easy to use, yet powerful and feature-rich.
+- sectionName: Markdown is All You Need
+  description: Compose with just Markdown. Enrich with Shortcode components.
+- sectionName: Full Text Search
+  description: Built-in full text search with FlexSearch, no extra setup required.
+- sectionName: Lightweight as a Feather
+  description: No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary.

@@ -1,0 +1,214 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vanityURLs.link – V8S</title>
+    <link>http://localhost:1313/en/docs/v8s/</link>
+    <description>Recent content in V8S on vanityURLs.link</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-ca</language>
+    
+	  <atom:link href="http://localhost:1313/en/docs/v8s/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Administration</title>
+      <link>http://localhost:1313/en/docs/v8s/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/en/docs/v8s/admin/</guid>
+      <description>
+        
+        
+        &lt;p&gt;You can use the following &lt;code&gt;Bash scripts&lt;/code&gt; to speed up the creation of URLs&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Name&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;scripts/lnk&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;Generate an ID for a new URL, either randomized or customized&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;What &lt;code&gt;scripts/lnk&lt;/code&gt; script does:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Generate a specific or a unique ID for a new URL&lt;/li&gt;
+&lt;li&gt;Add the link to the local git repository&lt;/li&gt;
+&lt;li&gt;Commit the change with an adequate description to the local git repository&lt;/li&gt;
+&lt;li&gt;Push the change to GitHub&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Cloudflare will detect the change and initiate a deployment 😄&lt;/p&gt;
+&lt;h2&gt;Requirements&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;requirements&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#requirements&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Note that in order to use the scripts mentioned above, you will need a
+&lt;code&gt;~/.vanityURLs.conf&lt;/code&gt; file on your machine with &lt;em&gt;your&lt;/em&gt; specific values,
+e.g. the path to the repo on your machine, your tiny domain, etc.. A template for this file can
+be found &lt;a href=&#34;../vanityURLs.conf&#34; &gt;here&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>How</title>
+      <link>http://localhost:1313/en/docs/v8s/how/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/en/docs/v8s/how/</guid>
+      <description>
+        
+        
+        &lt;h1&gt;Everything you always wanted to know about URL redirection (but were afraid to ask)&lt;/h1&gt;&lt;p&gt;HTTP is a &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/HTTP/Resources_and_specifications&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;protocol&lt;/a&gt; for fetching resources such as HTML documents. You can &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/HTTP/Redirections#Overview&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;redirect&lt;/a&gt; at the service level, within a page or via JavaScript if enabled.&lt;/p&gt;
+&lt;p&gt;The simplest way to redirect to another URL is to use an &lt;a href=&#34;https://www.w3docs.com/learn-html/html-meta-tag.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;HTML &lt;meta&gt;&lt;/a&gt; tag with the http-equiv parameter set to “refresh”. The content attribute sets the delay before the browser redirects the user to the new web page. To redirect immediately, set this parameter to “0” seconds for the content attribute.&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;meta&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;http-equiv&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;refresh&amp;#34;&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;content&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;0; url=&amp;#39;https://github.com/bhdicaire&amp;#39;&amp;#34;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;You will be redirected to BH Dicaire&amp;#39;s Github soon!&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;p&gt;However HTTP redirects always execute first thus using Cloudflare page &lt;code&gt;serverless&lt;/code&gt; component is more elegant. I don&amp;rsquo;t need build a static html page per URL either manually or via a static site generator such as &lt;a href=&#34;https://gohugo.io/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hugo&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;How does it work?&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;how-does-it-work&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#how-does-it-work&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The secret sauce are two plain text files:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;build/_redirects&lt;/code&gt; based on this &lt;a href=&#34;https://developers.cloudflare.com/pages/platform/redirects&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;build/_headers&lt;/code&gt; based on this &lt;a href=&#34;https://developers.cloudflare.com/pages/platform/headers/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Make sure to put all the items with placeholders or splats at the end of the &lt;code&gt;build/_redirects&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/mail https://outlook.office.com/ &lt;span class=&#34;m&#34;&gt;301&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/github https://github.com/bhdicaire/ &lt;span class=&#34;m&#34;&gt;301&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;/github/* https://github.com/bhdicaire/:splat&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Pages uses HTTP validation and needs to hit an HTTP endpoint during validation. If another Cloudflare product is in the way (such as Access, a redirect, a Worker, etc.), validation cannot be completed.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;HTTPS Headers&lt;span class=&#34;hx-absolute -hx-mt-20&#34; id=&#34;https-headers&#34;&gt;&lt;/span&gt;
+    &lt;a href=&#34;#https-headers&#34; class=&#34;subheading-anchor&#34; aria-label=&#34;Permalink for this section&#34;&gt;&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;I&amp;rsquo;m using the &lt;code&gt;build/_headers&lt;/code&gt; to include the following items to Cloudflare Pages responses, don&amp;rsquo;t forget to change the URLs for pages.dev and your custom domain:&lt;/p&gt;
+&lt;div class=&#34;hextra-code-block hx-relative hx-mt-6 first:hx-mt-0 hx-group/code&#34;&gt;
+  
+
+&lt;div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://xyz.pages.dev/*
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  X-Robots-Tag: noindex
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  X-Content-Type-Options: nosniff
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;https://example.com/*
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  X-Robots-Tag: noindex
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  X-Content-Type-Options: nosniff&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&#34;hextra-code-copy-btn-container hx-opacity-0 hx-transition group-hover/code:hx-opacity-100 hx-flex hx-gap-1 hx-absolute hx-m-[11px] hx-right-0 hx-top-0&#34;&gt;
+  &lt;button
+    class=&#34;hextra-code-copy-btn hx-group/copybtn hx-transition-all active:hx-opacity-50 hx-bg-primary-700/5 hx-border hx-border-black/5 hx-text-gray-600 hover:hx-text-gray-900 hx-rounded-md hx-p-1.5 dark:hx-bg-primary-300/10 dark:hx-border-white/10 dark:hx-text-gray-400 dark:hover:hx-text-gray-50&#34;
+    title=&#34;Copy code&#34;
+  &gt;
+    &lt;div class=&#34;copy-icon group-[.copied]/copybtn:hx-hidden hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;success-icon hx-hidden group-[.copied]/copybtn:hx-block hx-pointer-events-none hx-h-4 hx-w-4&#34;&gt;&lt;/div&gt;
+  &lt;/button&gt;
+&lt;/div&gt;
+
+  
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>http://localhost:1313/en/docs/v8s/install/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/en/docs/v8s/install/</guid>
+      <description>
+        
+        
+        &lt;ol&gt;
+&lt;li&gt;Fork the repository, you just need the &lt;code&gt;main&lt;/code&gt; branch&lt;/li&gt;
+&lt;li&gt;Pushed the forked public repository or create a new private repository on GitHub:
+&lt;ol&gt;
+&lt;li&gt;git init&lt;/li&gt;
+&lt;li&gt;git add .&lt;/li&gt;
+&lt;li&gt;git commit -m &amp;ldquo;first commit&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;git branch -M main&lt;/li&gt;
+&lt;li&gt;git remote add origin &amp;hellip;&lt;/li&gt;
+&lt;li&gt;git push -u origin main&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;Create a project underneath Cloudflare Workers &amp;amp; Pages
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.cloudflare.com/pages/get-started/guide/#connect-your-git-provider-to-pages&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Connect the repository&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Configure your deployment and build setup:
+&lt;ul&gt;
+&lt;li&gt;Framework preset: (leave empty)&lt;/li&gt;
+&lt;li&gt;Build command: &lt;code&gt;cat static.lnk dynamic.lnk &amp;gt; build/_redirects&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Build output directory: &lt;code&gt;/build&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The build will fail as you still need to generate &lt;code&gt;static.lnk&lt;/code&gt;, &lt;code&gt;dynamic.lnk&lt;/code&gt;, and &lt;code&gt;build/_headers&lt;/code&gt; later in the process&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Setup a &lt;a href=&#34;https://developers.cloudflare.com/pages/platform/custom-domains/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;custom domain&lt;/a&gt; for your page project
+&lt;ul&gt;
+&lt;li&gt;Configure the DNS entry via &lt;a href=&#34;https://dash.cloudflare.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Cloudflare DNS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Define your configuration in the &lt;code&gt;vanityURLs.conf&lt;/code&gt; with your preferred text editor or via &lt;code&gt;make config&lt;/code&gt; if &lt;code&gt;vi&lt;/code&gt; is your cup of tea&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;SCRIPT_DIR: the path to your local scripts folder included in your path&lt;/li&gt;
+&lt;li&gt;REPO_DIR: the path to your local copy of vanityURLs&lt;/li&gt;
+&lt;li&gt;MY_DOMAIN: your tiny internet domain served by Cloudflare&lt;/li&gt;
+&lt;li&gt;MY_PAGE: your cloudflare&amp;rsquo;s specific page URL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;Build your initial setup with &lt;code&gt;make setup&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;Generate the &lt;a href=&#34;../build/_headers&#34; &gt;header configuration&lt;/a&gt; based on your cloudflare&amp;rsquo;s specific page URL and &lt;em&gt;tiny&lt;/em&gt; internet domain name&lt;/li&gt;
+&lt;li&gt;Generate the initial &lt;a href=&#34;../static.lnk&#34; &gt;static.lnk&lt;/a&gt; and &lt;a href=&#34;../dynamic.lnk&#34; &gt;dynamic.lnk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&#34;7&#34;&gt;
+&lt;li&gt;Update the &lt;a href=&#34;../static.lnk&#34; &gt;static&lt;/a&gt; and &lt;a href=&#34;../dynamic.lnk&#34; &gt;dynamic&lt;/a&gt; redirection lists with your preferred text editor and the &lt;a href=&#34;../script/lnk&#34; &gt;&lt;code&gt;lnk&lt;/code&gt; bash script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Update the main branch of your local git repository and push to GitHub&lt;/li&gt;
+&lt;li&gt;Cloudflare will detect the change and initiate a deployment, please give ~15 seconds for your links to become valid&lt;/li&gt;
+&lt;li&gt;Open the defined fully qualified domain name for your &lt;em&gt;tiny&lt;/em&gt; internet domain name in your web browser, and you should be redirected to &lt;a href=&#34;https://BHDicaire.com&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://BHDicaire.com&lt;/a&gt; based on the &lt;a href=&#34;../build/_redirects&#34; &gt;initial configuration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Fine tune the &lt;a href=&#34;../static.lnk&#34; &gt;static&lt;/a&gt; and &lt;a href=&#34;../dynamic.lnk&#34; &gt;dynamic&lt;/a&gt; redirection lists with your preferred text editor and the &lt;a href=&#34;../scripts/lnk&#34; &gt;&lt;code&gt;lnk&lt;/code&gt; bash script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Add and commit the change to the github repository&lt;/li&gt;
+&lt;/ol&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

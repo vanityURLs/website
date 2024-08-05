@@ -3,3 +3,14 @@ languageName: Français
 weight: 2
 description: 'Independent Cybersecurity Strategist + Innovation Facilitator'
 dateFormat: 2 January 2006
+menus:
+  main:
+  - name: Search
+    weight: 4
+    params:
+      type: search
+  - name: GitHub
+    weight: 10
+    url: "https://github.com/vanityURLs/vanityURLs"
+    params:
+      icon: github

@@ -3,7 +3,7 @@ linkTitle: "Documentation"
 title: Introduction
 menu:
   main:
-    Weight: 4
+    Weight: 1
 ---
 
 👋 Hello! Welcome to the Hextra documentation!

@@ -1,5 +1,5 @@
 ---
-title: Guide
+title: Hextra Theme
 weight: 2
 prev: /docs/getting-started
 next: /docs/guide/organize-files

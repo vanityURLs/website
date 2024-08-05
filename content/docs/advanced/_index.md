@@ -1,5 +1,5 @@
 ---
-linkTitle: Advanced
+linkTitle: Advanced Theme Config
 title: Advanced Topics
 prev: /docs/guide/shortcodes/tabs
 next: /docs/advanced/multi-language

@@ -28,9 +28,12 @@
     </a>
 
     {{- $currentPage := . -}}
+
     {{- range .Site.Menus.main -}}
       {{- if eq .Params.type "search" -}}
+        {{ partial "theme-toggle.html" }}     
         {{- partial "search.html" (dict "params" .Params) -}}
+
       {{- else -}}
         {{- $link := .URL -}}
         {{- $external := strings.HasPrefix $link "http" -}}
@@ -61,8 +64,6 @@
         {{- end -}}
       {{- end -}}
     {{- end -}}
-
-
     <button type="button" aria-label="Menu" class="hamburger-menu -hx-mr-2 hx-rounded hx-p-2 active:hx-bg-gray-400/20 md:hx-hidden">
       {{- partial "utils/icon.html" (dict "name" "hamburger-menu" "attributes" "height=24") -}}
     </button>
