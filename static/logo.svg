@@ -1,0 +1,8 @@
+<svg width="100" height="100" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Outer Chain Link -->
+  <path d="M7 13a4 4 0 0 1 0-6a4 4 0 0 1 6 0a4 4 0 0 1 0 6a4 4 0 0 1-6 0z"></path>
+  <!-- Inner Chain Link -->
+  <path d="M17 13a4 4 0 0 1 0-6a4 4 0 0 1 6 0a4 4 0 0 1 0 6a4 4 0 0 1-6 0z"></path>
+  <!-- Arrow -->
+  <path d="M8 15l4 4l4-4"></path>
+</svg>
