@@ -1,3 +1,7 @@
+heroHeadline: "Simplify Your Links"
+heroSubtitle: "An open-source URL shortener that's fast, secure, and customizable."
+heroCTA: "Try It Now"
+
 what:
   sectionName: Fast and Full-featured
   description: Simple and easy to use, yet powerful and feature-rich.
@@ -17,3 +21,5 @@ features:
   description: No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary.
 - sectionName: "Analytics & Tracking"
   description: "Monitor link performance with built-in analytics and tracking tools."
+- sectionName: "Analytics & Tracking v2"
+  description: "Monitor link performance with built-in analytics and tracking tools."  

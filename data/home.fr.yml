@@ -1,3 +1,7 @@
+heroHeadline: "Simplify Your Links"
+heroSubtitle: "An open-source URL shortener that's fast, secure, and customizable."
+heroCTA: "Try It Now"
+
 what:
   sectionName: Fast and Full-featured
   description: Simple and easy to use, yet powerful and feature-rich.
@@ -7,13 +11,15 @@ how:
   description: Simple and easy to use, yet powerful and feature-rich.
 
 features:
-- sectionName: Fast and no-featured
-  description: Simple and easy to use, yet powerful and feature-rich.
-- sectionName: Fast and Full-featured
-  description: Simple and easy to use, yet powerful and feature-rich.
-- sectionName: Markdown is All You Need
-  description: Compose with just Markdown. Enrich with Shortcode components.
-- sectionName: Full Text Search
-  description: Built-in full text search with FlexSearch, no extra setup required.
+- sectionName: "Open Source & Transparent"
+  description:  "Fully open source with a supportive community. Customize and extend it to fit your needs."
+- sectionName: "Easy to Use"
+  description:  "Shorten links in seconds with the command line interface"
+- sectionName: "Customizable URLs"
+  description: "Create branded short links with custom aliases for better branding."
 - sectionName: Lightweight as a Feather
-  description: "No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary."
+  description: No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary.
+- sectionName: "Analytics & Tracking"
+  description: "Monitor link performance with built-in analytics and tracking tools."
+- sectionName: "Analytics & Tracking v2"
+  description: "Monitor link performance with built-in analytics and tracking tools."  

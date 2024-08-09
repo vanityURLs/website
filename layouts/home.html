@@ -1,54 +1,68 @@
 {{ define "main" }}
- {{ $.Scratch.Set "data" (index $.Page.Site.Data (print .Params.layout "." $.Page.Lang)) }}
-  {{ $data := ($.Scratch.Get "data") }}
-  
-  <div class='hx-mx-auto hx-flex {{ partial "utils/page-width" . }}'>
-    {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
-    <div class="hx-w-full hx-break-words hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-pb-8 hx-pt-8 md:hx-pt-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-left),1.5rem)]">
-      <div class="hx-flex hx-flex-col hx-items-start">
+{{ $.Scratch.Set "data" (index $.Page.Site.Data (print .Params.layout "." $.Page.Lang)) }}
+{{ $data := ($.Scratch.Get "data") }}
 
-<!-- Headline -->
-<div class="hx-mt-6 hx-mb-6">
-  <h1
-  class="not-prose hx-text-4xl hx-font-bold hx-leading-none hx-tracking-tighter md:hx-text-5xl hx-py-2 hx-bg-clip-text hx-text-transparent hx-bg-gradient-to-r hx-from-gray-900 hx-to-gray-600 dark:hx-from-gray-100 dark:hx-to-gray-400">
-{{ .Params.heroHeadline | markdownify }}
-  <!--   &nbsp;<br class="sm:hx-block hx-hidden" />with Markdown and Hugo -->
-  </h1>
+<div class='hx-mx-auto hx-flex {{ partial "utils/page-width" . }}'>
+  {{ partial "sidebar.html" (dict "context" . "disableSidebar" true) }}
+  <div
+    class="hx-w-full hx-break-words hx-min-h-[calc(100vh-var(--navbar-height))] hx-min-w-0 hx-pb-8 hx-pt-8 md:hx-pt-12 hx-pl-[max(env(safe-area-inset-left),1.5rem)] hx-pr-[max(env(safe-area-inset-left),1.5rem)]">
+    <div class="hx-flex hx-flex-col hx-items-start">
+
+      <!-- Headline -->
+      <div class="hx-mt-6 hx-mb-6">
+        <h1
+          class="not-prose hx-text-4xl hx-font-bold hx-leading-none hx-tracking-tighter md:hx-text-5xl hx-py-2 hx-bg-clip-text hx-text-transparent hx-bg-gradient-to-r hx-from-gray-900 hx-to-gray-600 dark:hx-from-gray-100 dark:hx-to-gray-400">
+          {{ $data.heroHeadline | markdownify }}
+          <!--   &nbsp;<br class="sm:hx-block hx-hidden" />with Markdown and Hugo -->
+        </h1>
+      </div>
+      <!-- Subtitle -->
+      <div class="hx-mb-12">
+        <p class="not-prose hx-text-xl hx-text-gray-600 dark:hx-text-gray-400 sm:hx-text-xl">
+          {{ $data.heroSubtitle | markdownify }}
+        </p>
+      </div>
+
+      <!-- Call to action -->
+      <div class="hx-mb-6">
+        <a href="docs"
+          class="not-prose hx-font-medium hx-cursor-pointer hx-px-6 hx-py-3 hx-rounded-full hx-text-center hx-text-white hx-inline-block hx-bg-primary-600 hover:hx-bg-primary-700 focus:hx-outline-none focus:hx-ring-4 focus:hx-ring-primary-300 dark:hx-bg-primary-600 dark:hover:hx-bg-primary-700 dark:focus:hx-ring-primary-800 hx-transition-all hx-ease-in hx-duration-200">
+          {{ $data.heroCTA | markdownify }}
+        </a>
+      </div>
+    </div>
+
+<!-- What -->
+<div class="mt-6 grid grid-cols-1 gap-4 w-full">
+       <a class="hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient">
+          <div class="hx-relative hx-w-full hx-p-6 framify-section">
+            <h3 class="hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center"><span>{{ $data.what.sectionName | markdownify }}</span></h3>
+            <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6">{{ $data.what.description | markdownify }}</p>
+          </div>
+        </a>
 </div>
-<!-- Subtitle -->
-<div class="hx-mb-12">
-<p
-  class="not-prose hx-text-xl hx-text-gray-600 dark:hx-text-gray-400 sm:hx-text-xl">
-  {{ .Params.heroSubtitle | markdownify }}
-</p>
-</div>
+      
+    <!-- Features -->
 
-<!-- Call to action -->
-<div class="hx-mb-6">
-<a  href="docs" class="not-prose hx-font-medium hx-cursor-pointer hx-px-6 hx-py-3 hx-rounded-full hx-text-center hx-text-white hx-inline-block hx-bg-primary-600 hover:hx-bg-primary-700 focus:hx-outline-none focus:hx-ring-4 focus:hx-ring-primary-300 dark:hx-bg-primary-600 dark:hover:hx-bg-primary-700 dark:focus:hx-ring-primary-800 hx-transition-all hx-ease-in hx-duration-200">
-  {{ .Params.heroCTA | markdownify }}
-</a>
-</div>
- </div>
+    <div class="hx-mt-6 framify-section">
+      <div
+        class="hextra-feature-grid hx-grid sm:max-lg:hx-grid-cols-2 max-sm:hx-grid-cols-1 hx-gap-4 hx-w-full not-prose"
+        style=--hextra-feature-grid-cols:3>
 
-<!-- Features -->
+        {{ range $data.features }}
+        <a
+          class="hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient">
+          <div class="hx-relative hx-w-full hx-p-6 framify-section">
 
-<div class="hx-mt-6 framify-section">
-<div class="hextra-feature-grid hx-grid sm:max-lg:hx-grid-cols-2 max-sm:hx-grid-cols-1 hx-gap-4 hx-w-full not-prose" style=--hextra-feature-grid-cols:3><a style="background:radial-gradient(ellipse at 50% 80%,rgba(194,97,254,.15),hsla(0,0%,100%,0))" class="hx-aspect-auto md:hx-aspect-[1.1/1] max-md:hx-min-h-[340px] hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient">
-
-  {{ range  $data.features }}
-    <a class="hextra-feature-card not-prose hx-block hx-relative hx-overflow-hidden hx-rounded-3xl hx-border hx-border-gray-200 hover:hx-border-gray-300 dark:hx-border-neutral-800 dark:hover:hx-border-neutral-700 before:hx-pointer-events-none before:hx-absolute before:hx-inset-0 before:hx-bg-glass-gradient">
-    <div class="hx-relative hx-w-full hx-p-6 framify-section">
-
-    <h3 class="hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center"><span>{{ .sectionName | markdownify }}</span></h3>
-    <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6">{{ .description | markdownify }}</p>
-  </div>
-</a>
-{{ end }}
-</div></div>
-</div>
-  </div>
+            <h3 class="hx-text-2xl hx-font-medium hx-leading-6 hx-mb-2 hx-flex hx-items-center"><span>{{ .sectionName |
+                markdownify }}</span></h3>
+            <p class="hx-text-gray-500 dark:hx-text-gray-400 hx-text-sm hx-leading-6">{{ .description | markdownify }}
+            </p>
+          </div>
+        </a>
+        {{ end }}
       </div>
     </div>
   </div>
+</div>
 {{ end }}
