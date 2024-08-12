@@ -1,7 +1,7 @@
 ---
 linkTitle: v8s
 title: V8S
-prev: /docs/guide/shortcodes/tabs
+prev: /docs/
 next: /docs/v8s/how
 ---
 
