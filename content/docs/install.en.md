@@ -1,12 +1,14 @@
 ---
 title: Installation
 linkTitle: install
+prev: /docs/
+next: /docs/admin
 ---
 {{% steps %}}
 
 ### Fork the repo
 
-1. Fork the repository, you just need the `main` branch
+1. Fork [the repository](https://github.com/vanityURLs/vanityURLs), you just need the `main` branch
 2. Push the forked public repository or create a new private repository on GitHub:
     1. git init
     2. git add .

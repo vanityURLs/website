@@ -1,6 +1,8 @@
 ---
 title: Administration
 linkTitle: admin
+prev: /docs/install
+next: /docs/how
 ---
 
 You can use the following `Bash scripts` to speed up the creation of URLs

@@ -1,6 +1,7 @@
 ---
 title: How
-linkTitle: How
+linkTitle: how
+prev: /docs/admin
 ---
 
 # Everything you always wanted to know about URL redirection (but were afraid to ask)

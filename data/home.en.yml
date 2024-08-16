@@ -18,8 +18,8 @@ features:
 - sectionName: "Customizable URLs"
   description: "Create branded short links with custom aliases for better branding."
 - sectionName: Lightweight as a Feather
-  description: No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary.
+  description: No dependency or Node.js is needed.
 - sectionName: "Analytics & Tracking"
   description: "Monitor link performance with built-in analytics and tracking tools."
-- sectionName: "Analytics & Tracking v2"
-  description: "Monitor link performance with built-in analytics and tracking tools."  
+- sectionName: "Free!"
+  description: "Simply bring your existing web domain and follow the recipe to get started."

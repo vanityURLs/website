@@ -1,25 +1,26 @@
-heroHeadline: "Simplify Your Links"
-heroSubtitle: "An open-source URL shortener that's fast, secure, and customizable."
-heroCTA: "Try It Now"
+heroHeadline: "Simplifiez Vos Liens"
+heroSubtitle: "Un raccourcisseur d'URL open-source rapide, sécurisé et personnalisable."
+heroCTA: "Essayez-le Maintenant"
 
 what:
-  sectionName: Fast and Full-featured
-  description: Simple and easy to use, yet powerful and feature-rich.
+  sectionName: Rapide et Complet
+  description: Simple et facile à utiliser, mais puissant et riche en fonctionnalités.
 
 how:
-  sectionName: Fast and Full-featured
-  description: Simple and easy to use, yet powerful and feature-rich.
+  sectionName: Rapide et Complet
+  description: Simple et facile à utiliser, mais puissant et riche en fonctionnalités.
 
 features:
 - sectionName: "Open Source & Transparent"
-  description:  "Fully open source with a supportive community. Customize and extend it to fit your needs."
-- sectionName: "Easy to Use"
-  description:  "Shorten links in seconds with the command line interface"
-- sectionName: "Customizable URLs"
-  description: "Create branded short links with custom aliases for better branding."
-- sectionName: Lightweight as a Feather
-  description: No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of the fastest static site generators, building your site in just seconds with a single binary.
-- sectionName: "Analytics & Tracking"
-  description: "Monitor link performance with built-in analytics and tracking tools."
-- sectionName: "Analytics & Tracking v2"
-  description: "Monitor link performance with built-in analytics and tracking tools."  
+  description:  "Entièrement open source avec une communauté solidaire. Personnalisez-le et étendez-le selon vos besoins."
+- sectionName: "Facile à Utiliser"
+  description:  "Raccourcissez les liens en quelques secondes avec l'interface en ligne de commande."
+- sectionName: "URLs Personnalisables"
+  description: "Créez des liens courts avec des alias personnalisés pour un meilleur branding."
+- sectionName: Léger comme une Plume
+  description: Aucune dépendance ou Node.js n'est nécessaire.
+- sectionName: "Analytique & Suivi"
+  description: "Surveillez la performance des liens avec des outils d'analyse et de suivi intégrés."
+- sectionName: "Gratuit !"
+  description: "Apportez simplement votre domaine web existant et suivez la recette pour commencer."
+
