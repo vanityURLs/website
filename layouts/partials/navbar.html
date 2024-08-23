@@ -64,6 +64,7 @@
         {{- end -}}
       {{- end -}}
     {{- end -}}
+   {{- partial "language-switch.html" (dict "context" .) -}}
     <button type="button" aria-label="Menu" class="hamburger-menu -hx-mr-2 hx-rounded hx-p-2 active:hx-bg-gray-400/20 md:hx-hidden">
       {{- partial "utils/icon.html" (dict "name" "hamburger-menu" "attributes" "height=24") -}}
     </button>
