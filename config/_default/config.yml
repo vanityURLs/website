@@ -1,0 +1,12 @@
+title: "vanityURLs.link"
+baseURL: "https://vanityURLs.link/"
+timeZone: America/New_York
+
+
+defaultContentLanguage: en
+removePathAccents: true
+defaultContentLanguageInSubdir: true
+enablemissingtranslationplaceholders: true
+
+enableEmoji: true
+enableRobotsTXT: true

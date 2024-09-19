@@ -1,0 +1,24 @@
+languageCode: en-ca
+languageName: English
+weight: 1
+description: 'Independent Cybersecurity Strategist + Innovation Facilitator'
+dateFormat: 2 January 2006
+menus:
+  main:
+  - name: About
+    pageRef: /about
+    weight: 10
+  footer:
+  - name: Terms
+    pageRef: /terms
+    weight: 10
+  - name: Status
+    Weight: 3
+    URL: https://Status.Dicaire.com
+params:
+  isoCode: en-CA
+  displayName: ':flag-ca:'
+  mainSections:
+    - samples
+  description: 'Contact information'
+  dateFormat: 2 January 2006

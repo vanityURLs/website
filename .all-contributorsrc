@@ -1,0 +1,14 @@
+{
+  "projectName": "website",
+  "projectOwner": "vanityURLs",
+  "files": [
+    "README.md"
+  ],
+  "contributorsPerLine": 7,
+  "contributorsSortAlphabetically": true,
+  "imageSize": 100,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "commitConvention": "angular",
+  "commitType": "docs"
+}

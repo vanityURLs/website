@@ -1,0 +1,19 @@
+languageCode: fr-ca
+languageName: Français
+weight: 2
+menus:
+  main:
+  - name: Search
+    weight: 4
+    params:
+      type: search
+  - name: GitHub
+    weight: 10
+    url: "https://github.com/vanityURLs/vanityURLs"
+    params:
+      icon: github
+params:
+  isoCode: fr-CA
+  displayName: ':flag-ca:'
+  description: 'Contact information'
+  dateFormat: 2 January 2006

@@ -1,0 +1,16 @@
+heroHeadline: "Simplify Your Links"
+heroSubtitle: "vanityURLs, also known as v8s, is an open-source URL shortener that's fast & budget-friendly"
+heroCTA: "Try It Now"
+
+what:
+  sectionName: "URL redirection (301, 302, 303, 307 and 308)"
+  description: "Advanced redirection with splats (e.g., /news/* → /blog/:splat )<br>Continuous integration managed by Cloudflare Page Engine"
+
+features:
+- sectionName: "Lightweight as a Feather"
+  description:  "It runs at scale in your Cloudflare subscription with continuous integration. No dependency is needed."
+- sectionName: "Customize it to fit your needs"
+  description: "Work at the command line with your internet domain to create short links that are compact and pretty."
+
+- sectionName: "Full-Featured, and Free!"
+  description:  "If you don't own an a Cloudflare subscription already, you can create your free account today so you can experience everything without spending a dime."

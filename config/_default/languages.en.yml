@@ -1,0 +1,24 @@
+languageCode: en-ca
+languageName: English
+weight: 1
+menus:
+  main:
+  - name: Forum
+    weight: 3
+    url: "https://github.com/orgs/vanityURLs/discussions"
+  - name: Search
+    weight: 4
+    params:
+      type: search
+  - name: GitHub
+    weight: 10
+    url: "https://github.com/vanityURLs/vanityURLs"
+    params:
+      icon: github
+params:
+  isoCode: en-CA
+  displayName: ':flag-ca:'
+  mainSections:
+    - samples
+  description: 'Contact information'
+  dateFormat: 2 January 2006      

@@ -1,0 +1,16 @@
+heroHeadline: "Simplifiez vos liens URLs"
+heroSubtitle: "vanityURLs (v8s) est un raccourcisseur d'adresse URL open-source rapide et économique."
+heroCTA: "Essayez-le maintenant"
+
+what:
+  sectionName: "Redirection URL (301, 302, 303, 307 and 308)"
+  description: "Redirection avancée (i.e., /news/* → /blog/:splat )<br>Intégration continue via Cloudflare Page Engine"
+
+features:
+- sectionName: "Léger comme une plume"
+  description:  "Il fonctionne à toute échelle dans votre abonnement Cloudflare avec une intégration continue. Aucune dépendance n'est nécessaire."
+- sectionName: "Personnalisez-le en fonction de vos besoins"
+  description: "Travaillez à l'interpréteur de ligne de commande avec votre domaine internet afin de créer des liens courts et mémorable"
+
+- sectionName: "Complet et gratuit !"
+  description:  "Si vous n'avez pas encore d'abonnement Cloudflare, vous pouvez créer un compte gratuit dès aujourd'hui afin de profiter de tout cela sans dépenser un sou."
