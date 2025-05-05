@@ -1,6 +1,6 @@
 ---
-title: Administration
-linkTitle: admin
+title: Ligne de commande
+linkTitle: CLI
 prev: /docs/install
 next: /docs/how
 ---
