@@ -10,7 +10,7 @@ clean:
 	rm -rf public resources ## Delete outputs: public & resources
 
 build: clean## Build site with production settings and put deliverables in ./public
-	hugo --verbose --minify --environment prod
+	hugo -v --minify --environment prod
 
 dev: clean ## Build site with development settings
 	hugo server --watch  --disableFastRender --printI18nWarnings
