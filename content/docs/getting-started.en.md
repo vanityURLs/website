@@ -9,7 +9,7 @@ prev: /docs
 {{% steps %}}
 
 ### Create a repository with the template
-* Use the `Use this template button` and `Create a new repository`
+* From our [GitHub Repository](https://github.com/vanityURLs/vanityURLs), use the `Use this template button` and `Create a new repository`
 ![Cloudflare SignUp](/images/getting-started-1.png)
 * Select private repository type and click  `Create a repository`
     * In this picture, we have chosen `my-tiny.link` to reflect the chosen domain name; pick a name that makes senses to you
