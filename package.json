@@ -1,41 +1,32 @@
 {
-  "name": "templateRepository",
-  "version": 1.0",
-  "description": "Repository template with batteries included",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bhdicaire/templateRepository.git"
-  },
-  "keywords": [
-    "github-template",
-    "issue-management",
-    "issue-template",
-    "issues",
-    "pull-request-template",
-    "readme",
-    "template-project",
-    "template-repository",
-    "template",
-    "templates"
-  ],
-  "author": {
-    "name": "Benoît H. Dicaire",
-    "email": "code@Dicaire.com",
-    "url": "https://BHDicaire.com"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/bhdicaire/templateRepository/issues"
-  },
-  "homepage": "https://github.com/bhdicaire/templateRepository",
-  "devDependencies": {
-    "@commitlint/cli": "^19.2.1",
-    "@commitlint/config-conventional": "^19.1.0",
-    "husky": "^9.0.11",
-    "textlint": "^14.0.4",
-    "textlint-rule-no-todo": "^2.0.1"
-  },
+  "name": "vanityurls-website",
+  "version": "2.0.0",
+  "description": "VanityURls.link Website and documentation",
   "scripts": {
-    "prepare": "husky"
+    "dev": "hugo server --buildDrafts",
+    "dev:search": "hugo --minify && pagefind --site public && cp -r public/pagefind static/ && hugo server --buildDrafts",
+    "build": "hugo --minify && npm run index && cp -r public/pagefind static/",
+    "index": "pagefind --site public",
+    "clean": "rm -rf public resources/_gen static/pagefind",
+    "lint": "npm run lint:md && npm run lint:yaml && npm run lint:spell",
+    "lint:md": "markdownlint-cli2 'content/**/*.md'",
+    "lint:md:fix": "markdownlint-cli2 --fix 'content/**/*.md'",
+    "lint:spell": "cspell --no-progress 'content/**/*.md' '*.yaml' '*.toml'",
+    "lint:spell:fix": "cspell --no-progress --words-only 'content/**/*.md' | sort -u >> cspell-words.txt",
+    "lint:yaml": "yamllint hugo.yaml i18n/*.yaml data/**/*.yaml 2>/dev/null || npx js-yaml hugo.yaml > /dev/null",
+    "lint:links": "lychee --config lychee.toml content/**/*.md",
+    "lint:secrets": "gitleaks detect --config .gitleaks.toml --source . --no-banner"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "autoprefixer": "^10.4.20",
+    "cspell": "^8.0.0",
+    "markdownlint-cli2": "^0.14.0",
+    "pagefind": "^1.4.0",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^3.4.19",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0"
   }
 }
