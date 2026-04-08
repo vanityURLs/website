@@ -1,0 +1,112 @@
+{{ define "main" }}
+{{ $lang     := .Site.Language.Lang }}
+{{ $allPosts := where .Site.RegularPages "Section" "blog" }}
+
+{{ $featured  := where $allPosts "Params.featured" true | first 1 }}
+{{ $featSlug  := "" }}
+{{ range $featured }}{{ $featSlug = .File.UniqueID }}{{ end }}
+
+{{ $regular   := where $allPosts "Params.featured" "ne" true }}
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <!-- Header -->
+  <div class="text-center mb-12">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+      {{ i18n "blog_title" }}
+    </h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
+      {{ i18n "blog_subtitle" }}
+    </p>
+  </div>
+
+  {{ $paginator := .Paginate $regular 9 }}
+
+  {{ if and (eq $paginator.PageNumber 1) (gt (len $featured) 0) }}
+  <!-- Featured post — only on page 1, only once -->
+  {{ $f := index $featured 0 }}
+  {{ $coverClass := "blog-cover-default" }}
+  {{ range $f.Params.tags }}{{ if eq . "release" }}{{ $coverClass = "blog-cover-release" }}{{ end }}{{ if eq . "guide" }}{{ $coverClass = "blog-cover-guide" }}{{ end }}{{ if eq . "tutorial" }}{{ $coverClass = "blog-cover-tutorial" }}{{ end }}{{ if eq . "news" }}{{ $coverClass = "blog-cover-news" }}{{ end }}{{ end }}
+  <a href="{{ $f.RelPermalink }}" class="blog-card-featured group block mb-10">
+    <div class="blog-cover {{ $coverClass }}"></div>
+    <div class="blog-card-featured-inner">
+      <span class="inline-block text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-3">
+        {{ i18n "blog_featured" }}
+      </span>
+      <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3 leading-tight
+                 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
+        {{ $f.Title }}
+      </h2>
+      <p class="text-gray-500 dark:text-gray-400 text-base leading-relaxed mb-5 max-w-3xl">
+        {{ $f.Description | default ($f.Summary | plainify | truncate 200) }}
+      </p>
+      <div class="flex flex-wrap items-center gap-4">
+        <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500">
+          {{ with $f.Params.author }}
+          <span class="author-avatar text-xs">{{ substr . 0 1 | upper }}</span>
+          <span class="font-medium text-gray-700 dark:text-gray-300">{{ . }}</span>
+          <span>·</span>
+          {{ end }}
+          <time datetime="{{ $f.Date.Format "2006-01-02" }}">{{ $f.Date.Format "Jan 2, 2006" }}</time>
+          {{ with $f.ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
+        </div>
+        <div class="flex flex-wrap gap-2">
+          {{ range $f.Params.tags }}<span class="tag-pill">{{ . }}</span>{{ end }}
+        </div>
+      </div>
+    </div>
+  </a>
+  {{ end }}
+
+  <!-- Regular post grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {{ range $paginator.Pages }}
+    {{ $coverClass := "blog-cover-default" }}
+    {{ range .Params.tags }}{{ if eq . "release" }}{{ $coverClass = "blog-cover-release" }}{{ end }}{{ if eq . "guide" }}{{ $coverClass = "blog-cover-guide" }}{{ end }}{{ if eq . "tutorial" }}{{ $coverClass = "blog-cover-tutorial" }}{{ end }}{{ if eq . "news" }}{{ $coverClass = "blog-cover-news" }}{{ end }}{{ end }}
+    <a href="{{ .RelPermalink }}" class="blog-card group">
+      <div class="blog-cover {{ $coverClass }}"></div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{ with .ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
+        </div>
+        <h2 class="blog-card-title">{{ .Title }}</h2>
+        <p class="blog-card-excerpt">
+          {{ .Description | default (.Summary | plainify | truncate 120) }}
+        </p>
+        <div class="flex flex-wrap gap-1.5 mt-auto">
+          {{ range .Params.tags }}<span class="tag-pill text-[0.7rem]">{{ . }}</span>{{ end }}
+        </div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+
+  {{ if gt $paginator.TotalPages 1 }}
+  <nav class="mt-12 flex items-center justify-between" aria-label="Blog pagination">
+    <div>
+      {{ if $paginator.HasPrev }}
+      <a href="{{ $paginator.Prev.URL }}"
+         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
+                border border-gray-200 dark:border-gray-700 rounded-lg
+                hover:border-brand-300 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+        ← {{ i18n "blog_newer" }}
+      </a>
+      {{ end }}
+    </div>
+    <span class="text-sm text-gray-400 dark:text-gray-500">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+    <div>
+      {{ if $paginator.HasNext }}
+      <a href="{{ $paginator.Next.URL }}"
+         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
+                border border-gray-200 dark:border-gray-700 rounded-lg
+                hover:border-brand-300 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+        {{ i18n "blog_older" }} →
+      </a>
+      {{ end }}
+    </div>
+  </nav>
+  {{ end }}
+
+</div>
+{{ end }}

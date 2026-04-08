@@ -1,0 +1,52 @@
+sections:
+  - title: Getting Started
+    pages:
+      - title: Installation
+        url: /docs/getting-started/
+      - title: Makefile
+        url: /docs/makefile/
+
+  - title: Commands
+    pages:
+      - title: View all commands
+        url: /docs/commands/
+      - title: lnk add
+        url: /docs/commands/add/
+      - title: lnk remove
+        url: /docs/commands/remove/
+      - title: lnk list
+        url: /docs/commands/list/
+      - title: lnk check
+        url: /docs/commands/check/
+      - title: lnk validate
+        url: /docs/commands/validate/
+      - title: validateURL
+        url: /docs/commands/validate-url/
+      - title: lnk deploy
+        url: /docs/commands/deploy/
+
+  - title: Reference
+    pages:
+      - title: _redirects
+        url: /docs/build/_redirects/
+      - title: _headers
+        url: /docs/build/_headers/
+      - title: static.lnk
+        url: /docs/static.lnk/
+      - title: dynamic.lnk
+        url: /docs/dynamic.lnk/
+      - title: Cloudflare Pages
+        url: /docs/cloudflare/
+
+  - title: Try Demo
+    pages:
+      - title: Overview
+        url: /docs/demo/
+      - title: Repository Structure
+        url: /docs/demo/repository/
+      - title: Configuration
+        url: /docs/demo/configuration/
+      - title: Link Examples
+        url: /docs/demo/links/
+      - title: DNS Setup
+        url: /docs/demo/dns/

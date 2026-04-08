@@ -1,0 +1,16 @@
+{{- /*
+  Renders a Mermaid diagram. Requires Mermaid JS loaded in baseof.html.
+
+  Usage:
+    {{< mermaid >}}
+    graph LR
+      A[lnk deploy] --> B[Build image]
+      B --> C[Push to registry]
+      C --> D[Pull on servers]
+      D --> E[Health check]
+      E --> F[Swap traffic]
+    {{< /mermaid >}}
+*/ -}}
+<div class="mermaid-wrap not-prose my-5">
+  <pre class="mermaid">{{- .Inner | htmlUnescape | safeHTML -}}</pre>
+</div>

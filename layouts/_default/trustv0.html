@@ -1,0 +1,336 @@
+{{ define "main" }}
+{{ $lang := .Site.Language.Lang }}
+{{ $isFr := eq $lang "fr" }}
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <!-- Header -->
+  <div class="mb-12">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-10 h-10 rounded-xl bg-brand-50 dark:bg-brand-900/40
+                  flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">{{ .Title }}</h1>
+    </div>
+    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl">
+      {{ if $isFr }}
+        vanityURLs.link est un projet open source géré par une seule personne.
+        Cette page rassemble tous nos engagements et documents légaux en un seul endroit,
+        afin que vous puissiez évaluer en toute confiance si ce projet répond à vos besoins.
+      {{ else }}
+        vanityURLs.link is a single-person open-source project.
+        This page gathers all our commitments and legal documents in one place,
+        so you can confidently evaluate whether this project meets your requirements.
+      {{ end }}
+    </p>
+  </div>
+
+  {{/* ── Section 1: Our commitments ──────────────────────── */}}
+  <section class="mb-12">
+    <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+      {{ if $isFr }}Nos engagements{{ else }}Our commitments{{ end }}
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+      {{ $commitments := slice
+        (dict
+          "icon"   "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          "titleEn" "Privacy"
+          "titleFr" "Confidentialité"
+          "descEn"  "No tracking, no analytics, no cookies. Pagefind search runs entirely in your browser."
+          "descFr"  "Aucun suivi, aucune analytique, aucun cookie. La recherche Pagefind s'exécute entièrement dans votre navigateur."
+          "url"    "/privacy/"
+          "badge"   ""
+        )
+        (dict
+          "icon"   "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          "titleEn" "Security"
+          "titleFr" "Sécurité"
+          "descEn"  "TLS 1.3, strict HTTP headers, DMARC email protection, and fully auditable open-source code."
+          "descFr"  "TLS 1.3, en-têtes HTTP stricts, protection email DMARC, et code open source entièrement auditable."
+          "url"    "/security-statement/"
+          "badge"   ""
+        )
+        (dict
+          "icon"   "M15 12a3 3 0 11-6 0 3 3 0 016 0zM2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+          "titleEn" "Accessibility"
+          "titleFr" "Accessibilité"
+          "descEn"  "WCAG 2.1 AA target. Keyboard navigation, screen reader support, visible focus rings."
+          "descFr"  "Objectif WCAG 2.1 AA. Navigation au clavier, lecteurs d'écran, anneaux de mise au point visibles."
+          "url"    "/accessibility/"
+          "badge"   ""
+        )
+      }}
+
+      {{ range $commitments }}
+      {{ $url := cond $isFr (printf "/fr%s" .url) .url }}
+      <a href="{{ $url }}" class="card-item card-link group">
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ .icon }}"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title-row">
+              <span class="card-title">{{ if $isFr }}{{ .titleFr }}{{ else }}{{ .titleEn }}{{ end }}</span>
+              <svg class="card-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </div>
+            <p class="card-body">{{ if $isFr }}{{ .descFr }}{{ else }}{{ .descEn }}{{ end }}</p>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+
+    </div>
+  </section>
+
+  {{/* ── Section 2: Legal documents ──────────────────────── */}}
+  <section class="mb-12">
+    <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+      {{ if $isFr }}Documents légaux{{ else }}Legal documents{{ end }}
+    </h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">
+      {{ if $isFr }}
+        Les documents qui régissent l'utilisation de ce site et du logiciel vanityURLs.
+      {{ else }}
+        The documents that govern use of this website and the vanityURLs software.
+      {{ end }}
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+      {{ $legal := slice
+        (dict
+          "icon"   "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"
+          "titleEn" "Terms of Service"
+          "titleFr" "Conditions d'utilisation"
+          "descEn"  "MIT \"as-is\" software, no warranties, self-hosting responsibilities, external links disclaimer."
+          "descFr"  "Logiciel MIT « en l'état », aucune garantie, responsabilités d'auto-hébergement."
+          "url"    "/terms/"
+          "badge"   ""
+        )
+        (dict
+          "icon"   "M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"
+          "titleEn" "License"
+          "titleFr" "Licence"
+          "descEn"  "MIT License — free to use, modify, and distribute. No restrictions on commercial use."
+          "descFr"  "Licence MIT — libre d'utiliser, modifier et distribuer. Aucune restriction d'usage commercial."
+          "url"    "/license/"
+          "badge"   ""
+        )
+        (dict
+          "icon"   "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          "titleEn" "Impressum"
+          "titleFr" "Mentions légales"
+          "descEn"  "Legal notice for users in Germany, Austria, and Switzerland (§ 5 DDG)."
+          "descFr"  "Mentions légales pour les utilisateurs en Allemagne, Autriche et Suisse (§ 5 DDG)."
+          "url"    "/impressum/"
+          "badge"   "DE · AT · CH"
+        )
+      }}
+
+      {{ range $legal }}
+      {{ $url := cond $isFr (printf "/fr%s" .url) .url }}
+      <a href="{{ $url }}" class="card-item card-link group">
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ .icon }}"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title-row">
+              <span class="card-title">{{ if $isFr }}{{ .titleFr }}{{ else }}{{ .titleEn }}{{ end }}</span>
+              {{ if .badge }}
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold
+                           bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 shrink-0">
+                {{ .badge }}
+              </span>
+              {{ else }}
+              <svg class="card-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+              {{ end }}
+            </div>
+            <p class="card-body">{{ if $isFr }}{{ .descFr }}{{ else }}{{ .descEn }}{{ end }}</p>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+
+    </div>
+  </section>
+
+  {{/* ── Section 3: Contact & reporting ──────────────────── */}}
+  <section class="mb-12">
+    <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+      {{ if $isFr }}Signalement et contact{{ else }}Reporting & contact{{ end }}
+    </h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">
+      {{ if $isFr }}
+        Canaux pour signaler des problèmes de sécurité ou d'accessibilité.
+      {{ else }}
+        Channels for reporting security or accessibility issues.
+      {{ end }}
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      {{ $reporting := slice
+        (dict
+          "icon"   "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          "titleEn" "Vulnerability Reporting"
+          "titleFr" "Signalement de vulnérabilités"
+          "descEn"  "Found a security issue? Report privately via GitHub Security Advisories — not a public issue. We aim to respond within 72 hours."
+          "descFr"  "Vous avez trouvé un problème de sécurité ? Signalez-le en privé via GitHub Security Advisories. Nous visons une réponse sous 72 heures."
+          "url"    "/security/"
+          "external" false
+        )
+        (dict
+          "icon"   "M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+          "titleEn" "Accessibility Issues"
+          "titleFr" "Problèmes d'accessibilité"
+          "descEn"  "Encountered a barrier? Open a GitHub issue — public tracking preferred so others can follow the fix."
+          "descFr"  "Vous avez rencontré une barrière ? Ouvrez une issue GitHub — le suivi public est préféré."
+          "url"    "https://github.com/vanityURLs/website/issues"
+          "external" true
+        )
+      }}
+
+      {{ range $reporting }}
+      {{ $url := .url }}
+      {{ if and (not .external) $isFr }}{{ $url = printf "/fr%s" .url }}{{ end }}
+      <a href="{{ $url }}"
+         {{ if .external }}target="_blank" rel="noopener"{{ end }}
+         class="card-item card-link group">
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ .icon }}"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title-row">
+              <span class="card-title">{{ if $isFr }}{{ .titleFr }}{{ else }}{{ .titleEn }}{{ end }}</span>
+              {{ if .external }}
+              <svg class="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 group-hover:text-brand-500 shrink-0 transition-colors"
+                   fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              </svg>
+              {{ else }}
+              <svg class="card-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+              {{ end }}
+            </div>
+            <p class="card-body">{{ if $isFr }}{{ .descFr }}{{ else }}{{ .descEn }}{{ end }}</p>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+
+    </div>
+  </section>
+
+  {{/* ── Section 4: Machine-readable disclosures ──────────── */}}
+  <section class="mb-12">
+    <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+      {{ if $isFr }}Fichiers de divulgation{{ else }}Disclosure files{{ end }}
+    </h2>
+    <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">
+      {{ if $isFr }}
+        Fichiers standards lisibles par machine pour les outils de sécurité et les navigateurs.
+      {{ else }}
+        Standard machine-readable files for security tooling and web crawlers.
+      {{ end }}
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+      <a href="/.well-known/security.txt" target="_blank" rel="noopener" class="card-item card-link group">
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title-row">
+              <span class="card-title">security.txt</span>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold
+                           bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 shrink-0">
+                RFC 9116
+              </span>
+            </div>
+            <p class="card-body">
+              {{ if $isFr }}
+                Point de contact standard pour les chercheurs en sécurité — lisible par machine, vérifié par les scanners.
+              {{ else }}
+                Standard contact point for security researchers — machine-readable, checked by security scanners.
+              {{ end }}
+            </p>
+          </div>
+        </div>
+      </a>
+
+      <a href="/humans.txt" target="_blank" rel="noopener" class="card-item card-link group">
+        <div class="card-inner">
+          <div class="card-icon-wrap">
+            <svg class="card-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title-row">
+              <span class="card-title">humans.txt</span>
+              <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold
+                           bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 shrink-0">
+                humanstxt.org
+              </span>
+            </div>
+            <p class="card-body">
+              {{ if $isFr }}
+                Les personnes derrière ce projet — membres de l'équipe, outils et technologies utilisées.
+              {{ else }}
+                The people behind this project — team members, tools, and technologies used.
+              {{ end }}
+            </p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+    {{/* ── Closing statement ───────────────────────────────── */}}
+  <div class="rounded-xl border border-gray-200 dark:border-gray-700 p-6
+              bg-gray-50 dark:bg-gray-800/40 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+    {{ if $isFr }}
+      <strong class="text-gray-700 dark:text-gray-300">Vous voulez tout vérifier vous-même ?</strong>
+      Le code source de ce site est entièrement public sur
+      <a href="{{ .Site.Params.website_repo }}" target="_blank" rel="noopener"
+         class="text-brand-700 dark:text-brand-400 hover:underline">github.com/vanityURLs/website</a>.
+      Chaque template, chaque en-tête de sécurité, chaque décision de configuration est lisible et auditable.
+      Il n'y a rien à cacher.
+    {{ else }}
+      <strong class="text-gray-700 dark:text-gray-300">Want to verify everything yourself?</strong>
+      The source code for this site is fully public at
+      <a href="{{ .Site.Params.website_repo }}" target="_blank" rel="noopener"
+         class="text-brand-700 dark:text-brand-400 hover:underline">github.com/vanityURLs/website</a>.
+      Every template, every security header, every configuration decision is readable and auditable.
+      There is nothing to hide.
+    {{ end }}
+  </div>
+
+</div>
+{{ end }}

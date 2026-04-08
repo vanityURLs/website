@@ -1,0 +1,63 @@
+# ── Navigation ──────────────────────────────────────────
+skip_to_content: Skip to content
+toggle_dark: Toggle dark mode
+
+# ── Header / search ─────────────────────────────────────
+search_placeholder: Search docs
+
+# ── Language ─────────────────────────────────────────────
+lang_en: English
+lang_fr: Français
+
+# ── Footer ───────────────────────────────────────────────
+copyright: "Benoît H. Dicaire, all rights reserved"
+
+# ── Docs layout ──────────────────────────────────────────
+on_this_page: On this page
+edit_on_github: Edit this page
+last_modified: Last modified
+previous: Previous
+next: Next
+docs_label: Documentation
+mobile_nav_label: Navigate docs
+
+# ── Blog ─────────────────────────────────────────────────
+blog_title: Blog
+blog_subtitle: News and articles from the vanityURLs community.
+blog_featured: Featured
+blog_min_read: min read
+blog_back: Back to blog
+blog_newer: Newer posts
+blog_older: Older posts
+blog_related: More articles
+
+# ── Showcase ─────────────────────────────────────────────
+showcase_title: Showcase
+showcase_subtitle: Sites and projects built with vanityURLs.
+showcase_submit: Share your project
+showcase_submit_url: https://github.com/orgs/vanityURLs/discussions
+showcase_built_with: "Built with vanityURLs"
+
+# ── 404 ──────────────────────────────────────────────────
+not_found_title: Page not found
+not_found_body: "The page you're looking for doesn't exist."
+not_found_home: Go home
+not_found_docs: Read the docs
+
+# ── Showcase extra ────────────────────────────────────────
+showcase_filter_all: All projects
+showcase_no_results: No projects found for this filter.
+showcase_visit: Visit site
+showcase_back: Back to showcase
+
+# ── Docs index ────────────────────────────────────────────
+docs_new_title: New to vanityURLs?
+docs_new_body: Get your own branded short URL running in four steps — no server required.
+docs_new_cta: Get started →
+docs_index_subtitle: Everything you need to set up and manage your vanityURLs deployment.
+docs_how_it_works: "How it works"
+docs_commands: "Commands"
+docs_advanced: "Cloudflare Pages"
+docs_how_it_works_desc: "The _redirects file format, redirect types, splats, and how Cloudflare processes them at the edge."
+docs_commands_desc: "Full CLI reference — lnk add, remove, list, check, validate, and deploy."
+docs_advanced_desc: "Build settings, custom domains, deploy hooks, branch previews, and plan limits."

@@ -1,0 +1,63 @@
+# ── Navigation ──────────────────────────────────────────
+skip_to_content: Aller au contenu
+toggle_dark: Basculer le mode sombre
+
+# ── Header / recherche ──────────────────────────────────
+search_placeholder: Rechercher dans la doc
+
+# ── Langue ───────────────────────────────────────────────
+lang_en: English
+lang_fr: Français
+
+# ── Pied de page ─────────────────────────────────────────
+copyright: "Benoît H. Dicaire, tous droits réservés"
+
+# ── Mise en page docs ────────────────────────────────────
+on_this_page: Sur cette page
+edit_on_github: Modifier cette page
+last_modified: Dernière modification
+previous: Précédent
+next: Suivant
+docs_label: Documentation
+mobile_nav_label: Navigation docs
+
+# ── Blog ─────────────────────────────────────────────────
+blog_title: Blog
+blog_subtitle: Actualités et articles de la communauté vanityURLs.
+blog_featured: À la une
+blog_min_read: min de lecture
+blog_back: Retour au blog
+blog_newer: Articles récents
+blog_older: Articles précédents
+blog_related: Plus d'articles
+
+# ── Vitrine ──────────────────────────────────────────────
+showcase_title: Vitrine
+showcase_subtitle: Sites et projets construits avec vanityURLs.
+showcase_submit: Partager votre projet
+showcase_submit_url: https://github.com/orgs/vanityURLs/discussions
+showcase_built_with: "Construit avec vanityURLs"
+
+# ── 404 ──────────────────────────────────────────────────
+not_found_title: Page introuvable
+not_found_body: "La page que vous cherchez n'existe pas."
+not_found_home: Aller à l'accueil
+not_found_docs: Lire la documentation
+
+# ── Vitrine extra ─────────────────────────────────────────
+showcase_filter_all: Tous les projets
+showcase_no_results: Aucun projet trouvé pour ce filtre.
+showcase_visit: Visiter le site
+showcase_back: Retour à la vitrine
+
+# ── Index des docs ────────────────────────────────────────
+docs_new_title: Nouveau sur vanityURLs ?
+docs_new_body: Mettez en place votre propre lien court personnalisé en quatre étapes — sans serveur.
+docs_new_cta: Commencer →
+docs_index_subtitle: Tout ce dont vous avez besoin pour configurer et gérer votre déploiement vanityURLs.
+docs_how_it_works: "Comment ça fonctionne"
+docs_commands: "Commandes"
+docs_advanced: "Cloudflare Pages"
+docs_how_it_works_desc: "Le format du fichier _redirects, les types de redirections, les splats et comment Cloudflare les traite à la périphérie."
+docs_commands_desc: "Référence CLI complète — lnk add, remove, list, check, validate, et deploy."
+docs_advanced_desc: "Paramètres de build, domaines personnalisés, hooks de déploiement, aperçus de branches et limites du plan."

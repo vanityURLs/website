@@ -1,0 +1,19 @@
+{{- $name       := .Get "name" -}}
+{{- $annotation := .Get "annotation" -}}
+{{- $ext        := path.Ext $name | lower -}}
+{{- $color      := "filetree-file-default" -}}
+{{- if or (eq $ext ".yml") (eq $ext ".yaml") -}}{{- $color = "filetree-file-yaml" -}}
+{{- else if eq $ext ".rb" -}}{{- $color = "filetree-file-ruby" -}}
+{{- else if eq $ext ".go" -}}{{- $color = "filetree-file-go" -}}
+{{- else if or (eq $ext ".js") (eq $ext ".ts") (eq $ext ".jsx") (eq $ext ".tsx") -}}{{- $color = "filetree-file-js" -}}
+{{- else if or (eq $ext ".md") (eq $ext ".mdx") -}}{{- $color = "filetree-file-md" -}}
+{{- else if or (eq $ext ".sh") (eq $ext ".bash") (eq $ext ".zsh") -}}{{- $color = "filetree-file-sh" -}}
+{{- else if or (eq $ext ".toml") (eq $ext ".json") -}}{{- $color = "filetree-file-config" -}}
+{{- else if eq $ext ".env" -}}{{- $color = "filetree-file-env" -}}
+{{- else if eq (lower $name) "dockerfile" -}}{{- $color = "filetree-file-docker" -}}
+{{- end -}}
+<li class="filetree-item" role="treeitem">
+<div class="filetree-row filetree-file-row">
+<svg class="filetree-icon {{- " " -}}{{- $color -}}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"/></svg><span class="filetree-name">{{- $name -}}</span>{{- with $annotation -}}<span class="filetree-annotation">{{- . -}}</span>{{- end -}}
+</div>
+</li>

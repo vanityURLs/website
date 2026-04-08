@@ -1,0 +1,194 @@
+{{ define "main" }}
+{{ $lang := .Site.Language.Lang }}
+{{ $nav  := index .Site.Data $lang "docs_nav" }}
+{{ $cur  := .RelPermalink }}
+{{ $norm := strings.TrimSuffix "/" $cur }}
+{{ $toc     := .TableOfContents }}
+{{ $showTOC := ne (.Params.toc | default true) false }}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="{{ if $showTOC }}flex gap-8 xl:gap-10{{ else }}flex gap-8{{ end }}">
+
+    <!-- ════ LEFT SIDEBAR ════ -->
+    <aside class="hidden lg:block w-56 xl:w-60 shrink-0">
+      <div class="sticky top-20 overflow-y-auto max-h-[calc(100vh-6rem)] pb-8">
+        {{ range $nav.sections }}
+        <div class="mb-4">
+          <p class="sidebar-section-title">{{ .title }}</p>
+          {{ range .pages }}
+          {{ $pURL    := .url }}
+          {{ $pNorm   := strings.TrimSuffix "/" $pURL }}
+          {{ $hasKids := and .children (gt (len .children) 0) }}
+          {{ $selfA   := or (eq $cur $pURL) (eq $norm $pNorm) }}
+          {{ $childA  := false }}
+          {{ if $hasKids }}
+            {{ range .children }}
+              {{ if or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }}{{ $childA = true }}{{ end }}
+            {{ end }}
+          {{ end }}
+          {{ $open := or $selfA $childA }}
+
+          {{ if $hasKids }}
+          <a href="{{ $pURL }}" class="sidebar-parent{{ if $selfA }} active{{ end }}">
+            <span>{{ .title }}</span>
+            <svg class="chevron{{ if $open }} rotate-90{{ end }}" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <div class="sidebar-children">
+            {{ range .children }}
+            {{ $cA := or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }}
+            <a href="{{ .url }}" class="sidebar-child-link{{ if $cA }} active{{ end }}">{{ .title }}</a>
+            {{ end }}
+          </div>
+          {{ else }}
+          <a href="{{ $pURL }}" class="sidebar-link{{ if $selfA }} active{{ end }}">{{ .title }}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </aside>
+
+    <!-- ════ MAIN CONTENT ════ -->
+    <div class="min-w-0 flex-1">
+
+      {{/* Breadcrumb */}}
+      {{ $section  := .CurrentSection }}
+      {{ $docsURL  := cond (eq $lang "fr") "/fr/docs/" "/docs/" }}
+      {{/* Only show a mid-level crumb when the section is a true sub-section
+           (not the docs root itself — which would duplicate "Documentation") */}}
+      {{ $isDocsRoot := or
+          (eq (strings.TrimSuffix "/" $section.RelPermalink) "/docs")
+          (eq (strings.TrimSuffix "/" $section.RelPermalink) "/fr/docs") }}
+      {{ if and $section (ne $section.Title .Title) }}
+      <nav class="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 mb-6 flex-wrap" aria-label="Breadcrumb">
+        <a href="{{ $docsURL }}"
+           class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ i18n "docs_label" }}</a>
+        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        {{ if and (not $isDocsRoot) $section.Parent }}
+        <a href="{{ $section.RelPermalink }}" class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ $section.Title }}</a>
+        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        {{ end }}
+        <span class="text-gray-600 dark:text-gray-300">{{ .Title }}</span>
+      </nav>
+      {{ end }}
+
+      {{/* Mobile dropdown */}}
+      <div class="lg:hidden mb-6">
+        <select onchange="window.location=this.value"
+                class="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2
+                       bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300
+                       focus:outline-none focus:ring-2 focus:ring-brand-500"
+                aria-label="{{ i18n "mobile_nav_label" }}">
+          {{ range $nav.sections }}
+          <optgroup label="{{ .title }}">
+            {{ range .pages }}
+            {{ $pURL := .url }}
+            {{ $hasKids := and .children (gt (len .children) 0) }}
+            <option value="{{ $pURL }}"{{ if or (eq $cur $pURL) (eq $norm (strings.TrimSuffix "/" $pURL)) }} selected{{ end }}>
+              {{ .title }}{{ if $hasKids }} ›{{ end }}
+            </option>
+            {{ if $hasKids }}
+              {{ range .children }}
+              <option value="{{ .url }}"{{ if or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }} selected{{ end }}>
+                &nbsp;&nbsp;&nbsp;{{ .title }}
+              </option>
+              {{ end }}
+            {{ end }}
+            {{ end }}
+          </optgroup>
+          {{ end }}
+        </select>
+      </div>
+
+      {{/* Article */}}
+      <article class="prose dark:prose-invert prose-headings:scroll-mt-24 max-w-none" data-pagefind-body>
+        <h1 class="dark:text-gray-100">{{ .Title }}</h1>
+        {{ .Content }}
+      </article>
+
+      {{/* Edit on GitHub + last modified */}}
+      <div class="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-gray-400 dark:text-gray-500">
+        {{ if .Site.Params.editBaseURL }}
+        {{ $filePath := .File.Path }}
+        {{ $editURL := printf "%s/%s/%s" .Site.Params.editBaseURL $lang $filePath }}
+        <a href="{{ $editURL }}" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-1.5 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+          </svg>
+          {{ i18n "edit_on_github" }}
+        </a>
+        {{ end }}
+        {{ with .Lastmod }}
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          {{ i18n "last_modified" }}: <time datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>
+        </span>
+        {{ end }}
+      </div>
+
+      {{/* Prev / Next */}}
+      {{ $allPages    := where .Site.RegularPages "Section" "docs" }}
+      {{ $allPages     = $allPages.ByParam "nav_order" }}
+      {{ $currentIndex := 0 }}
+      {{ range $i, $p := $allPages }}
+        {{ if eq $p.Permalink $.Permalink }}{{ $currentIndex = $i }}{{ end }}
+      {{ end }}
+      {{ $prev := index $allPages (sub $currentIndex 1) }}
+      {{ $next := index $allPages (add $currentIndex 1) }}
+
+      <nav class="mt-8 flex flex-col sm:flex-row justify-between gap-4" aria-label="Page navigation">
+        <div>
+          {{ if and $prev (gt $currentIndex 0) }}
+          <a href="{{ $prev.RelPermalink }}" class="doc-nav-link group">
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            <span>
+              <span class="block text-xs text-gray-400 dark:text-gray-500 font-normal">{{ i18n "previous" }}</span>
+              {{ $prev.Title }}
+            </span>
+          </a>
+          {{ end }}
+        </div>
+        <div>
+          {{ if $next }}
+          <a href="{{ $next.RelPermalink }}" class="doc-nav-link group text-right">
+            <span>
+              <span class="block text-xs text-gray-400 dark:text-gray-500 font-normal">{{ i18n "next" }}</span>
+              {{ $next.Title }}
+            </span>
+            <svg class="w-4 h-4 text-gray-400 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          {{ end }}
+        </div>
+      </nav>
+    </div>
+
+    <!-- ════ RIGHT SIDEBAR — TOC ════ -->
+    {{ if and $showTOC $toc }}
+    <aside class="hidden xl:block w-48 shrink-0">
+      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-8">
+        <div class="toc">
+          <p class="toc-title">{{ i18n "on_this_page" }}</p>
+          {{ $toc }}
+        </div>
+      </div>
+    </aside>
+    {{ end }}
+
+  </div>
+</div>
+{{ end }}

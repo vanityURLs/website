@@ -1,0 +1,130 @@
+{{ define "main" }}
+{{ $lang     := .Site.Language.Lang }}
+{{ $entries  := where .Site.RegularPages "Section" "showcase" }}
+
+<!-- Collect all unique tags across entries -->
+{{ $allTags := slice }}
+{{ range $entries }}
+  {{ range .Params.tags }}
+    {{ $allTags = $allTags | append . }}
+  {{ end }}
+{{ end }}
+{{ $allTags = $allTags | uniq | sort }}
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <!-- Header -->
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+      {{ i18n "showcase_title" }}
+    </h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
+      {{ i18n "showcase_subtitle" }}
+    </p>
+    <a href="{{ i18n "showcase_submit_url" }}" target="_blank" rel="noopener"
+       class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700
+              text-sm font-medium text-gray-600 dark:text-gray-400
+              hover:border-brand-300 hover:text-brand-700 dark:hover:border-brand-500 dark:hover:text-brand-400
+              transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 4v16m8-8H4"/>
+      </svg>
+      {{ i18n "showcase_submit" }}
+    </a>
+  </div>
+
+  <!-- Filter bar -->
+  <div class="flex flex-wrap gap-2 justify-center mb-8 sticky top-16 z-20
+              py-3 -mx-4 px-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm
+              border-b border-gray-100 dark:border-gray-800">
+    <button class="filter-btn active" data-filter="all" onclick="filterShowcase(this, 'all')">
+      {{ i18n "showcase_filter_all" }}
+      <span class="ml-1 text-xs opacity-60">({{ len $entries }})</span>
+    </button>
+    {{ range $allTags }}
+    {{ $tag := . }}
+    {{ $count := 0 }}
+    {{ range $entries }}{{ if in .Params.tags $tag }}{{ $count = add $count 1 }}{{ end }}{{ end }}
+    <button class="filter-btn" data-filter="{{ . | urlize }}" onclick="filterShowcase(this, '{{ . | urlize }}')">
+      {{ . }}
+      <span class="ml-1 text-xs opacity-60">({{ $count }})</span>
+    </button>
+    {{ end }}
+  </div>
+
+  <!-- No results message -->
+  <p id="showcase-empty"
+     class="hidden text-center text-gray-400 dark:text-gray-500 py-12 text-sm">
+    {{ i18n "showcase_no_results" }}
+  </p>
+
+  <!-- Card grid -->
+  <div id="showcase-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {{ range $entries.ByParam "title" }}
+    {{ $tags := .Params.tags | default slice }}
+    {{ $tagStr := "" }}
+    {{ range $tags }}{{ $tagStr = printf "%s %s" $tagStr (. | urlize) }}{{ end }}
+    {{ $tagStr = strings.TrimLeft " " $tagStr }}
+    <div class="showcase-card" data-tags="{{ $tagStr }}">
+      <div class="flex items-start justify-between mb-3">
+        <!-- Logo avatar -->
+        <div class="showcase-logo" style="background: {{ .Params.color | default "#0369a1" }}">
+          {{ with .Params.logo_char }}{{ . }}{{ else }}{{ substr .Title 0 1 | upper }}{{ end }}
+        </div>
+        <!-- Featured badge -->
+        {{ if .Params.featured }}
+        <span class="text-[0.65rem] font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded">
+          {{ i18n "blog_featured" }}
+        </span>
+        {{ end }}
+      </div>
+
+      <h2 class="showcase-name">{{ .Title }}</h2>
+      <p class="showcase-desc">{{ .Description }}</p>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-1.5 mb-4">
+        {{ range $tags }}<span class="tag-pill text-[0.7rem]">{{ . }}</span>{{ end }}
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
+        <a href="{{ .RelPermalink }}"
+           class="text-xs text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+          Details →
+        </a>
+        {{ with .Params.site_url }}
+        <a href="{{ . }}" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-1 text-xs font-medium text-brand-600 dark:text-brand-400
+                  hover:text-brand-800 dark:hover:text-brand-300 transition-colors">
+          {{ i18n "showcase_visit" }}
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+
+</div>
+
+<script>
+function filterShowcase(btn, filter) {
+  // Update button states
+  document.querySelectorAll('.filter-btn').forEach(function(b) {
+    b.classList.toggle('active', b === btn);
+  });
+  // Filter cards
+  var cards = document.querySelectorAll('#showcase-grid .showcase-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var tags = card.getAttribute('data-tags') || '';
+    var show = filter === 'all' || tags.split(' ').indexOf(filter) !== -1;
+    card.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  // Empty state
+  document.getElementById('showcase-empty').classList.toggle('hidden', visible > 0);
+}
+</script>
+{{ end }}

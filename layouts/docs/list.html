@@ -1,0 +1,233 @@
+{{ define "main" }}
+{{ $lang := .Site.Language.Lang }}
+{{ $nav  := index .Site.Data $lang "docs_nav" }}
+
+{{/* ── Branch: subsection _index.md with body content uses single-page style ── */}}
+{{ if .Content }}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="flex gap-8 xl:gap-10">
+
+    {{/* Sidebar — identical to docs/single.html */}}
+    <aside class="hidden lg:block w-56 xl:w-60 shrink-0">
+      <div class="sticky top-20 overflow-y-auto max-h-[calc(100vh-6rem)] pb-8">
+        {{ $cur  := .RelPermalink }}
+        {{ $norm := strings.TrimSuffix "/" $cur }}
+        {{ range $nav.sections }}
+        <div class="mb-4">
+          <p class="sidebar-section-title">{{ .title }}</p>
+          {{ range .pages }}
+          {{ $pURL    := .url }}
+          {{ $pNorm   := strings.TrimSuffix "/" $pURL }}
+          {{ $hasKids := and .children (gt (len .children) 0) }}
+          {{ $selfA   := or (eq $cur $pURL) (eq $norm $pNorm) }}
+          {{ $childA  := false }}
+          {{ if $hasKids }}
+            {{ range .children }}
+              {{ if or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }}{{ $childA = true }}{{ end }}
+            {{ end }}
+          {{ end }}
+          {{ $open := or $selfA $childA }}
+          {{ if $hasKids }}
+          <a href="{{ $pURL }}" class="sidebar-parent{{ if $selfA }} active{{ end }}">
+            <span>{{ .title }}</span>
+            <svg class="chevron{{ if $open }} rotate-90{{ end }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+          </a>
+          <div class="sidebar-children">
+            {{ range .children }}
+            {{ $cA := or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }}
+            <a href="{{ .url }}" class="sidebar-child-link{{ if $cA }} active{{ end }}">{{ .title }}</a>
+            {{ end }}
+          </div>
+          {{ else }}
+          <a href="{{ $pURL }}" class="sidebar-link{{ if $selfA }} active{{ end }}">{{ .title }}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </aside>
+
+    {{/* Main content */}}
+    <div class="flex-1 min-w-0">
+
+      {{/* Breadcrumb */}}
+      <nav class="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 mb-6" aria-label="Breadcrumb">
+        <a href="{{ if eq $lang "fr" }}/fr{{ end }}/docs/" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+          {{ i18n "docs_label" }}
+        </a>
+        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        <span class="text-gray-600 dark:text-gray-400">{{ .Title }}</span>
+      </nav>
+
+      <article class="prose dark:prose-invert prose-headings:scroll-mt-24 max-w-none" data-pagefind-body>
+        <h1>{{ .Title }}</h1>
+        {{ .Content }}
+      </article>
+
+      {{/* Pages in this section */}}
+      {{ if .Pages }}
+      <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
+        <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          {{ if eq $lang "fr" }}Dans cette section{{ else }}In this section{{ end }}
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {{ range .Pages.ByParam "nav_order" }}
+          <a href="{{ .RelPermalink }}"
+             class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm
+                    text-gray-700 dark:text-gray-300
+                    hover:bg-gray-50 dark:hover:bg-gray-800
+                    hover:text-brand-700 dark:hover:text-brand-400 transition-colors group">
+            <svg class="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 shrink-0 group-hover:text-brand-400 transition-colors"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            {{ .Title }}
+          </a>
+          {{ end }}
+        </div>
+      </div>
+      {{ end }}
+
+    </div>
+
+    {{/* Right TOC */}}
+    {{ $toc := .TableOfContents }}
+    {{ $showTOC := ne (.Params.toc | default true) false }}
+    {{ if and $showTOC $toc }}
+    <aside class="hidden xl:block w-48 shrink-0">
+      <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-8">
+        <div class="toc">
+          <p class="toc-title">{{ i18n "on_this_page" }}</p>
+          <nav>{{ $toc }}</nav>
+        </div>
+      </div>
+    </aside>
+    {{ end }}
+
+  </div>
+</div>
+
+{{ else }}
+
+{{/* ── Root /docs/ landing page ── */}}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <div class="mb-10">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+      {{ i18n "docs_label" }}
+    </h1>
+    <p class="text-lg text-gray-500 dark:text-gray-400">
+      {{ i18n "docs_index_subtitle" }}
+    </p>
+  </div>
+
+  <!-- Quick start CTA -->
+  <div class="rounded-xl border-2 border-brand-200 dark:border-brand-800
+              bg-brand-50 dark:bg-brand-900/20 p-6 mb-10
+              flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div>
+      <h2 class="text-base font-semibold text-brand-900 dark:text-brand-100 mb-1">
+        {{ i18n "docs_new_title" }}
+      </h2>
+      <p class="text-sm text-brand-700 dark:text-brand-300">
+        {{ i18n "docs_new_body" }}
+      </p>
+    </div>
+    <a href="{{ if eq $lang "fr" }}/fr{{ end }}/docs/getting-started/"
+       class="inline-flex shrink-0 items-center gap-2 px-4 py-2.5 rounded-lg
+              bg-brand-600 hover:bg-brand-700 dark:bg-brand-700 dark:hover:bg-brand-600
+              text-white font-medium text-sm transition-colors">
+      {{ i18n "docs_new_cta" }}
+    </a>
+  </div>
+
+  <!-- Three main entry-point cards -->
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
+    {{ $cards := slice
+        (dict "icon" "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+              "key_title" "docs_how_it_works"
+              "key_desc"  "docs_how_it_works_desc"
+              "path"      "/docs/build/_redirects/")
+        (dict "icon" "M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              "key_title" "docs_commands"
+              "key_desc"  "docs_commands_desc"
+              "path"      "/docs/commands/")
+        (dict "icon" "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              "key_title" "docs_advanced"
+              "key_desc"  "docs_advanced_desc"
+              "path"      "/docs/cloudflare/") }}
+
+    {{ range $cards }}
+    {{ $href := cond (eq $lang "fr") (printf "/fr%s" .path) .path }}
+    <a href="{{ $href }}"
+       class="group flex flex-col gap-2 p-5 rounded-xl border border-gray-200 dark:border-gray-700
+              hover:border-brand-300 dark:hover:border-brand-700 transition-colors">
+      <div class="w-8 h-8 rounded-lg bg-brand-50 dark:bg-brand-900/40
+                  group-hover:bg-brand-100 dark:group-hover:bg-brand-900/60
+                  flex items-center justify-center transition-colors">
+        <svg class="w-4 h-4 text-brand-600 dark:text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="{{ .icon }}"/>
+        </svg>
+      </div>
+      <h2 class="font-semibold text-sm text-gray-900 dark:text-gray-100
+                 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
+        {{ i18n .key_title }}
+      </h2>
+      <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
+        {{ i18n .key_desc }}
+      </p>
+    </a>
+    {{ end }}
+  </div>
+
+  <!-- Full nav listing -->
+  {{ with $nav }}
+  <div class="space-y-8">
+    {{ range .sections }}
+    <div>
+      <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3">
+        {{ .title }}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+        {{ range .pages }}
+        <a href="{{ .url }}"
+           class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm
+                  text-gray-700 dark:text-gray-300
+                  hover:bg-gray-50 dark:hover:bg-gray-800
+                  hover:text-brand-700 dark:hover:text-brand-400 transition-colors group">
+          <svg class="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 shrink-0
+                      group-hover:text-brand-400 transition-colors"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+          {{ .title }}
+        </a>
+        {{ range .children }}
+        <a href="{{ .url }}"
+           class="flex items-center gap-2 px-3 py-2 ml-5 rounded-lg text-sm
+                  text-gray-500 dark:text-gray-400
+                  hover:bg-gray-50 dark:hover:bg-gray-800
+                  hover:text-brand-700 dark:hover:text-brand-400 transition-colors group">
+          <svg class="w-3 h-3 text-gray-200 dark:text-gray-700 shrink-0
+                      group-hover:text-brand-400 transition-colors"
+               fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+          {{ .title }}
+        </a>
+        {{ end }}
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+
+</div>
+{{ end }}
+{{ end }}

@@ -1,0 +1,75 @@
+{{ define "main" }}
+{{ $lang       := .Site.Language.Lang }}
+{{ $showcaseURL := cond (eq $lang "fr") "/fr/showcase/" "/showcase/" }}
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  <!-- Back -->
+  <a href="{{ $showcaseURL }}"
+     class="inline-flex items-center gap-1.5 text-sm text-gray-400 dark:text-gray-500
+            hover:text-brand-600 dark:hover:text-brand-400 transition-colors mb-8">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    {{ i18n "showcase_back" }}
+  </a>
+
+  <!-- Header card -->
+  <div class="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
+    <div class="flex items-start gap-5">
+      <div class="showcase-logo text-2xl" style="background: {{ .Params.color | default "#0369a1" }}">
+        {{ with .Params.logo_char }}{{ . }}{{ else }}{{ substr .Title 0 1 | upper }}{{ end }}
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ .Title }}</h1>
+            {{ with .Params.site_url }}
+            <a href="{{ . }}" target="_blank" rel="noopener"
+               class="text-sm text-gray-400 dark:text-gray-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+              {{ . | strings.TrimPrefix "https://" | strings.TrimPrefix "www." }}
+            </a>
+            {{ end }}
+          </div>
+          {{ with .Params.site_url }}
+          <a href="{{ . }}" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 dark:bg-brand-700
+                    text-white text-sm font-medium hover:bg-brand-700 dark:hover:bg-brand-600 transition-colors shrink-0">
+            {{ i18n "showcase_visit" }}
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+          {{ end }}
+        </div>
+        <div class="flex flex-wrap gap-1.5 mt-3">
+          {{ range .Params.tags }}<span class="tag-pill">{{ . }}</span>{{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body -->
+  {{ with .Content }}
+  <div class="prose prose-gray dark:prose-invert max-w-none">
+    {{ . }}
+  </div>
+  {{ else }}
+  <p class="text-gray-500 dark:text-gray-400">{{ .Description }}</p>
+  {{ end }}
+
+  <!-- Stats / meta -->
+  {{ with .Params.stats }}
+  <dl class="mt-8 grid grid-cols-2 sm:grid-cols-{{ len . }} gap-4">
+    {{ range . }}
+    <div class="bg-gray-50 dark:bg-gray-800/60 rounded-lg p-4 text-center">
+      <dt class="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">{{ .label }}</dt>
+      <dd class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ .value }}</dd>
+    </div>
+    {{ end }}
+  </dl>
+  {{ end }}
+
+</div>
+{{ end }}

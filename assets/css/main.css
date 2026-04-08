@@ -1,0 +1,647 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; }
+}
+
+@layer components {
+  /* ── Navigation ── */
+  .nav-link {
+    @apply text-sm font-medium text-gray-600 hover:text-gray-900
+           dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-150;
+  }
+
+  /* ── Left sidebar ── */
+  .sidebar-section-title {
+    @apply block px-3 py-1 text-xs font-semibold text-gray-400
+           dark:text-gray-500 uppercase tracking-wider mt-4 mb-1;
+  }
+  .sidebar-link {
+    @apply block px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 rounded-md
+           hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100
+           transition-colors duration-150;
+  }
+  .sidebar-link.active {
+    @apply bg-brand-50 text-brand-700 font-medium dark:bg-brand-900/30 dark:text-brand-300;
+  }
+  .sidebar-parent {
+    @apply flex items-center justify-between px-3 py-1.5 text-sm text-gray-600
+           dark:text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-900
+           dark:hover:bg-gray-800 dark:hover:text-gray-100
+           transition-colors duration-150 no-underline;
+  }
+  .sidebar-parent.active {
+    @apply bg-brand-50 text-brand-700 font-medium dark:bg-brand-900/30 dark:text-brand-300;
+  }
+  .sidebar-parent .chevron {
+    @apply w-3.5 h-3.5 text-gray-400 dark:text-gray-500 shrink-0 transition-transform duration-150;
+  }
+  .sidebar-children {
+    @apply ml-3 pl-3 border-l-2 border-gray-100 dark:border-gray-700 mb-1;
+  }
+  .sidebar-child-link {
+    @apply block py-1 px-2 text-[0.8125rem] text-gray-500 dark:text-gray-500 rounded
+           hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200
+           transition-colors duration-150 no-underline;
+  }
+  .sidebar-child-link.active {
+    @apply text-brand-700 font-medium bg-brand-50 dark:bg-brand-900/30 dark:text-brand-300;
+  }
+
+  /* ── Prev / Next doc nav ── */
+  .doc-nav-link {
+    @apply flex items-center gap-2 px-4 py-3 rounded-lg border border-gray-200
+           dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300
+           no-underline hover:border-brand-300 hover:text-brand-700
+           dark:hover:border-brand-500 dark:hover:text-brand-400
+           transition-colors duration-150;
+  }
+
+  /* ── Hero gradient ── */
+  .hero-gradient {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0ea5e9 100%);
+  }
+
+  /* ── Dark mode toggle button ── */
+  .dark-toggle {
+    @apply p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100
+           dark:text-gray-400 dark:hover:text-gray-100 dark:hover:bg-gray-800
+           transition-colors duration-150;
+  }
+
+  /* ── Copy-to-clipboard button ── */
+  .copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.35rem;
+    border-radius: 0.25rem;
+    background: rgba(255,255,255,0.08);
+    color: #9ca3af;
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity .15s, background .15s, color .15s;
+    line-height: 0;
+  }
+  pre:hover .copy-btn  { opacity: 1; }
+  .copy-btn:hover      { background: rgba(255,255,255,0.18); color: #fff; }
+  .copy-btn.copied     { color: #34d399; opacity: 1; }
+
+  /* ── Anchor links on headings ── */
+  .anchor-link {
+    @apply ml-2 text-gray-300 dark:text-gray-600 no-underline opacity-0
+           hover:text-brand-500 dark:hover:text-brand-400 transition-colors;
+    font-weight: 400;
+  }
+  h2:hover .anchor-link,
+  h3:hover .anchor-link,
+  h4:hover .anchor-link { opacity: 1; }
+
+  /* ── Pagefind UI overrides ── */
+  .pagefind-ui {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: #0369a1;
+    --pagefind-ui-text: #1f2937;
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: #e5e7eb;
+    --pagefind-ui-border-radius: 0.5rem;
+    --pagefind-ui-font: 'Inter', system-ui, sans-serif;
+  }
+  .dark .pagefind-ui {
+    --pagefind-ui-primary: #38bdf8;
+    --pagefind-ui-text: #f1f5f9;
+    --pagefind-ui-background: #1e293b;
+    --pagefind-ui-border: #334155;
+  }
+  #search-container .pagefind-ui__search-input { font-size: 1rem; padding: .75rem 1rem; }
+  #search-container .pagefind-ui__result { border-bottom: 1px solid #f3f4f6; padding: .75rem 0; }
+  .dark #search-container .pagefind-ui__result { border-bottom-color: #1e293b; }
+  #search-container .pagefind-ui__result:last-child { border-bottom: none; }
+
+  /* ── Table of Contents ── */
+  .toc { font-size: 0.8125rem; }
+  .toc-title {
+    @apply text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2;
+  }
+  .toc nav ul { list-style: none; padding: 0; margin: 0; }
+  .toc nav ul li { margin: 0; }
+  .toc nav ul li a {
+    @apply block py-0.5 text-[0.8125rem] text-gray-500 dark:text-gray-500 no-underline
+           border-l-2 border-transparent pl-3 -ml-px
+           hover:text-gray-900 dark:hover:text-gray-200 transition-colors;
+  }
+  .toc nav ul li a.active {
+    @apply text-brand-700 dark:text-brand-400 border-brand-500 dark:border-brand-500 font-medium;
+  }
+  .toc nav ul ul { @apply pl-3; }
+}
+
+  /* ════════════════════════════════════════
+     PRINT STYLES
+     ════════════════════════════════════════ */
+  @media print {
+    /* Hide navigation chrome */
+    header, footer, aside, .doc-nav-link, .toc,
+    #search-modal, .copy-btn, .anchor-link,
+    [id="mobile-menu"], [id="mobile-menu-toggle"],
+    [id="search-trigger"], [id="mobile-search-trigger"] {
+      display: none !important;
+    }
+
+    /* Full-width content */
+    body { background: white !important; color: black !important; }
+    main { padding: 0 !important; }
+    article { max-width: 100% !important; }
+
+    /* Preserve code block appearance */
+    pre {
+      border: 1px solid #e5e7eb;
+      border-radius: 0.25rem;
+      padding: 0.75rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      background: #f9fafb !important;
+      color: #111827 !important;
+    }
+    code { background: #f3f4f6 !important; color: #0369a1 !important; }
+
+    /* Show full URLs for links */
+    a[href^="http"]::after {
+      content: " (" attr(href) ")";
+      font-size: 0.75em;
+      color: #6b7280;
+    }
+    a[href^="#"]::after { content: ""; }
+
+    /* Page break hints */
+    h2, h3 { page-break-after: avoid; }
+    pre, figure, table { page-break-inside: avoid; }
+
+    /* Breadcrumb visible in print */
+    nav[aria-label="Breadcrumb"] { display: flex !important; margin-bottom: 1rem; }
+  }
+
+  /* ════════════════════════════════════════
+     BLOG
+     ════════════════════════════════════════ */
+
+  /* Tag pills (reused in blog + showcase) */
+  .tag-pill {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+           bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400
+           hover:bg-brand-50 hover:text-brand-700
+           dark:hover:bg-brand-900/30 dark:hover:text-brand-300
+           transition-colors no-underline;
+  }
+  .tag-pill.active {
+    @apply bg-brand-600 dark:bg-brand-700 text-white;
+  }
+
+  /* Blog card */
+  .blog-card {
+    @apply flex flex-col bg-white dark:bg-gray-800/60 border border-gray-200
+           dark:border-gray-700 rounded-xl overflow-hidden
+           hover:border-brand-300 dark:hover:border-brand-700
+           hover:shadow-md dark:hover:shadow-brand-900/20
+           transition-all duration-200;
+  }
+  .blog-card-body { @apply flex flex-col flex-1 p-5; }
+  .blog-card-meta {
+    @apply flex items-center gap-3 text-xs text-gray-400 dark:text-gray-500 mb-3;
+  }
+  .blog-card-title {
+    @apply text-base font-semibold text-gray-900 dark:text-gray-100
+           leading-snug mb-2 group-hover:text-brand-700
+           dark:group-hover:text-brand-400 transition-colors;
+  }
+  .blog-card-excerpt {
+    @apply text-sm text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-4;
+  }
+
+  /* Featured post card */
+  .blog-card-featured {
+    @apply bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700
+           rounded-xl overflow-hidden hover:border-brand-300 dark:hover:border-brand-700
+           hover:shadow-lg transition-all duration-200;
+  }
+  .blog-card-featured-inner { @apply p-6 md:p-8; }
+
+  /* Cover gradient — varies by tag */
+  .blog-cover {
+    @apply h-2 w-full;
+  }
+  .blog-cover-release  { background: linear-gradient(90deg, #0369a1, #0ea5e9); }
+  .blog-cover-guide    { background: linear-gradient(90deg, #059669, #34d399); }
+  .blog-cover-tutorial { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+  .blog-cover-news     { background: linear-gradient(90deg, #dc2626, #f87171); }
+  .blog-cover-default  { background: linear-gradient(90deg, #0369a1, #7c3aed); }
+
+  /* Author avatar */
+  .author-avatar {
+    @apply w-8 h-8 rounded-full bg-brand-600 dark:bg-brand-700 text-white
+           flex items-center justify-center text-sm font-bold shrink-0;
+  }
+
+  /* ════════════════════════════════════════
+     SHOWCASE
+     ════════════════════════════════════════ */
+
+  /* Showcase filter buttons */
+  .filter-btn {
+    @apply px-3 py-1.5 text-sm font-medium rounded-full border
+           border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400
+           hover:border-brand-300 hover:text-brand-700
+           dark:hover:border-brand-600 dark:hover:text-brand-400
+           transition-colors cursor-pointer whitespace-nowrap;
+  }
+  .filter-btn.active {
+    @apply bg-brand-600 dark:bg-brand-700 border-brand-600 dark:border-brand-700
+           text-white hover:text-white;
+  }
+
+  /* Showcase card */
+  .showcase-card {
+    @apply flex flex-col bg-white dark:bg-gray-800/60 border border-gray-200
+           dark:border-gray-700 rounded-xl p-5
+           hover:border-brand-300 dark:hover:border-brand-600
+           hover:shadow-md transition-all duration-200;
+  }
+  .showcase-card[data-hidden] { display: none; }
+  .showcase-logo {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center
+           text-xl font-bold text-white shrink-0 mb-4;
+  }
+  .showcase-name {
+    @apply text-base font-semibold text-gray-900 dark:text-gray-100 mb-1;
+  }
+  .showcase-desc {
+    @apply text-sm text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-4;
+  }
+
+  /* ════════════════════════════════════════
+     STEPS SHORTCODE
+     ════════════════════════════════════════
+
+     Container uses CSS counter-reset so each h3 auto-numbers.
+     The left border is the vertical connecting line.
+     Each h3::before becomes the numbered circle, pulled left
+     to overlay the border. */
+
+  .steps {
+    margin-left: 0.875rem;   /* half the circle width, so line is centered */
+    padding-left: 1.5rem;    /* pl-6: content indented from border */
+    border-left: 2px solid;
+    @apply border-gray-200 dark:border-gray-700 mb-8;
+    counter-reset: step;
+  }
+
+  /* Each h3 inside .steps becomes a numbered step */
+  .steps > h3 {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    /* Pull the h3 left so the circle sits centred on the border line.
+       Formula: -(padding-left) + (circle-width / 2) = -(1.5rem) + (0.875rem) = -0.625rem
+       But we also need to clear the border, so use -(1.5rem + 0.125rem border/2) */
+    margin-left: calc(-1.5rem - 0.0625rem);
+    @apply text-lg font-bold text-gray-900 dark:text-gray-100;
+  }
+  .steps > h3:first-child { margin-top: 0; }
+
+  /* The numbered circle */
+  .steps > h3::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 9999px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 0.125rem; /* optical alignment with text */
+    @apply bg-brand-600 dark:bg-brand-700 text-white;
+  }
+
+  /* Prose content inside steps */
+  .steps > p {
+    @apply text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3;
+  }
+  .steps > ul, .steps > ol {
+    @apply text-sm text-gray-700 dark:text-gray-300 mb-3 pl-4;
+  }
+  .steps > ul li, .steps > ol li { @apply mb-1; }
+  .steps > ul { @apply list-disc; }
+  .steps > ol { @apply list-decimal; }
+  .steps > pre, .steps > div.highlight {
+    @apply mb-4 rounded-lg overflow-hidden;
+  }
+  /* Callout / code / other shortcodes inside steps */
+  .steps > .not-prose { @apply mb-4; }
+
+  /* ════════════════════════════════════════
+     FILETREE SHORTCODE
+     ════════════════════════════════════════ */
+
+  /* Outer container */
+  .filetree {
+    @apply rounded-lg border border-gray-200 dark:border-gray-700
+           bg-gray-50 dark:bg-gray-950 overflow-x-auto my-5 py-3 px-4;
+    font-family: var(--font-family-mono);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  /* Reset lists */
+  .filetree-root,
+  .filetree-children {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Children indented with a vertical connecting line */
+  .filetree-children {
+    padding-left: 1.125rem;
+    margin-left: 0.5rem;
+    border-left: 1px solid;
+    @apply border-gray-300 dark:border-gray-700;
+  }
+
+  /* Each item row */
+  .filetree-row {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.1rem 0.25rem;
+    border-radius: 0.25rem;
+    @apply text-gray-800 dark:text-gray-200;
+    white-space: nowrap;
+  }
+  .filetree-row:hover {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+
+  /* Icons */
+  .filetree-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+  /* Folder: yellow-amber */
+  .filetree-folder-icon { @apply text-yellow-500 dark:text-yellow-400; }
+
+  /* File accent colours by extension */
+  .filetree-file-default { @apply text-gray-400 dark:text-gray-500; }
+  .filetree-file-yaml    { @apply text-orange-500 dark:text-orange-400; }
+  .filetree-file-ruby    { @apply text-red-500 dark:text-red-400; }
+  .filetree-file-go      { @apply text-cyan-500 dark:text-cyan-400; }
+  .filetree-file-js      { @apply text-yellow-400 dark:text-yellow-300; }
+  .filetree-file-md      { @apply text-blue-400 dark:text-blue-300; }
+  .filetree-file-sh      { @apply text-green-500 dark:text-green-400; }
+  .filetree-file-config  { @apply text-purple-500 dark:text-purple-400; }
+  .filetree-file-env     { @apply text-emerald-500 dark:text-emerald-400; }
+  .filetree-file-docker  { @apply text-sky-500 dark:text-sky-400; }
+
+  /* File/folder names */
+  .filetree-name {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+  .filetree-folder-name {
+    @apply font-semibold text-gray-900 dark:text-gray-100;
+  }
+
+  /* Annotations — look like code comments */
+  .filetree-annotation {
+    @apply ml-3 text-xs text-gray-400 dark:text-gray-500 font-normal;
+    font-style: italic;
+  }
+
+  /* Spacing between items */
+  .filetree-item { @apply py-px; }
+  .filetree-folder-row { @apply mt-0.5; }
+  /* Add a small gap before children when folder has them */
+  .filetree-children { @apply mt-0.5 mb-1; }
+
+  /* ════════════════════════════════════════
+     CARDS SHORTCODE
+     ════════════════════════════════════════ */
+
+  .card-item {
+    @apply flex flex-col rounded-xl border border-gray-200 dark:border-gray-700
+           bg-white dark:bg-gray-800/60 p-5
+           transition-all duration-200;
+    text-decoration: none;
+  }
+  .card-link {
+    @apply hover:border-brand-300 dark:hover:border-brand-600
+           hover:shadow-md dark:hover:shadow-brand-900/20;
+  }
+
+  /* Inner: icon left, content right, top-aligned */
+  .card-inner {
+    @apply flex items-start gap-3;
+  }
+
+  /* Icon — shrink-0 prevents it from squishing, no bottom margin needed */
+  .card-icon-wrap {
+    @apply shrink-0 w-9 h-9 rounded-lg bg-brand-50 dark:bg-brand-900/40
+           flex items-center justify-center;
+  }
+  .card-icon {
+    @apply w-5 h-5 text-brand-600 dark:text-brand-400;
+  }
+
+  /* Content column beside the icon */
+  .card-content {
+    @apply flex flex-col flex-1 min-w-0;
+  }
+
+  /* Title row */
+  .card-title-row {
+    @apply flex items-center justify-between gap-2 mb-1.5;
+  }
+  .card-title {
+    @apply text-sm font-semibold text-gray-900 dark:text-gray-100
+           group-hover:text-brand-700 dark:group-hover:text-brand-400
+           transition-colors;
+  }
+  .card-arrow {
+    @apply w-4 h-4 text-gray-300 dark:text-gray-600 shrink-0
+           group-hover:text-brand-500 dark:group-hover:text-brand-500
+           transition-colors;
+  }
+
+  /* Body */
+  .card-body {
+    @apply text-sm text-gray-500 dark:text-gray-400 leading-relaxed;
+  }
+  .card-body p { margin: 0; }
+
+  /* ════════════════════════════════════════
+     DETAILS / ACCORDION SHORTCODE
+     ════════════════════════════════════════ */
+
+  .details-block {
+    @apply border border-gray-200 dark:border-gray-700 rounded-lg my-4 overflow-hidden;
+  }
+
+  .details-summary {
+    @apply flex items-center gap-2 px-4 py-3 cursor-pointer
+           text-sm font-medium text-gray-800 dark:text-gray-200
+           bg-gray-50 dark:bg-gray-800/60
+           hover:bg-gray-100 dark:hover:bg-gray-800
+           select-none list-none transition-colors;
+  }
+  /* Remove default marker in all browsers */
+  .details-summary::-webkit-details-marker { display: none; }
+  .details-summary::marker { display: none; }
+
+  .details-chevron {
+    @apply w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0 transition-transform duration-200;
+  }
+  details[open] .details-chevron {
+    transform: rotate(90deg);
+  }
+
+  .details-body {
+    @apply px-4 py-4 border-t border-gray-200 dark:border-gray-700
+           bg-white dark:bg-gray-900/20;
+    font-size: 0.9375rem;
+  }
+  .details-body > *:first-child { margin-top: 0; }
+  .details-body > *:last-child  { margin-bottom: 0; }
+
+  /* ════════════════════════════════════════
+     MERMAID DIAGRAMS
+     ════════════════════════════════════════ */
+
+  .mermaid-wrap {
+    @apply flex justify-center overflow-x-auto py-2;
+  }
+  .mermaid {
+    @apply max-w-full text-center;
+    /* Mermaid renders SVG — ensure it's readable in both modes */
+    font-size: 0.875rem;
+  }
+  /* Light mode Mermaid colours are default */
+  /* Dark mode: we initialize with dark theme via JS in baseof */
+
+  /* ════════════════════════════════════════
+     CODE BLOCKS — consistent across prose,
+     steps (not-prose), and dark mode.
+
+     Problem: Hugo Chroma injects
+       style="background-color:#fff"
+     as an inline style, which beats any
+     CSS class rule.  We must use !important
+     in dark mode to override it.
+     ════════════════════════════════════════ */
+
+  /* ── Light mode ── */
+
+  /* Chroma-wrapped blocks: keep the white github background */
+  .highlight {
+    @apply rounded-lg overflow-hidden my-4;
+  }
+  .highlight pre {
+    @apply m-0 p-4 text-sm leading-relaxed overflow-x-auto;
+    /* Chroma inline style sets background-color:#fff — that's fine in light mode */
+    color: #24292e; /* github default text colour */
+    border-radius: 0;
+  }
+
+  /* Plain pre (no language → no Chroma wrapper) */
+  pre:not(.mermaid) {
+    @apply rounded-lg overflow-hidden my-4 p-4 text-sm leading-relaxed overflow-x-auto;
+    background-color: #f6f8fa; /* github-like light grey */
+    color: #24292e;
+  }
+  /* Inside .highlight the pre already has padding — don't double up */
+  .highlight > pre { margin: 0; }
+
+  /* Prose context: undo Tailwind Typography padding (we set it above) */
+  .prose pre { padding: 0; border-radius: 0.5rem; }
+  .prose .highlight { border-radius: 0.5rem; }
+
+  /* ── Dark mode ── */
+
+  /* Override Chroma inline style="background-color:#fff" */
+  .dark .highlight pre {
+    background-color: #1e293b !important; /* slate-800 */
+    color: #e2e8f0 !important;            /* slate-200 */
+  }
+  /* Override per-token colours so they remain legible on dark bg */
+  .dark .highlight pre span[style*="color"] {
+    filter: brightness(1.4) saturate(0.9);
+  }
+  /* Strings / comments that are nearly black in github theme */
+  .dark .highlight pre span[style*="color:#998"],
+  .dark .highlight pre span[style*="color:#009"] {
+    color: #94a3b8 !important; /* slate-400 */
+  }
+  .dark .highlight pre span[style*="color:#000"] {
+    color: #e2e8f0 !important;
+  }
+
+  /* Plain pre in dark mode */
+  .dark pre:not(.mermaid):not(.highlight pre) {
+    background-color: #1e293b !important;
+    color: #e2e8f0 !important;
+  }
+
+  /* Inline code (backtick) — unchanged, uses brand-50/brand-700 */
+  /* (already defined above in the components layer) */
+
+  /* ── Pagefind search result highlights ── */
+  #search-results mark {
+    @apply bg-brand-100 dark:bg-brand-900/40 text-brand-800 dark:text-brand-300
+           rounded px-0.5 not-italic font-medium;
+  }
+  #search-results a + a {
+    @apply border-t border-gray-100 dark:border-gray-700/50;
+  }
+
+  /* ── Source Code dropdown — CSS hover, no JS needed ── */
+  /* The .group class on the parent div drives open/close via group-hover utilities.
+     Additional focus-within support for keyboard accessibility. */
+  .relative.group:focus-within > div[class*="opacity-0"] {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* ── Global focus-visible ring ─────────────────────────────────────────── */
+  /* Apply a consistent brand-coloured focus ring to all interactive elements
+     using :focus-visible (only shows on keyboard navigation, not mouse clicks) */
+  *:focus-visible {
+    outline: 2px solid theme('colors.brand.500');
+    outline-offset: 2px;
+  }
+
+  /* Override for elements that define their own Tailwind focus-visible: classes */
+  .focus-visible\:outline-none:focus-visible {
+    outline: none;
+  }
+
+  /* Skip link — already has Tailwind focus classes, ensure it renders above everything */
+  a[href="#main-content"]:focus-visible {
+    z-index: 9999;
+  }
+
+  /* Sidebar links — visible focus ring in the sidebar nav */
+  .sidebar-link:focus-visible,
+  .sidebar-parent:focus-visible,
+  .sidebar-child-link:focus-visible {
+    outline: 2px solid theme('colors.brand.500');
+    outline-offset: -2px;
+    border-radius: 0.25rem;
+  }

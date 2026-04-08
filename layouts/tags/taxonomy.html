@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Tags</h1>
+  <div class="flex flex-wrap gap-3">
+    {{ range .Data.Terms.ByCount }}
+    <a href="{{ .Page.RelPermalink }}"
+       class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700
+              text-sm text-gray-700 dark:text-gray-300 hover:border-brand-300 hover:text-brand-700
+              dark:hover:border-brand-600 dark:hover:text-brand-400 transition-colors">
+      #{{ .Page.Title }}
+      <span class="text-xs text-gray-400 dark:text-gray-500">({{ .Count }})</span>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

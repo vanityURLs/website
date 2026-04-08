@@ -1,0 +1,52 @@
+{{/* {{< callout type="warning" title="Optional title" >}}...{{< /callout >}} */}}
+{{ $type  := .Get "type" | default "note" }}
+{{ $title := .Get "title" }}
+
+{{ $config := dict
+  "note"    (dict "icon" "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  "bg"   "bg-blue-50 dark:bg-blue-900/20"
+                  "border" "border-blue-200 dark:border-blue-800"
+                  "icon_color" "text-blue-500 dark:text-blue-400"
+                  "title_color" "text-blue-800 dark:text-blue-300"
+                  "text_color"  "text-blue-700 dark:text-blue-300"
+                  "default_title" "Note")
+  "tip"     (dict "icon" "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  "bg"   "bg-green-50 dark:bg-green-900/20"
+                  "border" "border-green-200 dark:border-green-800"
+                  "icon_color" "text-green-500 dark:text-green-400"
+                  "title_color" "text-green-800 dark:text-green-300"
+                  "text_color"  "text-green-700 dark:text-green-300"
+                  "default_title" "Tip")
+  "warning" (dict "icon" "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  "bg"   "bg-amber-50 dark:bg-amber-900/20"
+                  "border" "border-amber-200 dark:border-amber-800"
+                  "icon_color" "text-amber-500 dark:text-amber-400"
+                  "title_color" "text-amber-800 dark:text-amber-300"
+                  "text_color"  "text-amber-700 dark:text-amber-300"
+                  "default_title" "Warning")
+  "danger"  (dict "icon" "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  "bg"   "bg-red-50 dark:bg-red-900/20"
+                  "border" "border-red-200 dark:border-red-800"
+                  "icon_color" "text-red-500 dark:text-red-400"
+                  "title_color" "text-red-800 dark:text-red-300"
+                  "text_color"  "text-red-700 dark:text-red-300"
+                  "default_title" "Danger")
+}}
+
+{{ $c := index $config $type | default (index $config "note") }}
+
+<div class="not-prose my-5 rounded-lg border {{ $c.border }} {{ $c.bg }} p-4">
+  <div class="flex gap-3">
+    <svg class="w-5 h-5 {{ $c.icon_color }} shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $c.icon }}"/>
+    </svg>
+    <div class="flex-1 min-w-0">
+      <p class="text-sm font-semibold {{ $c.title_color }} mb-1">
+        {{ $title | default ($c.default_title) }}
+      </p>
+      <div class="text-sm {{ $c.text_color }} [&>p]:m-0 [&>p+p]:mt-2 [&>code]:bg-black/10 [&>code]:px-1 [&>code]:rounded">
+        {{ .Inner | markdownify }}
+      </div>
+    </div>
+  </div>
+</div>

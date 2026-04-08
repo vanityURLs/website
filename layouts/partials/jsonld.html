@@ -1,0 +1,207 @@
+{{/* ════════════════════════════════════════════════════════════
+     Structured Data — Schema.org JSON-LD
+     One <script> block per relevant type for this page context.
+     All templates produce valid JSON (no trailing commas).
+     ════════════════════════════════════════════════════════════ */}}
+
+{{- $baseURL   := .Site.BaseURL -}}
+{{- $lang      := .Site.Language.Lang -}}
+{{- $langCode  := .Site.Language.LanguageCode -}}
+{{- $docsBase  := cond (eq $lang "fr") (printf "%sfr/docs/" $baseURL) (printf "%sdocs/" $baseURL) -}}
+
+{{/* ── Person (reused across types) ─────────────────────────── */}}
+{{- $author := dict
+    "@type" "Person"
+    "name"  "Benoît H. Dicaire"
+    "url"   "https://github.com/bhdicaire"
+    "sameAs" (slice "https://github.com/bhdicaire" "https://linkedin.com/in/bhdicaire")
+-}}
+
+{{/* ── Organization / Publisher ──────────────────────────────── */}}
+{{- $org := dict
+    "@type" "Organization"
+    "name"  "vanityURLs"
+    "url"   $baseURL
+    "logo"  (dict "@type" "ImageObject" "url" (printf "%slogo.svg" $baseURL))
+    "sameAs" (slice "https://github.com/vanityURLs")
+-}}
+
+{{/* ════════════════════════════════════════════════════════════
+     HOMEPAGE — WebSite + SoftwareApplication
+     ════════════════════════════════════════════════════════════ */}}
+{{ if .IsHome -}}
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "{{ $baseURL }}#website",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ $baseURL }}",
+    "description": "{{ .Site.Params.description }}",
+    "inLanguage": "{{ $langCode }}",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "{{ $docsBase }}?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": "{{ $baseURL }}#software",
+    "name": "vanityURLs",
+    "alternateName": "v8s",
+    "description": "{{ .Site.Params.description }}",
+    "url": "{{ $baseURL }}",
+    "applicationCategory": "DeveloperApplication",
+    "applicationSubCategory": "URL Management",
+    "operatingSystem": "macOS, Linux, Windows",
+    "softwareVersion": "1.0",
+    "releaseNotes": "https://github.com/vanityURLs/vanityURLs/releases",
+    "license": "https://github.com/vanityURLs/vanityURLs/blob/main/LICENSE",
+    "isAccessibleForFree": true,
+    "codeRepository": "{{ .Site.Params.github }}",
+    "programmingLanguage": "Shell",
+    "featureList": [
+      "Manage short links as code",
+      "Git-native workflow with full history and rollback",
+      "Cloudflare Pages edge delivery",
+      "Custom domain support",
+      "Static and dynamic redirect files",
+      "CLI for adding, removing, and validating redirects",
+      "CI/CD integration via GitHub Actions",
+      "Free to operate"
+    ],
+    "author": {{ $author | jsonify }},
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "sameAs": ["{{ .Site.Params.github }}"]
+  }
+]
+</script>
+{{- end }}
+
+{{/* ════════════════════════════════════════════════════════════
+     BLOG LIST — Blog type
+     ════════════════════════════════════════════════════════════ */}}
+{{ if and (eq .Section "blog") .IsSection -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": "{{ .Permalink }}#blog",
+  "name": "{{ .Site.Title }} Blog",
+  "description": "{{ i18n "blog_subtitle" }}",
+  "url": "{{ .Permalink }}",
+  "inLanguage": "{{ $langCode }}",
+  "author": {{ $author | jsonify }},
+  "publisher": {{ $org | jsonify }}
+}
+</script>
+{{- end }}
+
+{{/* ════════════════════════════════════════════════════════════
+     BLOG POST — BlogPosting
+     ════════════════════════════════════════════════════════════ */}}
+{{ if and (eq .Section "blog") .IsPage -}}
+{{- $postAuthor := $author -}}
+{{- with .Params.author -}}
+  {{- $postAuthor = dict "@type" "Person" "name" . -}}
+{{- end -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "{{ .Permalink }}#post",
+  "headline": {{ .Title | jsonify }},
+  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Summary | jsonify }}{{ end }},
+  "url": "{{ .Permalink }}",
+  "inLanguage": "{{ $langCode }}",
+  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
+  {{ with .Lastmod }}"dateModified": "{{ .Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+  "author": {{ $postAuthor | jsonify }},
+  "publisher": {{ $org | jsonify }},
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "{{ (printf "%sblog/" $baseURL) }}#blog",
+    "name": "{{ .Site.Title }} Blog"
+  }{{ with .Params.tags }},
+  "keywords": {{ . | jsonify }}{{ end }}
+}
+</script>
+{{- end }}
+
+{{/* ════════════════════════════════════════════════════════════
+     DOCS PAGES — TechArticle + BreadcrumbList
+     ════════════════════════════════════════════════════════════ */}}
+{{ if eq .Section "docs" -}}
+
+{{/* Build breadcrumb items */}}
+{{- $crumbs := slice -}}
+{{- $crumbs = $crumbs | append (dict
+    "@type"    "ListItem"
+    "position" 1
+    "name"     "Documentation"
+    "item"     $docsBase) -}}
+
+{{- $section     := .CurrentSection -}}
+{{- $isDocsRoot  := or (eq (strings.TrimSuffix "/" $section.RelPermalink) "/docs") (eq (strings.TrimSuffix "/" $section.RelPermalink) "/fr/docs") -}}
+{{- $pos := 2 -}}
+{{- if and (not $isDocsRoot) $section.Parent -}}
+  {{- $crumbs = $crumbs | append (dict
+      "@type"    "ListItem"
+      "position" $pos
+      "name"     $section.Title
+      "item"     $section.Permalink) -}}
+  {{- $pos = add $pos 1 -}}
+{{- end -}}
+{{- if not .IsSection -}}
+  {{- $crumbs = $crumbs | append (dict
+      "@type"    "ListItem"
+      "position" $pos
+      "name"     .Title
+      "item"     .Permalink) -}}
+{{- end -}}
+
+<script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": "{{ .Permalink }}#article",
+    "headline": {{ .Title | jsonify }},
+    "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Site.Params.description | jsonify }}{{ end }},
+    "url": "{{ .Permalink }}",
+    "inLanguage": "{{ $langCode }}",
+    {{ if not .Date.IsZero }}"datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+    {{ with .Lastmod }}"dateModified": "{{ .Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
+    "author": {{ $author | jsonify }},
+    "publisher": {{ $org | jsonify }},
+    "isPartOf": {
+      "@type": "TechArticle",
+      "@id": "{{ $docsBase }}#docs",
+      "name": "vanityURLs Documentation",
+      "url": "{{ $docsBase }}"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "@id": "{{ $baseURL }}#software",
+      "name": "vanityURLs"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": {{ $crumbs | jsonify }}
+  }
+]
+</script>
+{{- end }}

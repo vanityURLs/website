@@ -1,0 +1,26 @@
+{{- /*
+  Collapsible details/accordion section.
+
+  Params:
+    title  (required) — summary line shown when collapsed
+    open   (optional) — "true" to start expanded (default: false)
+
+  Usage:
+    {{< details title="Why not Kubernetes?" >}}
+    Kubernetes is powerful but complex for most teams...
+    {{< /details >}}
+*/ -}}
+{{- $title := .Get "title" -}}
+{{- $open  := eq (.Get "open") "true" -}}
+
+<details class="details-block not-prose"{{ if $open }} open{{ end }}>
+  <summary class="details-summary">
+    <svg class="details-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+    <span>{{ $title }}</span>
+  </summary>
+  <div class="details-body prose prose-gray dark:prose-invert max-w-none">
+    {{ .Inner | markdownify }}
+  </div>
+</details>

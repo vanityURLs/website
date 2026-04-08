@@ -1,0 +1,19 @@
+{{/* ── Search trigger BUTTON only (no modal) ──
+     Call this inside the header where the button should appear.
+     The modal is rendered once in baseof.html via search-modal.html. */}}
+{{ $inDocs := or (eq .Section "docs") (eq .Section "blog") }}
+{{ if $inDocs }}
+<button id="search-trigger"
+        class="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400
+               bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700
+               border border-gray-200 dark:border-gray-700 rounded-lg transition-colors"
+        aria-label="{{ i18n "search_placeholder" }}">
+  <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+  </svg>
+  <span class="hidden sm:inline">{{ i18n "search_placeholder" }}</span>
+  <kbd class="hidden sm:inline ml-1 px-1.5 py-0.5 text-xs bg-white dark:bg-gray-700
+              border border-gray-300 dark:border-gray-600 rounded font-mono dark:text-gray-300">⌘K</kbd>
+</button>
+{{ end }}

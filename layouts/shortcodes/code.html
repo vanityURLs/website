@@ -1,0 +1,51 @@
+{{/* {{< code file="config/deploy.yml" lang="yaml" >}}...{{< /code >}} */}}
+{{ $file := .Get "file" }}
+{{ $lang  := .Get "lang" | default "" }}
+
+<div class="not-prose my-5 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+  {{ with $file }}
+  <div class="flex items-center justify-between px-4 py-2
+              bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+    <span class="flex items-center gap-2 text-xs font-mono text-gray-500 dark:text-gray-400">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0119 9.414V19a2 2 0 01-2 2z"/>
+      </svg>
+      {{ . }}
+    </span>
+    <button class="copy-btn-inline text-xs text-gray-400 dark:text-gray-500
+                   hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            aria-label="Copy">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+      </svg>
+    </button>
+  </div>
+  {{ end }}
+  <div class="overflow-x-auto [&>div]:!rounded-none [&>div]:!m-0 [&_pre]:!rounded-none [&_pre]:!m-0">
+    {{ if $lang }}
+      {{ .Inner | markdownify }}
+    {{ else }}
+      <pre class="bg-gray-900 text-gray-100 p-4 text-sm font-mono overflow-x-auto"><code>{{ .Inner | htmlEscape }}</code></pre>
+    {{ end }}
+  </div>
+</div>
+
+<script>
+(function() {
+  var btns = document.querySelectorAll('.copy-btn-inline');
+  var last = btns[btns.length - 1];
+  if (!last || !navigator.clipboard) return;
+  last.addEventListener('click', function() {
+    var block = last.closest('.not-prose');
+    var code = block ? (block.querySelector('code') || block.querySelector('pre')).innerText : '';
+    navigator.clipboard.writeText(code).then(function() {
+      last.innerHTML = '<svg class="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+      setTimeout(function() {
+        last.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>';
+      }, 2000);
+    });
+  });
+})();
+</script>

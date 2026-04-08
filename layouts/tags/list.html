@@ -1,0 +1,27 @@
+{{ define "main" }}
+{{ $lang := .Site.Language.Lang }}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+      #{{ .Title }}
+    </h1>
+    <p class="text-gray-500 dark:text-gray-400 text-sm">
+      {{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}
+    </p>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    {{ range .Pages }}
+    <a href="{{ .RelPermalink }}" class="blog-card group">
+      <div class="blog-cover {{ with .Params.tags }}{{ if in . "release" }}blog-cover-release{{ else if in . "guide" }}blog-cover-guide{{ else if in . "tutorial" }}blog-cover-tutorial{{ else }}blog-cover-default{{ end }}{{ else }}blog-cover-default{{ end }}"></div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+        </div>
+        <h2 class="blog-card-title">{{ .Title }}</h2>
+        <p class="blog-card-excerpt">{{ .Description | default (.Summary | plainify | truncate 120) }}</p>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

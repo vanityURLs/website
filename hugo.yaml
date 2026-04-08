@@ -1,0 +1,162 @@
+baseURL: "https://vanityurls.link/"
+title: "vanityURLs"
+
+enableRobotsTXT: true
+disableHugoGeneratorInject: false
+
+enableGitInfo: true
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: true
+
+taxonomies:
+  tag: tags
+  category: categories
+
+languages:
+  en:
+    languageCode: en-US
+    languageName: English
+    weight: 1
+    params:
+      description: "Start managing links as code"
+      footer:
+        col2:
+          title: Resources
+          links:
+            - name: Documentation
+              url: /en/docs/
+            - name: Roadmap
+              url: https://github.com/orgs/vanityURLs/projects/1/views/4
+              external: true
+            - name: Try the Demo
+              url: /en/docs/demo
+        col3:
+          title: Community
+          links:
+            - name: Contribution Guide
+              url: /en/contributing/
+            - name: Forum
+              url: https://github.com/orgs/vanityURLs/discussions
+              external: true
+            - name: Source Code
+              url: https://github.com/vanityURLs/vanityURLs
+              external: true
+        col4:
+          title: Security & Privacy
+          links:
+            - name: Report Security Issues
+              url: /en/vulnerability/
+            - name: Status
+              url: https://status.vanityURLs.link
+              external: true
+            - name: Trust Center
+              url: /en/trust/
+    menu:
+      main:
+        - name: Blog
+          url: /en/blog/
+          weight: 1
+        - name: Documentation
+          url: /en/docs/
+          weight: 2
+        - name: Showcase
+          url: /en/showcase/
+          weight: 3
+  fr:
+    languageCode: fr-FR
+    languageName: Français
+    weight: 2
+    params:
+      description: "Gérez vos liens comme du code"
+      footer:
+        col2:
+          title: Ressources
+          links:
+            - name: Documentation
+              url: /fr/docs/
+            - name: Essayer la démo
+              url: /fr/docs/demo
+            - name: Feuille de route
+              url: https://github.com/orgs/vanityURLs/projects/1/views/4
+              external: true
+        col3:
+          title: Communauté
+          links:
+            - name: Code source
+              url: https://github.com/vanityURLs/vanityURLs
+              external: true
+            - name: Guide de contribution
+              url: /fr/contributing/
+            - name: Forum
+              url: https://github.com/orgs/vanityURLs/discussions
+              external: true
+        col4:
+          title: Sécurité et confidentialité
+          links:
+            - name: Centre de confiance
+              url: /fr/trust/
+            - name: Signaler un problème de sécurité
+              url: /fr/vulnerability/
+            - name: Status
+              url: https://status.vanityURLs.link
+              external: true
+    menu:
+      main:
+        - name: Blog
+          url: /fr/blog/
+          weight: 1
+        - name: Documentation
+          url: /fr/docs/
+          weight: 2
+        - name: Vitrine
+          url: /fr/showcase/
+          weight: 3
+
+params:
+  # Version removed — vanityURLs has no version badge
+  github:      "https://github.com/vanityURLs/vanityURLs"
+  discussions: "https://github.com/orgs/vanityURLs/discussions"
+  website_repo: "https://github.com/vanityURLs/website"
+  editBaseURL:  "https://github.com/vanityURLs/website/edit/main/content"
+
+sitemap:
+  changefreq: weekly
+  priority: 0.5
+  filename: sitemap.xml
+
+markup:
+  highlight:
+    style: "github"
+    lineNos: false
+    tabWidth: 2
+    noClasses: true
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+    ordered: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+  section:
+    - HTML
+    - RSS
+  page:
+    - HTML
+
+pagination:
+  pagerSize: 9
+
+related:
+  includeNewer: true
+  threshold: 80
+  toLower: true
+  indices:
+    - name: tags
+      weight: 100
+    - name: date
+      weight: 10

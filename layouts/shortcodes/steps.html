@@ -1,0 +1,20 @@
+{{- /*
+  Visual numbered steps for documentation.
+
+  Usage (note: %% not << — allows inner markdown to be processed):
+    {{% steps %}}
+    ### Step one title
+    Description of step one. Can include any markdown.
+    ```bash
+    lnk deploy
+    ```
+    ### Step two title
+    Description of step two.
+    {{% /steps %}}
+
+  Each ### heading becomes one numbered step.
+  Use h3 (###) for step titles — h2/h4 are left unstyled inside .steps.
+*/ -}}
+<div class="steps not-prose my-6">
+  {{- .Inner -}}
+</div>

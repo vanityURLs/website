@@ -1,0 +1,19 @@
+{{ $translations := .Translations }}
+<div class="flex items-center border border-gray-200 rounded-md overflow-hidden text-xs font-medium">
+  {{ range .Site.Languages }}
+  {{ $lang      := .Lang }}
+  {{ $isActive  := eq $.Site.Language.Lang $lang }}
+  {{/* Default fallback href — root of that language */}}
+  {{ $href := cond (eq $lang "en") "/" (printf "/%s/" $lang) }}
+  {{/* If a translation of this page exists, link directly to it */}}
+  {{ range $translations }}
+    {{ if eq .Lang $lang }}{{ $href = .RelPermalink }}{{ end }}
+  {{ end }}
+  <a href="{{ $href }}"
+     hreflang="{{ $lang }}"
+     class="{{ if $isActive }}bg-brand-600 text-white{{ else }}text-gray-500 hover:text-gray-800 hover:bg-gray-50{{ end }} px-2.5 py-1 transition-colors"
+     {{ if $isActive }}aria-current="true"{{ end }}>
+    {{ $lang | upper }}
+  </a>
+  {{ end }}
+</div>
