@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0](https://github.com/vanityURLs/website/compare/v2.0.0...v2.1.0) (2026-04-08)
+
+
+### Features
+
+* new hugo structure & content ([1ae485c](https://github.com/vanityURLs/website/commit/1ae485cba1ab092c82159a3e8744e89832aed816))
+
 ## [Unreleased]
 ### Added
 - Husky + Commitlint setup for Conventional Commits <-- Work in progres
