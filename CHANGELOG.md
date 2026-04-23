@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1](https://github.com/vanityURLs/website/compare/v2.1.0...v2.1.1) (2026-04-23)
+
+
+### Bug Fixes
+
+* i18n bug ([fa7b7be](https://github.com/vanityURLs/website/commit/fa7b7be7bc8fae4c50611d7adb27292fadca0c31))
+* i18n bug ([76844eb](https://github.com/vanityURLs/website/commit/76844eb4563947d4bc97a64fbedd71baa108c72b))
+
 ## [2.1.0](https://github.com/vanityURLs/website/compare/v2.0.0...v2.1.0) (2026-04-08)
 
 
