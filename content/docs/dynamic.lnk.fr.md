@@ -2,7 +2,6 @@
 title: "dynamic.lnk"
 description: "Votre liste de redirections temporaires — campagnes, événements, liens éphémères."
 nav_order: 9
-translationKey: "dynamic-lnk"
 ---
 
 `dynamic.lnk` contient vos redirections **temporaires** — conférences, campagnes marketing, inscriptions à des événements.

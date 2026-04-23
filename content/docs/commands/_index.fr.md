@@ -2,7 +2,6 @@
 title: "Commandes"
 description: "Référence complète de toutes les commandes lnk CLI."
 nav_order: 20
-translationKey: "commands"
 ---
 
 Le script `lnk` est l'interface principale pour gérer vos redirections vanityURLs en ligne de commande. Exécutez `lnk --help` pour voir toutes les commandes disponibles.

@@ -2,7 +2,6 @@
 title: "Démo"
 description: "v8s.link est l'implémentation de référence de vanityURLs — explorez chaque fichier pour déboguer votre propre instance."
 nav_order: 30
-translationKey: "demo"
 ---
 
 La meilleure façon de comprendre vanityURLs est d'examiner un déploiement réel. **[v8s.link](https://github.com/vanityURLs/v8s.link)** est l'implémentation officielle de référence, maintenue par l'équipe vanityURLs et déployée sur [v8s.link](https://v8s.link).

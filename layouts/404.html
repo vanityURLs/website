@@ -13,7 +13,7 @@
   </p>
 
   <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-    <a href="{{ if eq $lang "fr" }}/fr/{{ else }}/{{ end }}"
+    <a href="{{ "/" | relLangURL }}"
        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
               bg-brand-600 hover:bg-brand-700 dark:bg-brand-700 dark:hover:bg-brand-600
               text-white font-medium text-sm transition-colors">
@@ -23,7 +23,7 @@
       </svg>
       {{ i18n "not_found_home" }}
     </a>
-    <a href="{{ if eq $lang "fr" }}/fr{{ end }}/docs/"
+    <a href="{{ "/docs/" | relLangURL }}"
        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
               border border-gray-200 dark:border-gray-700
               hover:border-brand-300 dark:hover:border-brand-700

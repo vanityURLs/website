@@ -2,7 +2,6 @@
 title: "lnk deploy"
 description: "Committer et pousser pour déclencher un déploiement Cloudflare."
 nav_order: 26
-translationKey: "cmd-deploy"
 ---
 
 Committe vos modifications en attente et les pousse vers le dépôt distant. Cloudflare Pages détecte le push et déploie vos redirections mises à jour en environ 15 secondes.

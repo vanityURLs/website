@@ -1,0 +1,45 @@
+&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Try Demo — vanityURLs</title>
+    <link>http://localhost:1313/en/docs/demo/</link>
+    <description>Start managing links as code</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/en/docs/demo/index.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>Configuration</title>
+      <link>http://localhost:1313/en/docs/demo/configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/docs/demo/configuration/</guid>
+      <description>The annotated vanityURLs.conf from the v8s.link reference deployment — every variable explained.</description>
+    </item>
+    
+    <item>
+      <title>DNS Setup</title>
+      <link>http://localhost:1313/en/docs/demo/dns/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/docs/demo/dns/</guid>
+      <description>The complete DNS configuration for v8s.link and vanityurls.link, with every record explained.</description>
+    </item>
+    
+    <item>
+      <title>Link Examples</title>
+      <link>http://localhost:1313/en/docs/demo/links/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/docs/demo/links/</guid>
+      <description>The real static.lnk and dynamic.lnk from v8s.link, fully annotated.</description>
+    </item>
+    
+    <item>
+      <title>Repository Structure</title>
+      <link>http://localhost:1313/en/docs/demo/repository/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/en/docs/demo/repository/</guid>
+      <description>Every file in the v8s.link reference repository, what it does, and what you need to change.</description>
+    </item>
+    
+  </channel>
+</rss>

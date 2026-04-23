@@ -1,7 +1,6 @@
 ---
 title: "Confidentialité"
 description: "Politique de confidentialité de vanityURLs.link — pas de tracking, pas d'analytique, pas de collecte de données personnelles."
-translationKey: "privacy"
 ---
 
 ## Notre engagement

@@ -2,7 +2,6 @@
 title: "static.lnk"
 description: "Votre liste de redirections permanentes."
 nav_order: 8
-translationKey: "static-lnk"
 ---
 
 `static.lnk` contient vos redirections **permanentes** — profils sociaux, portfolio, pages de projets.

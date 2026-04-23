@@ -5,7 +5,6 @@ author: "Benoît H. Dicaire"
 description: "Les raccourcisseurs d'URL tiers laissent tomber leurs utilisateurs. Voici pourquoi posséder votre propre infrastructure de redirection est le bon choix."
 tags: ["guide"]
 featured: false
-translationKey: "why-vanityurls"
 ---
 
 Les raccourcisseurs d'URL ressemblent à un problème résolu. Choisissez un service gratuit, collez une longue URL, obtenez une courte. Simple. Pendant des années, des services comme bit.ly, goo.gl et TinyURL ont rendu cela trivial.

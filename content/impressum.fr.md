@@ -1,7 +1,6 @@
 ---
 title: "Mentions légales (Impressum)"
 description: "Mentions légales et informations sur l'opérateur du site vanityURLs.link, conformément aux obligations des utilisateurs en Allemagne, Autriche et Suisse."
-translationKey: "impressum"
 ---
 
 *Ces mentions légales (Impressum) sont fournies conformément au § 5 DDG (Digitale-Dienste-Gesetz, Allemagne), au § 5 ECG (E-Commerce-Gesetz, Autriche) et aux obligations de transparence équivalentes pour les utilisateurs des pays germanophones.*

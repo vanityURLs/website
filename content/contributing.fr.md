@@ -1,7 +1,6 @@
 ---
 title: "Guide de contribution"
 description: "Comment contribuer à vanityURLs — code, documentation, rapports de bugs, et plus."
-translationKey: "contributing"
 ---
 
 Les contributions sont les bienvenues ! vanityURLs reconnaît [tous les types de contributions](https://allcontributors.org/docs/en/emoji-key).

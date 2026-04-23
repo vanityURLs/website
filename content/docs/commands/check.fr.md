@@ -2,7 +2,6 @@
 title: "lnk check"
 description: "Effectuer une vérification HTTP en direct pour valider qu'une redirection fonctionne."
 nav_order: 24
-translationKey: "cmd-check"
 ---
 
 Effectue une requête HTTP en direct pour vérifier qu'un lien court redirige correctement. Rapporte le code de statut, la destination finale et le temps de réponse.

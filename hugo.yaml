@@ -24,17 +24,17 @@ languages:
           title: Resources
           links:
             - name: Documentation
-              url: /en/docs/
+              url: /docs/
             - name: Roadmap
               url: https://github.com/orgs/vanityURLs/projects/1/views/4
               external: true
             - name: Try the Demo
-              url: /en/docs/demo
+              url: /docs/demo/
         col3:
           title: Community
           links:
             - name: Contribution Guide
-              url: /en/contributing/
+              url: /contributing/
             - name: Forum
               url: https://github.com/orgs/vanityURLs/discussions
               external: true
@@ -45,22 +45,22 @@ languages:
           title: Security & Privacy
           links:
             - name: Report Security Issues
-              url: /en/vulnerability/
+              url: /vulnerability/
             - name: Status
               url: https://status.vanityURLs.link
               external: true
             - name: Trust Center
-              url: /en/trust/
+              url: /trust/
     menu:
       main:
         - name: Blog
-          url: /en/blog/
+          pageRef: /blog
           weight: 1
         - name: Documentation
-          url: /en/docs/
+          pageRef: /docs
           weight: 2
         - name: Showcase
-          url: /en/showcase/
+          pageRef: /showcase
           weight: 3
   fr:
     languageCode: fr-FR
@@ -73,9 +73,9 @@ languages:
           title: Ressources
           links:
             - name: Documentation
-              url: /fr/docs/
+              url: /docs/
             - name: Essayer la démo
-              url: /fr/docs/demo
+              url: /docs/demo/
             - name: Feuille de route
               url: https://github.com/orgs/vanityURLs/projects/1/views/4
               external: true
@@ -86,7 +86,7 @@ languages:
               url: https://github.com/vanityURLs/vanityURLs
               external: true
             - name: Guide de contribution
-              url: /fr/contributing/
+              url: /contributing/
             - name: Forum
               url: https://github.com/orgs/vanityURLs/discussions
               external: true
@@ -94,22 +94,22 @@ languages:
           title: Sécurité et confidentialité
           links:
             - name: Centre de confiance
-              url: /fr/trust/
+              url: /trust/
             - name: Signaler un problème de sécurité
-              url: /fr/vulnerability/
+              url: /vulnerability/
             - name: Status
               url: https://status.vanityURLs.link
               external: true
     menu:
       main:
         - name: Blog
-          url: /fr/blog/
+          pageRef: /blog
           weight: 1
         - name: Documentation
-          url: /fr/docs/
+          pageRef: /docs
           weight: 2
         - name: Vitrine
-          url: /fr/showcase/
+          pageRef: /showcase
           weight: 3
 
 params:

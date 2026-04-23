@@ -2,7 +2,6 @@
 title: "Configuration DNS"
 description: "La configuration DNS complète de v8s.link et vanityurls.link, avec chaque enregistrement expliqué."
 nav_order: 34
-translationKey: "demo-dns"
 ---
 
 La configuration DNS est gérée en tant que code via [DNSControl](https://dnscontrol.org/). La source est dans [vanityURLs/dnsConfiguration](https://github.com/vanityURLs/dnsConfiguration/blob/main/domains/vanityURLs.js).

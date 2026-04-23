@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ $lang     := .Site.Language.Lang }}
-{{ $blogURL  := cond (eq $lang "fr") "/fr/blog/" "/blog/" }}
-{{ $tagsBase := cond (eq $lang "fr") "/fr/tags/" "/tags/" }}
+{{ $blogURL  := "/blog/" | relLangURL }}
+{{ $tagsBase := "/tags/" | relLangURL }}
 
 {{ $allPosts := (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
 {{ $curIdx   := 0 }}

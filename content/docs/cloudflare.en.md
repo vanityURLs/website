@@ -2,7 +2,6 @@
 title: "Cloudflare Pages"
 description: "Cloudflare Pages configuration for vanityURLs — deploy hooks, branch previews, environment variables, and plan limits."
 nav_order: 10
-translationKey: "cloudflare-pages"
 ---
 
 vanityURLs is designed to run on [Cloudflare Pages](https://pages.cloudflare.com/). The free plan covers everything most personal and small-team deployments need.

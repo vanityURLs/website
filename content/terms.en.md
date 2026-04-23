@@ -1,7 +1,6 @@
 ---
 title: "Terms of Service"
 description: "Terms of service for vanityURLs.link and the vanityURLs open-source software."
-translationKey: "terms"
 ---
 {{< callout type="note" title="Last reviewed: April 2026" >}}
 {{< /callout >}}

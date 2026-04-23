@@ -4,7 +4,7 @@
   {{ $lang      := .Lang }}
   {{ $isActive  := eq $.Site.Language.Lang $lang }}
   {{/* Default fallback href — root of that language */}}
-  {{ $href := cond (eq $lang "en") "/" (printf "/%s/" $lang) }}
+  {{ $href := printf "/%s/" $lang | relURL }}
   {{/* If a translation of this page exists, link directly to it */}}
   {{ range $translations }}
     {{ if eq .Lang $lang }}{{ $href = .RelPermalink }}{{ end }}

@@ -16,14 +16,15 @@
         <div class="mb-4">
           <p class="sidebar-section-title">{{ .title }}</p>
           {{ range .pages }}
-          {{ $pURL    := .url }}
+          {{ $pURL    := .url | relLangURL }}
           {{ $pNorm   := strings.TrimSuffix "/" $pURL }}
           {{ $hasKids := and .children (gt (len .children) 0) }}
           {{ $selfA   := or (eq $cur $pURL) (eq $norm $pNorm) }}
           {{ $childA  := false }}
           {{ if $hasKids }}
             {{ range .children }}
-              {{ if or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }}{{ $childA = true }}{{ end }}
+              {{ $cURL := .url | relLangURL }}
+              {{ if or (eq $cur $cURL) (eq $norm (strings.TrimSuffix "/" $cURL)) }}{{ $childA = true }}{{ end }}
             {{ end }}
           {{ end }}
           {{ $open := or $selfA $childA }}
@@ -37,8 +38,9 @@
           </a>
           <div class="sidebar-children">
             {{ range .children }}
-            {{ $cA := or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }}
-            <a href="{{ .url }}" class="sidebar-child-link{{ if $cA }} active{{ end }}">{{ .title }}</a>
+            {{ $cURL := .url | relLangURL }}
+            {{ $cA := or (eq $cur $cURL) (eq $norm (strings.TrimSuffix "/" $cURL)) }}
+            <a href="{{ $cURL }}" class="sidebar-child-link{{ if $cA }} active{{ end }}">{{ .title }}</a>
             {{ end }}
           </div>
           {{ else }}
@@ -55,12 +57,10 @@
 
       {{/* Breadcrumb */}}
       {{ $section  := .CurrentSection }}
-      {{ $docsURL  := cond (eq $lang "fr") "/fr/docs/" "/docs/" }}
+      {{ $docsURL  := "/docs/" | relLangURL }}
       {{/* Only show a mid-level crumb when the section is a true sub-section
            (not the docs root itself — which would duplicate "Documentation") */}}
-      {{ $isDocsRoot := or
-          (eq (strings.TrimSuffix "/" $section.RelPermalink) "/docs")
-          (eq (strings.TrimSuffix "/" $section.RelPermalink) "/fr/docs") }}
+      {{ $isDocsRoot := eq (strings.TrimSuffix "/" $section.RelPermalink) (strings.TrimSuffix "/" $docsURL) }}
       {{ if and $section (ne $section.Title .Title) }}
       <nav class="flex items-center gap-1.5 text-xs text-gray-400 dark:text-gray-500 mb-6 flex-wrap" aria-label="Breadcrumb">
         <a href="{{ $docsURL }}"
@@ -88,14 +88,15 @@
           {{ range $nav.sections }}
           <optgroup label="{{ .title }}">
             {{ range .pages }}
-            {{ $pURL := .url }}
+            {{ $pURL := .url | relLangURL }}
             {{ $hasKids := and .children (gt (len .children) 0) }}
             <option value="{{ $pURL }}"{{ if or (eq $cur $pURL) (eq $norm (strings.TrimSuffix "/" $pURL)) }} selected{{ end }}>
               {{ .title }}{{ if $hasKids }} ›{{ end }}
             </option>
             {{ if $hasKids }}
               {{ range .children }}
-              <option value="{{ .url }}"{{ if or (eq $cur .url) (eq $norm (strings.TrimSuffix "/" .url)) }} selected{{ end }}>
+              {{ $cURL := .url | relLangURL }}
+              <option value="{{ $cURL }}"{{ if or (eq $cur $cURL) (eq $norm (strings.TrimSuffix "/" $cURL)) }} selected{{ end }}>
                 &nbsp;&nbsp;&nbsp;{{ .title }}
               </option>
               {{ end }}

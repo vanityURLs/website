@@ -2,7 +2,6 @@
 title: "Configuration"
 description: "Le vanityURLs.conf annoté du déploiement de référence v8s.link — chaque variable expliquée."
 nav_order: 32
-translationKey: "demo-configuration"
 ---
 
 Le fichier `vanityURLs.conf` est la source de vérité pour votre environnement local. Il est lu par le `Makefile` et le script `lnk`. Voici le fichier complet de v8s.link, avec chaque variable expliquée.

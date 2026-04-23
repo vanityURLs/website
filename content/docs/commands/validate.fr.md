@@ -2,7 +2,6 @@
 title: "lnk validate"
 description: "Valider la syntaxe du fichier de redirections et vérifier que les URLs de destination sont accessibles."
 nav_order: 25
-translationKey: "cmd-validate"
 ---
 
 Validez votre configuration de redirections avant de pousser. Effectue deux niveaux de contrôle : **validation de syntaxe** (toujours) et **accessibilité HTTP des destinations** (avec `--live`).

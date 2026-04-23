@@ -4,7 +4,7 @@
 
       <!-- Logo -->
       <div class="flex items-center gap-3 shrink-0">
-        <a href="{{ if eq .Site.Language.Lang "fr" }}/fr/{{ else }}/{{ end }}"
+        <a href="{{ "/" | relLangURL }}"
            class="flex items-center gap-2 hover:opacity-90 transition-opacity">
           <img src="/logo.svg" alt="" class="h-7 w-auto shrink-0" width="28" height="28" aria-hidden="true">
           <span class="font-semibold text-base text-gray-900 dark:text-gray-100 tracking-tight">vanityURLs</span>

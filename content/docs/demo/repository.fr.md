@@ -2,7 +2,6 @@
 title: "Structure du dépôt"
 description: "Chaque fichier du dépôt de référence v8s.link, son rôle, et ce que vous devez modifier."
 nav_order: 31
-translationKey: "demo-repository"
 ---
 
 Le dépôt [v8s.link](https://github.com/vanityURLs/v8s.link) a été généré depuis le modèle `vanityURLs/vanityURLs`. Voici chaque fichier, annoté.

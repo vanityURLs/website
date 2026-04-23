@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 32" fill="none">
+  <!-- Teal rounded badge -->
+  <rect width="40" height="32" rx="6" fill="#0d9488"/>
+  <!-- v8s text centred in badge -->
+  <text x="20" y="22"
+        text-anchor="middle"
+        font-family="Inter,ui-sans-serif,system-ui,sans-serif"
+        font-size="15"
+        font-weight="700"
+        letter-spacing="-0.5"
+        fill="white">v8s</text>
+</svg>

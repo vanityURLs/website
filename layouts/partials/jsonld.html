@@ -7,7 +7,7 @@
 {{- $baseURL   := .Site.BaseURL -}}
 {{- $lang      := .Site.Language.Lang -}}
 {{- $langCode  := .Site.Language.LanguageCode -}}
-{{- $docsBase  := cond (eq $lang "fr") (printf "%sfr/docs/" $baseURL) (printf "%sdocs/" $baseURL) -}}
+{{- $docsBase  := "/docs/" | absLangURL -}}
 
 {{/* ── Person (reused across types) ─────────────────────────── */}}
 {{- $author := dict
@@ -153,7 +153,8 @@
     "item"     $docsBase) -}}
 
 {{- $section     := .CurrentSection -}}
-{{- $isDocsRoot  := or (eq (strings.TrimSuffix "/" $section.RelPermalink) "/docs") (eq (strings.TrimSuffix "/" $section.RelPermalink) "/fr/docs") -}}
+{{- $docsRootPath := "/docs/" | relLangURL | strings.TrimSuffix "/" -}}
+{{- $isDocsRoot  := eq (strings.TrimSuffix "/" $section.RelPermalink) $docsRootPath -}}
 {{- $pos := 2 -}}
 {{- if and (not $isDocsRoot) $section.Parent -}}
   {{- $crumbs = $crumbs | append (dict

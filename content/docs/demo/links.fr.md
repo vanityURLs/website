@@ -2,7 +2,6 @@
 title: "Exemples de liens"
 description: "Les vrais static.lnk et dynamic.lnk de v8s.link, entièrement annotés."
 nav_order: 33
-translationKey: "demo-links"
 ---
 
 Ce sont les vrais fichiers de redirection du [dépôt v8s.link](https://github.com/vanityURLs/v8s.link), annotés pour expliquer chaque règle.

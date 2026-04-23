@@ -2,7 +2,6 @@
 title: "lnk list"
 description: "Lister les règles de redirection de static.lnk et dynamic.lnk."
 nav_order: 23
-translationKey: "cmd-list"
 ---
 
 Affiche les règles de redirection. Par défaut, montre toutes les règles des deux fichiers.

@@ -1,7 +1,6 @@
 ---
 title: "Licence"
 description: "vanityURLs est publié sous la licence MIT."
-translationKey: "license"
 ---
 
 vanityURLs est un logiciel open source publié sous la **licence MIT**.

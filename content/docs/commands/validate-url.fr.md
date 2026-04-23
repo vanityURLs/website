@@ -2,7 +2,6 @@
 title: "validateURL"
 description: "Le script validateURL — vérifiez qu'une URL est accessible avant de la committer comme destination de redirection."
 nav_order: 27
-translationKey: "validateurl"
 ---
 
 `validateURL` est un script bash autonome installé avec `lnk` par `make setup`. Il effectue une vérification HTTP en direct sur n'importe quelle URL et indique si elle est accessible, le code de statut retourné et le temps de réponse.

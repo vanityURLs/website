@@ -2,51 +2,51 @@ sections:
   - title: Démarrage
     pages:
       - title: Installation
-        url: /fr/docs/getting-started/
+        url: /docs/getting-started/
       - title: Makefile
-        url: /fr/docs/makefile/
+        url: /docs/makefile/
 
   - title: Commandes
     pages:
       - title: Toutes les commandes
-        url: /fr/docs/commands/
+        url: /docs/commands/
       - title: lnk add
-        url: /fr/docs/commands/add/
+        url: /docs/commands/add/
       - title: lnk remove
-        url: /fr/docs/commands/remove/
+        url: /docs/commands/remove/
       - title: lnk list
-        url: /fr/docs/commands/list/
+        url: /docs/commands/list/
       - title: lnk check
-        url: /fr/docs/commands/check/
+        url: /docs/commands/check/
       - title: lnk validate
-        url: /fr/docs/commands/validate/
+        url: /docs/commands/validate/
       - title: validateURL
-        url: /fr/docs/commands/validate-url/
+        url: /docs/commands/validate-url/
       - title: lnk deploy
-        url: /fr/docs/commands/deploy/
+        url: /docs/commands/deploy/
 
   - title: Référence
     pages:
       - title: _redirects
-        url: /fr/docs/build/_redirects/
+        url: /docs/build/_redirects/
       - title: _headers
-        url: /fr/docs/build/_headers/
+        url: /docs/build/_headers/
       - title: static.lnk
-        url: /fr/docs/static.lnk/
+        url: /docs/static.lnk/
       - title: dynamic.lnk
-        url: /fr/docs/dynamic.lnk/
+        url: /docs/dynamic.lnk/
       - title: Cloudflare Pages
-        url: /fr/docs/cloudflare/
+        url: /docs/cloudflare/
 
   - title: Démo
     pages:
       - title: Vue d'ensemble
-        url: /fr/docs/demo/
+        url: /docs/demo/
       - title: Structure du dépôt
-        url: /fr/docs/demo/repository/
+        url: /docs/demo/repository/
       - title: Configuration
-        url: /fr/docs/demo/configuration/
+        url: /docs/demo/configuration/
       - title: Exemples de liens
-        url: /fr/docs/demo/links/
+        url: /docs/demo/links/
       - title: Configuration DNS
-        url: /fr/docs/demo/dns/
+        url: /docs/demo/dns/

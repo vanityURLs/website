@@ -6,7 +6,7 @@
 
       <!-- Column 1: Logo + slogan -->
       <div class="col-span-2 md:col-span-1">
-       <a href="/{{ $lang }}" class="inline-flex items-center gap-2 mb-3 hover:opacity-90 transition-opacity">
+       <a href="{{ "/" | relLangURL }}" class="inline-flex items-center gap-2 mb-3 hover:opacity-90 transition-opacity">
           <img src="/logo.svg" alt=""
                class="h-8 w-auto shrink-0"
                width="32" height="32" aria-hidden="true">
@@ -32,7 +32,7 @@
         <ul class="space-y-2">
           {{ range .links }}
           <li>
-            {{ $footerURL := .url }}
+            {{ $footerURL := cond (eq .external true) .url (.url | relLangURL) }}
 
             <a href="{{ $footerURL }}"
                {{ if .external }}target="_blank" rel="noopener"{{ end }}

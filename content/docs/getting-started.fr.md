@@ -2,7 +2,6 @@
 title: "Installation"
 description: "Configurez vanityURLs sur votre propre domaine en quatre étapes avec GitHub et Cloudflare Pages."
 nav_order: 1
-translationKey: "getting-started"
 ---
 
 vanityURLs fonctionne entièrement sur l'infrastructure que vous contrôlez déjà — un dépôt GitHub, un nom de domaine, et un compte Cloudflare gratuit. Il n'y a rien à installer sur votre machine en dehors du script CLI optionnel.

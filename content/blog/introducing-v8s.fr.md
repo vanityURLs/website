@@ -5,7 +5,6 @@ author: "Félix Léger"
 description: "Les raccourcisseurs d'URL tiers laissent tomber leurs utilisateurs. vanityURLs vous redonne le contrôle de vos liens."
 tags: ["release", "guide"]
 featured: true
-translationKey: "introducing-v8s"
 ---
 
 Pendant des années, des services comme bit.ly, goo.gl et tinyurl ont été les outils de référence pour partager des liens compacts. Ces services étaient gratuits et pratiques — mais le paysage est en train de changer, et pas pour le mieux.

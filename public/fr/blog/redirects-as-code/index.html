@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="fr-FR" class="h-full">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+  <script>
+    (function() {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<title>Les redirections comme code : gérer les liens courts à la façon GitOps — vanityURLs</title>
+<meta name="description" content="Que se passe-t-il quand vous traitez vos redirections d&#39;URL comme de l&#39;infrastructure — versionnée, revue et déployée via CI/CD ?">
+<meta name="language" content="fr-FR">
+<meta name="author" content="Benoît H. Dicaire">
+
+
+<link rel="canonical" href="http://localhost:1313/fr/blog/redirects-as-code/">
+
+
+
+
+
+
+<meta property="og:type"        content="article">
+<meta property="og:title"       content="Les redirections comme code : gérer les liens courts à la façon GitOps">
+<meta property="og:description" content="Que se passe-t-il quand vous traitez vos redirections d&#39;URL comme de l&#39;infrastructure — versionnée, revue et déployée via CI/CD ?">
+<meta property="og:url"         content="http://localhost:1313/fr/blog/redirects-as-code/">
+<meta property="og:site_name"   content="vanityURLs">
+<meta property="og:locale"      content="fr-FR">
+
+
+
+
+<meta property="og:image"         content="http://localhost:1313/social.png">
+<meta property="og:image:alt"     content="vanityURLs — Gérez vos liens comme du code">
+<meta property="og:image:type"    content="image/png">
+<meta property="og:image:width"   content="1200">
+<meta property="og:image:height"  content="630">
+
+
+
+<meta property="article:published_time" content="2025-03-10T00:00:00Z">
+<meta property="article:modified_time" content="2026-04-07T20:21:15-04:00">
+<meta property="article:author" content="Benoît H. Dicaire">
+<meta property="article:tag" content="guide"><meta property="article:tag" content="tutorial">
+
+
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Les redirections comme code : gérer les liens courts à la façon GitOps">
+<meta name="twitter:description" content="Que se passe-t-il quand vous traitez vos redirections d&#39;URL comme de l&#39;infrastructure — versionnée, revue et déployée via CI/CD ?">
+<meta name="twitter:image"       content="http://localhost:1313/social.png">
+<meta name="twitter:image:alt"   content="vanityURLs — Gérez vos liens comme du code">
+
+
+
+<link rel="alternate" hreflang="en-US" href="http://localhost:1313/en/blog/redirects-as-code/">
+
+<link rel="alternate" hreflang="fr-FR" href="http://localhost:1313/fr/blog/redirects-as-code/">
+
+<link rel="alternate" hreflang="x-default" href="http://localhost:1313/">
+
+
+
+
+<link rel="stylesheet" href="/css/main.min.a25dc6e2406027d29fd456f104af0240e64d62ac0ff72844704accf848674a23.css" integrity="sha256-ol3G4kBgJ9Kf1FbxBK8CQOZNYqwP9yhEcErM&#43;EhnSiM=">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": "http:\/\/localhost:1313\/fr\/blog\/redirects-as-code\/#post",
+  "headline": "\"Les redirections comme code : gérer les liens courts à la façon GitOps\"",
+  "description": "\"Que se passe-t-il quand vous traitez vos redirections d'URL comme de l'infrastructure — versionnée, revue et déployée via CI/CD ?\"",
+  "url": "http:\/\/localhost:1313\/fr\/blog\/redirects-as-code\/",
+  "inLanguage": "fr-FR",
+  "datePublished": "2025-03-10T00:00:00Z",
+  "dateModified": "2026-04-07T20:21:15-04:00",
+  "author": "{\"@type\":\"Person\",\"name\":\"Benoît H. Dicaire\"}",
+  "publisher": "{\"@type\":\"Organization\",\"logo\":{\"@type\":\"ImageObject\",\"url\":\"http://localhost:1313/logo.svg\"},\"name\":\"vanityURLs\",\"sameAs\":[\"https://github.com/vanityURLs\"],\"url\":\"http://localhost:1313/\"}",
+  "isPartOf": {
+    "@type": "Blog",
+    "@id": "http:\/\/localhost:1313\/blog\/#blog",
+    "name": "vanityURLs Blog"
+  },
+  "keywords": "[\"guide\",\"tutorial\"]"
+}
+</script>
+
+
+
+
+
+
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0d9488" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d9488" media="(prefers-color-scheme: dark)">
+
+</head>
+<body class="flex flex-col min-h-full bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+
+  
+  <a href="#main-content"
+     class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50
+            focus:px-4 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded-lg
+            focus:text-sm focus:font-medium">
+    Aller au contenu
+  </a>
+
+  <header class="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 sticky top-0 z-40 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-14 gap-4">
+
+      
+      <div class="flex items-center gap-3 shrink-0">
+        <a href="/fr/"
+           class="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <img src="/logo.svg" alt="" class="h-7 w-auto shrink-0" width="28" height="28" aria-hidden="true">
+          <span class="font-semibold text-base text-gray-900 dark:text-gray-100 tracking-tight">vanityURLs</span>
+        </a>
+      </div>
+
+      
+      <div class="hidden md:flex flex-1 max-w-xs">
+        
+        
+
+
+<button id="search-trigger"
+        class="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-500 dark:text-gray-400
+               bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700
+               border border-gray-200 dark:border-gray-700 rounded-lg transition-colors"
+        aria-label="Rechercher dans la doc">
+  <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+  </svg>
+  <span class="hidden sm:inline">Rechercher dans la doc</span>
+  <kbd class="hidden sm:inline ml-1 px-1.5 py-0.5 text-xs bg-white dark:bg-gray-700
+              border border-gray-300 dark:border-gray-600 rounded font-mono dark:text-gray-300">⌘K</kbd>
+</button>
+
+
+        
+      </div>
+
+      
+      <div class="hidden md:flex items-center gap-1 shrink-0">
+        <nav class="flex items-center">
+          
+          
+          
+          <a href="/fr/blog/"
+             
+             class="nav-link px-3 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            Blog
+          </a>
+          
+          
+          
+          <a href="/fr/docs/"
+             
+             class="nav-link px-3 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            Documentation
+          </a>
+          
+          
+          
+          <a href="/fr/showcase/"
+             
+             class="nav-link px-3 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            Vitrine
+          </a>
+          
+          
+        </nav>
+
+        
+        <div class="flex items-center gap-1 ml-2">
+          <button onclick="toggleTheme()" class="dark-toggle" aria-label="Basculer le mode sombre">
+            <svg class="dark-icon-sun w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="5"/>
+              <path stroke-linecap="round" stroke-width="2"
+                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42 M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+            <svg class="dark-icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+          
+<div class="flex items-center border border-gray-200 rounded-md overflow-hidden text-xs font-medium">
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <a href="/en/blog/redirects-as-code/"
+     hreflang="en"
+     class="text-gray-500 hover:text-gray-800 hover:bg-gray-50 px-2.5 py-1 transition-colors"
+     >
+    EN
+  </a>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <a href="/fr/"
+     hreflang="fr"
+     class="bg-brand-600 text-white px-2.5 py-1 transition-colors"
+     aria-current="true">
+    FR
+  </a>
+  
+</div>
+
+        </div>
+      </div>
+
+      
+      <div class="md:hidden flex items-center gap-1">
+        <button id="mobile-search-trigger"
+                class="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
+                aria-label="Rechercher dans la doc">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </button>
+        <button onclick="toggleTheme()" class="dark-toggle" aria-label="Basculer le mode sombre">
+          <svg class="dark-icon-sun w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"/>
+            <path stroke-linecap="round" stroke-width="2"
+                  d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42 M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <svg class="dark-icon-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+        
+<div class="flex items-center border border-gray-200 rounded-md overflow-hidden text-xs font-medium">
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <a href="/en/blog/redirects-as-code/"
+     hreflang="en"
+     class="text-gray-500 hover:text-gray-800 hover:bg-gray-50 px-2.5 py-1 transition-colors"
+     >
+    EN
+  </a>
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  <a href="/fr/"
+     hreflang="fr"
+     class="bg-brand-600 text-white px-2.5 py-1 transition-colors"
+     aria-current="true">
+    FR
+  </a>
+  
+</div>
+
+        <button id="mobile-menu-toggle"
+                class="p-2 rounded text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+                aria-label="Toggle menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+  <nav id="mobile-menu"
+       class="hidden md:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 space-y-1">
+    
+    
+    <a href="/fr/blog/"
+       
+       class="block px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
+              hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded">
+      Blog
+    </a>
+    
+    
+    
+    <a href="/fr/docs/"
+       
+       class="block px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
+              hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded">
+      Documentation
+    </a>
+    
+    
+    
+    <a href="/fr/showcase/"
+       
+       class="block px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
+              hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded">
+      Vitrine
+    </a>
+    
+    
+  </nav>
+</header>
+
+
+<div id="search-modal"
+     class="hidden fixed inset-0 z-50 flex items-start justify-center pt-16 px-4"
+     role="dialog" aria-modal="true" aria-label="Rechercher dans la doc">
+  <div id="search-backdrop"
+       class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
+  <div class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl
+              border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex items-center gap-2">
+      <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <input id="search-input"
+             type="search"
+             placeholder="Rechercher dans la doc…"
+             autocomplete="off"
+             class="flex-1 bg-transparent text-gray-900 dark:text-gray-100
+                    placeholder-gray-400 dark:placeholder-gray-500 text-sm
+                    outline-none border-none focus:ring-0"
+             aria-label="Rechercher dans la doc">
+      <kbd class="px-1.5 py-0.5 text-xs text-gray-400 dark:text-gray-500
+                  border border-gray-200 dark:border-gray-600 rounded font-mono">Esc</kbd>
+    </div>
+    <div id="search-results"
+         class="overflow-y-auto max-h-96 divide-y divide-gray-100 dark:divide-gray-700">
+      <p id="search-placeholder-msg"
+         class="px-4 py-8 text-center text-sm text-gray-400 dark:text-gray-500">
+        Rechercher dans la doc…
+      </p>
+    </div>
+  </div>
+</div>
+
+
+
+  
+
+  <main id="main-content" class="flex-1" data-pagefind-body>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+
+
+<div id="reading-progress"
+     class="fixed top-0 left-0 h-0.5 bg-brand-500 dark:bg-brand-400 z-50 transition-none"
+     style="width:0%"></div>
+
+<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+  
+  <a href="/fr/blog/"
+     class="inline-flex items-center gap-1.5 text-sm text-gray-400 dark:text-gray-500
+            hover:text-brand-600 dark:hover:text-brand-400 transition-colors mb-8">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+    Retour au blog
+  </a>
+
+  
+  <div class="rounded-lg h-1.5 mb-8 blog-cover-tutorial"></div>
+
+  
+  <div class="flex flex-wrap gap-2 mb-4">
+    
+    <a href="/fr/tags/guide/" class="tag-pill">guide</a>
+    
+    <a href="/fr/tags/tutorial/" class="tag-pill">tutorial</a>
+    
+  </div>
+
+  
+  <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight mb-6">
+    Les redirections comme code : gérer les liens courts à la façon GitOps
+  </h1>
+
+  
+  <div class="flex flex-wrap items-center justify-between gap-4 pb-6 mb-8
+              border-b border-gray-100 dark:border-gray-800">
+    <div class="flex flex-wrap items-center gap-4">
+      
+      <div class="flex items-center gap-2">
+        <span class="author-avatar">B</span>
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Benoît H. Dicaire</span>
+      </div>
+      
+      <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500">
+        <time datetime="2025-03-10">March 10, 2025</time>
+        <span>·</span><span>2 min de lecture</span>
+      </div>
+    </div>
+
+    
+    
+    
+    <div class="flex items-center gap-2">
+      <span class="text-xs text-gray-400 dark:text-gray-500 mr-1">Share:</span>
+      <a href="https://x.com/intent/post?url=http%2f%2flocalhost1313%2ffr%2fblog%2fredirects-as-code%2f&text=les-redirections-comme-code-g%25C3%25A9rer-les-liens-courts-%25C3%25A0-la-fa%25C3%25A7on-gitops"
+         target="_blank" rel="noopener"
+         class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
+                hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+         aria-label="Share on X">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%2f%2flocalhost1313%2ffr%2fblog%2fredirects-as-code%2f&title=les-redirections-comme-code-g%25C3%25A9rer-les-liens-courts-%25C3%25A0-la-fa%25C3%25A7on-gitops"
+         target="_blank" rel="noopener"
+         class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
+                hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+         aria-label="Share on LinkedIn">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+      <button id="copy-link-btn"
+              class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
+                     hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              aria-label="Copy link">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  
+  <div class="prose dark:prose-invert max-w-none" data-pagefind-body>
+    <p>La plupart des raccourcisseurs d&rsquo;URL sont des boîtes noires. Vous vous connectez via une interface web, créez un lien, et espérez que le service continue de fonctionner. Quand quelque chose tourne mal, il n&rsquo;y a pas de trace d&rsquo;audit, pas de retour arrière, aucun moyen de savoir qui a modifié quoi et quand.</p>
+<p>vanityURLs adopte une approche différente : vos redirections vivent dans un fichier texte, dans un dépôt Git, déployé via Cloudflare Pages. C&rsquo;est le GitOps appliqué à la gestion d&rsquo;URL.</p>
+<h2 id="le-fichier-est-la-source-de-vérité">Le fichier est la source de vérité</h2>
+<p>Toute votre table de redirections tient en deux fichiers :</p>
+<pre tabindex="0"><code># static.lnk — liens permanents
+/github      https://github.com/bhdicaire         301
+/linkedin    https://linkedin.com/in/bhdicaire    301
+
+# dynamic.lnk — liens temporaires
+/devconf     https://devconf.cz/talk/2025         302
+</code></pre><p>Ces fichiers sont fusionnés au moment du build :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat static.lnk dynamic.lnk &gt; build/_redirects
+</span></span></code></pre></div><p>C&rsquo;est tout le pipeline. Aucune base de données. Aucune API. Aucun serveur.</p>
+<h2 id="chaque-changement-est-un-commit">Chaque changement est un commit</h2>
+<p>Quand vous ajoutez un lien avec <code>lnk add</code> :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lnk add /github https://github.com/bhdicaire
+</span></span><span style="display:flex;"><span>lnk deploy <span style="color:#0a3069">&#34;ajout du lien github&#34;</span>
+</span></span></code></pre></div><p>Vous disposez d&rsquo;une trace complète :</p>
+<ul>
+<li><strong>Qui</strong> a fait le changement (auteur Git)</li>
+<li><strong>Quand</strong> c&rsquo;est arrivé (horodatage du commit)</li>
+<li><strong>Ce qui</strong> a changé (diff)</li>
+<li><strong>Pourquoi</strong> (message de commit)</li>
+</ul>
+<h2 id="pull-requests-pour-la-revue-des-liens">Pull requests pour la revue des liens</h2>
+<p>Pour les équipes, vous pouvez exiger une approbation de pull request avant qu&rsquo;une redirection soit mise en ligne :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#57606a"># .github/branch-protection.yml</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#0550ae">main</span><span style="color:#1f2328">:</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span><span style="color:#0550ae">required_pull_request_reviews</span><span style="color:#1f2328">:</span><span style="color:#fff"> </span><span style="color:#0550ae">1</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">  </span><span style="color:#0550ae">require_status_checks</span><span style="color:#1f2328">:</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>- lnk validate --live<span style="color:#fff">
+</span></span></span></code></pre></div><h2 id="le-retour-arrière-cest-juste-git-revert">Le retour arrière, c&rsquo;est juste <code>git revert</code></h2>
+<p>Avec vanityURLs, revenir en arrière est immédiat :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git revert a3f7c12 --no-edit <span style="color:#0550ae">&amp;&amp;</span> git push
+</span></span><span style="display:flex;"><span><span style="color:#57606a"># Cloudflare déploie la correction en 15 secondes</span>
+</span></span></code></pre></div><h2 id="létape-de-validation">L&rsquo;étape de validation</h2>
+<p>Avant tout déploiement, <code>lnk validate</code> détecte les erreurs courantes :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f7f7f7;-moz-tab-size:2;-o-tab-size:2;tab-size:2;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ lnk validate --live
+</span></span><span style="display:flex;"><span>Validation de static.lnk... OK ✓
+</span></span><span style="display:flex;"><span>Validation de dynamic.lnk...
+</span></span><span style="display:flex;"><span>  AVERTISSEMENT : /ancien-summit → https://summit2023.example.com  <span style="color:#0550ae">(</span><span style="color:#0550ae">404</span> Not Found<span style="color:#0550ae">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0550ae">1</span> avertissement trouvé.
+</span></span></code></pre></div><p>C&rsquo;est le même principe que <code>terraform plan</code> avant <code>terraform apply</code>.</p>
+<p><a href="/fr/docs/commands/">Lire la référence complète des commandes →</a></p>
+
+  </div>
+
+  
+  <div class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-800
+              flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3
+              text-xs text-gray-400 dark:text-gray-500">
+    
+    <a href="https://github.com/vanityURLs/website/edit/main/content/fr/blog/redirects-as-code.fr.md"
+       target="_blank" rel="noopener"
+       class="inline-flex items-center gap-1.5 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+      </svg>
+      Modifier cette page
+    </a>
+    
+    
+    <span class="flex items-center gap-1.5">
+      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+      Dernière modification: <time datetime="2026-04-07">April 7, 2026</time>
+    </span>
+    
+  </div>
+
+  
+  <nav class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Post navigation">
+    <div>
+      
+    </div>
+    <div>
+      
+      <a href="/fr/blog/why-vanityurls/"
+         class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-700
+                hover:border-brand-300 dark:hover:border-brand-600 transition-colors text-right">
+        <span class="text-xs text-gray-400 dark:text-gray-500 block mb-1">Articles précédents →</span>
+        <span class="text-sm font-medium text-gray-700 dark:text-gray-300
+                     group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors line-clamp-2">
+          Pourquoi vanityURLs ? Le cas pour posséder vos liens courts
+        </span>
+      </a>
+      
+    </div>
+  </nav>
+
+  
+  
+  
+  <section class="mt-12 pt-10 border-t border-gray-100 dark:border-gray-800">
+    <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-5">Plus d&#39;articles</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      
+      
+      
+      <a href="/fr/blog/why-vanityurls/" class="blog-card group">
+        <div class="blog-cover blog-cover-guide"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <time datetime="2025-01-20">Jan 20, 2025</time>
+          </div>
+          <h3 class="blog-card-title text-sm">Pourquoi vanityURLs ? Le cas pour posséder vos liens courts</h3>
+        </div>
+      </a>
+      
+      
+      
+      <a href="/fr/blog/introducing-v8s/" class="blog-card group">
+        <div class="blog-cover blog-cover-guide"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-meta">
+            <time datetime="2024-08-16">Aug 16, 2024</time>
+          </div>
+          <h3 class="blog-card-title text-sm">Dites adieu aux raccourcisseurs d&#39;URL tiers : voici VanityURLs</h3>
+        </div>
+      </a>
+      
+    </div>
+  </section>
+  
+
+</article>
+
+<script>
+
+(function() {
+  var bar = document.getElementById('reading-progress');
+  if (!bar) return;
+  function update() {
+    var doc   = document.documentElement;
+    var total = doc.scrollHeight - doc.clientHeight;
+    var pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+    bar.style.width = Math.min(pct, 100) + '%';
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+
+(function() {
+  var btn = document.getElementById('copy-link-btn');
+  if (!btn || !navigator.clipboard) return;
+  btn.addEventListener('click', function() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+      btn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
+      setTimeout(function() {
+        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>';
+      }, 2000);
+    });
+  });
+})();
+</script>
+
+  </main>
+
+  
+
+<footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-16 transition-colors duration-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+
+      
+      <div class="col-span-2 md:col-span-1">
+       <a href="/fr/" class="inline-flex items-center gap-2 mb-3 hover:opacity-90 transition-opacity">
+          <img src="/logo.svg" alt=""
+               class="h-8 w-auto shrink-0"
+               width="32" height="32" aria-hidden="true">
+          <span class="font-semibold text-base text-gray-900 dark:text-gray-100 tracking-tight">
+            vanityURLs
+          </span>
+        </a>
+        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-48">
+          Gérez vos liens comme du code
+        </p>
+      </div>
+
+      
+      
+
+      
+      
+      
+      <div>
+        <h3 class="text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-3">
+          Ressources
+        </h3>
+        <ul class="space-y-2">
+          
+          <li>
+            
+
+            <a href="/fr/docs/"
+               
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Documentation
+            </a>
+          </li>
+          
+          <li>
+            
+
+            <a href="/fr/docs/demo/"
+               
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Essayer la démo
+            </a>
+          </li>
+          
+          <li>
+            
+
+            <a href="https://github.com/orgs/vanityURLs/projects/1/views/4"
+               target="_blank" rel="noopener"
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Feuille de route
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      
+      <div>
+        <h3 class="text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-3">
+          Communauté
+        </h3>
+        <ul class="space-y-2">
+          
+          <li>
+            
+
+            <a href="https://github.com/vanityURLs/vanityURLs"
+               target="_blank" rel="noopener"
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Code source
+            </a>
+          </li>
+          
+          <li>
+            
+
+            <a href="/fr/contributing/"
+               
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Guide de contribution
+            </a>
+          </li>
+          
+          <li>
+            
+
+            <a href="https://github.com/orgs/vanityURLs/discussions"
+               target="_blank" rel="noopener"
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Forum
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+      
+      
+      <div>
+        <h3 class="text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-3">
+          Sécurité et confidentialité
+        </h3>
+        <ul class="space-y-2">
+          
+          <li>
+            
+
+            <a href="/fr/trust/"
+               
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Centre de confiance
+            </a>
+          </li>
+          
+          <li>
+            
+
+            <a href="/fr/vulnerability/"
+               
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Signaler un problème de sécurité
+            </a>
+          </li>
+          
+          <li>
+            
+
+            <a href="https://status.vanityURLs.link"
+               target="_blank" rel="noopener"
+               class="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
+              Status
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+      
+      
+    </div>
+
+    <div class="mt-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3
+                text-xs text-gray-400 dark:text-gray-500">
+      <p> &copy; 2026 Benoît H. Dicaire, tous droits réservés</p>
+
+    </div>
+  </div>
+</footer>
+
+
+  
+  
+<div id="search-modal"
+     class="hidden fixed inset-0 z-50 flex items-start justify-center pt-16 px-4"
+     role="dialog" aria-modal="true" aria-label="Rechercher dans la doc">
+  <div id="search-backdrop"
+       class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
+  <div class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl
+              border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex items-center gap-2">
+      <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <input id="search-input"
+             type="search"
+             placeholder="Rechercher dans la doc…"
+             autocomplete="off"
+             class="flex-1 bg-transparent text-gray-900 dark:text-gray-100
+                    placeholder-gray-400 dark:placeholder-gray-500 text-sm
+                    outline-none border-none focus:ring-0"
+             aria-label="Rechercher dans la doc">
+      <kbd class="px-1.5 py-0.5 text-xs text-gray-400 dark:text-gray-500
+                  border border-gray-200 dark:border-gray-600 rounded font-mono">Esc</kbd>
+    </div>
+    <div id="search-results"
+         class="overflow-y-auto max-h-96 divide-y divide-gray-100 dark:divide-gray-700">
+      <p id="search-placeholder-msg"
+         class="px-4 py-8 text-center text-sm text-gray-400 dark:text-gray-500">
+        Rechercher dans la doc…
+      </p>
+    </div>
+  </div>
+</div>
+
+
+  <script src="/pagefind/pagefind-ui.js" defer></script>
+  <script>
+  
+  function setTheme(t) {
+    document.documentElement.classList.toggle('dark', t === 'dark');
+    localStorage.setItem('theme', t);
+    document.querySelectorAll('.dark-icon-moon, .dark-icon-sun').forEach(function(el) {
+      el.classList.toggle('hidden',
+        t === 'dark' ? el.classList.contains('dark-icon-moon')
+                     : el.classList.contains('dark-icon-sun'));
+    });
+  }
+  function toggleTheme() {
+    setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark');
+  }
+  (function() {
+    var dark = document.documentElement.classList.contains('dark');
+    document.querySelectorAll('.dark-icon-moon').forEach(function(el) { el.classList.toggle('hidden', dark); });
+    document.querySelectorAll('.dark-icon-sun').forEach(function(el) { el.classList.toggle('hidden', !dark); });
+  })();
+
+  
+  var menuToggle = document.getElementById('mobile-menu-toggle');
+  var mobileMenu = document.getElementById('mobile-menu');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', function() { mobileMenu.classList.toggle('hidden'); });
+  }
+
+  
+  document.querySelectorAll('.sidebar-link, .sidebar-parent, .sidebar-child-link').forEach(function(el) {
+    var href = el.getAttribute('href');
+    if (href && href.replace(/\/$/, '') === location.pathname.replace(/\/$/, '')) {
+      el.classList.add('active');
+    }
+  });
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('article h2, article h3, article h4').forEach(function(h) {
+      if (!h.id) return;
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.className = 'anchor-link';
+      a.setAttribute('aria-label', 'Link to this section');
+      a.innerHTML = '#';
+      h.appendChild(a);
+    });
+  });
+
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('pre').forEach(function(pre) {
+      if (!navigator.clipboard) return;
+      var btn = document.createElement('button');
+      btn.className = 'copy-btn';
+      btn.setAttribute('aria-label', 'Copy code');
+      btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+      pre.style.position = 'relative';
+      pre.appendChild(btn);
+      btn.addEventListener('click', async function() {
+        var code = (pre.querySelector('code') || pre).innerText;
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.classList.add('copied');
+          btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+          setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+          }, 2000);
+        } catch(e) {}
+      });
+    });
+  });
+
+  
+  var searchModal      = document.getElementById('search-modal');
+  var searchBackdrop   = document.getElementById('search-backdrop');
+  var searchInput      = document.getElementById('search-input');
+  var searchResults    = document.getElementById('search-results');
+  var searchPlaceholder= document.getElementById('search-placeholder-msg');
+  var searchTrigger    = document.getElementById('search-trigger');
+  var mobileSearch     = document.getElementById('mobile-search-trigger');
+  var searchDebounce   = null;
+  var pagefindModule   = null;   
+  var pagefindLoading  = false;
+
+  
+  
+  
+  async function loadPagefind() {
+    if (pagefindModule) return pagefindModule;
+    if (pagefindLoading) return null;
+    pagefindLoading = true;
+    try {
+      var pf = await import('/pagefind/pagefind.js');
+      await pf.init();
+      pagefindModule = pf;
+      return pf;
+    } catch(e) {
+      pagefindLoading = false; 
+      return null;
+    }
+  }
+
+  function clearResults() {
+    if (!searchResults) return;
+    Array.from(searchResults.children).forEach(function(c) {
+      if (c.id !== 'search-placeholder-msg') c.remove();
+    });
+  }
+
+  function showMsg(text) {
+    clearResults();
+    if (searchPlaceholder) {
+      searchPlaceholder.classList.remove('hidden');
+      searchPlaceholder.textContent = text;
+    }
+  }
+
+  function openSearch() {
+    if (!searchModal) return;
+    searchModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function() {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+        showMsg('Rechercher dans la doc…');
+      }
+    });
+    
+    loadPagefind();
+  }
+
+  function closeSearch() {
+    if (searchModal) searchModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  
+  if (searchTrigger) searchTrigger.addEventListener('click', openSearch);
+  if (mobileSearch)  mobileSearch.addEventListener('click', openSearch);
+  if (searchBackdrop) searchBackdrop.addEventListener('click', closeSearch);
+  document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
+    if (e.key === 'Escape') closeSearch();
+  });
+  
+  document.getElementById('search-modal')?.querySelector('.relative')?.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
+
+  
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      var q = searchInput.value.trim();
+      clearTimeout(searchDebounce);
+      if (!q) { showMsg('Rechercher dans la doc…'); return; }
+      searchDebounce = setTimeout(function() { runSearch(q); }, 200);
+    });
+  }
+
+  async function runSearch(q) {
+    var pf = await loadPagefind();
+    if (!pf) {
+      showMsg('Run "npm run index" once to enable search.');
+      return;
+    }
+    try {
+      var result = await pf.search(q);
+      renderResults(result.results, q);
+    } catch(e) {
+      showMsg('Search error. Try rebuilding the index.');
+    }
+  }
+
+  function renderResults(results, q) {
+    clearResults();
+    if (!results || !results.length) {
+      showMsg('No results for "' + q + '"');
+      return;
+    }
+    if (searchPlaceholder) searchPlaceholder.classList.add('hidden');
+
+    
+    Promise.all(results.slice(0, 8).map(function(r) { return r.data(); }))
+      .then(function(items) {
+        items.forEach(function(item) {
+          var a = document.createElement('a');
+          a.href = item.url;
+          a.className = [
+            'flex', 'flex-col', 'px-4', 'py-3', 'no-underline',
+            'hover:bg-gray-50', 'dark:hover:bg-gray-700/50',
+            'transition-colors', 'cursor-pointer'
+          ].join(' ');
+          a.addEventListener('click', closeSearch);
+
+          var title = document.createElement('span');
+          title.className = 'text-sm font-medium text-gray-900 dark:text-gray-100 mb-0.5';
+          title.textContent = item.meta && item.meta.title ? item.meta.title : item.url;
+
+          var excerpt = document.createElement('span');
+          excerpt.className = 'text-xs text-gray-500 dark:text-gray-400 line-clamp-2 leading-relaxed';
+          excerpt.innerHTML = item.excerpt || '';   
+
+          a.appendChild(title);
+          a.appendChild(excerpt);
+          searchResults.appendChild(a);
+        });
+      });
+  }
+
+  
+  (function() {
+    var tocLinks = document.querySelectorAll('.toc a');
+    if (!tocLinks.length) return;
+    var headings = Array.from(document.querySelectorAll('article h2, article h3'));
+    var current = '';
+    function onScroll() {
+      var sy = window.scrollY + 110;
+      headings.forEach(function(h) { if (h.offsetTop <= sy) current = '#' + h.id; });
+      tocLinks.forEach(function(a) { a.classList.toggle('active', a.getAttribute('href') === current); });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+  </script>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    if (typeof mermaid === 'undefined') return;
+    var dark = document.documentElement.classList.contains('dark');
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: dark ? 'dark' : 'default',
+      securityLevel: 'loose',
+      fontFamily: 'Inter, system-ui, sans-serif',
+    });
+    
+    var origToggle = window.toggleTheme;
+    window.toggleTheme = function() {
+      origToggle();
+      var isDark = document.documentElement.classList.contains('dark');
+      mermaid.initialize({ startOnLoad: false, theme: isDark ? 'dark' : 'default' });
+      document.querySelectorAll('.mermaid[data-processed]').forEach(function(el) {
+        el.removeAttribute('data-processed');
+        el.innerHTML = el.getAttribute('data-original') || el.innerHTML;
+      });
+      mermaid.run();
+    };
+  });
+  </script>
+
+</body>
+</html>
+
+<script>
+
+(function() {
+  
+  document.querySelectorAll('[aria-haspopup="true"]').forEach(function(btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!panel) return;
+
+    function openMenu() {
+      btn.setAttribute('aria-expanded', 'true');
+      
+      panel.querySelectorAll('[role="menuitem"]').forEach(function(item) {
+        item.setAttribute('tabindex', '0');
+      });
+      
+      var first = panel.querySelector('[role="menuitem"]');
+      if (first) setTimeout(function() { first.focus(); }, 10);
+    }
+
+    function closeMenu() {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.focus();
+    }
+
+    
+    btn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        var isOpen = btn.getAttribute('aria-expanded') === 'true';
+        isOpen ? closeMenu() : openMenu();
+      }
+      if (e.key === 'Escape') closeMenu();
+      if (e.key === 'ArrowDown') { e.preventDefault(); openMenu(); }
+    });
+
+    
+    panel.addEventListener('keydown', function(e) {
+      var items = Array.from(panel.querySelectorAll('[role="menuitem"]'));
+      var idx   = items.indexOf(document.activeElement);
+
+      if (e.key === 'Escape') { e.preventDefault(); closeMenu(); return; }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (idx < items.length - 1) items[idx + 1].focus();
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (idx > 0) items[idx - 1].focus();
+        else closeMenu();
+      }
+      if (e.key === 'Tab' && !e.shiftKey && idx === items.length - 1) {
+        closeMenu();
+      }
+    });
+
+    
+    document.addEventListener('click', function(e) {
+      if (!btn.contains(e.target) && !panel.contains(e.target)) {
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+})();
+
+
+(function() {
+  var sidebar = document.querySelector('aside nav, aside > div');
+  if (!sidebar) return;
+
+  
+  document.querySelectorAll('.sidebar-parent').forEach(function(parent) {
+    parent.setAttribute('role', 'button');
+    parent.setAttribute('tabindex', '0');
+
+    var children = parent.nextElementSibling; 
+    var chevron  = parent.querySelector('.chevron');
+
+    
+    function isOpen() { return chevron && chevron.classList.contains('rotate-90'); }
+
+    function toggle() {
+      if (!children) return;
+      var open = isOpen();
+      if (chevron) chevron.classList.toggle('rotate-90', !open);
+    }
+
+    parent.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        
+        if (parent.tagName === 'A') { window.location = parent.href; }
+        else { toggle(); }
+      }
+    });
+  });
+
+  
+  var allLinks = function() {
+    return Array.from(sidebar.querySelectorAll(
+      'a.sidebar-link, a.sidebar-parent, a.sidebar-child-link'
+    )).filter(function(el) { return el.offsetParent !== null; }); 
+  };
+
+  sidebar.addEventListener('keydown', function(e) {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+    var links   = allLinks();
+    var focused = document.activeElement;
+    var idx     = links.indexOf(focused);
+    if (idx === -1) return;
+    e.preventDefault();
+    var next = links[idx + (e.key === 'ArrowDown' ? 1 : -1)];
+    if (next) next.focus();
+  });
+})();
+</script>

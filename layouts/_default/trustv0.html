@@ -67,7 +67,7 @@
       }}
 
       {{ range $commitments }}
-      {{ $url := cond $isFr (printf "/fr%s" .url) .url }}
+      {{ $url := .url | relLangURL }}
       <a href="{{ $url }}" class="card-item card-link group">
         <div class="card-inner">
           <div class="card-icon-wrap">
@@ -137,7 +137,7 @@
       }}
 
       {{ range $legal }}
-      {{ $url := cond $isFr (printf "/fr%s" .url) .url }}
+      {{ $url := .url | relLangURL }}
       <a href="{{ $url }}" class="card-item card-link group">
         <div class="card-inner">
           <div class="card-icon-wrap">
@@ -205,8 +205,7 @@
       }}
 
       {{ range $reporting }}
-      {{ $url := .url }}
-      {{ if and (not .external) $isFr }}{{ $url = printf "/fr%s" .url }}{{ end }}
+      {{ $url := cond .external .url (.url | relLangURL) }}
       <a href="{{ $url }}"
          {{ if .external }}target="_blank" rel="noopener"{{ end }}
          class="card-item card-link group">

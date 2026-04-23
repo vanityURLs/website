@@ -5,7 +5,6 @@ author: "Benoît H. Dicaire"
 description: "Que se passe-t-il quand vous traitez vos redirections d'URL comme de l'infrastructure — versionnée, revue et déployée via CI/CD ?"
 tags: ["guide", "tutorial"]
 featured: false
-translationKey: "redirects-as-code"
 ---
 
 La plupart des raccourcisseurs d'URL sont des boîtes noires. Vous vous connectez via une interface web, créez un lien, et espérez que le service continue de fonctionner. Quand quelque chose tourne mal, il n'y a pas de trace d'audit, pas de retour arrière, aucun moyen de savoir qui a modifié quoi et quand.

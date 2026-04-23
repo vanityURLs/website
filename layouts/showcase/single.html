@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $lang       := .Site.Language.Lang }}
-{{ $showcaseURL := cond (eq $lang "fr") "/fr/showcase/" "/showcase/" }}
+{{ $showcaseURL := "/showcase/" | relLangURL }}
 
 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 

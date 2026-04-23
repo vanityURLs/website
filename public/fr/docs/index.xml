@@ -1,0 +1,69 @@
+&lt;?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Documentation — vanityURLs</title>
+    <link>http://localhost:1313/fr/docs/</link>
+    <description>Gérez vos liens comme du code</description>
+    <generator>Hugo</generator>
+    <language>fr-FR</language>
+    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/fr/docs/index.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>_headers</title>
+      <link>http://localhost:1313/fr/docs/build/_headers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/build/_headers/</guid>
+      <description>En-têtes de sécurité appliqués à toutes les réponses vanityURLs.</description>
+    </item>
+    
+    <item>
+      <title>_redirects</title>
+      <link>http://localhost:1313/fr/docs/build/_redirects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/build/_redirects/</guid>
+      <description>Le fichier _redirects généré qui alimente toutes les règles de redirection vanityURLs.</description>
+    </item>
+    
+    <item>
+      <title>Cloudflare Pages</title>
+      <link>http://localhost:1313/fr/docs/cloudflare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/cloudflare/</guid>
+      <description>Configuration de Cloudflare Pages pour vanityURLs — hooks de déploiement, aperçus de branches, variables d&#39;environnement et limites du plan.</description>
+    </item>
+    
+    <item>
+      <title>dynamic.lnk</title>
+      <link>http://localhost:1313/fr/docs/dynamic.lnk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/dynamic.lnk/</guid>
+      <description>Votre liste de redirections temporaires — campagnes, événements, liens éphémères.</description>
+    </item>
+    
+    <item>
+      <title>Installation</title>
+      <link>http://localhost:1313/fr/docs/getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/getting-started/</guid>
+      <description>Configurez vanityURLs sur votre propre domaine en quatre étapes avec GitHub et Cloudflare Pages.</description>
+    </item>
+    
+    <item>
+      <title>Makefile</title>
+      <link>http://localhost:1313/fr/docs/makefile/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/makefile/</guid>
+      <description>Référence des cibles du Makefile vanityURLs.</description>
+    </item>
+    
+    <item>
+      <title>static.lnk</title>
+      <link>http://localhost:1313/fr/docs/static.lnk/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/fr/docs/static.lnk/</guid>
+      <description>Votre liste de redirections permanentes.</description>
+    </item>
+    
+  </channel>
+</rss>

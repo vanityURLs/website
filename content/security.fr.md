@@ -1,7 +1,6 @@
 ---
 title: "Déclaration de sécurité"
 description: "Comment vanityURLs.link est sécurisé — chiffrement, hébergement, en-têtes HTTP, protection des emails et auditabilité open source."
-translationKey: "security-statement"
 ---
 
 vanityURLs.link est un site de documentation statique pour un projet open source. Il n'y a pas d'authentification, de base de données, de traitement côté serveur, ni de collecte de données personnelles. Cette page explique les contrôles de sécurité en place.

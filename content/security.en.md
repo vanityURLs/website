@@ -1,7 +1,6 @@
 ---
 title: "Security Statement"
 description: "How vanityURLs.link is secured — encryption, hosting, headers, email protection, and open-source auditability."
-translationKey: "security-statement"
 ---
 {{< callout type="note" title="Last reviewed: April 2026" >}}
 This statement applies to vanityURLs.link. It does not apply to self-hosted instances of vanityURLs, which are the sole responsibility of their operators.

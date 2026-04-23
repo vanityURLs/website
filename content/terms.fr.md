@@ -1,7 +1,6 @@
 ---
 title: "Conditions d'utilisation"
 description: "Conditions d'utilisation de vanityURLs.link et du logiciel open source vanityURLs."
-translationKey: "terms"
 ---
 
 *Dernière mise à jour : avril 2026*

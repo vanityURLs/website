@@ -2,7 +2,6 @@
 title: "Makefile"
 description: "Référence des cibles du Makefile vanityURLs."
 nav_order: 11
-translationKey: "makefile"
 ---
 
 Le dépôt vanityURLs inclut un `Makefile` qui automatise les tâches courantes de configuration et de maintenance. Toutes les cibles lisent depuis `vanityURLs.conf`.

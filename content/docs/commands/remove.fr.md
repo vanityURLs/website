@@ -2,7 +2,6 @@
 title: "lnk remove"
 description: "Supprimer une règle de redirection de static.lnk ou dynamic.lnk."
 nav_order: 22
-translationKey: "cmd-remove"
 ---
 
 Supprime une redirection par son chemin source. Recherche dans les deux fichiers par défaut.

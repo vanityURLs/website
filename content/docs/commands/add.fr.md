@@ -2,7 +2,6 @@
 title: "lnk add"
 description: "Ajouter une règle de redirection à static.lnk ou dynamic.lnk."
 nav_order: 21
-translationKey: "cmd-add"
 ---
 
 Ajoute une règle de redirection. Par défaut la règle va dans `static.lnk` avec un statut `301`. Utilisez `--dynamic` pour cibler `dynamic.lnk`.
