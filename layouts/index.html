@@ -1,5 +1,6 @@
 {{ define "main" }}
 {{ $lang    := .Site.Language.Lang }}
+{{ $data    := index .Site.Data (printf "home.%s" $lang) }}
 {{ $docsURL := "/docs/" | relLangURL }}
 {{ $blogURL := "/blog/" | relLangURL }}
 
@@ -38,7 +39,7 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
           </svg>
-          {{ if eq $lang "fr" }}Commencer{{ else }}Get Started{{ end }}
+          {{ $data.cta_get_started }}
         </a>
         <a href="{{ .Site.Params.github }}" target="_blank" rel="noopener"
            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg
@@ -62,10 +63,10 @@
 
     <div class="text-center mb-10">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-        {{ if eq $lang "fr" }}Tout ce dont vous avez besoin, rien de superflu{{ else }}Everything you need, nothing you don't{{ end }}
+        {{ $data.features_title }}
       </h2>
       <p class="text-gray-500 dark:text-gray-400">
-        {{ if eq $lang "fr" }}Une plateforme Git-native et délivrée à l'edge, avec contrôle total et zéro lock-in{{ else }}A Git-native, edge-delivered URL platform with full control and zero lock-in{{ end }}
+        {{ $data.features_subtitle }}
       </p>
     </div>
 
@@ -131,10 +132,10 @@
 <section class="py-16 bg-gray-50 dark:bg-gray-800/30 border-y border-gray-200 dark:border-gray-700">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2 text-center">
-      {{ if eq $lang "fr" }}Comment ça fonctionne{{ else }}How it works{{ end }}
+      {{ $data.how_it_works_title }}
     </h2>
     <p class="text-gray-500 dark:text-gray-400 text-center mb-10">
-      {{ if eq $lang "fr" }}De zéro à des liens courts en direct en quatre étapes{{ else }}From zero to live short links in four steps{{ end }}
+      {{ $data.how_it_works_subtitle }}
     </p>
 
     <div class="space-y-6">

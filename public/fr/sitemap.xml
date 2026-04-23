@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/fr/tags/guide/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -18,7 +18,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/blog/redirects-as-code/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -33,7 +33,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/tags/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -48,7 +48,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/tags/tutorial/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -63,7 +63,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/blog/why-vanityurls/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -78,7 +78,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/blog/introducing-v8s/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -93,7 +93,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/tags/release/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -170,7 +170,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/trust/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -185,7 +185,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/cloudflare/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -200,7 +200,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -215,7 +215,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/terms/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -230,7 +230,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/privacy/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -245,7 +245,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/demo/configuration/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -260,7 +260,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/demo/dns/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -275,7 +275,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/accessibility/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -290,7 +290,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/security/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -305,7 +305,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/demo/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -335,7 +335,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/dynamic.lnk/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -350,7 +350,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/demo/links/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -370,7 +370,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/fr/contributing/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -385,7 +385,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/getting-started/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -400,7 +400,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/license/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -415,7 +415,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/add/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -430,7 +430,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/check/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -445,7 +445,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/deploy/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -460,7 +460,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/list/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -475,7 +475,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/remove/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -490,7 +490,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/validate/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -505,7 +505,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/makefile/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -520,7 +520,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/impressum/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -555,7 +555,7 @@
     <priority>0.5</priority>
   </url><url>
     <loc>http://localhost:1313/fr/vulnerability/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -570,7 +570,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/static.lnk/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -585,7 +585,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/demo/repository/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -615,7 +615,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/docs/commands/validate-url/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
