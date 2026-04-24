@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.2](https://github.com/vanityURLs/website/compare/v2.1.1...v2.1.2) (2026-04-24)
+
+
+### Bug Fixes
+
+* 18n issues and a drift release number in package.json ([7bf9cc0](https://github.com/vanityURLs/website/commit/7bf9cc057d70d24226a9ff843de05d6c51f4b370))
+* multiple items identified below Fix 1 — RSS feed (delete custom template, use Hugo internal)Delete broken custom RSS templateDelete broken custom RSS template ([cc3a8a1](https://github.com/vanityURLs/website/commit/cc3a8a1a0a89ccda00ad1025a8710999329ae6c4))
+
 ## [2.1.1](https://github.com/vanityURLs/website/compare/v2.1.0...v2.1.1) (2026-04-23)
 
 
