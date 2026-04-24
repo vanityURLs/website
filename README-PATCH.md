@@ -1,51 +1,112 @@
-# vanityURLs — round 7: homepage i18n (data-driven features & steps)
+# vanityURLs — round 8: fix 404 + normalize YAML extensions
 
-Moves the hardcoded English feature tiles and how-it-works steps from `layouts/index.html` into per-language data files. Adds French translations. Also translates the hero badge and "View on GitHub" CTA.
+Two related cleanups:
 
-## Answer to "does this pattern exist on other pages?"
+## 1. Fix the broken 404 page
 
-**No.** `layouts/index.html` is the only page with hardcoded strings inside `range slice (dict ...)`. I scanned every layout in the project.
+**Root cause:** `content/404.en.md` and `content/404.fr.md` contained Hugo template code (`{{ define "main" }}`, `{{ i18n "not_found_title" }}`) as plain Markdown text. Hugo's Markdown renderer doesn't interpret `{{ ... }}` — it passes them through as literal characters. That's why the screenshot showed `{{ i18n "not_found_title" }}` rendered verbatim.
 
-- `layouts/partials/footer.html` uses `range slice "col2" "col3" "col4"` — looks similar but isn't the same problem. It ranges over string keys and looks the actual content up from `.Site.Params.footer`, which is already defined per-language in `hugo.yaml` (separate `languages.en.params.footer` and `languages.fr.params.footer` blocks). No fix needed there.
-- Nothing else has hardcoded English phrases in layouts.
+On top of that, the URL in the screenshot was `/en/404/` (directory-style) — Hugo was treating the broken `content/404.en.md` as a regular content page and generating `/en/404/index.html`. Cloudflare's `not_found_handling = "404-page"` actually looks for `/en/404.html` (file-style), so even if the content had rendered correctly, Cloudflare wouldn't have found it where it needs to.
 
-## What changed
+**Fix applied:**
 
-| File | Change |
-|---|---|
-| `data/home.en.yml` | **Expanded** — added `hero_badge`, `cta_view_github`, `features[]` (12 items), `steps[]` (4 items) |
-| `data/home.fr.yml` | **Expanded** — French translations of everything in `home.en.yml` |
-| `layouts/index.html` | Replaced two `range slice (dict ...)` blocks with `range $data.features` and `range $data.steps`. Hero badge and GitHub CTA now read from `$data.hero_badge` and `$data.cta_view_github`. Went from 176 → 129 lines. |
+- **Delete `content/404.en.md` and `content/404.fr.md`** (they were shadowing and breaking the real layout).
+- The existing `layouts/404.html` already handles both languages correctly via Hugo's built-in 404 convention. With the shadow files gone, Hugo now emits:
+  - `public/en/404.html` — handles misses under `/en/*`
+  - `public/fr/404.html` — handles misses under `/fr/*`
+- **Add a step in `build.sh`** to copy `public/en/404.html` to `public/404.html` so top-level URLs (e.g. `/typo` with no language prefix) also have a 404 to walk up to.
 
-The SVG `icon` path strings are kept in the data file alongside each feature. They're not translated (SVG paths are language-neutral), but keeping them next to the title/desc means adding a new feature is a single-place edit rather than having to touch both the layout and the data.
+Your `wrangler.toml` is correct as-is — `not_found_handling = "404-page"` is the right value for this site (static site generation, not SPA). See [Cloudflare's SSG docs](https://developers.cloudflare.com/workers/static-assets/routing/static-site-generation/) for reference.
+
+## 2. Normalize all YAML extensions to `.yml`
+
+Before this patch the repo mixed `.yaml` (hugo config, i18n files, nested docs_nav) and `.yml` (home, trust, docs_index). Normalized to `.yml` throughout.
+
+Also flattened `data/en/docs_nav.yaml` and `data/fr/docs_nav.yaml` to `data/docs_nav.en.yml` and `data/docs_nav.fr.yml`, matching the pattern used by the other per-language data files (`home.en.yml`, `docs_index.en.yml`, `trust.en.yml`).
+
+### File operations
+
+**Rename (no content change):**
+- `hugo.yaml` → `hugo.yml`
+- `i18n/en.yaml` → `i18n/en.yml`
+- `i18n/fr.yaml` → `i18n/fr.yml`
+
+**Move + rename:**
+- `data/en/docs_nav.yaml` → `data/docs_nav.en.yml`
+- `data/fr/docs_nav.yaml` → `data/docs_nav.fr.yml`
+
+**Delete:**
+- `data/en/` (empty after move)
+- `data/fr/` (empty after move)
+- `content/404.en.md` (broken 404 source)
+- `content/404.fr.md` (broken 404 source)
+
+### Code changes
+
+**`layouts/docs/list.html` and `layouts/docs/single.html`:**
+```go
+// before
+{{ $nav  := index .Site.Data $lang "docs_nav" }}
+// after
+{{ $nav  := index .Site.Data (printf "docs_nav.%s" $lang) }}
+```
+The lookup pattern now matches the other data files (`home.{en,fr}.yml`, `docs_index.{en,fr}.yml`).
+
+**`layouts/partials/footer.html`:** comment updated from `hugo.yaml` to `hugo.yml`.
+
+**`build.sh`:** new step copies `public/en/404.html` → `public/404.html` after Hugo build.
+
+**`package.json`:** `lint:yaml` and `lint:spell` scripts updated to reference `hugo.yml`, `*.yml`, `data/*.yml`.
+
+**`README.md`:** file paths and project-layout tree updated to reflect the new names.
 
 ## Applying
 
+Because this patch combines file renames, directory deletions, and content changes, the zip alone won't do the job — it can't tell `git` to delete files. Use this sequence:
+
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-unzip -o vanityurls-round7.zip
+
+# 1. Remove broken 404 content and the now-empty nested dirs
+git rm content/404.en.md content/404.fr.md
+git rm data/en/docs_nav.yaml data/fr/docs_nav.yaml
+rmdir data/en data/fr
+
+# 2. Rename config and i18n files
+git mv hugo.yaml hugo.yml
+git mv i18n/en.yaml i18n/en.yml
+git mv i18n/fr.yaml i18n/fr.yml
+
+# 3. Overlay the patch (adds the renamed docs_nav files and the code changes)
+unzip -o ~/Downloads/vanityurls-round8.zip
+
+# 4. Stage and commit
+git add -A
+git commit -m "fix(404): remove broken content templates; rename all yaml to yml"
 ```
 
-Or with the diff:
+## Validation after deploy
 
 ```bash
-git apply vanityurls-round7.diff
+# Each language's 404 serves correctly
+curl -sI https://vanityurls.link/en/nonexistent | head -1
+# → HTTP/2 404
+
+# Top-level 404 works too
+curl -sI https://vanityurls.link/does-not-exist | head -1
+# → HTTP/2 404
+
+# Content — should see "Page not found" / "Page introuvable" rendered properly,
+# not "{{ i18n ... }}" literal text
+curl -s https://vanityurls.link/en/nonexistent | grep -o "Page not found"
+curl -s https://vanityurls.link/fr/nonexistent | grep -o "Page introuvable"
 ```
 
-## Validation
+In the browser: visit any URL that doesn't exist under `/en/` or `/fr/` and verify the 404 page renders with proper styling (brand-colored button, docs fallback link, correct language chrome).
 
-After deploy, load both language homepages and check:
+## What I verified in my sandbox
 
-- **`/en/`** — 12 feature tiles with English titles, 4 how-it-works steps with English titles
-- **`/fr/`** — same grid/steps structure, French titles: `Liens en code`, `CLI d'abord`, `Historique Git`, `Livraison à l'edge`, `Domaines personnalisés`, `Déploiement automatique`, `Contrôle du dépôt`, `URLs structurées`, `Infrastructure en code`, `Zéro lock-in`, `Conception sécurisée`, `Coût minimal`
-- Hero badge says `Open Source · MIT License` (EN) / `Open Source · Licence MIT` (FR)
-- Second CTA button says `View on GitHub` (EN) / `Voir sur GitHub` (FR)
-
-## French translations — notes
-
-I took small liberties with the translations to make them read naturally rather than literally:
-
-- `"Link as Code"` → `"Liens en code"` (matches the established pattern `hero_title2: "en code"`)
-- `"CLI First"` → `"CLI d'abord"` — direct translation
-- `"No Lock-In"` → `"Zéro lock-in"` — your existing copy keeps "lock-in" as the English loanword (see `features_subtitle` in the original `home.fr.yml`)
-- Review them and change anything that doesn't match your voice. The YAML is the single source of truth — no template edits needed.
+- Hugo builds successfully with the renamed files (Hugo accepts both `.yml` and `.yaml`; renaming to `.yml` is officially supported).
+- Docs sidebar still renders (17 sidebar links in `/en/docs/getting-started/`) — the `docs_nav` data is being loaded from the new flat filename.
+- `/en/404.html` and `/fr/404.html` are generated with correct i18n strings ("Page not found" / "Page introuvable"), full header/footer chrome, and no raw template tags.
+- No stale references to `hugo.yaml`, `docs_nav.yaml`, `i18n/en.yaml`, `i18n/fr.yaml`, `data/en/`, or `data/fr/` anywhere in the repo.

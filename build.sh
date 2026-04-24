@@ -85,6 +85,13 @@ main() {
   echo "Building the site..."
   hugo build --gc --minify
 
+  # Top-level /404.html fallback for URLs that don't carry a language prefix.
+  # Cloudflare's `not_found_handling = "404-page"` walks up the directory tree
+  # looking for the nearest 404.html; /en/404.html handles /en/* misses, and
+  # this copy handles misses at the root (e.g. /typo).
+  echo "Copying default-language 404 to site root..."
+  cp public/en/404.html public/404.html
+
   # Build the search index
   # Pagefind is a devDependency; the Cloudflare Worker runs `npm ci` automatically.
   echo "Building the search index..."

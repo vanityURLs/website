@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $lang := .Site.Language.Lang }}
-{{ $nav  := index .Site.Data $lang "docs_nav" }}
+{{ $nav  := index .Site.Data (printf "docs_nav.%s" $lang) }}
 {{ $data := index .Site.Data (printf "docs_index.%s" $lang) }}
 
 {{/* ── Branch: subsection _index.md with body content uses single-page style ── */}}

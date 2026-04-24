@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $lang := .Site.Language.Lang }}
-{{ $nav  := index .Site.Data $lang "docs_nav" }}
+{{ $nav  := index .Site.Data (printf "docs_nav.%s" $lang) }}
 {{ $cur  := .RelPermalink }}
 {{ $norm := strings.TrimSuffix "/" $cur }}
 {{ $toc     := .TableOfContents }}

@@ -9,7 +9,7 @@ The source for [vanityURLs.link](https://vanityurls.link) — bilingual (EN/FR) 
 
 ## Requirements
 
-- **Hugo** 0.158.0+ (extended edition). Production is pinned to **0.160.1** in `build.sh`; `hugo.yaml` declares `min_version: 0.158.0`.
+- **Hugo** 0.158.0+ (extended edition). Production is pinned to **0.160.1** in `build.sh`; `hugo.yml` declares `min_version: 0.158.0`.
 - **Node.js** 20+ (production uses 24.14.1). Needed for Tailwind/PostCSS and pagefind.
 - **Go** 1.23+ (production uses 1.26.1). Needed for Hugo modules.
 
@@ -41,7 +41,7 @@ npm run lint:secrets  # gitleaks secret scanner
 ## Key features
 
 ### Documentation
-- Multi-level sidebar driven by `data/{en,fr}/docs_nav.yaml` — paths are language-neutral
+- Multi-level sidebar driven by `data/docs_nav.{en,fr}.yml` — paths are language-neutral
 - Table of contents, breadcrumbs, Edit-on-GitHub, prev/next, mobile `<select>` dropdown
 
 ### Blog
@@ -53,7 +53,7 @@ npm run lint:secrets  # gitleaks secret scanner
 
 ### i18n
 - Bilingual content: `page.en.md` / `page.fr.md` side-by-side
-- UI strings in `i18n/en.yaml` and `i18n/fr.yaml` (45+ keys with pluralization)
+- UI strings in `i18n/en.yml` and `i18n/fr.yml` (45+ keys with pluralization)
 - Localized dates via `date_format_long` i18n key
 - Language-neutral data file paths (layouts prepend `/en/` or `/fr/` via `relLangURL`)
 - Language switcher preserves current page when translation exists
@@ -137,7 +137,7 @@ featured: false
 ### New docs page
 
 1. Create `content/docs/my-section/my-page.{en,fr}.md` with `title`, `description`, `nav_order`.
-2. Register in both `data/en/docs_nav.yaml` and `data/fr/docs_nav.yaml`. Paths are language-neutral:
+2. Register in both `data/docs_nav.en.yml` and `data/docs_nav.fr.yml`. Paths are language-neutral:
 
 ```yaml
 - title: My New Page
@@ -157,7 +157,7 @@ See the [Hugo on Cloudflare guide](https://gohugo.io/host-and-deploy/host-on-clo
 
 ```text
 .
-├── hugo.yaml                    # Site config
+├── hugo.yml                     # Site config
 ├── build.sh                     # Cloudflare Pages build script
 ├── tailwind.config.js
 ├── postcss.config.js
@@ -166,12 +166,11 @@ See the [Hugo on Cloudflare guide](https://gohugo.io/host-and-deploy/host-on-clo
 ├── assets/css/main.css
 │
 ├── i18n/
-│   ├── en.yaml                  # English UI strings
-│   └── fr.yaml                  # French UI strings
+│   ├── en.yml                   # English UI strings
+│   └── fr.yml                   # French UI strings
 │
 ├── data/
-│   ├── en/docs_nav.yaml         # English sidebar (language-neutral paths)
-│   ├── fr/docs_nav.yaml         # French sidebar (same paths, French titles)
+│   ├── docs_nav.{en,fr}.yml     # Sidebar (language-neutral paths, translated titles)
 │   ├── home.{en,fr}.yml
 │   ├── trust.{en,fr}.yml
 │   └── docs_index.{en,fr}.yml
