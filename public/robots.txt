@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-# Block search indexing of the Cloudflare Pages preview URL
-# (set via X-Robots-Tag: noindex in _headers instead)
-
-Sitemap: http://localhost:1313/sitemap.xml
