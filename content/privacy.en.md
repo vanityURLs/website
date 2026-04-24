@@ -15,7 +15,7 @@ This website does not use cookies, tracking pixels, fingerprinting, or any form 
 
 ### No third-party scripts
 
-We do not load third-party analytics, advertising, or social tracking scripts. The only external resource loaded is Google Fonts for typography — no data is shared with Google in the process.
+We do not load third-party analytics, advertising, or social tracking scripts. Fonts are served directly from vanityurls.link — no external typography requests, no data shared with Google.
 
 ### Cloudflare
 

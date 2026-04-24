@@ -13,7 +13,7 @@ Ce site n'utilise pas de cookies, pixels de tracking, empreintes digitales, ni a
 
 ### Pas de scripts tiers
 
-Nous ne chargeons pas de scripts d'analytique, publicité ou tracking social tiers. La seule ressource externe chargée est Google Fonts pour la typographie.
+Nous ne chargeons pas de scripts d'analytique, publicité ou tracking social tiers. Aucune ressource externe n'est chargée pour la typographie — les polices sont servies directement depuis vanityurls.link.
 
 ### Cloudflare
 

@@ -11,7 +11,7 @@ Site: Hugo (https://gohugo.io)
 CSS: Tailwind CSS (https://tailwindcss.com)
 Hosting: Cloudflare Pages (https://pages.cloudflare.com)
 Search: Pagefind (https://pagefind.app)
-Fonts: Inter, JetBrains Mono
+Fonts: Inter (rsms.me/inter) + JetBrains Mono — self-hosted under SIL Open Font License 1.1
 
 /* STANDARDS */
 WCAG 2.1 AA (target)

@@ -35,15 +35,15 @@ Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans 
 
 ```
 default-src 'self';
-script-src  'self' 'unsafe-inline' https://cdn.jsdelivr.net;
-style-src   'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src    'self' https://fonts.gstatic.com;
+script-src  'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net;
+style-src   'self' 'unsafe-inline';
+font-src    'self';
 img-src     'self' data:;
 connect-src 'self';
 frame-ancestors 'none'
 ```
 
-Les ressources externes se limitent à : Google Fonts pour la typographie, et le CDN jsDelivr pour la bibliothèque de diagrammes Mermaid utilisée dans les pages de documentation.
+Les ressources externes se limitent à : le CDN jsDelivr pour la bibliothèque de diagrammes Mermaid, utilisée uniquement sur les pages de documentation qui contiennent des diagrammes. `'wasm-unsafe-eval'` dans `script-src` est requis par le moteur de recherche client Pagefind, qui utilise WebAssembly.
 
 ## Protection du domaine email
 
@@ -79,7 +79,7 @@ Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce, et pas 
 - **Aucune publicité tierce** — pas de réseaux publicitaires
 - **Aucun script injecté par CDN** — Zaraz et Rocket Loader de Cloudflare ne sont pas activés
 
-Les seules requêtes réseau externes effectuées par le navigateur du visiteur sont vers Google Fonts (typographie) et jsDelivr (diagrammes Mermaid). La recherche est gérée côté client par [Pagefind](https://pagefind.app/) — les requêtes ne quittent jamais votre navigateur.
+La seule requête réseau externe que le navigateur du visiteur peut effectuer est vers jsDelivr, et uniquement sur les pages de documentation qui contiennent des diagrammes Mermaid. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://pagefind.app/) — les requêtes ne quittent jamais votre navigateur.
 
 ## Signalement de vulnérabilités
 

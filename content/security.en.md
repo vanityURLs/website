@@ -14,7 +14,7 @@ vanityURLs.link is a static documentation website for the open-source project. v
 - **No third-party advertising** — no ad networks, no programmatic advertising
 - **No CDN-injected scripts** — Cloudflare's [Zaraz](https://www.cloudflare.com/products/zaraz/) and Rocket Loader are not enabled
 
-The only external network requests a visitor's browser makes are to Google Fonts (typography) and jsDelivr (Mermaid diagrams on documentation pages that include diagrams). Search is handled client-side by [Pagefind](https://pagefind.app/) — queries never leave your browser.
+The only external network request a visitor's browser may make is to jsDelivr, and only on documentation pages that include Mermaid diagrams. Fonts are served directly from vanityurls.link. Search is handled client-side by [Pagefind](https://pagefind.app/) — queries never leave your browser.
 
 The source code for this website is public. You can audit every line of it at: [github.com/vanityURLs/website](https://github.com/vanityURLs/website).
 
@@ -56,15 +56,15 @@ Every response from vanityURLs.link includes the following headers, defined in `
 
 ```
 default-src 'self';
-script-src  'self' 'unsafe-inline' https://cdn.jsdelivr.net;
-style-src   'self' 'unsafe-inline' https://fonts.googleapis.com;
-font-src    'self' https://fonts.gstatic.com;
+script-src  'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net;
+style-src   'self' 'unsafe-inline';
+font-src    'self';
 img-src     'self' data:;
 connect-src 'self';
 frame-ancestors 'none'
 ```
 
-External resources are limited to: Google Fonts for typography, and jsDelivr CDN for the Mermaid diagram library used in documentation pages.
+External resources are limited to: jsDelivr CDN for the Mermaid diagram library, used only on documentation pages that include diagrams. `'wasm-unsafe-eval'` in `script-src` is required by the client-side Pagefind search engine, which uses WebAssembly.
 
 ## Email Domain Protection
 
