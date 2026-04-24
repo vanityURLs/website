@@ -33,7 +33,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/tags/</loc>
-    <lastmod>2026-04-23T15:26:19-04:00</lastmod>
+    <lastmod>2026-04-24T12:22:04-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -136,9 +136,19 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/showcase/bhdicaire-com/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-24T12:22:04-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="http://localhost:1313/en/showcase/bhdicaire-com/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr-FR"
+                href="http://localhost:1313/fr/showcase/bhdicaire-com/"
+                />
   </url><url>
     <loc>http://localhost:1313/fr/blog/</loc>
     <lastmod>2026-04-07T20:21:15-04:00</lastmod>
@@ -365,9 +375,19 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/showcase/felx-cc/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-24T12:22:04-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="http://localhost:1313/en/showcase/felx-cc/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr-FR"
+                href="http://localhost:1313/fr/showcase/felx-cc/"
+                />
   </url><url>
     <loc>http://localhost:1313/fr/contributing/</loc>
     <lastmod>2026-04-23T15:26:19-04:00</lastmod>
@@ -535,7 +555,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/404/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-24T12:22:04-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -550,7 +570,7 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/tags/personnel/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-24T12:22:04-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -630,8 +650,18 @@
                 />
   </url><url>
     <loc>http://localhost:1313/fr/showcase/</loc>
-    <lastmod>2026-04-07T20:21:15-04:00</lastmod>
+    <lastmod>2026-04-24T12:22:04-04:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="http://localhost:1313/en/showcase/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="fr-FR"
+                href="http://localhost:1313/fr/showcase/"
+                />
   </url>
 </urlset>

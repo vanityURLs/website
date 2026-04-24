@@ -2,7 +2,7 @@
   "name": "vanityURLs",
   "short_name": "v8s",
   "description": "Fully branded short URLs via continuous integration.",
-  "start_url": "/",
+  "start_url": "/en/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0d9488",

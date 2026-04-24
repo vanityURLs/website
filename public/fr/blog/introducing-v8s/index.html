@@ -305,7 +305,7 @@
 
         <button id="mobile-menu-toggle"
                 class="p-2 rounded text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
-                aria-label="Toggle menu">
+                aria-label="Ouvrir le menu">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
@@ -348,43 +348,6 @@
   </nav>
 </header>
 
-
-<div id="search-modal"
-     class="hidden fixed inset-0 z-50 flex items-start justify-center pt-16 px-4"
-     role="dialog" aria-modal="true" aria-label="Rechercher dans la doc">
-  <div id="search-backdrop"
-       class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
-  <div class="relative w-full max-w-2xl bg-white dark:bg-gray-800 rounded-xl shadow-2xl
-              border border-gray-200 dark:border-gray-700 overflow-hidden">
-    <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex items-center gap-2">
-      <svg class="w-4 h-4 text-gray-400 dark:text-gray-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-      </svg>
-      <input id="search-input"
-             type="search"
-             placeholder="Rechercher dans la doc…"
-             autocomplete="off"
-             class="flex-1 bg-transparent text-gray-900 dark:text-gray-100
-                    placeholder-gray-400 dark:placeholder-gray-500 text-sm
-                    outline-none border-none focus:ring-0"
-             aria-label="Rechercher dans la doc">
-      <kbd class="px-1.5 py-0.5 text-xs text-gray-400 dark:text-gray-500
-                  border border-gray-200 dark:border-gray-600 rounded font-mono">Esc</kbd>
-    </div>
-    <div id="search-results"
-         class="overflow-y-auto max-h-96 divide-y divide-gray-100 dark:divide-gray-700">
-      <p id="search-placeholder-msg"
-         class="px-4 py-8 text-center text-sm text-gray-400 dark:text-gray-500">
-        Rechercher dans la doc…
-      </p>
-    </div>
-  </div>
-</div>
-
-
-
-  
 
   <main id="main-content" class="flex-1" data-pagefind-body>
     
@@ -465,12 +428,12 @@
     
     
     <div class="flex items-center gap-2">
-      <span class="text-xs text-gray-400 dark:text-gray-500 mr-1">Share:</span>
+      <span class="text-xs text-gray-400 dark:text-gray-500 mr-1">Partager :</span>
       <a href="https://x.com/intent/post?url=http%2f%2flocalhost1313%2ffr%2fblog%2fintroducing-v8s%2f&text=dites-adieu-aux-raccourcisseurs-durl-tiers-voici-vanityurls"
          target="_blank" rel="noopener"
          class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
                 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-         aria-label="Share on X">
+         aria-label="Partager sur X">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
           <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
         </svg>
@@ -479,7 +442,7 @@
          target="_blank" rel="noopener"
          class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
                 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-         aria-label="Share on LinkedIn">
+         aria-label="Partager sur LinkedIn">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
@@ -487,7 +450,7 @@
       <button id="copy-link-btn"
               class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
                      hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              aria-label="Copy link">
+              aria-label="Copier le lien">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
@@ -544,7 +507,7 @@
   </div>
 
   
-  <nav class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Post navigation">
+  <nav class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4" aria-label="Navigation entre les articles">
     <div>
       
       <a href="/fr/blog/why-vanityurls/"
@@ -576,7 +539,7 @@
         <div class="blog-cover blog-cover-tutorial"></div>
         <div class="blog-card-body">
           <div class="blog-card-meta">
-            <time datetime="2025-03-10">Mar 10, 2025</time>
+            <time datetime="2025-03-10">10 Mar 2025</time>
           </div>
           <h3 class="blog-card-title text-sm">Les redirections comme code : gérer les liens courts à la façon GitOps</h3>
         </div>
@@ -588,7 +551,7 @@
         <div class="blog-cover blog-cover-guide"></div>
         <div class="blog-card-body">
           <div class="blog-card-meta">
-            <time datetime="2025-01-20">Jan 20, 2025</time>
+            <time datetime="2025-01-20">20 Jan 2025</time>
           </div>
           <h3 class="blog-card-title text-sm">Pourquoi vanityURLs ? Le cas pour posséder vos liens courts</h3>
         </div>
@@ -632,9 +595,7 @@
 
   </main>
 
-  
-
-<footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-16 transition-colors duration-200">
+  <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-16 transition-colors duration-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
 
@@ -873,7 +834,7 @@
       var a = document.createElement('a');
       a.href = '#' + h.id;
       a.className = 'anchor-link';
-      a.setAttribute('aria-label', 'Link to this section');
+      a.setAttribute('aria-label', "\"Lien vers cette section\"");
       a.innerHTML = '#';
       h.appendChild(a);
     });
@@ -885,7 +846,7 @@
       if (!navigator.clipboard) return;
       var btn = document.createElement('button');
       btn.className = 'copy-btn';
-      btn.setAttribute('aria-label', 'Copy code');
+      btn.setAttribute('aria-label', "\"Copier le code\"");
       btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
       pre.style.position = 'relative';
       pre.appendChild(btn);
@@ -995,21 +956,21 @@
   async function runSearch(q) {
     var pf = await loadPagefind();
     if (!pf) {
-      showMsg('Run "npm run index" once to enable search.');
+      showMsg("\"Exécutez « npm run index » pour activer la recherche.\"");
       return;
     }
     try {
       var result = await pf.search(q);
       renderResults(result.results, q);
     } catch(e) {
-      showMsg('Search error. Try rebuilding the index.');
+      showMsg("\"Erreur de recherche. Essayez de reconstruire l'index.\"");
     }
   }
 
   function renderResults(results, q) {
     clearResults();
     if (!results || !results.length) {
-      showMsg('No results for "' + q + '"');
+      showMsg(("\"Aucun résultat pour « %s »\"").replace('%s', q));
       return;
     }
     if (searchPlaceholder) searchPlaceholder.classList.add('hidden');
@@ -1085,8 +1046,6 @@
   });
   </script>
 
-</body>
-</html>
 
 <script>
 
@@ -1203,3 +1162,7 @@
   });
 })();
 </script>
+
+</body>
+</html>
+
