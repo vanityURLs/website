@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0](https://github.com/vanityURLs/website/compare/v2.2.0...v2.3.0) (2026-04-24)
+
+
+### Features
+
+* self-host fonts (Inter + JetBrains Mono) ([5d2fed2](https://github.com/vanityURLs/website/commit/5d2fed2df5de9ea835d69d6c9241728670d5d917))
+
 ## [2.2.0](https://github.com/vanityURLs/website/compare/v2.1.2...v2.2.0) (2026-04-24)
 
 
