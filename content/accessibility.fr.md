@@ -1,6 +1,9 @@
 ---
 title: "Déclaration d'accessibilité"
 description: "Notre engagement à rendre vanityURLs.link utilisable par tous, le statut de conformité WCAG 2.1, et comment signaler des problèmes d'accessibilité."
+aliases:
+  - accessibilite
+  - a11y
 ---
 
 *Dernière révision : avril 2026*

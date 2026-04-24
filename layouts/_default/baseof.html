@@ -262,7 +262,9 @@
   })();
   </script>
 
-  <!-- Mermaid diagrams -->
+  {{/* Mermaid diagrams — only loaded when a page actually uses the shortcode.
+       `.HasShortcode "mermaid"` keeps the CDN call off every page. */}}
+  {{ if .HasShortcode "mermaid" }}
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
   <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -288,6 +290,7 @@
     };
   });
   </script>
+  {{ end }}
 
 
 <script>

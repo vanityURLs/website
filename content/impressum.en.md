@@ -1,7 +1,8 @@
 ---
 title: "Impressum"
 description: "Legal notice and site operator information for vanityURLs.link, as required for users in Germany, Austria, and Switzerland."
-aliases: imprint
+aliases:
+  - imprint
 ---
 {{< callout type="note" title="Last reviewed: April 2026" >}}
 {{< /callout >}}

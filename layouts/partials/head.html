@@ -10,6 +10,11 @@
 {{/* ── Canonical ──────────────────────────────────────────────── */}}
 <link rel="canonical" href="{{ .Permalink }}">
 
+{{/* ── Icons ──────────────────────────────────────────────────── */}}
+<link rel="icon" type="image/svg+xml" href="/logo.svg">
+<link rel="apple-touch-icon" href="/logo.svg">
+{{ if fileExists "static/favicon.ico" }}<link rel="alternate icon" href="/favicon.ico">{{ end }}
+
 {{/* ── Open Graph ─────────────────────────────────────────────── */}}
 {{ $ogType := "website" }}
 {{ if and (eq .Section "blog") .IsPage }}{{ $ogType = "article" }}{{ end }}

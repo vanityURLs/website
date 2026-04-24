@@ -1,7 +1,8 @@
 ---
 title: "Accessibility Statement"
 description: "Our commitment to making vanityURLs.link usable by everyone, current WCAG 2.1 compliance status, and how to report accessibility issues."
-aliases: a11y
+aliases:
+  - a11y
 ---
 {{< callout type="note" title="Last reviewed: April 2026" >}}
 it applies only to the current website (e.g., `vanityURLs.link`) and not to self-hosted vanityURLs deployments. 

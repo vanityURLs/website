@@ -1,6 +1,10 @@
 baseURL: "https://vanityurls.link/"
 title: "vanityURLs"
 
+# Requires Hugo 0.158.0 or newer (uses css.Build and css.PostCSS APIs introduced in 0.158).
+# Production is pinned to 0.160.1 in build.sh.
+min_version: "0.158.0"
+
 enableRobotsTXT: true
 disableHugoGeneratorInject: false
 

@@ -1,6 +1,6 @@
 {
   "name": "vanityurls-website",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "VanityURls.link Website and documentation",
   "scripts": {
     "dev": "hugo server --buildDrafts",
@@ -14,8 +14,8 @@
     "lint:spell": "cspell --no-progress 'content/**/*.md' '*.yaml' '*.toml'",
     "lint:spell:fix": "cspell --no-progress --words-only 'content/**/*.md' | sort -u >> cspell-words.txt",
     "lint:yaml": "yamllint hugo.yaml i18n/*.yaml data/**/*.yaml 2>/dev/null || npx js-yaml hugo.yaml > /dev/null",
-    "lint:links": "lychee --config lychee.toml content/**/*.md",
-    "lint:secrets": "gitleaks detect --config .gitleaks.toml --source . --no-banner"
+    "lint:links": "lychee content/**/*.md",
+    "lint:secrets": "gitleaks detect --source . --no-banner"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
