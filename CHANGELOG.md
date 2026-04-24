@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0](https://github.com/vanityURLs/website/compare/v2.1.2...v2.2.0) (2026-04-24)
+
+
+### Features
+
+* CSP hardening only ([171b557](https://github.com/vanityURLs/website/commit/171b557ca5304e9c3b281df5e13e786fc76d852d))
+* moved index text to data/home ([0aa7a5d](https://github.com/vanityURLs/website/commit/0aa7a5d076c99a1dcdbd48a631b5f43f62af0910))
+
 ## [2.1.2](https://github.com/vanityURLs/website/compare/v2.1.1...v2.1.2) (2026-04-24)
 
 
