@@ -84,6 +84,11 @@ main() {
   # Build the site
   echo "Building the site..."
   hugo build --gc --minify
+
+  # Build the search index
+  # Pagefind is a devDependency; the Cloudflare Worker runs `npm ci` automatically.
+  echo "Building the search index..."
+  npx pagefind --site public
 }
 
 main "$@"

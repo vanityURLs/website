@@ -6,7 +6,6 @@ color: "#0d9488"
 logo_char: "F"
 tags: ["personnel"]
 featured: true
-translationKey: "felx-cc"
 ---
 
 felx.cc est le domaine personnel de [Félix Léger](https://github.com/felleg), l'un des créateurs de vanityURLs. C'est l'un des premiers déploiements en production du projet.

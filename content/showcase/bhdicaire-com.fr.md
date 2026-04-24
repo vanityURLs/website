@@ -6,7 +6,6 @@ color: "#0f766e"
 logo_char: "B"
 tags: ["personnel"]
 featured: false
-translationKey: "bhdicaire-com"
 stats:
   - label: "En ligne depuis"
     value: "2023"

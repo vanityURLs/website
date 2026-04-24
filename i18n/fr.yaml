@@ -1,9 +1,29 @@
 # ── Navigation ──────────────────────────────────────────
 skip_to_content: Aller au contenu
 toggle_dark: Basculer le mode sombre
+toggle_menu: Ouvrir le menu
 
 # ── Header / recherche ──────────────────────────────────
 search_placeholder: Rechercher dans la doc
+search_no_results: 'Aucun résultat pour « %s »'
+search_error: Erreur de recherche. Essayez de reconstruire l'index.
+search_unavailable: Exécutez « npm run index » pour activer la recherche.
+
+# ── Noms accessibles pour les régions de mise en page ────
+nav_breadcrumb: Fil d'Ariane
+nav_page: Navigation de la page
+nav_post: Navigation entre les articles
+nav_blog_pagination: Pagination du blog
+share_label: "Partager :"
+share_on_x: Partager sur X
+share_on_linkedin: Partager sur LinkedIn
+copy_link: Copier le lien
+copy_code: Copier le code
+anchor_link: Lien vers cette section
+
+# ── Format de date ──────────────────────────────────────
+# Référence Go time.Format — voir https://pkg.go.dev/time#Layout
+date_format_long: "2 Jan 2006"
 
 # ── Langue ───────────────────────────────────────────────
 lang_en: English
@@ -20,6 +40,12 @@ previous: Précédent
 next: Suivant
 docs_label: Documentation
 mobile_nav_label: Navigation docs
+
+# ── Étiquettes / taxonomie ──────────────────────────────
+tags_title: Étiquettes
+tag_post_count:
+  one: "{{ .Count }} article"
+  other: "{{ .Count }} articles"
 
 # ── Blog ─────────────────────────────────────────────────
 blog_title: Blog

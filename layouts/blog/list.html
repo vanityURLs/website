@@ -47,7 +47,7 @@
           <span class="font-medium text-gray-700 dark:text-gray-300">{{ . }}</span>
           <span>·</span>
           {{ end }}
-          <time datetime="{{ $f.Date.Format "2006-01-02" }}">{{ $f.Date.Format "Jan 2, 2006" }}</time>
+          <time datetime="{{ $f.Date.Format "2006-01-02" }}">{{ $f.Date.Format (i18n "date_format_long") }}</time>
           {{ with $f.ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
         </div>
         <div class="flex flex-wrap gap-2">
@@ -67,7 +67,7 @@
       <div class="blog-cover {{ $coverClass }}"></div>
       <div class="blog-card-body">
         <div class="blog-card-meta">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (i18n "date_format_long") }}</time>
           {{ with .ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
         </div>
         <h2 class="blog-card-title">{{ .Title }}</h2>
@@ -83,7 +83,7 @@
   </div>
 
   {{ if gt $paginator.TotalPages 1 }}
-  <nav class="mt-12 flex items-center justify-between" aria-label="Blog pagination">
+  <nav class="mt-12 flex items-center justify-between" aria-label="{{ i18n "nav_blog_pagination" }}">
     <div>
       {{ if $paginator.HasPrev }}
       <a href="{{ $paginator.Prev.URL }}"

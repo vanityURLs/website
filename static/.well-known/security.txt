@@ -7,7 +7,7 @@ Contact: https://github.com/vanityURLs/vanityURLs/security/advisories/new
 Policy: https://vanityurls.link/security/
 
 # Trust Center
-Policy: https://vanityurls.link/en/trust/
+Policy: https://vanityurls.link/trust/
 
 # Canonical location of this file
 Canonical: https://vanityurls.link/.well-known/security.txt

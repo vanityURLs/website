@@ -1,13 +1,13 @@
 {
   "name": "vanityurls-website",
-  "version": "2.1.1",
+  "version": "2.1.0",
   "description": "VanityURls.link Website and documentation",
   "scripts": {
     "dev": "hugo server --buildDrafts",
-    "dev:search": "hugo --minify && pagefind --site public && cp -r public/pagefind static/ && hugo server --buildDrafts",
-    "build": "hugo --minify && npm run index && cp -r public/pagefind static/",
+    "dev:search": "hugo --minify && pagefind --site public && hugo server --buildDrafts",
+    "build": "hugo --gc --minify && npm run index",
     "index": "pagefind --site public",
-    "clean": "rm -rf public resources/_gen static/pagefind",
+    "clean": "rm -rf public resources/_gen",
     "lint": "npm run lint:md && npm run lint:yaml && npm run lint:spell",
     "lint:md": "markdownlint-cli2 'content/**/*.md'",
     "lint:md:fix": "markdownlint-cli2 --fix 'content/**/*.md'",

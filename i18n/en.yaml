@@ -1,9 +1,29 @@
 # ── Navigation ──────────────────────────────────────────
 skip_to_content: Skip to content
 toggle_dark: Toggle dark mode
+toggle_menu: Toggle menu
 
 # ── Header / search ─────────────────────────────────────
 search_placeholder: Search docs
+search_no_results: 'No results for "%s"'
+search_error: Search error. Try rebuilding the index.
+search_unavailable: Run "npm run index" once to enable search.
+
+# ── Accessible names for layout regions ─────────────────
+nav_breadcrumb: Breadcrumb
+nav_page: Page navigation
+nav_post: Post navigation
+nav_blog_pagination: Blog pagination
+share_label: "Share:"
+share_on_x: Share on X
+share_on_linkedin: Share on LinkedIn
+copy_link: Copy link
+copy_code: Copy code
+anchor_link: Link to this section
+
+# ── Date format ─────────────────────────────────────────
+# Go time.Format reference date — see https://pkg.go.dev/time#Layout
+date_format_long: "Jan 2, 2006"
 
 # ── Language ─────────────────────────────────────────────
 lang_en: English
@@ -20,6 +40,12 @@ previous: Previous
 next: Next
 docs_label: Documentation
 mobile_nav_label: Navigate docs
+
+# ── Tags / taxonomy ─────────────────────────────────────
+tags_title: Tags
+tag_post_count:
+  one: "{{ .Count }} post"
+  other: "{{ .Count }} posts"
 
 # ── Blog ─────────────────────────────────────────────────
 blog_title: Blog
