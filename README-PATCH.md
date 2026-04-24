@@ -1,118 +1,51 @@
-# vanityURLs — round 6: self-hosted fonts
+# vanityURLs — round 7: homepage i18n (data-driven features & steps)
 
-Generated: 2026-04-24
+Moves the hardcoded English feature tiles and how-it-works steps from `layouts/index.html` into per-language data files. Adds French translations. Also translates the hero badge and "View on GitHub" CTA.
 
-Removes Google Fonts entirely. Ships Inter and JetBrains Mono as self-hosted variable fonts under the SIL OFL 1.1. Tightens CSP by removing `fonts.googleapis.com` and `fonts.gstatic.com`.
+## Answer to "does this pattern exist on other pages?"
+
+**No.** `layouts/index.html` is the only page with hardcoded strings inside `range slice (dict ...)`. I scanned every layout in the project.
+
+- `layouts/partials/footer.html` uses `range slice "col2" "col3" "col4"` — looks similar but isn't the same problem. It ranges over string keys and looks the actual content up from `.Site.Params.footer`, which is already defined per-language in `hugo.yaml` (separate `languages.en.params.footer` and `languages.fr.params.footer` blocks). No fix needed there.
+- Nothing else has hardcoded English phrases in layouts.
 
 ## What changed
 
-### Font delivery
-- **Before:** `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:...&family=JetBrains+Mono:...">` — every page visit triggered DNS resolution and TLS handshake to Google, sending visitor IP + User-Agent + Referer
-- **After:** Fonts served from `/fonts/InterVariable.woff2` and `/fonts/JetBrainsMono-VariableFont_wght.woff2` on your own domain
-
-### CSP tightened
-- **Before:** `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com`
-- **After:** `style-src 'self' 'unsafe-inline'; font-src 'self'`
-
-Two external origins removed. `default-src 'self'` becomes the enforced default for fonts — no connection to Google at all.
-
-### Typography stack
-Inter Variable covers **all weights 100–900** + full Unicode (Latin, Latin-Extended, Cyrillic, Greek, Vietnamese, IPA, symbols) in a single ~340 KB file. Same for JetBrains Mono. Variable fonts are actually *smaller* than the multi-file static approach when you need more than one weight — the previous setup was pulling four Inter weights (400/500/600/700) at ~100 KB each.
-
-### Documentation corrected
-Four content pages claimed "the site loads fonts from Google Fonts" — that statement was about to become false. Updated `security.en.md`, `security.fr.md`, `privacy.en.md`, `privacy.fr.md`, and `humans.txt` to reflect the new reality.
-
-## Files in this patch
-
 | File | Change |
 |---|---|
-| `scripts/fetch-fonts.sh` | **New** — one-time font download script |
-| `assets/css/main.css` | 4 `@font-face` declarations prepended |
-| `tailwind.config.js` | `sans` now prefers `InterVariable`; `mono` falls back cleaner |
-| `layouts/partials/head.html` | Google Fonts `<link>` replaced with `<link rel="preload">` for the two woff2 files |
-| `static/_headers` | CSP drops Google origins |
-| `static/humans.txt` | Fonts attribution updated |
-| `static/fonts/.gitkeep` | **New** — placeholder so the directory exists before fonts are fetched |
-| `content/security.{en,fr}.md` | External-resources paragraph + CSP code block updated |
-| `content/privacy.{en,fr}.md` | External-resources paragraph corrected |
+| `data/home.en.yml` | **Expanded** — added `hero_badge`, `cta_view_github`, `features[]` (12 items), `steps[]` (4 items) |
+| `data/home.fr.yml` | **Expanded** — French translations of everything in `home.en.yml` |
+| `layouts/index.html` | Replaced two `range slice (dict ...)` blocks with `range $data.features` and `range $data.steps`. Hero badge and GitHub CTA now read from `$data.hero_badge` and `$data.cta_view_github`. Went from 176 → 129 lines. |
+
+The SVG `icon` path strings are kept in the data file alongside each feature. They're not translated (SVG paths are language-neutral), but keeping them next to the title/desc means adding a new feature is a single-place edit rather than having to touch both the layout and the data.
 
 ## Applying
 
-Same as previous rounds:
-
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-unzip -o vanityurls-round6.zip
+unzip -o vanityurls-round7.zip
 ```
 
 Or with the diff:
 
 ```bash
-git apply /path/to/vanityurls-round6.diff
-```
-
-## One-time: fetch the fonts
-
-```bash
-./scripts/fetch-fonts.sh
-```
-
-Requires the `woff2` utility for the JetBrains Mono TTF→WOFF2 conversion step:
-
-```bash
-# macOS
-brew install woff2
-
-# Ubuntu / Debian
-sudo apt install woff2
-```
-
-The script pulls from upstream:
-- Inter: `https://rsms.me/inter/font-files/InterVariable.woff2` + italic
-- JetBrains Mono: `https://github.com/JetBrains/JetBrainsMono/raw/v2.304/fonts/variable/` (pinned to v2.304)
-- Licenses: both SIL OFL 1.1 texts
-
-After it runs, commit the files:
-
-```bash
-git add static/fonts/ scripts/
-git commit -m "feat: self-host fonts"
+git apply vanityurls-round7.diff
 ```
 
 ## Validation
 
-After deploy:
+After deploy, load both language homepages and check:
 
-```bash
-# Fonts served from your domain
-curl -I https://vanityurls.link/fonts/InterVariable.woff2
-# → HTTP/2 200, Content-Type: font/woff2, Cache-Control: public, max-age=31536000, immutable
+- **`/en/`** — 12 feature tiles with English titles, 4 how-it-works steps with English titles
+- **`/fr/`** — same grid/steps structure, French titles: `Liens en code`, `CLI d'abord`, `Historique Git`, `Livraison à l'edge`, `Domaines personnalisés`, `Déploiement automatique`, `Contrôle du dépôt`, `URLs structurées`, `Infrastructure en code`, `Zéro lock-in`, `Conception sécurisée`, `Coût minimal`
+- Hero badge says `Open Source · MIT License` (EN) / `Open Source · Licence MIT` (FR)
+- Second CTA button says `View on GitHub` (EN) / `Voir sur GitHub` (FR)
 
-# DevTools Network tab on a page load:
-#   - No requests to fonts.googleapis.com or fonts.gstatic.com
-#   - Only /fonts/InterVariable.woff2 and /fonts/JetBrainsMono-VariableFont_wght.woff2
+## French translations — notes
 
-# DevTools Console:
-#   - No CSP violations
-```
+I took small liberties with the translations to make them read naturally rather than literally:
 
-Visual check:
-- Body text renders in Inter (rounded-shoulder "a", tall x-height)
-- Code blocks render in JetBrains Mono (distinctive zero with dot, ligatures on `=>`, `!==`)
-- During the first page load there may be a brief flash of unstyled text as the webfont loads — `font-display: swap` behavior, same as before
-
-## Why variable fonts
-
-Inter's maintainer explicitly recommends `InterVariable.woff2` for web use: it's smaller than downloading 4+ static weights, and the `wght` axis interpolates any weight from 100 to 900 — not just the ones you chose upfront. Same reasoning for JetBrains Mono.
-
-The weights declared in the `@font-face` block (`font-weight: 100 900`) are ranges: the browser uses font synthesis across that range as needed. Tailwind's `font-normal` (400), `font-medium` (500), `font-semibold` (600), `font-bold` (700) all map cleanly to actual axis positions.
-
-## License obligations
-
-SIL OFL 1.1 requires redistribution include the license text. The fetch script downloads `Inter-LICENSE.txt` and `JetBrainsMono-OFL.txt` into `static/fonts/` — those files will be deployed alongside the fonts, satisfying the clause. If you ever subset or modify the fonts, don't rename the typeface without consulting the license.
-
-## What I did NOT touch
-
-- `cdn.jsdelivr.net` in `script-src` — mermaid still loads from there. Drop it if you commit to never using mermaid again.
-- `'unsafe-inline'` in `style-src` — still required by the 4 inline `style="..."` attributes with Hugo variable interpolation. That'd be a separate round.
-- `'wasm-unsafe-eval'` — still required by Pagefind.
+- `"Link as Code"` → `"Liens en code"` (matches the established pattern `hero_title2: "en code"`)
+- `"CLI First"` → `"CLI d'abord"` — direct translation
+- `"No Lock-In"` → `"Zéro lock-in"` — your existing copy keeps "lock-in" as the English loanword (see `features_subtitle` in the original `home.fr.yml`)
+- Review them and change anything that doesn't match your voice. The YAML is the single source of truth — no template edits needed.
