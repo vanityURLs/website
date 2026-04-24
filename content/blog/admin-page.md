@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "Do We Need an Admin Page"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 Short answer:

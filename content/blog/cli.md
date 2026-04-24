@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "Command Line Interface (CLI) evolution"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 There is a recurring instinct in engineering: once a small tool becomes *useful*, rewrite it. Our `lnk` CLI is a good example of why that instinct is often misplaced.

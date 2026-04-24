@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Félix Léger"
 description: "polished landing page"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 When building a short URL service, the instinct to add a polished landing page comes naturally. It feels incomplete without one.

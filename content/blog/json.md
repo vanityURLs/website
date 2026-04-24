@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "Short URLs Analytics ≠ Page Analytics"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 When building a short URL engine on Cloudflare Pages, the question inevitably comes up:

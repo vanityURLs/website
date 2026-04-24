@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "The Minimalist’s Guide to a Privacy-First URL Shortener on Cloudflare Pages"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 Most short URL implementations fall into one of two traps: they are either heavyweight monsters requiring a dedicated database and API gateway, or they are flimsy client-side "meta-refresh" hacks that break the back button and leak user data to third-party analytics.

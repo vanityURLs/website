@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "edge database"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 The appeal of an _edge database_ is strong—especially when you’re already using Workers or Pages Functions. Reaching for Cloudflare KV or Cloudflare D1 feels like the natural next step.

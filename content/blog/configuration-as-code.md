@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "Configuration-as-Code beats State-in-a-Database for a small-scale short URLs engine every single time"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 After some discussion with [Felix Léger](@Felleg), we believe that `Configuration-as-Code` beats State-in-a-Database for a small-scale short URLs engine every single time. At sub-2,000 links, a bundled json is not a compromise—it is the optimal design.

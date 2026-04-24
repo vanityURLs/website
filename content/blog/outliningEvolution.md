@@ -4,7 +4,7 @@ date: 2026-05-01
 author: "Benoît H. Dicaire"
 description: "Outlining evolution: the 3-Year Evolution of a Short URL Engine"
 tags: ["release", "guide"]
-featured: true
+featured: false 
 draft: true
 ---
 Building a URL shortener is often cited as the "Hello World" of system design. On the surface, it’s trivial: map a short path to a destination and return a redirect.
