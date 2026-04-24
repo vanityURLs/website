@@ -44,8 +44,6 @@
   }}
   <script id="app-config" type="application/json">{{ $cfg | jsonify | safeJS }}</script>
 
-  <script src="/pagefind/pagefind-ui.js" defer></script>
-
   {{ $app := resources.Get "js/app.js" | js.Build (dict "minify" true) | resources.Fingerprint "sha256" }}
   <script src="{{ $app.RelPermalink }}" integrity="{{ $app.Data.Integrity }}" defer></script>
 
