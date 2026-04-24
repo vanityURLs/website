@@ -220,9 +220,25 @@
       showMsg((t.search_no_results || 'No results for "%s"').replace('%s', q));
       return;
     }
+
+    // Pagefind returns every result whose index chunks contain ANY partial match,
+    // ranked by relevance. For foreign words or typos, this produces noisy fuzzy
+    // hits with very low scores. Filter to results the user would actually care
+    // about. Empirically, Pagefind scores above ~0.5 are meaningful matches;
+    // below that is mostly incidental term-overlap noise.
+    var MIN_SCORE = 0.5;
+    var filtered = results.filter(function (r) {
+      return typeof r.score !== 'number' || r.score >= MIN_SCORE;
+    });
+
+    if (!filtered.length) {
+      showMsg((t.search_no_results || 'No results for "%s"').replace('%s', q));
+      return;
+    }
+
     if (searchPlaceholder) searchPlaceholder.classList.add('hidden');
 
-    Promise.all(results.slice(0, 8).map(function (r) { return r.data(); }))
+    Promise.all(filtered.slice(0, 8).map(function (r) { return r.data(); }))
       .then(function (items) {
         items.forEach(function (item) {
           var a = document.createElement('a');

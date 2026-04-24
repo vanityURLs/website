@@ -69,7 +69,7 @@
     <div class="showcase-card" data-tags="{{ $tagStr }}">
       <div class="flex items-start justify-between mb-3">
         <!-- Logo avatar -->
-        <div class="showcase-logo" style="background: {{ .Params.color | default "#0369a1" }}">
+        <div class="showcase-logo" data-slug="{{ .File.ContentBaseName }}">
           {{ with .Params.logo_char }}{{ . }}{{ else }}{{ substr .Title 0 1 | upper }}{{ end }}
         </div>
         <!-- Featured badge -->

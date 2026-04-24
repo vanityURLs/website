@@ -36,12 +36,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Chroma syntax highlighting — class-based output so CSP can drop
+ * 'unsafe-inline' from style-src. Generated from `hugo gen chromastyles
+ * --style=github`. To change theme, regenerate with a different style name. */
+@import "chroma.css";
+
 @layer base {
   html { scroll-behavior: smooth; }
   body { -webkit-font-smoothing: antialiased; }
 }
 
 @layer components {
+  /* ── Utility classes replacing inline style="..." attributes ──
+   * Added so we can drop 'unsafe-inline' from the style-src CSP directive. */
+  .hero-grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .reading-progress {
+    /* Initial width; JS updates element.style.width on scroll (JS-set styles
+     * bypass style-src CSP, unlike HTML style="..." attributes). */
+    width: 0;
+  }
+
   /* ── Navigation ── */
   .nav-link {
     @apply text-sm font-medium text-gray-600 hover:text-gray-900

@@ -1,0 +1,13 @@
+{{/* Generated per-slug showcase colors — avoids inline style="background: ..."
+     so CSP can drop 'unsafe-inline' from style-src.
+
+     Matches the [data-slug="..."] attribute rendered by
+     layouts/showcase/{list,single}.html. */}}
+
+{{ range where .Site.RegularPages "Section" "showcase" }}
+  {{- /* Use File.ContentBaseName so "bhdicaire-com.en.md" and
+        "bhdicaire-com.fr.md" share a slug and a color rule */ -}}
+  {{ $slug  := .File.ContentBaseName }}
+  {{ $color := .Params.color | default "#0369a1" }}
+.showcase-logo[data-slug="{{ $slug }}"] { background: {{ $color }}; }
+{{ end -}}

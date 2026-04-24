@@ -36,7 +36,7 @@ Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans 
 ```
 default-src 'self';
 script-src  'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net;
-style-src   'self' 'unsafe-inline';
+style-src   'self';
 font-src    'self';
 img-src     'self' data:;
 connect-src 'self';

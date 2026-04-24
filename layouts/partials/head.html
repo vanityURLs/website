@@ -65,6 +65,14 @@
 {{ $css  := resources.Get "css/main.css" | css.PostCSS $opts | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 
+{{/* Per-showcase-item color rules — generated from frontmatter so we don't
+     need inline style="background: ..." (which style-src CSP would block).
+     Only emit the stylesheet on pages where showcase cards actually render. */}}
+{{ if or (eq .Section "showcase") .IsHome }}
+{{ $showcase := resources.Get "css/showcase-colors.css" | resources.ExecuteAsTemplate "css/showcase-colors.css" . | resources.Minify | resources.Fingerprint }}
+<link rel="stylesheet" href="{{ $showcase.RelPermalink }}" integrity="{{ $showcase.Data.Integrity }}">
+{{ end }}
+
 {{/* ── Fonts ──────────────────────────────────────────────────
      Self-hosted from /fonts/ (see @font-face declarations in assets/css/main.css).
      Preload the upright weights that body text needs immediately; italic + mono can load lazily.

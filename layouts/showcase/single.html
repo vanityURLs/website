@@ -17,7 +17,7 @@
   <!-- Header card -->
   <div class="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
     <div class="flex items-start gap-5">
-      <div class="showcase-logo text-2xl" style="background: {{ .Params.color | default "#0369a1" }}">
+      <div class="showcase-logo text-2xl" data-slug="{{ .File.ContentBaseName }}">
         {{ with .Params.logo_char }}{{ . }}{{ else }}{{ substr .Title 0 1 | upper }}{{ end }}
       </div>
       <div class="flex-1 min-w-0">

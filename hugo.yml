@@ -133,7 +133,7 @@ markup:
     style: "github"
     lineNos: false
     tabWidth: 2
-    noClasses: true
+    noClasses: false
   goldmark:
     renderer:
       unsafe: true
