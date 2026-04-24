@@ -1,41 +1,11 @@
-{{/* Parent: {{< tabs >}}...{{< /tabs >}} */}}
+{{/* Parent: {{< tabs >}}...{{< /tabs >}}
+     Tab switching wired up in /assets/js/app.js via the data-tabs attribute. */}}
 {{ $id := printf "tabs-%s" (.Page.UniqueID | default (now.UnixNano | string)) }}
 <div class="not-prose my-5" id="{{ $id }}" data-tabs>
-  <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
-    <!-- Tab buttons injected by JS from child shortcodes -->
+  <div class="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto" data-tab-bar>
+    <!-- Tab buttons injected by app.js -->
   </div>
   <div class="tab-panels">
     {{ .Inner }}
   </div>
 </div>
-<script>
-(function() {
-  var container = document.getElementById('{{ $id }}');
-  if (!container) return;
-  var panels   = container.querySelectorAll('[data-tab-label]');
-  var btnBar   = container.querySelector('.flex.border-b');
-  var active   = 0;
-
-  panels.forEach(function(panel, i) {
-    var btn = document.createElement('button');
-    btn.textContent = panel.getAttribute('data-tab-label');
-    btn.className = 'tab-btn px-4 py-2 text-sm font-medium border-b-2 whitespace-nowrap transition-colors';
-    btn.setAttribute('data-idx', i);
-    btnBar.appendChild(btn);
-    panel.style.display = i === 0 ? '' : 'none';
-    btn.classList.add(i === 0
-      ? 'border-brand-600 text-brand-700 dark:text-brand-400'
-      : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200');
-    btn.addEventListener('click', function() {
-      panels.forEach(function(p, j) { p.style.display = j === i ? '' : 'none'; });
-      container.querySelectorAll('.tab-btn').forEach(function(b, j) {
-        b.classList.toggle('border-brand-600', j === i);
-        b.classList.toggle('text-brand-700', j === i);
-        b.classList.toggle('dark:text-brand-400', j === i);
-        b.classList.toggle('border-transparent', j !== i);
-        b.classList.toggle('text-gray-500', j !== i);
-      });
-    });
-  });
-})();
-</script>

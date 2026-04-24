@@ -38,7 +38,7 @@
   <div class="flex flex-wrap gap-2 justify-center mb-8 sticky top-16 z-20
               py-3 -mx-4 px-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm
               border-b border-gray-100 dark:border-gray-800">
-    <button class="filter-btn active" data-filter="all" onclick="filterShowcase(this, 'all')">
+    <button class="filter-btn active" data-filter="all">
       {{ i18n "showcase_filter_all" }}
       <span class="ml-1 text-xs opacity-60">({{ len $entries }})</span>
     </button>
@@ -46,7 +46,7 @@
     {{ $tag := . }}
     {{ $count := 0 }}
     {{ range $entries }}{{ if in .Params.tags $tag }}{{ $count = add $count 1 }}{{ end }}{{ end }}
-    <button class="filter-btn" data-filter="{{ . | urlize }}" onclick="filterShowcase(this, '{{ . | urlize }}')">
+    <button class="filter-btn" data-filter="{{ . | urlize }}">
       {{ . }}
       <span class="ml-1 text-xs opacity-60">({{ $count }})</span>
     </button>
@@ -107,24 +107,4 @@
   </div>
 
 </div>
-
-<script>
-function filterShowcase(btn, filter) {
-  // Update button states
-  document.querySelectorAll('.filter-btn').forEach(function(b) {
-    b.classList.toggle('active', b === btn);
-  });
-  // Filter cards
-  var cards = document.querySelectorAll('#showcase-grid .showcase-card');
-  var visible = 0;
-  cards.forEach(function(card) {
-    var tags = card.getAttribute('data-tags') || '';
-    var show = filter === 'all' || tags.split(' ').indexOf(filter) !== -1;
-    card.style.display = show ? '' : 'none';
-    if (show) visible++;
-  });
-  // Empty state
-  document.getElementById('showcase-empty').classList.toggle('hidden', visible > 0);
-}
-</script>
 {{ end }}
