@@ -1,3 +1,7 @@
+hero_title: "Manage short links"
+hero_title2: "as code"
+hero_subtitle: "vanityURLs (v8s) is an URL shortener that runs on Cloudflare's edge network with your own domain"
+
 cta_get_started: "Get Started"
 features_title: "Everything you need, nothing you don't"
 features_subtitle: "A Git-native, edge-delivered URL platform with full control and zero lock-in"

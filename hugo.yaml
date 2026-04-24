@@ -22,7 +22,7 @@ languages:
     languageName: English
     weight: 1
     params:
-      description: "Start managing links as code"
+      description: "Manage short links as code"
       footer:
         col2:
           title: Resources
@@ -71,7 +71,7 @@ languages:
     languageName: Français
     weight: 2
     params:
-      description: "Gérez vos liens comme du code"
+      description: "Gérez vos liens en code"
       footer:
         col2:
           title: Ressources

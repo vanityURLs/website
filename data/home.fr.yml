@@ -1,3 +1,7 @@
+hero_title: "Gérer vos liens"
+hero_title2: "en code"
+hero_subtitle: "vanityURLs (v8s) est un raccourcisseur d'URL qui fonctionne sur Cloudflare avec votre propre domaine"
+
 cta_get_started: "Commencer"
 features_title: "Tout ce dont vous avez besoin, rien de superflu"
 features_subtitle: "Une plateforme Git-native et délivrée à l'edge, avec contrôle total et zéro lock-in"
