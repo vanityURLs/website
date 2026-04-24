@@ -221,26 +221,53 @@
       return;
     }
 
-    // Pagefind returns every result whose index chunks contain ANY partial match,
-    // ranked by relevance. For foreign words or typos, this produces noisy fuzzy
-    // hits with very low scores. Filter to results the user would actually care
-    // about. Empirically, Pagefind scores above ~0.5 are meaningful matches;
-    // below that is mostly incidental term-overlap noise.
-    var MIN_SCORE = 0.5;
-    var filtered = results.filter(function (r) {
-      return typeof r.score !== 'number' || r.score >= MIN_SCORE;
-    });
-
-    if (!filtered.length) {
-      showMsg((t.search_no_results || 'No results for "%s"').replace('%s', q));
-      return;
-    }
-
     if (searchPlaceholder) searchPlaceholder.classList.add('hidden');
 
-    Promise.all(filtered.slice(0, 8).map(function (r) { return r.data(); }))
+    // Pagefind's raw results include noisy fuzzy matches — on a search for
+    // "commencer" against an English index, it returns pages that contain
+    // "com" (from any URL), "en" (suffix of many words), etc. The raw result
+    // object only exposes { id, data() } — there's no score on it — so we
+    // have to load the data (which contains the excerpt with <mark> tags
+    // wrapping matched words) and inspect what actually matched.
+    //
+    // Rule: a prefix of the query's first term must appear inside at least
+    // one <mark>-wrapped word in the excerpt. Using a prefix (not the full
+    // term) lets legitimate inflections match — e.g. searching "commencer"
+    // still matches pages with "commencé" via the shared "commenc" prefix.
+    var firstTerm = q.toLowerCase().split(/\s+/)[0] || '';
+    // Don't filter short queries — 1–3 char searches are legitimately broad.
+    var shouldFilter = firstTerm.length >= 4;
+    // Trim trailing chars so inflections still match. A 4-char prefix is
+    // enough to reject fuzzy noise ("com" hits for "commencer") while keeping
+    // genuine inflected matches.
+    var PREFIX_LEN = 4;
+    var prefix = firstTerm.slice(0, Math.max(PREFIX_LEN, Math.floor(firstTerm.length * 0.6)));
+
+    function excerptMatchesQuery(excerpt) {
+      if (!shouldFilter) return true;
+      if (!excerpt) return false;
+      // Extract text inside <mark>...</mark> (Pagefind's match highlighting)
+      var marks = excerpt.match(/<mark>([^<]*)<\/mark>/gi);
+      if (!marks) return false;
+      for (var i = 0; i < marks.length; i++) {
+        var word = marks[i].replace(/<\/?mark>/gi, '').toLowerCase();
+        if (word.indexOf(prefix) !== -1) return true;
+      }
+      return false;
+    }
+
+    Promise.all(results.slice(0, 20).map(function (r) { return r.data(); }))
       .then(function (items) {
-        items.forEach(function (item) {
+        var relevant = items.filter(function (item) {
+          return excerptMatchesQuery(item.excerpt);
+        });
+
+        if (!relevant.length) {
+          showMsg((t.search_no_results || 'No results for "%s"').replace('%s', q));
+          return;
+        }
+
+        relevant.slice(0, 8).forEach(function (item) {
           var a = document.createElement('a');
           a.href = item.url;
           a.className = [
