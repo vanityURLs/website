@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0](https://github.com/vanityURLs/website/compare/v2.3.1...v2.4.0) (2026-04-24)
+
+
+### Features
+
+* data-driven homepage ([61f8b51](https://github.com/vanityURLs/website/commit/61f8b51f81996e30b35643af9674ee9606fe6888))
+
 ## [2.3.1](https://github.com/vanityURLs/website/compare/v2.3.0...v2.3.1) (2026-04-24)
 
 
