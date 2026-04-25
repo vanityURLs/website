@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0](https://github.com/vanityURLs/website/compare/v2.4.2...v2.5.0) (2026-04-25)
+
+
+### Features
+
+* Handles HTML/GET detection ([aa3285c](https://github.com/vanityURLs/website/commit/aa3285c6fe850cb4c5a8e1b490aea3f10f9595ee))
+* security.txt rotation reminder (.github/workflows/security-txt-reminder.yml) — daily check that opens an issue 90 days before Expires. ([66c0b29](https://github.com/vanityURLs/website/commit/66c0b29cf1e57fb79957ad516f682931caeb315c))
+
 ## [2.4.2](https://github.com/vanityURLs/website/compare/v2.4.1...v2.4.2) (2026-04-24)
 
 
