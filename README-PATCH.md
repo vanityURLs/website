@@ -1,120 +1,57 @@
-# vanityURLs — round 13: privacy-first server-side analytics
+# vanityURLs — round 14: Open Graph image
 
-Adds an edge Worker that emits a Umami pageview event for every HTML page request, without any client-side JavaScript. Asset requests bypass the Worker entirely and remain billed as free static-asset reads.
+Adds `static/social.png` — the 1200x630 PNG that social platforms render in link previews. Slack, iMessage, Twitter/X, LinkedIn, Discord, and Mastodon all pick this up automatically through the OG/Twitter Card meta tags already in `head.html`.
 
-## Design
+## What you'll see after deploy
 
-**HTML page request (`/en/docs/`):**
-1. Cloudflare's edge receives the request.
-2. wrangler.toml's `assets.run_worker_first = ["/*", "!/js/*", ...]` matches — Worker runs.
-3. `src/worker.js`:
-   - Delegates to `env.ASSETS.fetch(request)` — Cloudflare serves the `.html` bytes with the `_headers` rules applied (CSP, cache-control, etc.).
-   - Checks the response: Content-Type `text/html` and status 200 or 404?
-   - If yes → `ctx.waitUntil(trackPageview(...))` fires a background POST to Umami. Response is already flushed; analytics never blocks.
-   - Returns the original response unchanged.
+Before: small square thumbnail with `logo.svg` rendered as a tiny icon. SVGs are unevenly supported in OG contexts. LinkedIn shows no image at all.
 
-**Asset request (`/css/main.abc123.css`):**
-1. Negative pattern `!/css/*` excludes the path — Worker does not run.
-2. Asset handler serves the CSS with `_headers` applied. Billed as a free static-asset read.
+After: wide-format card showing the wordmark, accent line, tagline, and domain. LinkedIn renders the full PNG. Slack/iMessage show clean previews.
 
-## What lands at Umami
+## No head.html change needed
 
-```json
-{
-  "type": "event",
-  "payload": {
-    "hostname": "vanityurls.link",
-    "language": "fr-CA",
-    "referrer": "https://google.com/",
-    "url": "/en/docs/getting-started/",
-    "website": "<UMAMI_WEBSITE_ID>",
-    "userAgent": "Mozilla/5.0 (...)",
-    "ip": "203.0.113.42"
-  }
-}
-```
+`layouts/partials/head.html` already had the `fileExists "static/social.png"` detection from earlier scaffolding. Once `social.png` lands in `static/`, every page automatically:
 
-For 404s, payload also includes `"name": "404"` so you can filter these out of pageview charts in Umami.
+- Sets `og:image` to `https://vanityurls.link/social.png`
+- Adds `og:image:width=1200`, `og:image:height=630`, `og:image:type=image/png`
+- Switches Twitter card type from `summary` → `summary_large_image`
+- Localizes `og:image:alt` per page language
 
-We pass `userAgent` and `ip` because Umami uses them for browser/OS/device detection and country derivation. Without overrides, every visitor would be tagged as "some Cloudflare server in Chicago." Umami hashes IPs rather than persisting them.
+## Files
 
-## Required secrets
-
-```bash
-wrangler secret put UMAMI_WEBSITE_ID
-# Paste the UUID from the Umami dashboard → Settings → Websites
-
-wrangler secret put UMAMI_ENDPOINT
-# Paste: https://cloud.umami.is/api/send
-```
-
-For local `wrangler dev`, create `.dev.vars` (already gitignored):
-
-```
-UMAMI_WEBSITE_ID=deadbeef-...
-UMAMI_ENDPOINT=https://cloud.umami.is/api/send
-```
-
-If either secret is missing, the Worker still serves pages correctly — it just skips the analytics call. Local dev won't pollute production stats.
-
-## Files in this patch
-
-| File | Change |
+| File | Purpose |
 |---|---|
-| `src/worker.js` | **New** — edge Worker (138 lines) |
-| `src/worker.test.js` | **New** — 10 Node-runnable smoke tests |
-| `wrangler.toml` | Added `main`, `assets.binding`, selective `run_worker_first` patterns |
-| `package.json` | Added `type: module` + `test` script |
-| `.gitignore` | Added `.dev.vars` / `.dev.vars.*` |
-| `README.md` | Documented the Worker layer, secrets setup, project tree |
-| `content/privacy.en.md` | Rewrote — server-side analytics disclosed |
-| `content/privacy.fr.md` | Matching FR rewrite |
-| `content/security.en.md` | "No analytics" → "No client-side analytics" with Umami disclosure |
-| `content/security.fr.md` | Matching FR update |
+| `static/social.png` | The 1200x630 OG card |
+| `scripts/build-og-image.py` | The generator (re-run if brand changes) |
 
 ## Apply
 
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-unzip -o ~/Downloads/vanityurls-round13.zip
-git add -A
-git commit -m "feat: privacy-first server-side analytics via Umami at the edge"
+unzip -o ~/Downloads/vanityurls-round14.zip
+git add static/social.png scripts/build-og-image.py
+git commit -m "feat: open graph card for social link previews"
 ```
-
-## Before deploy
-
-1. Create the Umami site at cloud.umami.is → Settings → Websites. Copy the UUID.
-2. Set both secrets via `wrangler secret put`.
-3. Push.
-
-If secrets aren't set, the Worker serves pages correctly but skips tracking. Safe default.
 
 ## Validate after deploy
 
 ```bash
-curl -sI https://vanityurls.link/en/ | head
-curl -sI https://vanityurls.link/logo.svg | head
-curl -sI https://vanityurls.link/pagefind/pagefind.js | head
+curl -sI https://vanityurls.link/social.png | head -3
+curl -s https://vanityurls.link/en/ | grep -E 'og:image|twitter:card' | head
 ```
 
-Load a few pages in browser, check Umami dashboard real-time view. Country should match your real location (from IP override), browser detected from UA override.
+Preview in:
+- Facebook/LinkedIn debugger: https://developers.facebook.com/tools/debug/
+- LinkedIn: https://www.linkedin.com/post-inspector/
+- Slack: paste URL into a DM with yourself
 
-If nothing shows up, check `wrangler tail` and confirm `wrangler secret list` has both secrets.
+Most platforms cache the OG image aggressively. If you've shared a vanityurls.link URL before, use "Scrape Again" to force a refresh.
 
-## Local development
+## Regenerating
 
 ```bash
-npm run build
-wrangler dev
+pip install --break-system-packages pillow fonttools brotli
+python3 scripts/build-og-image.py
 ```
 
-Open `http://127.0.0.1:8787/en/`. With `.dev.vars` set, events land in Umami; without, silently skipped.
-
-## Rollback
-
-```bash
-# Quickest: unset secrets — Worker still serves pages, just no tracking
-wrangler secret delete UMAMI_WEBSITE_ID
-
-# Fuller: revert wrangler.toml main + assets.binding/run_worker_first
-```
+The script reads Inter Variable from `static/fonts/intervariable.woff2`, decompresses it, pins static instances at the weights it needs (Semibold, ExtraBold), and renders. Output is deterministic.
