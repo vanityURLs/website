@@ -51,7 +51,7 @@ how_it_works_subtitle: "From zero to live short links in four steps"
 steps:
   - n: "1"
     title: "Buy a domain"
-    desc:  "Register any short domain you like — your-name.link, your-brand.io — via Cloudflare or any registrar. Bring your own if you already have one"
+    desc:  "Register any domain you like Cloudflare or any registrar such as v8s.link. Bring your own if you already have one"
   - n: "2"
     title: "Define links in your Git repository"
     desc:  "Add your redirect rules to a plain-text file in a GitHub repository. One line per link — no database, no UI, just text you control"
