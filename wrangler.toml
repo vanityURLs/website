@@ -1,5 +1,5 @@
 name = 'website'
-main = 'src/worker.js'
+main = 'src/worker.mjs'
 compatibility_date = '2025-07-31'
 
 [build]

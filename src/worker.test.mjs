@@ -12,7 +12,7 @@
  *   - Payload fields match the Umami API contract
  */
 
-import worker from "./worker.js";
+import worker from "./worker.mjs";
 
 let umamiCalls = [];
 const origFetch = globalThis.fetch;

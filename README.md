@@ -151,7 +151,7 @@ featured: false
 
 Cloudflare Workers Static Assets via `wrangler.toml`. Build command is `./build.sh`, which installs pinned Dart Sass / Go / Hugo / Node.js and then runs `hugo build --gc --minify` followed by `npx pagefind --site public`. Assets directory is `./public`; custom domain is `vanityurls.link`.
 
-A small edge Worker at `src/worker.js` wraps HTML page requests and emits a server-side Umami pageview event via `ctx.waitUntil()` — no client-side JS, no cookies, invisible to ad blockers. Asset requests (CSS, JS, fonts, Pagefind chunks, images, XML feeds) bypass the Worker via negative patterns in `assets.run_worker_first`, so they remain free static-asset reads.
+A small edge Worker at `src/worker.mjs` wraps HTML page requests and emits a server-side Umami pageview event via `ctx.waitUntil()` — no client-side JS, no cookies, invisible to ad blockers. Asset requests (CSS, JS, fonts, Pagefind chunks, images, XML feeds) bypass the Worker via negative patterns in `assets.run_worker_first`, so they remain free static-asset reads.
 
 The Worker needs two secrets set once per environment:
 
@@ -173,7 +173,7 @@ See the [Hugo on Cloudflare guide](https://gohugo.io/host-and-deploy/host-on-clo
 npm test
 ```
 
-Runs `src/worker.test.js`, which exercises the routing, payload shape, and edge cases (non-HTML response, non-GET methods, missing secrets) without a Cloudflare dependency.
+Runs `src/worker.test.mjs`, which exercises the routing, payload shape, and edge cases (non-HTML response, non-GET methods, missing secrets) without a Cloudflare dependency.
 
 ## Project layout
 
@@ -186,8 +186,8 @@ Runs `src/worker.test.js`, which exercises the routing, payload shape, and edge 
 ├── wrangler.toml                # Worker + static assets config
 │
 ├── src/
-│   ├── worker.js                # Edge Worker: server-side Umami tracking
-│   └── worker.test.js           # Node-runnable smoke tests (`npm test`)
+│   ├── worker.mjs                # Edge Worker: server-side Umami tracking
+│   └── worker.test.mjs           # Node-runnable smoke tests (`npm test`)
 │
 ├── assets/css/main.css
 │
