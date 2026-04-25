@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.0](https://github.com/vanityURLs/website/compare/v2.5.0...v2.6.0) (2026-04-25)
+
+
+### Features
+
+* update static/social.png and add tool to regenerate if required ([e0700b0](https://github.com/vanityURLs/website/commit/e0700b0647a93e9dc91c4632906bbbde636b4e5f))
+
 ## [2.5.0](https://github.com/vanityURLs/website/compare/v2.4.2...v2.5.0) (2026-04-25)
 
 
