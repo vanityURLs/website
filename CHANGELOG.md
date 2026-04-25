@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0](https://github.com/vanityURLs/website/compare/v2.6.1...v2.7.0) (2026-04-25)
+
+
+### Features
+
+* dark chroma + trust copy + bot tagging; rename worker ([441dcad](https://github.com/vanityURLs/website/commit/441dcad5aa5097ee1114caac45cd57bc24555370))
+
 ## [2.6.1](https://github.com/vanityURLs/website/compare/v2.6.0...v2.6.1) (2026-04-25)
 
 
