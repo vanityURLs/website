@@ -1,107 +1,188 @@
-# vanityURLs — round 15 (hotfix): unbreak the build after round 13
+# vanityURLs — round 16: dark chroma + trust copy refresh + worker rename + bot tagging
 
-## What broke
+Four items in one round. Three are low-risk file edits that take effect on the next deploy. The fourth — renaming the Cloudflare Worker — has manual dashboard steps after the push.
 
-Cloudflare's build failed with:
+## Item 1 — Dark chroma theme
 
-```
-ReferenceError: module is not defined in ES module scope
-This file is being treated as an ES module because it has a '.js' file extension and
-'/opt/buildhome/repo/package.json' contains "type": "module".
-    at file:///opt/buildhome/repo/postcss.config.js
-```
+Code blocks were rendering with the `github` (light) color palette in dark mode, which looked pasted in. Now they switch to `github-dark` when dark mode is active.
 
-Round 13 added `"type": "module"` to `package.json` solely to silence a Node CLI warning when running `npm test`. That single line made Node treat **every** `.js` file in the project as an ES module — including `postcss.config.js` and `tailwind.config.js`, both of which are CommonJS (`module.exports = {...}`, `require()`).
+### How
 
-The PostCSS config crash happened during Hugo's CSS build step, before the Worker deploy step ever ran. That's why the Cloudflare dashboard still showed the project as "static assets only" — the `wrangler.toml` change to add `main = 'src/worker.js'` was committed, but the build never reached the deploy phase, so it never took effect.
+1. **Generated the dark palette:** `hugo gen chromastyles --style=github-dark > /tmp/raw.css` produces 86 lines of CSS rules, one per token type.
+2. **Scoped under `.dark`:** every selector got a `.dark ` prefix so the rules only fire when Tailwind's dark-mode class is present on `<html>`. (Your `tailwind.config.js` uses `darkMode: 'class'`, so this is the right gating mechanism.)
+3. **Imported alongside the existing light theme:** `assets/css/main.css` now has both `@import "chroma.css"` (light, default) and `@import "chroma-dark.css"` (dark, scoped).
 
-## The fix
+The two stylesheets coexist because they target different selectors. Light rules are always in effect; dark rules layer on top when `.dark` is present, with higher specificity so they win.
 
-Smaller blast radius than my first instinct (which would have been to rename two CJS configs to `.cjs`). Instead:
+### What you'll see
 
-- **Drop `"type": "module"` from `package.json`** — back to the default, where `.js` files are CommonJS unless explicitly ESM.
-- **Rename `src/worker.js` → `src/worker.mjs`** — `.mjs` is unambiguously ESM regardless of package config. Cloudflare Workers accept `.mjs` as the main entry point.
-- **Rename `src/worker.test.js` → `src/worker.test.mjs`** — same reason. Update its `import` to point at `worker.mjs`.
-- Update the `test` script and `wrangler.toml main =` accordingly.
+Open any docs page with a code block. Toggle the theme switcher. Code blocks should swap from white-background light syntax to `#0d1117` dark background with bright tokens.
 
-This way:
+If they don't switch, hard-refresh (Cmd+Shift+R) to bypass the CSS cache — your `_headers` rules cache fingerprinted CSS aggressively.
 
-- `postcss.config.js` and `tailwind.config.js` keep working as CJS.
-- The Worker stays ESM (which it has to be — Cloudflare requires it).
-- Tests still run via `node src/worker.test.mjs` with no warnings.
+## Item 2 — Trust page copy refresh
 
-## Bonus: lint scripts caught up to round 8 renames
+Round 12 fixed the broken French rendering (schema mismatch). The *content* was still pre-round-9 — it didn't mention CSP, self-hosted fonts, or server-side analytics, even though those have all shipped.
 
-While I was in `package.json`, I noticed `lint:yaml` and `lint:spell` still referenced `*.yaml` patterns (round 8 renamed everything to `.yml`). Fixed those to match.
+This round tightens the descriptions to reflect what's actually live:
+
+- **Privacy:** "No cookies, no client-side trackers. Search runs locally in your browser. Page-view counts are emitted server-side without setting any identifier on you."
+- **Security:** "Strict CSP without `'unsafe-inline'`, self-hosted fonts, TLS 1.3, no third-party scripts. The Worker is open source."
+- **License:** "MIT — no restrictions on commercial or personal use."
+- **Hero:** Stronger framing — "trustworthy stewards of every visitor's data and attention."
+
+Both EN and FR are updated and stay in sync.
+
+## Item 3 — Rename Worker `website` → `vanityurls-website`
+
+The current Worker is named `website`, which is generic and confusing in the multi-Worker dashboard view (especially once you ship a second Worker for the product repo). Renamed to `vanityurls-website`.
+
+### Allowed characters in `name`
+
+From Cloudflare's docs: the Worker name is used as a DNS label in `<NAME>.<SUBDOMAIN>.workers.dev`, so it must follow DNS label rules:
+
+- Lowercase letters `a-z`, digits `0-9`, hyphens `-`
+- Cannot start or end with a hyphen
+- Maximum 63 characters when a workers.dev subdomain is enabled, 255 otherwise
+- No uppercase, underscores, periods, or special characters
+
+`vanityurls-website` is 18 chars, all lowercase, doesn't start/end with hyphen — valid.
+
+### CRITICAL: rename creates a new Worker
+
+Cloudflare treats the `name` field as the Worker's identity. Changing it doesn't rename in place — it deploys a fresh Worker with the new name. The old `website` Worker keeps running and serving your custom domain until you migrate.
+
+After this push, you'll need to do these steps in the Cloudflare dashboard:
+
+1. **Wait for the deploy to complete.** A new Worker named `vanityurls-website` will appear in Workers & Pages.
+2. **Move the custom domain.** On the new Worker → Settings → Domains & Routes → Add → Custom domain → enter `vanityurls.link`. The dashboard will prompt you to confirm taking ownership from the old `website` Worker. Confirm.
+3. **Set the secrets on the new Worker.** Secrets don't transfer between Workers:
+   ```bash
+   wrangler secret put UMAMI_WEBSITE_ID --name vanityurls-website
+   wrangler secret put UMAMI_ENDPOINT   --name vanityurls-website
+   ```
+   Or use the dashboard: Workers & Pages → vanityurls-website → Settings → Variables and Secrets → Add.
+4. **Verify the new Worker is serving:** `curl -sI https://vanityurls.link/en/ | head` — should return 200 with current content.
+5. **Delete the old `website` Worker.** Workers & Pages → website → Settings → Delete.
+
+Brief overlap is harmless — both Workers serve the same site since the build output is identical. The custom domain transfer takes a few seconds; secrets propagate immediately.
+
+If you'd rather defer the rename, you can revert just `wrangler.toml`'s name change before pushing — the rest of round 16 is independent.
+
+## Item 4 — Bot identification while keeping the data
+
+You asked: can we identify bots while keeping the information visible? Yes, by promoting bot pageviews to named events with structured data.
+
+### How Umami treats events vs pageviews
+
+Per Umami's docs:
+
+- A request without `name` and `data` is a **pageview** — counts in your main visitor/views chart.
+- A request with `name` (and optionally `data`) is an **event** — appears in the Events tab, NOT in pageview charts.
+- Critical constraint: "Event data cannot be sent without an event name." So if we want to attach `bot_name`, we must give it a `name`.
+
+### What the Worker does now
+
+For each HTML response:
+
+| Status | UA matches a bot pattern? | Sent to Umami as |
+|---|---|---|
+| 200    | No   | Pageview (no `name`, no `data`) — counts in main chart |
+| 200    | Yes  | Event with `name: "bot"` and `data: { bot_name: "Googlebot" }` |
+| 404    | (any)| Event with `name: "404"` (404 takes priority over bot tag) |
+
+That gives you three clean buckets in the Umami UI:
+- **Pageviews chart:** humans only.
+- **Events tab → "bot":** all crawler traffic, with a `bot_name` breakdown property showing Googlebot vs Bingbot vs ClaudeBot vs … This is where you can see *which* bots are crawling and how often.
+- **Events tab → "404":** missing-page hits, separate from everything else.
+
+### Why 404 wins over bot
+
+A 404 is about the URL (someone tried to fetch a page that doesn't exist). The bot tag is about the requester. They're orthogonal, but Umami's `name` field can only hold one value. I chose to surface 404 because broken-link debugging is more time-sensitive than crawler analytics.
+
+### Patterns covered
+
+Twenty-four regex patterns, ordered specific-to-general so named bots match first:
+
+- Search engines: Googlebot, Bingbot, DuckDuckBot, YandexBot, Baiduspider, Applebot
+- SEO crawlers: AhrefsBot, SemrushBot, MJ12bot, DotBot
+- AI scrapers: GPTBot, ClaudeBot, PerplexityBot, CCBot, Bytespider
+- Social link previews: FacebookExternalHit, Twitterbot, LinkedInBot, Slackbot, Discordbot, TelegramBot, WhatsApp
+- Generic catch-alls: `bot/`, `crawler`, `spider`, `scraper`, `headless`, `phantomjs`, monitors (UptimeRobot, Pingdom, etc.), CLI tools (curl, wget, python-requests)
+
+Anything caught by the catch-all rules gets `bot_name: "Other"`, `"Headless"`, `"Monitor"`, or `"CLI"` — coarse but useful.
+
+### Limitations
+
+- **Bots that lie about their UA aren't caught.** A puppeteer instance with a real Firefox UA will be counted as a human. Cloudflare Bot Management would catch these via behavioral signals, but it's a paid feature.
+- **Umami's built-in `isbot` filter is still active server-side.** If a bot's UA matches `isbot` patterns, Umami may drop the event before recording. So the Events → "bot" bucket reflects bots that *we* tagged AND `isbot` allowed through. Set `DISABLE_BOT_CHECK=1` in your Umami environment if you want to see all of them — but on Umami Cloud you can't change that.
+
+### Tests
+
+`src/worker.test.mjs` now has 18 tests (was 10). New cases:
+
+- Googlebot, Bingbot, ClaudeBot, Slackbot, curl → tagged correctly
+- Real Firefox UA → stays as plain pageview (no bot tag)
+- Bot + 404 → 404 wins
+- Generic `bot/` pattern catches unknown crawlers as `Other`
+
+Run with `npm test`.
 
 ## Files in this patch
 
 | File | Change |
 |---|---|
-| `package.json` | Removed `"type": "module"`. Updated `test` script to `worker.test.mjs`. Lint scripts updated to `.yml` patterns. |
-| `src/worker.mjs` | **Renamed** from `src/worker.js`. Content unchanged. |
-| `src/worker.test.mjs` | **Renamed** from `src/worker.test.js`. Updated import to `./worker.mjs`. |
-| `wrangler.toml` | `main = 'src/worker.mjs'` |
-| `README.md` | Project tree + Worker references updated to `.mjs` |
+| `assets/css/chroma-dark.css` | **New** — github-dark Chroma scoped under `.dark` |
+| `assets/css/main.css` | One-line `@import "chroma-dark.css"` after the light import |
+| `data/trust.en.yml` | Description copy refreshed across all 6 commitments cards |
+| `data/trust.fr.yml` | Matching FR copy refresh |
+| `wrangler.toml` | `name = 'vanityurls-website'` |
+| `src/worker.mjs` | Bot detection (24 patterns) + tagging logic |
+| `src/worker.test.mjs` | +8 tests for bot detection |
 
 ## Apply
 
-Because this includes file renames, the zip alone won't tell git to delete the old paths. Use this:
-
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-
-# 1. Remove the old .js worker files (round 13 added them; we're renaming)
-git rm src/worker.js src/worker.test.js
-
-# 2. Overlay the new files
-unzip -o ~/Downloads/vanityurls-round15.zip
-
-# 3. Commit
+unzip -o ~/Downloads/vanityurls-round16.zip
 git add -A
-git commit -m "fix(build): rename worker to .mjs to free postcss/tailwind from type:module"
+git commit -m "feat: dark chroma + trust copy + bot tagging; rename worker"
 git push
 ```
 
-## After deploy
+## Post-deploy steps for the Worker rename
 
-The build should now complete:
-
-```
-Total in 1262 ms
-[ Hugo build succeeded ]
-[ Pagefind index build succeeded ]
-[ Worker uploaded ]
-```
-
-Then the Cloudflare dashboard's Settings page will show **Variables and Secrets** as available (no longer "Variables cannot be added to a Worker that only has static assets"). At that point you can finally set the secrets:
+After Cloudflare finishes the build (you'll see `vanityurls-website` appear in Workers & Pages):
 
 ```bash
-wrangler secret put UMAMI_WEBSITE_ID
-wrangler secret put UMAMI_ENDPOINT
+# 1. Move the custom domain via dashboard (see Item 3 above)
+# 2. Set secrets on the new Worker
+wrangler secret put UMAMI_WEBSITE_ID --name vanityurls-website
+wrangler secret put UMAMI_ENDPOINT   --name vanityurls-website
+# 3. Verify
+curl -sI https://vanityurls.link/en/ | head -1   # 200 OK
+# 4. Delete the old `website` Worker via dashboard
 ```
-
-The Worker code already silently no-ops if the secrets aren't set, so there's no rush — pages will serve correctly with or without analytics.
 
 ## Validate after deploy
 
+**Dark chroma:**
+- Open `/en/docs/getting-started/` (has code blocks)
+- Toggle dark mode — code blocks should switch to dark background
+- Hard-refresh if cached
+
+**Trust copy:**
+- `/en/trust/` and `/fr/trust/` — read each card, confirm wording matches what we shipped
+- Check the Privacy and Security cards specifically (most updated)
+
+**Bot tagging:**
+- Wait a few hours for organic crawler traffic
+- In Umami dashboard, click Events tab → look for `bot` and `404`
+- Click into `bot` → Properties → see the `bot_name` breakdown
+- Pageviews chart should now exclude crawler traffic
+
+If you want to test locally before the dashboard work:
 ```bash
-# Build succeeded
-curl -sI https://vanityurls.link/en/ | head -1   # HTTP/2 200
-
-# Worker is running (look for cf-ray header — present whether Worker runs or not, but
-# you can confirm the Worker is in the request path by checking wrangler tail)
-wrangler tail
-
-# Then in another terminal:
-curl https://vanityurls.link/en/docs/getting-started/
-
-# wrangler tail should show a request log entry. If UMAMI_* secrets are set,
-# you'll also see the analytics fetch in the log.
+npm test                                    # 18 tests pass
+node -e 'console.log(/bot[\/\s\-\d]/i.test("SomeBot/1.0"))'  # true
 ```
-
-## What I should have done differently in round 13
-
-Adding `"type": "module"` to silence a cosmetic Node warning was a bad tradeoff — silencing a warning at the cost of breaking the build pipeline's CJS configs. The lesson: when adding `type: module` to an established project, audit every `.js` file for module-style mismatches first. Or, more simply, never add it at all unless you're starting fresh — use `.mjs` for new ESM files instead.
-
-This patch corrects that.

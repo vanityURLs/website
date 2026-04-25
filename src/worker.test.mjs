@@ -161,5 +161,103 @@ await run("Missing Referer renders as empty string, not undefined", async () => 
   assert(umamiCalls[0].body.payload.referrer === "", "empty referrer");
 });
 
+await run("Googlebot UA → name='bot' with bot_name", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/docs/", {
+    headers: {
+      "user-agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+    },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  assert(umamiCalls.length === 1, "tracking fired");
+  const p = umamiCalls[0].body.payload;
+  assert(p.name === "bot", `name should be 'bot', got '${p.name}'`);
+  assert(p.data && p.data.bot_name === "Googlebot",
+    `bot_name should be 'Googlebot', got '${p.data && p.data.bot_name}'`);
+});
+
+await run("Bingbot UA → name='bot' with bot_name=Bingbot", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: {
+      "user-agent": "Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)",
+    },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  assert(umamiCalls[0].body.payload.data.bot_name === "Bingbot");
+});
+
+await run("ClaudeBot UA → name='bot' with bot_name=ClaudeBot", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "user-agent": "Mozilla/5.0 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  assert(umamiCalls[0].body.payload.data.bot_name === "ClaudeBot");
+});
+
+await run("Slackbot UA → name='bot' with bot_name=Slackbot", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "user-agent": "Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  assert(umamiCalls[0].body.payload.data.bot_name === "Slackbot");
+});
+
+await run("Real browser UA → no bot tagging (regular pageview)", async () => {
+  const ctx = mockCtx();
+  // Standard Firefox UA
+  const req = mkRequest("/en/", {
+    headers: { "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 13.6; rv:124.0) Gecko/20100101 Firefox/124.0" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(!p.name, `should be a pageview (no name), got name='${p.name}'`);
+  assert(!p.data, `should have no data`);
+});
+
+await run("Bot + 404 → name='404' wins (404 takes priority)", async () => {
+  // This is a deliberate design choice — 404 events are about the URL
+  // (a missing page), not about who requested it. Easier to filter
+  // 404s separately than to debug overlapping name semantics.
+  const env = { ...fullEnv, ASSETS: mockAssets("<html>nope</html>", 404) };
+  const ctx = mockCtx();
+  const req = mkRequest("/typo/", {
+    headers: { "user-agent": "Googlebot/2.1" },
+  });
+  await worker.fetch(req, env, ctx);
+  await ctx._flush();
+  assert(umamiCalls[0].body.payload.name === "404",
+    "404 status should take priority over bot tag");
+});
+
+await run("Generic 'bot' substring catches unknown crawlers", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "user-agent": "SomeUnknownBot/1.0 (+http://example.com)" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(p.name === "bot", "should detect via generic /bot/ pattern");
+  assert(p.data.bot_name === "Other", `should be tagged 'Other', got '${p.data.bot_name}'`);
+});
+
+await run("curl UA → name='bot' with bot_name=CLI", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "user-agent": "curl/8.4.0" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  assert(umamiCalls[0].body.payload.data.bot_name === "CLI");
+});
+
 globalThis.fetch = origFetch;
 console.log("\nAll worker tests passed.");

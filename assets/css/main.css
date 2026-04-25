@@ -40,6 +40,7 @@
  * 'unsafe-inline' from style-src. Generated from `hugo gen chromastyles
  * --style=github`. To change theme, regenerate with a different style name. */
 @import "chroma.css";
+@import "chroma-dark.css";
 
 @layer base {
   html { scroll-behavior: smooth; }

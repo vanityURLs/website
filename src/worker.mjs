@@ -77,6 +77,89 @@ export default {
  * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_ENDPOINT?: string }} env
  * @param {number} status
  */
+// ── Bot detection ─────────────────────────────────────────────
+// Server-side bot detection via User-Agent regex. Catches the bulk of
+// declared crawlers: search engines, AI scrapers, link-preview fetchers,
+// uptime monitors, headless browsers. Detected bots are still recorded
+// to Umami — but as named events (`name: "bot"`) with the bot family in
+// `data`, which keeps them OUT of pageview charts while preserving the
+// signal for inspection. To filter further: in Umami, exclude events
+// where `name = "bot"` from your dashboard view.
+//
+// Limitations:
+//   - Bots that lie about their UA are not caught (puppeteer with a real
+//     UA, scraping APIs, etc). Cloudflare Bot Management would catch
+//     these but requires a paid plan.
+//   - Umami already runs `isbot` server-side; this gives us an extra
+//     layer plus the ability to TAG instead of DROP.
+//
+// Patterns are lowercased for case-insensitive matching.
+const BOT_PATTERNS = [
+  // Search engines
+  { re: /googlebot/i,                         name: "Googlebot" },
+  { re: /bingbot/i,                           name: "Bingbot" },
+  { re: /duckduckbot|duckduckgo-favicons-bot/i, name: "DuckDuckBot" },
+  { re: /yandexbot/i,                         name: "YandexBot" },
+  { re: /baiduspider/i,                       name: "Baiduspider" },
+  { re: /applebot/i,                          name: "Applebot" },
+  // SEO / link-graph crawlers
+  { re: /ahrefsbot/i,                         name: "AhrefsBot" },
+  { re: /semrushbot/i,                        name: "SemrushBot" },
+  { re: /mj12bot/i,                           name: "MJ12bot" },
+  { re: /dotbot/i,                            name: "DotBot" },
+  // AI scrapers
+  { re: /gptbot/i,                            name: "GPTBot" },
+  { re: /claudebot|claude-web/i,              name: "ClaudeBot" },
+  { re: /perplexitybot/i,                     name: "PerplexityBot" },
+  { re: /ccbot/i,                             name: "CCBot" },
+  { re: /bytespider/i,                        name: "Bytespider" },
+  // Social link-preview fetchers (these are GENUINELY useful but not visitors)
+  { re: /facebookexternalhit/i,               name: "FacebookExternalHit" },
+  { re: /twitterbot/i,                        name: "Twitterbot" },
+  { re: /linkedinbot/i,                       name: "LinkedInBot" },
+  { re: /slackbot/i,                          name: "Slackbot" },
+  { re: /discordbot/i,                        name: "Discordbot" },
+  { re: /telegrambot/i,                       name: "TelegramBot" },
+  { re: /whatsapp/i,                          name: "WhatsApp" },
+  // Generic catch-alls — last so specific names above match first.
+  // /bot[\/\s\-\d]/i catches "Googlebot/", "SomeUnknownBot/", "bot-1.0", "bot 2",
+  // without matching "robotic" or "abbot".
+  { re: /bot[\/\s\-\d]|crawler|spider|scraper/i, name: "Other" },
+  { re: /headlesschrome|phantomjs|httrack/i,  name: "Headless" },
+  { re: /uptimerobot|pingdom|monitis|statuscake/i, name: "Monitor" },
+  { re: /curl|wget|python-requests|libwww/i,  name: "CLI" },
+];
+
+/**
+ * @param {string | null} ua
+ * @returns {string | null} The bot family name, or null if not a known bot.
+ */
+function detectBot(ua) {
+  if (!ua) return null;
+  for (const { re, name } of BOT_PATTERNS) {
+    if (re.test(ua)) return name;
+  }
+  return null;
+}
+
+
+/**
+ * Fire a single Umami event for the request.
+ *
+ * Routing logic by event type:
+ *   - 200 + non-bot UA → standard pageview (no `name`, no `data`).
+ *   - 200 + bot UA     → event with name="bot" and data.bot_name.
+ *                        These don't count in pageview charts; visible in Events.
+ *   - 404              → event with name="404" so it can be filtered out.
+ *
+ * Umami constraint: events with `data` MUST have a `name`. Pageviews
+ * (without `name`) cannot carry custom data. So the only way to "tag and
+ * keep" bot traffic is to upgrade those records to named events.
+ *
+ * @param {Request} request
+ * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_ENDPOINT?: string }} env
+ * @param {number} status
+ */
 async function trackPageview(request, env, status) {
   if (!env.UMAMI_WEBSITE_ID || !env.UMAMI_ENDPOINT) {
     // Secrets missing — silently skip. Makes `wrangler dev` quiet too.
@@ -105,12 +188,16 @@ async function trackPageview(request, env, status) {
     if (visitorUA) payload.userAgent = visitorUA;
     if (visitorIP) payload.ip = visitorIP;
 
-    const body = {
-      type: "event",
-      // Mark 404s as a distinct event name so they can be filtered out of
-      // pageview charts in the Umami UI. Omit `name` for 200s.
-      payload: status === 404 ? { ...payload, name: "404" } : payload,
-    };
+    // Decide event shape: pageview, 404 event, or bot event.
+    const botName = detectBot(visitorUA);
+    if (status === 404) {
+      payload.name = "404";
+    } else if (botName) {
+      payload.name = "bot";
+      payload.data = { bot_name: botName };
+    }
+
+    const body = { type: "event", payload };
 
     await fetch(env.UMAMI_ENDPOINT, {
       method: "POST",
