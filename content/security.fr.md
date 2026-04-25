@@ -69,13 +69,13 @@ Cela inclut :
 - Le flux de travail CI/CD GitHub Actions
 - La configuration Tailwind CSS et tout le JavaScript
 
-Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce, et pas de pixels de suivi. Si vous trouvez quelque chose d'inattendu, veuillez ouvrir un ticket ou [signaler via les GitHub Security Advisories](https://github.com/vanityURLs/vanityURLs/security/advisories/new).
+Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce côté client, et pas de pixels de suivi. Les pages vues sont comptées côté serveur depuis le Worker de périphérie — voir la [politique de confidentialité](/privacy/). Si vous trouvez quelque chose d'inattendu, veuillez ouvrir un ticket ou [signaler via les GitHub Security Advisories](https://github.com/vanityURLs/vanityURLs/security/advisories/new).
 
 ## Ce que vanityURLs ne fait PAS
 
 - **Aucun cookie** — le site ne définit aucun cookie
-- **Aucune analytique** — pas de suivi, d'enregistrement de session ni de script analytique
-- **Aucune collecte de données personnelles** — pas de formulaires, pas de comptes, pas de journaux de données visiteurs
+- **Aucune analytique côté client** — aucun pixel de suivi, enregistrement de session ou script analytique JavaScript ne s'exécute dans votre navigateur. Le comptage des pages vues est émis côté serveur par le Worker de périphérie Cloudflare et envoyé à [Umami](https://umami.is/) sans définir d'identifiant dans votre navigateur. Consultez la [politique de confidentialité](/privacy/) pour les champs exacts transmis.
+- **Aucune collecte de données personnelles** — pas de formulaires, pas de comptes, pas de journaux de données visiteurs au-delà des journaux d'accès standard de Cloudflare
 - **Aucune publicité tierce** — pas de réseaux publicitaires
 - **Aucun script injecté par CDN** — Zaraz et Rocket Loader de Cloudflare ne sont pas activés
 

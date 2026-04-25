@@ -9,8 +9,8 @@ This statement applies to vanityURLs.link. It does not apply to self-hosted inst
 vanityURLs.link is a static documentation website for the open-source project. vanityURLs does NOT do
 
 - **No cookies** — the site sets no cookies of any kind
-- **No analytics** — there is no tracking, session recording, or analytics script
-- **No personal data collection** — no forms, no accounts, no logs of visitor data
+- **No client-side analytics** — no tracking pixels, session recording, or analytics JavaScript runs in your browser. Page view counts are emitted server-side from the Cloudflare edge Worker and sent to [Umami](https://umami.is/) without setting any identifier in your browser. See the [Privacy policy](/privacy/) for the exact fields we forward.
+- **No personal data collection** — no forms, no accounts, no logs of visitor data beyond Cloudflare's standard access logs
 - **No third-party advertising** — no ad networks, no programmatic advertising
 - **No CDN-injected scripts** — Cloudflare's [Zaraz](https://www.cloudflare.com/products/zaraz/) and Rocket Loader are not enabled
 
