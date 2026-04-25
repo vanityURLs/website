@@ -1,13 +1,51 @@
 name = 'website'
+main = 'src/worker.js'
 compatibility_date = '2025-07-31'
 
 [build]
 command = 'chmod a+x build.sh && ./build.sh'
 
+# Static assets with selective Worker invocation.
+#
+# Worker invocations on run_worker_first=true patterns are BILLED against
+# your Workers quota; asset-only requests are free. So we want the Worker
+# to fire only for HTML page views (analytics tracking) and let asset
+# fetches (CSS, fonts, JS bundles, Pagefind chunks, images, XML feeds, etc.)
+# bypass the Worker entirely.
+#
+# Strategy: Worker-first globally, then NEGATIVE patterns exclude asset
+# prefixes. Cloudflare's pattern matcher gives negatives precedence.
 [assets]
 directory = './public'
+binding = 'ASSETS'
 not_found_handling = '404-page'
+run_worker_first = [
+  "/*",
+  # Hugo build outputs
+  "!/js/*",
+  "!/css/*",
+  "!/fonts/*",
+  "!/pagefind/*",
+  "!/.well-known/*",
+  # Single-file static resources at the root
+  "!/logo.svg",
+  "!/favicon.ico",
+  "!/humans.txt",
+  "!/robots.txt",
+  "!/sitemap.xml",
+  "!/site.webmanifest",
+  "!/social.png",
+  "!/_redirects",
+  # Per-language RSS/sitemap feeds
+  "!/*/sitemap.xml",
+  "!/*/index.xml",
+  "!/**/index.xml",
+]
 
 [[routes]]
 pattern = "vanityurls.link"
 custom_domain = true
+
+# Secrets (set via `wrangler secret put <name>`, never committed):
+#   UMAMI_WEBSITE_ID  — UUID from Umami dashboard → Settings → Websites
+#   UMAMI_ENDPOINT    — Full POST URL, e.g. https://cloud.umami.is/api/send

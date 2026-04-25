@@ -43,4 +43,6 @@ Thumbs.db
 ##### Environment variables and secret keys #####
 .env
 .env.test
+.dev.vars
+.dev.vars.*
 *.pem

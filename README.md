@@ -41,7 +41,7 @@ npm run lint:secrets  # gitleaks secret scanner
 ## Key features
 
 ### Documentation
-- Multi-level sidebar driven by `data/docs_nav.{en,fr}.yml` — paths are language-neutral
+- Multi-level sidebar driven by `data/{en,fr}/docs_nav.yaml` — paths are language-neutral
 - Table of contents, breadcrumbs, Edit-on-GitHub, prev/next, mobile `<select>` dropdown
 
 ### Blog
@@ -53,7 +53,7 @@ npm run lint:secrets  # gitleaks secret scanner
 
 ### i18n
 - Bilingual content: `page.en.md` / `page.fr.md` side-by-side
-- UI strings in `i18n/en.yml` and `i18n/fr.yml` (45+ keys with pluralization)
+- UI strings in `i18n/en.yaml` and `i18n/fr.yaml` (45+ keys with pluralization)
 - Localized dates via `date_format_long` i18n key
 - Language-neutral data file paths (layouts prepend `/en/` or `/fr/` via `relLangURL`)
 - Language switcher preserves current page when translation exists
@@ -137,7 +137,7 @@ featured: false
 ### New docs page
 
 1. Create `content/docs/my-section/my-page.{en,fr}.md` with `title`, `description`, `nav_order`.
-2. Register in both `data/docs_nav.en.yml` and `data/docs_nav.fr.yml`. Paths are language-neutral:
+2. Register in both `data/en/docs_nav.yaml` and `data/fr/docs_nav.yaml`. Paths are language-neutral:
 
 ```yaml
 - title: My New Page
@@ -149,19 +149,45 @@ featured: false
 
 ## Deployment
 
-Cloudflare Pages via `wrangler.toml`. Build command is `./build.sh`, which installs pinned Dart Sass / Go / Hugo / Node.js and then runs `hugo build --gc --minify` followed by `npx pagefind --site public`. Assets directory is `./public`; custom domain is `vanityurls.link`.
+Cloudflare Workers Static Assets via `wrangler.toml`. Build command is `./build.sh`, which installs pinned Dart Sass / Go / Hugo / Node.js and then runs `hugo build --gc --minify` followed by `npx pagefind --site public`. Assets directory is `./public`; custom domain is `vanityurls.link`.
+
+A small edge Worker at `src/worker.js` wraps HTML page requests and emits a server-side Umami pageview event via `ctx.waitUntil()` — no client-side JS, no cookies, invisible to ad blockers. Asset requests (CSS, JS, fonts, Pagefind chunks, images, XML feeds) bypass the Worker via negative patterns in `assets.run_worker_first`, so they remain free static-asset reads.
+
+The Worker needs two secrets set once per environment:
+
+```bash
+wrangler secret put UMAMI_WEBSITE_ID
+# → paste the UUID from the Umami dashboard (Settings → Websites)
+
+wrangler secret put UMAMI_ENDPOINT
+# → https://cloud.umami.is/api/send   (for Umami Cloud)
+```
+
+If either secret is missing, the Worker still serves pages correctly — it just skips the tracking call. This means local `wrangler dev` runs don't pollute production analytics.
 
 See the [Hugo on Cloudflare guide](https://gohugo.io/host-and-deploy/host-on-cloudflare/) for context.
+
+### Worker smoke tests
+
+```bash
+npm test
+```
+
+Runs `src/worker.test.js`, which exercises the routing, payload shape, and edge cases (non-HTML response, non-GET methods, missing secrets) without a Cloudflare dependency.
 
 ## Project layout
 
 ```text
 .
 ├── hugo.yml                     # Site config
-├── build.sh                     # Cloudflare Pages build script
+├── build.sh                     # Cloudflare build script
 ├── tailwind.config.js
 ├── postcss.config.js
-├── wrangler.toml
+├── wrangler.toml                # Worker + static assets config
+│
+├── src/
+│   ├── worker.js                # Edge Worker: server-side Umami tracking
+│   └── worker.test.js           # Node-runnable smoke tests (`npm test`)
 │
 ├── assets/css/main.css
 │
