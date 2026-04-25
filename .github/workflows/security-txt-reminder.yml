@@ -1,0 +1,97 @@
+name: security.txt expiry reminder
+
+# Runs once a day and opens an issue when the Expires date in
+# static/.well-known/security.txt is less than 90 days away.
+#
+# RFC 9116 (securitytxt.org) requires the Expires field, and recommends
+# a value no more than one year out. Without a calendar reminder it's
+# easy to miss the renewal — this workflow is the reminder.
+
+on:
+  schedule:
+    # 08:15 UTC daily. Off-peak so it doesn't fight with other jobs.
+    - cron: "15 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse Expires field
+        id: parse
+        run: |
+          set -euo pipefail
+          file="static/.well-known/security.txt"
+          if [[ ! -f "$file" ]]; then
+            echo "::error::$file not found"
+            exit 1
+          fi
+
+          # RFC 9116: "Expires: <ISO-8601 timestamp>"
+          expires=$(grep -iE '^Expires:' "$file" | head -1 | sed -E 's/^Expires:[[:space:]]*//I' | tr -d '\r')
+          if [[ -z "$expires" ]]; then
+            echo "::error::No Expires field in $file"
+            exit 1
+          fi
+
+          # GNU date accepts ISO 8601
+          expires_epoch=$(date -u -d "$expires" +%s)
+          now_epoch=$(date -u +%s)
+          days_left=$(( (expires_epoch - now_epoch) / 86400 ))
+
+          echo "expires=$expires"         >> "$GITHUB_OUTPUT"
+          echo "days_left=$days_left"     >> "$GITHUB_OUTPUT"
+          echo "::notice::security.txt Expires=$expires — $days_left day(s) remaining"
+
+      - name: Open renewal issue if within 90 days
+        if: steps.parse.outputs.days_left != '' && fromJSON(steps.parse.outputs.days_left) <= 90
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EXPIRES: ${{ steps.parse.outputs.expires }}
+          DAYS_LEFT: ${{ steps.parse.outputs.days_left }}
+        run: |
+          set -euo pipefail
+
+          title="Renew security.txt — expires in ${DAYS_LEFT} day(s) (${EXPIRES})"
+
+          # Only open one issue per expiry date. If an open issue with the
+          # same title already exists, do nothing.
+          existing=$(gh issue list --state open --search "$title in:title" --json number --jq 'length')
+          if [[ "$existing" != "0" ]]; then
+            echo "Issue already exists. Skipping."
+            exit 0
+          fi
+
+          body=$(cat <<EOF
+          The \`Expires\` field in \`static/.well-known/security.txt\` is **${DAYS_LEFT} day(s)** away (\`${EXPIRES}\`).
+
+          ## What to do
+
+          1. Confirm the contact channels in \`static/.well-known/security.txt\` are still accurate.
+          2. Push the \`Expires\` date forward — typically one year from today. The RFC recommends no more than one year out.
+          3. Update the reference in \`content/security.en.md\` and \`content/security.fr.md\` if they mention the expiry date.
+          4. Commit, push, and deploy.
+          5. Verify \`https://vanityurls.link/.well-known/security.txt\` shows the new \`Expires\` value.
+
+          ## References
+
+          - [RFC 9116 — security.txt](https://www.rfc-editor.org/rfc/rfc9116)
+          - [securitytxt.org generator](https://securitytxt.org/) — can produce a fresh file if you want to regenerate
+
+          ---
+
+          Opened automatically by \`.github/workflows/security-txt-reminder.yml\`. This issue won't be reopened until a new expiry is within 90 days.
+          EOF
+          )
+
+          gh issue create \
+            --title "$title" \
+            --body "$body" \
+            --label "type: security 🔐" \
+            --label "type: chore 🧹"
