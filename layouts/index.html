@@ -25,7 +25,11 @@
         {{ $data.hero_title }}<br class="hidden sm:block">
         <span class="text-brand-400">{{ $data.hero_title2 }}</span>
       </h1>
-      <p class="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl">
+      {{/* Hero is always dark (bg-gradient-to-br from-gray-900...). The subtitle
+           needs LIGHT text against the dark background — gray-300 gives proper
+           AA contrast against the darkest gradient stop. The earlier `dark:`
+           modifier was incorrect because the hero doesn't change with theme. */}}
+      <p class="text-xl text-gray-300 mb-10 max-w-2xl">
         {{ $data.hero_subtitle }}
       </p>
 
