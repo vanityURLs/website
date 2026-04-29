@@ -46,6 +46,7 @@ tags_title: Tags
 tag_post_count:
   one: "{{ .Count }} post"
   other: "{{ .Count }} posts"
+term_empty: "No posts yet."
 
 # ── Blog ─────────────────────────────────────────────────
 blog_title: Blog

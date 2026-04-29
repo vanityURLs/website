@@ -14,7 +14,9 @@ defaultContentLanguageInSubdir: true
 
 taxonomies:
   tag: tags
-  category: categories
+  # The `category` taxonomy is intentionally omitted — no content uses it,
+  # which would otherwise produce an empty /categories/ index page that
+  # ends up in sitemap.xml as low-quality SEO clutter. Re-add if needed.
 
 languages:
   en:

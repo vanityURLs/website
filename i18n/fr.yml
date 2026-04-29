@@ -46,6 +46,7 @@ tags_title: Étiquettes
 tag_post_count:
   one: "{{ .Count }} article"
   other: "{{ .Count }} articles"
+term_empty: "Aucun article pour le moment."
 
 # ── Blog ─────────────────────────────────────────────────
 blog_title: Blog

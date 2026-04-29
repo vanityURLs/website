@@ -9,8 +9,9 @@
       {{ i18n "tag_post_count" (dict "Count" (len .Pages)) }}
     </p>
   </div>
+  {{ if .Pages }}
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-    {{ range .Pages }}
+    {{ range .Pages.ByPublishDate.Reverse }}
     <a href="{{ .RelPermalink }}" class="blog-card group">
       <div class="blog-cover {{ with .Params.tags }}{{ if in . "release" }}blog-cover-release{{ else if in . "guide" }}blog-cover-guide{{ else if in . "tutorial" }}blog-cover-tutorial{{ else }}blog-cover-default{{ end }}{{ else }}blog-cover-default{{ end }}"></div>
       <div class="blog-card-body">
@@ -23,5 +24,10 @@
     </a>
     {{ end }}
   </div>
+  {{ else }}
+  <p class="text-gray-500 dark:text-gray-400">
+    {{ i18n "term_empty" }}
+  </p>
+  {{ end }}
 </div>
 {{ end }}
