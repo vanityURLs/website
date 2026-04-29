@@ -176,6 +176,20 @@ function detectBot(ua) {
 async function trackPageview(request, env, status) {
   if (!env.UMAMI_WEBSITE_ID || !env.UMAMI_ENDPOINT) {
     // Secrets missing — silently skip. Makes `wrangler dev` quiet too.
+    //
+    // OPERATIONS NOTE: Cloudflare's dashboard exposes "Variables and Secrets"
+    // in TWO places that look identical but have different scopes:
+    //
+    //   ✓ Settings → Variables and Secrets         ← runtime, available as env.*
+    //   ✗ Settings → Build → Variables and secrets ← build-time only, NOT in env
+    //
+    // Both UMAMI_WEBSITE_ID and UMAMI_ENDPOINT must be defined at the runtime
+    // level (the first one) for this Worker to receive them. Putting them in
+    // the Build section produces no error at deploy time but the Worker sees
+    // them as undefined and silently skips analytics.
+    //
+    // To configure: Workers & Pages → vanityurls-website → Settings →
+    // Variables and Secrets → + Add → Type: Secret.
     return;
   }
 
@@ -236,22 +250,7 @@ async function trackPageview(request, env, status) {
     // correctly tagged in the Events tab.
     const outgoingUA = (botName || !visitorUA) ? WORKER_UA_FALLBACK : visitorUA;
 
-    // Diagnostic mode: ?diag-umami in the URL surfaces what the Worker is
-    // doing in the Cloudflare dashboard's Log stream. Safe to ship — only
-    // activates when this exact param is present in a URL the user types.
-    // Remove this block once we've confirmed the analytics pipeline works.
-    const diagMode = url.searchParams.has("diag-umami");
-    if (diagMode) {
-      console.log("[diag] UMAMI_WEBSITE_ID present:", !!env.UMAMI_WEBSITE_ID);
-      console.log("[diag] UMAMI_ENDPOINT present:", !!env.UMAMI_ENDPOINT);
-      console.log("[diag] UMAMI_ENDPOINT value:", env.UMAMI_ENDPOINT);
-      console.log("[diag] visitorUA:", visitorUA);
-      console.log("[diag] botName:", botName);
-      console.log("[diag] outgoing UA:", outgoingUA);
-      console.log("[diag] payload:", JSON.stringify(payload));
-    }
-
-    const umamiResponse = await fetch(env.UMAMI_ENDPOINT, {
+    await fetch(env.UMAMI_ENDPOINT, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -259,12 +258,6 @@ async function trackPageview(request, env, status) {
       },
       body: JSON.stringify(body),
     });
-
-    if (diagMode) {
-      const responseText = await umamiResponse.text();
-      console.log("[diag] Umami response status:", umamiResponse.status);
-      console.log("[diag] Umami response body:", responseText);
-    }
   } catch (err) {
     console.error("umami tracking failed:", err);
   }
