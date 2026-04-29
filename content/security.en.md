@@ -14,7 +14,7 @@ vanityURLs.link is a static documentation website for the open-source project. v
 - **No third-party advertising** — no ad networks, no programmatic advertising
 - **No CDN-injected scripts** — Cloudflare's [Zaraz](https://www.cloudflare.com/products/zaraz/) and Rocket Loader are not enabled
 
-The only external network request a visitor's browser may make is to jsDelivr, and only on documentation pages that include Mermaid diagrams. Fonts are served directly from vanityurls.link. Search is handled client-side by [Pagefind](https://pagefind.app/) — queries never leave your browser.
+No external network requests are made by the visitor's browser. Mermaid diagrams (when present on documentation pages) load from a self-hosted, fingerprinted bundle at `/js/mermaid.min.<hash>.js` with SRI integrity. Fonts are served directly from vanityurls.link. Search is handled client-side by [Pagefind](https://pagefind.app/) — queries never leave your browser.
 
 The source code for this website is public. You can audit every line of it at: [github.com/vanityURLs/website](https://github.com/vanityURLs/website).
 
@@ -56,7 +56,7 @@ Every response from vanityURLs.link includes the following headers, defined in `
 
 ```
 default-src 'self';
-script-src  'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net;
+script-src  'self' 'wasm-unsafe-eval';
 style-src   'self';
 font-src    'self';
 img-src     'self' data:;
@@ -64,7 +64,7 @@ connect-src 'self';
 frame-ancestors 'none'
 ```
 
-External resources are limited to: jsDelivr CDN for the Mermaid diagram library, used only on documentation pages that include diagrams. `'wasm-unsafe-eval'` in `script-src` is required by the client-side Pagefind search engine, which uses WebAssembly.
+`'self'` everywhere — no external origins are allowed. `'wasm-unsafe-eval'` in `script-src` is required by the client-side Pagefind search engine, which uses WebAssembly. The only relaxation in the policy.
 
 ## Email Domain Protection
 

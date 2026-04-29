@@ -35,7 +35,7 @@ Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans 
 
 ```
 default-src 'self';
-script-src  'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net;
+script-src  'self' 'wasm-unsafe-eval';
 style-src   'self';
 font-src    'self';
 img-src     'self' data:;
@@ -43,7 +43,7 @@ connect-src 'self';
 frame-ancestors 'none'
 ```
 
-Les ressources externes se limitent à : le CDN jsDelivr pour la bibliothèque de diagrammes Mermaid, utilisée uniquement sur les pages de documentation qui contiennent des diagrammes. `'wasm-unsafe-eval'` dans `script-src` est requis par le moteur de recherche client Pagefind, qui utilise WebAssembly.
+`'self'` partout — aucune origine externe n'est autorisée. `'wasm-unsafe-eval'` dans `script-src` est requis par le moteur de recherche client Pagefind, qui utilise WebAssembly. La seule dérogation à la politique.
 
 ## Protection du domaine email
 
@@ -79,7 +79,7 @@ Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce côté c
 - **Aucune publicité tierce** — pas de réseaux publicitaires
 - **Aucun script injecté par CDN** — Zaraz et Rocket Loader de Cloudflare ne sont pas activés
 
-La seule requête réseau externe que le navigateur du visiteur peut effectuer est vers jsDelivr, et uniquement sur les pages de documentation qui contiennent des diagrammes Mermaid. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://pagefind.app/) — les requêtes ne quittent jamais votre navigateur.
+Aucune requête réseau externe n'est effectuée par le navigateur du visiteur. Les diagrammes Mermaid (lorsqu'ils sont présents sur les pages de documentation) sont chargés depuis un bundle auto-hébergé à `/js/mermaid.min.<hash>.js` avec intégrité SRI. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://pagefind.app/) — les requêtes ne quittent jamais votre navigateur.
 
 ## Signalement de vulnérabilités
 

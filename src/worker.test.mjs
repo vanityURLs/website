@@ -259,5 +259,98 @@ await run("curl UA → name='bot' with bot_name=CLI", async () => {
   assert(umamiCalls[0].body.payload.data.bot_name === "CLI");
 });
 
+await run("UTM params strip from url and populate data on a 200 pageview", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/?utm_source=newsletter&utm_medium=email&utm_campaign=launch");
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  // URL no longer carries utm_*
+  assert(p.url === "/en/", `url should be stripped to /en/, got '${p.url}'`);
+  // Promoted to a campaign event
+  assert(p.name === "campaign", `expected name='campaign', got '${p.name}'`);
+  assert(p.data.utm_source === "newsletter", "utm_source captured");
+  assert(p.data.utm_medium === "email", "utm_medium captured");
+  assert(p.data.utm_campaign === "launch", "utm_campaign captured");
+});
+
+await run("UTM stripping preserves non-UTM query params", async () => {
+  const ctx = mockCtx();
+  // Mix UTMs with an arbitrary tracking param the site might use.
+  const req = mkRequest("/en/?utm_source=hn&ref=upvote&utm_campaign=launch&page=2");
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  // Non-UTM params survive
+  assert(p.url.includes("ref=upvote"), `non-UTM 'ref' should remain, got '${p.url}'`);
+  assert(p.url.includes("page=2"), `non-UTM 'page' should remain, got '${p.url}'`);
+  // UTMs gone from url
+  assert(!p.url.includes("utm_"), `no utm_* should remain in url, got '${p.url}'`);
+  // UTMs in data
+  assert(p.data.utm_source === "hn", "utm_source captured");
+  assert(p.data.utm_campaign === "launch", "utm_campaign captured");
+  // Non-UTM is NOT in data — only UTM keys go to data
+  assert(!("ref" in p.data), "non-UTM 'ref' should not be in data");
+});
+
+await run("UTM + bot UA: data merges utm_* with bot_name", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/?utm_source=newsletter", {
+    headers: { "user-agent": "Mozilla/5.0 (compatible; Googlebot/2.1)" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  // Bot still wins as the event name, but UTM data is merged in
+  assert(p.name === "bot", `expected name='bot', got '${p.name}'`);
+  assert(p.data.bot_name === "Googlebot", "bot_name preserved");
+  assert(p.data.utm_source === "newsletter", "utm_source merged in");
+});
+
+await run("UTM + 404: name='404' wins, utm_* still captured", async () => {
+  const env = { ...fullEnv, ASSETS: mockAssets("<html>nope</html>", 404) };
+  const ctx = mockCtx();
+  const req = mkRequest("/missing/?utm_source=newsletter&utm_campaign=launch");
+  await worker.fetch(req, env, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(p.name === "404", "404 wins as event name");
+  assert(p.data.utm_source === "newsletter", "utm_source captured even on 404");
+  assert(p.url === "/missing/", "url stripped");
+});
+
+await run("Empty utm_* values are not captured", async () => {
+  // ?utm_source=&utm_campaign=foo — empty utm_source should be ignored
+  const ctx = mockCtx();
+  const req = mkRequest("/en/?utm_source=&utm_campaign=launch");
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(!("utm_source" in (p.data || {})),
+    `empty utm_source should not be captured, got data=${JSON.stringify(p.data)}`);
+  assert(p.data.utm_campaign === "launch", "non-empty utm_campaign captured");
+});
+
+await run("URL with no query params: no campaign event, plain pageview", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/docs/getting-started/");
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(!p.name, `should be a pageview (no name), got name='${p.name}'`);
+  assert(!p.data, "no data should be set");
+  assert(p.url === "/en/docs/getting-started/", "url unchanged");
+});
+
+await run("URL with only non-UTM query params: stays a pageview", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/blog/?ref=hn&page=2");
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(!p.name, "should remain a pageview");
+  assert(p.url === "/en/blog/?ref=hn&page=2", `url unchanged, got '${p.url}'`);
+});
+
 globalThis.fetch = origFetch;
 console.log("\nAll worker tests passed.");

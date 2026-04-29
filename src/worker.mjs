@@ -147,14 +147,19 @@ function detectBot(ua) {
  * Fire a single Umami event for the request.
  *
  * Routing logic by event type:
- *   - 200 + non-bot UA → standard pageview (no `name`, no `data`).
- *   - 200 + bot UA     → event with name="bot" and data.bot_name.
- *                        These don't count in pageview charts; visible in Events.
- *   - 404              → event with name="404" so it can be filtered out.
+ *   - 200 + non-bot UA + no UTMs → standard pageview (no `name`, no `data`).
+ *   - 200 + non-bot UA + UTMs    → event with name="campaign", data.utm_*.
+ *   - 200 + bot UA               → event with name="bot", data.bot_name (+ utm_* if any).
+ *   - 404                        → event with name="404" (+ utm_* if any).
  *
  * Umami constraint: events with `data` MUST have a `name`. Pageviews
- * (without `name`) cannot carry custom data. So the only way to "tag and
- * keep" bot traffic is to upgrade those records to named events.
+ * (without `name`) cannot carry custom data. So any time we have UTM
+ * dimensions or a bot tag, the record is promoted to a named event.
+ *
+ * UTM stripping: the standardized 5 Google params (utm_source/medium/
+ * campaign/term/content) are removed from `payload.url` and surfaced
+ * in `payload.data` instead, so they're filterable Umami dimensions.
+ * Other query params are passed through unchanged.
  *
  * @param {Request} request
  * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_ENDPOINT?: string }} env
@@ -170,6 +175,12 @@ async function trackPageview(request, env, status) {
     const url = new URL(request.url);
     const headers = request.headers;
 
+    // Strip recognized UTM campaign params from the URL we report, and
+    // collect them into a structured `data` object for filterable Umami
+    // dimensions. Other query params (?ref=hn, search-result tracking,
+    // etc.) stay in the URL — we strip the standardized UTM set only.
+    const { cleanedSearch, utmData } = extractUtm(url.searchParams);
+
     // Umami /api/send payload shape — ref: https://docs.umami.is/docs/api/sending-stats
     // Fields we can't derive server-side (screen, title) are omitted; Umami
     // accepts partial data. We override Umami's server-side detection of
@@ -179,7 +190,7 @@ async function trackPageview(request, env, status) {
       hostname: url.hostname,
       language: firstLanguage(headers.get("accept-language")),
       referrer: headers.get("referer") || "",
-      url: url.pathname + url.search,
+      url: url.pathname + cleanedSearch,
       website: env.UMAMI_WEBSITE_ID,
     };
 
@@ -189,12 +200,21 @@ async function trackPageview(request, env, status) {
     if (visitorIP) payload.ip = visitorIP;
 
     // Decide event shape: pageview, 404 event, or bot event.
+    // Umami constraint: `data` requires `name` (no nameless events with data).
+    // So if we have UTM data on a 200 pageview, we must promote it to a named
+    // event. Use name="campaign" for that case.
     const botName = detectBot(visitorUA);
+    const hasUtm = Object.keys(utmData).length > 0;
+
     if (status === 404) {
       payload.name = "404";
+      if (hasUtm) payload.data = utmData;
     } else if (botName) {
       payload.name = "bot";
-      payload.data = { bot_name: botName };
+      payload.data = { bot_name: botName, ...utmData };
+    } else if (hasUtm) {
+      payload.name = "campaign";
+      payload.data = utmData;
     }
 
     const body = { type: "event", payload };
@@ -222,4 +242,39 @@ function firstLanguage(header) {
   if (!header) return "";
   const first = header.split(",")[0] || "";
   return first.split(";")[0].trim();
+}
+
+/**
+ * Extract Google UTM campaign parameters from a URLSearchParams instance,
+ * returning the standardized `data` object for Umami plus a cleaned search
+ * string with those keys removed. Non-UTM params are preserved.
+ *
+ * Standardized UTM keys per Google:
+ *   utm_source, utm_medium, utm_campaign, utm_term, utm_content
+ *
+ * Returns { cleanedSearch: "" | "?other=...", utmData: { utm_source: ... } }.
+ *
+ * @param {URLSearchParams} sp  The original query parameters.
+ * @returns {{ cleanedSearch: string, utmData: Record<string, string> }}
+ */
+function extractUtm(sp) {
+  const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+  const utmData = {};
+  // Clone so we don't mutate the original URL's params.
+  const cleaned = new URLSearchParams(sp);
+
+  for (const key of UTM_KEYS) {
+    const value = cleaned.get(key);
+    if (value !== null && value !== "") {
+      utmData[key] = value;
+    }
+    // Always delete — even if empty, we don't want them in the cleaned URL.
+    cleaned.delete(key);
+  }
+
+  const cleanedSearchString = cleaned.toString();
+  return {
+    cleanedSearch: cleanedSearchString ? "?" + cleanedSearchString : "",
+    utmData,
+  };
 }

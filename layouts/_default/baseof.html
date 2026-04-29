@@ -47,9 +47,17 @@
   {{ $app := resources.Get "js/app.js" | js.Build (dict "minify" true) | resources.Fingerprint "sha256" }}
   <script src="{{ $app.RelPermalink }}" integrity="{{ $app.Data.Integrity }}" defer></script>
 
-  {{/* Mermaid — only on pages that actually use the shortcode */}}
+  {{/* Mermaid — only on pages that actually use the shortcode.
+       Self-hosted from assets/js/mermaid.min.js (vendored, not from npm
+       runtime — see scripts/update-mermaid.sh for upgrade procedure).
+       Resources.Get + Fingerprint produces a fingerprinted URL with SRI
+       integrity. We skip js.Build because Mermaid ships pre-minified and
+       esbuild's parser can choke on the IIFE wrapper's mixed module
+       detection. We also skip resources.Minify since the file is already
+       minified — re-minifying is wasted work. */}}
   {{ if .HasShortcode "mermaid" }}
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
+  {{ $mermaid := resources.Get "js/mermaid.min.js" | resources.Fingerprint "sha256" }}
+  <script src="{{ $mermaid.RelPermalink }}" integrity="{{ $mermaid.Data.Integrity }}" defer></script>
   {{ $mermaidInit := resources.Get "js/mermaid-init.js" | js.Build (dict "minify" true) | resources.Fingerprint "sha256" }}
   <script src="{{ $mermaidInit.RelPermalink }}" integrity="{{ $mermaidInit.Data.Integrity }}" defer></script>
   {{ end }}
