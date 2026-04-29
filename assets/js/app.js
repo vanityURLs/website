@@ -432,13 +432,26 @@
   (function () {
     var bar = document.getElementById('reading-progress');
     if (bar) {
+      // Coalesce scroll-driven updates with rAF to avoid forced reflow.
+      // The naive read-write pattern (read scrollHeight/clientHeight/scrollY,
+      // then write bar.style.width) on every scroll tick triggers layout
+      // recalculation each time. rAF batches the read with the next paint,
+      // so layout is computed once per frame instead of once per scroll event.
+      var ticking = false;
       var update = function () {
         var doc   = document.documentElement;
         var total = doc.scrollHeight - doc.clientHeight;
         var pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
         bar.style.width = Math.min(pct, 100) + '%';
+        ticking = false;
       };
-      window.addEventListener('scroll', update, { passive: true });
+      var onScroll = function () {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
       update();
     }
 

@@ -80,18 +80,18 @@
 
 {{/* Per-showcase-item color rules — generated from frontmatter so we don't
      need inline style="background: ..." (which style-src CSP would block).
-     Only emit the stylesheet on pages where showcase cards actually render. */}}
-{{ if or (eq .Section "showcase") .IsHome }}
+     Only emitted on showcase pages where the .showcase-logo elements
+     actually render (the section list page and per-item single pages). */}}
+{{ if eq .Section "showcase" }}
 {{ $showcase := resources.Get "css/showcase-colors.css" | resources.ExecuteAsTemplate "css/showcase-colors.css" . | resources.Minify | resources.Fingerprint }}
 <link rel="stylesheet" href="{{ $showcase.RelPermalink }}" integrity="{{ $showcase.Data.Integrity }}">
 {{ end }}
 
 {{/* ── Fonts ──────────────────────────────────────────────────
      Self-hosted from /fonts/ (see @font-face declarations in assets/css/main.css).
-     Preload the upright weights that body text needs immediately; italic + mono can load lazily.
+     Preload the upright weights that body text needs immediately; italic + mono can load lazily. */}}
 <link rel="preload" href="/fonts/intervariable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/jetbrainsmono.woff2" as="font" type="font/woff2" crossorigin>
-*/}}
 
 
 {{/* ── RSS ───────────────────────────────────────────────────── */}}

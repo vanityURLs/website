@@ -1,192 +1,195 @@
-# vanityURLs — round 19: UTM capture + Mermaid self-hosting + tightened CSP + Lighthouse audit plan
+# vanityURLs — round 20: Lighthouse fixes
 
-Three substantive changes. Each independently valuable, but they reinforce each other: Mermaid self-hosted means CSP can drop the jsDelivr exception, which lets the trust card claim "no third-party scripts" again, which lets the security page claim no external requests. Clean security posture all the way through.
+Three fixes from the Lighthouse audit. The big one is a real bug that's been live for a while; the other two are smaller but worth knocking out.
 
-## Item 1 — UTM parameter capture in `worker.mjs`
+## Headline numbers
 
-### Before
+Current Lighthouse mobile scores:
 
-`payload.url = url.pathname + url.search`. UTM params (`?utm_source=newsletter&utm_campaign=launch`) ended up buried in a single string. You couldn't filter Umami charts by `utm_source` or pivot by campaign.
-
-### After
-
-UTM params are stripped from `payload.url` and surfaced into Umami's `payload.data` as filterable dimensions. The standardized five Google params are recognized: `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`. Other query params (`?ref=hn`, `?page=2`) pass through unchanged.
-
-### Event routing
-
-A new event type joins the existing trio:
-
-| Status | Bot UA? | UTMs? | Sent to Umami as |
-|---|---|---|---|
-| 200 | No | No  | Pageview (no `name`) — counts in main chart |
-| 200 | No | Yes | Event with `name="campaign"`, `data.utm_*` |
-| 200 | Yes | No  | Event with `name="bot"`, `data.bot_name` |
-| 200 | Yes | Yes | Event with `name="bot"`, `data` merges `bot_name` + `utm_*` |
-| 404 | (any) | (any) | Event with `name="404"`, `data.utm_*` if any |
-
-Why "campaign" is its own event name: pageviews can't carry `data` (Umami constraint). To attach UTMs as filterable dimensions, the record must be promoted to a named event. `"campaign"` is what marketers call this in every other analytics tool.
-
-### Filtering campaign traffic in Umami
-
-In the Umami dashboard:
-
-- **Campaign traffic in pageview charts:** click Events → "campaign" → Properties → `utm_source` shows the breakdown.
-- **All pageviews from a specific campaign:** Filters → "Event name = campaign" + "Property utm_campaign = launch".
-- **Excluding campaign traffic from your headline pageview number:** by design, named events don't count in the pageview chart. So your "Visitors" number IS already excluding campaign-tagged traffic.
-
-If you want a unified pageview chart that includes campaigns, the way to do that in Umami is the Reports tab.
-
-### Tests
-
-Round 19 adds 7 UTM-related test cases (25 total now, up from 18):
-
-- UTMs strip from URL, populate data, promote to `name="campaign"`
-- Non-UTM query params preserved (e.g. `?ref=hn` survives)
-- UTM + bot: data merges, name stays "bot"
-- UTM + 404: data captured, name stays "404"
-- Empty UTM values (`?utm_source=`) ignored
-- No query params: stays a plain pageview
-- Only non-UTM params: stays a plain pageview (no false promotion to campaign)
-
-Run with `npm test`.
-
-## Item 2 — Mermaid self-hosted
-
-### What changed
-
-Mermaid v10.9.5's `mermaid.min.js` (3.3 MB minified, ~990 KB gzipped) is now vendored at `assets/js/mermaid.min.js`. It's loaded via Hugo Pipes' `resources.Get` + `Fingerprint`, producing a URL like `/js/mermaid.min.<hash>.js` with SRI integrity. Cached forever, browser revalidates only on hash change.
-
-The CSP no longer references `https://cdn.jsdelivr.net`. From:
-
-```
-script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net
-```
-
-to:
-
-```
-script-src 'self' 'wasm-unsafe-eval'
-```
-
-Only `'wasm-unsafe-eval'` remains as a relaxation, required by Pagefind's WebAssembly search. No external script origins are allowed.
-
-### Why we kept Mermaid even though no published page uses it
-
-You preserved the diagram option for future docs. The integration is conditional (`{{ if .HasShortcode "mermaid" }}`), so the bundle ships ~3.3 MB to the build output but downloads zero bytes to users until you write `{{< mermaid >}}` in a page.
-
-To upgrade Mermaid in the future:
-
-```bash
-npm pack mermaid@10 --pack-destination /tmp
-tar -xzf /tmp/mermaid-*.tgz -C /tmp
-cp /tmp/package/dist/mermaid.min.js assets/js/mermaid.min.js
-git add assets/js/mermaid.min.js
-git commit -m "chore: bump mermaid to <version>"
-```
-
-The fingerprint in the URL changes automatically; old cached versions are invalidated.
-
-### Why Hugo Pipes vs. js.Build
-
-`mermaid.min.js` is pre-minified and uses an IIFE wrapper with mixed module detection (UMD, AMD, global). esbuild (which Hugo's `js.Build` uses) can choke on this kind of pattern, and even if it succeeds, re-minifying is wasted work. We use `resources.Get | Fingerprint "sha256"` which:
-- Doesn't try to parse the JS — treats it as opaque bytes
-- Doesn't re-minify
-- Computes a SHA-256 hash for fingerprinting AND SRI integrity in one pass
-
-`mermaid-init.js` (your own init script) still goes through `js.Build` since it's small and benefits from minification.
-
-## Item 3 — Trust card and security policy updated
-
-### Trust card
-
-Restored the stronger claim now that it's strictly accurate:
-
-| Locale | Before (round 18) | After (round 19) |
+| Page | Mobile Perf | Desktop Perf |
 |---|---|---|
-| EN | "...no third-party trackers." | "...no third-party scripts." |
-| FR | "...aucun traqueur tiers." | "...aucun script tiers." |
+| `/en/` | 90 | 100 |
+| `/en/docs/getting-started/` | 77 | 99 |
+| `/en/blog/introducing-v8s/` | 72 | 100 |
+| `/fr/docs/cloudflare/` | 67 | 97 |
+| `/en/showcase/` | 89 | 100 |
 
-### Security policy pages
+Desktop is great. Mobile has consistent render-blocking findings (2.5s–5.0s estimated savings). Same root cause on every page, fixed once in `head.html`.
 
-Two paragraphs in each language updated:
+## Fix 1 — Font preloads were never being emitted (the big one)
 
-- **External-request paragraph:** rewrote from "the only external network request is to jsDelivr..." to "no external network requests are made... Mermaid loads from a self-hosted, fingerprinted bundle..."
-- **CSP block:** removed `https://cdn.jsdelivr.net` from the documented `script-src`
-- **CSP explanation:** rewrote from "External resources are limited to: jsDelivr CDN..." to "`'self'` everywhere — no external origins are allowed."
+### What was wrong
 
-### Privacy policy pages
+`layouts/partials/head.html` lines 90–95:
 
-Re-read both EN and FR. Already accurately scoped to "no third-party analytics/tracking/advertising" — those claims were true even when Mermaid was on jsDelivr (jsDelivr was serving a library, not tracking). No changes needed.
+```
+{{/* ── Fonts ──────────────────────────────────────────────────
+     Self-hosted from /fonts/ ...
+<link rel="preload" href="/fonts/intervariable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/jetbrainsmono.woff2" as="font" type="font/woff2" crossorigin>
+*/}}
+```
 
-## Item 4 — Lighthouse audit plan
+The two `<link rel=preload>` tags were sandwiched **inside** a Hugo comment block (`{{/* ... */}}`). Hugo strips comments before rendering, so neither preload ever made it into the HTML.
 
-A run-it-yourself document at `LIGHTHOUSE-AUDIT.md`. Covers:
+This means: when a browser loads any page on the site, it discovers the font dependency only after the CSS finishes downloading and parsing. The fonts are then fetched, the page re-paints once they arrive, and we get the "delayed text render" pattern Lighthouse is flagging as render-blocking.
 
-- Five representative URLs to test (homepage, docs, blog, FR doc, showcase)
-- Three ways to run (PageSpeed Insights, Chrome DevTools, CLI)
-- Specific risks given recent changes (Worker latency, fonts, Mermaid bundle)
-- Per-category scoring expectations and concern thresholds
-- A scoring table to fill in for the commit notes
+This bug has been live since the round-6 font self-hosting work. Round 6 added the preload tags but accidentally wrapped them in a comment block.
 
-I can't run Lighthouse from this sandbox (no real browser, no network reach). After deploying round 19, run the audit yourself and we can react to specific findings if anything's below the floor thresholds.
+### How verified
+
+Before fix:
+```bash
+curl -s https://vanityurls.link/en/ | grep -E 'rel=preload.*woff2'
+# (nothing — preloads aren't there)
+```
+
+After fix:
+```html
+<link rel=preload href=/fonts/intervariable.woff2 as=font type=font/woff2 crossorigin>
+<link rel=preload href=/fonts/jetbrainsmono.woff2 as=font type=font/woff2 crossorigin>
+```
+
+### Expected impact
+
+This is the dominant cause of the mobile render-blocking finding. With preloads in place:
+
+- Browser starts the font fetch in parallel with CSS download (instead of sequentially after CSS parses)
+- LCP improves on every page
+- Greatest absolute improvement on `/fr/docs/cloudflare/` (currently 67), where the 5-second render-blocking estimate was largest
+- Could plausibly bring all mobile scores into the 85+ range
+
+It won't be a silver bullet — the other render-blocking factor is the CSS bundle itself, which still has to download synchronously. But fixing the font discovery cascade is the cheapest, biggest win available.
+
+## Fix 2 — Forced reflow in reading-progress bar
+
+### What was wrong
+
+`assets/js/app.js` reading-progress handler (line 437–439):
+
+```js
+var total = doc.scrollHeight - doc.clientHeight;
+var pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+bar.style.width = Math.min(pct, 100) + '%';
+```
+
+The handler was attached directly to `scroll` events. Each scroll event triggers:
+
+1. Read `scrollHeight`, `clientHeight`, `scrollY` (forces layout calculation)
+2. Write `bar.style.width` (invalidates layout)
+
+Read-then-write in the same synchronous handler triggers forced reflow because the browser has to recompute layout to give us the read values, then mark layout dirty again from the write. Repeat on every scroll tick (potentially 60+ per second on a smooth-scroll device).
+
+Lighthouse flagged this on the blog page specifically because that's the only page with a reading-progress bar (it's wrapped in `if (bar)`).
+
+### The fix
+
+Wrap update logic in `requestAnimationFrame`:
+
+```js
+var ticking = false;
+var update = function () {
+  var doc   = document.documentElement;
+  var total = doc.scrollHeight - doc.clientHeight;
+  var pct   = total > 0 ? (window.scrollY / total) * 100 : 0;
+  bar.style.width = Math.min(pct, 100) + '%';
+  ticking = false;
+};
+var onScroll = function () {
+  if (!ticking) {
+    window.requestAnimationFrame(update);
+    ticking = true;
+  }
+};
+window.addEventListener('scroll', onScroll, { passive: true });
+```
+
+`scroll` events still fire as fast as the browser sends them, but `update` only runs once per animation frame (~16ms intervals). Reads happen in the rAF callback, batched with the next paint, so the browser doesn't have to recompute layout mid-scroll.
+
+This pattern is the standard scroll-handler optimization. The `ticking` flag prevents queuing multiple rAFs for the same frame.
+
+### Expected impact
+
+- Eliminates the "Forced reflow" finding on the blog page
+- Should resolve the "1 long main-thread task" finding (it's the same root cause)
+- Smoother scroll on long blog posts (especially noticeable on lower-end mobile)
+- No visible change otherwise — bar still tracks scroll position
+
+## Fix 3 — Color contrast on home hero subtitle
+
+### What was wrong
+
+`layouts/index.html` line 28:
+
+```html
+<p class="text-xl text-gray-400 mb-10 max-w-2xl">
+```
+
+`text-gray-400` is a light gray. On the home page's light background it doesn't meet WCAG AA contrast (4.5:1 for normal text, 3:1 for large text — this is `text-xl` which qualifies as large, but `gray-400` on white still falls short).
+
+The other `text-gray-400` uses on the same page (lines 67, 122, 136, 155) were paired with `text-gray-500 dark:text-gray-400` — the `gray-500` provides AA contrast in light mode, `gray-400` works in dark mode. Just the hero subtitle was missing the light-mode pairing.
+
+### The fix
+
+```html
+<p class="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl">
+```
+
+`gray-600` on white is well above AA contrast. `gray-400` on dark-mode background remains. Visually nearly identical to before — slightly darker subtitle in light mode.
+
+### Expected impact
+
+- Accessibility score: 95 → 100 on `/en/`
+- The other pages don't have this issue (their A11y is already 95–96 from other minor things)
 
 ## Files in this patch
 
 | File | Change |
 |---|---|
-| `src/worker.mjs` | UTM extraction + capture (`extractUtm()`, updated `trackPageview`) |
-| `src/worker.test.mjs` | +7 tests covering UTM behaviors (25 total) |
-| `assets/js/mermaid.min.js` | **New** — vendored Mermaid 10.9.5 (3.3 MB) |
-| `layouts/_default/baseof.html` | Mermaid `<script src>` now points at self-hosted Hugo Pipes resource |
-| `static/_headers` | CSP `script-src` no longer references `https://cdn.jsdelivr.net` |
-| `data/trust.en.yml` | "no third-party trackers" → "no third-party scripts" |
-| `data/trust.fr.yml` | "aucun traqueur tiers" → "aucun script tiers" |
-| `content/security.en.md` | CSP block + external-request paragraph updated |
-| `content/security.fr.md` | Same in FR |
-| `LIGHTHOUSE-AUDIT.md` | **New** — run-it-yourself audit guide |
+| `layouts/partials/head.html` | Closed the Hugo comment block before the preload tags so they actually emit |
+| `layouts/index.html` | Hero subtitle uses `text-gray-600 dark:text-gray-400` |
+| `assets/js/app.js` | Reading-progress handler uses `requestAnimationFrame` to batch reads/writes |
 
 ## Apply
 
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-unzip -o ~/Downloads/vanityurls-round19.zip
+unzip -o ~/Downloads/vanityurls-round20.zip
 git add -A
-git commit -m "feat: capture UTMs in analytics; self-host mermaid; tighten CSP"
+git commit -m "perf: emit font preloads, batch reading-progress writes, fix hero contrast"
 git push
 ```
 
-The patch is large because of the 3.3 MB `mermaid.min.js`. Git LFS isn't necessary — it compresses well and only changes when you upgrade Mermaid.
+Or with the diff:
+
+```bash
+git apply ~/Downloads/vanityurls-round20.diff
+```
 
 ## Validate after deploy
 
-**UTM capture:**
+**Font preloads now emit:**
 ```bash
-# Visit a URL with UTMs
-curl -s "https://vanityurls.link/en/?utm_source=test&utm_campaign=round19" -o /dev/null
-
-# Check Umami → Events → "campaign" → Properties
-# Should see utm_source=test, utm_campaign=round19
+curl -s https://vanityurls.link/en/ | grep -E 'rel=preload.*woff2'
+# Should show two preload links
 ```
 
-**Mermaid self-hosting:**
+**Hero subtitle has proper class:**
 ```bash
-# CSP no longer mentions jsdelivr
-curl -sI https://vanityurls.link/en/ | grep -i content-security-policy
-# Should NOT contain "cdn.jsdelivr.net"
-
-# Mermaid is reachable on its self-hosted URL
-# (Don't expect this to be live until you add a page with {{< mermaid >}})
+curl -s https://vanityurls.link/en/ | grep -oE '<p[^>]*text-xl[^>]*>' | head -1
+# Should show: text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl
 ```
 
-**Lighthouse:**
-Open `https://pagespeed.web.dev/`, paste each of the 5 URLs from `LIGHTHOUSE-AUDIT.md`. Capture scores. Flag anything below the floor thresholds.
+**Re-run Lighthouse on all 5 URLs.** Expected pattern:
 
-## Note on next steps
+- Mobile Performance: should jump 5–15 points across the board (font preload is the biggest single win)
+- `/en/` Accessibility: 95 → 100 (hero contrast fixed)
+- `/en/blog/introducing-v8s/`: forced-reflow finding gone, long task finding gone
 
-If Lighthouse surfaces any specific issues, those become their own targeted rounds. Common candidates:
-- **Image optimization** (responsive `srcset`, AVIF/WebP)
-- **Critical CSS inlining** for above-the-fold render
-- **Resource hints** (`<link rel=preload>` for critical assets, `<link rel=prefetch>` for likely next-pages)
-- **Structured data** (`application/ld+json` for BlogPosting, Article schemas)
+If mobile performance is still below 85 on any page after this round, the next things to look at are the unused-CSS finding (~11 KiB) — would need either Tailwind purge tuning or critical-CSS inlining.
 
-But run Lighthouse first — let real measurements guide the priority.
+## What's NOT in this round
+
+- **Reduce unused CSS (11–12 KiB):** Real but minor. Tailwind ships utility classes that aren't all used. Could be addressed by tightening the `tailwind.config.js` `content` glob or by introducing critical-CSS inlining for above-the-fold rules. Both are bigger work for ~12 KiB of savings on a ~30 KB total bundle. Defer until other rounds clear.
+- **theme-init.js synchronous in `<head>`:** This is intentional — it has to run before paint to avoid a flash of light mode. 555 bytes uncompressed. Keeping it as-is.
+- **Network dependency tree finding:** This is descriptive, not actionable on its own. The font preload fix shortens the dependency chain.
