@@ -68,7 +68,7 @@
     {{ $url   := .Permalink }}
     {{ $title := .Title }}
     <div class="flex items-center gap-2">
-      <span class="text-xs text-gray-400 dark:text-gray-500 mr-1">{{ i18n "share_label" }}</span>
+      <span class="text-xs text-gray-600 dark:text-gray-400 mr-1">{{ i18n "share_label" }}</span>
       <a href="https://x.com/intent/post?url={{ $url | urlize }}&text={{ $title | urlize }}"
          target="_blank" rel="noopener"
          class="p-1.5 rounded text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300
@@ -107,7 +107,7 @@
   <!-- Edit / Last modified -->
   <div class="mt-10 pt-6 border-t border-gray-100 dark:border-gray-800
               flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3
-              text-xs text-gray-400 dark:text-gray-500">
+              text-xs text-gray-600 dark:text-gray-400">
     {{ if .Site.Params.editBaseURL }}
     <a href="{{ printf "%s/%s/%s" .Site.Params.editBaseURL $lang .File.Path }}"
        target="_blank" rel="noopener"
@@ -137,7 +137,7 @@
       <a href="{{ .RelPermalink }}"
          class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-700
                 hover:border-brand-300 dark:hover:border-brand-600 transition-colors">
-        <span class="text-xs text-gray-400 dark:text-gray-500 block mb-1">← {{ i18n "blog_newer" }}</span>
+        <span class="text-xs text-gray-600 dark:text-gray-400 block mb-1">← {{ i18n "blog_newer" }}</span>
         <span class="text-sm font-medium text-gray-700 dark:text-gray-300
                      group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors line-clamp-2">
           {{ .Title }}
@@ -150,7 +150,7 @@
       <a href="{{ .RelPermalink }}"
          class="group block p-4 rounded-xl border border-gray-200 dark:border-gray-700
                 hover:border-brand-300 dark:hover:border-brand-600 transition-colors text-right">
-        <span class="text-xs text-gray-400 dark:text-gray-500 block mb-1">{{ i18n "blog_older" }} →</span>
+        <span class="text-xs text-gray-600 dark:text-gray-400 block mb-1">{{ i18n "blog_older" }} →</span>
         <span class="text-sm font-medium text-gray-700 dark:text-gray-300
                      group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors line-clamp-2">
           {{ .Title }}

@@ -1,106 +1,136 @@
-# vanityURLs — round 21: hotfix for round-20 mistakes
+# vanityURLs — round 22: WCAG AA contrast across all flagged elements
 
-Two of round 20's fixes had problems. Apologies — both deserve correction.
+PageSpeed Insights flagged three failing elements on `/en/`:
 
-## What round 20 got right
+1. **EN language toggle** — `<a class="bg-brand-600 text-white">EN</a>`
+2. **Get started CTA** — `<a class="... bg-brand-600 ... text-white">Get started →</a>`
+3. **Footer copyright** — `<p>© 2026 Benoît H. Dicaire, all rights reserved</p>` inside `text-xs text-gray-400 dark:text-gray-500`
 
-- **Font preloads now actually emit.** This is real progress. Render-blocking dropped 2,090 ms on `/en/` and 2,520 ms on `/en/docs/getting-started/`. Mobile docs Perf went 77 → 85.
-- **Reading-progress rAF wrapping.** Forced reflow finding gone on the blog page.
+Investigating each turned up systemic issues. Fixed all of them.
 
-## What round 20 got wrong
+## The math behind each fix
 
-### Mistake 1 — I set the hero subtitle to a darker gray when the hero is always dark
+WCAG AA thresholds: **4.5:1 for normal text**, **3:1 for large text** (≥18pt or ≥14pt bold).
 
-`layouts/index.html` line 8 hero section:
-```html
-<section class="... bg-gradient-to-br from-gray-900 via-brand-900 to-gray-900 text-white">
-```
+### Issue 1 + 2: white text on bg-brand-600
 
-The hero **always renders on a dark gradient**, regardless of theme. I read round 20's contrast finding and assumed light/dark theme switching applied. I changed `text-gray-400` → `text-gray-600 dark:text-gray-400`. Result: dark-mode users still got `gray-400` (fine), but light-mode users got `gray-600` on a dark green-teal gradient — **way worse than the original**.
+Your brand-teal palette has these contrasts with white:
 
-Your screenshot caught this. The subtitle was practically illegible.
+| Background | vs `text-white` | Verdict |
+|---|---|---|
+| `bg-brand-500` (#14b8a6) | 2.49:1 | fails AA + AAA on any text |
+| `bg-brand-600` (#0d9488) | 3.74:1 | fails normal text (4.5 needed); barely passes large text |
+| `bg-brand-700` (#0f766e) | 5.47:1 | passes AA normal, fails AAA |
+| `bg-brand-800` (#115e59) | 7.58:1 | passes AAA |
 
-### Mistake 2 — Lighthouse re-flagged the contrast issue (because mistake 1)
+The two flagged elements are:
+- "EN" on lang toggle: `text-xs font-medium` = 12px = NORMAL text → needs 4.5:1, got 3.74:1 → fail
+- "Get started" CTA: `text-sm font-medium` = 14px = NORMAL text per WCAG (large requires bold OR ≥18pt) → needs 4.5:1, got 3.74:1 → fail
 
-`/en/` Accessibility stayed at 95 because the original Lighthouse contrast finding was now even *more* failing than before. My round-20 fix made the problem worse, not better.
+Both classified as normal text, both need 4.5:1.
 
-## Fix 1: hero subtitle uses gray-300 (correct for dark background)
+**Fix:** shifted the entire button color pattern up one shade, preserving the dark-mode hover dance:
 
-```html
-<p class="text-xl text-gray-300 mb-10 max-w-2xl">
-```
+| Before | After |
+|---|---|
+| `bg-brand-600 hover:bg-brand-700 dark:bg-brand-700 dark:hover:bg-brand-600` | `bg-brand-700 hover:bg-brand-800 dark:bg-brand-800 dark:hover:bg-brand-700` |
 
-WCAG contrast math (AA needs 4.5:1 normal, 3:1 large; `text-xl` is large):
+This applied to 6 places (home CTA, 404 home button, docs CTA, showcase visit-link, language toggle active state, etc.).
 
-| Color | vs `gray-900` (darkest stop) | vs `brand-900` (mid stop) | Verdict |
+### Issue 3: footer copyright text
+
+The footer used `text-xs text-gray-400 dark:text-gray-500`. Both modes fail:
+
+| Mode | Foreground / Background | Ratio | Status |
 |---|---|---|---|
-| `gray-400` (original) | 6.99:1 | 3.73:1 | Borderline — Lighthouse flagged |
-| `gray-600` (round 20, wrong) | 2.35:1 | 1.25:1 | **Fails AA** — your screenshot |
-| `gray-300` (round 21) | 12.04:1 | 6.43:1 | **AAA on both** |
+| Light | `gray-400` on `white` | 2.54:1 | **fails badly** |
+| Dark | `gray-500` on `gray-900` | 3.67:1 | also fails |
 
-`gray-300` passes AAA against every stop in the gradient. Subtitle is clearly readable. Lighthouse contrast finding should clear.
+PSI tested in light mode so only flagged that one. But fixing dark mode at the same time is free.
 
-The earlier `dark:` modifier is gone because the hero doesn't change with theme.
+**Fix:** `text-gray-600 dark:text-gray-400`
 
-## Fix 2: empty block between "How it works" and footer
+| Mode | New ratio |
+|---|---|
+| Light: `gray-600` on `white` | **7.56:1** (passes AAA) |
+| Dark: `gray-400` on `gray-900` | **6.99:1** (passes AAA) |
 
-You spotted this. Cause:
+### The systemic find
 
-- `<section class="py-16 ...">` (How it works section) has 4rem bottom padding
-- `<footer class="... mt-16">` had 4rem top margin
+While verifying the footer fix, I grepped for `text-xs text-gray-400 dark:text-gray-500` and found **13 occurrences across 8 templates**:
 
-Stacked: 64px + 64px = 128px of empty space. With the section having a colored background and the footer having white, the gap was clearly visible.
+- `layouts/partials/footer.html` (the flagged one)
+- `layouts/partials/search-modal.html` (the "Esc" keyboard hint)
+- `layouts/blog/single.html` (×4: share label, byline, prev/next nav)
+- `layouts/showcase/single.html` (metadata labels)
+- `layouts/showcase/list.html` (URL link)
+- `layouts/tags/taxonomy.html` (tag count badge)
+- `layouts/shortcodes/code.html` (copy button)
+- `layouts/docs/single.html` (×4: breadcrumb, pagination, prev/next labels)
+- `layouts/docs/list.html` (breadcrumb)
 
-Fix: drop `mt-16` from `<footer>`. The section's `py-16` already provides the bottom space, the footer has its own internal `py-12`, and `border-t` is the visual separator. No reason for the extra margin.
+PSI only flagged the ones rendered on `/en/`. The other 12 would have flagged on the pages where they appear (docs, blog, showcase). Bumped them all to `text-gray-600 dark:text-gray-400` in one sweep.
 
-```diff
-- <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 mt-16 transition-colors duration-200">
-+ <footer class="border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 transition-colors duration-200">
-```
+### Lang-switcher inactive state
+
+While in `lang-switcher.html`, also bumped the inactive state's `text-gray-500` (4.83:1, marginal) → `text-gray-600` (7.56:1, comfortable). Same reasoning — `text-xs` is normal text, axe-core sometimes flags borderline cases at certain pixel rendering.
 
 ## Files in this patch
 
 | File | Change |
 |---|---|
-| `layouts/index.html` | Hero subtitle: `text-gray-300` (was wrongly `text-gray-600 dark:text-gray-400`) |
-| `layouts/partials/footer.html` | Removed `mt-16` to eliminate doubled vertical spacing before footer |
+| `layouts/partials/lang-switcher.html` | Active: `bg-brand-700`. Inactive: `text-gray-600` |
+| `layouts/partials/footer.html` | Copyright row: `text-gray-600 dark:text-gray-400` |
+| `layouts/partials/search-modal.html` | Esc kbd: same |
+| `layouts/index.html` | Hero CTA: shifted brand pattern up one shade |
+| `layouts/404.html` | Home button: same shift |
+| `layouts/blog/single.html` | 4 small-text spots: same gray bump |
+| `layouts/showcase/single.html` | Visit-link button: brand shift; metadata: gray bump |
+| `layouts/showcase/list.html` | Site-link: gray bump |
+| `layouts/tags/taxonomy.html` | Tag count badge: gray bump |
+| `layouts/shortcodes/code.html` | Copy button: gray bump |
+| `layouts/docs/single.html` | 4 small-text spots: gray bump |
+| `layouts/docs/list.html` | CTA brand shift; breadcrumb gray bump |
 
 ## Apply
 
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-unzip -o ~/Downloads/vanityurls-round21.zip
+unzip -o ~/Downloads/vanityurls-round22.zip
 git add -A
-git commit -m "fix: hero subtitle contrast on dark gradient; tighten footer spacing"
+git commit -m "a11y: WCAG AA contrast across brand buttons and small text"
 git push
 ```
 
 Or with the diff:
 
 ```bash
-git apply ~/Downloads/vanityurls-round21.diff
+git apply ~/Downloads/vanityurls-round22.diff
 ```
 
 ## Validate after deploy
 
-**Visual checks:**
-- Open `/en/` — hero subtitle should be clearly readable (light gray on dark gradient)
-- Scroll to bottom — no empty white block between "How it works" and the footer
-- Toggle dark mode — hero subtitle stays the same (always dark hero); footer transitions correctly
+Re-run Lighthouse on `/en/`. Expected:
 
-**Lighthouse:**
-Re-run on `/en/`. Expected: Accessibility 95 → 100. Performance probably unchanged (this round doesn't touch perf).
+- Accessibility: 95 → **100** (3 contrast failures cleared)
+- Performance: unchanged (this round doesn't touch perf)
 
-## On the remaining Lighthouse findings
+Visual checks (the brand color buttons get slightly darker):
 
-After round 20+21, the Mobile Performance ceiling on a typical page should be around 90. The remaining ~440–1,170 ms render-blocking is **the CSS bundle itself**, not fonts. Two paths to push past 95:
+- Hero "Get started" button: still teal, slightly more muted
+- Lang switcher active state: same
+- Showcase visit-link buttons: same
+- Hover states still darken further (now go to `brand-800`)
 
-1. **Critical CSS inlining.** Inline ~5–10 KB of above-the-fold CSS into `<head>`, async-load the rest. Eliminates the render-blocking CSS request entirely. Real benefit on slow-3G but adds build complexity.
+If the slightly-darker brand buttons feel too muted, the alternative would be a CSS-only fix that targets contrast without changing the visual shade — e.g. adding a 1px text-shadow for legibility — but that's hacky for a marketing site. The shade shift is cleaner.
 
-2. **Tailwind purge tightening.** The "Reduce unused CSS 11–12 KiB" finding suggests Tailwind is shipping classes you don't use. Tightening the `content` glob in `tailwind.config.js` could help. Smaller CSS = faster download = lower render-blocking time.
+## What's next
 
-Neither is needed unless you specifically want to chase 95+ mobile. For a content site at 85–90 mobile, you're in the green zone for Web Vitals and search ranking. Defer until business demands it.
+After this round, all 5 audited URLs should be:
 
-## Apologies for the round-20 misstep
+- **Performance Mobile:** 85–92 (capped by 440–1170ms render-blocking CSS)
+- **Accessibility:** 100
+- **Best Practices:** 100
+- **SEO:** 100
 
-I should have looked at the hero section's actual styling before "fixing" the contrast. The pattern of `text-gray-500 dark:text-gray-400` works on neutral page backgrounds, not on permanently-dark hero gradients. Round 21 corrects that.
+To push Mobile Performance past 95, the next round would be **CSS inlining** (inline the 14.4 KB main.css into `<head>`, eliminating the render-blocking request). Already scoped, ready to ship when you say go.

@@ -33,8 +33,8 @@
           </div>
           {{ with .Params.site_url }}
           <a href="{{ . }}" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-600 dark:bg-brand-700
-                    text-white text-sm font-medium hover:bg-brand-700 dark:hover:bg-brand-600 transition-colors shrink-0">
+             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-700 dark:bg-brand-800
+                    text-white text-sm font-medium hover:bg-brand-800 dark:hover:bg-brand-700 transition-colors shrink-0">
             {{ i18n "showcase_visit" }}
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -64,7 +64,7 @@
   <dl class="mt-8 grid grid-cols-2 sm:grid-cols-{{ len . }} gap-4">
     {{ range . }}
     <div class="bg-gray-50 dark:bg-gray-800/60 rounded-lg p-4 text-center">
-      <dt class="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">{{ .label }}</dt>
+      <dt class="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-1">{{ .label }}</dt>
       <dd class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ .value }}</dd>
     </div>
     {{ end }}
