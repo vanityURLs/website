@@ -1,6 +1,6 @@
 {
   "name": "vanityurls-website",
-  "version": "2.8.1",
+  "version": "2.8.2",
   "description": "VanityURls.link Website and documentation",
   "scripts": {
     "dev": "hugo server --buildDrafts",
