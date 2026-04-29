@@ -6,119 +6,141 @@ aliases:
   - a11y
 ---
 
-*Dernière révision : avril 2026*
+*Dernière révision : avril 2026. Cette déclaration s'applique uniquement à vanityURLs.link, et non aux déploiements auto-hébergés de vanityURLs.*
 
-vanityURLs.link s'engage à rendre ce site utilisable par le plus grand nombre de personnes possible, quelle que soit leur capacité ou leur technologie d'assistance. Cette déclaration explique ce que nous avons mis en œuvre, ce que nous savons être imparfait, et comment tester ou signaler des problèmes d'accessibilité.
+Nous nous engageons à rendre ce site utilisable par le plus grand nombre, quelle que soit la capacité ou la technologie d'assistance. Cette déclaration explique ce que nous avons mis en œuvre, ce que nous savons être imparfait, et comment tester ou signaler des problèmes d'accessibilité.
 
 ## Statut de conformité
 
-Nous ciblons le **WCAG 2.1 Niveau AA** comme standard. Le site est **partiellement conforme** — la majorité des critères sont satisfaits, et nous travaillons activement sur les lacunes restantes décrites ci-dessous.
+Nous visons le **WCAG 2.1 niveau AA**. Le site est **partiellement conforme** : la majorité des critères sont satisfaits, et un petit nombre de lacunes connues sont documentées ci-dessous.
 
-| Principe | Statut |
-|----------|--------|
-| **Perceptible** — l'information est présentable à tous les utilisateurs | Principalement satisfait — voir les problèmes connus |
-| **Utilisable** — toute l'interface est navigable au clavier | Principalement satisfait — voir les problèmes connus |
-| **Compréhensible** — le contenu est lisible et prévisible | Satisfait |
-| **Robuste** — compatible avec les technologies d'assistance | Satisfait |
+Les quatre principes WCAG ([POUR](https://www.w3.org/WAI/WCAG22/Understanding/intro#understanding-the-four-principles-of-accessibility)) et leur statut ici :
+
+- **Perceptible** — le contenu peut être présenté de manière perceptible quel que soit le sens utilisé. Principalement satisfait. Voir les lacunes connues ci-dessous.
+- **Utilisable** — chaque élément interactif est accessible et opérable. Principalement satisfait. Voir les lacunes connues ci-dessous.
+- **Compréhensible** — le contenu est lisible et l'interface se comporte de façon prévisible. Satisfait.
+- **Robuste** — le contenu fonctionne avec les technologies d'assistance actuelles et futures. Satisfait.
+
+L'audit automatisé le plus récent (avril 2026) a retourné un score Lighthouse Accessibility de **100/100** pour la page d'accueil, sur mobile comme sur ordinateur. Les outils automatisés détectent environ 30 à 40 % des problèmes WCAG ; ce score n'est donc pas une preuve de conformité totale, mais un signal utile à combiner avec les vérifications manuelles décrites ci-dessous.
 
 ## Ce que nous avons mis en œuvre
 
 ### Navigation au clavier
 
-- Chaque élément interactif — liens de navigation, boutons, barre latérale, modal de recherche — est accessible et utilisable au clavier seul.
-- Un **lien d'accès direct au contenu** apparaît à la mise au point, permettant aux utilisateurs du clavier de contourner la navigation.
-- Les **touches fléchées** naviguent dans la barre latérale de documentation. **Entrée** et **Espace** activent les sections extensibles.
-- Le **menu déroulant Code source** est utilisable au clavier : `Entrée` ou `Espace` l'ouvre, `Bas`/`Haut` déplace la mise au point, `Échap` le ferme et remet la mise au point sur le déclencheur.
-- Le **modal de recherche** confine correctement la mise au point quand il est ouvert et la libère sur `Échap`.
-- Tous les états de mise au point sont visibles avec un anneau de 2px de la couleur de la marque via `:focus-visible`.
+Chaque élément interactif — liens de navigation, boutons, barre latérale de documentation, modal de recherche, sélecteur de langue — est accessible et utilisable au clavier seul.
+
+Un **lien d'accès direct au contenu** apparaît à la mise au point, permettant aux utilisateurs au clavier de contourner la navigation. Le **menu déroulant Code source** est entièrement utilisable au clavier : `Entrée` ou `Espace` l'ouvre, `Bas`/`Haut` déplacent la mise au point entre les éléments, `Échap` le ferme et restitue la mise au point au déclencheur. Le **modal de recherche** s'ouvre avec `Cmd+K` (macOS) / `Ctrl+K` (Windows, Linux), confine la mise au point lorsqu'il est ouvert, et la libère avec `Échap`.
+
+Tous les états de mise au point sont visibles via `:focus-visible` avec un anneau de 2px aux couleurs de la marque. Les anneaux apparaissent à la navigation au clavier mais pas aux clics de souris, ce qui évite le bruit visuel sans nuire à l'utilisabilité au clavier.
 
 ### Structure sémantique
 
-- Éléments HTML de référence corrects : `<header>`, `<main>`, `<nav>`, `<footer>`, `<aside>`, `<article>`.
-- La hiérarchie des titres est maintenue (`h1` → `h2` → `h3`) sur toutes les pages sans sauter de niveaux.
-- L'attribut `lang` de la page est correctement défini pour l'anglais (`en-US`) et le français (`fr-FR`).
-- Toutes les pages ont un `<title>` unique et descriptif.
+Le site utilise les éléments HTML de référence (`<header>`, `<main>`, `<nav>`, `<footer>`, `<aside>`, `<article>`) et maintient une hiérarchie de titres correcte (`h1` → `h2` → `h3`) sans sauter de niveaux.
 
-### Images et icônes
+L'attribut `lang` de la page est correctement défini : `en-US` pour les pages en anglais, `fr-FR` pour les pages en français. La langue active dans le sélecteur de langue est marquée avec `aria-current="true"` pour que les lecteurs d'écran l'annoncent comme la sélection actuelle.
 
+### Utilisation d'ARIA
+
+Les rôles, propriétés et états ARIA sont utilisés là où la sémantique HTML seule ne suffit pas :
+
+- Le menu déroulant Code source utilise `aria-haspopup`, `aria-expanded`, `aria-controls` et `role="menu"`.
+- Le modal de recherche utilise `role="dialog"`, `aria-modal="true"` et `aria-label`.
+- Le bouton mode sombre, le déclencheur de recherche et le bouton du menu mobile utilisent tous `aria-label` pour fournir un contexte non textuel.
 - Les icônes SVG décoratives portent `aria-hidden="true"`.
-- L'image du logo utilise `alt=""` (correctement vide pour les images décoratives) avec l'étiquette textuelle « vanityURLs » visible à côté.
+- Le logo utilise `alt=""` (correctement vide pour une image décorative affichée à côté du logotype textuel « vanityURLs » visible).
 
 ### Couleur et contraste
 
-- Le texte du corps (`gray-800` sur blanc) dépasse AA WCAG à **12,6:1**.
-- Les liens texte dans la documentation utilisent `brand-700` (#0f766e) qui atteint **5,47:1** sur blanc — satisfaisant AA.
-- Le mode sombre utilise `brand-400` (#2dd4bf) pour les liens sur `gray-900`, atteignant **9,53:1** — dépassant AAA.
+Le texte du corps (`text-gray-900` sur blanc) atteint **17,74:1** en mode clair — bien au-delà de WCAG AAA. Inversé sur fond sombre (`text-gray-100` sur `bg-gray-900`), il atteint des ratios similaires.
 
-### Technologies d'assistance
+Les liens texte de la documentation utilisent `brand-700` (#0f766e) sur blanc, soit **5,47:1** — satisfaisant WCAG AA pour le texte normal. En mode sombre, les liens utilisent `brand-400` (#2dd4bf) sur `bg-gray-900`, soit **9,53:1** — dépassant AAA.
 
-- Testé avec **VoiceOver** (macOS Safari) et **NVDA** (Windows Firefox).
-- Les rôles, propriétés et états ARIA sont utilisés : `role="dialog"`, `aria-modal`, `aria-expanded`, `aria-haspopup`, `aria-controls`, `aria-label`.
+Le sous-titre de la section héros utilise `text-gray-300` sur un dégradé sombre. Le contraste le plus défavorable (sur `bg-brand-900`) est de **6,43:1**, dépassant AAA. Sur `bg-gray-900` il atteint **12,04:1**.
 
-## Problèmes connus
+Les composants d'interface tels que les badges et le bouton d'appel à l'action de la section héros ont été vérifiés lors de l'audit d'avril 2026 pour satisfaire le seuil AA de 3:1 pour les éléments non textuels.
 
-| Problème | Impact | Priorité |
-|----------|--------|----------|
-| `brand-500` (#14b8a6, 2,49:1) utilisé dans le dégradé de fond du badge héros | Faible — décoratif uniquement | Moyenne |
-| Les résultats de recherche Pagefind peuvent ne pas annoncer le nombre de résultats aux lecteurs d'écran | Certains utilisateurs ne savent pas combien de résultats ont été retournés | Moyenne |
-| Le menu de navigation mobile nécessite JavaScript | Les utilisateurs sans JS ne peuvent pas ouvrir le menu mobile | Faible |
-| Les tableaux dans la documentation n'ont pas d'éléments `<caption>` | Les lecteurs d'écran annoncent le tableau sans résumé | Faible |
+### Prise en charge des technologies d'assistance
+
+Nous n'avons pas encore effectué de test formel avec lecteur d'écran sur ce site. Les retours des personnes utilisant VoiceOver, NVDA, JAWS, TalkBack, Narrator ou toute autre technologie d'assistance sont très bienvenus — voir [Signaler des problèmes d'accessibilité](#signaler-des-probl%C3%A8mes-daccessibilit%C3%A9) ci-dessous. Des étapes de reproduction concrètes sont particulièrement utiles.
+
+## Lacunes connues
+
+Voici les véritables lacunes que nous avons identifiées et n'avons pas encore corrigées. Nous les listons honnêtement plutôt que de revendiquer une conformité que nous n'avons pas.
+
+- **Pas de prise en charge de `prefers-reduced-motion`.** Le site utilise des transitions CSS sur les propriétés couleur, transformation et opacité. Les personnes qui ont activé « réduire les animations » dans leur système d'exploitation ne reçoivent pas actuellement de version réduite. Impact : faible — les animations sont subtiles (transitions de 150 ms sur la couleur et l'opacité, pas de parallaxe, pas de lecture automatique). Priorité : moyenne.
+- **Les résultats de recherche n'annoncent pas leur nombre aux lecteurs d'écran.** Le modal de recherche basé sur Pagefind met à jour les résultats au fur et à mesure de la frappe mais n'inclut pas de région `aria-live`, ce qui empêche les utilisateurs de lecteur d'écran d'entendre « 5 résultats » annoncé. Impact : moyen pour les utilisateurs de lecteur d'écran. Priorité : moyenne.
+- **Les tableaux de la documentation n'ont pas d'élément `<caption>`.** Les tableaux Markdown sont rendus sans légende, donc les lecteurs d'écran annoncent la structure du tableau sans résumé. Impact : faible — la prose environnante décrit généralement le tableau. Priorité : faible.
+- **Le menu de navigation mobile nécessite JavaScript.** Le bouton du menu mobile utilise JS pour le comportement d'ouverture/fermeture. WCAG 2.1 n'exige pas que les sites fonctionnent sans JavaScript, mais si vous avez désactivé JS, le menu mobile ne s'ouvrira pas. La navigation desktop fonctionne sans JS. Priorité : faible.
 
 ## Comment tester ce site
 
-### Outils automatisés (commencer ici)
+### Vérifications automatisées (commencer ici)
+
+Les outils automatisés détectent une partie significative des problèmes WCAG et sont le point de départ le plus rapide. Aucun ne détecte tout — combinez-les avec les vérifications manuelles ci-dessous.
 
 | Outil | Accès | Ce qu'il vérifie |
-|-------|-------|-----------------|
-| **axe DevTools** | [Extension Chrome](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) | WCAG 2.1 A et AA complet |
-| **WAVE** | [wave.webaim.org](https://wave.webaim.org) | Structure, contraste, ARIA |
-| **Lighthouse** | Chrome DevTools → onglet Lighthouse | Score rapide + liste des problèmes |
-| **IBM Equal Access Checker** | [Extension Chrome](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp) | WCAG 2.1 + directives IBM |
+|-------|-------|------------------|
+| axe DevTools | [Extension Chrome](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) → DevTools → onglet axe | WCAG 2.1 A et AA |
+| WAVE | [wave.webaim.org](https://wave.webaim.org) ou [extension navigateur](https://wave.webaim.org/extension/) | Structure, contraste, ARIA |
+| Lighthouse | Chrome DevTools → onglet Lighthouse → Accessibility | Score et liste de problèmes |
+| PageSpeed Insights | [pagespeed.web.dev](https://pagespeed.web.dev) | Audit Lighthouse + Core Web Vitals |
+| IBM Equal Access Checker | [Extension Chrome](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp) | WCAG 2.1 et directives IBM |
 
 ### Test au clavier
 
-Fermez votre souris et naviguez dans la page en utilisant uniquement :
+Mettez votre souris de côté et naviguez en utilisant uniquement :
 
-| Touche | Action |
-|--------|--------|
-| `Tab` | Avancer dans les éléments focalisables |
-| `Maj+Tab` | Reculer |
-| `Entrée` / `Espace` | Activer les boutons et liens |
-| `Échap` | Fermer les modaux et menus déroulants |
-| `Touches fléchées` | Naviguer dans les menus et la barre latérale |
+- `Tab` — avancer dans les éléments focalisables
+- `Maj+Tab` — reculer
+- `Entrée` / `Espace` — activer les boutons et liens
+- `Échap` — fermer les modaux et menus déroulants
+- `Touches fléchées` — naviguer dans le menu déroulant de la barre latérale de documentation
+- `Cmd+K` / `Ctrl+K` — ouvrir le modal de recherche
 
-### Test du contraste des couleurs
+Chaque élément interactif doit être atteignable, avoir un indicateur de mise au point visible, et être activable sans souris.
 
-| Outil | URL |
-|-------|-----|
-| WebAIM Contrast Checker | [webaim.org/resources/contrastchecker](https://webaim.org/resources/contrastchecker/) |
-| Colour Contrast Analyser | [tpgi.com](https://www.tpgi.com/color-contrast-checker/) |
+### Contraste des couleurs
 
-Cible : **4,5:1** pour le texte normal, **3:1** pour le grand texte et les composants d'interface.
+Outils utiles pour vérifier le contraste manuellement :
+
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- [TPGi Color Contrast Analyser](https://www.tpgi.com/color-contrast-checker/) (application bureau)
+- Chrome DevTools → panneau Elements → Computed → indicateur de contraste
+
+Cibles : **4,5:1** pour le texte normal, **3:1** pour le grand texte (18pt ou 14pt gras) et les composants d'interface.
 
 ### Test avec lecteur d'écran
 
 | Lecteur d'écran | OS | Navigateur |
-|-----------------|----|----|
-| **VoiceOver** | macOS (`Cmd+F5`) | Safari |
-| **NVDA** | Windows (gratuit) | Firefox |
-| **TalkBack** | Android | Chrome |
+|-----------------|-----|------------|
+| VoiceOver | macOS (`Cmd+F5`) | Safari |
+| NVDA | Windows (gratuit) | Firefox |
+| TalkBack | Android | Chrome |
+| Narrator | Windows | Edge |
+
+À vérifier : le titre de la page est annoncé, les titres sont navigables avec la touche `H`, le texte des liens est descriptif (éviter « cliquez ici »), le sélecteur de langue annonce la langue active, et le modal de recherche s'annonce à l'ouverture.
+
+### Vérifications au niveau du navigateur
+
+- Zoom à 200 % — le contenu doit se réagencer sans défilement horizontal.
+- Mode contraste forcé (Windows High Contrast) — le contenu doit rester lisible, les anneaux de mise au point doivent rester visibles.
+- Désactiver le CSS — la structure de la page et l'ordre de lecture doivent rester logiques.
 
 ## Open source — auditer l'implémentation
 
-Ce site étant entièrement open source, vous pouvez inspecter chaque décision d'accessibilité directement sur [github.com/vanityURLs/website](https://github.com/vanityURLs/website).
+Le site est open source. Vous pouvez inspecter chaque décision d'accessibilité directement :
 
-## Signalement des problèmes d'accessibilité
+- Modèles et ARIA : [github.com/vanityURLs/website/tree/main/layouts](https://github.com/vanityURLs/website/tree/main/layouts)
+- CSS, y compris les styles de mise au point : [github.com/vanityURLs/website/blob/main/assets/css/main.css](https://github.com/vanityURLs/website/blob/main/assets/css/main.css)
+- JavaScript, y compris les gestionnaires de clavier : [github.com/vanityURLs/website/blob/main/assets/js/app.js](https://github.com/vanityURLs/website/blob/main/assets/js/app.js)
 
-Si vous rencontrez une barrière d'accessibilité sur ce site :
+## Signaler des problèmes d'accessibilité
 
-- **GitHub Issues** : [github.com/vanityURLs/website/issues](https://github.com/vanityURLs/website/issues) — préféré
-- **GitHub Discussions** : [github.com/orgs/vanityURLs/discussions](https://github.com/orgs/vanityURLs/discussions)
+Si vous rencontrez une barrière sur ce site, dites-le-nous :
 
-Veuillez inclure : l'URL de la page, une description de la barrière, la technologie d'assistance et le navigateur utilisés, et les étapes pour reproduire.
+- [GitHub Issues](https://github.com/vanityURLs/website/issues) — préféré, car cela permet un suivi public
+- [GitHub Discussions](https://github.com/orgs/vanityURLs/discussions)
 
-Nous visons à répondre dans les **7 jours** et à résoudre les problèmes confirmés dans les **30 jours**.
+Veuillez inclure : l'URL de la page, une description de la barrière, la technologie d'assistance et le navigateur que vous utilisiez, et les étapes pour reproduire.
 
----
-
-*Cette déclaration a été révisée pour la dernière fois en avril 2026. Elle s'applique uniquement à vanityURLs.link.*
+Nous visons à accuser réception des signalements dans les **7 jours** et à résoudre les problèmes confirmés dans les **30 jours**.

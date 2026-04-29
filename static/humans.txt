@@ -9,9 +9,9 @@ GitHub: https://github.com/felxcc
 Source: https://github.com/vanityURLs/website
 Site: Hugo (https://gohugo.io)
 CSS: Tailwind CSS (https://tailwindcss.com)
-Hosting: Cloudflare Pages (https://pages.cloudflare.com)
+Hosting: Cloudflare Workers (https://workers.cloudflare.com/)
 Search: Pagefind (https://pagefind.app)
-Fonts: Inter (rsms.me/inter) + JetBrains Mono — self-hosted under SIL Open Font License 1.1
+Fonts: Inter (rsms.me/inter) + JetBrains Mono — self-hosted
 
 /* STANDARDS */
 WCAG 2.1 AA (target)
@@ -20,4 +20,4 @@ RFC 8615 — /.well-known/
 Schema.org structured data
 
 /* THANK YOU */
-The open-source community that makes all of this possible
+We're grateful to the open source community, the projects, and especially their maintainers

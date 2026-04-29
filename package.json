@@ -2,6 +2,11 @@
   "name": "vanityurls-website",
   "version": "2.8.3",
   "description": "VanityURls.link Website and documentation",
+  "author": {
+    "name": "Benoît H. Dicaire",
+    "email": "bhd@VanityURLs.link",
+    "url": "http://github.com/bhdicaire"
+  },
   "scripts": {
     "dev": "hugo server --buildDrafts",
     "dev:search": "hugo --minify && pagefind --site public && hugo server --buildDrafts",
