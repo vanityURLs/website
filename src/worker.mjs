@@ -36,7 +36,15 @@ const ASSET_EXT_RE =
   /\.(css|js|mjs|map|json|xml|txt|ico|svg|png|jpg|jpeg|gif|webp|avif|woff2?|ttf|otf|eot|pdf|zip|wasm|webmanifest)$/i;
 
 const WORKER_UA_FALLBACK =
-  "Mozilla/5.0 (compatible; vanityURLs-edge-tracker/1.0; +https://vanityurls.link/)";
+  // Has to be a real-looking browser UA to bypass Umami's isbot filter on the
+  // INCOMING request to Umami. Without this, Umami's is-bot package would
+  // silently drop the event (returns 200 with `{"beep":"boop"}`) before
+  // recording. We keep the visitor's actual UA in `payload.userAgent` for
+  // accurate browser/OS attribution — that field is read from the JSON body,
+  // not the request header, and isn't subject to the isbot filter.
+  // See: github.com/umami-software/umami/issues/838
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 " +
+  "(KHTML, like Gecko) Version/17.0 Safari/605.1.15";
 
 export default {
   /**
@@ -219,15 +227,44 @@ async function trackPageview(request, env, status) {
 
     const body = { type: "event", payload };
 
-    await fetch(env.UMAMI_ENDPOINT, {
+    // Outgoing request UA: if the visitor is a bot OR has no UA, use a
+    // real-looking browser fallback so Umami's isbot filter doesn't drop us.
+    // For human visitors, forward their actual UA — Umami needs it for
+    // accurate session deduplication (sessionId derives from UA + IP + sourceId).
+    // The bot tagging from our own detector is already in payload.name, which
+    // Umami stores AFTER the isbot check — so bot events still show up
+    // correctly tagged in the Events tab.
+    const outgoingUA = (botName || !visitorUA) ? WORKER_UA_FALLBACK : visitorUA;
+
+    // Diagnostic mode: ?diag-umami in the URL surfaces what the Worker is
+    // doing in the Cloudflare dashboard's Log stream. Safe to ship — only
+    // activates when this exact param is present in a URL the user types.
+    // Remove this block once we've confirmed the analytics pipeline works.
+    const diagMode = url.searchParams.has("diag-umami");
+    if (diagMode) {
+      console.log("[diag] UMAMI_WEBSITE_ID present:", !!env.UMAMI_WEBSITE_ID);
+      console.log("[diag] UMAMI_ENDPOINT present:", !!env.UMAMI_ENDPOINT);
+      console.log("[diag] UMAMI_ENDPOINT value:", env.UMAMI_ENDPOINT);
+      console.log("[diag] visitorUA:", visitorUA);
+      console.log("[diag] botName:", botName);
+      console.log("[diag] outgoing UA:", outgoingUA);
+      console.log("[diag] payload:", JSON.stringify(payload));
+    }
+
+    const umamiResponse = await fetch(env.UMAMI_ENDPOINT, {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        // Required by Umami — requests without a UA are dropped.
-        "user-agent": visitorUA || WORKER_UA_FALLBACK,
+        "user-agent": outgoingUA,
       },
       body: JSON.stringify(body),
     });
+
+    if (diagMode) {
+      const responseText = await umamiResponse.text();
+      console.log("[diag] Umami response status:", umamiResponse.status);
+      console.log("[diag] Umami response body:", responseText);
+    }
   } catch (err) {
     console.error("umami tracking failed:", err);
   }

@@ -1,136 +1,135 @@
-# vanityURLs — round 22: WCAG AA contrast across all flagged elements
+# vanityURLs — round 23: Umami diagnostic + bot-UA bypass fix
 
-PageSpeed Insights flagged three failing elements on `/en/`:
+Two related changes to the Worker, both small. Goal: confirm the analytics pipeline is actually working, and fix one known bug while we're in there.
 
-1. **EN language toggle** — `<a class="bg-brand-600 text-white">EN</a>`
-2. **Get started CTA** — `<a class="... bg-brand-600 ... text-white">Get started →</a>`
-3. **Footer copyright** — `<p>© 2026 Benoît H. Dicaire, all rights reserved</p>` inside `text-xs text-gray-400 dark:text-gray-500`
+## Don't delete the Worker
 
-Investigating each turned up systemic issues. Fixed all of them.
+Worth saying upfront: the Worker, the analytics integration, the bot detection, the UTM capture — none of that is broken. Deleting and rebuilding would mean losing solid infrastructure to chase a misconfiguration that we haven't even confirmed yet. The right move is to verify the secrets, then if needed, fix them in place.
 
-## The math behind each fix
+## What changed
 
-WCAG AA thresholds: **4.5:1 for normal text**, **3:1 for large text** (≥18pt or ≥14pt bold).
+### Fix 1: Browser-shaped fallback UA
 
-### Issue 1 + 2: white text on bg-brand-600
+The old `WORKER_UA_FALLBACK` was:
+```
+Mozilla/5.0 (compatible; vanityURLs-edge-tracker/1.0; +https://vanityurls.link/)
+```
 
-Your brand-teal palette has these contrasts with white:
+That's literally a bot UA — contains the word "tracker" — and Umami's isbot package catches it. So when our Worker fell back to this UA (no incoming UA, or bot UA), Umami silently dropped the event with `{"beep":"boop"}` and 200 OK. The Worker thought the call succeeded.
 
-| Background | vs `text-white` | Verdict |
-|---|---|---|
-| `bg-brand-500` (#14b8a6) | 2.49:1 | fails AA + AAA on any text |
-| `bg-brand-600` (#0d9488) | 3.74:1 | fails normal text (4.5 needed); barely passes large text |
-| `bg-brand-700` (#0f766e) | 5.47:1 | passes AA normal, fails AAA |
-| `bg-brand-800` (#115e59) | 7.58:1 | passes AAA |
+New fallback:
+```
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15
+```
 
-The two flagged elements are:
-- "EN" on lang toggle: `text-xs font-medium` = 12px = NORMAL text → needs 4.5:1, got 3.74:1 → fail
-- "Get started" CTA: `text-sm font-medium` = 14px = NORMAL text per WCAG (large requires bold OR ≥18pt) → needs 4.5:1, got 3.74:1 → fail
+Real Safari UA. Bypasses the isbot check.
 
-Both classified as normal text, both need 4.5:1.
+### Fix 2: Use the fallback for bot UAs too
 
-**Fix:** shifted the entire button color pattern up one shade, preserving the dark-mode hover dance:
+Before round 23, when a bot like Googlebot hit the site, the Worker:
+1. Detected "Googlebot" via our own bot patterns → tagged `name="bot"` ✓
+2. Forwarded `Googlebot/2.1` as the outgoing request UA → Umami's isbot dropped it ✗
 
-| Before | After |
-|---|---|
-| `bg-brand-600 hover:bg-brand-700 dark:bg-brand-700 dark:hover:bg-brand-600` | `bg-brand-700 hover:bg-brand-800 dark:bg-brand-800 dark:hover:bg-brand-700` |
+Result: empty Events tab. Crawlers were correctly identified by us but never recorded by Umami because the request itself was filtered before recording.
 
-This applied to 6 places (home CTA, 404 home button, docs CTA, showcase visit-link, language toggle active state, etc.).
+After round 23: when our Worker detects a bot, it sends the real bot UA in `payload.userAgent` (so Umami can attribute it to the right browser/OS in the recorded data) but forwards the browser fallback as the request header. Umami's isbot check passes, and the event lands with `name="bot"` and `data.bot_name=Googlebot`.
 
-### Issue 3: footer copyright text
+For real human visitors, nothing changes — their actual UA still gets forwarded, and Umami's session deduplication still works correctly.
 
-The footer used `text-xs text-gray-400 dark:text-gray-500`. Both modes fail:
+### Diagnostic mode (temporary, gated by `?diag-umami`)
 
-| Mode | Foreground / Background | Ratio | Status |
-|---|---|---|---|
-| Light | `gray-400` on `white` | 2.54:1 | **fails badly** |
-| Dark | `gray-500` on `gray-900` | 3.67:1 | also fails |
+Added a diagnostic logging block that activates only when the URL contains `?diag-umami`. When triggered, it logs to the Cloudflare Worker dashboard's Log stream:
 
-PSI tested in light mode so only flagged that one. But fixing dark mode at the same time is free.
+```
+[diag] UMAMI_WEBSITE_ID present: true|false
+[diag] UMAMI_ENDPOINT present: true|false
+[diag] UMAMI_ENDPOINT value: https://...
+[diag] visitorUA: <full UA string>
+[diag] botName: null|<bot name>
+[diag] outgoing UA: <what we sent>
+[diag] payload: <full JSON payload>
+[diag] Umami response status: 200|4xx
+[diag] Umami response body: {...}
+```
 
-**Fix:** `text-gray-600 dark:text-gray-400`
+This tells us, in one shot:
+1. Whether secrets are visible to the Worker (env vars present)
+2. What we're sending
+3. What Umami responds with
 
-| Mode | New ratio |
-|---|---|
-| Light: `gray-600` on `white` | **7.56:1** (passes AAA) |
-| Dark: `gray-400` on `gray-900` | **6.99:1** (passes AAA) |
+After we've confirmed the pipeline works, this block should be removed (it's marked clearly in the comments).
 
-### The systemic find
+## How to verify after deploy
 
-While verifying the footer fix, I grepped for `text-xs text-gray-400 dark:text-gray-500` and found **13 occurrences across 8 templates**:
+### Step 1: Open the Cloudflare Worker Log stream
 
-- `layouts/partials/footer.html` (the flagged one)
-- `layouts/partials/search-modal.html` (the "Esc" keyboard hint)
-- `layouts/blog/single.html` (×4: share label, byline, prev/next nav)
-- `layouts/showcase/single.html` (metadata labels)
-- `layouts/showcase/list.html` (URL link)
-- `layouts/tags/taxonomy.html` (tag count badge)
-- `layouts/shortcodes/code.html` (copy button)
-- `layouts/docs/single.html` (×4: breadcrumb, pagination, prev/next labels)
-- `layouts/docs/list.html` (breadcrumb)
+Cloudflare dashboard → Workers & Pages → `vanityurls-website` → **Logs** tab → "Begin log stream"
 
-PSI only flagged the ones rendered on `/en/`. The other 12 would have flagged on the pages where they appear (docs, blog, showcase). Bumped them all to `text-gray-600 dark:text-gray-400` in one sweep.
+### Step 2: Hit a diagnostic URL
 
-### Lang-switcher inactive state
+In Firefox (or whatever browser is *not* logged into Umami):
 
-While in `lang-switcher.html`, also bumped the inactive state's `text-gray-500` (4.83:1, marginal) → `text-gray-600` (7.56:1, comfortable). Same reasoning — `text-xs` is normal text, axe-core sometimes flags borderline cases at certain pixel rendering.
+```
+https://vanityurls.link/en/?diag-umami=$(date +%s)
+```
+
+(Just type the URL — no terminal needed. The `=$(date +%s)` part isn't required, it's just to make each test URL unique. You can use any value: `?diag-umami=test1`, `?diag-umami=test2`, etc.)
+
+### Step 3: Read the log output
+
+In the Log stream you should see the `[diag]` lines. What to interpret:
+
+**If you see `UMAMI_WEBSITE_ID present: false`:**
+The secret isn't set, or it's set as a "Variable" (plaintext) instead of a "Secret" (encrypted). In Cloudflare dashboard → Workers & Pages → `vanityurls-website` → Settings → Variables and Secrets, both `UMAMI_WEBSITE_ID` and `UMAMI_ENDPOINT` should appear with lock icons (encrypted). If they don't, delete and re-add them as Secrets.
+
+**If you see `UMAMI_ENDPOINT present: true` and a value:**
+Secrets are visible. Look at the next lines.
+
+**If `Umami response status: 200` AND `Umami response body: {"cache": ...}`:**
+Pipeline works. Event is recorded in Umami. Check Umami dashboard's Pages list for the diagnostic URL — it should appear within 1-2 minutes.
+
+**If `Umami response status: 200` AND `Umami response body: {"beep":"boop"}`:**
+Umami's isbot filter is dropping the request. Means our fallback UA isn't being recognized as a browser, OR Umami changed their isbot list. Tell me and we'll iterate.
+
+**If `Umami response status: 4xx`:**
+Authentication or payload error. The body will say what's wrong.
+
+### Step 4: Confirm in Umami
+
+Switch to Chrome (the browser logged into cloud.umami.is). Open the dashboard, set time range to "Last 24 hours". The diagnostic URL with `?diag-umami=test1` should appear in the Pages list.
+
+## After diagnosis
+
+Once we've confirmed it's working, **the diagnostic block should be removed** in a follow-up round. It's gated, so leaving it in production is safe — but it does add a `console.log` cost to the rare `?diag-umami` URL hits. The block is clearly marked with a removal note.
 
 ## Files in this patch
 
 | File | Change |
 |---|---|
-| `layouts/partials/lang-switcher.html` | Active: `bg-brand-700`. Inactive: `text-gray-600` |
-| `layouts/partials/footer.html` | Copyright row: `text-gray-600 dark:text-gray-400` |
-| `layouts/partials/search-modal.html` | Esc kbd: same |
-| `layouts/index.html` | Hero CTA: shifted brand pattern up one shade |
-| `layouts/404.html` | Home button: same shift |
-| `layouts/blog/single.html` | 4 small-text spots: same gray bump |
-| `layouts/showcase/single.html` | Visit-link button: brand shift; metadata: gray bump |
-| `layouts/showcase/list.html` | Site-link: gray bump |
-| `layouts/tags/taxonomy.html` | Tag count badge: gray bump |
-| `layouts/shortcodes/code.html` | Copy button: gray bump |
-| `layouts/docs/single.html` | 4 small-text spots: gray bump |
-| `layouts/docs/list.html` | CTA brand shift; breadcrumb gray bump |
+| `src/worker.mjs` | Browser-shaped fallback UA; bot-UA bypass in outgoing request; diagnostic logging gated on `?diag-umami` |
+| `src/worker.test.mjs` | Tests still pass (25/25); no new tests needed since behavior is gated |
 
 ## Apply
 
 ```bash
 cd /Volumes/Tarmac/code/vanityURLs/website
-unzip -o ~/Downloads/vanityurls-round22.zip
+unzip -o ~/Downloads/vanityurls-round23.zip
 git add -A
-git commit -m "a11y: WCAG AA contrast across brand buttons and small text"
+git commit -m "fix(analytics): bypass Umami isbot for forwarded bot UAs; add ?diag-umami logging"
 git push
 ```
 
-Or with the diff:
+Wait for Cloudflare to deploy (~1 min after push), then run the diagnostic steps above and tell me what the log stream shows.
 
-```bash
-git apply ~/Downloads/vanityurls-round22.diff
-```
+## A note on the "should we delete and rebuild" question
 
-## Validate after deploy
+If Step 1 shows `UMAMI_WEBSITE_ID present: false`, the fix is to delete the bad Variable and add a proper Secret in the dashboard:
 
-Re-run Lighthouse on `/en/`. Expected:
+1. Workers & Pages → `vanityurls-website` → Settings → Variables and Secrets
+2. Find any plaintext "Variable" entries for `UMAMI_*` — delete them
+3. Click "Add" → choose **Secret** (not Variable) → enter the name and value
+4. Save and the Worker auto-restarts
 
-- Accessibility: 95 → **100** (3 contrast failures cleared)
-- Performance: unchanged (this round doesn't touch perf)
+That's it. No worker rebuild needed.
 
-Visual checks (the brand color buttons get slightly darker):
-
-- Hero "Get started" button: still teal, slightly more muted
-- Lang switcher active state: same
-- Showcase visit-link buttons: same
-- Hover states still darken further (now go to `brand-800`)
-
-If the slightly-darker brand buttons feel too muted, the alternative would be a CSS-only fix that targets contrast without changing the visual shade — e.g. adding a 1px text-shadow for legibility — but that's hacky for a marketing site. The shade shift is cleaner.
-
-## What's next
-
-After this round, all 5 audited URLs should be:
-
-- **Performance Mobile:** 85–92 (capped by 440–1170ms render-blocking CSS)
-- **Accessibility:** 100
-- **Best Practices:** 100
-- **SEO:** 100
-
-To push Mobile Performance past 95, the next round would be **CSS inlining** (inline the 14.4 KB main.css into `<head>`, eliminating the render-blocking request). Already scoped, ready to ship when you say go.
+If Step 1 shows secrets are present and pipeline still doesn't work, paste the diagnostic log here and I'll diagnose from the actual data.
