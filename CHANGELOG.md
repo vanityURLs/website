@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.4](https://github.com/vanityURLs/website/compare/v2.8.3...v2.8.4) (2026-04-29)
+
+
+### Bug Fixes
+
+* **content:** rewrite accessibility statement for accuracy in EN and FR ([367f4ca](https://github.com/vanityURLs/website/commit/367f4cae9ce087ae825a84fcda2cb3dc848cf8e2))
+
 ## [2.8.3](https://github.com/vanityURLs/website/compare/v2.8.2...v2.8.3) (2026-04-29)
 
 
