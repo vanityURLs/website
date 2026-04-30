@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0](https://github.com/vanityURLs/website/compare/v2.8.4...v2.9.0) (2026-04-30)
+
+
+### Features
+
+* **i18n:** switch to Canadian language codes (en-CA, fr-CA) ([f73c57e](https://github.com/vanityURLs/website/commit/f73c57eafb4b6450fe53cc3f1e249e9da76972ae))
+
 ## [2.8.4](https://github.com/vanityURLs/website/compare/v2.8.3...v2.8.4) (2026-04-29)
 
 
