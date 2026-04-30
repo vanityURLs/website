@@ -2,6 +2,7 @@ baseURL: "https://vanityurls.link/"
 title: "vanityURLs"
 
 # Requires Hugo 0.158.0 or newer (uses css.Build and css.PostCSS APIs introduced in 0.158).
+# Production is pinned to 0.160.1 in build.sh.
 min_version: "0.158.0"
 
 enableRobotsTXT: true
@@ -13,10 +14,13 @@ defaultContentLanguageInSubdir: true
 
 taxonomies:
   tag: tags
+  # The `category` taxonomy is intentionally omitted — no content uses it,
+  # which would otherwise produce an empty /categories/ index page that
+  # ends up in sitemap.xml as low-quality SEO clutter. Re-add if needed.
 
 languages:
   en:
-    languageCode: en-US
+    languageCode: en-CA
     languageName: English
     weight: 1
     params:
@@ -65,7 +69,7 @@ languages:
           pageRef: /showcase
           weight: 3
   fr:
-    languageCode: fr-FR
+    languageCode: fr-CA
     languageName: Français
     weight: 2
     params:
@@ -115,6 +119,7 @@ languages:
           weight: 3
 
 params:
+  # Version removed — vanityURLs has no version badge
   github:      "https://github.com/vanityURLs/vanityURLs"
   discussions: "https://github.com/orgs/vanityURLs/discussions"
   website_repo: "https://github.com/vanityURLs/website"

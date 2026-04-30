@@ -36,7 +36,7 @@ All focus states are visible via `:focus-visible` with a 2px brand-coloured ring
 
 The site uses correct HTML landmark elements (`<header>`, `<main>`, `<nav>`, `<footer>`, `<aside>`, `<article>`) and maintains a proper heading hierarchy (`h1` → `h2` → `h3`) without skipping levels.
 
-The page `lang` attribute is set correctly: `en-US` for English pages, `fr-FR` for French pages. The active language in the language switcher is marked with `aria-current="true"` so screen readers announce it as the current selection.
+The page `lang` attribute is set correctly: `en-CA` for English pages, `fr-CA` for French pages. The active language in the language switcher is marked with `aria-current="true"` so screen readers announce it as the current selection.
 
 ### ARIA usage
 

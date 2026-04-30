@@ -37,7 +37,7 @@ Tous les états de mise au point sont visibles via `:focus-visible` avec un anne
 
 Le site utilise les éléments HTML de référence (`<header>`, `<main>`, `<nav>`, `<footer>`, `<aside>`, `<article>`) et maintient une hiérarchie de titres correcte (`h1` → `h2` → `h3`) sans sauter de niveaux.
 
-L'attribut `lang` de la page est correctement défini : `en-US` pour les pages en anglais, `fr-FR` pour les pages en français. La langue active dans le sélecteur de langue est marquée avec `aria-current="true"` pour que les lecteurs d'écran l'annoncent comme la sélection actuelle.
+L'attribut `lang` de la page est correctement défini : `en-CA` pour les pages en anglais, `fr-CA` pour les pages en français. La langue active dans le sélecteur de langue est marquée avec `aria-current="true"` pour que les lecteurs d'écran l'annoncent comme la sélection actuelle.
 
 ### Utilisation d'ARIA
 
