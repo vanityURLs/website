@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0](https://github.com/vanityURLs/website/compare/v2.9.0...v2.10.0) (2026-04-30)
+
+
+### Features
+
+* **privacy:** truncate visitor IP before forwarding to analytics ([4076c51](https://github.com/vanityURLs/website/commit/4076c515d8fab327bb773b45d0e3bdc80ea27341))
+
 ## [2.9.0](https://github.com/vanityURLs/website/compare/v2.8.4...v2.9.0) (2026-04-30)
 
 
