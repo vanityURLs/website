@@ -18,7 +18,7 @@ Nous comptons les visites de pages pour savoir quelles pages de documentation so
 - l'URL de la page (chemin uniquement),
 - l'URL référente, si votre navigateur l'envoie,
 - la première valeur de votre en-tête `Accept-Language` (par ex. `fr-CA`),
-- un pays déduit de votre adresse IP (l'adresse IP est transmise à Umami pour la dérivation du pays ; Umami utilise un hachage et ne conserve pas l'IP en clair).
+- un pays déduit de votre adresse IP, qui est tronquée avant d'être transmise (dernier octet mis à zéro pour IPv4, cinq derniers groupes mis à zéro pour IPv6) afin qu'Umami puisse déterminer le pays sans voir votre adresse IP complète. Votre adresse IP complète n'est jamais transmise à notre fournisseur d'analytique.
 
 Aucun identifiant unique, cookie ou session ne vous est assigné. Aucun événement n'est envoyé pour les ressources (CSS, polices, images, index de recherche).
 

@@ -84,7 +84,7 @@ await run("GET HTML 200 fires Umami event", async () => {
   assert(call.body.payload.hostname === "vanityurls.link", "hostname");
   assert(call.body.payload.language === "fr-CA", "language");
   assert(call.body.payload.userAgent.startsWith("Mozilla/5.0"), "userAgent override");
-  assert(call.body.payload.ip === "203.0.113.42", "ip override");
+  assert(call.body.payload.ip === "203.0.113.0", "ip is truncated to /24");
   assert(!("name" in call.body.payload), "no name on 200");
 });
 
@@ -350,6 +350,59 @@ await run("URL with only non-UTM query params: stays a pageview", async () => {
   const p = umamiCalls[0].body.payload;
   assert(!p.name, "should remain a pageview");
   assert(p.url === "/en/blog/?ref=hn&page=2", `url unchanged, got '${p.url}'`);
+});
+
+await run("IPv4 visitor IP is truncated to /24 before being sent", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "cf-connecting-ip": "198.51.100.123" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(p.ip === "198.51.100.0", `expected truncated /24, got '${p.ip}'`);
+});
+
+await run("IPv6 visitor IP is truncated to /48 before being sent", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "cf-connecting-ip": "2001:db8:1234:5678:9abc:def0:1234:5678" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(p.ip === "2001:db8:1234::", `expected truncated /48, got '${p.ip}'`);
+});
+
+await run("Compressed IPv6 (::1 form) is handled without crashing", async () => {
+  const ctx = mockCtx();
+  const req = mkRequest("/en/", {
+    headers: { "cf-connecting-ip": "2001:db8::1" },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  // First 3 groups of "2001:db8::1" split-on-: → ["2001", "db8", "", "1"],
+  // taking first 3 → ["2001", "db8", ""→"0"] → "2001:db8:0::"
+  assert(p.ip === "2001:db8:0::", `expected truncated form, got '${p.ip}'`);
+});
+
+await run("Missing cf-connecting-ip omits payload.ip entirely", async () => {
+  const ctx = mockCtx();
+  // mkRequest sets cf-connecting-ip by default, so override to empty
+  const url = new URL("/en/", "https://vanityurls.link");
+  const req = new Request(url, {
+    method: "GET",
+    headers: {
+      "accept-language": "en-CA",
+      "user-agent": "Mozilla/5.0",
+      // no cf-connecting-ip
+    },
+  });
+  await worker.fetch(req, fullEnv, ctx);
+  await ctx._flush();
+  const p = umamiCalls[0].body.payload;
+  assert(!("ip" in p), `payload.ip should be absent, got '${p.ip}'`);
 });
 
 globalThis.fetch = origFetch;

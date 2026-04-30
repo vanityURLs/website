@@ -20,7 +20,7 @@ We count page views to understand which documentation pages are useful. This is 
 - the page URL (path only, no query string from your browser's address bar is persisted beyond what's in the URL),
 - the referring URL, if your browser sent one,
 - your `Accept-Language` header's first value (e.g., `fr-CA`),
-- a derived country from your IP (the IP is sent to Umami so it can derive the country; Umami hashes IPs rather than storing them).
+- a truncated form of your IP address (last octet zeroed for IPv4, last 5 groups zeroed for IPv6) so Umami can derive country-level location without seeing your full IP. Your full IP address is never sent to our analytics provider.
 
 No unique identifier, cookie, or session ID is set in your browser. No event is fired for asset requests (CSS, fonts, images, search index chunks).
 

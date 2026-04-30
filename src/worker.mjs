@@ -219,7 +219,20 @@ async function trackPageview(request, env, status) {
     const visitorUA = headers.get("user-agent");
     const visitorIP = headers.get("cf-connecting-ip");
     if (visitorUA) payload.userAgent = visitorUA;
-    if (visitorIP) payload.ip = visitorIP;
+
+    // Privacy: never forward the visitor's full IP to Umami. Truncate it
+    // before sending. This:
+    //   - Keeps country-level geo via Umami's GeoLite2 lookup (truncated IPv4
+    //     keeps the routing prefix; IPv6 keeps the /48 ISP allocation)
+    //   - Keeps Umami's session deduplication working (sessionId derives from
+    //     IP+UA+salt; truncated IP still varies per visitor enough to
+    //     differentiate sessions for same-browser visitors)
+    //   - Removes the last octet (IPv4) / last 5 groups (IPv6) so the
+    //     stored "IP" can't be tied back to a specific household
+    // This is the same anonymization pattern Matomo, Plausible, and other
+    // privacy-focused analytics use as their "anonymize IP" feature.
+    const truncatedIP = truncateIP(visitorIP);
+    if (truncatedIP) payload.ip = truncatedIP;
 
     // Decide event shape: pageview, 404 event, or bot event.
     // Umami constraint: `data` requires `name` (no nameless events with data).
@@ -308,3 +321,53 @@ function extractUtm(sp) {
     utmData,
   };
 }
+
+/**
+ * Truncate an IP address for privacy. Keeps the network prefix (enough for
+ * country-level geolocation) and zeroes out the host portion (so the result
+ * cannot be tied back to a specific household).
+ *
+ * IPv4: keep first 3 octets, zero the last
+ *   "203.0.113.42"      → "203.0.113.0"
+ *
+ * IPv6: keep first 3 groups (the typical /48 ISP allocation), zero the rest
+ *   "2001:db8:1234:5678:9abc:def0:1234:5678" → "2001:db8:1234::"
+ *
+ * Compressed/abbreviated forms (e.g. "::1", "2001:db8::1") are normalized
+ * by the URL parser before reaching here, but for safety we accept them.
+ *
+ * Returns null for empty/missing input. Returns the original string if it
+ * doesn't match a known IP shape (we'd rather pass through than corrupt
+ * data on an unexpected format).
+ *
+ * @param {string | null | undefined} ip
+ * @returns {string | null}
+ */
+function truncateIP(ip) {
+  if (!ip) return null;
+
+  // IPv4: 4 dot-separated octets
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(ip)) {
+    const parts = ip.split(".");
+    return `${parts[0]}.${parts[1]}.${parts[2]}.0`;
+  }
+
+  // IPv6: contains ":". Keep first 3 colon-separated groups.
+  // Handles full form (8 groups) and "::"-compressed forms.
+  if (ip.includes(":")) {
+    // Expand "::" into the right number of zero groups so we can take a
+    // consistent prefix. For our purpose we only need the first 3 groups,
+    // so simple splitting works for both forms.
+    const parts = ip.split(":");
+    // If "::" was at the start (ip began with ":") or in the middle, parts
+    // may contain empty strings. We only need the first 3 non-empty-or-zero
+    // groups; pad with "0" if fewer.
+    const firstThree = parts.slice(0, 3).map(p => p || "0");
+    while (firstThree.length < 3) firstThree.push("0");
+    return firstThree.join(":") + "::";
+  }
+
+  // Unknown format — return null rather than risk forwarding it.
+  return null;
+}
+
