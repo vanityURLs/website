@@ -25,10 +25,7 @@
         {{ $data.hero_title }}<br class="hidden sm:block">
         <span class="text-brand-400">{{ $data.hero_title2 }}</span>
       </h1>
-      {{/* Hero is always dark (bg-gradient-to-br from-gray-900...). The subtitle
-           needs LIGHT text against the dark background — gray-300 gives proper
-           AA contrast against the darkest gradient stop. The earlier `dark:`
-           modifier was incorrect because the hero doesn't change with theme. */}}
+
       <p class="text-xl text-gray-300 mb-10 max-w-2xl">
         {{ $data.hero_subtitle }}
       </p>
@@ -74,43 +71,8 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      {{ range slice
-        (dict "icon" "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-              "title" "Link as Code"
-              "desc"  "Define short URLs in simple config files, versioned and stored in Git")
-        (dict "icon" "M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-              "title" "CLI First"
-              "desc"  "Create and manage links directly from the command line, scriptable and fast")
-        (dict "icon" "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              "title" "Git History"
-              "desc"  "Track changes, review via pull requests, and roll back instantly")
-        (dict "icon" "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              "title" "Edge Delivery"
-              "desc"  "Serve redirects globally using Cloudflare Workers for low latency")
-        (dict "icon" "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-              "title" "Custom Domains"
-              "desc"  "Use your own domain for branded, trusted, and permanent short links")
-        (dict "icon" "M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-              "title" "Auto Deploy"
-              "desc"  "Push changes to Git and deploy instantly via serverless edge infrastructure")
-        (dict "icon" "M3 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M3 7c0 2.21 3.582 4 8 4s8-1.79 8-4M3 7c0-2.21 3.582-4 8-4s8 1.79 8 4"
-              "title" "Repo Control"
-              "desc"  "Use public or private repositories to manage visibility and access")
-        (dict "icon" "M4 6h16M4 10h16M4 14h16M4 18h7"
-              "title" "Structured URLs"
-              "desc"  "Organize links with paths, prefixes, and scalable naming conventions")
-        (dict "icon" "M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
-              "title" "Infra as Code"
-              "desc"  "Manage links like infrastructure, integrated into CI/CD workflows")
-        (dict "icon" "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-              "title" "No Lock-In"
-              "desc"  "Own your data, domain, and hosting — no dependency on SaaS platforms")
-        (dict "icon" "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-              "title" "Secure Design"
-              "desc"  "No admin UI or database reduces attack surface and exposure")
-        (dict "icon" "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              "title" "Low Cost"
-              "desc"  "Operate on free-tier infrastructure with minimal ongoing cost") }}
+
+      {{ range $data.features }}
       <div class="flex items-start gap-3 p-5 rounded-xl border border-gray-200 dark:border-gray-700
                   bg-gray-50 dark:bg-gray-800/40 hover:border-brand-200 dark:hover:border-brand-800
                   hover:bg-brand-50/50 dark:hover:bg-brand-900/10 transition-colors group">
@@ -142,15 +104,7 @@
     </p>
 
     <div class="space-y-6">
-      {{ range slice
-        (dict "n" "1" "title" "Buy a domain"
-              "desc" "Register any short domain you like — your-name.link, your-brand.io — via Cloudflare or any registrar. Bring your own if you already have one")
-        (dict "n" "2" "title" "Define links in your Git repository"
-              "desc" "Add your redirect rules to a plain-text file in a GitHub repository. One line per link — no database, no UI, just text you control")
-        (dict "n" "3" "title" "Connect via Cloudflare Pages"
-              "desc" "Link your repository to Cloudflare Pages with a single build command. Cloudflare handles SSL, edge caching, and redirect processing at the network level")
-        (dict "n" "4" "title" "Commit changes to deploy globally"
-              "desc" "Every git push triggers an automatic deploy. Your changes are live worldwide in ~15 seconds — no manual steps, no dashboards, no waiting") }}
+      {{ range $data.steps }}
       <div class="flex gap-4">
         <div class="w-8 h-8 rounded-full bg-brand-500 dark:bg-brand-600 text-white font-bold text-sm
                     flex items-center justify-center shrink-0 mt-0.5 shadow-sm">{{ .n }}</div>
