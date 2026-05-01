@@ -32,18 +32,6 @@
         "userTesting",
         "promotion"
       ]
-    },
-    {
-      "login": "0xbha",
-      "name": "Brian Adams",
-      "avatar_url": "https://avatars.githubusercontent.com/u/37779?v=4",
-      "profile": "https://github.com/0xbha",
-      "contributions": [
-        "code",
-        "doc",
-        "ideas",
-        "userTesting"
-      ]
     }
   ],
   "commitType": "docs",

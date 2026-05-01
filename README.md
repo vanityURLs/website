@@ -1,13 +1,12 @@
-# ![Logo](.github/header.png "Logo")
+# ![Logo](.github/banner.png "Logo")
 
-![GitHub Stars](https://img.shields.io/github/stars/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
+![GitHub Stars](https://img.shields.io/github/stars/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=CCFBF1&color=C25100)
 ![GitHub forks](https://img.shields.io/github/forks/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
 ![GitHub Last Commit](https://img.shields.io/github/last-commit/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
 ![GitHub licence](https://img.shields.io/github/license/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
 
 vanityURLs is a simple solution to deploy a budget-friendly Url Shortener. It runs at scale in your Cloudflare subscription with continuous integration.
 
-VanityURLs.com Website
 This repository contains the source code for the [vanityURLs.link website](https://vanityurls.link), built using the [Hugo](gohugo.io) static site generator.
 
 ## 🚀 Quick Start
@@ -17,43 +16,43 @@ hugo server --buildDrafts
 ```
 Then, visit `http://localhost:1313` in your browser.
 
-# 📚 Documentation Hub
+## 📚 Documentation Hub
 We maintain separate guides for specific workflows:
 
-1.  🛠️ **[Development Guide](./DEVELOPMENT.md)**: Local environment setup, coding patterns, and testing
-2.  🚀 **[Hosting & Deployment](./HOSTING.md)**: Production infrastructure and deployment pipelines
-3.  📊 **[Analytics & Metrics](./ANALYTICS.md)**: Tracking configuration and data privacy
+1.  🛠️  **[Development Guide](./DEVELOPMENT.md)**: Local environment setup, coding patterns, and testing
+2.  🚀  **[Hosting & Deployment](./HOSTING.md)**: Production infrastructure and deployment pipelines
+3.  📊  **[Analytics & Metrics](./ANALYTICS.md)**: Tracking configuration and data privacy
 
 ## Key features
 
-### i18n
+**i18n**
 - Bilingual content: `page.en.md` / `page.fr.md` side-by-side
 - UI strings in `i18n/en.yaml` and `i18n/fr.yaml` (45+ keys with pluralization)
 - Localized dates via `date_format_long` i18n key
 - Language-neutral data file paths (layouts prepend `/en/` or `/fr/` via `relLangURL`)
 - Language switcher preserves current page when translation exists
 
-### Documentation
+**Documentation**
 - Multi-level sidebar driven by `data/{en,fr}/docs_nav.yaml` — paths are language-neutral
 - Table of contents, breadcrumbs, Edit-on-GitHub, prev/next, mobile `<select>` dropdown
 
-### Blog
+**Blog**
 - Featured post via `featured: true` front matter (one per language)
 - Reading progress bar, social share (X, LinkedIn, copy-link), related posts, tags, RSS
 
-### UX / Accessibility
+**UX / Accessibility**
 - Dark mode with no-flash-on-load
 - Copy-to-clipboard on every `<pre>`
 - ⌘K search via Pagefind
 - Skip-to-content link, arrow-key sidebar nav, anchor hover
 
-### SEO / Performance
+**SEO / Performance**
 - hreflang, Open Graph, JSON-LD (SoftwareApplication, TechArticle, BreadcrumbList)
 - Favicon + apple-touch-icon from `/logo.svg`
 - Language-scoped PWA manifest
 - Fingerprinted + minified CSS with SRI
 
-## Shortcodes
+**Shortcodes**
 
 ```markdown
 {{< callout type="warning" title="Breaking change" >}}
