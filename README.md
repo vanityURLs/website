@@ -1,9 +1,9 @@
 # ![Logo](.github/banner.png "Logo")
 
-![GitHub Stars](https://img.shields.io/github/stars/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=CCFBF1&color=C25100)
-![GitHub forks](https://img.shields.io/github/forks/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
-![GitHub Last Commit](https://img.shields.io/github/last-commit/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
-![GitHub licence](https://img.shields.io/github/license/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=C25100)
+![GitHub Stars](https://img.shields.io/github/stars/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
+![GitHub forks](https://img.shields.io/github/forks/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
+![GitHub licence](https://img.shields.io/github/license/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
 
 vanityURLs is a simple solution to deploy a budget-friendly Url Shortener. It runs at scale in your Cloudflare subscription with continuous integration.
 
