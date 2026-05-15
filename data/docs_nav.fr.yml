@@ -10,21 +10,31 @@ sections:
         url: /docs/repository-layout/
       - title: Format des liens
         url: /docs/link-format/
+      - title: Registre runtime
+        url: /docs/runtime-registry/
       - title: Liens planifies
         url: /docs/schedules/
       - title: Surcharges custom
         url: /docs/custom-overrides/
+      - title: Validation et CI
+        url: /docs/validation-ci/
 
   - title: Operations
     pages:
       - title: Cloudflare Workers
         url: /docs/cloudflare/
+      - title: Securite runtime
+        url: /docs/runtime-security/
       - title: Analytics serveur
         url: /docs/server-side-analytics/
       - title: Tableau admin
         url: /docs/admin-dashboard/
       - title: Politique blocklist
         url: /docs/blocklist/
+      - title: Mise a jour d'une instance
+        url: /docs/upgrading/
+      - title: Checklist de release
+        url: /docs/release-checklist/
       - title: Guide de migration
         url: /docs/migration/
 

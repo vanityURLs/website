@@ -10,21 +10,31 @@ sections:
         url: /docs/repository-layout/
       - title: Link format
         url: /docs/link-format/
+      - title: Runtime registry
+        url: /docs/runtime-registry/
       - title: Scheduled links
         url: /docs/schedules/
       - title: Custom overrides
         url: /docs/custom-overrides/
+      - title: Validation and CI
+        url: /docs/validation-ci/
 
   - title: Operations
     pages:
       - title: Cloudflare Workers
         url: /docs/cloudflare/
+      - title: Runtime security
+        url: /docs/runtime-security/
       - title: Server-side analytics
         url: /docs/server-side-analytics/
       - title: Admin dashboard
         url: /docs/admin-dashboard/
       - title: Blocklist policy
         url: /docs/blocklist/
+      - title: Upgrading an instance
+        url: /docs/upgrading/
+      - title: Release checklist
+        url: /docs/release-checklist/
       - title: Migration guide
         url: /docs/migration/
 
