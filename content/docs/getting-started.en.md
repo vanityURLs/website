@@ -59,6 +59,31 @@ npm run check
 
 The check command builds the Worker source, copies static assets, merges defaults and custom files, generates `build/v8s.json`, validates the registry, and checks policy files.
 
+### Optional terminal helper
+
+The repository includes a Zsh helper at `scripts/v8s.zsh` for opening redirect targets from your terminal. Source it from your shell profile:
+
+```zsh
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+```
+
+The helper reads `~/.v8s.json`, which `npm run build` creates from the generated registry. Override the path if you keep the registry somewhere else:
+
+```zsh
+export V8S_REGISTRY=/path/to/v8s.json
+```
+
+Useful commands:
+
+```zsh
+v8s --list          # list active slugs
+v8s docs            # open the target for docs
+v8s --print docs    # print the target without opening it
+v8s --path          # show the registry path
+```
+
+`v8s.zsh` does not open arbitrary terminal input. It only opens `http://` and `https://` targets that already exist as `permanent` or `ephemeral` links in the generated registry.
+
 ### Deploy with Cloudflare Workers
 
 Review `wrangler.toml`, set the Worker name, then deploy:

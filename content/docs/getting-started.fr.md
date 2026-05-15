@@ -59,6 +59,31 @@ npm run check
 
 La commande construit le Worker, copie les assets, fusionne defaults et custom, genere `build/v8s.json`, valide le registre et verifie les politiques.
 
+### Helper terminal optionnel
+
+Le depot inclut un helper Zsh dans `scripts/v8s.zsh` pour ouvrir des cibles de redirection depuis le terminal. Sourcez-le depuis votre profil shell :
+
+```zsh
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+```
+
+Le helper lit `~/.v8s.json`, que `npm run build` cree depuis le registre genere. Remplacez le chemin si vous gardez le registre ailleurs :
+
+```zsh
+export V8S_REGISTRY=/path/to/v8s.json
+```
+
+Commandes utiles :
+
+```zsh
+v8s --list          # lister les slugs actifs
+v8s docs            # ouvrir la cible de docs
+v8s --print docs    # afficher la cible sans l'ouvrir
+v8s --path          # afficher le chemin du registre
+```
+
+`v8s.zsh` n'ouvre pas n'importe quelle entree du terminal. Il ouvre seulement les cibles `http://` et `https://` qui existent deja comme liens `permanent` ou `ephemeral` dans le registre genere.
+
 ### Deployer avec Cloudflare Workers
 
 Revisez `wrangler.toml`, definissez le nom du Worker, puis deployez :
