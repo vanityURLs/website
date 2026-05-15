@@ -27,6 +27,26 @@ custom/public/favicon.svg
 
 Ajoutez des surcharges HTML ou CSS seulement quand les assets de marque et les fichiers de contenu ne suffisent pas.
 
+## Pages legales et politiques
+
+Chaque proprietaire d'instance publique est responsable de ses propres conditions, avis de confidentialite, contact abus, et contact securite. Les defaults et exemples ne sont pas des conseils juridiques. Ce sont des placeholders et des patterns produit, pas une politique relue par un avocat pour chaque juridiction ou usage.
+
+Utilisez `custom/public/` pour publier les pages propres a l'instance, par exemple :
+
+```text
+custom/public/terms.html
+custom/public/privacy.html
+custom/public/abuse.html
+custom/public/security.html
+custom/public/robots.txt
+custom/public/llms.txt
+custom/public/llms-full.txt
+```
+
+Pour la plupart des deploiements vanityURLs, gardez `robots.txt` restrictif. Une instance de liens courts est un moteur de redirection, pas un site de contenu public, et la politique par defaut vise a decourager la recolte en masse.
+
+Mettez a jour les pages legales et politiques quand l'audience, le fournisseur analytics, le workflow abus, ou les pratiques de retention de donnees changent.
+
 ## Workflow de mise a jour
 
 ```bash

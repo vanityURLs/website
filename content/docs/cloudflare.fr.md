@@ -197,14 +197,19 @@ Gardez la liste exacte de crawlers IA dans Cloudflare, pas dans la documentation
 
 Si le depot fournit `robots.txt`, gardez Cloudflare Managed robots.txt desactive. Le depot reste ainsi la source de verite et Cloudflare ne remplace pas des directives intentionnelles.
 
+Le fichier par defaut `defaults/public/robots.txt` interdit le crawl par defaut et autorise seulement les fichiers de politique/contexte comme `/robots.txt`, `/llms.txt`, et `/llms-full.txt`. Ces fichiers existent pour decrire le logiciel et la surface deployee, pas pour promouvoir l'inventaire de liens. Une instance vanityURLs est un moteur de redirection, pas un site de contenu public; il n'y a normalement rien d'utile a recolter pour les bots.
+
 Utilisez AI Crawl Control ou une regle WAF sur user-agent si vous voulez que Cloudflare bloque certains crawlers IA avant le Worker. Reproduisez la meme politique dans `robots.txt` pour la transparence, mais traitez `robots.txt` comme advisory et la regle WAF comme enforcement.
 
 Defaults utiles :
 
 - Autoriser `/robots.txt`.
+- Autoriser `/llms.txt` et `/llms-full.txt` seulement si vous publiez volontairement du contexte lisible par machines.
 - Bloquer les crawlers IA et assistants IA non desires dans Cloudflare.
 - Garder les crawlers de moteurs de recherche verifies autorises sauf instance volontairement privee.
 - Revoir Cloudflare Security Events apres activation, car le trafic bloque n'apparait pas dans les analytics Worker.
+
+Pour un domaine court prive, familial, equipe, ou interne, il est raisonnable de bloquer toutes les familles de crawlers sauf celles que vous voulez explicitement. Ne comptez pas seulement sur `robots.txt`; utilisez ensemble Cloudflare AI Crawl Control, les regles WAF, et la blocklist runtime.
 
 ## Operations protegees
 

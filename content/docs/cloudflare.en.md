@@ -197,14 +197,19 @@ Keep the exact AI crawler list in Cloudflare, not in public docs, because crawle
 
 If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repo the source of truth and avoids Cloudflare overwriting intentional directives.
 
+The default `defaults/public/robots.txt` disallows crawling by default and only allows policy/context files such as `/robots.txt`, `/llms.txt`, and `/llms-full.txt`. Those files exist to describe the software and the deployed surface, not to advertise the link inventory. A vanityURLs instance is a redirect engine, not a public content site; there is normally nothing useful for bots to harvest.
+
 Use AI Crawl Control or a WAF user-agent rule when you want Cloudflare to block selected AI crawler traffic before it reaches the Worker. Mirror the same policy in `robots.txt` for transparency, but treat `robots.txt` as advisory and the WAF rule as enforcement.
 
 Useful defaults:
 
 - Allow `/robots.txt`.
+- Allow `/llms.txt` and `/llms-full.txt` only if you intentionally publish machine-readable context.
 - Block unwanted AI crawlers and AI assistants at Cloudflare.
 - Keep verified search engine crawlers allowed unless your instance is intentionally private.
 - Review Cloudflare Security Events after enabling the rule, because it will not appear in Worker analytics when blocked at the edge.
+
+For a private, family, team, or internal short-link domain, it is reasonable to block all crawler families except the ones you explicitly want. Do not rely on `robots.txt` alone for this; use Cloudflare AI Crawl Control, WAF rules, and the runtime blocklist together.
 
 ## Protected operations
 

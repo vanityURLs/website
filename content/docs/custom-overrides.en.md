@@ -27,6 +27,26 @@ custom/public/favicon.svg
 
 Only add HTML or CSS overrides when brand assets and content files are not enough.
 
+## Legal and policy pages
+
+Every public instance owner is responsible for their own terms, privacy notice, abuse contact, and security contact. The defaults and examples are not legal advice. They are placeholders and product patterns, not a lawyer-reviewed policy for every jurisdiction or use case.
+
+Use `custom/public/` to publish instance-specific pages, for example:
+
+```text
+custom/public/terms.html
+custom/public/privacy.html
+custom/public/abuse.html
+custom/public/security.html
+custom/public/robots.txt
+custom/public/llms.txt
+custom/public/llms-full.txt
+```
+
+For most vanityURLs deployments, keep `robots.txt` restrictive. A short-link instance is a redirect engine, not a public content site, and the default policy is designed to discourage bulk harvesting.
+
+Update legal and policy pages when the instance audience, analytics provider, abuse workflow, or data retention practices change.
+
 ## Upgrade workflow
 
 ```bash
