@@ -57,6 +57,8 @@ Use secrets for provider API keys that are only needed by local helper scripts. 
 
 Scanner probes matched by the runtime blocklist return a plain `404` before analytics. That keeps common probes such as PHP and WordPress paths out of miss metrics.
 
+Requests blocked by Cloudflare before the Worker do not emit vanityURLs analytics events. Review WAF, rate limiting, Access, bot, and AI crawler decisions in Cloudflare Security Events or the relevant Cloudflare dashboard.
+
 ## Data model
 
 Umami receives event properties such as:
@@ -106,6 +108,8 @@ Umami can lag by a few minutes. Use Workers Logs first when debugging ingestion 
 ## Optional Cloudflare Analytics Engine
 
 Workers Analytics Engine is a good backend for first-party aggregate reporting because it is designed for high-cardinality Worker events. Keep Umami or Fathom for public web analytics, and use Analytics Engine when you want a first-party reporting layer inside the protected admin dashboard.
+
+For private reports, protect the dashboard path with Cloudflare Access and keep the Worker fail-closed when `CF_ACCESS_AUD` is not configured.
 
 ## References
 

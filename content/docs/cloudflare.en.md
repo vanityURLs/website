@@ -80,7 +80,61 @@ Recommended free-plan posture for the short-link zone:
 | Browser Integrity Check | On |
 | URL Normalization | Normalize incoming URLs |
 
-Add WAF custom rules for scanner probes and unexpected methods when the zone needs more protection than the Worker-level blocklist. Keep rate limits focused on repeated misses and scanner-like paths; do not rate-limit normal redirect traffic too aggressively.
+For SSL/TLS, start with `Full (strict)`, Universal SSL active, Always Use HTTPS on, TLS 1.3 on, and Minimum TLS 1.2. Enable HSTS only after every production hostname and subdomain is ready for HTTPS. A one-month max age is a practical first setting; include subdomains and preload only when the whole zone is intentionally HTTPS-only.
+
+Keep Automatic HTTPS Rewrites on. Certificate Transparency Monitoring is optional, but useful when the account owner wants email alerts for unexpected certificates.
+
+## WAF and rate limiting
+
+Cloudflare security rules run before the Worker. Use them for traffic that should never spend Worker CPU, then leave the Worker blocklist as the application-level fallback.
+
+Recommended rule set:
+
+| Rule | Action | Notes |
+|---|---|---|
+| Block scanner probes | Block | Match common exploit paths such as `.php`, `/wp-`, `/.env`, and admin probes. |
+| Block unexpected methods | Block | Allow only `GET`, `HEAD`, and `OPTIONS` for the public redirect hostname. |
+| Challenge suspicious clients | Managed Challenge | Exclude verified bots, `/_stats`, `/_tests`, static assets, and `robots.txt`. |
+| Block unwanted AI crawlers | Block | Exclude `/robots.txt`; match crawler user agents you do not want to serve. |
+| Rate limit short-link candidates | Block or challenge | Count repeated misses and scanner-like candidates, not successful redirects. |
+
+Example expressions for a `v8s.link` zone:
+
+```text
+http.host in {"v8s.link" "www.v8s.link"} and (
+  ends_with(lower(http.request.uri.path), ".php") or
+  contains(lower(http.request.uri.path), "/wp-") or
+  contains(lower(http.request.uri.path), "/.env")
+)
+```
+
+```text
+http.host eq "v8s.link" and
+not http.request.method in {"GET" "HEAD" "OPTIONS"}
+```
+
+```text
+http.host eq "v8s.link" and
+not cf.client.bot and
+not starts_with(http.request.uri.path, "/_stats") and
+not starts_with(http.request.uri.path, "/_tests") and
+http.request.uri.path ne "/robots.txt"
+```
+
+Keep the exact AI crawler list in Cloudflare, not in public docs, because crawler names and policy choices change. At minimum, leave `/robots.txt` allowed so crawlers can read the published policy.
+
+## AI crawler policy
+
+If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repo the source of truth and avoids Cloudflare overwriting intentional directives.
+
+Use AI Crawl Control or a WAF user-agent rule when you want Cloudflare to block selected AI crawler traffic before it reaches the Worker. Mirror the same policy in `robots.txt` for transparency, but treat `robots.txt` as advisory and the WAF rule as enforcement.
+
+Useful defaults:
+
+- Allow `/robots.txt`.
+- Block unwanted AI crawlers and AI assistants at Cloudflare.
+- Keep verified search engine crawlers allowed unless your instance is intentionally private.
+- Review Cloudflare Security Events after enabling the rule, because it will not appear in Worker analytics when blocked at the edge.
 
 ## Protected operations
 
@@ -92,6 +146,22 @@ v8s.link/_stats/*
 v8s.link/_tests
 v8s.link/_tests/*
 ```
+
+Use one self-hosted Access application for these private operations. Configure the destinations exactly, then attach a default-deny policy model with a single allow policy for maintainers.
+
+Recommended Access settings:
+
+| Setting | Recommendation |
+|---|---|
+| Application type | Self-hosted |
+| Public hostnames | `v8s.link/_stats`, `v8s.link/_stats/*`, `v8s.link/_tests`, `v8s.link/_tests/*` |
+| Policy | Allow named maintainer emails or a maintained identity group |
+| Session duration | 24 hours |
+| MFA | Respect global enforcement or require it directly on the policy |
+| Browser rendering | Off |
+| Identity providers | Use account-managed IdPs such as GitHub, Google Workspace, or Okta |
+
+Do not commit identity-provider app IDs, client secrets, Access audiences, or service tokens. Keep them in Cloudflare Zero Trust and Worker secrets. Rotate provider secrets if they are ever exposed in a screenshot, log, or repository.
 
 Set the team domain as a Worker variable and the Access audience as a secret:
 
@@ -105,6 +175,27 @@ npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
 The Worker validates the `Cf-Access-Jwt-Assertion` header. If Access is not configured, protected paths fail closed.
+
+Test the policy from Cloudflare Zero Trust before release, then visit `/_stats` and `/_tests` from a signed-out browser profile to confirm both paths are denied.
+
+## Observability split
+
+Use Cloudflare dashboards for infrastructure signals:
+
+- DNS, certificate, and TLS status
+- Worker requests, errors, CPU time, wall time, and request duration
+- WAF, rate limiting, bot, and AI crawler events
+- Access login decisions for protected paths
+
+Use vanityURLs server-side analytics for application events:
+
+- pageviews
+- redirects
+- short-link misses
+- expand lookups
+- normalized bot events that reach the Worker
+
+Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events, not in Umami, Fathom, or Analytics Engine.
 
 ## Build and deploy
 

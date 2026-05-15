@@ -57,6 +57,8 @@ Utilisez des secrets pour les cles API necessaires seulement aux scripts locaux.
 
 Les probes reconnues par la blocklist runtime retournent un `404` simple avant analytics. Cela garde les chemins PHP et WordPress hors des metriques de miss.
 
+Les requetes bloquees par Cloudflare avant le Worker n'emettent pas d'evenements analytics vanityURLs. Consultez WAF, rate limiting, Access, bot, et les decisions crawler IA dans Cloudflare Security Events ou le dashboard Cloudflare pertinent.
+
 ## Modele de donnees
 
 Umami recoit des proprietes comme :
@@ -106,6 +108,8 @@ Umami peut avoir quelques minutes de retard. Utilisez Workers Logs en premier po
 ## Option Cloudflare Analytics Engine
 
 Workers Analytics Engine est un bon backend pour des rapports agreges first-party, car il est concu pour les evenements Worker a haute cardinalite. Gardez Umami ou Fathom pour les analytics web publics, et utilisez Analytics Engine pour une couche de rapport first-party dans le dashboard admin protege.
+
+Pour les rapports prives, protegez le chemin du dashboard avec Cloudflare Access et gardez le Worker ferme par defaut quand `CF_ACCESS_AUD` n'est pas configure.
 
 ## References
 
