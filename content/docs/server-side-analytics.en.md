@@ -33,16 +33,6 @@ During a migration, send to both:
 ANALYTICS_PROVIDER = "umami,fathom"
 ```
 
-For first-party Worker event storage, add the Analytics Engine binding in `wrangler.toml` and include Cloudflare as a provider:
-
-```toml
-ANALYTICS_PROVIDER = "umami,cloudflare"
-
-[[analytics_engine_datasets]]
-binding = "V8S_ANALYTICS"
-dataset = "v8s_link_events"
-```
-
 Use secrets for provider API keys that are only needed by local helper scripts. The Worker does not need the Fathom management API key for collection.
 
 ## Events
@@ -59,7 +49,7 @@ Scanner probes matched by the runtime blocklist return a plain `404` before anal
 
 Requests blocked by Cloudflare before the Worker do not emit vanityURLs analytics events. Review WAF, rate limiting, Access, bot, and AI crawler decisions in Cloudflare Security Events or the relevant Cloudflare dashboard.
 
-## Data model
+## Umami data model
 
 Umami receives event properties such as:
 
@@ -73,7 +63,37 @@ Umami receives event properties such as:
 - requested path and query
 - bot family, when detected
 
-Fathom receives provider-native pageview and event requests with selected campaign/query parameters. Use Umami when you need per-event properties such as `slug`, `target_host`, or `effective_state`.
+Umami is the best fit when you want structured event properties in the analytics UI, because the Worker sends redirect, miss, expand, and bot metadata as event data.
+
+## Fathom data model
+
+Fathom receives provider-native collection requests from the Worker. Pageviews are sent as pageviews; redirect, miss, expand, and bot events are sent as named Fathom events.
+
+Fathom request fields include:
+
+- site ID
+- page origin
+- page path
+- referrer
+- selected query and campaign parameters
+- generated client ID for the collection request
+- event name for non-pageview events
+- event payload for non-pageview events
+
+Fathom event payloads include:
+
+- event type
+- slug
+- target host
+- effective state
+- schedule label
+- redirect status
+- redirect error or expand result, when present
+- country and colo from Cloudflare request metadata
+- correlation ID
+- requested path and query
+
+Use Fathom when you want simple privacy-oriented traffic and event reporting without adding browser JavaScript. Use Umami when you need richer per-event filtering over custom properties.
 
 ## IP mode
 
@@ -86,6 +106,8 @@ Fathom receives provider-native pageview and event requests with selected campai
 | `none` | Omits IP override entirely |
 
 For a public privacy-first deployment, use `truncated` or `none` unless you have a specific operational need for full geo reporting.
+
+Fathom collection does not require forwarding `CF-Connecting-IP` from the Worker. The Worker sends provider-native Fathom requests with the visitor user agent when safe, and falls back to a generic Worker user agent for known bot traffic.
 
 ## Verification
 
@@ -104,14 +126,3 @@ After deployment:
 5. Check Workers Logs for `umami tracking failed` or `fathom tracking failed`.
 
 Umami can lag by a few minutes. Use Workers Logs first when debugging ingestion errors.
-
-## Optional Cloudflare Analytics Engine
-
-Workers Analytics Engine is a good backend for first-party aggregate reporting because it is designed for high-cardinality Worker events. Keep Umami or Fathom for public web analytics, and use Analytics Engine when you want a first-party reporting layer inside the protected admin dashboard.
-
-For private reports, protect the dashboard path with Cloudflare Access and keep the Worker fail-closed when `CF_ACCESS_AUD` is not configured.
-
-## References
-
-- [Workers Analytics Engine](https://developers.cloudflare.com/analytics/analytics-engine/)
-- [Write to Analytics Engine from Workers](https://developers.cloudflare.com/workers/examples/analytics-engine/)

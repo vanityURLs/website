@@ -33,16 +33,6 @@ Pendant une migration, envoyez aux deux :
 ANALYTICS_PROVIDER = "umami,fathom"
 ```
 
-Pour stocker des evenements Worker first-party, ajoutez le binding Analytics Engine dans `wrangler.toml` et incluez Cloudflare comme fournisseur :
-
-```toml
-ANALYTICS_PROVIDER = "umami,cloudflare"
-
-[[analytics_engine_datasets]]
-binding = "V8S_ANALYTICS"
-dataset = "v8s_link_events"
-```
-
 Utilisez des secrets pour les cles API necessaires seulement aux scripts locaux. Le Worker n'a pas besoin de la cle API de gestion Fathom pour la collecte.
 
 ## Evenements
@@ -59,7 +49,7 @@ Les probes reconnues par la blocklist runtime retournent un `404` simple avant a
 
 Les requetes bloquees par Cloudflare avant le Worker n'emettent pas d'evenements analytics vanityURLs. Consultez WAF, rate limiting, Access, bot, et les decisions crawler IA dans Cloudflare Security Events ou le dashboard Cloudflare pertinent.
 
-## Modele de donnees
+## Modele Umami
 
 Umami recoit des proprietes comme :
 
@@ -73,7 +63,37 @@ Umami recoit des proprietes comme :
 - chemin et query demandes
 - famille bot, si detectee
 
-Fathom recoit des requetes pageview et event natives avec certains parametres de campagne/query. Utilisez Umami si vous avez besoin de proprietes par evenement comme `slug`, `target_host`, ou `effective_state`.
+Umami est le meilleur choix si vous voulez des proprietes structurees dans l'interface analytics, car le Worker envoie les metadonnees de redirection, miss, expand, et bot comme donnees d'evenement.
+
+## Modele Fathom
+
+Fathom recoit des requetes de collecte natives depuis le Worker. Les pageviews sont envoyees comme pageviews; les redirects, misses, expands, et evenements bot sont envoyes comme evenements Fathom nommes.
+
+Les champs de requete Fathom incluent :
+
+- site ID
+- origine de page
+- chemin de page
+- referrer
+- certains parametres query et campagne
+- client ID genere pour la requete de collecte
+- nom d'evenement pour les evenements non-pageview
+- payload d'evenement pour les evenements non-pageview
+
+Les payloads d'evenement Fathom incluent :
+
+- type d'evenement
+- slug
+- hostname cible
+- etat effectif
+- libelle de planification
+- statut de redirection
+- erreur de redirection ou resultat expand, si present
+- pays et colo depuis Cloudflare
+- correlation ID
+- chemin et query demandes
+
+Utilisez Fathom si vous voulez des rapports de trafic et d'evenements simples, orientes confidentialite, sans JavaScript navigateur. Utilisez Umami si vous avez besoin de filtrage plus riche sur des proprietes custom.
 
 ## Mode IP
 
@@ -86,6 +106,8 @@ Fathom recoit des requetes pageview et event natives avec certains parametres de
 | `none` | N'envoie aucune IP |
 
 Pour un deploiement public oriente confidentialite, utilisez `truncated` ou `none` sauf besoin operationnel precis.
+
+La collecte Fathom ne demande pas de transmettre `CF-Connecting-IP` depuis le Worker. Le Worker envoie les requetes Fathom natives avec le user agent visiteur quand c'est prudent, et utilise un user agent generique Worker pour le trafic bot connu.
 
 ## Verification
 
@@ -104,14 +126,3 @@ Apres deploiement :
 5. Verifiez Workers Logs pour `umami tracking failed` ou `fathom tracking failed`.
 
 Umami peut avoir quelques minutes de retard. Utilisez Workers Logs en premier pour diagnostiquer l'ingestion.
-
-## Option Cloudflare Analytics Engine
-
-Workers Analytics Engine est un bon backend pour des rapports agreges first-party, car il est concu pour les evenements Worker a haute cardinalite. Gardez Umami ou Fathom pour les analytics web publics, et utilisez Analytics Engine pour une couche de rapport first-party dans le dashboard admin protege.
-
-Pour les rapports prives, protegez le chemin du dashboard avec Cloudflare Access et gardez le Worker ferme par defaut quand `CF_ACCESS_AUD` n'est pas configure.
-
-## References
-
-- [Workers Analytics Engine](https://developers.cloudflare.com/analytics/analytics-engine/)
-- [Ecrire vers Analytics Engine depuis Workers](https://developers.cloudflare.com/workers/examples/analytics-engine/)

@@ -251,7 +251,7 @@ Use vanityURLs server-side analytics for application events:
 - expand lookups
 - normalized bot events that reach the Worker
 
-Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events, not in Umami, Fathom, or Analytics Engine.
+Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events, not in Umami or Fathom.
 
 ## Build and deploy
 

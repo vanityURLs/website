@@ -251,7 +251,7 @@ Utilisez les analytics serveur vanityURLs pour les evenements applicatifs :
 - expand lookups
 - evenements bot normalises qui atteignent le Worker
 
-Le trafic bloque par WAF, AI Crawl Control, Access, ou rate limiting n'atteint pas le Worker et doit etre consulte dans Cloudflare Security Events, pas dans Umami, Fathom, ou Analytics Engine.
+Le trafic bloque par WAF, AI Crawl Control, Access, ou rate limiting n'atteint pas le Worker et doit etre consulte dans Cloudflare Security Events, pas dans Umami ou Fathom.
 
 ## Build et deploiement
 
