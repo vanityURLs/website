@@ -31,9 +31,6 @@ languages:
           links:
             - name: Documentation
               url: /docs/
-            - name: Roadmap
-              url: https://github.com/orgs/vanityURLs/projects/1/views/4
-              external: true
             - name: Try the Demo
               url: /docs/demo/
         col3:
@@ -82,9 +79,6 @@ languages:
               url: /docs/
             - name: Essayer la démo
               url: /docs/demo/
-            - name: Feuille de route
-              url: https://github.com/orgs/vanityURLs/projects/1/views/4
-              external: true
         col3:
           title: Communauté
           links:

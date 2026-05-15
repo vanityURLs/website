@@ -4,6 +4,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
 ![GitHub Last Commit](https://img.shields.io/github/last-commit/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
 ![GitHub licence](https://img.shields.io/github/license/vanityURLs/website?style=flat-square&logoColor=186ADE&labelColor=3E5462&color=CCFBF1)
+[![Better Stack Badge](https://uptime.betterstack.com/status-badges/v3/monitor/2lbmm.svg)](https://uptime.betterstack.com/?utm_source=status_badge)
 
 vanityURLs is a simple solution to deploy a budget-friendly Url Shortener. It runs at scale in your Cloudflare subscription with continuous integration.
 
