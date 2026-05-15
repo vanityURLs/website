@@ -191,6 +191,8 @@ not starts_with(http.request.uri.path, "/_tests") and
 http.request.uri.path ne "/robots.txt"
 ```
 
+Le rule builder visuel de Cloudflare peut rendre les expressions imbriquees difficiles a reproduire. Pour ces regles, utilisez l'editeur d'expression pour l'expression finale, collez et validez une expression complete a la fois, sauvegardez les regles desactivees pendant le calibrage, puis activez-les apres verification dans Security Events. C'est plus facile a reproduire que de reconstruire la meme logique avec plusieurs menus deroulants.
+
 Gardez la liste exacte de crawlers IA dans Cloudflare, pas dans la documentation publique, parce que les noms de crawlers et les choix de politique changent. Au minimum, laissez `/robots.txt` autorise pour que les crawlers lisent la politique publiee.
 
 ## Politique crawlers IA

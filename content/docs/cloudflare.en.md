@@ -191,6 +191,8 @@ not starts_with(http.request.uri.path, "/_tests") and
 http.request.uri.path ne "/robots.txt"
 ```
 
+Cloudflare's visual rule builder can make nested expressions hard to reproduce. For these rules, use the expression editor for the final expression, paste and validate one complete expression at a time, save rules disabled while tuning, then enable them after checking Security Events. This is easier to reproduce than building the same logic through several UI dropdowns.
+
 Keep the exact AI crawler list in Cloudflare, not in public docs, because crawler names and policy choices change. At minimum, leave `/robots.txt` allowed so crawlers can read the published policy.
 
 ## AI crawler policy
