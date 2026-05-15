@@ -74,6 +74,10 @@ Recommended free-plan posture for the short-link zone:
 | Minimum TLS | 1.2 or stricter |
 | Bot Fight Mode | On |
 | Block AI crawlers | On all pages, unless you intentionally want model crawlers |
+| AI Labyrinth | Off unless you explicitly want bot delay pages |
+| Cloudflare managed ruleset | On |
+| HTTP DDoS protection | On |
+| Network-layer DDoS protection | On |
 | Development Mode | Off |
 | Under Attack Mode | Off unless actively mitigating an incident |
 | Manage robots.txt | Disabled if the repository already ships `robots.txt` |
@@ -83,6 +87,58 @@ Recommended free-plan posture for the short-link zone:
 For SSL/TLS, start with `Full (strict)`, Universal SSL active, Always Use HTTPS on, TLS 1.3 on, and Minimum TLS 1.2. Enable HSTS only after every production hostname and subdomain is ready for HTTPS. A one-month max age is a practical first setting; include subdomains and preload only when the whole zone is intentionally HTTPS-only.
 
 Keep Automatic HTTPS Rewrites on. Certificate Transparency Monitoring is optional, but useful when the account owner wants email alerts for unexpected certificates.
+
+## Security settings
+
+The free-plan security settings should stay boring and explicit. Turn on the protections that reduce commodity abuse, but avoid features that alter public content or expose extra visitor data unless there is a clear need.
+
+| Setting | Recommendation | Why |
+|---|---|---|
+| New application security dashboard | On | Use the current dashboard view for security events and action items. |
+| AI Labyrinth | Off by default | It modifies bot-visible pages and is better treated as an intentional anti-crawler choice. |
+| Block AI bots | On all pages | Keeps unwanted AI training crawlers out before the Worker. |
+| Bot Fight Mode | On | Adds baseline bot challenges on the free plan. |
+| Browser Integrity Check | On | Blocks malformed or suspicious browser requests before Worker code runs. |
+| Challenge Passage | 30 minutes | Keeps managed challenges useful without making repeat legitimate visits too noisy. |
+| Cloudflare managed ruleset | On | Provides Cloudflare-maintained baseline app protection. |
+| Email Address Obfuscation | On if public pages show email addresses | Protects visible email addresses without changing human-readable content. |
+| Hotlink Protection | Off by default | Shortener assets are small; enable only if off-site image reuse becomes a real cost. |
+| Leaked Credentials Detection | Off unless the app has password login | vanityURLs does not authenticate visitors with passwords. |
+| Security.txt | Configure before release | Publish a contact path for vulnerability reports. |
+| Replace insecure JavaScript libraries | On | Lets Cloudflare replace known insecure libraries when supported. |
+| Schema Validation | Off unless API schemas are defined | It needs explicit endpoints and active schemas to be useful. |
+| Zone IP allowlist rules | Off unless admin paths need IP allowlisting | Cloudflare Access is the primary control for private paths. |
+
+Do not enable client certificates, mTLS rules, visitor location headers, or True-Client-IP headers for the public shortener unless a downstream service explicitly needs them. The Worker already receives Cloudflare country and colo metadata for aggregate analytics.
+
+## Rules settings and network
+
+Recommended Rules settings:
+
+| Setting | Recommendation |
+|---|---|
+| Remove `X-Powered-By` response headers | On |
+| Add visitor location headers | Off |
+| Remove visitor IP headers | Off unless an origin behind the Worker receives them |
+| Add security headers transform | Off if the Worker already emits the intended headers |
+| URL normalization type | Cloudflare |
+| Normalize incoming URLs | On |
+| Normalize URLs to origin | Off |
+
+Recommended Network settings:
+
+| Setting | Recommendation |
+|---|---|
+| IPv6 Compatibility | On |
+| gRPC | Off |
+| WebSockets | Off unless a custom page requires them |
+| Pseudo IPv4 | Off |
+| IP Geolocation | On |
+| Maximum Upload Size | Lowest practical plan default |
+| Network Error Logging | On |
+| Onion Routing | On |
+
+Incoming URL normalization is especially important because WAF rules, Access, and Workers evaluate the normalized URL. Keep origin normalization off unless another origin behind Cloudflare expects already-normalized paths.
 
 ## WAF and rate limiting
 

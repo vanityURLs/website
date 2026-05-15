@@ -74,6 +74,10 @@ Posture recommandee sur le plan gratuit :
 | TLS minimum | 1.2 ou plus strict |
 | Bot Fight Mode | On |
 | Block AI crawlers | Toutes les pages, sauf choix explicite |
+| AI Labyrinth | Off sauf choix explicite de pages delai pour bots |
+| Cloudflare managed ruleset | On |
+| Protection HTTP DDoS | On |
+| Protection DDoS reseau | On |
 | Development Mode | Off |
 | Under Attack Mode | Off sauf incident actif |
 | Manage robots.txt | Disabled si le depot fournit deja `robots.txt` |
@@ -83,6 +87,58 @@ Posture recommandee sur le plan gratuit :
 Pour SSL/TLS, partez avec `Full (strict)`, Universal SSL actif, Always Use HTTPS active, TLS 1.3 active, et TLS minimum 1.2. Activez HSTS seulement quand tous les hostnames et sous-domaines de production sont prets pour HTTPS. Un max age d'un mois est un bon premier reglage; incluez les sous-domaines et preload seulement quand toute la zone est volontairement HTTPS-only.
 
 Gardez Automatic HTTPS Rewrites actif. Certificate Transparency Monitoring est optionnel, mais utile si le proprietaire du compte veut recevoir des alertes email pour les certificats inattendus.
+
+## Reglages securite
+
+Les reglages de securite du plan gratuit doivent rester simples et explicites. Activez les protections qui reduisent les abus courants, mais evitez les options qui modifient le contenu public ou exposent plus de donnees visiteur sauf besoin clair.
+
+| Reglage | Recommandation | Pourquoi |
+|---|---|---|
+| New application security dashboard | On | Utiliser la vue actuelle pour evenements de securite et actions. |
+| AI Labyrinth | Off par defaut | Modifie les pages visibles par bots; a reserver a une strategie anti-crawler explicite. |
+| Block AI bots | Toutes les pages | Bloque les crawlers IA non desires avant le Worker. |
+| Bot Fight Mode | On | Ajoute des challenges bot de base sur le plan gratuit. |
+| Browser Integrity Check | On | Bloque les requetes navigateur mal formees ou suspectes avant le Worker. |
+| Challenge Passage | 30 minutes | Garde les challenges utiles sans trop penaliser les visites legitimes repetees. |
+| Cloudflare managed ruleset | On | Fournit une protection applicative maintenue par Cloudflare. |
+| Email Address Obfuscation | On si les pages publiques affichent des emails | Protege les emails visibles sans changer la lecture humaine. |
+| Hotlink Protection | Off par defaut | Les assets du shortener sont petits; activez seulement si la reutilisation d'images hors site devient couteuse. |
+| Leaked Credentials Detection | Off sauf login mot de passe | vanityURLs n'authentifie pas les visiteurs avec mot de passe. |
+| Security.txt | Configurer avant release | Publie un contact pour les rapports de vulnerabilite. |
+| Replace insecure JavaScript libraries | On | Laisse Cloudflare remplacer les bibliotheques vulnerables quand supporte. |
+| Schema Validation | Off sauf schemas API definis | Necessite des endpoints et schemas actifs pour etre utile. |
+| Regles allowlist IP de zone | Off sauf allowlist IP pour chemins admin | Cloudflare Access reste le controle principal pour chemins prives. |
+
+N'activez pas client certificates, regles mTLS, headers de localisation visiteur, ou True-Client-IP pour le shortener public sauf besoin explicite d'un service en aval. Le Worker recoit deja les metadonnees pays et colo Cloudflare pour les analytics agreges.
+
+## Reglages Rules et Network
+
+Reglages Rules recommandes :
+
+| Reglage | Recommandation |
+|---|---|
+| Retirer les headers `X-Powered-By` | On |
+| Ajouter les headers de localisation visiteur | Off |
+| Retirer les headers IP visiteur | Off sauf origine derriere le Worker qui les recoit |
+| Ajouter les security headers transform | Off si le Worker emet deja les headers voulus |
+| Type de normalisation URL | Cloudflare |
+| Normaliser les URLs entrantes | On |
+| Normaliser les URLs vers l'origine | Off |
+
+Reglages Network recommandes :
+
+| Reglage | Recommandation |
+|---|---|
+| IPv6 Compatibility | On |
+| gRPC | Off |
+| WebSockets | Off sauf page custom qui les exige |
+| Pseudo IPv4 | Off |
+| IP Geolocation | On |
+| Maximum Upload Size | Valeur de plan la plus basse qui reste pratique |
+| Network Error Logging | On |
+| Onion Routing | On |
+
+La normalisation des URLs entrantes est importante parce que WAF, Access et Workers evaluent l'URL normalisee. Gardez la normalisation vers l'origine inactive sauf si une autre origine derriere Cloudflare attend des chemins deja normalises.
 
 ## WAF et rate limiting
 
