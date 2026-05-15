@@ -49,6 +49,8 @@ Les probes reconnues par la blocklist runtime retournent un `404` simple avant a
 
 Les requetes bloquees par Cloudflare avant le Worker n'emettent pas d'evenements analytics vanityURLs. Consultez WAF, rate limiting, Access, bot, et les decisions crawler IA dans Cloudflare Security Events ou le dashboard Cloudflare pertinent.
 
+Un domaine court inconnu peut quand meme recevoir beaucoup de trafic scanner et bot. Traitez les regles WAF, les controles bot Cloudflare, les controles crawler IA, et la blocklist runtime comme une protection de quota analytics, pas seulement comme des fonctions securite. Le trafic bloque avant le Worker ne peut pas consommer la capacite de collecte Umami ou Fathom.
+
 ## Modele Umami
 
 Umami recoit des proprietes comme :
@@ -94,6 +96,24 @@ Les payloads d'evenement Fathom incluent :
 - chemin et query demandes
 
 Utilisez Fathom si vous voulez des rapports de trafic et d'evenements simples, orientes confidentialite, sans JavaScript navigateur. Utilisez Umami si vous avez besoin de filtrage plus riche sur des proprietes custom.
+
+## Limites fournisseur
+
+Les limites fournisseur dependent du compte et du produit, donc verifiez la documentation courante du fournisseur et le plan lie a l'instance avant d'activer une collecte a fort volume.
+
+Pour Fathom, le Worker utilise l'endpoint de collecte et n'a pas besoin de la cle API de gestion. La documentation publique de l'API Fathom indique actuellement que les requetes API comptent dans les pageviews mensuelles, avec des limites de 2 000 requetes par heure sur les endpoints Sites et Events et 10 requetes par minute sur aggregations et currents. Traitez les pageviews et evenements Fathom emis par le Worker comme du trafic qui consomme le quota, et surveillez les premieres 24 heures apres lancement pour le bruit scanner.
+
+Pour Umami Cloud, le Worker envoie les evenements de collecte a `/api/send`, pas des requetes de reporting authentifiees. Umami documente que `/api/send` ne demande pas de token d'authentification, mais doit inclure un header `User-Agent` valide. La documentation API-key d'Umami Cloud limite actuellement les appels avec cle API a 50 appels toutes les 15 secondes. Traitez les appels reporting/helper et les evenements de collecte comme des chemins separes, puis confirmez les limites reelles du plan Cloud avant lancement.
+
+Cote operationnel :
+
+- bloquez les probes scanner, methodes inattendues, et familles de crawlers indesirees avant analytics
+- ne comptez pas sur les dashboards des fournisseurs analytics pour voir le trafic bloque edge
+- attendez-vous a recevoir des probes meme sur des domaines obscurs
+- verifiez Workers Logs pour `umami tracking failed` et `fathom tracking failed`
+- mettez les analytics en pause pendant un incident bot actif si le quota fournisseur devient le risque immediat
+
+References : [documentation API Fathom](https://usefathom.com/docs/api-reference), [documentation Umami `/api/send`](https://umami.is/docs/api/sending-stats), et [documentation API-key Umami Cloud](https://umami.is/docs/cloud/api-key).
 
 ## Mode IP
 

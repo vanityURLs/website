@@ -21,6 +21,29 @@ A redirect engine is powerful infrastructure. Do not use a vanityURLs instance t
 
 The runtime also blocks common scanner probes before short-link lookup so paths such as PHP or WordPress probes do not become ordinary miss analytics.
 
+## Categories and generated sources
+
+`defaults/v8s-blocklist-categories.json` defines the category and severity labels used by local rules and generated policy. Categories explain why something is blocked; severities describe risk to visitor safety and the short-domain reputation.
+
+The current defaults include:
+
+| Category | Used for |
+|---|---|
+| `phishing` | Credential theft, fake login pages, wallet-draining lures, and brand impersonation |
+| `malware` | Malware distribution, exploit delivery, payload hosting, and command-and-control infrastructure |
+| `shortener-loop` | Public shorteners that can hide the final destination or create redirect chains |
+| `scanner-probe` | Automated vulnerability scanner paths that should never resolve as short links |
+| `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Instance-owned policy categories for elevated-risk or owner-selected blocks |
+
+The generated policy is built from reputable open-source feeds configured in `defaults/v8s-blocklist.json`:
+
+| Source | Category | Severity | Purpose |
+|---|---|---|---|
+| `urlhaus_malware` | `malware` | `high` | Imports malware-host domains from abuse.ch URLhaus |
+| `url_shorteners` | `shortener-loop` | `medium` | Imports known public shortener domains from the PeterDaveHello `url-shorteners` list |
+
+Generated feeds reduce obvious abuse risk, but they can still have false positives. Review source changes before promoting them into a release, and keep `allow_domains` entries narrow when you intentionally override a generated block for an owner-controlled hostname.
+
 ## Configure local policy
 
 Create `custom/v8s-blocklist.json` for instance-specific rules. The build merges it over `defaults/v8s-blocklist.json`.
@@ -78,3 +101,17 @@ npm run generate:blocklist
 ```
 
 The generated file is intended for CI or deployment refreshes, not hand editing. Review large upstream feed changes before promoting them into defaults.
+
+Use `generated_sources` in `custom/v8s-blocklist.json` when an instance needs to disable a default source or add another source with the same line-oriented domain format:
+
+```json
+{
+  "generated_sources": {
+    "url_shorteners": {
+      "enabled": false
+    }
+  }
+}
+```
+
+Every enabled generated source should have a category, severity, URL, and clear reason to trust the upstream. A redirector is attractive to scanners even when nobody has announced the domain, so feed quality matters: noisy or low-quality sources can break legitimate links, while missing obvious abuse sources can burn reputation quickly.

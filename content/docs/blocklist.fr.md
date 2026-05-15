@@ -21,6 +21,29 @@ Un redirecteur est une infrastructure puissante. N'utilisez pas une instance van
 
 Le runtime bloque aussi les probes de scanners courantes avant la resolution de lien court, afin que les chemins PHP ou WordPress ne deviennent pas des misses ordinaires dans les analytics.
 
+## Categories et sources generees
+
+`defaults/v8s-blocklist-categories.json` definit les libelles de categorie et severite utilises par les regles locales et la politique generee. Les categories expliquent pourquoi un element est bloque; les severites decrivent le risque pour la securite des visiteurs et la reputation du domaine court.
+
+Les defaults actuels incluent :
+
+| Categorie | Usage |
+|---|---|
+| `phishing` | Vol d'identifiants, fausses pages de connexion, leurres wallet-draining, et usurpation de marque |
+| `malware` | Distribution de malware, exploit delivery, hebergement de payload, et infrastructure command-and-control |
+| `shortener-loop` | Raccourcisseurs publics qui peuvent cacher la destination finale ou creer des chaines |
+| `scanner-probe` | Chemins de scanners automatises qui ne doivent jamais resoudre comme liens courts |
+| `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Categories propres a l'instance pour blocs a risque eleve ou choisis par le proprietaire |
+
+La politique generee utilise des flux open source reputes configures dans `defaults/v8s-blocklist.json` :
+
+| Source | Categorie | Severite | Objectif |
+|---|---|---|---|
+| `urlhaus_malware` | `malware` | `high` | Importe des domaines malware depuis abuse.ch URLhaus |
+| `url_shorteners` | `shortener-loop` | `medium` | Importe des domaines de raccourcisseurs publics depuis la liste PeterDaveHello `url-shorteners` |
+
+Les flux generes reduisent le risque d'abus evident, mais ils peuvent avoir des faux positifs. Revoyez les changements upstream avant de les promouvoir dans une release, et gardez les entrees `allow_domains` etroites quand vous contournez volontairement un bloc genere pour un hostname controle par le proprietaire.
+
 ## Configurer la politique locale
 
 Creez `custom/v8s-blocklist.json` pour les regles propres a l'instance. Le build le fusionne par-dessus `defaults/v8s-blocklist.json`.
@@ -78,3 +101,17 @@ npm run generate:blocklist
 ```
 
 Le fichier genere est fait pour CI ou deploiement, pas pour l'edition manuelle. Revisez les grands changements de flux upstream avant de les promouvoir dans les defaults.
+
+Utilisez `generated_sources` dans `custom/v8s-blocklist.json` quand une instance doit desactiver une source par defaut ou ajouter une autre source au meme format de domaines ligne par ligne :
+
+```json
+{
+  "generated_sources": {
+    "url_shorteners": {
+      "enabled": false
+    }
+  }
+}
+```
+
+Chaque source generee active doit avoir une categorie, une severite, une URL, et une raison claire de faire confiance a l'upstream. Un redirecteur attire les scanners meme quand personne n'a annonce le domaine; la qualite des sources compte donc beaucoup : des sources bruyantes peuvent casser des liens legitimes, tandis qu'une absence de sources anti-abus evidentes peut bruler la reputation rapidement.
