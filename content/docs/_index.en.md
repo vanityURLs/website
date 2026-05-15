@@ -8,3 +8,5 @@ v8s.link is the public reference instance for the current vanityURLs runtime. Th
 Start with the quickstart if you are creating a new short-link domain. Use the reference pages when you are customizing the default instance, migrating from the older `.lnk`/Pages model, or checking how v8s.link is configured.
 
 For production hardening, read the runtime security approach with the Cloudflare guide. The design depends on a small Worker, a generated registry, build-time validation, Cloudflare Access for private views, WAF rules for commodity abuse, and server-side analytics only for traffic that reaches the Worker.
+
+For long-lived instances, use the upgrading guide to refresh `defaults/` and `scripts/` while preserving `custom/`, `wrangler.toml`, secrets, and generated output.
