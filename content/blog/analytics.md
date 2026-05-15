@@ -7,7 +7,7 @@ tags: ["release", "guide"]
 featured: false 
 draft: true
 ---
-Short URLs presents a unique architectural challenge: there is no page view. When a user clicks a short link, the transaction happens at the edge in milliseconds. Most analytics tools—built for the era of "Single Page Apps" and "Page Load" events—are fundamentally misaligned with this behavior. 
+Short URLs presents a unique architectural challenge: there is no page view. When a user clicks a short link, the transaction happens at the edge in milliseconds. Most analytics tools—built for the era of "Single Page Apps" and "Page Load" events—are fundamentally misaligned with this behavior.
 
 If you want to track short links without compromising on privacy or performance, you have to change your mental model from "Page Views" to "Edge Events."
 

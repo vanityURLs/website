@@ -54,6 +54,7 @@ What happens under the hood:
 ```
 
 You now have a full audit trail:
+
 - **Who** made the change (Git author)
 - **When** it happened (commit timestamp)
 - **What** changed (diff)
@@ -74,6 +75,7 @@ main:
 Someone wants to add a campaign link? Open a PR. The CI validates the URL is reachable. A teammate reviews it. Merge deploys it automatically.
 
 This prevents the classic problems:
+
 - Typos in destination URLs go live undetected
 - Broken links from deleted pages aren't caught
 - No visibility into who added a campaign link six months ago

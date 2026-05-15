@@ -19,6 +19,8 @@ sections:
     pages:
       - title: Cloudflare Workers
         url: /docs/cloudflare/
+      - title: Analytics serveur
+        url: /docs/server-side-analytics/
       - title: Tableau admin
         url: /docs/admin-dashboard/
       - title: Politique blocklist

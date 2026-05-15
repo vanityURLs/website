@@ -36,7 +36,6 @@ However, your runtime—the Cloudflare Pages Function—operates in a different 
 
 JSON is the bridge between these two worlds.
 
-
 ## The Three Architectural Options
 
 There are three viable approaches. Each has different trade-offs.

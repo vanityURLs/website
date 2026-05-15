@@ -18,6 +18,7 @@ vanityURLs is free, open-source software released under the [MIT License](https:
 **No Liability.** In no event shall the authors or copyright holders be liable for any claim, damages, or other liability — whether in an action of contract, tort, or otherwise — arising from, out of, or in connection with the software or the use or other dealings in the software.
 
 **Self-Hosting Responsibility.** If you deploy your own instance of vanityURLs, you are solely responsible for:
+
 - The security and maintenance of your infrastructure
 - Compliance with applicable laws and regulations in your jurisdiction
 - The content of your redirect rules and link destinations

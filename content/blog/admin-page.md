@@ -114,6 +114,7 @@ The admin page should not introduce a new data store.
   ```
   PUT /admin/api/links/:shortcode
   ```
+
 * Function updates `.lnk`
 * Commit via GitHub Contents API
 * Cloudflare Pages rebuilds automatically

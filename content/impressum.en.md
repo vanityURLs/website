@@ -47,7 +47,7 @@ This website is operated from Canada. Disputes concerning the website are subjec
 
 ## Liability for content (Haftungsausschluss)
 
-The content of this website has been prepared with care. However, we cannot guarantee the accuracy, completeness, or currency of the information provided. 
+The content of this website has been prepared with care. However, we cannot guarantee the accuracy, completeness, or currency of the information provided.
 
 As a service provider, we are responsible for our own content under general law. We are not, however, obliged to monitor transmitted or stored third-party information or to investigate circumstances that may indicate unlawful activity. Obligations to remove or block information under general law remain unaffected.
 
@@ -55,7 +55,7 @@ Liability in this regard is only assumed from the point in time at which we beco
 
 ## Liability for links (Haftung für Links)
 
-This website contains links to external third-party websites over whose content we have no influence. We therefore cannot accept any liability for this third-party content. The respective provider or operator of the linked pages is always responsible for their content. 
+This website contains links to external third-party websites over whose content we have no influence. We therefore cannot accept any liability for this third-party content. The respective provider or operator of the linked pages is always responsible for their content.
 
 The linked pages were checked for possible legal violations at the time of linking. No unlawful content was identified. A permanent review of the content of linked pages is not reasonable without concrete evidence of an infringement. Upon becoming aware of legal violations, we will remove such links immediately.
 

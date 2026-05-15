@@ -42,6 +42,7 @@ lnk deploy "ajout du lien github"
 ```
 
 Vous disposez d'une trace complète :
+
 - **Qui** a fait le changement (auteur Git)
 - **Quand** c'est arrivé (horodatage du commit)
 - **Ce qui** a changé (diff)

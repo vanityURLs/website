@@ -99,7 +99,7 @@ Individually, these are feasible in Bash. Together, they introduce:
 * Authentication and pagination handling
 * Reduced readability and maintainability
 
-## Strategic Direction
+## Implementation Direction
 
 The objective is to extend capabilities in Node companion scripts.
 

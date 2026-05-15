@@ -19,6 +19,7 @@ No external network requests are made by the visitor's browser. Mermaid diagrams
 The source code for this website is public. You can audit every line of it at: [github.com/vanityURLs/website](https://github.com/vanityURLs/website).
 
 This includes:
+
 - The Hugo templates and layouts
 - The `_headers` security configuration
 - The GitHub Actions CI/CD workflow

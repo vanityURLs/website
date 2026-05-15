@@ -1,12 +1,12 @@
 ---
 title: "Cloudflare Workers"
-description: "Deploy vanityURLs as a Cloudflare Worker with static assets, generated registry, protected pages, and analytics configuration."
+description: "Recommended Cloudflare configuration for vanityURLs Workers, custom domains, DNS, Access, observability, and zone protection."
 nav_order: 10
 ---
 
-The current vanityURLs runtime deploys as a Cloudflare Worker, not a Pages `_redirects` file. Wrangler builds the site, publishes the `build/` directory as static assets, and runs `src/worker.mjs` for short-link routing.
+The current vanityURLs runtime deploys as a Cloudflare Worker with static assets. The Worker is the origin for the short-link hostname, so use a Worker Custom Domain instead of the older Pages `_redirects` or DNS `AAAA 100::` route pattern.
 
-## wrangler.toml
+## Recommended Worker shape
 
 ```toml
 name = "v8s-link"
@@ -15,63 +15,76 @@ compatibility_date = "2026-05-05"
 workers_dev = false
 preview_urls = false
 
-[assets]
-directory = "build"
-binding = "ASSETS"
-
 [build]
 command = "npm run build"
+
+[assets]
+directory = "./build"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = [
+  "/*",
+  "!/*.css",
+  "!/*.js",
+  "!/*.png",
+  "!/*.svg",
+  "!/*.ico",
+  "!/*.webmanifest",
+  "!/*.txt",
+  "!/*.xml",
+  "!/fonts/*",
+]
+
+[[routes]]
+pattern = "v8s.link"
+custom_domain = true
+
+[observability]
+[observability.logs]
+enabled = true
+invocation_logs = true
 ```
 
-Use your own Worker name. Keep `main = "src/worker.mjs"` because the editable source is copied into place during the build.
+The important parts are:
 
-## Build pipeline
+- `custom_domain = true`, because the Worker is the origin for the whole hostname.
+- `workers_dev = false` and `preview_urls = false`, because public preview hostnames are unnecessary for a production shortener.
+- `ASSETS` binding, because the Worker serves default and custom static pages from `build/`.
+- `run_worker_first`, because short-link lookup, protected paths, scanner blocks, and analytics must run before asset fallback.
+- Workers Logs enabled, because Cloudflare metrics are useful for performance and error rate, but application events belong in server-side analytics.
 
-The build does four important jobs:
+## DNS and domains
 
-1. Copies `defaults/public/` into `build/`
-2. Overlays `custom/public/` when it exists
-3. Generates `build/v8s.json` from `custom/v8s-links.txt` or `defaults/v8s-links.txt`
-4. Copies the Worker runtime to `src/worker.mjs`
+For the root short domain, prefer the Worker Custom Domain row that Cloudflare creates for the Worker. It should appear as a proxied Worker record for the hostname, like `v8s.link -> v8s-link`.
 
-Run the full validation before deploying:
+Avoid keeping legacy synthetic `AAAA 100::` records for the same hostname once the Custom Domain is active. Keep mail records, DKIM, DMARC, MTA-STS, and ownership verification records as DNS-only unless the service explicitly requires proxying.
 
-```bash
-npm run check
-```
+Use separate proxied records only for real web subdomains, such as `mta-sts`, `www`, or a docs site.
 
-## Runtime variables
+## Zone security
 
-Configure analytics and protected views with Worker variables:
+Recommended free-plan posture for the short-link zone:
 
-```toml
-[vars]
-ANALYTICS_PROVIDER = "umami"
-UMAMI_ENDPOINT = "https://cloud.umami.is/api/send"
-UMAMI_WEBSITE_ID = "<umami website id>"
-UMAMI_GEO_IP_MODE = "full"
-CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
-```
+| Setting | Recommendation |
+|---|---|
+| DNS setup | Full |
+| SSL/TLS mode | Full strict |
+| Always Use HTTPS | On |
+| TLS 1.3 | On |
+| Minimum TLS | 1.2 or stricter |
+| Bot Fight Mode | On |
+| Block AI crawlers | On all pages, unless you intentionally want model crawlers |
+| Development Mode | Off |
+| Under Attack Mode | Off unless actively mitigating an incident |
+| Manage robots.txt | Disabled if the repository already ships `robots.txt` |
+| Browser Integrity Check | On |
+| URL Normalization | Normalize incoming URLs |
 
-For Fathom:
+Add WAF custom rules for scanner probes and unexpected methods when the zone needs more protection than the Worker-level blocklist. Keep rate limits focused on repeated misses and scanner-like paths; do not rate-limit normal redirect traffic too aggressively.
 
-```toml
-[vars]
-ANALYTICS_PROVIDER = "fathom"
-FATHOM_SITE_ID = "<fathom site id>"
-FATHOM_ENDPOINT = "https://cdn.usefathom.com/"
-CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
-```
+## Protected operations
 
-Store the Cloudflare Access audience as a secret:
-
-```bash
-npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
-```
-
-## Protected paths
-
-Create a Cloudflare Zero Trust self-hosted application for:
+Protect these paths with a Cloudflare Zero Trust self-hosted application:
 
 ```text
 v8s.link/_stats
@@ -80,15 +93,37 @@ v8s.link/_tests
 v8s.link/_tests/*
 ```
 
+Set the team domain as a Worker variable and the Access audience as a secret:
+
+```toml
+[vars]
+CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
+```
+
+```bash
+npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
+```
+
 The Worker validates the `Cf-Access-Jwt-Assertion` header. If Access is not configured, protected paths fail closed.
 
-## Zone checklist
+## Build and deploy
 
-- SSL/TLS mode: Full strict
-- Always Use HTTPS: on
-- TLS 1.3: on
-- Minimum TLS: 1.2 or stricter
-- URL Normalization: enabled for incoming URLs
-- Bot Fight Mode and Browser Integrity Check: on
-- WAF rules: block scanner probes and unexpected methods
-- Rate limits: protect short-link misses from request storms
+The Cloudflare Git integration can run:
+
+```text
+npx wrangler@latest deploy --config wrangler.toml
+```
+
+The repository build command runs before deploy, copies `defaults/`, overlays `custom/`, validates `v8s.json`, and copies the runtime Worker into `src/worker.mjs`.
+
+Run the same validation locally before pushing:
+
+```bash
+npm run check
+```
+
+## References
+
+- [Cloudflare Workers Custom Domains](https://developers.cloudflare.com/workers/configuration/routing/custom-domains/)
+- [Wrangler configuration](https://developers.cloudflare.com/workers/wrangler/configuration/)
+- [Workers Logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/)

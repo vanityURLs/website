@@ -64,6 +64,7 @@ Le code source de ce site est public. Vous pouvez auditer chaque ligne sur :
 **[github.com/vanityURLs/website](https://github.com/vanityURLs/website)**
 
 Cela inclut :
+
 - Les templates et mises en page Hugo
 - La configuration de sécurité `_headers`
 - Le flux de travail CI/CD GitHub Actions
