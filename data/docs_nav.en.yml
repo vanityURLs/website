@@ -10,6 +10,8 @@ sections:
         url: /docs/repository-layout/
       - title: Link format
         url: /docs/link-format/
+      - title: CLI
+        url: /docs/cli/
       - title: Runtime registry
         url: /docs/runtime-registry/
       - title: Scheduled links

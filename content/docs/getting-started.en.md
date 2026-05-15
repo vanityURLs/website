@@ -11,7 +11,11 @@ vanityURLs is a Git-managed short-link engine for your own domain. The current r
 - A GitHub repository based on `vanityURLs/vanityURLs`
 - A short domain, such as the public reference domain `v8s.link`
 - A Cloudflare account with the domain in Cloudflare DNS
+- Node.js 20 or newer and npm
+- Git
 - Wrangler connected to the Cloudflare account that owns the Worker
+
+The primary CLI is `./scripts/lnk`, a Node script that runs on macOS, Linux, Windows, and CI environments where Node and Git are available. Bash is not required for link, schedule, or blocklist management. The optional `scripts/v8s.zsh` helper is only for Zsh users who want to open known redirects from their shell.
 
 ## First deployment
 
@@ -41,7 +45,14 @@ custom/public/favicon.svg
 
 ### Add your first links
 
-Create `custom/v8s-links.txt` with pipe-delimited rows:
+Create `custom/v8s-links.txt` with pipe-delimited rows, or use the CLI:
+
+```bash
+./scripts/lnk https://github.com/YOUR-ORG github --title GitHub --description "Organization profile" --tags source --owner team
+./scripts/lnk https://docs.example.com docs --title Docs --description "Main documentation" --tags docs --owner team
+```
+
+The file format is:
 
 ```text
 # slug|target|state|title|description|tags|owner|expires_at|notes

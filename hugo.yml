@@ -62,9 +62,12 @@ languages:
         - name: Documentation
           pageRef: /docs
           weight: 2
+        - name: FAQ
+          pageRef: /faq
+          weight: 3
         - name: Showcase
           pageRef: /showcase
-          weight: 3
+          weight: 4
   fr:
     languageCode: fr-CA
     languageName: Français
@@ -108,9 +111,12 @@ languages:
         - name: Documentation
           pageRef: /docs
           weight: 2
+        - name: FAQ
+          pageRef: /faq
+          weight: 3
         - name: Vitrine
           pageRef: /showcase
-          weight: 3
+          weight: 4
 
 params:
   # Version removed — vanityURLs has no version badge
