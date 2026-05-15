@@ -1,93 +1,76 @@
 ---
-title: "Installation"
-description: "Configurez vanityURLs sur votre propre domaine en quatre étapes avec GitHub et Cloudflare Pages."
+title: "Demarrage rapide"
+description: "Creer une instance vanityURLs de type v8s.link sur Cloudflare Workers avec le repertoire defaults actuel."
 nav_order: 1
 ---
 
-vanityURLs fonctionne entièrement sur l'infrastructure que vous contrôlez déjà — un dépôt GitHub, un nom de domaine, et un compte Cloudflare gratuit. Il n'y a rien à installer sur votre machine en dehors du script CLI optionnel.
+vanityURLs est un moteur de liens courts gere dans Git pour votre propre domaine. Le runtime actuel se deploie comme Worker Cloudflare avec assets statiques. Le build part de `defaults/`, applique vos fichiers `custom/`, genere `build/v8s.json`, puis publie le Worker avec Wrangler.
 
-## Mise en place rapide
+## Prerequis
 
-{{% steps %}}
+- Un depot GitHub base sur `vanityURLs/vanityURLs`
+- Un domaine court, comme le domaine public de reference `v8s.link`
+- Un compte Cloudflare avec le domaine dans Cloudflare DNS
+- Wrangler connecte au compte Cloudflare qui possede le Worker
 
-### Créer un dépôt depuis le modèle
-
-Depuis le [dépôt GitHub vanityURLs](https://github.com/vanityURLs/vanityURLs), cliquez sur **Use this template** → **Create a new repository**.
-
-Choisissez un nom qui reflète votre domaine court (p. ex. `mon-domaine.link`). Sélectionnez **Privé** — votre liste de redirections peut contenir des URL internes.
-
-### Créer votre compte Cloudflare
-
-Si vous n'en avez pas encore, suivez le [guide de création de compte Cloudflare](https://developers.cloudflare.com/fundamentals/setup/account/create-account/). Le plan gratuit est suffisant.
-
-### Acheter votre domaine internet
-
-Connectez-vous à Cloudflare et enregistrez un domaine court via **Domaines** → **Enregistrer**. Tapez le nom souhaité, recherchez et finalisez l'achat. Activez le **Renouvellement automatique** avant de quitter.
-
-### Créer le site Cloudflare Pages
-
-1. Dans le tableau de bord Cloudflare, cliquez sur **Ajouter un site Pages** et connectez votre dépôt GitHub.
-2. Configurez la compilation :
-
-{{< code file="Paramètres de compilation Cloudflare Pages" >}}
-Framework preset:      (laisser vide)
-Build command:         cat static.lnk dynamic.lnk > build/_redirects
-Build output directory: /build
-{{< /code >}}
-
-3. Configurez un [domaine personnalisé](https://developers.cloudflare.com/pages/platform/custom-domains/) pour le projet Pages pointant vers votre domaine.
-
-{{< callout type="warning" >}}
-Le premier build échouera — c'est normal. Vous devez encore générer `static.lnk`, `dynamic.lnk` et `build/_headers` à l'étape suivante.
-{{< /callout >}}
-
-{{% /steps %}}
-
-## Configuration locale
+## Premier deploiement
 
 {{% steps %}}
 
-### Configurer vanityURLs.conf
+### Cloner le depot
 
-Éditez `vanityURLs.conf` à la racine de votre dépôt (ou lancez `make config` si vous préférez `vi`) :
-
-```bash
-SCRIPT_DIR=/usr/local/bin         # chemin où le script lnk sera installé
-REPO_DIR=~/repos/mon-domaine.link # chemin vers votre clone local du dépôt
-MY_DOMAIN=mon-domaine.link        # votre domaine court
-MY_PAGE=mon-projet.pages.dev      # URL de votre projet Cloudflare Pages
-```
-
-### Lancer la configuration initiale
+Creez un depot depuis le template vanityURLs, puis clonez-le localement.
 
 ```bash
-make setup
+git clone git@github.com:YOUR-ORG/YOUR-SHORT-DOMAIN.git
+cd YOUR-SHORT-DOMAIN
+npm install
 ```
 
-Cela génère :
-- `build/_headers` — en-têtes de sécurité basés sur votre domaine et votre URL Pages
-- `static.lnk` — votre liste de redirections statiques (redirige `/` vers votre site principal)
-- `dynamic.lnk` — votre liste de redirections dynamiques (initialement vide)
+### Garder vos changements dans custom/
 
-### Ajouter vos premières redirections
+Ne modifiez pas `defaults/` pour votre marque ou votre liste de liens, sauf si vous changez les defaults du produit. Les fichiers propres a votre instance vont dans `custom/`.
 
-Éditez `static.lnk` avec votre éditeur de texte préféré, ou utilisez le script `lnk` :
+```text
+custom/v8s-links.txt
+custom/v8s-schedules.json
+custom/v8s-blocklist.json
+custom/public/v8s-logo.svg
+custom/public/favicon.svg
+```
+
+### Ajouter les premiers liens
+
+Creez `custom/v8s-links.txt` avec des lignes separees par des pipes :
+
+```text
+# slug|target|state|title|description|tags|owner|expires_at|notes
+github|https://github.com/YOUR-ORG|permanent|GitHub|Profil organisation|source|team||
+docs|https://docs.example.com|permanent|Docs|Documentation principale|docs|team||
+```
+
+Les schemas manquants sont normalises vers `https://`. Utilisez `permanent` pour les redirections 301 stables et `ephemeral` pour les redirections 302 temporaires.
+
+### Construire et valider
 
 ```bash
-lnk add /github https://github.com/votrenom
-lnk add /linkedin https://linkedin.com/in/votrenom
+npm run check
 ```
 
-### Committer et pousser
+La commande construit le Worker, copie les assets, fusionne defaults et custom, genere `build/v8s.json`, valide le registre et verifie les politiques.
+
+### Deployer avec Cloudflare Workers
+
+Revisez `wrangler.toml`, definissez le nom du Worker, puis deployez :
 
 ```bash
-git add -A && git commit -m "ajout des redirections initiales" && git push
+npx wrangler deploy
 ```
 
-Cloudflare détecte le push et déploie en ~15 secondes. Vos liens sont actifs.
+Connectez votre domaine au route du Worker dans Cloudflare. Chaque futur push GitHub peut declencher le meme build et deploiement via votre CI ou integration Cloudflare.
 
 {{% /steps %}}
 
-## Vérification
+## Verifier
 
-Ouvrez `https://votre-domaine/github` dans un navigateur — vous devriez être redirigé vers votre profil GitHub.
+Ouvrez la page d'accueil, un lien court connu, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, et `/maintenance.html`. Si les vues protegees sont configurees, ouvrez `/_stats` dans une fenetre privee et confirmez que Cloudflare Access apparait avant le tableau de bord.

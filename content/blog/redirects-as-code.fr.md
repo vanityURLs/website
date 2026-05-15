@@ -82,4 +82,4 @@ Validation de dynamic.lnk...
 
 C'est le même principe que `terraform plan` avant `terraform apply`.
 
-[Lire la référence complète des commandes →](/fr/docs/commands/)
+[Lire la reference actuelle du format des liens ->](/fr/docs/link-format/)

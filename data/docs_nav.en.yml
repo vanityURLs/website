@@ -1,52 +1,34 @@
 sections:
-  - title: Getting Started
+  - title: Start
     pages:
-      - title: Installation
+      - title: Quickstart
         url: /docs/getting-started/
-      - title: Makefile
-        url: /docs/makefile/
 
-  - title: Commands
+  - title: Configuration
     pages:
-      - title: View all commands
-        url: /docs/commands/
-      - title: lnk add
-        url: /docs/commands/add/
-      - title: lnk remove
-        url: /docs/commands/remove/
-      - title: lnk list
-        url: /docs/commands/list/
-      - title: lnk check
-        url: /docs/commands/check/
-      - title: lnk validate
-        url: /docs/commands/validate/
-      - title: validateURL
-        url: /docs/commands/validate-url/
-      - title: lnk deploy
-        url: /docs/commands/deploy/
+      - title: Repository layout
+        url: /docs/repository-layout/
+      - title: Link format
+        url: /docs/link-format/
+      - title: Scheduled links
+        url: /docs/schedules/
+      - title: Custom overrides
+        url: /docs/custom-overrides/
 
-  - title: Reference
+  - title: Operations
     pages:
-      - title: _redirects
-        url: /docs/build/_redirects/
-      - title: _headers
-        url: /docs/build/_headers/
-      - title: static.lnk
-        url: /docs/static.lnk/
-      - title: dynamic.lnk
-        url: /docs/dynamic.lnk/
-      - title: Cloudflare Pages
+      - title: Cloudflare Workers
         url: /docs/cloudflare/
+      - title: Admin dashboard
+        url: /docs/admin-dashboard/
+      - title: Blocklist policy
+        url: /docs/blocklist/
+      - title: Migration guide
+        url: /docs/migration/
 
-  - title: Try Demo
+  - title: v8s.link reference
     pages:
       - title: Overview
         url: /docs/demo/
-      - title: Repository Structure
-        url: /docs/demo/repository/
-      - title: Configuration
-        url: /docs/demo/configuration/
-      - title: Link Examples
+      - title: Default links
         url: /docs/demo/links/
-      - title: DNS Setup
-        url: /docs/demo/dns/

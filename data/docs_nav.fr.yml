@@ -1,52 +1,34 @@
 sections:
-  - title: Démarrage
+  - title: Demarrer
     pages:
-      - title: Installation
+      - title: Demarrage rapide
         url: /docs/getting-started/
-      - title: Makefile
-        url: /docs/makefile/
 
-  - title: Commandes
+  - title: Configuration
     pages:
-      - title: Toutes les commandes
-        url: /docs/commands/
-      - title: lnk add
-        url: /docs/commands/add/
-      - title: lnk remove
-        url: /docs/commands/remove/
-      - title: lnk list
-        url: /docs/commands/list/
-      - title: lnk check
-        url: /docs/commands/check/
-      - title: lnk validate
-        url: /docs/commands/validate/
-      - title: validateURL
-        url: /docs/commands/validate-url/
-      - title: lnk deploy
-        url: /docs/commands/deploy/
+      - title: Structure du depot
+        url: /docs/repository-layout/
+      - title: Format des liens
+        url: /docs/link-format/
+      - title: Liens planifies
+        url: /docs/schedules/
+      - title: Surcharges custom
+        url: /docs/custom-overrides/
 
-  - title: Référence
+  - title: Operations
     pages:
-      - title: _redirects
-        url: /docs/build/_redirects/
-      - title: _headers
-        url: /docs/build/_headers/
-      - title: static.lnk
-        url: /docs/static.lnk/
-      - title: dynamic.lnk
-        url: /docs/dynamic.lnk/
-      - title: Cloudflare Pages
+      - title: Cloudflare Workers
         url: /docs/cloudflare/
+      - title: Tableau admin
+        url: /docs/admin-dashboard/
+      - title: Politique blocklist
+        url: /docs/blocklist/
+      - title: Guide de migration
+        url: /docs/migration/
 
-  - title: Démo
+  - title: Reference v8s.link
     pages:
       - title: Vue d'ensemble
         url: /docs/demo/
-      - title: Structure du dépôt
-        url: /docs/demo/repository/
-      - title: Configuration
-        url: /docs/demo/configuration/
-      - title: Exemples de liens
+      - title: Liens par defaut
         url: /docs/demo/links/
-      - title: Configuration DNS
-        url: /docs/demo/dns/

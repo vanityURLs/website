@@ -124,4 +124,4 @@ Managing redirects as code means:
 
 This is what "infrastructure as code" looks like for URL management. Your links are as auditable and reliable as the rest of your infrastructure.
 
-[Read the full CLI reference →](/docs/commands/)
+[Read the current link format reference →](/docs/link-format/)

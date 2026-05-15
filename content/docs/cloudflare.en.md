@@ -1,76 +1,94 @@
 ---
-title: "Cloudflare Pages"
-description: "Cloudflare Pages configuration for vanityURLs — deploy hooks, branch previews, environment variables, and plan limits."
+title: "Cloudflare Workers"
+description: "Deploy vanityURLs as a Cloudflare Worker with static assets, generated registry, protected pages, and analytics configuration."
 nav_order: 10
 ---
 
-vanityURLs is designed to run on [Cloudflare Pages](https://pages.cloudflare.com/). The free plan covers everything most personal and small-team deployments need.
+The current vanityURLs runtime deploys as a Cloudflare Worker, not a Pages `_redirects` file. Wrangler builds the site, publishes the `build/` directory as static assets, and runs `src/worker.mjs` for short-link routing.
 
-## Build configuration
+## wrangler.toml
 
-When connecting your repository in the Cloudflare dashboard, use these settings:
+```toml
+name = "v8s-link"
+main = "src/worker.mjs"
+compatibility_date = "2026-05-05"
+workers_dev = false
+preview_urls = false
 
-| Setting | Value |
-|---------|-------|
-| Framework preset | *(leave empty)* |
-| Build command | `cat static.lnk dynamic.lnk > build/_redirects` |
-| Build output directory | `/build` |
-| Root directory | `/` |
+[assets]
+directory = "build"
+binding = "ASSETS"
 
-## Custom domain
+[build]
+command = "npm run build"
+```
 
-1. In your Pages project, go to **Custom domains** → **Set up a custom domain**
-2. Enter your vanity domain (e.g. `my-tiny.link`)
-3. If your domain is on Cloudflare DNS, the required records are created automatically
+Use your own Worker name. Keep `main = "src/worker.mjs"` because the editable source is copied into place during the build.
 
-{{< callout type="tip" >}}
-If your domain is registered elsewhere, add a `CNAME` record pointing to your Pages project URL (`your-project.pages.dev`) and set its proxy status to **Proxied** (orange cloud).
-{{< /callout >}}
+## Build pipeline
 
-## Deploy hooks
+The build does four important jobs:
 
-To trigger a rebuild without a git push — from a cron job, script, or external service — create a Deploy Hook:
+1. Copies `defaults/public/` into `build/`
+2. Overlays `custom/public/` when it exists
+3. Generates `build/v8s.json` from `custom/v8s-links.txt` or `defaults/v8s-links.txt`
+4. Copies the Worker runtime to `src/worker.mjs`
 
-1. Go to **Settings** → **Builds & deployments** → **Deploy hooks**
-2. Create a hook and copy the URL
-3. Trigger it with:
+Run the full validation before deploying:
 
 ```bash
-curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/YOUR_HOOK_ID"
+npm run check
 ```
 
-This is useful for link lists that depend on external data refreshed on a schedule, or for publishing workflows that don't go through Git.
+## Runtime variables
 
-## Branch preview deployments
+Configure analytics and protected views with Worker variables:
 
-Every push to a non-`main` branch automatically gets its own preview URL:
-
+```toml
+[vars]
+ANALYTICS_PROVIDER = "umami"
+UMAMI_ENDPOINT = "https://cloud.umami.is/api/send"
+UMAMI_WEBSITE_ID = "<umami website id>"
+UMAMI_GEO_IP_MODE = "full"
+CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
-https://BRANCH-NAME.YOUR-PROJECT.pages.dev
+
+For Fathom:
+
+```toml
+[vars]
+ANALYTICS_PROVIDER = "fathom"
+FATHOM_SITE_ID = "<fathom site id>"
+FATHOM_ENDPOINT = "https://cdn.usefathom.com/"
+CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
 
-Use branch previews to test redirect changes before merging to `main`. The preview URL respects the full `_redirects` configuration, so you can test splat patterns and redirect chains end-to-end.
+Store the Cloudflare Access audience as a secret:
 
-## Environment variables
+```bash
+npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
+```
 
-If your build process needs secrets or configuration values, add them under **Settings** → **Environment variables**. They are available in the build shell but are never included in served files.
+## Protected paths
 
-For vanityURLs, you typically don't need environment variables — the build command is a simple `cat`. This is a feature, not a limitation: there is nothing secret about a redirect table.
+Create a Cloudflare Zero Trust self-hosted application for:
 
-## Plan limits
+```text
+v8s.link/_stats
+v8s.link/_stats/*
+v8s.link/_tests
+v8s.link/_tests/*
+```
 
-| Resource | Free | Pro |
-|----------|------|-----|
-| Builds per month | 500 | 5,000 |
-| Redirect rules (`_redirects`) | 2,000 | 100,000 |
-| Custom domains | 1 | 10 |
-| Bandwidth | Unlimited | Unlimited |
-| Build timeout | 20 min | 20 min |
+The Worker validates the `Cf-Access-Jwt-Assertion` header. If Access is not configured, protected paths fail closed.
 
-The 500 free builds per month is generous — each `git push` is one build, and a typical active deployment uses fewer than 30 per month.
+## Zone checklist
 
-## Cloudflare documentation
-
-- [Cloudflare Pages: Build configuration](https://developers.cloudflare.com/pages/configuration/build-configuration/)
-- [Cloudflare Pages: Custom domains](https://developers.cloudflare.com/pages/platform/custom-domains/)
-- [Cloudflare Pages: Deploy hooks](https://developers.cloudflare.com/pages/platform/deploy-hooks/)
+- SSL/TLS mode: Full strict
+- Always Use HTTPS: on
+- TLS 1.3: on
+- Minimum TLS: 1.2 or stricter
+- URL Normalization: enabled for incoming URLs
+- Bot Fight Mode and Browser Integrity Check: on
+- WAF rules: block scanner probes and unexpected methods
+- Rate limits: protect short-link misses from request storms

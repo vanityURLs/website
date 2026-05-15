@@ -1,95 +1,76 @@
 ---
-title: "Installation"
-description: "Set up vanityURLs on your own domain in four steps using GitHub and Cloudflare Pages."
+title: "Quickstart"
+description: "Create a v8s.link-style vanityURLs instance on Cloudflare Workers using the current defaults directory."
 nav_order: 1
 ---
 
-vanityURLs runs entirely on infrastructure you already control — a GitHub repository, a domain name, and a free Cloudflare account. There is nothing to install on your machine beyond the optional CLI helper script.
+vanityURLs is a Git-managed short-link engine for your own domain. The current runtime deploys as a Cloudflare Worker with static assets. The build starts from `defaults/`, overlays your `custom/` files, generates `build/v8s.json`, and publishes the Worker with Wrangler.
 
-## Quick setup
+## What you need
 
-{{% steps %}}
+- A GitHub repository based on `vanityURLs/vanityURLs`
+- A short domain, such as the public reference domain `v8s.link`
+- A Cloudflare account with the domain in Cloudflare DNS
+- Wrangler connected to the Cloudflare account that owns the Worker
 
-### Create a repository from the template
-
-From the [vanityURLs GitHub repository](https://github.com/vanityURLs/vanityURLs), click **Use this template** → **Create a new repository**.
-
-Choose a name that reflects your short domain (e.g. `my-tiny.link`). Select **Private** — your redirect list may contain internal URLs.
-
-### Create your Cloudflare account
-
-If you don't have one already, follow the [Cloudflare account creation guide](https://developers.cloudflare.com/fundamentals/setup/account/create-account/). The free plan is sufficient.
-
-### Purchase your internet domain
-
-Log into Cloudflare and register a short domain via **Domains** → **Register**. Type your desired name, search, and complete the purchase. Enable **Auto-renew** before leaving.
-
-You can also transfer an existing domain to Cloudflare DNS.
-
-### Create the Cloudflare Pages site
-
-1. In the Cloudflare dashboard, click **Add a Pages site** and connect your GitHub repository.
-2. Configure the build:
-
-{{< code file="Cloudflare Pages build settings" >}}
-Framework preset:      (leave empty)
-Build command:         cat static.lnk dynamic.lnk > build/_redirects
-Build output directory: /build
-{{< /code >}}
-
-3. Set up a [custom domain](https://developers.cloudflare.com/pages/platform/custom-domains/) for the Pages project pointing to your purchased domain.
-
-{{< callout type="warning" >}}
-The first build will fail — that's expected. You still need to generate `static.lnk`, `dynamic.lnk`, and `build/_headers` in the next step.
-{{< /callout >}}
-
-{{% /steps %}}
-
-## Local configuration
+## First deployment
 
 {{% steps %}}
 
-### Configure vanityURLs.conf
+### Clone the repository
 
-Edit `vanityURLs.conf` in your repository (or run `make config` if you prefer `vi`):
-
-```bash
-SCRIPT_DIR=/usr/local/bin       # path where the lnk script will be installed
-REPO_DIR=~/repos/my-tiny.link   # path to your local clone of the repo
-MY_DOMAIN=my-tiny.link          # your short domain
-MY_PAGE=my-project.pages.dev    # your Cloudflare Pages project URL
-```
-
-### Run initial setup
+Create a repository from the vanityURLs template, then clone it locally.
 
 ```bash
-make setup
+git clone git@github.com:YOUR-ORG/YOUR-SHORT-DOMAIN.git
+cd YOUR-SHORT-DOMAIN
+npm install
 ```
 
-This generates:
-- `build/_headers` — security and cache headers based on your domain and Pages URL
-- `static.lnk` — your static redirect list (initially redirects `/` to your main site)
-- `dynamic.lnk` — your dynamic redirect list (initially empty)
+### Keep local changes in custom/
 
-### Add your first redirects
+Do not edit `defaults/` for your own branding or link list unless you are changing the upstream product defaults. Instance-owned files belong in `custom/`.
 
-Edit `static.lnk` with your preferred text editor, or use the `lnk` script:
+```text
+custom/v8s-links.txt
+custom/v8s-schedules.json
+custom/v8s-blocklist.json
+custom/public/v8s-logo.svg
+custom/public/favicon.svg
+```
+
+### Add your first links
+
+Create `custom/v8s-links.txt` with pipe-delimited rows:
+
+```text
+# slug|target|state|title|description|tags|owner|expires_at|notes
+github|https://github.com/YOUR-ORG|permanent|GitHub|Organization profile|source|team||
+docs|https://docs.example.com|permanent|Docs|Main documentation|docs|team||
+```
+
+Missing schemes are normalized to `https://`. Use `permanent` for stable 301 redirects and `ephemeral` for temporary 302 redirects.
+
+### Build and validate
 
 ```bash
-lnk add /github https://github.com/yourname
-lnk add /linkedin https://linkedin.com/in/yourname
+npm run check
 ```
 
-### Commit and push
+The check command builds the Worker source, copies static assets, merges defaults and custom files, generates `build/v8s.json`, validates the registry, and checks policy files.
+
+### Deploy with Cloudflare Workers
+
+Review `wrangler.toml`, set the Worker name, then deploy:
 
 ```bash
-git add -A && git commit -m "add initial redirects" && git push
+npx wrangler deploy
 ```
 
-Cloudflare detects the push and deploys in ~15 seconds. Your links are live.
+Connect your custom domain to the Worker route in Cloudflare. Every future push to GitHub can trigger the same build and deploy through your CI or Cloudflare integration.
 
 {{% /steps %}}
 
 ## Verify
 
-Open `https://your-domain/github` in a browser — you should be redirected to your GitHub profile.
+Open your home page, a known short link, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`. If you configured protected views, open `/_stats` in a private browser and confirm Cloudflare Access appears before the dashboard.

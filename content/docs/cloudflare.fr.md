@@ -1,71 +1,84 @@
 ---
-title: "Cloudflare Pages"
-description: "Configuration de Cloudflare Pages pour vanityURLs — hooks de déploiement, aperçus de branches, variables d'environnement et limites du plan."
+title: "Cloudflare Workers"
+description: "Deployer vanityURLs comme Worker Cloudflare avec assets statiques, registre genere, pages protegees et configuration analytics."
 nav_order: 10
 ---
 
-vanityURLs est conçu pour fonctionner sur [Cloudflare Pages](https://pages.cloudflare.com/). Le plan gratuit couvre tout ce dont la plupart des déploiements personnels et des petites équipes ont besoin.
+Le runtime vanityURLs actuel se deploie comme Worker Cloudflare, pas comme fichier Pages `_redirects`. Wrangler construit le site, publie `build/` comme assets statiques, et execute `src/worker.mjs` pour les redirections.
 
-## Configuration du build
+## wrangler.toml
 
-Lors de la connexion de votre dépôt dans le tableau de bord Cloudflare :
+```toml
+name = "v8s-link"
+main = "src/worker.mjs"
+compatibility_date = "2026-05-05"
+workers_dev = false
+preview_urls = false
 
-| Paramètre | Valeur |
-|-----------|--------|
-| Préréglage de framework | *(laisser vide)* |
-| Commande de build | `cat static.lnk dynamic.lnk > build/_redirects` |
-| Répertoire de sortie du build | `/build` |
-| Répertoire racine | `/` |
+[assets]
+directory = "build"
+binding = "ASSETS"
 
-## Domaine personnalisé
+[build]
+command = "npm run build"
+```
 
-1. Dans votre projet Pages, allez à **Custom domains** → **Set up a custom domain**
-2. Entrez votre domaine court (ex. `mon-domaine.link`)
-3. Si votre domaine est sur Cloudflare DNS, les enregistrements nécessaires sont créés automatiquement
+Utilisez votre propre nom de Worker. Gardez `main = "src/worker.mjs"`, car la source editable est copiee pendant le build.
 
-{{< callout type="tip" >}}
-Si votre domaine est enregistré ailleurs, ajoutez un enregistrement `CNAME` pointant vers l'URL de votre projet Pages (`votre-projet.pages.dev`) et définissez son statut proxy sur **Proxied** (nuage orange).
-{{< /callout >}}
+## Pipeline de build
 
-## Hooks de déploiement
+Le build effectue quatre taches importantes :
 
-Pour déclencher un rebuild sans git push — depuis un cron job, un script ou un service externe :
+1. Copie `defaults/public/` dans `build/`
+2. Applique `custom/public/` s'il existe
+3. Genere `build/v8s.json` depuis `custom/v8s-links.txt` ou `defaults/v8s-links.txt`
+4. Copie le runtime Worker vers `src/worker.mjs`
 
-1. Allez à **Settings** → **Builds & deployments** → **Deploy hooks**
-2. Créez un hook et copiez l'URL
-3. Déclenchez-le avec :
+Lancez la validation complete avant de deployer :
 
 ```bash
-curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/VOTRE_HOOK_ID"
+npm run check
 ```
 
-## Déploiements de prévisualisation de branches
+## Variables runtime
 
-Chaque push vers une branche non-`main` obtient automatiquement sa propre URL de prévisualisation :
+Configurez les analytics et les vues protegees avec les variables Worker :
 
+```toml
+[vars]
+ANALYTICS_PROVIDER = "umami"
+UMAMI_ENDPOINT = "https://cloud.umami.is/api/send"
+UMAMI_WEBSITE_ID = "<umami website id>"
+UMAMI_GEO_IP_MODE = "full"
+CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
-https://NOM-BRANCHE.VOTRE-PROJET.pages.dev
+
+Stockez l'audience Cloudflare Access comme secret :
+
+```bash
+npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Utilisez les aperçus de branches pour tester les modifications de redirections avant de fusionner vers `main`.
+## Chemins proteges
 
-## Variables d'environnement
+Creez une application Cloudflare Zero Trust self-hosted pour :
 
-Ajoutez-les sous **Settings** → **Environment variables**. Elles sont disponibles dans le shell de build mais ne sont jamais incluses dans les fichiers servis.
+```text
+v8s.link/_stats
+v8s.link/_stats/*
+v8s.link/_tests
+v8s.link/_tests/*
+```
 
-Pour vanityURLs, vous n'avez généralement pas besoin de variables d'environnement — la commande de build est un simple `cat`.
+Le Worker valide l'en-tete `Cf-Access-Jwt-Assertion`. Si Access n'est pas configure, les chemins proteges restent fermes.
 
-## Limites du plan
+## Checklist de zone
 
-| Ressource | Gratuit | Pro |
-|-----------|---------|-----|
-| Builds par mois | 500 | 5 000 |
-| Règles de redirection | 2 000 | 100 000 |
-| Domaines personnalisés | 1 | 10 |
-| Bande passante | Illimitée | Illimitée |
-
-## Documentation Cloudflare
-
-- [Configuration du build](https://developers.cloudflare.com/pages/configuration/build-configuration/)
-- [Domaines personnalisés](https://developers.cloudflare.com/pages/platform/custom-domains/)
-- [Hooks de déploiement](https://developers.cloudflare.com/pages/platform/deploy-hooks/)
+- Mode SSL/TLS : Full strict
+- Always Use HTTPS : active
+- TLS 1.3 : actif
+- TLS minimum : 1.2 ou plus strict
+- URL Normalization : active pour les URLs entrantes
+- Bot Fight Mode et Browser Integrity Check : actifs
+- Regles WAF : bloquer les probes et methodes inattendues
+- Rate limits : proteger les liens manquants contre les rafales

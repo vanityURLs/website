@@ -1,74 +1,53 @@
 ---
-title: "Exemples de liens"
-description: "Les vrais static.lnk et dynamic.lnk de v8s.link, entièrement annotés."
-nav_order: 33
+title: "Liens par defaut"
+description: "Exemples annotes depuis defaults/v8s-links.txt dans l'implementation de reference v8s.link actuelle."
 ---
 
-Ce sont les vrais fichiers de redirection du [dépôt v8s.link](https://github.com/vanityURLs/v8s.link), annotés pour expliquer chaque règle.
+Le registre par defaut est `defaults/v8s-links.txt`. Une instance de production le remplace normalement par `custom/v8s-links.txt`, mais les defaults sont utiles parce qu'ils montrent la forme d'un vrai registre.
 
-## static.lnk
+## Exemples namespaces
 
-```
-/ https://vanityURLs.link/
+Le fichier par defaut groupe les liens par zone d'usage :
 
-/blog     https://vanityURLs.link/en/blog
+| Prefixe | Exemples | Usage |
+|---|---|---|
+| `ai/` | `ai/chat`, `ai/claude`, `ai/hf` | Outils IA et ressources modeles |
+| `edu/` | `edu/a`, `edu/d`, `edu/s` | Recherche et references academiques |
+| `g/` | `g/cal`, `g/drive`, `g/meet` | Surfaces productivite Google |
+| `meet/` | `meet/g`, `meet/t`, `meet/z` | Alias de salles de reunion |
+| `pkg/` | `pkg/d`, `pkg/n`, `pkg/p`, `pkg/r` | Registres de packages |
+| `social/` | `social/fb`, `social/ig`, `social/x` | Profils sociaux |
+| `v8s/` | `v8s/code`, `v8s/doc`, `v8s/status` | Liens du projet vanityURLs |
 
-/github   https://github.com/vanityURLs/
-/git      https://github.com/vanityURLs/v8s.link
+Le namespacing garde l'espace racine propre tout en permettant des URLs memorables comme `v8s.link/social/x`.
 
-/gitlab   https://gitlab.com/bhdicaire/
+## Liens de test lifecycle
 
-/linkedin https://linkedin.com/in/bhdicaire/
-/x        https://twitter.com/BHDicaire/
+Les defaults incluent des liens qui testent chaque etat runtime :
 
-/ALM      https://brew.sh
-/VVa      https://github.com/vanityURL
-/HHU      https://github.com/vanityURLs/vanityURLs/issues/21
-```
+| Slug | Etat | Comportement attendu |
+|---|---|---|
+| `test/1` | `permanent` | 301 vers la cible |
+| `test/2` | `ephemeral` | 302 vers la cible |
+| `test/3` | `expired` | 302 vers `/expired` |
+| `test/4` | `disabled` | 302 vers `/disabled` |
+| `test/5` | `maintenance` | 302 vers `/maintenance` |
+| `test/6` | `deactivated` | vrai 404 |
 
-{{< callout type="note" title="Pas de code de statut = 301" >}}
-Aucune règle de ce fichier n'inclut de code de statut explicite. Cloudflare Pages utilise `301` (permanent) par défaut.
-{{< /callout >}}
+Ces liens servent a la validation. Remplacez-les dans votre `custom/v8s-links.txt` sauf si vous voulez des probes lifecycle publics sur votre domaine.
 
-**`/ALM`, `/VVa`, `/HHU`** — Ce sont des entrées de test obsolètes. `/ALM` pointe vers Homebrew (non lié), `/VVa` contient une coquille, `/HHU` pointe vers une issue GitHub spécifique. **Ne copiez pas ces patterns** — utilisez des chemins descriptifs comme `/homebrew`, `/issues/21`.
+## Liens projet
 
-### Modèle pour votre propre static.lnk
+Le namespace `v8s/` montre comment une instance publique peut se documenter :
 
-```
-# Profils sociaux
-/github    https://github.com/VOTRENOM       301
-/linkedin  https://linkedin.com/in/VOTRENOM  301
-/x         https://x.com/VOTRENOM           301
-
-# Destinations principales
-/           https://VOTRESITE.com            301
-/blog       https://VOTRESITE.com/blog       301
-
-# Projets
-/projet1    https://github.com/VOTRENOM/projet1  301
-```
-
-## dynamic.lnk
-
-```
-/github/*  https://github.com/vanityURLs/:splat
+```text
+v8s/code|github.com/vanityURLs/vanityURLs||V8S web site|documentation|v8s,git|bhd|||
+v8s/doc|vanityUrls.link/en/docs/||VanityURLs documentation||v8s,git|bhd|||
+v8s/status|status.vanityUrls.link||Uptime monitoring|status page|v8s,web|bhd|||
 ```
 
-Cette ligne utilise une **redirection splat** pour transmettre tout chemin sous `/github/` au chemin correspondant sous `github.com/vanityURLs/`.
+L'etat omis retombe sur le default du registre. Le build normalise les hostnames nus vers `https://`.
 
-```
-v8s.link/github/vanityURLs  →  github.com/vanityURLs/vanityURLs
-v8s.link/github/website     →  github.com/vanityURLs/website
-```
+## Ce qu'il faut changer
 
-### Autres patterns splat utiles
-
-```
-/docs/*    https://vanityurls.link/en/docs/:splat   302
-/gh/*      https://github.com/VOTRENOM/:splat        302
-/talks/*   https://slides.example.com/:splat         302
-```
-
-{{< callout type="warning" title="L'ordre des règles est important" >}}
-Cloudflare évalue `_redirects` de haut en bas. Une règle statique `/github` dans `static.lnk` a priorité sur le splat `/github/*` pour le chemin exact `/github` — c'est le comportement correct.
-{{< /callout >}}
+Pour une nouvelle instance, gardez la structure mais remplacez les lignes exemples par vos propres liens, owners et tags. Ajoutez `custom/v8s-schedules.json` seulement pour les liens qui ont besoin de destinations horaires.
