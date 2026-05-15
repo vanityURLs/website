@@ -6,6 +6,20 @@ nav_order: 10
 
 Le runtime vanityURLs actuel se deploie comme Worker Cloudflare avec assets statiques. Le Worker est l'origine du domaine court, donc utilisez un Custom Domain Worker plutot que l'ancien modele Pages `_redirects` ou DNS `AAAA 100::`.
 
+## Carte de navigation Cloudflare
+
+Cloudflare repartit les reglages necessaires a vanityURLs dans trois zones differentes du dashboard. Verifiez le scope du dashboard avant de modifier un reglage; etre dans le bon produit Cloudflare ne suffit pas toujours.
+
+| Zone du dashboard | Comment y aller | Reglages vanityURLs |
+|---|---|---|
+| Zero Trust | Menu principal, puis Zero Trust | Applications Access, policies Access, fournisseurs d'identite, reglages Zero Trust |
+| Workers & Pages | Menu principal, Build, Compute, Workers & Pages | Deploiements Worker, metriques, logs, bindings, domaines custom, reglages Worker |
+| Configuration du domaine | Menu principal, Account home, puis cliquer le domaine dans le contenu principal | DNS, SSL/TLS, Security, regles WAF, AI Crawl Control, reglages Rules, Network, Caching |
+
+Dans l'interface Cloudflare, la zone de configuration du domaine n'a pas toujours un nom de produit evident. Le meilleur repere est le nom du domaine dans la ligne du haut et un menu lateral avec DNS, SSL/TLS, Security, Rules, Network, et Caching.
+
+Utilisez Zero Trust pour definir qui peut acceder aux chemins prives. Utilisez Workers & Pages pour le Worker lui-meme. Utilisez la configuration du domaine pour trafic, DNS, TLS, et securite de zone.
+
 ## Forme Worker recommandee
 
 ```toml
