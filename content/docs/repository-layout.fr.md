@@ -9,7 +9,6 @@ Le depot separe les defaults du produit des changements propres a une instance. 
 defaults/
   public/                 # HTML, CSS, icones et pages localisees par defaut
   public/_stats/          # shell du tableau stats en lecture seule
-  functions/pages/        # functions compatibles Pages par defaut
   v8s-links.txt           # registre demo/par defaut
   v8s-schedules.json      # regles de planification optionnelles
   v8s-blocklist.json      # politique anti-abus par defaut
@@ -21,12 +20,19 @@ custom/
   v8s-schedules.json      # planifications de l'instance
   v8s-blocklist.json      # politique locale allow/block
 
+scripts/
+  src/
+    worker.mjs            # source canonique du Worker runtime
+    worker.test.mjs       # tests du Worker runtime
+  lnk                     # CLI Node pour liens et planifications
+  build.mjs               # build defaults + custom vers la sortie deploy
+  clean.mjs               # supprime la sortie generee
+  upgrade.mjs             # rafraichit les fichiers produit depuis upstream
+
 build/
   v8s.json                # registre runtime genere
+  v8s-blocklist.json      # politique anti-abus generee
   ...assets statiques...
-
-src/
-  worker.mjs              # point d'entree Worker genere pour Wrangler
 ```
 
 ## Defaults
@@ -44,3 +50,5 @@ Le build prefere `custom/v8s-links.txt` quand il existe. Sinon, il utilise `defa
 `build/v8s.json` est le registre runtime. Il contient schema `2.2`, regles de routage, horodatage, cibles normalisees, etats, metadonnees, et blocs de planification optionnels.
 
 Cloudflare sert les pages statiques depuis `build/`; le Worker lit `v8s.json` pour resoudre les liens courts.
+
+`src/` est genere pendant `npm run build` pour que Wrangler puisse deployer `src/worker.mjs`. Ce n'est pas la source de verite. Modifiez `scripts/src/worker.mjs`, puis laissez le build le copier au bon endroit. `npm run clean` supprime les sorties generees `build/`, `src/`, et `functions/`.

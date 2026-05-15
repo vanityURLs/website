@@ -9,7 +9,6 @@ The repository separates product defaults from instance-owned changes. That sepa
 defaults/
   public/                 # default HTML, CSS, icons, localized pages
   public/_stats/          # read-only stats dashboard shell
-  functions/pages/        # default Pages-compatible functions
   v8s-links.txt           # demo/default link registry
   v8s-schedules.json      # optional schedule rules
   v8s-blocklist.json      # default trust-and-safety policy
@@ -21,12 +20,19 @@ custom/
   v8s-schedules.json      # instance schedules
   v8s-blocklist.json      # instance allow/block policy
 
+scripts/
+  src/
+    worker.mjs            # canonical Worker runtime source
+    worker.test.mjs       # Worker runtime tests
+  lnk                     # Node CLI for links and schedules
+  build.mjs               # build defaults + custom into deploy output
+  clean.mjs               # remove generated output
+  upgrade.mjs             # refresh product-owned files from upstream
+
 build/
   v8s.json                # generated runtime registry
+  v8s-blocklist.json      # generated trust-and-safety policy
   ...static assets...
-
-src/
-  worker.mjs              # generated Worker entrypoint used by Wrangler
 ```
 
 ## Defaults
@@ -44,3 +50,5 @@ The build prefers `custom/v8s-links.txt` when it exists. If it does not, the bui
 `build/v8s.json` is the runtime registry. It contains schema version `2.2`, routing rules, generated timestamps, normalized link targets, lifecycle states, metadata, and optional schedule blocks.
 
 Cloudflare serves static pages from `build/`; the Worker reads `v8s.json` to resolve short links.
+
+`src/` is generated during `npm run build` so Wrangler can deploy `src/worker.mjs`. It is not the source of truth. Edit `scripts/src/worker.mjs`, then let the build copy it into place. `npm run clean` removes generated `build/`, `src/`, and `functions/` output.

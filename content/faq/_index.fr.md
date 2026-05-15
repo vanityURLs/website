@@ -3,10 +3,6 @@ title: "FAQ"
 description: "Questions frequentes sur l'exploitation, la securisation, et la mise a jour d'une instance vanityURLs."
 ---
 
-## La FAQ devrait-elle vivre dans la documentation ou ailleurs?
-
-Elle devrait etre une section autonome du site. La documentation sert aux procedures et references; la FAQ sert aux decisions, compromis, et reponses rapides qui pointent vers la documentation.
-
 ## Faut-il encore modifier `v8s-schedules.json` a la main?
 
 Habituellement non. Utilisez `./scripts/lnk schedule add`, `./scripts/lnk schedule default`, et `./scripts/lnk schedule list` pour le travail courant. Vous pouvez definir une cible fallback pendant l'ajout d'une regle avec `--default`. Les edits JSON restent utiles pour les changements de masse ou les changements qui se relisent mieux directement en code review.
@@ -14,10 +10,6 @@ Habituellement non. Utilisez `./scripts/lnk schedule add`, `./scripts/lnk schedu
 ## La CLI demande-t-elle Bash?
 
 Non. La CLI principale, `./scripts/lnk`, est basee sur Node et fonctionne sur macOS, Linux, Windows, et les environnements CI avec Node et Git. Le helper optionnel `scripts/v8s.zsh` demande Zsh, mais c'est seulement une convenience pour ouvrir des redirections existantes.
-
-## Pourquoi ne pas ecrire la CLI en Go?
-
-Go pourra avoir du sens plus tard pour un binaire autonome package. Aujourd'hui Node est le meilleur choix parce que le depot depend deja de Node pour le build, la validation, les tests, et Wrangler. Une CLI Node evite de maintenir deux implementations pendant que le projet evolue encore vite.
 
 ## v8s est-il un raccourcisseur heberge?
 

@@ -44,14 +44,16 @@ git push
 Pour une instance durable, ajoutez un remote upstream qui pointe vers la source du runtime vanityURLs :
 
 ```bash
-git remote add upstream https://github.com/dicaire/dicai-re.git
+git remote add upstream https://github.com/vanityurls/v8s.git
 npm run upgrade -- --remote upstream --ref main
 ```
+
+Remplacez `https://github.com/vanityurls/v8s.git` par l'URL du depot Git que vous utilisez comme upstream produit pour votre propre instance. Si vous utilisez un fork ou un miroir du runtime, pointez `upstream` vers ce fork ou ce miroir.
 
 Vous pouvez aussi utiliser une URL directement :
 
 ```bash
-npm run upgrade -- --remote https://github.com/dicaire/dicai-re.git --ref main
+npm run upgrade -- --remote https://github.com/vanityurls/v8s.git --ref main
 ```
 
 Pour une repetition sans changement :
