@@ -1,5 +1,5 @@
 {{ define "main" }}
-  {{ $.Scratch.Set "data" (index $.Page.Site.Data (print .Params.layout "." $.Page.Lang)) }}
+  {{ $.Scratch.Set "data" (index hugo.Data (print .Params.layout "." $.Page.Lang)) }}
   {{ $data := ($.Scratch.Get "data") }}
   {{ $lang := .Site.Language.Lang | lower }}
     

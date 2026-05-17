@@ -1,10 +1,10 @@
 {{ $translations := .Translations }}
 <div class="flex items-center border border-gray-200 rounded-md overflow-hidden text-xs font-medium">
-  {{ range .Site.Languages }}
-  {{ $lang      := .Lang }}
+  {{ range hugo.Sites }}
+  {{ $lang      := .Language.Lang }}
   {{ $isActive  := eq $.Site.Language.Lang $lang }}
   {{/* Default fallback href — root of that language */}}
-  {{ $href := printf "/%s/" $lang | relURL }}
+  {{ $href := .Home.RelPermalink }}
   {{/* If a translation of this page exists, link directly to it */}}
   {{ range $translations }}
     {{ if eq .Lang $lang }}{{ $href = .RelPermalink }}{{ end }}

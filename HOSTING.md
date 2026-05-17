@@ -66,7 +66,7 @@ Set the build configuration to:
 
 Workers & Pages → `vanityurls-website` → **Settings** → **Domains & Routes** → **+ Add** → **Custom domain** → enter `www.vanityurls.link`. Cloudflare provisions a TLS certificate automatically. The `workers.dev` and `*.workers.dev` preview URLs can be left **Inactive** to keep `www.vanityurls.link` as the canonical public surface.
 
-### 3. Configure secrets **IMPORTANT**
+### 3. Configure analytics variables **IMPORTANT**
 
 Cloudflare's dashboard exposes "Variables and Secrets" in two places that look identical but have different scopes:
 
@@ -75,12 +75,12 @@ Cloudflare's dashboard exposes "Variables and Secrets" in two places that look i
 | Settings → **Variables and Secrets** | Runtime | `env.UMAMI_*` ← **use this one** |
 | Settings → **Build** → Variables and secrets | Build-time only | NOT in `env` at runtime |
 
-The Worker reads `env.UMAMI_WEBSITE_ID` and `env.UMAMI_ENDPOINT` at runtime. If they're configured in the Build section, the Worker silently sees them as `undefined` and skips analytics — no error, no warning, just zero data in Umami.
+The Worker reads `env.UMAMI_WEBSITE_ID` and `env.UMAMI_ENDPOINT` at runtime. If `UMAMI_WEBSITE_ID` is configured in the Build section instead of the runtime section, the Worker silently sees it as `undefined` and skips analytics — no error, no warning, just zero data in Umami.
 
-**Correct setup:** Settings → Variables and Secrets → **+ Add** with `Type: Secret` (encrypted, locked icon) for both:
+**Correct setup:**
 
-- `UMAMI_WEBSITE_ID` — UUID from Umami → Settings → Websites → click site → ID field
-- `UMAMI_ENDPOINT` — full POST URL, typically `https://cloud.umami.is/api/send` for Umami Cloud, or your self-hosted instance's `/api/send` endpoint
+- `UMAMI_WEBSITE_ID` — add as a runtime secret in Cloudflare: Settings → Variables and Secrets → **+ Add** with `Type: Secret` (encrypted, locked icon). Use the UUID from Umami → Settings → Websites → click site → ID field.
+- `UMAMI_ENDPOINT` — defined in `wrangler.toml` `[vars]` as `https://cloud.umami.is/api/send`.
 
 The Worker auto-restarts whenever Variables and Secrets are added/changed. No deploy needed for secret changes.
 

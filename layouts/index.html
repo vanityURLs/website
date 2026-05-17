@@ -1,6 +1,6 @@
 {{ define "main" }}
 {{ $lang    := .Site.Language.Lang }}
-{{ $data    := index .Site.Data (printf "home.%s" $lang) }}
+{{ $data    := index hugo.Data (printf "home.%s" $lang) }}
 {{ $docsURL := "/docs/" | relLangURL }}
 {{ $blogURL := "/blog/" | relLangURL }}
 
