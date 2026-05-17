@@ -11,7 +11,7 @@ vanityURLs.link is a documentation website for an open-source project. We take y
 
 ### No cookies, no client-side trackers
 
-This website sets no cookies. It does not use tracking pixels, browser fingerprinting, or any JavaScript-based analytics. Your browser talks only to `vanityurls.link` — never to a third-party analytics server.
+This website sets no cookies. It does not use tracking pixels, browser fingerprinting, or any JavaScript-based analytics. Your browser talks only to `www.vanityurls.link` — never to a third-party analytics server.
 
 ### Aggregate analytics handled at the edge
 
@@ -26,7 +26,7 @@ No unique identifier, cookie, or session ID is set in your browser. No event is 
 
 ### No third-party scripts
 
-We do not load third-party analytics, advertising, or social tracking scripts in your browser. Fonts are served directly from `vanityurls.link` — no external typography requests, no data shared with Google.
+We do not load third-party analytics, advertising, or social tracking scripts in your browser. Fonts are served directly from `www.vanityurls.link` — no external typography requests, no data shared with Google.
 
 ### Cloudflare
 

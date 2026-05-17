@@ -7,7 +7,7 @@ description: "Terms of service for vanityURLs.link and the vanityURLs open-sourc
 
 ## 1. The Website
 
-`https://vanityURLs.link` is a documentation website provided to support the vanityURLs open-source project. It is offered for informational purposes only and may be modified or discontinued at any time without notice.
+`https://www.vanityURLs.link` is a documentation website provided to support the vanityURLs open-source project. It is offered for informational purposes only and may be modified or discontinued at any time without notice.
 
 ## 2. The Software ("As-Is")
 

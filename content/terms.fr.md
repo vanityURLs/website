@@ -7,7 +7,7 @@ description: "Conditions d'utilisation de vanityURLs.link et du logiciel open so
 
 ## 1. Le site web
 
-`https://vanityURLs.link` est un site de documentation fourni pour accompagner le projet open source vanityURLs. Il est proposé à titre informatif uniquement et peut être modifié ou interrompu à tout moment sans préavis.
+`https://www.vanityURLs.link` est un site de documentation fourni pour accompagner le projet open source vanityURLs. Il est proposé à titre informatif uniquement et peut être modifié ou interrompu à tout moment sans préavis.
 
 ## 2. Le logiciel (« en l'état »)
 

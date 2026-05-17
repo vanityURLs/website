@@ -9,7 +9,7 @@ vanityURLs.link est un site de documentation pour un projet open source. Nous pr
 
 ### Aucun cookie, aucun traqueur côté client
 
-Ce site ne dépose aucun cookie. Il n'utilise ni pixels de suivi, ni empreintes de navigateur, ni aucune analytique JavaScript. Votre navigateur ne communique qu'avec `vanityurls.link` — jamais avec un serveur d'analytique tiers.
+Ce site ne dépose aucun cookie. Il n'utilise ni pixels de suivi, ni empreintes de navigateur, ni aucune analytique JavaScript. Votre navigateur ne communique qu'avec `www.vanityurls.link` — jamais avec un serveur d'analytique tiers.
 
 ### Analyses agrégées traitées à la périphérie
 
@@ -24,7 +24,7 @@ Aucun identifiant unique, cookie ou session ne vous est assigné. Aucun événem
 
 ### Pas de scripts tiers
 
-Nous ne chargeons pas de scripts d'analytique, publicité ou tracking social tiers dans votre navigateur. Les polices sont servies directement depuis `vanityurls.link` — aucune requête externe pour la typographie.
+Nous ne chargeons pas de scripts d'analytique, publicité ou tracking social tiers dans votre navigateur. Les polices sont servies directement depuis `www.vanityurls.link` — aucune requête externe pour la typographie.
 
 ### Cloudflare
 

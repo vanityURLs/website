@@ -8,7 +8,7 @@
 
 vanityURLs is a simple solution to deploy a budget-friendly Url Shortener. It runs at scale in your Cloudflare subscription with continuous integration.
 
-This repository contains the source code for the [vanityURLs.link website](https://vanityurls.link), built using the [Hugo](gohugo.io) static site generator.
+This repository contains the source code for the [vanityURLs.link website](https://www.vanityurls.link), built using the [Hugo](gohugo.io) static site generator.
 
 ## 🚀 Quick Start
 To preview the site locally, ensure you have Hugo installed and run:

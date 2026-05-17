@@ -1,6 +1,6 @@
 name = 'vanityurls-website'
 main = 'src/worker.mjs'
-compatibility_date = '2026-04-01'
+compatibility_date = '2026-05-01'
 
 [build]
 command = 'chmod a+x build.sh && ./build.sh'
@@ -33,7 +33,7 @@ run_worker_first = [
 ]
 
 [[routes]]
-pattern = "vanityurls.link"
+pattern = "www.vanityurls.link"
 custom_domain = true
 
 [observability]

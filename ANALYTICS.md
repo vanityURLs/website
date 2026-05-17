@@ -11,7 +11,7 @@ This is a privacy-conscious site:
 - **The visitor's full IP address is never sent to Umami.** The Worker truncates it before forwarding: IPv4 to `/24` (last octet zeroed, e.g., `203.0.113.42` → `203.0.113.0`), IPv6 to `/48` (last 5 groups zeroed, e.g., `2001:db8:1234:5678:...` → `2001:db8:1234::`). This keeps country-level geolocation accurate while removing the precision needed to identify a specific household. The same anonymization pattern is used by Matomo, Plausible, and other privacy-focused analytics tools.
 - **Sessions are derived deterministically** by Umami from `(truncated-IP + user-agent + website-id)`, salted by Umami. The truncation means visitors on the same network (e.g., the same coffee shop or the same office) will share session attribution rather than being individually tracked. Same visitor on different days gets a new session, Umami doesn't know they're the same person across days.
 
-This is documented for visitors at `https://vanityURLs.link/en/privacy/` and `https://vanityURLs.link/fr/confidentialite/`. Let's keep those pages in sync with any operational changes.
+This is documented for visitors at `https://www.vanityURLs.link/en/privacy/` and `https://www.vanityURLs.link/fr/confidentialite/`. Let's keep those pages in sync with any operational changes.
 
 **Why truncation rather than dropping the IP entirely?**
 
@@ -42,7 +42,7 @@ VanityURLs's audience cares about privacy and minimalism, server-side fits bette
 `src/worker.mjs` runs for every HTML request, assets bypass the Worker by configuration in `wrangler.toml`. 
 
 The flow:
-1. Visitor requests a page such as `https://vanityURLs.link/en/docs/getting-started/`
+1. Visitor requests a page such as `https://www.vanityURLs.link/en/docs/getting-started/`
 2. Cloudflare routes the request through the Worker
 3. Worker fetches the asset (`/en/docs/getting-started/index.html`) from the static assets binding
 4. Before returning the response to the visitor, Worker calls `ctx.waitUntil(trackPageview(...))`, this fires the analytics call in the background, without blocking the visitor's response
@@ -57,7 +57,7 @@ The flow:
 Every HTML request fires one event. The event payload includes:
 
 - **URL** — full path including query string (UTM params are stripped to a separate event field, see below)
-- **Hostname** — `vanityurls.link`
+- **Hostname** — `www.vanityurls.link`
 - **Language** — visitor's `Accept-Language` header (typically `en-US`, `en-CA`, `fr-CA`, etc.)
 - **Referrer** — where the visitor came from
 - **User-agent** — full UA string, used by Umami to derive Browser/OS/Device
@@ -75,7 +75,7 @@ Plain pageviews are pageviews. The other three are also pageviews under the hood
 
 ## UTM capture (campaign tracking)
 
-When someone visits `https://vanityurls.link/en/?utm_source=newsletter&utm_medium=email&utm_campaign=launch`, the Worker:
+When someone visits `https://www.vanityurls.link/en/?utm_source=newsletter&utm_medium=email&utm_campaign=launch`, the Worker:
 
 1. Parses the URL
 2. Extracts the five standard Google UTM parameters: `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`
@@ -138,7 +138,7 @@ This block is currently **removed** from production. To re-add it for debugging:
    }
    ```
 3. Deploy
-4. In any browser, visit `https://vanityurls.link/en/?diag-umami=test1` (the value after `=` doesn't matter, it's just to make each test URL unique)
+4. In any browser, visit `https://www.vanityurls.link/en/?diag-umami=test1` (the value after `=` doesn't matter, it's just to make each test URL unique)
 5. In Cloudflare dashboard → Workers & Pages → `vanityurls-website` → **Observability** tab → find the request and expand it → you'll see the `[diag] ...` lines
 
 What the output tells you:

@@ -1,4 +1,4 @@
-baseURL: "https://vanityurls.link/"
+baseURL: "https://www.vanityurls.link/"
 title: "vanityURLs"
 
 # Requires Hugo 0.158.0 or newer (uses css.Build and css.PostCSS APIs introduced in 0.158).

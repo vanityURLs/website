@@ -28,7 +28,7 @@ Worker: vanityurls-website
         │   ├── UTM URLs: promoted to Umami events with name="campaign"
         │   └── All asset requests: bypass Worker entirely (free)
         │
-        └── Custom domain: vanityurls.link
+        └── Custom domain: www.vanityurls.link
 ```
 
 The Worker is configured to fire **only on HTML requests** via the `run_worker_first` pattern in `wrangler.toml`. Static assets (CSS, fonts, JS bundles, Pagefind WASM, images, sitemaps) bypass the Worker entirely. This matters for two reasons: cost (Worker invocations are billed against your free-tier quota; asset fetches are free) and performance (asset requests don't pay the Worker's startup cost, ~0.5–1ms).
@@ -64,7 +64,7 @@ Set the build configuration to:
 
 ### 2. Connect the custom domain
 
-Workers & Pages → `vanityurls-website` → **Settings** → **Domains & Routes** → **+ Add** → **Custom domain** → enter `vanityurls.link`. Cloudflare provisions a TLS certificate automatically. The `workers.dev` and `*.workers.dev` preview URLs can be left **Inactive** to keep the bare custom domain as the only public surface.
+Workers & Pages → `vanityurls-website` → **Settings** → **Domains & Routes** → **+ Add** → **Custom domain** → enter `www.vanityurls.link`. Cloudflare provisions a TLS certificate automatically. The `workers.dev` and `*.workers.dev` preview URLs can be left **Inactive** to keep `www.vanityurls.link` as the canonical public surface.
 
 ### 3. Configure secrets **IMPORTANT**
 
@@ -151,7 +151,7 @@ What you don't need to do:
 What you might want to do:
 - Periodically check **Google Search Console** for crawl errors, indexing status, and Core Web Vitals
 - Verify ownership for **Bing Webmaster Tools** if Bing traffic matters to you
-- Run **PageSpeed Insights** quarterly (`https://pagespeed.web.dev/?url=https://vanityurls.link/en/`)
+- Run **PageSpeed Insights** quarterly (`https://pagespeed.web.dev/?url=https://www.vanityurls.link/en/`)
 - Audit **Lighthouse Accessibility** quarterly — current target is 100/100 (see `content/Accessibility.en.md`)
 
 ## DNS and TLS
@@ -162,7 +162,7 @@ Cloudflare manages everything. The custom domain is added as a Workers Custom Do
 - Sets the necessary DNS records (CNAME flattening at the apex)
 - Renews the cert automatically
 
-The domain (`vanityurls.link`) is registered with [Porkbun](https://porkbun.com/). The only requirement for this setup is to point the nameservers at Cloudflare. 
+The domain (`vanityurls.link`) is registered with [Porkbun](https://porkbun.com/). The only requirement for this setup is to point the nameservers at Cloudflare. Serve `www.vanityurls.link` through the Worker custom domain and redirect the apex hostname to `www`.
 
 SSL/TLS Edge certificate use a shared Cloudflare universal SSL certificate and a corresponding backup certificate in the dashboard (Domains → SSL/TLS → Edge Certificates). Always Use HTTPS is enabled, minimum TLS version is TLS 1.3, opportunistic encryption is enabled, TLS 1.3 is enabled, and automatic HTTPS rewrites is enabled.
 

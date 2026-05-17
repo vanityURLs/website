@@ -36,7 +36,7 @@ function mockCtx() {
 }
 
 function mkRequest(path = "/en/docs/", opts = {}) {
-  const url = new URL(path, "https://vanityurls.link");
+  const url = new URL(path, "https://www.vanityurls.link");
   return new Request(url, {
     method: opts.method || "GET",
     headers: {
@@ -81,7 +81,7 @@ await run("GET HTML 200 fires Umami event", async () => {
   assert(call.body.type === "event", "type");
   assert(call.body.payload.website === fullEnv.UMAMI_WEBSITE_ID, "website");
   assert(call.body.payload.url === "/en/docs/", "url");
-  assert(call.body.payload.hostname === "vanityurls.link", "hostname");
+  assert(call.body.payload.hostname === "www.vanityurls.link", "hostname");
   assert(call.body.payload.language === "fr-CA", "language");
   assert(call.body.payload.userAgent.startsWith("Mozilla/5.0"), "userAgent override");
   assert(call.body.payload.ip === "203.0.113.0", "ip is truncated to /24");
@@ -153,7 +153,7 @@ await run("Outbound fetch includes User-Agent header (required by Umami)", async
 
 await run("Missing Referer renders as empty string, not undefined", async () => {
   const ctx = mockCtx();
-  const req = new Request(new URL("/en/", "https://vanityurls.link"), {
+  const req = new Request(new URL("/en/", "https://www.vanityurls.link"), {
     headers: { "user-agent": "test" },
   });
   await worker.fetch(req, fullEnv, ctx);
@@ -390,7 +390,7 @@ await run("Compressed IPv6 (::1 form) is handled without crashing", async () => 
 await run("Missing cf-connecting-ip omits payload.ip entirely", async () => {
   const ctx = mockCtx();
   // mkRequest sets cf-connecting-ip by default, so override to empty
-  const url = new URL("/en/", "https://vanityurls.link");
+  const url = new URL("/en/", "https://www.vanityurls.link");
   const req = new Request(url, {
     method: "GET",
     headers: {
