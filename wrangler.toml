@@ -1,4 +1,4 @@
-name = 'vanityurls-website'
+name = 'website'
 main = 'src/worker.mjs'
 compatibility_date = '2026-05-01'
 
