@@ -47,6 +47,54 @@ Seulement si la destination et la divulgation sont honnetes. N'utilisez pas un r
 
 Le proprietaire de l'instance. Le depot peut fournir des brouillons et une structure, mais ce n'est pas un avis juridique. Les proprietaires doivent adapter conditions, confidentialite, abus, et contact securite a leur audience et juridiction.
 
+## Pourquoi l'anglais et le francais ont-ils plus de liens en bas de page?
+
+L'anglais et le francais incluent actuellement des pages par defaut pour confidentialite, conditions, abus, et securite. L'espagnol, l'italien, et l'allemand incluent les pages d'accueil, expand, et etat localisees, mais pas encore les pages de politique equivalentes. Le build ne lie que les pages qui existent pour la langue concernee.
+
+## Comment choisir les langues supportees par mon instance?
+
+Definissez `i18n.supported_languages` dans `custom/v8s-site-config.json`. C'est important des que vous personnalisez `custom/public/`, sinon les visiteurs peuvent voir une instance mixte ou une langue est personnalisee mais les autres repertoires de langue par defaut restent presents.
+
+Le build utilise cette liste pour ajuster le routage linguistique du Worker, construire la page de tests protegee, et retirer les repertoires de langues non supportees de la sortie generee.
+
+## Que se passe-t-il lorsque setup copie les pages par defaut dans `custom/public`?
+
+`npm run setup` peut demander le domaine court, les langues supportees, et le wordmark en deux couleurs. Si vous acceptez l'option de pages marquees, il copie `defaults/public/` dans `custom/public/`, remplace le wordmark, met a jour les libelles et liens de marque pertinents, retire les langues non supportees, et stocke ces decisions dans `custom/v8s-site-config.json`.
+
+Si `custom/public/` contient deja des edits du proprietaire et n'a pas ete marque comme gere par l'installateur, setup refuse de le remplacer sauf avec `--force`.
+
+## Pourquoi le fichier source s'appelle-t-il `v8s-policies.json` alors que le runtime s'appelle `v8s-blocklist.json`?
+
+Le fichier source porte le nom du modele de politique plus large : domaines bloques, domaines autorises, regles de mots-cles, controles de scanners, et autres decisions de confiance et securite. Le Worker consomme encore l'artefact genere `build/v8s-blocklist.json`, optimise pour le blocage runtime.
+
+Utilisez `defaults/v8s-policies.json` et `custom/v8s-policies.json` pour les edits source. Traitez `build/v8s-blocklist.json` comme une sortie generee.
+
+## Est-ce que `custom/v8s-policies.json` fusionne avec la politique par defaut?
+
+Non. La politique source custom remplace la politique source par defaut pour les decisions de l'instance. Cela evite que des elements retires localement reviennent silencieusement par fusion avec les defaults. Les anciens noms `v8s-blocklist.json` peuvent encore etre reconnus pour migration, mais les nouvelles instances et la documentation devraient utiliser `v8s-policies.json`.
+
+## Ou vivent les badges rediriges localises?
+
+Les badges par defaut vivent sous `defaults/public/{en,fr,es,it,de}/` comme `v8s-redirected.svg` et `v8s-redirected-dark.svg`. L'anglais est aussi copie a la racine publique pendant le build pour compatibilite avec les pages racine.
+
+Lancez `npm run optimize:badges` pour reproduire le nettoyage SVGO de ces SVG.
+
+## Quelle est la difference entre `build/v8s.json` et `~/.v8s.json`?
+
+`build/v8s.json` est le registre genere dans le depot. Il est retire par `npm run clean`.
+
+`~/.v8s.json`, ou le chemin local configure, est un cache de poste de travail utilise par le helper shell optionnel. Il peut survivre a `npm run clean` parce qu'il est en dehors de la sortie de build du depot.
+
+## Quels fichiers `lnk` modifie-t-il?
+
+`lnk` modifie les fichiers source dans `custom/`. Les commandes de liens ecrivent dans `custom/v8s-links.txt`, en le creant si necessaire. Les commandes de politique ecrivent dans `custom/v8s-policies.json`.
+
+Apres un edit avec `lnk`, lancez `npm run build`, `npm run check`, ou `npm run local-publish` pour valider et publier le changement.
+
+## A quoi sert `npm run local-publish`?
+
+`npm run local-publish` est le workflow local pratique pour les changements d'instance valides. Il lance les checks, stage les chemins configures, commit et push. Par defaut il se concentre sur `custom/`, donc les sorties generees `build/`, `src/`, et `functions/` devraient rester hors Git.
+
 ## Comment garder une instance a jour?
 
 Gardez les fichiers locaux dans `custom/`, lancez `npm run clean`, utilisez le workflow de mise a jour pour rafraichir `defaults/` et `scripts/`, puis lancez `npm run check` avant de deployer.
