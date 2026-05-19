@@ -577,6 +577,190 @@
   .details-body > *:last-child  { margin-bottom: 0; }
 
   /* ════════════════════════════════════════
+     BRAND REFERENCE PAGE
+     Scoped Utopia-style fluid type and spacing
+     tokens for the brand documentation surface.
+     ════════════════════════════════════════ */
+
+  .brand-system {
+    --brand-ink: #111827;
+    --brand-paper: #ffffff;
+    --brand-teal: #0f766e;
+    --brand-swoop: #14b8a6;
+    --brand-muted: #6b7280;
+    --brand-line: #e5e7eb;
+    --brand-step--1: clamp(0.875rem, 0.832rem + 0.217vw, 1rem);
+    --brand-step-0: clamp(1rem, 0.957rem + 0.217vw, 1.125rem);
+    --brand-step-1: clamp(1.2rem, 1.115rem + 0.424vw, 1.444rem);
+    --brand-step-2: clamp(1.44rem, 1.295rem + 0.724vw, 1.856rem);
+    --brand-step-3: clamp(1.728rem, 1.499rem + 1.147vw, 2.386rem);
+    --brand-space-xs: clamp(0.75rem, 0.663rem + 0.435vw, 1rem);
+    --brand-space-s: clamp(1rem, 0.913rem + 0.435vw, 1.25rem);
+    --brand-space-m: clamp(1.5rem, 1.326rem + 0.87vw, 2rem);
+    --brand-space-l: clamp(2rem, 1.652rem + 1.739vw, 3rem);
+    display: grid;
+    gap: var(--brand-space-l);
+    font-size: var(--brand-step-0);
+  }
+  .dark .brand-system {
+    --brand-paper: #111827;
+    --brand-ink: #ffffff;
+    --brand-line: #374151;
+    --brand-muted: #9ca3af;
+  }
+  .brand-system > * {
+    margin-block: 0;
+  }
+  .brand-hero {
+    display: grid;
+    gap: var(--brand-space-m);
+    padding: var(--brand-space-l);
+    border: 1px solid var(--brand-line);
+    border-radius: 0.5rem;
+    background:
+      linear-gradient(135deg, rgba(20, 184, 166, 0.12), transparent 45%),
+      linear-gradient(180deg, rgba(15, 118, 110, 0.08), transparent 70%);
+  }
+  .brand-kicker {
+    margin: 0;
+    color: var(--brand-teal);
+    font-size: var(--brand-step--1);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .brand-title {
+    max-width: 12ch;
+    margin: 0;
+    color: var(--brand-ink);
+    font-size: var(--brand-step-3);
+    font-weight: 850;
+    letter-spacing: 0;
+    line-height: 0.95;
+  }
+  .brand-lede {
+    max-width: 62ch;
+    margin: 0;
+    color: var(--brand-muted);
+    font-size: var(--brand-step-1);
+    line-height: 1.45;
+  }
+  .brand-section {
+    display: grid;
+    gap: var(--brand-space-s);
+  }
+  .brand-section h2 {
+    margin: 0;
+    font-size: var(--brand-step-2);
+    line-height: 1.08;
+  }
+  .brand-grid {
+    display: grid;
+    gap: var(--brand-space-s);
+  }
+  @media (min-width: 48rem) {
+    .brand-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .brand-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .brand-panel {
+    display: grid;
+    gap: 0.75rem;
+    padding: var(--brand-space-s);
+    border: 1px solid var(--brand-line);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.72);
+  }
+  .dark .brand-panel {
+    background: rgba(31, 41, 55, 0.42);
+  }
+  .brand-panel h3 {
+    margin: 0;
+    font-size: var(--brand-step-1);
+  }
+  .brand-panel p {
+    margin: 0;
+    color: var(--brand-muted);
+  }
+  .brand-swatch {
+    min-height: 5rem;
+    border: 1px solid var(--brand-line);
+    border-radius: 0.5rem;
+  }
+  .brand-swatch-redirected-light { background: #111827; }
+  .brand-swatch-redirected-dark {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.16) 25%, transparent 25%) 0 0 / 1rem 1rem,
+      #111827;
+  }
+  .brand-swatch-vanity { background: #0f766e; }
+  .brand-swatch-swoop { background: #14b8a6; }
+  .brand-badge-stage {
+    display: grid;
+    place-items: center;
+    min-height: 9rem;
+    padding: var(--brand-space-s);
+    border: 1px solid var(--brand-line);
+    border-radius: 0.5rem;
+  }
+  .brand-badge-stage-light {
+    background:
+      linear-gradient(45deg, #f9fafb 25%, transparent 25%) 0 0 / 1rem 1rem,
+      linear-gradient(45deg, transparent 75%, #f9fafb 75%) 0 0 / 1rem 1rem,
+      linear-gradient(45deg, transparent 75%, #f9fafb 75%) 0.5rem 0.5rem / 1rem 1rem,
+      linear-gradient(45deg, #f9fafb 25%, #ffffff 25%) 0.5rem 0.5rem / 1rem 1rem;
+  }
+  .brand-badge-stage-dark {
+    background:
+      linear-gradient(45deg, #111827 25%, transparent 25%) 0 0 / 1rem 1rem,
+      linear-gradient(45deg, transparent 75%, #111827 75%) 0 0 / 1rem 1rem,
+      linear-gradient(45deg, transparent 75%, #111827 75%) 0.5rem 0.5rem / 1rem 1rem,
+      linear-gradient(45deg, #111827 25%, #1f2937 25%) 0.5rem 0.5rem / 1rem 1rem;
+  }
+  .brand-badge-stage img {
+    width: min(100%, 24rem);
+    height: auto;
+  }
+  .brand-asset-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+  @media (min-width: 40rem) {
+    .brand-asset-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+  .brand-asset {
+    display: grid;
+    gap: 0.5rem;
+    align-content: start;
+    padding: 0.75rem;
+    border: 1px solid var(--brand-line);
+    border-radius: 0.5rem;
+  }
+  .brand-asset img {
+    width: 100%;
+    height: auto;
+  }
+  .brand-code {
+    display: block;
+    overflow-x: auto;
+    padding: var(--brand-space-s);
+    border-radius: 0.5rem;
+    background: #111827;
+    color: #f9fafb;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .prose .brand-code {
+    padding: var(--brand-space-s);
+  }
+
+  /* ════════════════════════════════════════
      MERMAID DIAGRAMS
      ════════════════════════════════════════ */
 

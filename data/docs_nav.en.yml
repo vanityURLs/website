@@ -10,6 +10,8 @@ sections:
     pages:
       - title: Overview
         url: /docs/customize-overview/
+      - title: Brand
+        url: /docs/brand/
       - title: Custom overrides
         url: /docs/custom-overrides/
       - title: Link format

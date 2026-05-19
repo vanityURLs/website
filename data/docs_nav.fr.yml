@@ -10,6 +10,8 @@ sections:
     pages:
       - title: Vue d'ensemble
         url: /docs/customize-overview/
+      - title: Marque
+        url: /docs/brand/
       - title: Surcharges custom
         url: /docs/custom-overrides/
       - title: Format des liens
