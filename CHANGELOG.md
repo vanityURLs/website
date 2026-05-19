@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.12.2](https://github.com/vanityURLs/website/compare/v2.12.1...v2.12.2) (2026-05-19)
+
+
+### Bug Fixes
+
+* use pinned hugo for cloudflare builds ([839bed0](https://github.com/vanityURLs/website/commit/839bed0743696a1ec3a7491c02c28e17c7afbb5e))
+
 ## [2.12.1](https://github.com/vanityURLs/website/compare/v2.12.0...v2.12.1) (2026-05-17)
 
 
