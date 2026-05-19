@@ -12,7 +12,7 @@ La simplicite fait partie du modele de securite. Le Worker a moins de pieces mob
 Le Worker garde un chemin runtime etroit :
 
 - seules les requetes publiques `GET`, `HEAD`, et `OPTIONS` silencieuses sont acceptees, plus le beacon dedie `POST /_analytics/expand`
-- l'acces direct a `v8s.json`, `redirect-targets.json`, et `v8s-blocklist.json` retourne 404
+- l'acces direct a `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` retourne 404
 - les redirections acceptent seulement les cibles `http:` et `https:`
 - les cibles avec identifiants, hostname manquant, caracteres de controle, ou protocoles non supportes echouent ferme
 - les valeurs splat sont encodees segment par segment avant insertion
@@ -27,7 +27,9 @@ L'idee importante n'est pas que le code serait magiquement invulnerable. L'idee 
 
 `npm run check` construit les memes assets que le deploiement, valide le registre genere, valide les fichiers de politique, lint le depot, et execute les tests Worker.
 
-Le registre genere est traite comme des donnees, pas comme du code executable. Les changements propres a l'instance vivent dans `custom/`; les defaults produit restent dans `defaults/`. Cela garde les mises a jour revues et rend le rollback normal dans Git.
+Le registre genere et la politique runtime sont traites comme des donnees, pas comme du code executable. Les changements propres a l'instance vivent dans `custom/`; les defaults produit restent dans `defaults/`; la source canonique du Worker reste dans `scripts/workers/`; `src/` est genere seulement pour Wrangler. Cela garde les mises a jour revues et rend le rollback normal dans Git.
+
+Les headers par defaut incluent `X-Generated-By: vanityURLs.link`. Si vous surchargez `_headers`, gardez cette identite de generation et les blocages des fichiers runtime bruts sauf raison explicite.
 
 ## Controles edge Cloudflare
 

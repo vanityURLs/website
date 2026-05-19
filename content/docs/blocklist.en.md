@@ -1,13 +1,21 @@
 ---
-title: "Blocklist policy"
-description: "Default and custom trust-and-safety policy for target URLs, shortener loops, malware hosts, risky schemes, and local overrides."
+title: "Policy and blocklist"
+description: "Source policy and generated runtime blocklist behavior for target URLs, shortener loops, malware hosts, risky schemes, and local overrides."
 ---
 
-vanityURLs uses `defaults/v8s-blocklist.json` as the upstream trust-and-safety policy. Instance-specific policy lives in `custom/v8s-blocklist.json` and is merged over the defaults.
+vanityURLs edits source policy as `v8s-policies.json` and deploys runtime policy as `build/v8s-blocklist.json`.
+
+The source policy file is selected before build:
+
+- `defaults/v8s-policies.json` is the upstream trust-and-safety source policy.
+- `custom/v8s-policies.json` replaces the default source policy for an instance.
+- Legacy `v8s-blocklist.json` source files may still be recognized for migration compatibility, but new docs and new instances should use `v8s-policies.json`.
+
+`custom/v8s-policies.json` is not merged over the default source policy. If an instance owns policy, it owns the replacement. This prevents removed custom policy decisions from reappearing through an upstream merge.
 
 The goal is to protect the reputation of a short-link domain by reducing phishing, malware, redirect chains, and risky URL forms.
 
-A redirect engine is powerful infrastructure. Do not use a vanityURLs instance to hide malicious destinations, bypass trust systems, launder another shortener chain, disguise affiliate or tracking links without disclosure, or route people to content they did not reasonably expect. A short-link domain earns trust slowly and can lose it very quickly.
+A redirect engine is powerful infrastructure. Do not use a vanityURLs instance to hide malicious destinations, bypass trust systems, launder another shortener chain, disguise affiliate or tracking links without disclosure, or route people to content they did not reasonably expect.
 
 ## Default protections
 
@@ -23,7 +31,7 @@ The runtime also blocks common scanner probes before short-link lookup so paths 
 
 ## Categories and generated sources
 
-`defaults/v8s-blocklist-categories.json` defines the category and severity labels used by local rules and generated policy. Categories explain why something is blocked; severities describe risk to visitor safety and the short-domain reputation.
+`defaults/v8s-blocklist-categories.json` defines the category and severity labels used by source policy and generated policy data. Categories explain why something is blocked; severities describe risk to visitor safety and the short-domain reputation.
 
 The current defaults include:
 
@@ -35,18 +43,11 @@ The current defaults include:
 | `scanner-probe` | Automated vulnerability scanner paths that should never resolve as short links |
 | `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Instance-owned policy categories for elevated-risk or owner-selected blocks |
 
-The generated policy is built from reputable open-source feeds configured in `defaults/v8s-blocklist.json`:
-
-| Source | Category | Severity | Purpose |
-|---|---|---|---|
-| `urlhaus_malware` | `malware` | `high` | Imports malware-host domains from abuse.ch URLhaus |
-| `url_shorteners` | `shortener-loop` | `medium` | Imports known public shortener domains from the PeterDaveHello `url-shorteners` list |
-
 Generated feeds reduce obvious abuse risk, but they can still have false positives. Review source changes before promoting them into a release, and keep `allow_domains` entries narrow when you intentionally override a generated block for an owner-controlled hostname.
 
-## Configure local policy
+## Configure instance policy
 
-Create `custom/v8s-blocklist.json` for instance-specific rules. The build merges it over `defaults/v8s-blocklist.json`.
+Create `custom/v8s-policies.json` for instance-specific rules:
 
 ```json
 {
@@ -74,7 +75,7 @@ Run validation after changing policy:
 npm run check
 ```
 
-The validator checks configured links against the merged blocklist. Fix rejected links before deployment instead of bypassing the policy.
+The validator checks configured links against the generated runtime blocklist. Fix rejected links before deployment instead of bypassing the policy.
 
 ## Overrides and review
 
@@ -82,7 +83,7 @@ The validator checks configured links against the merged blocklist. Fix rejected
 
 Keyword rules match the destination hostname, path, and query string after lowercasing. Keep keyword rules specific to avoid false positives.
 
-Review the blocklist when:
+Review the policy when:
 
 - adding a new high-volume destination
 - adding user-submitted or third-party links
@@ -92,7 +93,7 @@ Review the blocklist when:
 
 Keep local allow rules narrow. Prefer allowing a specific owner-controlled hostname over allowing an entire registrable domain when only one subdomain is needed.
 
-## Generated blocklist
+## Generated runtime blocklist
 
 Generate optional machine-managed policy data with:
 
@@ -100,18 +101,12 @@ Generate optional machine-managed policy data with:
 npm run generate:blocklist
 ```
 
-The generated file is intended for CI or deployment refreshes, not hand editing. Review large upstream feed changes before promoting them into defaults.
+The build writes the runtime artifact here:
 
-Use `generated_sources` in `custom/v8s-blocklist.json` when an instance needs to disable a default source or add another source with the same line-oriented domain format:
-
-```json
-{
-  "generated_sources": {
-    "url_shorteners": {
-      "enabled": false
-    }
-  }
-}
+```text
+build/v8s-blocklist.json
 ```
 
-Every enabled generated source should have a category, severity, URL, and clear reason to trust the upstream. A redirector is attractive to scanners even when nobody has announced the domain, so feed quality matters: noisy or low-quality sources can break legitimate links, while missing obvious abuse sources can burn reputation quickly.
+This file is consumed by the Worker and blocked from direct public access as `/v8s-blocklist.json`. It is a generated runtime artifact, not the file an instance owner should edit by hand.
+
+Every enabled generated source should have a category, severity, URL, and clear reason to trust the upstream. A redirector is attractive to scanners even when nobody has announced the domain, so feed quality matters: noisy sources can break legitimate links, while missing obvious abuse sources can burn reputation quickly.

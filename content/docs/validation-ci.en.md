@@ -34,7 +34,8 @@ The checks verify that:
 - splat aliases do not shadow unsafe parent paths
 - schedules are valid and attached only to exact links
 - generated runtime assets use schema `2.2`
-- private implementation assets stay unreachable
+- raw runtime assets such as `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` stay unreachable
+- generated `src/` matches the Worker source in `scripts/workers/`
 - protected operational paths such as `/_stats` and `/_tests` are not treated as ordinary public content
 
 Warnings should be reviewed. Errors should be fixed instead of bypassed; a redirector can damage its domain reputation quickly if bad targets slip through.
@@ -50,6 +51,10 @@ npm run check
 before deployment. Keep deployment credentials out of the repo and configure them as GitHub or Cloudflare secrets. The generated Worker can run without analytics management API keys; those belong only in local helpers when they are needed.
 
 If CI updates generated blocklist data, review the feed diff before release. Default generated sources come from reputable open-source feeds, but any feed can add false positives or change format.
+
+`npm run local-install` is a workstation setup command, not a CI command. It installs local helper wiring, checks for `jq`, and records local paths in `custom/v8s-local-config.json`.
+
+`npm run local-publish` is for owner workstations. It runs checks, stages configured local paths such as `custom`, commits, and pushes.
 
 ## Operational smoke checks
 

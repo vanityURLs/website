@@ -1,54 +1,70 @@
 ---
 title: "Structure du depot"
-description: "Organisation du depot vanityURLs actuel autour des defaults, surcharges custom, sortie generee et source Worker."
+description: "Comment le depot vanityURLs est organise autour des defaults, custom, sorties generees, outillage local, et source Worker."
 ---
 
-Le depot separe les defaults du produit des changements propres a une instance. Cette separation rend v8s.link utile comme implementation de reference et permet de mettre a jour le code upstream sans perdre la marque locale.
+Le depot separe les defaults produit des changements propres a l'instance. Cette separation permet de mettre a jour `defaults/` et `scripts/` sans perdre les liens, le branding, la politique, ou les choix locaux.
 
 ```text
 defaults/
-  public/                 # HTML, CSS, icones et pages localisees par defaut
-  public/_stats/          # shell du tableau stats en lecture seule
-  v8s-links.txt           # registre demo/par defaut
-  v8s-schedules.json      # regles de planification optionnelles
-  v8s-blocklist.json      # politique anti-abus par defaut
-  v8s-blocklist-categories.json
+  public/                         # HTML, CSS, icones, pages localisees, badges
+  public/_stats/                  # shell du tableau stats
+  v8s-links.txt                   # registre de demo
+  v8s-schedules.json              # regles horaires optionnelles
+  v8s-policies.json               # politique source par defaut
+  v8s-blocklist-categories.json   # categories et severites
+  v8s-site-config.json            # langues et branding par defaut
+  v8s-local-config.json           # reglages locaux par defaut
 
 custom/
-  public/                 # marque et pages propres a l'instance
-  v8s-links.txt           # liens de l'instance
-  v8s-schedules.json      # planifications de l'instance
-  v8s-blocklist.json      # politique locale allow/block
+  public/                         # branding et pages de l'instance
+  v8s-links.txt                   # liens de l'instance
+  v8s-schedules.json              # horaires de l'instance
+  v8s-policies.json               # remplacement de politique
+  v8s-site-config.json            # langues supportees et branding
+  v8s-local-config.json           # chemins du helper et publication locale
 
 scripts/
-  src/
-    worker.mjs            # source canonique du Worker runtime
-    worker.test.mjs       # tests du Worker runtime
-  lnk                     # CLI Node pour liens et planifications
-  build.mjs               # build defaults + custom vers la sortie deploy
-  clean.mjs               # supprime la sortie generee
-  upgrade.mjs             # rafraichit les fichiers produit depuis upstream
+  workers/
+    worker.mjs                    # source canonique du Worker
+    worker.test.mjs               # tests du Worker
+  lnk                             # CLI Node pour liens, horaires, politiques
+  v8s.sh                          # helper local neutre shell
+  v8s.zsh                         # wrapper de compatibilite
+  build.mjs                       # build defaults + custom
+  install.mjs                     # setup initial d'instance
+  local-install.mjs               # setup local du poste
+  local-publish.mjs               # valider, commit, pousser les chemins locaux
+  upgrade.mjs                     # rafraichir depuis upstream
+
+src/
+  worker.mjs                      # genere depuis scripts/workers/ pour Wrangler
 
 build/
-  v8s.json                # registre runtime genere
-  v8s-blocklist.json      # politique anti-abus generee
+  v8s.json                        # registre runtime genere
+  v8s-blocklist.json              # artefact runtime de politique
+  v8s-site-config.json            # configuration de site generee
   ...assets statiques...
 ```
 
 ## Defaults
 
-`defaults/` est la base du produit. L'instance publique v8s.link utilise ces fichiers pour montrer un raccourcisseur fonctionnel avec page d'accueil de recherche, page expand, pages d'etat localisees, icones, shell stats protege, et liens exemples.
+`defaults/` est la base produit. Il contient les pages publiques, pages d'etat localisees, badges localises, pages de politique, icones, shell stats protege, liens exemples, politique source, horaires, configuration de site, et defaults locaux.
 
 ## Custom
 
-`custom/` appartient au proprietaire de l'instance. Placez ici les assets de marque, favicons, pages surchargees, listes de liens, planifications et politiques locales.
+`custom/` appartient au proprietaire de l'instance. Placez ici les assets de marque, pages surchargees, listes de liens, horaires, configuration de site, configuration locale et remplacement de politique.
 
-Le build prefere `custom/v8s-links.txt` quand il existe. Sinon, il utilise `defaults/v8s-links.txt`, ce qui permet a un clone frais de produire une demo utilisable.
+Le build prefere `custom/v8s-links.txt` quand il existe. Sinon il utilise `defaults/v8s-links.txt`, ce qui permet a un clone frais de produire une demo.
 
-## Sortie generee
+`custom/v8s-policies.json` remplace la politique source par defaut. Il ne fusionne pas avec `defaults/v8s-policies.json`.
 
-`build/v8s.json` est le registre runtime. Il contient schema `2.2`, regles de routage, horodatage, cibles normalisees, etats, metadonnees, et blocs de planification optionnels.
+## Sorties generees
 
-Cloudflare sert les pages statiques depuis `build/`; le Worker lit `v8s.json` pour resoudre les liens courts.
+`build/v8s.json` est le registre runtime. Il contient les regles de routage, timestamps, cibles normalisees, etats, metadonnees et horaires.
 
-`src/` est genere pendant `npm run build` pour que Wrangler puisse deployer `src/worker.mjs`. Ce n'est pas la source de verite. Modifiez `scripts/src/worker.mjs`, puis laissez le build le copier au bon endroit. `npm run clean` supprime les sorties generees `build/`, `src/`, et `functions/`.
+`build/v8s-blocklist.json` est l'artefact de politique consomme par le Worker.
+
+`build/v8s-site-config.json` garde la configuration de site du build, incluant `i18n.supported_languages` et le branding. Le build retire aussi de `build/` les repertoires de langues non supportees.
+
+`src/` est genere pendant `npm run build` pour que Wrangler deploie `src/worker.mjs`. Ce n'est pas la source de verite. Modifiez `scripts/workers/`, puis laissez le build copier dans `src/`. `npm run clean` retire `build/`, `src/`, et les anciennes sorties de compatibilite.

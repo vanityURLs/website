@@ -8,8 +8,10 @@ The admin dashboard is intentionally read-only. It is an operational view over t
 It reads:
 
 ```text
-/v8s.json
+/_stats/api/v8s.json
 ```
+
+Direct public access to raw runtime files such as `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` should remain blocked.
 
 ## What it shows
 

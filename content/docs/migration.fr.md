@@ -9,11 +9,12 @@ Utilisez ce guide pour passer de l'ancien modele Cloudflare Pages `_redirects` a
 
 - `wrangler.toml` est la source de verite du deploiement
 - Les fichiers statiques sont servis via le binding Worker `ASSETS`
-- Le build copie `defaults/`, applique `custom/`, et genere `build/v8s.json`
+- Le build copie `defaults/`, applique `custom/`, et genere `build/v8s.json`, `build/v8s-blocklist.json`, et `build/v8s-site-config.json`
 - `custom/v8s-links.txt` est prefere quand il existe; sinon le build utilise `defaults/v8s-links.txt`
+- la politique source editable est `v8s-policies.json`; `build/v8s-blocklist.json` est une sortie runtime generee
 - `/_stats` et `/_tests` sont proteges par Cloudflare Access
 - Les analytics serveur sont emis par le Worker
-- Les probes et destinations risquees sont bloquees par `v8s-blocklist.json`
+- Les probes et destinations risquees sont bloquees par la politique runtime generee
 
 ## Convertir les anciens fichiers .lnk
 

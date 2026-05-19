@@ -8,8 +8,10 @@ Le tableau admin est volontairement en lecture seule. C'est une vue operationnel
 Il lit :
 
 ```text
-/v8s.json
+/_stats/api/v8s.json
 ```
+
+L'acces public direct aux fichiers runtime bruts comme `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` doit rester bloque.
 
 ## Ce qu'il montre
 

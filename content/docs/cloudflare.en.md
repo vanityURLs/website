@@ -26,7 +26,7 @@ Use Zero Trust for who may access private paths. Use Workers & Pages for the Wor
 
 In **Workers & Pages**, create an application, continue with GitHub, select the repository, and confirm that the project name matches `wrangler.toml`.
 
-Leave the build and deploy fields controlled by the repository unless you have a deliberate reason to override them in Cloudflare. The repository build copies `defaults/`, overlays `custom/`, validates `v8s.json`, and prepares the Worker assets before Wrangler deploys. Disable builds for non-production branches unless branch deploys are part of your workflow.
+Leave the build and deploy fields controlled by the repository unless you have a deliberate reason to override them in Cloudflare. The repository build copies `defaults/`, overlays `custom/`, validates `v8s.json`, builds the runtime policy and site config, and copies `scripts/workers/` into generated `src/` before Wrangler deploys. Disable builds for non-production branches unless branch deploys are part of your workflow.
 
 Attach your short domain as a Worker Custom Domain. When the Custom Domain is active, the Worker should be the origin for that hostname.
 
@@ -317,7 +317,7 @@ The Cloudflare Git integration can run:
 npx wrangler@latest deploy --config wrangler.toml
 ```
 
-The repository build command runs before deploy, copies `defaults/`, overlays `custom/`, validates `v8s.json`, and copies the runtime Worker into `src/worker.mjs`.
+The repository build command runs before deploy, copies `defaults/`, overlays `custom/`, validates `v8s.json`, builds `v8s-blocklist.json` and `v8s-site-config.json`, and copies `scripts/workers/` into generated `src/` for Wrangler.
 
 Run the same validation locally before pushing:
 

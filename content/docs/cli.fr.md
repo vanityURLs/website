@@ -1,11 +1,11 @@
 ---
 title: "CLI"
-description: "Utiliser la CLI v8s basee sur Node pour gerer liens, planifications, et blocklist sans Bash."
+description: "Utiliser la CLI v8s basee sur Node pour gerer liens, horaires, et politique source."
 ---
 
 La CLI locale au depot est `./scripts/lnk`. C'est un executable Node, donc il fonctionne sur macOS, Linux, Windows, et les environnements CI ou Node et Git sont disponibles.
 
-Bash n'est pas requis pour gerer les liens. Le helper Zsh reste optionnel et separe.
+La CLI modifie les fichiers source dans `custom/`. Apres les changements, lancez `npm run build`, `npm run check`, ou `npm run local-publish` pour regenerer et publier les artefacts runtime.
 
 ## Prerequis
 
@@ -25,18 +25,21 @@ Sur Windows, lancez les commandes depuis PowerShell, Windows Terminal, ou un she
 ./scripts/lnk --splat https://docs.example.com/:splat docs
 ```
 
-Par defaut, la CLI ecrit dans `custom/v8s-links.txt` quand ce fichier existe. Pour forcer un autre chemin :
+Par defaut, la CLI ecrit dans `custom/v8s-links.txt` et cree le fichier si necessaire. Pour pointer une CLI installee vers le depot et definir l'owner par defaut :
 
 ```bash
-V8S_LINKS_FILE=custom/v8s-links.txt ./scripts/lnk https://example.com example
+V8S_REPO=/path/to/YOUR-SHORT-DOMAIN V8S_LINKS_OWNER=team ./scripts/lnk https://example.com example
 ```
 
 Sur Windows PowerShell :
 
 ```powershell
-$env:V8S_LINKS_FILE="custom/v8s-links.txt"
+$env:V8S_REPO="C:\path\to\YOUR-SHORT-DOMAIN"
+$env:V8S_LINKS_OWNER="team"
 node ./scripts/lnk https://example.com example
 ```
+
+`V8S_REPO` pointe vers le depot local. `V8S_LINKS_OWNER` definit la valeur owner par defaut pour les nouveaux liens.
 
 La CLI ajoute la ligne, lance `git add`, commit avec `feat(links): add SLUG`, puis pousse. Utilisez `DRY_RUN=true` pour afficher la ligne sans ecrire.
 
@@ -51,30 +54,33 @@ Les commandes de planification ecrivent `custom/v8s-schedules.json` par defaut, 
 
 Utilisez `schedule default` plus tard si vous devez mettre a jour la cible de fallback pour un slug qui a deja au moins une regle de planification.
 
-## Gerer la blocklist
+## Gerer la politique source
 
 ```bash
-./scripts/lnk block categories
+./scripts/lnk list policy
+./scripts/lnk list categories
 ./scripts/lnk block add example-bad.test --category phishing --severity high --reason "Fake login page"
 ./scripts/lnk block keyword wallet-drain --category phishing --severity high --reason "Credential theft lure"
 ./scripts/lnk block allow example.com --reason "Domaine controle par le proprietaire"
 ```
 
-Les commandes blocklist ecrivent `custom/v8s-blocklist.json`.
+Les commandes de politique ecrivent `custom/v8s-policies.json`. Le build transforme la politique source selectionnee en artefact runtime `build/v8s-blocklist.json`.
 
-## Helper Zsh optionnel
+## Helper shell optionnel
 
-`scripts/v8s.zsh` est une aide shell optionnelle pour ouvrir des redirections connues depuis le terminal. Elle est separee de `./scripts/lnk` : la CLI Node modifie les fichiers source, tandis que le helper Zsh lit seulement le registre runtime genere.
+`scripts/v8s.sh` est un helper neutre shell pour ouvrir des redirections connues depuis le terminal. `scripts/v8s.zsh` reste un wrapper de compatibilite. Le helper est separe de `./scripts/lnk` : la CLI Node modifie les fichiers source, tandis que le helper lit seulement le registre runtime genere.
 
 ```zsh
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 ```
 
-Le helper lit `~/.v8s.json` par defaut. `npm run build` peut synchroniser le `build/v8s.json` genere a cet endroit sur un poste macOS local. Si vous gardez le registre ailleurs, definissez `V8S_REGISTRY` avant de sourcer ou d'utiliser le helper :
+Le helper lit le chemin de registre local configure, habituellement `~/.v8s.json`. `npm run build` ecrit `build/v8s.json` et le copie au registre local seulement quand la configuration locale active le helper. Lancez `npm run local-install` pour le configurer.
+
+Si vous gardez le registre ailleurs, definissez `V8S_REGISTRY` avant de sourcer ou d'utiliser le helper :
 
 ```zsh
 export V8S_REGISTRY=/path/to/YOUR-SHORT-DOMAIN/build/v8s.json
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 ```
 
 Commandes utiles :
@@ -93,7 +99,7 @@ v8s --path
 | `v8s --print docs` | Affiche la cible sans l'ouvrir. |
 | `v8s --path` | Affiche le chemin du registre utilise. |
 
-Le helper demande `jq`, car il lit `links[]` dans le registre JSON genere. Sur macOS, installez-le avec Homebrew :
+Le helper demande `jq`, car il lit `links[]` dans le registre JSON genere. `npm run local-install` verifie `jq` et affiche des suggestions d'installation par plateforme. Sur macOS :
 
 ```bash
 brew install jq

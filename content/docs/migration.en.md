@@ -9,11 +9,12 @@ Use this guide when moving from the older Cloudflare Pages `_redirects` model to
 
 - `wrangler.toml` is the deployment source of truth
 - Static files are served through the Worker assets binding named `ASSETS`
-- The build copies `defaults/`, overlays `custom/`, and generates `build/v8s.json`
+- The build copies `defaults/`, overlays `custom/`, and generates `build/v8s.json`, `build/v8s-blocklist.json`, and `build/v8s-site-config.json`
 - `custom/v8s-links.txt` is preferred when it exists; otherwise the build uses `defaults/v8s-links.txt`
+- editable source policy is `v8s-policies.json`; `build/v8s-blocklist.json` is generated runtime output
 - `/_stats` and `/_tests` are protected by Cloudflare Access
 - Server-side analytics are emitted by the Worker
-- Scanner probes and risky destinations are blocked by `v8s-blocklist.json`
+- Scanner probes and risky destinations are blocked by the generated runtime policy
 
 ## Convert legacy .lnk files
 

@@ -11,6 +11,7 @@ La regle est simple :
 - les reglages de deploiement Cloudflare vivent dans `wrangler.toml`
 - la sortie generee est jetable
 - les fichiers produit upstream vivent dans `defaults/` et `scripts/`
+- l'entree Worker generee vit dans `src/`
 
 ## Commande d'upgrade
 
@@ -19,6 +20,8 @@ Lancez depuis un worktree propre :
 ```bash
 npm run upgrade
 ```
+
+`npm run update` est un alias pratique pour le meme workflow.
 
 La commande :
 
@@ -72,7 +75,25 @@ L'outil d'upgrade refuse de remplacer :
 - secrets Cloudflare
 - sortie generee `build/`
 
-Cela garde les liens locaux, pages legales, politique de confidentialite, overrides blocklist, marque, reglages Access, IDs analytics, et forme de deploiement sous controle du proprietaire de l'instance.
+Cela garde les liens locaux, pages legales, politique de confidentialite, politique source, marque, reglages Access, IDs analytics, chemins locaux et forme de deploiement sous controle du proprietaire de l'instance.
+
+## Installation locale et publication
+
+Lancez le setup local quand vous voulez le helper shell ou la commande `lnk` installee :
+
+```bash
+npm run local-install
+```
+
+La commande verifie `jq`, installe le helper neutre shell depuis `scripts/v8s.sh` si demande, copie `scripts/lnk` vers le chemin bin configure, et enregistre les chemins dans `custom/v8s-local-config.json`.
+
+Utilisez la publication locale quand le proprietaire veut valider, stage, commit et pousser les chemins configures :
+
+```bash
+npm run local-publish
+```
+
+Le chemin par defaut est `custom`, et le message de commit par defaut est `chore: update local vanityURLs configuration`.
 
 ## Pourquoi pas Homebrew maintenant
 

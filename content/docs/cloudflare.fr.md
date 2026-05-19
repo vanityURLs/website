@@ -282,7 +282,7 @@ L'integration Git Cloudflare peut executer :
 npx wrangler@latest deploy --config wrangler.toml
 ```
 
-Le build du depot s'execute avant deploy, copie `defaults/`, applique `custom/`, valide `v8s.json`, et copie le Worker runtime dans `src/worker.mjs`.
+Le build du depot s'execute avant deploy, copie `defaults/`, applique `custom/`, valide `v8s.json`, construit `v8s-blocklist.json` et `v8s-site-config.json`, puis copie `scripts/workers/` dans `src/` genere pour Wrangler.
 
 Lancez la meme validation localement avant de pousser :
 

@@ -10,8 +10,9 @@ Use this checklist before launching a new instance or promoting a major upgrade.
 - Run `npm run clean`.
 - Refresh upstream `defaults/` and `scripts/` with the upgrade workflow.
 - Keep all instance-owned files in `custom/`.
+- Keep Worker runtime edits in `scripts/workers/`; treat `src/` as generated.
 - Run `npm run check`.
-- Review generated registry and blocklist changes.
+- Review generated registry, runtime policy, and site config changes.
 - Commit and deploy from a clean working tree.
 
 ## Worker and assets
@@ -22,7 +23,8 @@ Use this checklist before launching a new instance or promoting a major upgrade.
 - Protect `/_stats` and `/_tests` with Cloudflare Access.
 - Keep `/_stats/*` and `/_tests/*` policies narrow.
 - Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS`.
-- Confirm private implementation assets return 404.
+- Confirm raw runtime files return 404: `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json`.
+- Confirm response headers include `X-Generated-By: vanityURLs.link` unless intentionally overridden.
 
 ## Cloudflare domain configuration
 
@@ -52,6 +54,7 @@ Recommended baseline:
 - Rate-limit short-link candidates to protect Worker CPU and analytics quotas.
 - Keep runtime blocklist policy enabled as the application fallback.
 - Review `defaults/v8s-blocklist-categories.json` when generated feeds change.
+- Keep editable source policy in `custom/v8s-policies.json`; treat `build/v8s-blocklist.json` as generated output.
 
 Do not use a redirector for phishing, malware, disguised tracking, undisclosed affiliate routing, shortener chains, or any destination that violates user expectations.
 
@@ -68,7 +71,16 @@ Do not use a redirector for phishing, malware, disguised tracking, undisclosed a
 
 - Publish `robots.txt`, `llms.txt`, and `llms-full.txt` from `defaults/public/` or override them in `custom/public/`.
 - Make the instance intentionally boring to bots: this is a redirect engine, not a public content site.
-- Add terms, privacy, and security contact pages appropriate for the owner and jurisdiction.
+- Confirm `v8s-site-config.json` lists the intended `supported_languages`.
+- Add or customize terms, privacy, abuse, and security contact pages appropriate for the owner and jurisdiction.
 - Treat the included legal text as a draft, not legal advice.
+
+## Branding and local tooling
+
+- Use `npm run setup` when you want installer-managed `custom/public` pages and split-color wordmark configuration.
+- Confirm localized redirected badges exist for supported languages.
+- Run `npm run optimize:badges` after editing default redirected badge SVGs.
+- Run `npm run local-install` when the owner wants the local shell helper, local registry path, and installed `lnk`.
+- Use `npm run local-publish` only from an owner workstation that should validate, commit, and push configured local paths.
 
 The strongest release posture is boring: small Worker, reviewed static registry, narrow Cloudflare exposure, protected operational pages, and clear ownership of every destination.

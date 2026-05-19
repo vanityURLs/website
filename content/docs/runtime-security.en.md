@@ -12,7 +12,7 @@ Simplicity is part of the security model. The Worker has fewer moving parts than
 The Worker keeps the runtime path narrow:
 
 - only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus the dedicated `POST /_analytics/expand` beacon
-- direct access to `v8s.json`, `redirect-targets.json`, and `v8s-blocklist.json` returns 404
+- direct access to `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` returns 404
 - redirects allow only `http:` and `https:` targets
 - redirect targets with credentials, missing hostnames, control characters, or unsupported protocols fail closed
 - splat values are URL-encoded segment by segment before insertion
@@ -27,7 +27,9 @@ The important point is not that any code is magically bulletproof. The point is 
 
 `npm run check` builds the same assets used for deployment, validates the generated registry, validates policy files, lints the repository, and runs Worker tests.
 
-The generated registry is treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`. That keeps updates reviewable and makes rollback a normal Git operation.
+The generated registry and runtime policy are treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`; canonical Worker source stays in `scripts/workers/`; generated `src/` is only for Wrangler compatibility. That keeps updates reviewable and makes rollback a normal Git operation.
+
+Default response headers include `X-Generated-By: vanityURLs.link`. If you override `_headers`, keep that generator identity and the raw runtime-file blocks unless you have a deliberate public-disclosure reason.
 
 ## Cloudflare edge controls
 

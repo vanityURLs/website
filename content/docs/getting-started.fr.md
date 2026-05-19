@@ -4,7 +4,7 @@ description: "Creer une instance vanityURLs de type v8s.link sur Cloudflare Work
 nav_order: 1
 ---
 
-vanityURLs est un moteur de liens courts gere dans Git pour votre propre domaine. Le runtime actuel se deploie comme Worker Cloudflare avec assets statiques. Le build part de `defaults/`, applique vos fichiers `custom/`, genere `build/v8s.json`, puis publie le Worker avec Wrangler.
+vanityURLs est un moteur de liens courts gere dans Git pour votre propre domaine. Le runtime actuel se deploie comme Worker Cloudflare avec assets statiques. Le build part de `defaults/`, applique vos fichiers `custom/`, genere `build/v8s.json`, `build/v8s-blocklist.json` et `build/v8s-site-config.json`, puis publie le Worker avec Wrangler.
 
 ## Prerequis
 
@@ -15,7 +15,7 @@ vanityURLs est un moteur de liens courts gere dans Git pour votre propre domaine
 - Git
 - Wrangler connecte au compte Cloudflare qui possede le Worker
 
-La CLI principale est `./scripts/lnk`, un script Node qui tourne sur macOS, Linux, Windows, et les environnements CI ou Node et Git sont disponibles. Bash n'est pas requis pour gerer les liens, planifications, ou blocklists. Le helper optionnel `scripts/v8s.zsh` sert seulement aux utilisateurs Zsh qui veulent ouvrir des redirections connues depuis leur shell.
+La CLI principale est `./scripts/lnk`, un script Node qui tourne sur macOS, Linux, Windows, et les environnements CI ou Node et Git sont disponibles. Bash n'est pas requis pour gerer les liens, horaires ou politiques. Le helper optionnel `scripts/v8s.sh` lit seulement le registre runtime genere pour ouvrir des redirections connues depuis le terminal.
 
 ## Premier deploiement
 
@@ -38,7 +38,8 @@ Ne modifiez pas `defaults/` pour votre marque ou votre liste de liens, sauf si v
 ```text
 custom/v8s-links.txt
 custom/v8s-schedules.json
-custom/v8s-blocklist.json
+custom/v8s-policies.json
+custom/v8s-site-config.json
 custom/public/v8s-logo.svg
 custom/public/favicon.svg
 ```
@@ -62,23 +63,25 @@ docs|https://docs.example.com|permanent|Docs|Documentation principale|docs|team|
 
 Les schemas manquants sont normalises vers `https://`. Utilisez `permanent` pour les redirections 301 stables et `ephemeral` pour les redirections 302 temporaires.
 
+Si vous voulez que l'installateur genere des pages marquees, lancez `npm run setup`. Il peut copier `defaults/public/` vers `custom/public/`, configurer les langues supportees et remplacer le wordmark en deux couleurs par les portions de votre domaine.
+
 ### Construire et valider
 
 ```bash
 npm run check
 ```
 
-La commande construit le Worker, copie les assets, fusionne defaults et custom, genere `build/v8s.json`, valide le registre et verifie les politiques.
+La commande copie `scripts/workers/` vers `src/` genere, copie les assets, applique `custom/`, genere `build/v8s.json`, valide le registre et verifie les politiques.
 
 ### Helper terminal optionnel
 
-Le depot inclut un helper Zsh dans `scripts/v8s.zsh` pour ouvrir des cibles de redirection depuis le terminal. Sourcez-le depuis votre profil shell :
+Le depot inclut un helper shell dans `scripts/v8s.sh` pour ouvrir des cibles de redirection depuis le terminal. Sourcez-le depuis votre profil shell :
 
 ```zsh
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 ```
 
-Le helper lit `~/.v8s.json`, que `npm run build` cree depuis le registre genere. Remplacez le chemin si vous gardez le registre ailleurs :
+Le helper lit le registre local configure, souvent `~/.v8s.json`. `npm run build` ecrit toujours `build/v8s.json`; `npm run local-install` configure la copie locale quand vous activez le helper. Remplacez le chemin si vous gardez le registre ailleurs :
 
 ```zsh
 export V8S_REGISTRY=/path/to/v8s.json
@@ -93,7 +96,7 @@ v8s --print docs    # afficher la cible sans l'ouvrir
 v8s --path          # afficher le chemin du registre
 ```
 
-`v8s.zsh` n'ouvre pas n'importe quelle entree du terminal. Il ouvre seulement les cibles `http://` et `https://` qui existent deja comme liens `permanent` ou `ephemeral` dans le registre genere.
+`v8s` n'ouvre pas n'importe quelle entree du terminal. Il ouvre seulement les cibles `http://` et `https://` qui existent deja comme liens `permanent` ou `ephemeral` dans le registre genere.
 
 ### Deployer avec Cloudflare Workers
 
