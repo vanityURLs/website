@@ -64,13 +64,47 @@ Les commandes blocklist ecrivent `custom/v8s-blocklist.json`.
 
 ## Helper Zsh optionnel
 
-`scripts/v8s.zsh` est une convenience shell pour ouvrir des redirections connues depuis le registre genere :
+`scripts/v8s.zsh` est une aide shell optionnelle pour ouvrir des redirections connues depuis le terminal. Elle est separee de `./scripts/lnk` : la CLI Node modifie les fichiers source, tandis que le helper Zsh lit seulement le registre runtime genere.
 
 ```zsh
 source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+```
+
+Le helper lit `~/.v8s.json` par defaut. `npm run build` peut synchroniser le `build/v8s.json` genere a cet endroit sur un poste macOS local. Si vous gardez le registre ailleurs, definissez `V8S_REGISTRY` avant de sourcer ou d'utiliser le helper :
+
+```zsh
+export V8S_REGISTRY=/path/to/YOUR-SHORT-DOMAIN/build/v8s.json
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+```
+
+Commandes utiles :
+
+```zsh
 v8s --list
 v8s docs
 v8s --print docs
+v8s --path
 ```
 
-Il ne cree pas de liens. Il ouvre seulement les cibles actives `http://` ou `https://` deja presentes dans `~/.v8s.json`.
+| Commande | Comportement |
+|---|---|
+| `v8s --list` | Liste les slugs actifs `permanent` et `ephemeral` depuis le registre. |
+| `v8s docs` | Ouvre la cible du slug exact `docs`. |
+| `v8s --print docs` | Affiche la cible sans l'ouvrir. |
+| `v8s --path` | Affiche le chemin du registre utilise. |
+
+Le helper demande `jq`, car il lit `links[]` dans le registre JSON genere. Sur macOS, installez-le avec Homebrew :
+
+```bash
+brew install jq
+```
+
+Le helper est volontairement limite :
+
+- Il ne cree pas, ne modifie pas, ne commit pas, et ne pousse pas de liens.
+- Il ouvre seulement les slugs exacts qui existent deja dans `build/v8s.json` ou le registre configure.
+- Il ouvre seulement les liens dont l'etat est `permanent` ou `ephemeral`.
+- Il refuse les cibles non web et ouvre seulement les URL `http://` ou `https://`.
+- Il valide le slug avant de chercher la cible.
+
+Utilisez `./scripts/lnk` pour modifier l'instance. Utilisez `v8s` pour ouvrir rapidement une redirection existante depuis votre terminal.

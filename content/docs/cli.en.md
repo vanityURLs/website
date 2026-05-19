@@ -64,13 +64,47 @@ Blocklist commands write `custom/v8s-blocklist.json`.
 
 ## Optional Zsh helper
 
-`scripts/v8s.zsh` is a shell convenience for opening known redirects from the generated registry:
+`scripts/v8s.zsh` is an optional shell convenience for people who want to open known redirects from their terminal. It is separate from `./scripts/lnk`: the Node CLI edits link source files, while the Zsh helper only reads the generated runtime registry.
 
 ```zsh
 source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+```
+
+The helper reads `~/.v8s.json` by default. `npm run build` can sync the generated `build/v8s.json` there on a local macOS workstation. If you keep the registry somewhere else, set `V8S_REGISTRY` before sourcing or using the helper:
+
+```zsh
+export V8S_REGISTRY=/path/to/YOUR-SHORT-DOMAIN/build/v8s.json
+source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+```
+
+Useful commands:
+
+```zsh
 v8s --list
 v8s docs
 v8s --print docs
+v8s --path
 ```
 
-It does not create links. It only opens active `http://` or `https://` targets already present in `~/.v8s.json`.
+| Command | Behavior |
+|---|---|
+| `v8s --list` | Lists active `permanent` and `ephemeral` slugs from the registry. |
+| `v8s docs` | Opens the target for the exact `docs` slug. |
+| `v8s --print docs` | Prints the target without opening it. |
+| `v8s --path` | Prints the registry path currently in use. |
+
+The helper requires `jq` because it queries `links[]` in the generated JSON registry. On macOS, install it with Homebrew:
+
+```bash
+brew install jq
+```
+
+The helper is deliberately narrow:
+
+- It does not create, edit, commit, or push links.
+- It only opens exact slugs that already exist in `build/v8s.json` or the configured registry.
+- It only opens links whose state is `permanent` or `ephemeral`.
+- It refuses non-web targets and only opens `http://` or `https://` URLs.
+- It validates slug input before looking up the target.
+
+Use `./scripts/lnk` when you want to change the instance. Use `v8s` when you want a fast local shortcut to an existing redirect.
