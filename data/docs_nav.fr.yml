@@ -8,6 +8,8 @@ sections:
 
   - title: Personnaliser
     pages:
+      - title: Vue d'ensemble
+        url: /docs/customize-overview/
       - title: Surcharges custom
         url: /docs/custom-overrides/
       - title: Format des liens
