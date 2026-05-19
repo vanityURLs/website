@@ -3,40 +3,43 @@ sections:
     pages:
       - title: Quickstart
         url: /docs/getting-started/
+      - title: Cloudflare setup
+        url: /docs/cloudflare/
 
-  - title: Configuration
+  - title: Customize
     pages:
-      - title: Repository layout
-        url: /docs/repository-layout/
-      - title: Link format
-        url: /docs/link-format/
-      - title: CLI
-        url: /docs/cli/
-      - title: Runtime registry
-        url: /docs/runtime-registry/
-      - title: Scheduled links
-        url: /docs/schedules/
       - title: Custom overrides
         url: /docs/custom-overrides/
+      - title: Link format
+        url: /docs/link-format/
+      - title: Scheduled links
+        url: /docs/schedules/
+      - title: Blocklist policy
+        url: /docs/blocklist/
+
+  - title: Operate
+    pages:
       - title: Validation and CI
         url: /docs/validation-ci/
-
-  - title: Operations
-    pages:
-      - title: Cloudflare Workers
-        url: /docs/cloudflare/
       - title: Runtime security
         url: /docs/runtime-security/
       - title: Server-side analytics
         url: /docs/server-side-analytics/
       - title: Admin dashboard
         url: /docs/admin-dashboard/
-      - title: Blocklist policy
-        url: /docs/blocklist/
       - title: Upgrading an instance
         url: /docs/upgrading/
       - title: Release checklist
         url: /docs/release-checklist/
+
+  - title: Reference
+    pages:
+      - title: Repository layout
+        url: /docs/repository-layout/
+      - title: Runtime registry
+        url: /docs/runtime-registry/
+      - title: CLI
+        url: /docs/cli/
       - title: Migration guide
         url: /docs/migration/
 

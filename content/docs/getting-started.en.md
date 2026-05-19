@@ -1,27 +1,32 @@
 ---
 title: "Quickstart"
-description: "Create a v8s.link-style vanityURLs instance on Cloudflare Workers using the current defaults directory."
+description: "Create a plain vanityURLs instance on your own short domain, deploy it on Cloudflare Workers, and verify redirects, status pages, and optional analytics."
 nav_order: 1
 ---
 
-vanityURLs is a Git-managed short-link engine for your own domain. The current runtime deploys as a Cloudflare Worker with static assets. The build starts from `defaults/`, overlays your `custom/` files, generates `build/v8s.json`, and publishes the Worker with Wrangler.
+vanityURLs is a Git-managed short-link engine for your own domain. A first deployment should get a plain instance online before you customize branding, policy pages, or status pages.
+
+The runtime deploys as a Cloudflare Worker with static assets. The build starts from `defaults/`, overlays your `custom/` files, generates `build/v8s.json`, and publishes the Worker with Wrangler.
 
 ## What you need
 
-- A GitHub repository based on `vanityURLs/vanityURLs`
-- A short domain, such as the public reference domain `v8s.link`
-- A Cloudflare account with the domain in Cloudflare DNS
-- Node.js 20 or newer and npm
-- Git
-- Wrangler connected to the Cloudflare account that owns the Worker
-
-The primary CLI is `./scripts/lnk`, a Node script that runs on macOS, Linux, Windows, and CI environments where Node and Git are available. Bash is not required for link, schedule, or blocklist management. The optional `scripts/v8s.zsh` helper is only for Zsh users who want to open known redirects from their shell.
+- A short domain that you own or can move to Cloudflare DNS.
+- A Cloudflare account.
+- A GitHub account and a repository based on `vanityURLs/vanityURLs`.
+- Git, Node.js 20 or newer, and npm for local validation.
+- An optional Umami website if you want server-side analytics.
 
 ## First deployment
 
 {{% steps %}}
 
-### Clone the repository
+### Get a short domain
+
+Choose a domain that is short enough to be useful in messages, slides, QR codes, and documentation. Add the domain to Cloudflare and follow Cloudflare's nameserver instructions at your registrar.
+
+Wait until Cloudflare shows the domain as active before attaching the Worker. Keep DNS-only records for mail, ownership verification, DKIM, DMARC, and MTA-STS unless the service explicitly requires proxying.
+
+### Create the GitHub repository
 
 Create a repository from the vanityURLs template, then clone it locally.
 
@@ -31,82 +36,104 @@ cd YOUR-SHORT-DOMAIN
 npm install
 ```
 
-### Keep local changes in custom/
+Review `wrangler.toml` and set the Worker name, account details, route, and custom domain for your short domain. Keep `workers_dev = false` and `preview_urls = false` for a production instance unless you intentionally want public preview hostnames.
 
-Do not edit `defaults/` for your own branding or link list unless you are changing the upstream product defaults. Instance-owned files belong in `custom/`.
+### Configure a plain instance
+
+A plain instance uses upstream defaults with only the required local configuration:
 
 ```text
+wrangler.toml
 custom/v8s-links.txt
-custom/v8s-schedules.json
 custom/v8s-blocklist.json
-custom/public/v8s-logo.svg
-custom/public/favicon.svg
 ```
 
-### Add your first links
+Do not edit `defaults/` for your own instance. Defaults are the product baseline. Your deployable instance belongs in `custom/`, which overlays the defaults during the build.
 
-Create `custom/v8s-links.txt` with pipe-delimited rows, or use the CLI:
+Add your first links with the CLI or by editing `custom/v8s-links.txt`:
 
 ```bash
 ./scripts/lnk https://github.com/YOUR-ORG github --title GitHub --description "Organization profile" --tags source --owner team
 ./scripts/lnk https://docs.example.com docs --title Docs --description "Main documentation" --tags docs --owner team
 ```
 
-The file format is:
+The generated registry accepts only validated `http://` and `https://` targets. Use `permanent` for stable 301 redirects and `ephemeral` for temporary 302 redirects.
 
-```text
-# slug|target|state|title|description|tags|owner|expires_at|notes
-github|https://github.com/YOUR-ORG|permanent|GitHub|Organization profile|source|team||
-docs|https://docs.example.com|permanent|Docs|Main documentation|docs|team||
-```
-
-Missing schemes are normalized to `https://`. Use `permanent` for stable 301 redirects and `ephemeral` for temporary 302 redirects.
-
-### Build and validate
+### Validate locally
 
 ```bash
 npm run check
 ```
 
-The check command builds the Worker source, copies static assets, merges defaults and custom files, generates `build/v8s.json`, validates the registry, and checks policy files.
+The check command builds the Worker source, copies static assets, overlays `custom/`, generates `build/v8s.json`, validates the registry, and checks policy files.
 
-### Optional terminal helper
+### Configure Cloudflare Workers
 
-The repository includes a Zsh helper at `scripts/v8s.zsh` for opening redirect targets from your terminal. Source it from your shell profile:
+In Cloudflare, open **Workers & Pages**, create an application, continue with GitHub, and select your repository. Confirm that the project name matches the name in `wrangler.toml`.
 
-```zsh
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.zsh
+Leave the Cloudflare build and deploy command fields to the repository configuration so `wrangler.toml` and the package scripts stay authoritative. Disable non-production branch builds unless you want every branch to deploy.
+
+Attach the short domain as a Worker Custom Domain. The Worker should be the origin for the hostname; avoid keeping a legacy synthetic `AAAA 100::` record for the same hostname after the Custom Domain is active.
+
+### Protect operational paths
+
+Before publishing a public instance, protect the private paths with Cloudflare Access:
+
+```text
+/_stats
+/_stats/*
+/_tests
+/_tests/*
 ```
 
-The helper reads `~/.v8s.json`, which `npm run build` creates from the generated registry. Override the path if you keep the registry somewhere else:
+In Zero Trust, configure at least one identity provider, such as one-time PIN, GitHub, Google, or Okta. Then create a self-hosted Access application for those paths and allow only maintainer emails or a maintained identity group.
 
-```zsh
-export V8S_REGISTRY=/path/to/v8s.json
+Set the Access team domain as a Worker variable and the Access audience as a secret:
+
+```toml
+[vars]
+CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
-
-Useful commands:
-
-```zsh
-v8s --list          # list active slugs
-v8s docs            # open the target for docs
-v8s --print docs    # print the target without opening it
-v8s --path          # show the registry path
-```
-
-`v8s.zsh` does not open arbitrary terminal input. It only opens `http://` and `https://` targets that already exist as `permanent` or `ephemeral` links in the generated registry.
-
-### Deploy with Cloudflare Workers
-
-Review `wrangler.toml`, set the Worker name, then deploy:
 
 ```bash
-npx wrangler deploy
+npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Connect your custom domain to the Worker route in Cloudflare. Every future push to GitHub can trigger the same build and deploy through your CI or Cloudflare integration.
+### Optional: configure Umami analytics
+
+If you want server-side analytics, create a website in Umami for the public hostname, then add the website ID as a Worker secret:
+
+```bash
+npx wrangler secret put UMAMI_WEBSITE_ID --config wrangler.toml
+```
+
+For Umami Cloud, keep the endpoint variable in `wrangler.toml`:
+
+```toml
+[vars]
+UMAMI_ENDPOINT = "https://cloud.umami.is/api/send"
+```
+
+No browser tracking script is required. The Worker sends redirect, pageview, miss, and expand events for traffic that reaches the Worker.
+
+### Deploy
+
+Push the repository to GitHub and let the Cloudflare Git integration deploy it, or deploy manually from the repository:
+
+```bash
+npx wrangler deploy --config wrangler.toml
+```
+
+### Test the instance
+
+Open the home page, a known short link, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
+
+Then test `/_stats` and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page.
+
+If Umami is enabled, load a few public paths from a second browser profile and confirm that events appear in Umami. Traffic blocked by Cloudflare Access, WAF rules, AI Crawl Control, or rate limiting will not appear in Umami because it never reaches the Worker.
 
 {{% /steps %}}
 
-## Verify
+## After the plain instance works
 
-Open your home page, a known short link, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`. If you configured protected views, open `/_stats` in a private browser and confirm Cloudflare Access appears before the dashboard.
+Use [Custom overrides](/docs/custom-overrides/) to replace default branding, public assets, policy pages, status pages, and localized pages without editing `defaults/`. Use the Cloudflare guide when you need the longer dashboard checklist for DNS, Access, identity providers, security rules, and observability.

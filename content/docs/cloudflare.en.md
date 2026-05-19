@@ -1,10 +1,12 @@
 ---
-title: "Cloudflare Workers"
-description: "Recommended Cloudflare configuration for vanityURLs Workers, custom domains, DNS, Access, observability, and zone protection."
+title: "Cloudflare setup"
+description: "Cloudflare setup and operating guidance for vanityURLs Workers, custom domains, DNS, Access, identity providers, observability, and zone protection."
 nav_order: 10
 ---
 
 The current vanityURLs runtime deploys as a Cloudflare Worker with static assets. The Worker is the origin for the short-link hostname, so use a Worker Custom Domain instead of the older Pages `_redirects` or DNS `AAAA 100::` route pattern.
+
+Use the quickstart for the shortest path to a plain instance. Use this page when you need the full Cloudflare checklist for the dashboard, Git integration, Access, identity providers, variables, DNS, security, and observability.
 
 ## Cloudflare navigation map
 
@@ -19,6 +21,39 @@ Cloudflare splits the required vanityURLs settings across three different dashbo
 In the Cloudflare UI, the domain configuration area may not have a clear product name. The most reliable signal is the domain name in the top line and a left menu with items such as DNS, SSL/TLS, Security, Rules, Network, and Caching.
 
 Use Zero Trust for who may access private paths. Use Workers & Pages for the Worker itself. Use Domain configuration for traffic, DNS, TLS, and zone-level security.
+
+## First-time setup
+
+In **Workers & Pages**, create an application, continue with GitHub, select the repository, and confirm that the project name matches `wrangler.toml`.
+
+Leave the build and deploy fields controlled by the repository unless you have a deliberate reason to override them in Cloudflare. The repository build copies `defaults/`, overlays `custom/`, validates `v8s.json`, and prepares the Worker assets before Wrangler deploys. Disable builds for non-production branches unless branch deploys are part of your workflow.
+
+Attach your short domain as a Worker Custom Domain. When the Custom Domain is active, the Worker should be the origin for that hostname.
+
+Set runtime variables and secrets in **Workers & Pages**, under the Worker settings:
+
+| Name | Type | Required when | Notes |
+|---|---|---|---|
+| `CF_ACCESS_TEAM_DOMAIN` | Variable | Protecting `/_stats` or `/_tests` | Use the full team domain, such as `<team>.cloudflareaccess.com`. |
+| `CF_ACCESS_AUD` | Secret | Protecting `/_stats` or `/_tests` | Copy the Application Audience tag from the Access application. |
+| `UMAMI_ENDPOINT` | Variable | Using Umami with a non-default endpoint | Umami Cloud uses `https://cloud.umami.is/api/send`. |
+| `UMAMI_WEBSITE_ID` | Secret | Sending Umami analytics | Use the website ID for the public hostname. |
+
+The Worker also supports other analytics providers and privacy modes. Keep provider IDs, API keys, Access audiences, and client secrets out of Git unless a value is explicitly documented as public configuration.
+
+## Identity providers
+
+Cloudflare Access can authenticate maintainers with one-time PIN, GitHub, Google, Okta, or multiple providers at the same time. Configure providers in **Zero Trust**, under **Integrations**, **Identity providers**.
+
+One-time PIN is the simplest option because Cloudflare emails approved users a code. It still depends on your Access policy including the correct email addresses.
+
+GitHub works for individual accounts, organization membership, specific usernames, and email-based policies. Be careful with email selectors because some GitHub profiles do not expose a public email address.
+
+Google can be configured as a generic Google identity provider for Workspace or personal Google accounts, depending on your policy. Use Cloudflare's provider setup steps and store the generated OAuth client secret outside the repository.
+
+Okta can be configured through the Okta app catalog or OIDC. Store the Okta client ID, client secret, and account URL in your password manager and Cloudflare settings. Do not commit screenshots, copied provider tables, or temporary setup notes that contain these values.
+
+When more than one identity provider is enabled, users choose a provider on the Cloudflare Access login page. The Access policy is satisfied when the selected provider returns an identity that matches the policy, such as an allowed email, group, or organization membership.
 
 ## Recommended Worker shape
 

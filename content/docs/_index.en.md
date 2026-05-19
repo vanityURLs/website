@@ -3,10 +3,12 @@ title: "Documentation"
 description: "v8s.link documentation for the current vanityURLs Worker, defaults, link registry, protection, and deployment model."
 ---
 
-v8s.link is the public reference instance for the current vanityURLs runtime. The application now builds a Cloudflare Worker with static assets, a generated `v8s.json` registry, default pages, optional custom overrides, protected operational views, and abuse-prevention policy.
+v8s.link is the public reference instance for the current vanityURLs runtime. The application builds a Cloudflare Worker with static assets, a generated `v8s.json` registry, default pages, optional custom overrides, protected operational views, and abuse-prevention policy.
 
-Start with the quickstart if you are creating a new short-link domain. Use the reference pages when you are customizing the default instance, migrating from the older `.lnk`/Pages model, or checking how v8s.link is configured.
+Start with the quickstart if you are creating a new short-link domain. It follows the first deployment path: get a short domain, create a Cloudflare account, clone the repository, configure the Worker, optionally configure Umami analytics, deploy, and test.
 
-For production hardening, read the runtime security approach with the Cloudflare guide. The design depends on a small Worker, a generated registry, build-time validation, Cloudflare Access for private views, WAF rules for commodity abuse, and server-side analytics only for traffic that reaches the Worker.
+Use Customize when you are moving from the plain default instance to your own link inventory, brand assets, public policy files, status pages, and localized pages. Use Operate for validation, security, analytics, admin views, upgrades, and release work.
+
+Use Reference for repository layout, generated runtime data, CLI behavior, migration notes, and the public v8s.link reference instance.
 
 For long-lived instances, use the upgrading guide to refresh `defaults/` and `scripts/` while preserving `custom/`, `wrangler.toml`, secrets, and generated output.
