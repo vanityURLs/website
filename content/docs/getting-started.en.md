@@ -113,26 +113,26 @@ npm run setup
 
 The interactive installer asks these questions:
 
-```text
-Short domain
-Worker name
-Owner label
-Analytics provider
-Cloudflare Access team domain
-Supported languages
-Operator legal name
-Operator jurisdiction, for example Canada
-Governing law
-Operator contact email
-Privacy contact
-Trust & Safety contact
-Security contact
-Legal pages last updated date
-Trust & Safety response window
-Copy default web pages to custom/public with a split-color domain wordmark?
-Black wordmark portion
-Green wordmark portion
-```
+| Question | Sample answer | Rationale and acceptable answers |
+| --- | --- | --- |
+| Short domain | `v8s.link` | The domain that will serve your short links. Values shown in parentheses are defaults; rerunning setup offers your previous answer |
+| Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
+| Owner label | `team` | Short internal label written beside starter links. Use your name, team, or organization slug |
+| Analytics provider | `disabled` | Use `disabled` for phase 1. Later, use `fathom`, `umami`, or a comma-separated value if you configure analytics |
+| Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
+| Supported languages | `en,fr` | Comma-separated language codes. Keep `en` unless you have a specific reason to remove other generated pages later |
+| Operator legal name | `Example Inc.` | The person or organization responsible for the instance and its legal pages |
+| Operator jurisdiction, for example Canada | `Canada` | The place whose laws govern your instance. Usually where you or the operating organization are established |
+| Governing law | `Canada` | Usually the same as jurisdiction. Use a narrower value, such as `Quebec, Canada`, only when that is the right legal context |
+| Operator contact email | `hello@v8s.link` | General contact. Defaults to `hello@<short-domain>` |
+| Privacy contact | `privacy@v8s.link` | Privacy requests and data-protection questions. Defaults to `privacy@<short-domain>` |
+| Trust & Safety contact | `abuse@v8s.link` | Abuse reports, phishing, malware, impersonation, and harmful links. Defaults to `abuse@<short-domain>` |
+| Security contact | `security@v8s.link` | Vulnerability reports and the address published in `security.txt`. Defaults to `security@<short-domain>` |
+| Legal pages last updated date | `2026-05-21` | Date used on generated legal pages. Use `YYYY-MM-DD` |
+| Trust & Safety response window | `5 business days` | Good-faith response expectation, not a guaranteed service-level agreement |
+| Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
+| Black wordmark portion | `v8s.` | First part of the homepage wordmark |
+| Green wordmark portion | `link` | Second part of the homepage wordmark |
 
 Values shown in parentheses are defaults. If you run `npm run setup` again, the installer reads your previous answers and offers them as the new defaults.
 
@@ -141,6 +141,8 @@ The operator short domain is derived from the short domain, so the installer doe
 For jurisdiction, use the place whose laws govern your instance. For a personal or organizational redirector, that is usually where you or the operating organization are established. For governing law, use the same value unless you have a specific legal reason to choose something narrower, such as `Quebec, Canada`.
 
 For phase 1, prefer simple answers. You can refine the legal pages, supported languages, and branding in phase 2.
+
+If `custom/v8s-links.txt` does not exist, setup creates a small starter file with `home`, `status`, and `docs` links. It does not copy `defaults/v8s-links.txt`; `custom/` is your instance-owned layer, while `defaults/` stays the upstream product baseline.
 
 When the installer asks for a split-color domain wordmark, it means the homepage logo can be split into a dark prefix and a green suffix:
 
@@ -152,7 +154,7 @@ When the installer asks for a split-color domain wordmark, it means the homepage
 npm run local-install
 ```
 
-This installs the local `v8s` shell helper, local `lnk` command wiring, and workstation registry configuration used by the instance.
+This installs the local `v8s` shell helper, local `lnk` command wiring, and workstation registry configuration used by the instance. See the [CLI reference](/docs/cli/) for the difference between the source-editing `lnk` command and the read-only `v8s` shell helper.
 
 ### Create your first commit
 
