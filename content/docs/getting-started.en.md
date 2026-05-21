@@ -23,6 +23,7 @@ Before starting, make sure you have these pieces ready:
 - **A GitHub account** for the repository that stores your links and deployment history. The repository can be public, or private if you do not want to share your short links. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it
 - **A Cloudflare account** for DNS and Workers. You can use an existing account or create a new one; refer to [Cloudflare documentation](https://developers.cloudflare.com/fundamentals/account/create-account/) when creating an account
   - **Cloudflare authoritative DNS for the short domain**. vanityURLs expects Cloudflare to manage the DNS zone used by the Worker route or custom domain. Cloudflare's [full setup guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) explains how to add a domain and change nameservers at your registrar
+  - **Cloudflare Access team domain**. The installer asks for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain**, such as `<team>.cloudflareaccess.com`
 - **A local workstation** running Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, and your preferred text editor
 - **A password manager** or other secure notes system for Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information
 - **Optional analytics**. You only need [Fathom](https://usefathom.com/) or [Umami](https://umami.is/) if you want analytics during the customization phase. Read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/) before creating an analytics account
@@ -120,23 +121,30 @@ Analytics provider
 Cloudflare Access team domain
 Supported languages
 Operator legal name
-Operator short domain
-Operator jurisdiction
+Operator jurisdiction, for example Canada
 Governing law
 Operator contact email
 Privacy contact
 Trust & Safety contact
 Security contact
 Legal pages last updated date
-Analytics disclosure
-Analytics retention
 Trust & Safety response window
 Copy default web pages to custom/public with a split-color domain wordmark?
 Black wordmark portion
 Green wordmark portion
 ```
 
-For phase 1, prefer simple answers. You can refine the legal pages, analytics disclosure, supported languages, and branding in phase 2.
+Values shown in parentheses are defaults. If you run `npm run setup` again, the installer reads your previous answers and offers them as the new defaults.
+
+The operator short domain is derived from the short domain, so the installer does not ask for it twice. When analytics is disabled, the installer also skips analytics disclosure and retention prompts. If you enable Fathom or Umami, those analytics questions are shown because the generated privacy page needs to explain what is enabled and how long the analytics provider keeps data.
+
+For jurisdiction, use the place whose laws govern your instance. For a personal or organizational redirector, that is usually where you or the operating organization are established. For governing law, use the same value unless you have a specific legal reason to choose something narrower, such as `Quebec, Canada`.
+
+For phase 1, prefer simple answers. You can refine the legal pages, supported languages, and branding in phase 2.
+
+When the installer asks for a split-color domain wordmark, it means the homepage logo can be split into a dark prefix and a green suffix:
+
+![Split-color domain wordmark example](/images/docs/split-color-domain-wordmark.svg)
 
 ### Install local helpers
 
@@ -145,18 +153,6 @@ npm run local-install
 ```
 
 This installs the local `v8s` shell helper, local `lnk` command wiring, and workstation registry configuration used by the instance.
-
-### Edit Wrangler configuration
-
-Open `wrangler.toml` with your preferred text editor. Set the short domain in the `pattern` field:
-
-```toml
-[[routes]]
-pattern = "your-short-domain.example"
-custom_domain = true
-```
-
-Keep `workers_dev = false` and `preview_urls = false` for a production short-link domain unless you intentionally want public preview hostnames.
 
 ### Create your first commit
 
@@ -268,7 +264,7 @@ In your local terminal, add the Access audience as a Worker secret:
 npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Also set the Access team domain as a Worker variable in `wrangler.toml`:
+The setup command already writes the Access team domain to `wrangler.toml`. Confirm that it matches the Team domain from Cloudflare Zero Trust:
 
 ```toml
 [vars]

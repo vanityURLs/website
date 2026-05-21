@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-labelledby="title desc">
+  <title id="title">Split-color domain wordmark example</title>
+  <desc id="desc">The domain v8s.link split into a dark v8s. prefix and a green link suffix</desc>
+  <rect width="960" height="360" rx="24" fill="#f8fafc"/>
+  <circle cx="198" cy="180" r="78" fill="#ccfbf1"/>
+  <circle cx="198" cy="180" r="54" fill="#14b8a6"/>
+  <path d="M168 184h56m-24-24 24 24-24 24" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="310" y="176" font-family="Inter, system-ui, sans-serif" font-size="92" font-weight="800" fill="#111827">v8s.</text>
+  <text x="506" y="176" font-family="Inter, system-ui, sans-serif" font-size="92" font-weight="800" fill="#0f766e">link</text>
+  <text x="312" y="238" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="500" fill="#64748b">Black wordmark portion: v8s.</text>
+  <text x="312" y="282" font-family="Inter, system-ui, sans-serif" font-size="30" font-weight="500" fill="#64748b">Green wordmark portion: link</text>
+</svg>
