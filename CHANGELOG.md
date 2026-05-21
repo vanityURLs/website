@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.14.0](https://github.com/vanityURLs/website/compare/v2.13.0...v2.14.0) (2026-05-21)
+
+
+### Features
+
+* update header logo lockup v2 ([441f6d1](https://github.com/vanityURLs/website/commit/441f6d19303f0ef4616afeb82e2d445cd17ba9b8))
+
 ## [2.13.0](https://github.com/vanityURLs/website/compare/v2.12.2...v2.13.0) (2026-05-21)
 
 
