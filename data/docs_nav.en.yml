@@ -3,6 +3,8 @@ sections:
     pages:
       - title: Quickstart
         url: /docs/getting-started/
+      - title: Old Quickstart
+        url: /docs/old-quickstart/
       - title: Cloudflare setup
         url: /docs/cloudflare/
 

@@ -1,35 +1,20 @@
 ---
-title: "Quickstart"
-description: "Launch a plain vanityURLs redirector on your own short domain in about 10 minutes, then customize it once the first deployment works."
-nav_order: 1
+title: "Old Quickstart"
+description: "Archived copy of the previous Quickstart, kept while the installation guide is being rewritten."
+nav_order: 99
 ---
 
-vanityURLs is a self-hosted short-link redirector for a domain you control. This Quickstart is intentionally narrow: get a plain instance running on Cloudflare Workers first, then come back for branding, analytics, policy pages, access control, and other customization once the redirector is online.
+vanityURLs is a Git-managed short-link engine for your own domain. A first deployment should get a plain instance online before you customize branding, policy pages, or status pages.
 
-The happy path is:
-
-1. Choose a short domain.
-2. Put that domain on Cloudflare DNS.
-3. Create your own GitHub copy of vanityURLs.
-4. Configure the few required values.
-5. Let Cloudflare deploy the Worker.
-6. Test your first short links.
-
-That is the whole first milestone. The build details matter later, but they should not be the first thing you need to understand.
+The runtime deploys as a Cloudflare Worker with static assets. The build starts from `defaults/`, overlays your `custom/` files, generates `build/v8s.json`, `build/v8s-blocklist.json`, and `build/v8s-site-config.json`, then publishes the Worker with Wrangler.
 
 ## What you need
 
-Before starting, make sure you have these pieces ready:
-
-- **A registered short domain** that you will use only for redirects, such as `ex.am`, `go.example.com`, or another compact domain you control. If you have not chosen one yet, read [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/).
-- **A GitHub account** for the repository that stores your links and deployment history. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it.
-- **A Cloudflare account** for DNS and Workers. Cloudflare documents the account flow in [Create account](https://developers.cloudflare.com/fundamentals/account/create-account/).
-- **Cloudflare authoritative DNS for the short domain.** vanityURLs expects Cloudflare to manage the DNS zone used by the Worker route or custom domain. Cloudflare's [full setup guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) explains how to add a domain and change nameservers at your registrar.
-- **A local workstation** running Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, and your preferred text editor.
-- **A password manager** or other secure notes system for Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information.
-- **Optional analytics.** You only need Fathom or Umami if you want analytics during the customization phase. Read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/) before creating an analytics account.
-
-You do not need to customize the homepage, legal pages, branding, status pages, or analytics before the first deployment. A plain redirector is easier to verify and easier to fix.
+- A short domain that you own or can move to Cloudflare DNS.
+- A Cloudflare account.
+- A GitHub account and a repository based on `vanityURLs/vanityURLs`.
+- Git, Node.js 20 or newer, and npm for local validation.
+- An optional Umami website if you want server-side analytics.
 
 ## First deployment
 
