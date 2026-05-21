@@ -4,24 +4,22 @@ description: "Use the read-only v8s shell helper to open known redirects from yo
 nav_order: 13
 ---
 
-The local helper is the `v8s` terminal command. It reads the generated runtime registry and opens existing short links from your workstation.
+The local helper is the `v8s` terminal command. It lets you open a known short link directly from your terminal instead of switching to a browser first, typing the short domain, and waiting for the redirect. For day-to-day work, that makes repeat links faster to reach.
 
-The helper is separate from the [CLI](/docs/cli/). The `lnk` CLI edits source files in `custom/`, commits, and pushes. The `v8s` helper only reads a generated registry such as `build/v8s.json` or `~/.v8s.json`.
+The helper is deliberately read-only. It reads a generated registry such as `build/v8s.json` or `~/.v8s.json`, opens exact slugs that already exist, and refuses targets that are not web URLs.
+
+The helper is separate from the [CLI](/docs/cli/). The `lnk` CLI edits source files in `custom/`, commits, and pushes. The `v8s` helper only opens existing redirects.
 
 ## Requirements
 
-- A configured vanityURLs repository
+- A configured vanityURLs repository available locally
 - Node.js 20 or newer
 - npm
 - Git
-- `jq`
-- A shell that can source `scripts/v8s.sh`
+- [`jq`](https://jqlang.org/)
+- A POSIX-compatible shell that can source `scripts/v8s.sh`, such as `sh`, Bash, or Zsh
 
-On macOS, install `jq` with Homebrew:
-
-```bash
-brew install jq
-```
+Shells with different scripting models, such as Fish or PowerShell, can still run the project commands, but they cannot source `scripts/v8s.sh` directly without a compatibility layer.
 
 ## Install helper
 
@@ -31,9 +29,11 @@ Run the workstation setup command from your vanityURLs repository:
 npm run local-install
 ```
 
-The command checks for `jq`, installs the shell-neutral helper from `scripts/v8s.sh` when requested, copies `scripts/lnk` to the configured local bin path, and records paths in `custom/v8s-local-config.json`.
+The command checks for `jq`, installs the POSIX-compatible helper from `scripts/v8s.sh` when requested, copies `scripts/lnk` to the configured local bin path, and records paths in `custom/v8s-local-config.json`.
 
 ## Configure registry
+
+`npm run local-install` writes workstation-specific helper settings to `custom/v8s-local-config.json`. That file stores the helper install path, shell rc file, local registry path, repository path, and `lnk` install path. It is separate from `custom/v8s-site-config.json`, which stores public instance settings used by the website and Worker.
 
 The helper reads the configured local registry path, usually `~/.v8s.json`. `npm run build` writes `build/v8s.json` and copies it to the configured local registry only when local config enables the helper.
 
@@ -50,21 +50,19 @@ Useful commands:
 
 ```zsh
 v8s --list
-v8s docs
-v8s --print docs
+v8s slug
+v8s --print slug
 v8s --path
 ```
 
 | Command | Behavior |
 | --- | --- |
 | `v8s --list` | Lists active `permanent` and `ephemeral` slugs from the registry |
-| `v8s docs` | Opens the target for the exact `docs` slug |
-| `v8s --print docs` | Prints the target without opening it |
+| `v8s slug` | Opens the target for the exact `slug` value |
+| `v8s --print slug` | Prints the target without opening it |
 | `v8s --path` | Prints the registry path currently in use |
 
 ## Limits
-
-The helper is deliberately narrow:
 
 - It does not create, edit, commit, or push links
 - It only opens exact slugs that already exist in `build/v8s.json` or the configured registry

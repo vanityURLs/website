@@ -86,10 +86,10 @@ release-please-config.json
 ### Confirm required tools are available
 
 ```bash
-which npm node git
+which npm node git jq
 ```
 
-If any command is missing, install it before continuing.
+If any command is missing, install it before continuing. `jq` is required when you install the [Local helper](/docs/local-helper/) later in this Quickstart.
 
 ### Install dependencies
 
