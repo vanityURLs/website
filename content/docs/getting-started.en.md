@@ -8,28 +8,26 @@ vanityURLs is a self-hosted short-link redirector for a domain you control. This
 
 The happy path is:
 
-1. Choose a short domain.
-2. Put that domain on Cloudflare DNS.
-3. Create your own GitHub copy of vanityURLs.
-4. Configure the few required values.
-5. Let Cloudflare deploy the Worker.
-6. Test your first short links.
-
-That is the whole first milestone. The build details matter later, but they should not be the first thing you need to understand.
+1. Choose a short domain
+2. Put that domain on Cloudflare DNS
+3. Create a GitHub repository with the content of vanityURLs code
+4. Configure the few required values in your terminal
+5. Let Cloudflare deploy the Worker
+6. Test your first short links
 
 ## What you need
 
 Before starting, make sure you have these pieces ready:
 
-- **A registered short domain** that you will use only for redirects, such as `ex.am`, `go.example.com`, or another compact domain you control. If you have not chosen one yet, read [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/).
-- **A GitHub account** for the repository that stores your links and deployment history. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it.
-- **A Cloudflare account** for DNS and Workers. Cloudflare documents the account flow in [Create account](https://developers.cloudflare.com/fundamentals/account/create-account/).
-- **Cloudflare authoritative DNS for the short domain.** vanityURLs expects Cloudflare to manage the DNS zone used by the Worker route or custom domain. Cloudflare's [full setup guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) explains how to add a domain and change nameservers at your registrar.
-- **A local workstation** running Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, and your preferred text editor.
-- **A password manager** or other secure notes system for Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information.
-- **Optional analytics.** You only need Fathom or Umami if you want analytics during the customization phase. Read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/) before creating an analytics account.
+- **A registered short domain** that you will use only for redirects, such as `ex.am` or another compact domain you control. If you have not chosen one yet, read [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/)
+- **A GitHub account** for the repository that stores your links and deployment history. The repository can be public, or private if you do not want to share your short links. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it
+- **A Cloudflare account** for DNS and Workers. You can use an existing account or create a new one; refer to [Cloudflare documentation](https://developers.cloudflare.com/fundamentals/account/create-account/) when creating an account
+  - **Cloudflare authoritative DNS for the short domain**. vanityURLs expects Cloudflare to manage the DNS zone used by the Worker route or custom domain. Cloudflare's [full setup guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) explains how to add a domain and change nameservers at your registrar
+- **A local workstation** running Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, and your preferred text editor
+- **A password manager** or other secure notes system for Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information
+- **Optional analytics**. You only need [Fathom](https://usefathom.com/) or [Umami](https://umami.is/) if you want analytics during the customization phase. Read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/) before creating an analytics account
 
-You do not need to customize the homepage, legal pages, branding, status pages, or analytics before the first deployment. A plain redirector is easier to verify and easier to fix.
+Phase 1 is about making the redirector work. In phase 2, customize the branding, homepage, legal pages, status pages, analytics, and other public details.
 
 ## First deployment
 
