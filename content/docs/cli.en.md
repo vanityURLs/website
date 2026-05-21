@@ -66,51 +66,8 @@ Use `schedule default` later if you need to update the fallback target for a slu
 
 Policy commands write `custom/v8s-policies.json`. The build turns the selected source policy into the runtime artifact `build/v8s-blocklist.json`.
 
-## Optional shell helper
+## Local helper
 
-`scripts/v8s.sh` is an optional shell-neutral convenience for people who want to open known redirects from their terminal. `scripts/v8s.zsh` remains as a compatibility wrapper. The helper is separate from `./scripts/lnk`: the Node CLI edits link source files, while the shell helper only reads the generated runtime registry.
+Use `./scripts/lnk` when you want to change the instance. Use the read-only `v8s` helper when you want a fast local shortcut to an existing redirect.
 
-```zsh
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
-```
-
-The helper reads the configured local registry path, usually `~/.v8s.json`. `npm run build` writes `build/v8s.json` and copies it to the configured local registry only when local config enables the helper. Run `npm run local-install` to set this up.
-
-If you keep the registry somewhere else, set `V8S_REGISTRY` before sourcing or using the helper:
-
-```zsh
-export V8S_REGISTRY=/path/to/YOUR-SHORT-DOMAIN/build/v8s.json
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
-```
-
-Useful commands:
-
-```zsh
-v8s --list
-v8s docs
-v8s --print docs
-v8s --path
-```
-
-| Command | Behavior |
-|---|---|
-| `v8s --list` | Lists active `permanent` and `ephemeral` slugs from the registry. |
-| `v8s docs` | Opens the target for the exact `docs` slug. |
-| `v8s --print docs` | Prints the target without opening it. |
-| `v8s --path` | Prints the registry path currently in use. |
-
-The helper requires `jq` because it queries `links[]` in the generated JSON registry. `npm run local-install` checks for `jq` and prints platform-specific install suggestions when it is missing. On macOS, install it with Homebrew:
-
-```bash
-brew install jq
-```
-
-The helper is deliberately narrow:
-
-- It does not create, edit, commit, or push links.
-- It only opens exact slugs that already exist in `build/v8s.json` or the configured registry.
-- It only opens links whose state is `permanent` or `ephemeral`.
-- It refuses non-web targets and only opens `http://` or `https://` URLs.
-- It validates slug input before looking up the target.
-
-Use `./scripts/lnk` when you want to change the instance. Use `v8s` when you want a fast local shortcut to an existing redirect.
+See [Local helper](/docs/local-helper/) for installation, registry configuration, commands, and limits.

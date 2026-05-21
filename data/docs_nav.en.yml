@@ -31,6 +31,8 @@ sections:
         url: /docs/runtime-security/
       - title: Server-side analytics
         url: /docs/server-side-analytics/
+      - title: Local helper
+        url: /docs/local-helper/
       - title: Admin dashboard
         url: /docs/admin-dashboard/
       - title: Upgrading an instance

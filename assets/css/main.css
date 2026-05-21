@@ -397,6 +397,15 @@
   .steps > ul li, .steps > ol li { @apply mb-1; }
   .steps > ul { @apply list-disc; }
   .steps > ol { @apply list-decimal; }
+  .steps > table {
+    @apply w-full table-auto text-sm text-left text-gray-700 dark:text-gray-300 mb-4 border-collapse;
+  }
+  .steps > table th {
+    @apply text-left align-top font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 px-3 py-2;
+  }
+  .steps > table td {
+    @apply text-left align-top border-b border-gray-100 dark:border-gray-800 px-3 py-2;
+  }
   .steps a {
     @apply font-medium text-brand-700 underline decoration-brand-500/40 underline-offset-2 hover:text-brand-800 hover:decoration-brand-700 dark:text-brand-400 dark:decoration-brand-400/40 dark:hover:text-brand-300 dark:hover:decoration-brand-300;
   }

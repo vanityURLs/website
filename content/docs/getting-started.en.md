@@ -2,6 +2,7 @@
 title: "Quickstart"
 description: "Launch a plain vanityURLs redirector on your own short domain in about 10 minutes, then customize it once the first deployment works."
 nav_order: 1
+aside: false
 ---
 
 vanityURLs is a self-hosted short-link redirector for a domain you control. This Quickstart is intentionally narrow: get a plain instance running on Cloudflare Workers first, then come back for branding, analytics, policy pages, access control, and other customization once the redirector is online.
@@ -82,14 +83,7 @@ package-lock.json
 release-please-config.json
 ```
 
-The manual equivalent is:
-
-```bash
-rm -rf .git .github/
-rm .all-contributorsrc .release-please-manifest.json CHANGELOG.txt package-lock.json release-please-config.json
-```
-
-### Confirm required tools
+### Confirm required tools are available
 
 ```bash
 which npm node git
@@ -154,7 +148,7 @@ When the installer asks for a split-color domain wordmark, it means the homepage
 npm run local-install
 ```
 
-This installs the local `v8s` shell helper, local `lnk` command wiring, and workstation registry configuration used by the instance. See the [CLI reference](/docs/cli/) for the difference between the source-editing `lnk` command and the read-only `v8s` shell helper.
+This installs the local `v8s` shell helper, local `lnk` command wiring, and workstation registry configuration used by the instance. See [Local helper](/docs/local-helper/) for the read-only terminal helper, and [CLI](/docs/cli/) for the source-editing `lnk` command.
 
 ### Create your first commit
 

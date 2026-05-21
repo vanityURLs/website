@@ -4,7 +4,7 @@
 {{ $cur  := .RelPermalink }}
 {{ $norm := strings.TrimSuffix "/" $cur }}
 {{ $toc     := .TableOfContents }}
-{{ $showTOC := ne (.Params.toc | default true) false }}
+{{ $showTOC := and (ne (.Params.toc | default true) false) (ne (.Params.aside | default true) false) }}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div class="{{ if $showTOC }}flex gap-8 xl:gap-10{{ else }}flex gap-8{{ end }}">
