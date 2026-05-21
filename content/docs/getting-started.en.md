@@ -74,6 +74,8 @@ The helper removes upstream project metadata that is useful for vanityURLs devel
 ```text
 .git
 .github/
+.all-contributorsrc
+.release-please-manifest.json
 CHANGELOG.txt
 package-lock.json
 release-please-config.json
@@ -83,7 +85,7 @@ The manual equivalent is:
 
 ```bash
 rm -rf .git .github/
-rm CHANGELOG.txt package-lock.json release-please-config.json
+rm .all-contributorsrc .release-please-manifest.json CHANGELOG.txt package-lock.json release-please-config.json
 ```
 
 ### Confirm required tools
