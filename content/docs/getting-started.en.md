@@ -31,7 +31,7 @@ Before starting, make sure you have these pieces ready:
 
 Phase 1 is about making the redirector work. In phase 2, customize the branding, homepage, legal pages, status pages, analytics, and other public details.
 
-## Phase 1a: local installation
+## Phase 1: first deployment
 
 {{% steps %}}
 
@@ -105,10 +105,12 @@ Run the installer:
 npm run setup
 ```
 
+You can run `npm run setup` as often as you like. The installer is designed to be idempotent: it reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
+
 The interactive installer asks these questions:
 
 | Question | Sample answer | Rationale and acceptable answers |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | Short domain | `v8s.link` | The domain that will serve your short links. Values shown in parentheses are defaults; rerunning setup offers your previous answer |
 | Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
 | Owner label | `team` | Short internal label written beside starter links. Use your name, team, or organization slug |
@@ -170,12 +172,6 @@ git push -u origin main
 
 If you configured HTTPS instead of SSH, use the HTTPS remote URL GitHub provides.
 
-{{% /steps %}}
-
-## Phase 1b: Cloudflare configuration
-
-{{% steps %}}
-
 ### Connect the repository to Workers & Pages
 
 In Cloudflare, open **Workers & Pages** from the account main menu, then:
@@ -230,7 +226,7 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 5. Add these destinations, replacing `vanityURL.link` with your short domain:
 
 | Subdomain | Domain | Path |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | | `vanityURL.link` | `_stats` |
 | | `vanityURL.link` | `_stats/*` |
 | | `vanityURL.link` | `_tests` |
@@ -240,7 +236,7 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 2. Create an Access policy:
 
 | Field | Value |
-| --- | --- |
+| :--- | :--- |
 | Policy name | `Allow emails` |
 | Action | `Allow` |
 | Session duration | `24 hours` |
@@ -280,7 +276,28 @@ Cloudflare should deploy from GitHub after the push.
 
 ### Test the deployment
 
-Open the home page, a known short link, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
+Open the home page, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
+
+The installer creates these initial custom links in `custom/v8s-links.txt`:
+
+| Slug | Long link |
+| :--- | :--- |
+| `home` | `https://<short-domain>` |
+| `status` | `https://status.<short-domain>` |
+| `docs` | `https://vanityURLs.link/en/docs/` |
+
+The upstream default link file has a larger set of examples. Once setup creates `custom/v8s-links.txt`, your instance uses the custom starter links above instead of these defaults, but the defaults are useful examples while learning the file format:
+
+| Slug | Long link |
+| :--- | :--- |
+| `ai/chat` | `https://chatgpt.com` |
+| `ai/claude` | `https://claude.ai` |
+| `ai/g` | `https://gemini.google.com/` |
+| `v8s/doc` | `https://vanityURLs.link/en/docs/` |
+| `test/1` | `https://youtu.be/dQw4w9WgXcQ` |
+| `test/4` | `https://youtu.be/dQw4w9WgXcQ` |
+
+Test at least one initial custom link, such as `https://<short-domain>/docs`, and confirm that it redirects to the long link shown in the table.
 
 Then test `/_stats` and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page.
 
