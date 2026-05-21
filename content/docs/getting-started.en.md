@@ -29,135 +29,269 @@ Before starting, make sure you have these pieces ready:
 
 Phase 1 is about making the redirector work. In phase 2, customize the branding, homepage, legal pages, status pages, analytics, and other public details.
 
-## First deployment
+## Phase 1a: local installation
 
 {{% steps %}}
 
-### Get a short domain
+### Start your terminal
 
-Choose a domain that is short enough to be useful in messages, slides, QR codes, and documentation. Add the domain to Cloudflare and follow Cloudflare's nameserver instructions at your registrar.
-
-Wait until Cloudflare shows the domain as active before attaching the Worker. Keep DNS-only records for mail, ownership verification, DKIM, DMARC, and MTA-STS unless the service explicitly requires proxying.
-
-### Create the GitHub repository
-
-Create a repository from the vanityURLs template, then clone it locally.
+Open a terminal and move to the directory where you keep source code. For example:
 
 ```bash
-git clone git@github.com:YOUR-ORG/YOUR-SHORT-DOMAIN.git
-cd YOUR-SHORT-DOMAIN
+cd ~/code
+```
+
+Use whatever local structure already works for you. The important part is that the vanityURLs instance lives in a directory you can find again.
+
+### Confirm GitHub authentication
+
+Make sure your GitHub account is configured for either SSH or HTTPS before you push your own repository. GitHub documents both paths:
+
+- [Connecting to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
+- [Caching your GitHub credentials in Git](https://docs.github.com/get-started/getting-started-with-git/caching-your-github-credentials-in-git)
+
+Create a new public or private GitHub repository for your redirector before the final push step. Do not initialize it with a README, license, or `.gitignore`; the local instance will provide the initial content.
+
+### Clone the vanityURLs code
+
+```bash
+git clone https://github.com/vanityURLs/code.git redirector
+cd redirector
+```
+
+You can use any directory name instead of `redirector`. Choose a name that will still make sense if you later align it with your GitHub repository name.
+
+### Detach the clone from the upstream project
+
+Run the detach helper before creating your own Git history:
+
+```bash
+npm run detach
+```
+
+The helper removes upstream project metadata that is useful for vanityURLs development but not for your personal instance:
+
+```text
+.git
+.github/
+CHANGELOG.txt
+package-lock.json
+release-please-config.json
+```
+
+The manual equivalent is:
+
+```bash
+rm -rf .git .github/
+rm CHANGELOG.txt package-lock.json release-please-config.json
+```
+
+### Confirm required tools
+
+```bash
+which npm node git
+```
+
+If any command is missing, install it before continuing.
+
+### Install dependencies
+
+```bash
 npm install
 ```
 
-Review `wrangler.toml` and set the Worker name, account details, route, and custom domain for your short domain. Keep `workers_dev = false` and `preview_urls = false` for a production instance unless you intentionally want public preview hostnames.
-
 ### Configure a plain instance
 
-A plain instance uses upstream defaults with only the required local configuration:
-
-```text
-wrangler.toml
-custom/v8s-links.txt
-custom/v8s-policies.json
-custom/v8s-site-config.json
-```
-
-Do not edit `defaults/` for your own instance. Defaults are the product baseline. Your deployable instance belongs in `custom/`, which overlays the defaults during the build.
-
-Add your first links with the CLI or by editing `custom/v8s-links.txt`:
-
-```bash
-./scripts/lnk https://github.com/YOUR-ORG github --title GitHub --description "Organization profile" --tags source --owner team
-./scripts/lnk https://docs.example.com docs --title Docs --description "Main documentation" --tags docs --owner team
-```
-
-The generated registry accepts only validated `http://` and `https://` targets. Use `permanent` for stable 301 redirects and `ephemeral` for temporary 302 redirects.
-
-If you want the installer to generate branded pages, run:
+Run the installer:
 
 ```bash
 npm run setup
 ```
 
-The setup flow can copy `defaults/public/` into `custom/public/`, configure supported languages, and rewrite the default split-color wordmark into your own domain parts.
-
-### Validate locally
-
-```bash
-npm run check
-```
-
-The check command copies Worker source from `scripts/workers/` into generated `src/`, copies static assets, overlays `custom/`, generates `build/v8s.json`, validates the registry, and checks policy files.
-
-### Configure Cloudflare Workers
-
-In Cloudflare, open **Workers & Pages**, create an application, continue with GitHub, and select your repository. Confirm that the project name matches the name in `wrangler.toml`.
-
-Leave the Cloudflare build and deploy command fields to the repository configuration so `wrangler.toml` and the package scripts stay authoritative. Disable non-production branch builds unless you want every branch to deploy.
-
-Attach the short domain as a Worker Custom Domain. The Worker should be the origin for the hostname; avoid keeping a legacy synthetic `AAAA 100::` record for the same hostname after the Custom Domain is active.
-
-### Protect operational paths
-
-Before publishing a public instance, protect the private paths with Cloudflare Access:
+The interactive installer asks these questions:
 
 ```text
-/_stats
-/_stats/*
-/_tests
-/_tests/*
+Short domain
+Worker name
+Owner label
+Analytics provider
+Cloudflare Access team domain
+Supported languages
+Operator legal name
+Operator short domain
+Operator jurisdiction
+Governing law
+Operator contact email
+Privacy contact
+Trust & Safety contact
+Security contact
+Legal pages last updated date
+Analytics disclosure
+Analytics retention
+Trust & Safety response window
+Copy default web pages to custom/public with a split-color domain wordmark?
+Black wordmark portion
+Green wordmark portion
 ```
 
-In Zero Trust, configure at least one identity provider, such as one-time PIN, GitHub, Google, or Okta. Then create a self-hosted Access application for those paths and allow only maintainer emails or a maintained identity group.
+For phase 1, prefer simple answers. You can refine the legal pages, analytics disclosure, supported languages, and branding in phase 2.
 
-Set the Access team domain as a Worker variable and the Access audience as a secret:
+### Install local helpers
+
+```bash
+npm run local-install
+```
+
+This installs the local `v8s` shell helper, local `lnk` command wiring, and workstation registry configuration used by the instance.
+
+### Edit Wrangler configuration
+
+Open `wrangler.toml` with your preferred text editor. Set the short domain in the `pattern` field:
+
+```toml
+[[routes]]
+pattern = "your-short-domain.example"
+custom_domain = true
+```
+
+Keep `workers_dev = false` and `preview_urls = false` for a production short-link domain unless you intentionally want public preview hostnames.
+
+### Create your first commit
+
+```bash
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+```
+
+### Push to your GitHub repository
+
+Use the repository URL from the GitHub repository you created for your instance:
+
+```bash
+git remote add origin git@github.com:[account name]/[repository name]
+git push -u origin main
+```
+
+If you configured HTTPS instead of SSH, use the HTTPS remote URL GitHub provides.
+
+{{% /steps %}}
+
+## Phase 1b: Cloudflare configuration
+
+{{% steps %}}
+
+### Connect the repository to Workers & Pages
+
+In Cloudflare, open **Workers & Pages** from the account main menu, then:
+
+1. Create an application
+2. Continue with GitHub
+3. Select your redirector repository
+4. Confirm the project name matches the `name` value in `wrangler.toml`
+5. Leave the **Build** and **Deploy** fields as-is so `wrangler.toml` remains authoritative
+6. Deselect builds for non-production branches unless you want every branch to deploy
+
+### Set up an identity provider
+
+Cloudflare Access needs an identity provider before it can protect private paths. You can configure an [identity provider](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/) or use Cloudflare One's [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) option with approved email addresses.
+
+One-time PIN needs no provider setup. Add the user's email address to an [Access policy](https://developers.cloudflare.com/cloudflare-one/access-controls/policies/) and to the group that allows your team to reach the application.
+
+You can configure one-time PIN and several identity providers at the same time. If a user has the same email address in multiple providers, there is no technical conflict, but the login flow changes:
+
+- The user selects an identity provider on the login page
+- Cloudflare validates the identity returned by that provider
+- A policy that allows `user@example.com` passes when the chosen provider returns that email address
+
+### Optional: GitHub identity provider
+
+Follow Cloudflare's [GitHub identity provider instructions](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/).
+
+The GitHub integration is not restricted to organizations. You can use it with any GitHub account, including individual accounts. In your Access policy, control who gets in by filtering for specific GitHub usernames, email addresses, or organization memberships.
+
+Useful Access selectors include:
+
+- `GitHub Organization` to restrict access to members of a specific GitHub organization
+- Email selectors when GitHub returns the email address you expect
+- WARP posture checks when users must have the Cloudflare WARP client connected
+- `IP Ranges` to restrict access to specific networks or office IPs
+- `Country` to restrict access based on geographic location
+
+Some GitHub users do not disclose a public email address through the GitHub API. For example, `https://api.github.com/users/USERNAME` may return `"email": null`.
+
+### Optional: Google identity provider
+
+Follow Cloudflare's [Google identity provider instructions](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/).
+
+### Create the Access application
+
+In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, then:
+
+1. Create an application
+2. Select the **Self-hosted and private** tab
+3. Continue with **Self-hosted and private**
+4. Open **Application details**
+5. Add these destinations, replacing `vanityURL.link` with your short domain:
+
+| Subdomain | Domain | Path |
+| --- | --- | --- |
+| | `vanityURL.link` | `_stats` |
+| | `vanityURL.link` | `_stats/*` |
+| | `vanityURL.link` | `_tests` |
+| | `vanityURL.link` | `_tests/*` |
+
+1. Choose the identity providers available for this application
+2. Create an Access policy:
+
+| Field | Value |
+| --- | --- |
+| Policy name | `Allow emails` |
+| Action | `Allow` |
+| Session duration | `24 hours` |
+| Include selector | `Emails` |
+| Include value | `yourEmailAddress.domain.com` |
+
+1. Use the policy tester to confirm your email address is allowed
+2. Open the **Additional settings** tab
+3. Copy the **Application Audience (AUD) Tag** value
+4. Save the policy
+
+### Store the Access audience secret
+
+In your local terminal, add the Access audience as a Worker secret:
+
+```bash
+npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
+```
+
+Also set the Access team domain as a Worker variable in `wrangler.toml`:
 
 ```toml
 [vars]
 CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
 
-```bash
-npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
-```
-
-### Optional: configure Umami analytics
-
-If you want server-side analytics, create a website in Umami for the public hostname, then add the website ID as a Worker secret:
+### Validate and push
 
 ```bash
-npx wrangler secret put UMAMI_WEBSITE_ID --config wrangler.toml
+npm run check
+git add .
+git commit -m "configure Cloudflare Access"
+git push
 ```
 
-For Umami Cloud, keep the endpoint variable in `wrangler.toml`:
+Cloudflare should deploy from GitHub after the push.
 
-```toml
-[vars]
-UMAMI_ENDPOINT = "https://cloud.umami.is/api/send"
-```
-
-No browser tracking script is required. The Worker sends redirect, pageview, miss, and expand events for traffic that reaches the Worker.
-
-### Deploy
-
-Push the repository to GitHub and let the Cloudflare Git integration deploy it, or deploy manually from the repository:
-
-```bash
-npx wrangler deploy --config wrangler.toml
-```
-
-### Test the instance
+### Test the deployment
 
 Open the home page, a known short link, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
 
 Then test `/_stats` and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page.
-
-If Umami is enabled, load a few public paths from a second browser profile and confirm that events appear in Umami. Traffic blocked by Cloudflare Access, WAF rules, AI Crawl Control, or rate limiting will not appear in Umami because it never reaches the Worker.
 
 {{% /steps %}}
 
 ## After the plain instance works
 
 Use [Custom overrides](/docs/custom-overrides/) to replace default branding, public assets, policy pages, status pages, and localized pages without editing `defaults/`. Use the Cloudflare guide when you need the longer dashboard checklist for DNS, Access, identity providers, security rules, and observability.
-
-Use `npm run local-install` after the instance works if you want the local `v8s` shell helper, local `lnk` command wiring, and a configured workstation registry such as `~/.v8s.json`.
