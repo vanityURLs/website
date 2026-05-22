@@ -8,13 +8,11 @@ weight: 50
 
 Use `custom/` for instance-owned files. This keeps your deployment upgradable because default pages, Worker logic, source policy, and local helper settings can move forward without mixing in every local brand choice.
 
-A new instance can run with very few custom files. Add more only when you need to change links, branding, public policy, or status-page behavior.
+For the upgrade rationale, read [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/). This page keeps the file paths and overlay behavior close at hand.
 
 ## Defaults versus custom
 
-`defaults/` is the product baseline. It contains the default public pages, localized status pages, localized redirected badges, logos, protected dashboard shell, test page, policy files, sample links, site configuration, and runtime assets.
-
-`custom/` is your instance overlay. Files in `custom/` either replace specific defaults or provide instance data that should survive upstream updates. This page is the mechanical reference for how the overlay works; use [Customize overview](/docs/customize-overview/) when you only need the phase-2 decision map.
+`defaults/` is the product baseline. `custom/` is your instance overlay. Files in `custom/` either replace specific defaults or provide instance data that should survive upstream updates.
 
 The build order is:
 
@@ -65,8 +63,6 @@ Use `custom/v8s-site-config.json` for site-level choices such as supported langu
 }
 ```
 
-Use `custom/public/` for public files served by the Worker: logos, icons, CSS, HTML pages, policy documents, robots policy, and localized pages.
-
 ## Installer-managed public pages
 
 `npm run setup` can copy `defaults/public/` into `custom/public/`, rewrite the default `Vanity` + `URLs` wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.
@@ -80,10 +76,6 @@ When you use `custom/public/`, set `i18n.supported_languages` in `custom/v8s-sit
 Replace branding assets under `custom/public/`, such as `v8s-logo.svg`, `favicon.svg`, PNG icons, and `site.webmanifest`.
 
 Customize public policy pages under `custom/public/`, such as `privacy.html`, `terms.html`, `abuse.html`, and `security.html`. English defaults have extension-free aliases such as `/privacy`, `/terms`, `/abuse`, and `/security`. French policy pages are served under `/fr/privacy.html`, `/fr/terms.html`, `/fr/abuse.html`, and `/fr/security.html`.
-
-Default English and French public pages include footer-style links to those policy pages. Default Spanish, Italian, and German pages are localized for core pages and status pages, but do not currently ship equivalent policy pages.
-
-Every public instance owner is responsible for their own terms, privacy notice, abuse contact, security contact, analytics disclosure, and data retention language. The defaults are placeholders and product patterns, not legal advice.
 
 Replace the expand page with `custom/public/expand/index.html`. Localized expand pages use language directories, for example `custom/public/fr/expand/index.html`.
 
@@ -163,24 +155,3 @@ If you replace `404.html`, include these placeholders where you want runtime con
 Status pages can be self-contained HTML. If they use shared styling or images, put those assets in `custom/public/` and reference them from the site root, for example `/status.css`, `/favicon.svg`, or `/v8s-logo.svg`.
 
 Keep status pages static. Do not depend on a browser tracking script for analytics; server-side analytics are emitted by the Worker when configured.
-
-## Why this matters during upgrades
-
-The point of `custom/` is to make upgrades boring. Product files can move forward while your instance-owned choices stay in one predictable layer.
-
-When you update an instance, upstream changes may refresh `defaults/`, `scripts/`, dependency files, validation logic, and generated runtime behavior. Your links, schedules, policies, branding, public page overrides, local helper settings, and site configuration should stay in `custom/`.
-
-That means most instance customization should avoid direct edits to:
-
-- `defaults/`, because upstream owns the baseline files
-- `scripts/workers/`, unless you intend to maintain a Worker fork
-- `src/`, because it is generated for Wrangler compatibility
-- `build/`, because it is generated deployment output
-
-After updating, rebuild and validate:
-
-```bash
-npm run check
-```
-
-Use [Upgrading an instance](/docs/upgrading/) for the full update flow. This page explains where custom files belong so that flow has less to reconcile.

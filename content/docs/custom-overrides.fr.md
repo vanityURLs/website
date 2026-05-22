@@ -8,11 +8,11 @@ weight: 80
 
 Utilisez `custom/` pour les fichiers propres a l'instance. Cela garde les deploiements faciles a mettre a jour pendant que les pages par defaut, la logique Worker, la politique source et les reglages locaux evoluent.
 
+Pour le raisonnement de mise a jour, lisez [Garder vanityURLs facile a mettre a jour avec custom](/fr/blog/keeping-vanityurls-upgradable-with-custom-overrides/). Cette page garde les chemins et le comportement de surcharge a portee de main.
+
 ## Defaults versus custom
 
-`defaults/` est la base produit. Il contient les pages publiques, pages d'etat localisees, badges localises, logos, shell stats protege, page de tests, politiques, liens exemples, configuration de site et assets runtime.
-
-`custom/` est la couche de l'instance. Les fichiers dans `custom/` remplacent ou completent certains defaults avant le build.
+`defaults/` est la base produit. `custom/` est la couche de l'instance. Les fichiers dans `custom/` remplacent ou completent certains defaults avant le build.
 
 Le build :
 
@@ -115,13 +115,3 @@ Apres une modification des SVG de badge par defaut, lancez :
 ```bash
 npm run optimize:badges
 ```
-
-## Workflow de mise a jour
-
-```bash
-git pull upstream main
-npm run generate:blocklist
-npm run check
-```
-
-Gardez les changements runtime hors de `scripts/workers/` et du `src/` genere sauf si vous maintenez un fork. Preferez les surcharges de configuration, politique et assets.
