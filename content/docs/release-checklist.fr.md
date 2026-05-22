@@ -4,7 +4,7 @@ title: "Checklist de release"
 description: "Checklist production pour deployer ou mettre a jour une instance v8s sur Cloudflare."
 ---
 
-Utilisez cette checklist avant de lancer une nouvelle instance ou de promouvoir une mise a jour majeure. Une instance v8s est simple, mais un domaine court attire quand meme scanners, bots, et tentatives d'abus.
+Utilisez cette checklist avant de lancer une nouvelle instance ou de promouvoir une mise a jour majeure. Une instance vanityURLs est robuste, mais tout ce qui brille sur internet attire scanners, bots, et tentatives d'abus.
 
 ## Depot
 
@@ -31,9 +31,27 @@ Utilisez cette checklist avant de lancer une nouvelle instance ou de promouvoir 
 
 Dans Cloudflare, les reglages pertinents sont repartis dans trois endroits :
 
-- **Zero Trust** : applications Access, politiques Access, identity providers, et reglages Zero Trust
-- **Workers & Pages** : deploiement Worker, binding assets, variables, observabilite, domaines custom, et reglages de build
-- **Configuration du domaine** : DNS, SSL/TLS, WAF, Security, AI Crawl Control, Rules, Network, Caching, et analytics
+- **Zero Trust** : {{< arrow left >}} documentation [Controle d'acces](/docs/access-control/)
+  - Applications et politiques Access
+  - Fournisseurs d'identite
+  - Reglages
+- **Workers & Pages** : {{< arrow left >}} documentation [Workers](/docs/quickstart/#connect-the-repository-to-workers--pages) et [wrangler.toml](/blog/wrangler/#keep-wranglertoml-close-to-the-deployment-boundary)
+  - deploiement
+  - binding assets
+  - variables
+  - observabilite
+  - domaines custom
+  - reglages de build
+- **Configuration du domaine** : {{< arrow left >}} documentation [Protection reseau](/docs/access-control/)
+  - AI Crawl Control
+  - Analytics
+  - Caching
+  - DNS
+  - Network
+  - Rules
+  - Security
+  - SSL/TLS
+  - WAF
 
 Base recommandee :
 

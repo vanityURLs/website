@@ -31,12 +31,27 @@ Use this checklist before launching a new instance or promoting a major upgrade.
 
 In Cloudflare, the relevant settings are split across three places:
 
-- **Zero Trust**: {{< arrow left >}} [Access control](/docs/access-control/)
+- **Zero Trust**: {{< arrow left >}} [Access control](/docs/access-control/) documentation
   - Access applications & policies
   - Identity providers
   - Settings
-- **Workers & Pages**: Worker deployment, assets binding, variables, observability, custom domains, and build settings
-- **Domain configuration**: DNS, SSL/TLS, WAF, Security, AI Crawl Control, Rules, Network, Caching, and analytics
+- **Workers & Pages**: {{< arrow left >}} [Workers](/docs/quickstart/#connect-the-repository-to-workers--pages) documentation and [wrangler.toml](/blog/wrangler/#keep-wranglertoml-close-to-the-deployment-boundary)
+  - deployment
+  - assets binding
+  - variables
+  - observability
+  - custom domains
+  - build settings
+- **Domain configuration**: {{< arrow left >}} [Network protection](/docs/access-control/) documentation
+  - AI Crawl Control
+  - Analytics
+  - Caching
+  - DNS
+  - Network
+  - Rules
+  - Security
+  - SSL/TLS
+  - WAF
 
 Recommended baseline:
 
