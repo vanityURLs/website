@@ -5,6 +5,8 @@ description: "Source policy and generated runtime blocklist behavior for target 
 
 vanityURLs edits source policy as `v8s-policies.json` and deploys runtime policy as `build/v8s-blocklist.json`.
 
+The names are intentionally described as source policy and runtime blocklist artifact throughout the docs because the current filenames are easy to confuse. A future breaking cleanup should use clearer paired names for source and generated policy files.
+
 The source policy file is selected before build:[^legacy-policy]
 
 - `defaults/v8s-policies.json` is the upstream trust-and-safety source policy.

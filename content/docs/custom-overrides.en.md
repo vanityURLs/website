@@ -11,7 +11,7 @@ A new instance can run with very few custom files. Add more only when you need t
 
 `defaults/` is the product baseline. It contains the default public pages, localized status pages, localized redirected badges, logos, protected dashboard shell, test page, policy files, sample links, site configuration, and runtime assets.
 
-`custom/` is your instance overlay. Files in `custom/` either replace specific defaults or provide instance data that should survive upstream updates.
+`custom/` is your instance overlay. Files in `custom/` either replace specific defaults or provide instance data that should survive upstream updates. This page is the mechanical reference for how the overlay works; use [Customize overview](/docs/customize-overview/) when you only need the phase-2 decision map.
 
 The build order is:
 

@@ -61,6 +61,14 @@ npm run check:targets
 
 `npm run check:targets` reads `build/v8s.json`, checks active `permanent` and `ephemeral` web targets, and reports unreachable long links with the slugs that use them.
 
+Use local publish when you want the configured local paths validated, staged, committed, and pushed:
+
+```bash
+npm run local-publish
+```
+
+The default configured path is `custom`, and the default commit message is `chore: update local vanityURLs configuration`.
+
 ## Add schedules
 
 ```bash

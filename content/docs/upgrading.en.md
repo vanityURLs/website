@@ -79,22 +79,7 @@ That keeps local links, legal pages, privacy policy, source policy, branding, Ac
 
 ## Link maintenance
 
-Use the [LNK Command Line Interface](/docs/cli/) when you want to inspect, add, or update short links from the terminal. Use [Local helper](/docs/local-helper/) when you want to open existing links quickly without editing source files.
-
-To check the long links currently generated into the runtime registry, run:
-
-```bash
-npm run build
-npm run check:targets
-```
-
-`npm run check:targets` reads `build/v8s.json` by default, checks active `permanent` and `ephemeral` web targets, and reports broken or unreachable long links with the slugs that use them.
-
-Use local publish when the instance owner wants to validate, stage, commit, and push configured local paths:
-
-```bash
-npm run local-publish
-```
+Link maintenance belongs with the link tools, not the upgrade workflow. Use [LNK Command Line Interface](/docs/cli/) when you want to inspect, add, update, validate, commit, and push short-link changes. Use [Local helper](/docs/local-helper/) when you only want to open existing links quickly without editing source files.
 
 ## Why not Homebrew yet
 
