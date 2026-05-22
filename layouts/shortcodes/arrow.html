@@ -1,0 +1,24 @@
+{{/* {{< arrow left >}} or {{< arrow right >}} */}}
+{{- $direction := "right" -}}
+{{- if .IsNamedParams -}}
+  {{- $direction = .Get "direction" | default (.Get "dir") | default "right" -}}
+{{- else if gt (len .Params) 0 -}}
+  {{- $direction = .Get 0 | default "right" -}}
+{{- end -}}
+{{- $direction = lower $direction -}}
+{{- $arrows := dict
+  "left" "←"
+  "l" "←"
+  "back" "←"
+  "previous" "←"
+  "prev" "←"
+  "right" "→"
+  "r" "→"
+  "next" "→"
+  "forward" "→"
+-}}
+{{- $arrow := index $arrows $direction -}}
+{{- if not $arrow -}}
+  {{- errorf "arrow shortcode direction must be left or right, got %q" $direction -}}
+{{- end -}}
+{{- $arrow -}}

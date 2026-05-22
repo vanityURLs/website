@@ -31,7 +31,10 @@ Use this checklist before launching a new instance or promoting a major upgrade.
 
 In Cloudflare, the relevant settings are split across three places:
 
-- **Zero Trust**: Access applications, Access policies, identity providers, and Zero Trust settings. See [Access control](/docs/access-control/)
+- **Zero Trust**: {{< arrow left >}} [Access control](/docs/access-control/)
+  - Access applications & policies
+  - Identity providers
+  - Settings
 - **Workers & Pages**: Worker deployment, assets binding, variables, observability, custom domains, and build settings
 - **Domain configuration**: DNS, SSL/TLS, WAF, Security, AI Crawl Control, Rules, Network, Caching, and analytics
 
