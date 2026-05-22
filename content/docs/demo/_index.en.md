@@ -30,6 +30,7 @@ Static assets plus Worker routing, generated `v8s.json`, Cloudflare Access prote
 | [v8s.link/expired.html](https://v8s.link/expired.html) | Expired lifecycle page |
 | [v8s.link/disabled.html](https://v8s.link/disabled.html) | Disabled lifecycle page |
 | [v8s.link/maintenance.html](https://v8s.link/maintenance.html) | Maintenance lifecycle page |
+| [v8s.link/.well-known/security.txt](https://v8s.link/.well-known/security.txt) | Machine-readable vulnerability disclosure contact following [RFC 9116: A File Format to Aid in Security Vulnerability Disclosure](https://www.rfc-editor.org/info/rfc9116/) |
 
 ## What to copy
 
