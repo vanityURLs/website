@@ -93,7 +93,9 @@ The default `_headers` includes `X-Generated-By: vanityURLs.link` and blocks raw
 
 ## Redirected badges
 
-![English light redirected badge](/images/v8s-redirected-en.svg)
+<div class="brand-badge-stage brand-badge-stage-light">
+  <img src="/images/v8s-redirected-en.svg" alt="English light redirected badge">
+</div>
 
 Localized redirected badges live under the language directories:
 
@@ -160,12 +162,23 @@ Status pages can be self-contained HTML. If they use shared styling or images, p
 
 Keep status pages static. Do not depend on a browser tracking script for analytics; server-side analytics are emitted by the Worker when configured.
 
-## Upgrade workflow
+## Why this matters during upgrades
+
+The point of `custom/` is to make upgrades boring. Product files can move forward while your instance-owned choices stay in one predictable layer.
+
+When you update an instance, upstream changes may refresh `defaults/`, `scripts/`, dependency files, validation logic, and generated runtime behavior. Your links, schedules, policies, branding, public page overrides, local helper settings, and site configuration should stay in `custom/`.
+
+That means most instance customization should avoid direct edits to:
+
+- `defaults/`, because upstream owns the baseline files
+- `scripts/workers/`, unless you intend to maintain a Worker fork
+- `src/`, because it is generated for Wrangler compatibility
+- `build/`, because it is generated deployment output
+
+After updating, rebuild and validate:
 
 ```bash
-git pull upstream main
-npm run generate:blocklist
 npm run check
 ```
 
-Keep runtime behavior changes out of `scripts/workers/` and generated `src/` unless you intend to maintain a fork. Prefer configuration, policy, and asset overrides for deployable instances.
+Use [Upgrading an instance](/docs/upgrading/) for the full update flow. This page explains where custom files belong so that flow has less to reconcile.
