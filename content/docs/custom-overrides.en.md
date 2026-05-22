@@ -93,6 +93,8 @@ The default `_headers` includes `X-Generated-By: vanityURLs.link` and blocks raw
 
 ## Redirected badges
 
+![English light redirected badge](/images/v8s-redirected-en.svg)
+
 Localized redirected badges live under the language directories:
 
 ```text
