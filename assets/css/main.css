@@ -718,6 +718,9 @@
     border: 1px solid var(--brand-line);
     border-radius: 0.5rem;
   }
+  .brand-badge-stage-left {
+    justify-items: start;
+  }
   .brand-badge-stage-light {
     background:
       linear-gradient(45deg, #f9fafb 25%, transparent 25%) 0 0 / 1rem 1rem,

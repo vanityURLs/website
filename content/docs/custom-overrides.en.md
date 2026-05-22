@@ -93,7 +93,7 @@ The default `_headers` includes `X-Generated-By: vanityURLs.link` and blocks raw
 
 ## Redirected badges
 
-<div class="brand-badge-stage brand-badge-stage-light">
+<div class="brand-badge-stage brand-badge-stage-light brand-badge-stage-left">
   <img src="/images/v8s-redirected-en.svg" alt="English light redirected badge">
 </div>
 
@@ -126,7 +126,7 @@ custom/public/expired.html
 custom/public/maintenance.html
 ```
 
-Localized versions use the language code as the first directory segment:
+Localized versions use the [language code](/docs/i18n/#supported-languages) as the first directory segment:
 
 ```text
 custom/public/fr/404.html

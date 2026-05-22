@@ -22,7 +22,7 @@ Before creating the Access application, decide who should be allowed in:
 | Decision | Phase 1 recommendation | Later customization |
 | :--- | :--- | :--- |
 | Authentication method | One-time PIN with named emails | GitHub, Google, Okta, Entra ID, or another account-managed provider |
-| Policy selector | Emails | Emails, groups, GitHub organization, device posture, country, or network selectors |
+| Policy selector | Email addresses | Email addresses, groups, GitHub organization, or country selectors |
 | Session duration | 24 hours | Shorter for sensitive teams, longer for low-risk personal instances |
 | MFA | Follow global Zero Trust setting | Require MFA directly in the policy when the IdP supports it |
 | Secrets storage | Cloudflare secrets plus password manager | Same model, with rotation notes and owner documentation |
@@ -65,7 +65,7 @@ If more than one identity provider is enabled, users choose a provider on the Cl
 
 In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, then create a **Self-hosted and private** application.
 
-Configure the destinations with your short domain:
+Configure the destinations with *your* short domain:
 
 | Subdomain | Domain | Path |
 | :--- | :--- | :--- |
@@ -86,7 +86,7 @@ Recommended application settings:
 | Identity providers | One-time PIN for phase 1, or account-managed providers such as GitHub, Google, Okta, or Entra ID |
 | Browser rendering | Off |
 
-Replace `v8s.link` with your short domain everywhere.
+Replace `v8s.link` with *your* short domain everywhere.
 
 ## Create the Access policy
 
