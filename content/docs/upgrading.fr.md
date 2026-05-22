@@ -8,6 +8,8 @@ weight: 30
 
 Installer une instance vanityURLs est facile. La mettre a jour proprement demande un workflow reproductible, parce que le proprietaire doit garder ses liens, sa marque, sa politique et sa configuration Cloudflare tout en recevant les nouveaux defaults, scripts, correctifs et durcissements securite.
 
+Si vous migrez une ancienne instance Cloudflare Pages `_redirects` vers le runtime Worker actuel, utilisez [Migrer des redirections Cloudflare Pages vers vanityURLs Workers](/fr/blog/migrating-from-cloudflare-pages-redirects/).
+
 La regle est simple :
 
 - les fichiers propres a l'instance vivent dans `custom/`
