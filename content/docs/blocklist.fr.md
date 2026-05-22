@@ -8,6 +8,8 @@ weight: 60
 
 vanityURLs edite la politique source comme `v8s-policies.json` et deploie la politique runtime comme `build/v8s-blocklist.json`.
 
+Pour le raisonnement confiance et securite, lisez [Proteger la reputation d'un domaine court](/fr/blog/protecting-the-reputation-of-a-short-link-domain/). Cette page garde le format modifiable et le workflow de validation a portee de main.
+
 La politique source est choisie avant le build :
 
 - `defaults/v8s-policies.json` est la politique source upstream
@@ -15,8 +17,6 @@ La politique source est choisie avant le build :
 - Les anciens fichiers source `v8s-blocklist.json` peuvent encore etre reconnus pour migration, mais les nouvelles instances devraient utiliser `v8s-policies.json`
 
 `custom/v8s-policies.json` ne fusionne pas par-dessus la politique par defaut. Quand une instance possede sa politique, elle possede le remplacement.
-
-Le but est de proteger la reputation du domaine court contre phishing, malware, chaines de redirection, et formes d'URL risquees.
 
 ## Protections par defaut
 

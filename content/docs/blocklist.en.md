@@ -10,16 +10,14 @@ vanityURLs edits source policy as `v8s-policies.json` and deploys runtime policy
 
 The names are intentionally described as source policy and runtime blocklist artifact throughout the docs because the current filenames are easy to confuse. A future breaking cleanup should use clearer paired names for source and generated policy files.
 
+For the trust-and-safety rationale, read [Protecting the reputation of a short-link domain](/blog/protecting-the-reputation-of-a-short-link-domain/). This page keeps the editable file format and validation workflow close at hand.
+
 The source policy file is selected before build:[^legacy-policy]
 
 - `defaults/v8s-policies.json` is the upstream trust-and-safety source policy
 - `custom/v8s-policies.json` replaces the default source policy for an instance
 
 `custom/v8s-policies.json` is not merged over the default source policy. If an instance owns policy, it owns the replacement. This prevents removed custom policy decisions from reappearing through an upstream merge.
-
-The goal is to protect the reputation of a short-link domain by reducing phishing, malware, redirect chains, and risky URL forms.
-
-A redirect engine is powerful infrastructure. Do not use a vanityURLs instance to hide malicious destinations, bypass trust systems, launder another shortener chain, disguise affiliate or tracking links without disclosure, or route people to content they did not reasonably expect.
 
 ## Default protections
 
@@ -47,7 +45,7 @@ The current defaults include:
 | `scanner-probe` | Automated vulnerability scanner paths that should never resolve as short links |
 | `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Instance-owned policy categories for elevated-risk or owner-selected blocks |
 
-Generated feeds reduce obvious abuse risk, but they can still have false positives. Review source changes before promoting them into a release, and keep `allow_domains` entries narrow when you intentionally override a generated block for an owner-controlled hostname.
+Generated feeds reduce obvious abuse risk, but they can still have false positives. Review source changes before promoting them into a release.
 
 ## Configure instance policy
 
@@ -113,6 +111,6 @@ build/v8s-blocklist.json
 
 This file is consumed by the Worker and blocked from direct public access as `/v8s-blocklist.json`. It is a generated runtime artifact, not the file an instance owner should edit by hand.
 
-Every enabled generated source should have a category, severity, URL, and clear reason to trust the upstream. A redirector is attractive to scanners even when nobody has announced the domain, so feed quality matters: noisy sources can break legitimate links, while missing obvious abuse sources can burn reputation quickly.
+Every enabled generated source should have a category, severity, URL, and clear reason to trust the upstream.
 
 [^legacy-policy]: Legacy `v8s-blocklist.json` source files may still be recognized for migration compatibility, but new docs and new instances should use `v8s-policies.json`.
