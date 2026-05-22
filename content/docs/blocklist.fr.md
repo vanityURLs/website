@@ -8,9 +8,9 @@ vanityURLs edite la politique source comme `v8s-policies.json` et deploie la pol
 
 La politique source est choisie avant le build :
 
-- `defaults/v8s-policies.json` est la politique source upstream.
-- `custom/v8s-policies.json` remplace la politique source par defaut pour une instance.
-- Les anciens fichiers source `v8s-blocklist.json` peuvent encore etre reconnus pour migration, mais les nouvelles instances devraient utiliser `v8s-policies.json`.
+- `defaults/v8s-policies.json` est la politique source upstream
+- `custom/v8s-policies.json` remplace la politique source par defaut pour une instance
+- Les anciens fichiers source `v8s-blocklist.json` peuvent encore etre reconnus pour migration, mais les nouvelles instances devraient utiliser `v8s-policies.json`
 
 `custom/v8s-policies.json` ne fusionne pas par-dessus la politique par defaut. Quand une instance possede sa politique, elle possede le remplacement.
 

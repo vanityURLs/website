@@ -62,11 +62,11 @@ invocation_logs = true
 
 Les points importants :
 
-- `custom_domain = true`, car le Worker est l'origine de tout le hostname.
-- `workers_dev = false` et `preview_urls = false`, car les hostnames publics de preview ne sont pas necessaires en production.
-- Binding `ASSETS`, car le Worker sert les pages statiques depuis `build/`.
-- `run_worker_first`, car lookup, chemins proteges, blocage de probes et analytics doivent passer avant le fallback asset.
-- Workers Logs active, car les metriques Cloudflare sont utiles pour performance et erreurs, mais les evenements applicatifs vont dans les analytics serveur.
+- `custom_domain = true`, car le Worker est l'origine de tout le hostname
+- `workers_dev = false` et `preview_urls = false`, car les hostnames publics de preview ne sont pas necessaires en production
+- Binding `ASSETS`, car le Worker sert les pages statiques depuis `build/`
+- `run_worker_first`, car lookup, chemins proteges, blocage de probes et analytics doivent passer avant le fallback asset
+- Workers Logs active, car les metriques Cloudflare sont utiles pour performance et erreurs, mais les evenements applicatifs vont dans les analytics serveur
 
 ## DNS et domaines
 
@@ -206,11 +206,11 @@ Utilisez AI Crawl Control ou une regle WAF sur user-agent si vous voulez que Clo
 
 Defaults utiles :
 
-- Autoriser `/robots.txt`.
-- Autoriser `/llms.txt` et `/llms-full.txt` seulement si vous publiez volontairement du contexte lisible par machines.
-- Bloquer les crawlers IA et assistants IA non desires dans Cloudflare.
-- Garder les crawlers de moteurs de recherche verifies autorises sauf instance volontairement privee.
-- Revoir Cloudflare Security Events apres activation, car le trafic bloque n'apparait pas dans les analytics Worker.
+- Autoriser `/robots.txt`
+- Autoriser `/llms.txt` et `/llms-full.txt` seulement si vous publiez volontairement du contexte lisible par machines
+- Bloquer les crawlers IA et assistants IA non desires dans Cloudflare
+- Garder les crawlers de moteurs de recherche verifies autorises sauf instance volontairement privee
+- Revoir Cloudflare Security Events apres activation, car le trafic bloque n'apparait pas dans les analytics Worker
 
 Pour un domaine court prive, familial, equipe, ou interne, il est raisonnable de bloquer toutes les familles de crawlers sauf celles que vous voulez explicitement. Ne comptez pas seulement sur `robots.txt`; utilisez ensemble Cloudflare AI Crawl Control, les regles WAF, et la blocklist runtime.
 

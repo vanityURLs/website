@@ -42,11 +42,11 @@ The page `lang` attribute is set correctly: `en-CA` for English pages, `fr-CA` f
 
 ARIA roles, properties, and states are used where HTML semantics alone are insufficient:
 
-- The Source Code dropdown uses `aria-haspopup`, `aria-expanded`, `aria-controls`, and `role="menu"`.
-- The search modal uses `role="dialog"`, `aria-modal="true"`, and `aria-label`.
-- The dark-mode toggle, search trigger, and mobile menu trigger all use `aria-label` for non-textual context.
-- Decorative SVG icons carry `aria-hidden="true"`.
-- The logo uses `alt=""` (correctly empty for a decorative image displayed alongside the visible "vanityURLs" wordmark).
+- The Source Code dropdown uses `aria-haspopup`, `aria-expanded`, `aria-controls`, and `role="menu"`
+- The search modal uses `role="dialog"`, `aria-modal="true"`, and `aria-label`
+- The dark-mode toggle, search trigger, and mobile menu trigger all use `aria-label` for non-textual context
+- Decorative SVG icons carry `aria-hidden="true"`
+- The logo uses `alt=""` (correctly empty for a decorative image displayed alongside the visible "vanityURLs" wordmark)
 
 ### Colour and contrast
 
@@ -121,9 +121,9 @@ Things worth checking: the page title is announced, headings are navigable using
 
 ### Browser-level checks
 
-- Zoom to 200% — content should reflow without horizontal scrolling.
-- Forced colours mode (Windows High Contrast) — content should remain readable, focus rings should remain visible.
-- Disable CSS — page structure and reading order should remain logical.
+- Zoom to 200% — content should reflow without horizontal scrolling
+- Forced colours mode (Windows High Contrast) — content should remain readable, focus rings should remain visible
+- Disable CSS — page structure and reading order should remain logical
 
 ## Open source — audit the implementation
 

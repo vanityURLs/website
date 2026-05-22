@@ -16,12 +16,12 @@ The `name` field in `wrangler.toml` explicitly identifies the Worker inside Clou
 
 Because the Cloudflare dashboard doesn't currently allow you to rename an existing Worker after it's created, changing a mismatch requires a deliberate teardown. If you need the dashboard to match `wrangler.toml`, the safest path forward is:
 
-1. **Verify** the correct Worker name in your `wrangler.toml`.
-2. **Remove** the route or custom domain from the old Worker.
-3. **Delete** the old Worker to completely free up that route or custom domain.
-4. **Create or connect** a new Worker using the correct name.
-5. **Reattach** your route or custom domain.
-6. **Push** a small change to Git to confirm the build successfully deploys to the new Worker.
+1. **Verify** the correct Worker name in your `wrangler.toml`
+2. **Remove** the route or custom domain from the old Worker
+3. **Delete** the old Worker to completely free up that route or custom domain
+4. **Create or connect** a new Worker using the correct name
+5. **Reattach** your route or custom domain
+6. **Push** a small change to Git to confirm the build successfully deploys to the new Worker
 
 > ⚠️ **Important:** Never delete an old Worker until you are 100% sure which routes or custom domains it owns. The painful part of this process isn't redeploying the script itself—it's losing track of which hostname was attached to which dashboard object.
 >

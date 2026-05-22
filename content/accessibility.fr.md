@@ -43,11 +43,11 @@ L'attribut `lang` de la page est correctement défini : `en-CA` pour les pages e
 
 Les rôles, propriétés et états ARIA sont utilisés là où la sémantique HTML seule ne suffit pas :
 
-- Le menu déroulant Code source utilise `aria-haspopup`, `aria-expanded`, `aria-controls` et `role="menu"`.
-- Le modal de recherche utilise `role="dialog"`, `aria-modal="true"` et `aria-label`.
-- Le bouton mode sombre, le déclencheur de recherche et le bouton du menu mobile utilisent tous `aria-label` pour fournir un contexte non textuel.
-- Les icônes SVG décoratives portent `aria-hidden="true"`.
-- Le logo utilise `alt=""` (correctement vide pour une image décorative affichée à côté du logotype textuel « vanityURLs » visible).
+- Le menu déroulant Code source utilise `aria-haspopup`, `aria-expanded`, `aria-controls` et `role="menu"`
+- Le modal de recherche utilise `role="dialog"`, `aria-modal="true"` et `aria-label`
+- Le bouton mode sombre, le déclencheur de recherche et le bouton du menu mobile utilisent tous `aria-label` pour fournir un contexte non textuel
+- Les icônes SVG décoratives portent `aria-hidden="true"`
+- Le logo utilise `alt=""` (correctement vide pour une image décorative affichée à côté du logotype textuel « vanityURLs » visible)
 
 ### Couleur et contraste
 
@@ -122,9 +122,9 @@ Cibles : **4,5:1** pour le texte normal, **3:1** pour le grand texte (18pt ou 14
 
 ### Vérifications au niveau du navigateur
 
-- Zoom à 200 % — le contenu doit se réagencer sans défilement horizontal.
-- Mode contraste forcé (Windows High Contrast) — le contenu doit rester lisible, les anneaux de mise au point doivent rester visibles.
-- Désactiver le CSS — la structure de la page et l'ordre de lecture doivent rester logiques.
+- Zoom à 200 % — le contenu doit se réagencer sans défilement horizontal
+- Mode contraste forcé (Windows High Contrast) — le contenu doit rester lisible, les anneaux de mise au point doivent rester visibles
+- Désactiver le CSS — la structure de la page et l'ordre de lecture doivent rester logiques
 
 ## Open source — auditer l'implémentation
 

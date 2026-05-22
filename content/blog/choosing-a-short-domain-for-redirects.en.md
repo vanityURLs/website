@@ -15,11 +15,11 @@ The shortest available domain is not automatically the best one. A redirect doma
 
 Prefer a domain that is:
 
-- Related to your name, product, brand, or community.
-- Easy to say out loud.
-- Hard to confuse with another word or organization.
-- Free from awkward punctuation when lowercased.
-- Short enough that the slug still has room to breathe.
+- Related to your name, product, brand, or community
+- Easy to say out loud
+- Hard to confuse with another word or organization
+- Free from awkward punctuation when lowercased
+- Short enough that the slug still has room to breathe
 
 For example, `go.example.com` is longer than a two-letter country-code domain, but it may be more recognizable for a company that already owns `example.com`.
 
@@ -27,8 +27,8 @@ For example, `go.example.com` is longer than a two-letter country-code domain, b
 
 You can run vanityURLs on either:
 
-- A dedicated apex domain, such as `v8s.link`.
-- A subdomain of a domain you already own, such as `go.example.com`.
+- A dedicated apex domain, such as `v8s.link`
+- A subdomain of a domain you already own, such as `go.example.com`
 
 A dedicated apex domain is memorable and portable. It is also one more domain to renew, secure, and monitor.
 
@@ -40,11 +40,11 @@ Before buying, confirm that the domain can use Cloudflare authoritative DNS. Wit
 
 Also check:
 
-- Renewal price, not just first-year price.
-- Whether the registry has special eligibility rules.
-- Whether domain privacy is available.
-- Whether DNS security signing is supported.
-- Whether the registrar gives you direct nameserver control.
+- Renewal price, not just first-year price
+- Whether the registry has special eligibility rules
+- Whether domain privacy is available
+- Whether DNS security signing is supported
+- Whether the registrar gives you direct nameserver control
 
 Cloudflare Registrar is convenient for supported top-level domains because domains purchased there already use Cloudflare DNS. For unsupported domains, any registrar is fine as long as you can change the authoritative nameservers.
 
@@ -54,11 +54,11 @@ Shorteners are abused across the internet, so trust signals matter. Avoid domain
 
 Be careful with:
 
-- Random strings that do not connect to your identity.
-- Look-alike characters or spellings that imitate another brand.
-- TLDs with a reputation for abuse in your audience.
-- Domains that are cute but impossible to say over the phone.
-- Domains that depend on a joke you will not want in five years.
+- Random strings that do not connect to your identity
+- Look-alike characters or spellings that imitate another brand
+- TLDs with a reputation for abuse in your audience
+- Domains that are cute but impossible to say over the phone
+- Domains that depend on a joke you will not want in five years
 
 The best redirect domains are boring in the right way: compact, owned by you, and durable.
 

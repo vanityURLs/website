@@ -10,8 +10,8 @@ The names are intentionally described as source policy and runtime blocklist art
 
 The source policy file is selected before build:[^legacy-policy]
 
-- `defaults/v8s-policies.json` is the upstream trust-and-safety source policy.
-- `custom/v8s-policies.json` replaces the default source policy for an instance.
+- `defaults/v8s-policies.json` is the upstream trust-and-safety source policy
+- `custom/v8s-policies.json` replaces the default source policy for an instance
 
 `custom/v8s-policies.json` is not merged over the default source policy. If an instance owns policy, it owns the replacement. This prevents removed custom policy decisions from reappearing through an upstream merge.
 

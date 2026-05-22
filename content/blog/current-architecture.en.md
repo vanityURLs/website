@@ -13,8 +13,8 @@ The current v8s release is built around a small contract: keep the runtime simpl
 
 An instance has two kinds of files:
 
-- `defaults/` contains the product defaults, public operational pages, blocklist defaults, robots and LLM crawler guidance, and scripts that should be updated from upstream.
-- `custom/` contains the instance-owned links, schedules, policy overrides, branding, legal pages, and any local public files.
+- `defaults/` contains the product defaults, public operational pages, blocklist defaults, robots and LLM crawler guidance, and scripts that should be updated from upstream
+- `custom/` contains the instance-owned links, schedules, policy overrides, branding, legal pages, and any local public files
 
 That split is the upgrade story. If instance owners keep their work in `custom/`, future releases can refresh `defaults/` and `scripts/` without trampling local content.
 

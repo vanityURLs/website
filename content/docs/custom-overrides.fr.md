@@ -20,7 +20,7 @@ Le build :
 4. retire les repertoires de langues non supportees selon `v8s-site-config.json`;
 5. construit `v8s.json` depuis `custom/v8s-links.txt` ou `defaults/v8s-links.txt`;
 6. construit `v8s-blocklist.json` depuis `custom/v8s-policies.json` ou `defaults/v8s-policies.json`;
-7. ecrit `v8s-site-config.json` et genere `src/` depuis `scripts/workers/`.
+7. ecrit `v8s-site-config.json` et genere `src/` depuis `scripts/workers/`
 
 ## Fichiers custom courants
 

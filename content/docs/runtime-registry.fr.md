@@ -64,7 +64,7 @@ Pour chaque requete, le Worker :
 4. cherche un lien exact;
 5. cherche un lien splat si aucun exact ne correspond;
 6. applique les horaires et l'etat;
-7. retourne une redirection, une page d'information, ou une 404.
+7. retourne une redirection, une page d'information, ou une 404
 
 Les horaires s'appliquent seulement aux liens exacts.
 

@@ -11,11 +11,11 @@ Analytics are optional in vanityURLs. A redirector can work perfectly without th
 
 For short links, analytics are usually useful when you need to know:
 
-- Whether a printed QR code is being scanned.
-- Which campaign link is used most often.
-- Whether an old link is still active enough to keep.
-- Whether a launch link is receiving unexpected traffic.
-- Whether a public link is being abused.
+- Whether a printed QR code is being scanned
+- Which campaign link is used most often
+- Whether an old link is still active enough to keep
+- Whether a launch link is receiving unexpected traffic
+- Whether a public link is being abused
 
 If you only need reliable redirects, skip analytics during the first installation. Add them once the instance works.
 
@@ -31,15 +31,15 @@ Fathom is a hosted privacy-focused analytics service. It is a good fit when you 
 
 Pros:
 
-- Managed service with very little setup.
-- Clear product focus on privacy-friendly web analytics.
-- Good fit for non-technical operators who need simple reporting.
+- Managed service with very little setup
+- Clear product focus on privacy-friendly web analytics
+- Good fit for non-technical operators who need simple reporting
 
 Cons:
 
-- Paid hosted service.
-- Less control than self-hosting.
-- Data processing depends on Fathom's terms, regions, and retention options.
+- Paid hosted service
+- Less control than self-hosting
+- Data processing depends on Fathom's terms, regions, and retention options
 
 ## Umami
 
@@ -47,15 +47,15 @@ Umami is an open source analytics project with both hosted and self-hosted optio
 
 Pros:
 
-- Open source project.
-- Hosted and self-hosted deployment options.
-- Good fit for teams that may want more infrastructure control later.
+- Open source project
+- Hosted and self-hosted deployment options
+- Good fit for teams that may want more infrastructure control later
 
 Cons:
 
-- Self-hosting adds operational responsibility.
-- Hosted service still requires reviewing processor terms and retention settings.
-- More flexible deployment choices can mean more decisions.
+- Self-hosting adds operational responsibility
+- Hosted service still requires reviewing processor terms and retention settings
+- More flexible deployment choices can mean more decisions
 
 ## What vanityURLs sends
 

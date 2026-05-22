@@ -18,8 +18,8 @@ Cette page consolide les decisions cote code qui doivent etre evaluees lors des 
 
 Le registre runtime a deux copies locales utiles :
 
-- `build/v8s.json` est l'artefact de build dans le depot.
-- Le chemin de registre poste de travail, habituellement `~/.v8s.json`, est le cache du helper local.
+- `build/v8s.json` est l'artefact de build dans le depot
+- Le chemin de registre poste de travail, habituellement `~/.v8s.json`, est le cache du helper local
 
 `lnk` modifie les fichiers source dans `custom/`. Les scripts npm peuvent construire, valider, publier, installer des helpers, copier des sorties generees ou mettre a jour des chemins locaux.
 
@@ -91,12 +91,12 @@ Le helper shell principal est neutre avec `scripts/v8s.sh`; l'ancien wrapper Zsh
 
 Comportements importants :
 
-- `scripts/lnk --help` et `scripts/lnk version` lisent la version dans `package.json`.
-- `lnk` ecrit les liens dans `custom/v8s-links.txt`, en creant le fichier si necessaire.
-- `V8S_REPO` pointe la CLI installee vers le depot local.
-- `V8S_LINKS_OWNER` est la variable d'environnement proprietaire; l'ancien alias `LNK_OWNER` a ete retire.
-- `lnk list` affiche les liens; `lnk list SLUG` filtre un slug.
-- `lnk list policy`, `lnk list categories`, `lnk list domain`, `lnk list domain block`, `lnk list domain allow` et `lnk list keyword` inspectent les politiques.
+- `scripts/lnk --help` et `scripts/lnk version` lisent la version dans `package.json`
+- `lnk` ecrit les liens dans `custom/v8s-links.txt`, en creant le fichier si necessaire
+- `V8S_REPO` pointe la CLI installee vers le depot local
+- `V8S_LINKS_OWNER` est la variable d'environnement proprietaire; l'ancien alias `LNK_OWNER` a ete retire
+- `lnk list` affiche les liens; `lnk list SLUG` filtre un slug
+- `lnk list policy`, `lnk list categories`, `lnk list domain`, `lnk list domain block`, `lnk list domain allow` et `lnk list keyword` inspectent les politiques
 
 Le modele voulu : `lnk` edite les sources, puis le proprietaire lance `npm run build`, `npm run check` ou `npm run local-publish` pour valider et publier.
 

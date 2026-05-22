@@ -29,9 +29,9 @@ You can easily start with a One-Time PIN and configure identity providers for th
 
 Furthermore, if a user shares the same email address across multiple identity providers, Cloudflare handles it seamlessly with no technical conflicts:
 
-1. The user selects their preferred identity provider on the login screen.
-2. Cloudflare validates the identity returned by that specific provider.
-3. If an Access policy allows `user@example.com`, the login succeeds as long as the chosen provider verifies that email address.
+1. The user selects their preferred identity provider on the login screen
+2. Cloudflare validates the identity returned by that specific provider
+3. If an Access policy allows `user@example.com`, the login succeeds as long as the chosen provider verifies that email address
 
 ### Secure Today, Scale Tomorrow
 

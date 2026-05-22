@@ -108,10 +108,10 @@ brew install jq
 
 Le helper est volontairement limite :
 
-- Il ne cree pas, ne modifie pas, ne commit pas, et ne pousse pas de liens.
-- Il ouvre seulement les slugs exacts qui existent deja dans `build/v8s.json` ou le registre configure.
-- Il ouvre seulement les liens dont l'etat est `permanent` ou `ephemeral`.
-- Il refuse les cibles non web et ouvre seulement les URL `http://` ou `https://`.
-- Il valide le slug avant de chercher la cible.
+- Il ne cree pas, ne modifie pas, ne commit pas, et ne pousse pas de liens
+- Il ouvre seulement les slugs exacts qui existent deja dans `build/v8s.json` ou le registre configure
+- Il ouvre seulement les liens dont l'etat est `permanent` ou `ephemeral`
+- Il refuse les cibles non web et ouvre seulement les URL `http://` ou `https://`
+- Il valide le slug avant de chercher la cible
 
 Utilisez `./scripts/lnk` pour modifier l'instance. Utilisez `v8s` pour ouvrir rapidement une redirection existante depuis votre terminal.

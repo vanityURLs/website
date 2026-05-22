@@ -62,13 +62,13 @@ A link entry stores the normalized target URL, redirect state, HTTP status, labe
 
 For each request, the Worker follows a deliberately narrow path:
 
-1. Reject raw runtime assets and known scanner probes.
-2. Accept only `GET`, `HEAD`, and `OPTIONS` for public routes.
-3. Normalize the incoming path.
-4. Look for an exact link.
-5. If no exact link matches, look for a splat link.
-6. Apply schedule and lifecycle state.
-7. Return a redirect, an informational page, or a 404.
+1. Reject raw runtime assets and known scanner probes
+2. Accept only `GET`, `HEAD`, and `OPTIONS` for public routes
+3. Normalize the incoming path
+4. Look for an exact link
+5. If no exact link matches, look for a splat link
+6. Apply schedule and lifecycle state
+7. Return a redirect, an informational page, or a 404
 
 Schedules only apply to exact links. Splat links are useful for stable namespaces, but they should not be used for time-sensitive redirects.
 

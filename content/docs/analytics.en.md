@@ -142,10 +142,10 @@ npm run smoke:analytics
 
 After deployment:
 
-1. Visit `/`, `/terms`, and `/expand`; confirm pageviews.
-2. Visit a valid short link; confirm a `redirect` event.
-3. Visit a realistic missing slug; confirm a `short-link-miss` event.
-4. Visit `/file.php`; confirm it is blocked without a miss event.
-5. Check Workers Logs for `umami tracking failed` or `fathom tracking failed`.
+1. Visit `/`, `/terms`, and `/expand`; confirm pageviews
+2. Visit a valid short link; confirm a `redirect` event
+3. Visit a realistic missing slug; confirm a `short-link-miss` event
+4. Visit `/file.php`; confirm it is blocked without a miss event
+5. Check Workers Logs for `umami tracking failed` or `fathom tracking failed`
 
 Umami can lag by a few minutes. Use Workers Logs first when debugging ingestion errors.

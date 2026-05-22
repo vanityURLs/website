@@ -89,11 +89,11 @@ invocation_logs = true
 
 The important parts are:
 
-- `custom_domain = true`, because the Worker is the origin for the whole hostname.
-- `workers_dev = false` and `preview_urls = false`, because public preview hostnames are unnecessary for a production shortener.
-- `ASSETS` binding, because the Worker serves default and custom static pages from `build/`.
-- `run_worker_first`, because short-link lookup, protected paths, scanner blocks, and analytics must run before asset fallback.
-- Workers Logs enabled, because Cloudflare metrics are useful for performance and error rate, but application events belong in server-side analytics.
+- `custom_domain = true`, because the Worker is the origin for the whole hostname
+- `workers_dev = false` and `preview_urls = false`, because public preview hostnames are unnecessary for a production shortener
+- `ASSETS` binding, because the Worker serves default and custom static pages from `build/`
+- `run_worker_first`, because short-link lookup, protected paths, scanner blocks, and analytics must run before asset fallback
+- Workers Logs enabled, because Cloudflare metrics are useful for performance and error rate, but application events belong in server-side analytics
 
 ## DNS and domains
 
@@ -233,11 +233,11 @@ Use AI Crawl Control or a WAF user-agent rule when you want Cloudflare to block 
 
 Useful defaults:
 
-- Allow `/robots.txt`.
-- Allow `/llms.txt` and `/llms-full.txt` only if you intentionally publish machine-readable context.
-- Block unwanted AI crawlers and AI assistants at Cloudflare.
-- Keep verified search engine crawlers allowed unless your instance is intentionally private.
-- Review Cloudflare Security Events after enabling the rule, because it will not appear in Worker analytics when blocked at the edge.
+- Allow `/robots.txt`
+- Allow `/llms.txt` and `/llms-full.txt` only if you intentionally publish machine-readable context
+- Block unwanted AI crawlers and AI assistants at Cloudflare
+- Keep verified search engine crawlers allowed unless your instance is intentionally private
+- Review Cloudflare Security Events after enabling the rule, because it will not appear in Worker analytics when blocked at the edge
 
 For a private, family, team, or internal short-link domain, it is reasonable to block all crawler families except the ones you explicitly want. Do not rely on `robots.txt` alone for this; use Cloudflare AI Crawl Control, WAF rules, and the runtime blocklist together.
 

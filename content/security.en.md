@@ -32,9 +32,9 @@ If you find something unexpected, please [report it](vulnerability).
 This website is served exclusively by [Cloudflare Pages](https://pages.cloudflare.com/), a globally distributed serverless platform. Cloudflare provides:
 
 - **TLS 1.3** — all connections are encrypted using TLS 1.3 (TLS 1.2 minimum). Older protocol versions are rejected.
-- **HSTS** — HTTP Strict Transport Security is enforced, preventing protocol downgrade attacks.
-- **HTTP/2 and HTTP/3** — modern transport protocols are enabled automatically.
-- **DDoS protection** — Cloudflare's network absorbs volumetric attacks at the edge before they reach the origin.
+- **HSTS** — HTTP Strict Transport Security is enforced, preventing protocol downgrade attacks
+- **HTTP/2 and HTTP/3** — modern transport protocols are enabled automatically
+- **DDoS protection** — Cloudflare's network absorbs volumetric attacks at the edge before they reach the origin
 - **Zero origin servers** — there is no origin server to attack. The site is served entirely from Cloudflare's edge cache.
 
 Cloudflare's infrastructure security practices are documented at [cloudflare.com/trust-hub](https://www.cloudflare.com/trust-hub/).

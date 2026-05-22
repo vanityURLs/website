@@ -10,9 +10,9 @@ vanityURLs.link est un site de documentation statique pour un projet open source
 Ce site est servi exclusivement par [Cloudflare Pages](https://pages.cloudflare.com/), une plateforme serverless distribuée à l'échelle mondiale. Cloudflare fournit :
 
 - **TLS 1.3** — toutes les connexions sont chiffrées avec TLS 1.3 (TLS 1.2 minimum). Les versions de protocole plus anciennes sont rejetées.
-- **HSTS** — HTTP Strict Transport Security est appliqué, empêchant les attaques de rétrogradation de protocole.
-- **HTTP/2 et HTTP/3** — les protocoles de transport modernes sont activés automatiquement.
-- **Protection DDoS** — le réseau Cloudflare absorbe les attaques volumétriques à la périphérie avant qu'elles n'atteignent l'origine.
+- **HSTS** — HTTP Strict Transport Security est appliqué, empêchant les attaques de rétrogradation de protocole
+- **HTTP/2 et HTTP/3** — les protocoles de transport modernes sont activés automatiquement
+- **Protection DDoS** — le réseau Cloudflare absorbe les attaques volumétriques à la périphérie avant qu'elles n'atteignent l'origine
 - **Zéro serveur d'origine** — il n'y a pas de serveur d'origine à attaquer. Le site est entièrement servi depuis le cache de périphérie de Cloudflare.
 
 Les pratiques de sécurité de l'infrastructure Cloudflare sont documentées sur [cloudflare.com/trust-hub](https://www.cloudflare.com/trust-hub/).

@@ -18,8 +18,8 @@ This page consolidates the current code-side decisions that should be assessed w
 
 The runtime registry has two useful local copies:
 
-- `build/v8s.json` is the repository-local build artifact.
-- The configured workstation registry path, usually `~/.v8s.json`, is the local helper cache.
+- `build/v8s.json` is the repository-local build artifact
+- The configured workstation registry path, usually `~/.v8s.json`, is the local helper cache
 
 `lnk` mutates source files under `custom/`. npm scripts may build, validate, publish, install helper files, copy generated output, or update local workstation paths.
 
@@ -119,13 +119,13 @@ The shell helper is shell-neutral as `scripts/v8s.sh`; the older Zsh wrapper is 
 
 Important current CLI behavior:
 
-- `scripts/lnk --help` and `scripts/lnk version` read the version from `package.json`.
-- `lnk` writes links to `custom/v8s-links.txt`, creating it when needed.
-- `V8S_REPO` points the installed CLI to the local repository.
+- `scripts/lnk --help` and `scripts/lnk version` read the version from `package.json`
+- `lnk` writes links to `custom/v8s-links.txt`, creating it when needed
+- `V8S_REPO` points the installed CLI to the local repository
 - `V8S_LINKS_OWNER` is the owner environment variable. The older `LNK_OWNER` alias was removed.
-- `lnk list` shows link entries; `lnk list SLUG` filters to a slug.
-- `lnk list policy`, `lnk list categories`, `lnk list domain`, `lnk list domain block`, `lnk list domain allow`, and `lnk list keyword` inspect policy data.
-- JSON output is useful for automation or exact inspection; human output is the default for ordinary CLI use.
+- `lnk list` shows link entries; `lnk list SLUG` filters to a slug
+- `lnk list policy`, `lnk list categories`, `lnk list domain`, `lnk list domain block`, `lnk list domain allow`, and `lnk list keyword` inspect policy data
+- JSON output is useful for automation or exact inspection; human output is the default for ordinary CLI use
 
 The intended mental model is that `lnk` edits source files, then the owner runs `npm run build`, `npm run check`, or `npm run local-publish` to validate and publish the change.
 

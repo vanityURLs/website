@@ -13,8 +13,8 @@ La release v8s actuelle repose sur un contrat simple : garder le runtime petit, 
 
 Une instance a deux types de fichiers :
 
-- `defaults/` contient les defaults du produit, les pages operationnelles publiques, les defaults de blocklist, les consignes robots et crawlers LLM, et les scripts qui doivent etre mis a jour depuis upstream.
-- `custom/` contient les liens propres a l'instance, les planifications, les surcharges de politique, l'habillage, les pages legales, et les fichiers publics locaux.
+- `defaults/` contient les defaults du produit, les pages operationnelles publiques, les defaults de blocklist, les consignes robots et crawlers LLM, et les scripts qui doivent etre mis a jour depuis upstream
+- `custom/` contient les liens propres a l'instance, les planifications, les surcharges de politique, l'habillage, les pages legales, et les fichiers publics locaux
 
 Cette separation est l'histoire de mise a jour. Si les proprietaires gardent leur travail dans `custom/`, les futures releases peuvent rafraichir `defaults/` et `scripts/` sans ecraser le contenu local.
 

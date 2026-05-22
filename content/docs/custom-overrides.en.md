@@ -16,14 +16,14 @@ A new instance can run with very few custom files. Add more only when you need t
 
 The build order is:
 
-1. Copy `defaults/public/` into `build/`.
-2. Overlay `custom/public/` when it exists.
-3. Copy the default `defaults/public/_stats/index.html`.
-4. Overlay `custom/public/_stats/index.html` when it exists.
-5. Prune unsupported language directories based on `v8s-site-config.json`.
-6. Build `v8s.json` from `custom/v8s-links.txt` when it exists, otherwise from `defaults/v8s-links.txt`.
-7. Build `v8s-blocklist.json` from `custom/v8s-policies.json` when it exists, otherwise from `defaults/v8s-policies.json`.
-8. Write `v8s-site-config.json` and generate `src/` from `scripts/workers/` for Wrangler.
+1. Copy `defaults/public/` into `build/`
+2. Overlay `custom/public/` when it exists
+3. Copy the default `defaults/public/_stats/index.html`
+4. Overlay `custom/public/_stats/index.html` when it exists
+5. Prune unsupported language directories based on `v8s-site-config.json`
+6. Build `v8s.json` from `custom/v8s-links.txt` when it exists, otherwise from `defaults/v8s-links.txt`
+7. Build `v8s-blocklist.json` from `custom/v8s-policies.json` when it exists, otherwise from `defaults/v8s-policies.json`
+8. Write `v8s-site-config.json` and generate `src/` from `scripts/workers/` for Wrangler
 
 ## Common custom files
 
