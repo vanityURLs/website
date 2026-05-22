@@ -1,6 +1,8 @@
 sections:
-  - title: Start
+  - title: Setup
     pages:
+      - title: Overview
+        url: /docs/overview/
       - title: Quickstart
         url: /docs/getting-started/
       - title: Old Quickstart
@@ -16,10 +18,14 @@ sections:
         url: /docs/brand/
       - title: Custom overrides
         url: /docs/custom-overrides/
+      - title: Setup decisions
+        url: /docs/setup-decisions/
       - title: Link format
         url: /docs/link-format/
       - title: Scheduled links
         url: /docs/schedules/
+      - title: Languages
+        url: /docs/i18n/
       - title: Blocklist policy
         url: /docs/blocklist/
 
@@ -46,6 +52,8 @@ sections:
         url: /docs/repository-layout/
       - title: Runtime registry
         url: /docs/runtime-registry/
+      - title: Configuration files
+        url: /docs/configuration-files/
       - title: CLI
         url: /docs/cli/
       - title: Migration guide

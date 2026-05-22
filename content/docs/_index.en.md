@@ -5,7 +5,7 @@ description: "v8s.link documentation for the current vanityURLs Worker, defaults
 
 v8s.link is the public reference instance for the current vanityURLs runtime. The application builds a Cloudflare Worker with static assets, a generated `v8s.json` registry, default pages, optional custom overrides, protected operational views, and abuse-prevention policy.
 
-Start with the quickstart if you are creating a new short-link domain. It follows the first deployment path: get a short domain, create a Cloudflare account, clone the repository, configure the Worker, optionally configure Umami analytics, deploy, and test.
+Start with Setup if you are creating a new short-link domain. Read the overview first, then use the Quickstart for the first deployment path: get a short domain, create a Cloudflare account, clone the repository, configure the Worker, deploy, and test.
 
 Use Customize when you are moving from the plain default instance to your own link inventory, brand assets, public policy files, status pages, and localized pages. Use Operate for validation, security, analytics, admin views, upgrades, and release work.
 
