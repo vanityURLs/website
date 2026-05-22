@@ -5,10 +5,6 @@ sections:
         url: /docs/overview/
       - title: Quickstart
         url: /docs/quickstart/
-      - title: Upgrading an instance
-        url: /docs/upgrading/
-      - title: Release checklist
-        url: /docs/release-checklist/
 
   - title: Customize
     pages:
@@ -39,6 +35,8 @@ sections:
         url: /docs/configuration-files/
       - title: Link format
         url: /docs/link-format/
+      - title: Release checklist
+        url: /docs/release-checklist/
       - title: Repository layout
         url: /docs/repository-layout/
       - title: Runtime registry
@@ -47,6 +45,8 @@ sections:
         url: /docs/runtime-security/
       - title: Scheduled links
         url: /docs/schedules/
+      - title: Upgrading an instance
+        url: /docs/upgrading/
 
   - title: Command line interface
     pages:

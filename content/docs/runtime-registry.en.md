@@ -2,7 +2,7 @@
 aside: false
 title: "Runtime registry"
 description: "How v8s builds the private routing registry and runtime artifacts used by the Cloudflare Worker."
-weight: 60
+weight: 70
 
 ---
 

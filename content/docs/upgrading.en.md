@@ -2,7 +2,7 @@
 aside: false
 title: "Upgrading an instance"
 description: "Keep custom instance files safe while refreshing vanityURLs defaults and scripts from upstream."
-weight: 30
+weight: 100
 
 ---
 

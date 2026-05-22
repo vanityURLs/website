@@ -2,7 +2,7 @@
 aside: false
 title: "Checklist de release"
 description: "Checklist production pour deployer ou mettre a jour une instance v8s sur Cloudflare."
-weight: 40
+weight: 50
 
 ---
 

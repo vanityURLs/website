@@ -2,7 +2,7 @@
 aside: false
 title: "Mettre a jour une instance"
 description: "Garder les fichiers locaux en securite pendant le rafraichissement des defaults et scripts vanityURLs."
-weight: 30
+weight: 100
 
 ---
 

@@ -2,7 +2,7 @@
 aside: false
 title: "Registre runtime"
 description: "Comment v8s construit le registre de routage prive et les artefacts runtime utilises par le Worker Cloudflare."
-weight: 50
+weight: 70
 
 ---
 

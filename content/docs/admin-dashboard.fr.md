@@ -2,7 +2,7 @@
 aside: false
 title: "Tableau admin"
 description: "Tableau operationnel en lecture seule pour inventaire, etats effectifs, qualite metadata et stats protegees."
-weight: 80
+weight: 10
 
 ---
 

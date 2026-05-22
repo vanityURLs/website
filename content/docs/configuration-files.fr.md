@@ -2,7 +2,7 @@
 aside: false
 title: "Fichiers de configuration"
 description: "Référence des fichiers de configuration source, custom, locaux et générés de vanityURLs."
-weight: 10
+weight: 30
 ---
 
 vanityURLs garde les valeurs par défaut du produit, les choix propres à l'instance, les réglages locaux du poste et les artefacts runtime générés dans des fichiers séparés.

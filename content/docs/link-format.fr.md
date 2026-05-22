@@ -2,7 +2,7 @@
 aside: false
 title: "Format des liens"
 description: "Le format v8s-links.txt pour liens exacts, splat, etats, metadonnees, expiration et v8s.json genere."
-weight: 20
+weight: 40
 
 ---
 

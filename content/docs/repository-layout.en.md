@@ -2,7 +2,7 @@
 aside: false
 title: "Repository layout"
 description: "How the current vanityURLs repository is organized around defaults, custom overrides, generated output, local tooling, and Worker source."
-weight: 50
+weight: 60
 
 ---
 
