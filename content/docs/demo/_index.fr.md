@@ -15,7 +15,7 @@ Accueil de recherche, page expand, pages d'etat localisees, icones, manifest, en
 {{< card title="v8s-links.txt" icon="link" href="/fr/docs/demo/links/" >}}
 Liens exacts exemples, namespaces, liens de test lifecycle, metadonnees, tags, proprietaires, et expirations.
 {{< /card >}}
-{{< card title="Runtime Worker" icon="cloud" href="/fr/docs/cloudflare/" >}}
+{{< card title="Runtime Worker" icon="cloud" href="/fr/docs/runtime-security/" >}}
 Assets statiques plus routage Worker, `v8s.json` genere, protection Cloudflare Access, et hooks analytics serveur.
 {{< /card >}}
 {{< /cards >}}

@@ -80,7 +80,7 @@ That keeps local links, legal pages, privacy policy, source policy, branding, Ac
 
 ## Link maintenance
 
-Link maintenance belongs with the link tools, not the upgrade workflow. Use [LNK Command Line Interface](/docs/cli/) when you want to inspect, add, update, validate, commit, and push short-link changes. Use [Local helper](/docs/local-helper/) when you only want to open existing links quickly without editing source files.
+Link maintenance belongs with the link tools, not the upgrade workflow. Use [LNK](/docs/cli/) when you want to inspect, add, update, validate, commit, and push short-link changes. Use [Local helper](/docs/local-helper/) when you only want to open existing links quickly without editing source files.
 
 ## Why not Homebrew yet
 

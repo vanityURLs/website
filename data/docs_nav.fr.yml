@@ -5,8 +5,8 @@ sections:
         url: /docs/overview/
       - title: Demarrage rapide
         url: /docs/quickstart/
-      - title: Configuration Cloudflare
-        url: /docs/cloudflare/
+      - title: Mise a jour d'une instance
+        url: /docs/upgrading/
       - title: Checklist de release
         url: /docs/release-checklist/
 
@@ -16,8 +16,6 @@ sections:
         url: /docs/customize-overview/
       - title: Surcharges custom
         url: /docs/custom-overrides/
-      - title: Decisions de setup
-        url: /docs/setup-decisions/
       - title: Pages legales et de confiance
         url: /docs/legal-trust-pages/
       - title: Controle d'acces
@@ -37,8 +35,6 @@ sections:
         url: /docs/validation-ci/
       - title: Tableau admin
         url: /docs/admin-dashboard/
-      - title: Mise a jour d'une instance
-        url: /docs/upgrading/
 
   - title: Reference
     pages:
@@ -46,8 +42,6 @@ sections:
         url: /docs/brand/
       - title: Format des liens
         url: /docs/link-format/
-      - title: Helper local
-        url: /docs/local-helper/
       - title: Liens planifies
         url: /docs/schedules/
       - title: Securite runtime
@@ -58,7 +52,12 @@ sections:
         url: /docs/runtime-registry/
       - title: Fichiers de configuration
         url: /docs/configuration-files/
-      - title: LNK Command Line Interface
+
+  - title: Interface en ligne de commande
+    pages:
+      - title: Helper local
+        url: /docs/local-helper/
+      - title: LNK
         url: /docs/cli/
 
   - title: Reference v8s.link

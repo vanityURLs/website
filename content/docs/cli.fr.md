@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "CLI"
+title: "LNK"
 description: "Utiliser la CLI v8s basee sur Node pour gerer liens, horaires, et politique source."
 ---
 

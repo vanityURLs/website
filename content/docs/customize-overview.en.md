@@ -12,10 +12,9 @@ Start with the area that hurts most:
 | :--- | :--- |
 | Change the public look and static pages | [Custom overrides](/docs/custom-overrides/) |
 | Configure the split-color wordmark and brand assets | [Brand](/docs/brand/) |
-| Add, inspect, or update short links | [LNK Command Line Interface](/docs/cli/) and [Link format](/docs/link-format/) |
+| Add, inspect, or update short links | [LNK](/docs/cli/) and [Link format](/docs/link-format/) |
 | Add time-based destinations | [Scheduled links](/docs/schedules/) |
 | Decide which languages to publish | [Languages](/docs/i18n/) |
-| Finish legal-page and analytics choices | [Setup decisions](/docs/setup-decisions/) |
 | Configure jurisdiction and public trust contacts | [Legal and trust pages](/docs/legal-trust-pages/) |
 | Protect private operational paths | [Access control](/docs/access-control/) |
 | Protect the domain before traffic reaches the Worker | [Network protection](/docs/network-protection/) |

@@ -114,7 +114,7 @@ When the installer asks for a split-color domain wordmark, it means the homepage
 npm run local-install
 ```
 
-The installation script copies local tools to the expected path on your workstation. The `v8s` shell module lets you open a known short link directly from your terminal instead of switching to a browser first. The command line interface `lnk` lets you manage the content of `v8s-links.txt` and `v8s-schedules.json` without using a text editor. See [Local helper](/docs/local-helper/) and [LNK Command Line Interface](/docs/cli/) for more information.
+The installation script copies local tools to the expected path on your workstation. The `v8s` shell module lets you open a known short link directly from your terminal instead of switching to a browser first. The command line interface `lnk` lets you manage the content of `v8s-links.txt` and `v8s-schedules.json` without using a text editor. See [Local helper](/docs/local-helper/) and [LNK](/docs/cli/) for more information.
 
 ### Create your first commit
 
