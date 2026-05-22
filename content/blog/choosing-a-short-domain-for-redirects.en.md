@@ -81,5 +81,3 @@ If those links look natural beside your domain, you probably have a good candida
 ## Keep renewal boring
 
 Put the domain renewal date, registrar account, DNS provider, and recovery email in a password manager. A short-link domain becomes infrastructure as soon as you print or share it. Losing the domain later breaks every link you have published.
-
-Once the domain is registered, the next step is to add it to Cloudflare and confirm that Cloudflare is authoritative for the zone.

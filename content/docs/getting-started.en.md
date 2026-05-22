@@ -7,7 +7,7 @@ aside: false
 
 This Quickstart is the hands-on setup sequence for a plain vanityURLs instance. Start with the simple path, get the redirector deployed, then refine branding, legal pages, analytics, access control, and link inventory during customization.
 
-The activities below use these example values from the `v8s.link` demo instance. Replace them with the values for your own instance.
+The activities below use example values from the `v8s.link` demo instance. It is configured and documented as an inspiration point while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, and email addresses with the values for your own instance. Detailed `v8s.link` configuration will live in the [v8s.link reference](/docs/demo/) section as the reference instance matures.
 
 | Assumption | Example used below |
 | :--- | :--- |
@@ -18,7 +18,7 @@ The activities below use these example values from the `v8s.link` demo instance.
 | Cloudflare Access team domain | `team.cloudflareaccess.com` |
 | Operator contact domain | `v8s.link` |
 
-During phase 1, use simple answers. You will be able to refine them during customization in phase 2.
+Use simple answers during the Quickstart. You can run `npm run setup` as often as you like; the installer is idempotent, reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
 
 {{% steps %}}
 
@@ -76,8 +76,6 @@ Run the installer:
 ```bash
 npm run setup
 ```
-
-You can run `npm run setup` as often as you like. The installer is designed to be idempotent: it reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
 
 The interactive installer asks these questions:
 

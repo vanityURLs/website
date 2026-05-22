@@ -5,13 +5,14 @@ description: "Why vanityURLs records a small owner label beside links, and how i
 tags: ["operations", "governance", "links"]
 ---
 
-The owner label in vanityURLs is a short internal value that identifies who created or maintains a link. For a personal instance, it can simply be your name or initials. For a team, it becomes a useful part of change history.
+The owner label lives in `v8s-links.txt`, the human-authored source of truth for links. It is a short internal value that identifies who created or maintains a link. For a personal instance, it can simply be your name or initials. For a team, it becomes a useful part of change history. See the [link format documentation](/docs/link-format/) for the full row structure.
 
 Short links often look simple from the outside, but they can represent campaign pages, support portals, internal tools, partner destinations, or regulated communications. When several people or business units can make changes, the owner label helps answer basic operational questions:
 
 - Who knows why this link exists
 - Which team should review it before a destination changes
 - Who should be contacted if a destination expires or becomes unsafe
+- Who can help when a long link stops working and the redirect needs a new destination
 - Whether a link belongs to a campaign, product, support process, or individual maintainer
 
 The owner label is not an authentication system and it is not a substitute for Git history. Git still records the commit author and review process. The owner label adds domain context inside the link registry itself.

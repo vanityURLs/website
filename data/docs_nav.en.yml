@@ -9,21 +9,17 @@ sections:
         url: /docs/old-quickstart/
       - title: Cloudflare setup
         url: /docs/cloudflare/
+      - title: Release checklist
+        url: /docs/release-checklist/
 
   - title: Customize
     pages:
       - title: Overview
         url: /docs/customize-overview/
-      - title: Brand
-        url: /docs/brand/
       - title: Custom overrides
         url: /docs/custom-overrides/
       - title: Setup decisions
         url: /docs/setup-decisions/
-      - title: Link format
-        url: /docs/link-format/
-      - title: Scheduled links
-        url: /docs/schedules/
       - title: Languages
         url: /docs/i18n/
       - title: Blocklist policy
@@ -33,31 +29,33 @@ sections:
     pages:
       - title: Validation and CI
         url: /docs/validation-ci/
-      - title: Runtime security
-        url: /docs/runtime-security/
       - title: Server-side analytics
         url: /docs/server-side-analytics/
-      - title: Local helper
-        url: /docs/local-helper/
       - title: Admin dashboard
         url: /docs/admin-dashboard/
       - title: Upgrading an instance
         url: /docs/upgrading/
-      - title: Release checklist
-        url: /docs/release-checklist/
 
   - title: Reference
     pages:
+      - title: Brand
+        url: /docs/brand/
+      - title: Link format
+        url: /docs/link-format/
+      - title: Local helper
+        url: /docs/local-helper/
+      - title: Scheduled links
+        url: /docs/schedules/
+      - title: Runtime security
+        url: /docs/runtime-security/
       - title: Repository layout
         url: /docs/repository-layout/
       - title: Runtime registry
         url: /docs/runtime-registry/
       - title: Configuration files
         url: /docs/configuration-files/
-      - title: CLI
+      - title: LNK Command Line Interface
         url: /docs/cli/
-      - title: Migration guide
-        url: /docs/migration/
 
   - title: v8s.link reference
     pages:

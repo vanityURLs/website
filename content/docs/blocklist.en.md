@@ -5,11 +5,10 @@ description: "Source policy and generated runtime blocklist behavior for target 
 
 vanityURLs edits source policy as `v8s-policies.json` and deploys runtime policy as `build/v8s-blocklist.json`.
 
-The source policy file is selected before build:
+The source policy file is selected before build:[^legacy-policy]
 
 - `defaults/v8s-policies.json` is the upstream trust-and-safety source policy.
 - `custom/v8s-policies.json` replaces the default source policy for an instance.
-- Legacy `v8s-blocklist.json` source files may still be recognized for migration compatibility, but new docs and new instances should use `v8s-policies.json`.
 
 `custom/v8s-policies.json` is not merged over the default source policy. If an instance owns policy, it owns the replacement. This prevents removed custom policy decisions from reappearing through an upstream merge.
 
@@ -110,3 +109,5 @@ build/v8s-blocklist.json
 This file is consumed by the Worker and blocked from direct public access as `/v8s-blocklist.json`. It is a generated runtime artifact, not the file an instance owner should edit by hand.
 
 Every enabled generated source should have a category, severity, URL, and clear reason to trust the upstream. A redirector is attractive to scanners even when nobody has announced the domain, so feed quality matters: noisy sources can break legitimate links, while missing obvious abuse sources can burn reputation quickly.
+
+[^legacy-policy]: Legacy `v8s-blocklist.json` source files may still be recognized for migration compatibility, but new docs and new instances should use `v8s-policies.json`.

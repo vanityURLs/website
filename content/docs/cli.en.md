@@ -1,5 +1,5 @@
 ---
-title: "CLI"
+title: "LNK Command Line Interface"
 description: "Use the Node-based v8s CLI to manage links, schedules, and source policy."
 ---
 
@@ -42,6 +42,24 @@ node ./scripts/lnk https://example.com example
 `V8S_REPO` points an installed CLI to the local repository. `V8S_LINKS_OWNER` sets the default owner value for new links.
 
 The CLI appends the row, runs `git add`, commits with `feat(links): add SLUG`, and pushes. Use `DRY_RUN=true` to print the row without writing.
+
+## Check and update links
+
+List current short links:
+
+```bash
+./scripts/lnk list
+./scripts/lnk list social/x
+```
+
+Check generated active long links:
+
+```bash
+npm run build
+npm run check:targets
+```
+
+`npm run check:targets` reads `build/v8s.json`, checks active `permanent` and `ephemeral` web targets, and reports unreachable long links with the slugs that use them.
 
 ## Add schedules
 

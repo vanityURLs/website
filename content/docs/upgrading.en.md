@@ -1,6 +1,6 @@
 ---
-title: "Upgrading an instance"
-description: "Keep custom instance files safe while refreshing vanityURLs defaults and scripts from upstream."
+title: "Upgrading and migration"
+description: "Keep custom instance files safe while refreshing vanityURLs defaults and scripts from upstream, or migrate an older instance to the current runtime."
 ---
 
 Installing a vanityURLs instance is easy. Updating one safely is the part that needs a repeatable workflow, because the instance owner should keep links, branding, policy, and Cloudflare configuration while receiving new defaults, scripts, fixes, and security hardening.
@@ -44,14 +44,14 @@ git push
 
 ## Upstream remote
 
-For a long-lived instance, add an upstream remote that points at the vanityURLs runtime source:
+For a long-lived instance, add an upstream remote when your repository no longer tracks the vanityURLs product repository as `origin`. Most instances use `origin` for their own private or public deployment repository, so `upstream` gives Git a second name for the product source you want to pull updates from:
 
 ```bash
 git remote add upstream https://github.com/vanityurls/v8s.git
 npm run upgrade -- --remote upstream --ref main
 ```
 
-Replace `https://github.com/vanityurls/v8s.git` with the Git repository URL you use as the product upstream for your own instance. If you fork or mirror the runtime, point `upstream` at that fork or mirror instead.
+Replace `https://github.com/vanityurls/v8s.git` with the Git repository URL you use as the product upstream for your own instance. If you fork or mirror the runtime, point `upstream` at that fork or mirror instead. You only need this when you are ready to refresh product-owned files such as `defaults/` and `scripts/`.
 
 You can also point directly to a URL:
 
@@ -77,15 +77,18 @@ The upgrade tool refuses to replace:
 
 That keeps local links, legal pages, privacy policy, source policy, branding, Access settings, analytics IDs, local helper paths, and deployment shape under the instance owner's control.
 
-## Local install and publish
+## Link maintenance
 
-Run local workstation setup when you want the shell helper or installed `lnk` command:
+Use the [LNK Command Line Interface](/docs/cli/) when you want to inspect, add, or update short links from the terminal. Use [Local helper](/docs/local-helper/) when you want to open existing links quickly without editing source files.
+
+To check the long links currently generated into the runtime registry, run:
 
 ```bash
-npm run local-install
+npm run build
+npm run check:targets
 ```
 
-The command checks for `jq`, installs the shell-neutral helper from `scripts/v8s.sh` when requested, copies `scripts/lnk` to the configured local bin path, and records paths in `custom/v8s-local-config.json`.
+`npm run check:targets` reads `build/v8s.json` by default, checks active `permanent` and `ephemeral` web targets, and reports broken or unreachable long links with the slugs that use them.
 
 Use local publish when the instance owner wants to validate, stage, commit, and push configured local paths:
 
@@ -93,8 +96,63 @@ Use local publish when the instance owner wants to validate, stage, commit, and 
 npm run local-publish
 ```
 
-The default configured path is `custom`, and the default commit message is `chore: update local vanityURLs configuration`.
-
 ## Why not Homebrew yet
 
 Homebrew can be useful later for a standalone `v8s` CLI. It does not solve the hard part of this project today, which is safely refreshing a Git-backed instance without trampling local files. A repo-local upgrade command is easier to inspect, easier to test, and easier to adapt while the runtime is still moving quickly.
+
+## Migration guide
+
+Use this section when moving from the older Cloudflare Pages `_redirects` model to the current Worker model used by v8s.link.
+
+### What changed
+
+- `wrangler.toml` is the deployment source of truth
+- Static files are served through the Worker assets binding named `ASSETS`
+- The build copies `defaults/`, overlays `custom/`, and generates `build/v8s.json`, `build/v8s-blocklist.json`, and `build/v8s-site-config.json`
+- `custom/v8s-links.txt` is preferred when it exists; otherwise the build uses `defaults/v8s-links.txt`
+- Editable source policy is `v8s-policies.json`; `build/v8s-blocklist.json` is generated runtime output
+- `/_stats` and `/_tests` are protected by Cloudflare Access
+- Server-side analytics are emitted by the Worker
+- Scanner probes and risky destinations are blocked by the generated runtime policy
+
+### Convert legacy .lnk files
+
+Legacy rows looked like this:
+
+```text
+/github https://github.com/vanityURLs 302 "GitHub"
+/docs/* https://docs.example.com/:splat 302 "Docs passthrough"
+```
+
+The new format is:
+
+```text
+slug|target|state|title|description|tags|owner|expires_at|notes
+```
+
+Run the converter:
+
+```bash
+npm run convert:lnk -- .lnk custom/v8s-links.txt --owner v8s --force
+```
+
+Status codes map to states:
+
+| Legacy status | New state |
+| :--- | :--- |
+| `301`, `308` | `permanent` |
+| `302`, `303`, `307` | `ephemeral` |
+| omitted | `ephemeral` by default |
+
+Use `--default-state permanent` if omitted statuses should become permanent links.
+
+### Verify after migration
+
+1. Run `npm run check`
+2. Visit `/`
+3. Visit a valid short link and confirm the redirect
+4. Visit a missing slug and confirm the localized 404
+5. Visit `/expand/`
+6. Visit `/_stats` from a private browser and confirm Cloudflare Access login
+7. Visit `/file.php` and confirm scanner probes are blocked or return a plain 404
+8. Confirm Umami or Fathom receives redirect events if analytics are configured

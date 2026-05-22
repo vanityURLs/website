@@ -5,19 +5,15 @@ sections:
         url: /docs/getting-started/
       - title: Configuration Cloudflare
         url: /docs/cloudflare/
+      - title: Checklist de release
+        url: /docs/release-checklist/
 
   - title: Personnaliser
     pages:
       - title: Vue d'ensemble
         url: /docs/customize-overview/
-      - title: Marque
-        url: /docs/brand/
       - title: Surcharges custom
         url: /docs/custom-overrides/
-      - title: Format des liens
-        url: /docs/link-format/
-      - title: Liens planifies
-        url: /docs/schedules/
       - title: Politique blocklist
         url: /docs/blocklist/
 
@@ -25,27 +21,29 @@ sections:
     pages:
       - title: Validation et CI
         url: /docs/validation-ci/
-      - title: Securite runtime
-        url: /docs/runtime-security/
       - title: Analytics serveur
         url: /docs/server-side-analytics/
       - title: Tableau admin
         url: /docs/admin-dashboard/
       - title: Mise a jour d'une instance
         url: /docs/upgrading/
-      - title: Checklist de release
-        url: /docs/release-checklist/
 
   - title: Reference
     pages:
+      - title: Marque
+        url: /docs/brand/
+      - title: Format des liens
+        url: /docs/link-format/
+      - title: Liens planifies
+        url: /docs/schedules/
+      - title: Securite runtime
+        url: /docs/runtime-security/
       - title: Structure du depot
         url: /docs/repository-layout/
       - title: Registre runtime
         url: /docs/runtime-registry/
-      - title: CLI
+      - title: LNK Command Line Interface
         url: /docs/cli/
-      - title: Guide de migration
-        url: /docs/migration/
 
   - title: Reference v8s.link
     pages:
