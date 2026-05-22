@@ -1,6 +1,8 @@
 sections:
   - title: Configuration
     pages:
+      - title: Vue d'ensemble
+        url: /docs/overview/
       - title: Demarrage rapide
         url: /docs/quickstart/
       - title: Configuration Cloudflare
@@ -14,6 +16,14 @@ sections:
         url: /docs/customize-overview/
       - title: Surcharges custom
         url: /docs/custom-overrides/
+      - title: Decisions de setup
+        url: /docs/setup-decisions/
+      - title: Pages legales et de confiance
+        url: /docs/legal-trust-pages/
+      - title: Controle d'acces
+        url: /docs/access-control/
+      - title: Internationalisation
+        url: /docs/i18n/
       - title: Politique blocklist
         url: /docs/blocklist/
       - title: Analytics
@@ -34,6 +44,8 @@ sections:
         url: /docs/brand/
       - title: Format des liens
         url: /docs/link-format/
+      - title: Helper local
+        url: /docs/local-helper/
       - title: Liens planifies
         url: /docs/schedules/
       - title: Securite runtime
@@ -42,6 +54,8 @@ sections:
         url: /docs/repository-layout/
       - title: Registre runtime
         url: /docs/runtime-registry/
+      - title: Fichiers de configuration
+        url: /docs/configuration-files/
       - title: LNK Command Line Interface
         url: /docs/cli/
 
