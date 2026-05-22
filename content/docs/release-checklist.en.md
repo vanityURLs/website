@@ -73,7 +73,7 @@ Do not use a redirector for phishing, malware, disguised tracking, undisclosed a
 - Publish `robots.txt`, `llms.txt`, and `llms-full.txt` from `defaults/public/` or override them in `custom/public/`.
 - Make the instance intentionally boring to bots: this is a redirect engine, not a public content site.
 - Confirm `v8s-site-config.json` lists the intended `supported_languages`.
-- Add or customize terms, privacy, abuse, and security contact pages appropriate for the owner and jurisdiction.
+- Add or customize terms, privacy, abuse, and security contact pages appropriate for the owner and jurisdiction. See [Legal and trust pages](/docs/legal-trust-pages/)
 - Treat the included legal text as a draft, not legal advice.
 
 ## Branding and local tooling

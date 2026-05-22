@@ -11,15 +11,7 @@ The Quickstart keeps phase 1 focused on a working redirector. Some setup answers
 
 The installer can defer privacy, terms, and security pages to phase 2. If you defer them, vanityURLs still deploys Trust & Safety and `security.txt` so people have a place to report abuse or vulnerabilities.
 
-Configure the full legal pages when you are ready to identify:
-
-- The operator legal name
-- The jurisdiction where the operator is established
-- The governing law used by the terms
-- General, privacy, trust and safety, and security contact addresses
-- The last updated date for published policy pages
-
-For jurisdiction, use the place whose laws govern your instance. For a personal or organizational redirector, that is usually where you or the operating organization are established. For governing law, use the same value unless you have a specific legal reason to choose something narrower, such as `Quebec, Canada`.
+See [Legal and trust pages](/docs/legal-trust-pages/) for the setup questions about operator identity, jurisdiction, governing law, last-updated dates, and Trust & Safety response windows.
 
 ## Analytics
 

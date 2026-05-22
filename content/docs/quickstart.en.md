@@ -12,9 +12,10 @@ The activities below use example values from the `v8s.link` demo instance. It is
 | Assumption | Example used below |
 | :--- | :--- |
 | Short domain | `v8s.link` |
-| Local directory | `redirector` |
+| Local directory | `v8s-link` |
 | GitHub account name | `your-github-account` |
-| GitHub repository name | `v8s.link` |
+| GitHub repository name | `v8s-link` |
+| Worker name | `v8s-link` |
 | Cloudflare Access team domain | `team.cloudflareaccess.com` |
 | Operator contact domain | `v8s.link` |
 
@@ -41,11 +42,11 @@ Create a new public or private GitHub repository for your redirector before the 
 ### Clone the vanityURLs code
 
 ```bash
-git clone https://github.com/vanityURLs/code.git redirector
-cd redirector
+git clone https://github.com/vanityURLs/code.git v8s-link
+cd v8s-link
 ```
 
-You can use any directory name instead of `redirector`. Choose a name that will still make sense if you later align it with your GitHub repository name.
+You can use any directory name instead of `v8s-link`. Choose a name that will still make sense if you later align it with your GitHub repository and Worker name.
 
 ### Detach the clone from the upstream project
 
@@ -79,24 +80,24 @@ npm run setup
 
 The interactive installer asks these questions:
 
-| Question | Sample answer | Rationale and acceptable answers |
+| Question | Sample answer | How to answer |
 | :--- | :--- | :--- |
 | Short domain | `v8s.link` | The domain that will serve your short links |
 | Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
-| Owner label | `team` | Short internal label to identify the person or team that made the change. See [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
-| Analytics provider | `disabled` | Use `disabled` for phase 1. See [Analytics](/docs/analytics/) during customization |
+| Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
+| Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/analytics/) during customization |
 | Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/i18n/) |
-| Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1 if you want to defer jurisdiction and legal-page customization |
-| Operator legal name | `Example Inc.` | The person or organization responsible for the instance and its legal pages |
-| Operator jurisdiction, for example Canada | `Canada` | The place whose laws govern your instance. Usually where you or the operating organization are established |
-| Governing law | `Canada` | Usually the same as jurisdiction. Use a narrower value, such as `Quebec, Canada`, only when that is the right legal context |
+| Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Legal and trust pages](/docs/legal-trust-pages/) during customization |
+| Operator legal name | `Example Inc.` | The person or organization responsible for the instance and its legal pages. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
+| Operator jurisdiction, for example Canada | `Canada` | Keep this simple for phase 1. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
+| Governing law | `Canada` | Usually the same as jurisdiction. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
 | Operator contact email | `hello@v8s.link` | General contact. Defaults to `hello@<short-domain>` |
 | Privacy contact | `privacy@v8s.link` | Privacy requests and data-protection questions. Defaults to `privacy@<short-domain>` |
 | Trust & Safety contact | `abuse@v8s.link` | Abuse reports, phishing, malware, impersonation, and harmful links. Defaults to `abuse@<short-domain>` |
 | Security contact | `security@v8s.link` | Vulnerability reports and the address published in `security.txt`. Defaults to `security@<short-domain>` |
-| Legal pages last updated date | `2026-05-21` | Date used on generated legal pages. Use `YYYY-MM-DD` |
-| Trust & Safety response window | `5 business days` | Good-faith response expectation, not a guaranteed service-level agreement |
+| Legal pages last updated date | `2026-05-21` | Date used on generated legal pages. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
+| Trust & Safety response window | `5 business days` | Good-faith response expectation, not a guaranteed service-level agreement. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
 | Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
 | Black wordmark portion | `v8s.` | First part of the homepage wordmark |
 | Green wordmark portion | `link` | Second part of the homepage wordmark |
@@ -113,7 +114,7 @@ When the installer asks for a split-color domain wordmark, it means the homepage
 npm run local-install
 ```
 
-The installation script copies local tools to the expected path on your workstation. The `v8s` shell module lets you open a known short link directly from your terminal instead of switching to a browser first. The command line interface `lnk` lets you manage the content of `v8s-links.txt` and `v8s-schedules.json` without using a text editor. See [Local helper](/docs/local-helper/) and [CLI](/docs/cli/) for more information.
+The installation script copies local tools to the expected path on your workstation. The `v8s` shell module lets you open a known short link directly from your terminal instead of switching to a browser first. The command line interface `lnk` lets you manage the content of `v8s-links.txt` and `v8s-schedules.json` without using a text editor. See [Local helper](/docs/local-helper/) and [LNK Command Line Interface](/docs/cli/) for more information.
 
 ### Create your first commit
 
@@ -129,14 +130,14 @@ git branch -M main
 Use the repository URL from the GitHub repository you created for your instance:
 
 ```bash
-git remote add origin git@github.com:your-github-account/v8s.link.git
+git remote add origin git@github.com:your-github-account/v8s-link.git
 git push -u origin main
 ```
 
 or
 
 ```bash
-git remote add origin https://github.com/your-github-account/v8s.link.git
+git remote add origin https://github.com/your-github-account/v8s-link.git
 git push -u origin main
 ```
 
@@ -144,7 +145,7 @@ git push -u origin main
 
 In Cloudflare, open **Workers & Pages** from the account main menu, then:
 
-1. Create an application
+1. Create an application with the Worker name from `wrangler.toml`, such as `v8s-link`. The Cloudflare console does not rename Workers after creation, so see [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/#pick-one-name-and-reuse-it) for why this name should match your local directory and GitHub repository
 2. Continue with GitHub
 3. Select your redirector repository
 4. Confirm Cloudflare is using the project name written by setup in `wrangler.toml`
@@ -221,7 +222,3 @@ Test at least one initial custom link, such as `https://<short-domain>/docs`, an
 Then test `/_stats` and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page.
 
 {{% /steps %}}
-
-## After the plain instance works
-
-Use [Custom overrides](/docs/custom-overrides/) to replace default branding, public assets, policy pages, status pages, and localized pages without editing `defaults/`. Use [Access control](/docs/access-control/) for Zero Trust applications, policies, and identity-provider settings. Use the Cloudflare guide when you need the longer dashboard checklist for DNS, security rules, and observability.

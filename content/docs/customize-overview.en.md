@@ -16,6 +16,7 @@ Start with the area that hurts most:
 | Add time-based destinations | [Scheduled links](/docs/schedules/) |
 | Decide which languages to publish | [Languages](/docs/i18n/) |
 | Finish legal-page and analytics choices | [Setup decisions](/docs/setup-decisions/) |
+| Configure jurisdiction and public trust contacts | [Legal and trust pages](/docs/legal-trust-pages/) |
 | Protect private operational paths | [Access control](/docs/access-control/) |
 | Configure redirect analytics | [Analytics](/docs/analytics/) |
 | Tune allow/block policy | [Policy and blocklist](/docs/blocklist/) |

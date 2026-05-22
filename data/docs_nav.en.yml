@@ -5,8 +5,6 @@ sections:
         url: /docs/overview/
       - title: Quickstart
         url: /docs/quickstart/
-      - title: Old Quickstart
-        url: /docs/old-quickstart/
       - title: Cloudflare setup
         url: /docs/cloudflare/
       - title: Release checklist
@@ -20,6 +18,8 @@ sections:
         url: /docs/custom-overrides/
       - title: Setup decisions
         url: /docs/setup-decisions/
+      - title: Legal and trust pages
+        url: /docs/legal-trust-pages/
       - title: Access control
         url: /docs/access-control/
       - title: Internationalization

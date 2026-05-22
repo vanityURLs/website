@@ -24,7 +24,7 @@ Because the Cloudflare dashboard doesn't currently allow you to rename an existi
 6. **Push** a small change to Git to confirm the build successfully deploys to the new Worker.
 
 > ⚠️ **Important:** Never delete an old Worker until you are 100% sure which routes or custom domains it owns. The painful part of this process isn't redeploying the script itself—it's losing track of which hostname was attached to which dashboard object.
-> 
+>
 > *Of course, you could just rename the Worker inside `wrangler.toml` to match the dashboard, but where is the fun in that?*
 
 ## Pick One Name and Reuse It
@@ -32,18 +32,19 @@ Because the Cloudflare dashboard doesn't currently allow you to rename an existi
 Stick to lowercase letters, numbers, and hyphens for Worker names. For a single vanityURLs instance, establishing a consistent naming habit early on saves an immense amount of time down the road:
 
 ```text
-Local directory:        v8s-link
-GitHub repository:      v8s-link
-Cloudflare Worker name: v8s-link
+Local directory:                                v8s-link
+GitHub repository:                              v8s-link
+Cloudflare Worker name:                         v8s-link
+Zero Trust Access Policy --> Application name:  v8s-link
 ```
 
 While these names don't technically *have* to match, matching them will save your sanity when you are exhausted, debugging a failed CI/CD deployment, or cross-referencing an old note in your password manager.
 
 Avoid overly clever or temporary names like `redirector-prod-final-v2`. They feel precise the moment you create them, but quickly devolve into mental fog later. Instead, turning your short domain into a filesystem-safe string is usually the cleanest approach:
 
-* `v8s.link` $\rightarrow$ `v8s-link`
-* `dicai.re` $\rightarrow$ `dicai-re`
-* `go.example.com` $\rightarrow$ `go-example-com`
+- `v8s.link` becomes `v8s-link`
+- `dicai.re` becomes `dicai-re`
+- `go.example.com` becomes `go-example-com`
 
 ## Keep wrangler.toml Close to the Deployment Boundary
 
@@ -60,6 +61,7 @@ compatibility_date = "2026-05-22"
 directory = "./build"
 binding = "ASSETS"
 ```
+
 If you find yourself tempted to engineer multiple environments, complex routing strategies, branch-specific names, and a dense matrix of build behaviors before a single redirect even works: **pause.** Phase 1 only requires one Worker, one repository, one short domain, and one successful deployment.
 
 ## Secrets Do Not Belong in wrangler.toml
@@ -80,12 +82,12 @@ The primary goal of your first deployment is to answer a single question: *Can C
 
 For that initial pass, lean heavily into simplicity:
 
-* **One** main branch
-* **One** Worker name
-* **One** Cloudflare account
-* **One** short domain
-* **One** plain, boring `wrangler.toml`
-* **One** small set of starter links
+- **One** main branch
+- **One** Worker name
+- **One** Cloudflare account
+- **One** short domain
+- **One** plain, boring `wrangler.toml`
+- **One** small set of starter links
 
 Once that baseline successfully handles traffic, you can customize deliberately. Layer on your analytics, legal-page refinements, localized content, strict Cloudflare Access policies, and advanced lifecycle workflows *after* the core redirector is safely online.
 
