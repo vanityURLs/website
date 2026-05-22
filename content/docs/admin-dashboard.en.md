@@ -28,7 +28,7 @@ Analytics remain in Umami or Fathom. The dashboard is the routing and lifecycle 
 
 ## Protection
 
-Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*` with Cloudflare Access. The Worker validates the Access assertion header and fails closed when protection is incomplete.
+Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*` with Cloudflare Access. The Worker validates the Access assertion header and fails closed when protection is incomplete. See [Access control](/docs/access-control/) for the Zero Trust application and policy setup.
 
 ## Build recommendation
 

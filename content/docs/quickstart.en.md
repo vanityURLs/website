@@ -151,48 +151,13 @@ In Cloudflare, open **Workers & Pages** from the account main menu, then:
 5. Leave the **Build** and **Deploy** fields as-is so `wrangler.toml` remains authoritative
 6. Deselect builds for non-production branches unless you want every branch to deploy
 
-### Set up an identity provider
+### Configure Access control
 
-For phase 1, use Cloudflare One's [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) option with approved email addresses. It protects `/_stats` and `/_tests` without configuring GitHub, Google, or another identity provider first.
+Protect `/_stats` and `/_tests` with Cloudflare Access before treating the instance as production. For phase 1, use one-time PIN with approved email addresses. You can switch to GitHub, Google, or another identity provider later.
 
-You can choose a stronger identity provider later. See [Choosing an identity provider for Cloudflare Access](/blog/choosing-an-identity-provider-for-cloudflare-access/) when you are ready to compare one-time PIN, GitHub, Google, and workforce identity providers.
+Follow [Access control](/docs/access-control/) to create the Zero Trust application, configure the policy, and copy the **Application Audience (AUD) Tag**.
 
-### Create the Access application
-
-In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, then:
-
-1. Create an application
-2. Select the **Self-hosted and private** tab
-3. Continue with **Self-hosted and private**
-4. Open **Application details**
-5. Add these destinations, replacing `vanityURL.link` with your short domain:
-
-| Subdomain | Domain | Path |
-| :--- | :--- | :--- |
-| | `vanityURL.link` | `_stats` |
-| | `vanityURL.link` | `_stats/*` |
-| | `vanityURL.link` | `_tests` |
-| | `vanityURL.link` | `_tests/*` |
-
-1. Choose the identity providers available for this application
-2. Create an Access policy:
-
-| Field | Value |
-| :--- | :--- |
-| Policy name | `Allow emails` |
-| Action | `Allow` |
-| Session duration | `24 hours` |
-| Include selector | `Emails` |
-| Include value | `yourEmailAddress.domain.com` |
-
-1. Use the policy tester to confirm your email address is allowed
-2. Open the **Additional settings** tab
-3. Copy the **Application Audience (AUD) Tag** value
-4. Save the policy
-
-### Store the Access audience secret
-
-In your local terminal, add the Access audience as a Worker secret:
+In your local terminal, store the Access audience as a Worker secret:
 
 ```bash
 npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
@@ -259,4 +224,4 @@ Then test `/_stats` and `/_tests` from a signed-out or private browser profile. 
 
 ## After the plain instance works
 
-Use [Custom overrides](/docs/custom-overrides/) to replace default branding, public assets, policy pages, status pages, and localized pages without editing `defaults/`. Use the Cloudflare guide when you need the longer dashboard checklist for DNS, Access, identity providers, security rules, and observability.
+Use [Custom overrides](/docs/custom-overrides/) to replace default branding, public assets, policy pages, status pages, and localized pages without editing `defaults/`. Use [Access control](/docs/access-control/) for Zero Trust applications, policies, and identity-provider settings. Use the Cloudflare guide when you need the longer dashboard checklist for DNS, security rules, and observability.

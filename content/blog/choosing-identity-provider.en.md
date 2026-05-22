@@ -11,7 +11,7 @@ To prevent unauthorized exposure—even during your initial deployment—vanityU
 
 ### The Quickstart Option: One-Time PIN
 
-For a fast setup, the simplest path is Cloudflare's [One-Time PIN (OTP)](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/). This feature allows Cloudflare to send a login code (or "magic link") directly to approved email addresses, completely bypassing the need to configure an external identity provider like Google or Okta. 
+For a fast setup, the simplest path is Cloudflare's [One-Time PIN (OTP)](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/). This feature allows Cloudflare to send a login code (or "magic link") directly to approved email addresses, completely bypassing the need to configure an external identity provider like Google or Okta.
 
 While this is highly effective for low-frequency applications, I generally recommend setting up a dedicated IdP for tools you use daily to avoid "email fatigue." It takes about 20 minutes to configure your first IdP on Cloudflare, and only about 5 minutes for subsequent ones. It is well worth the time.
 
@@ -19,21 +19,22 @@ While this is highly effective for low-frequency applications, I generally recom
 
 When deciding on an identity provider, ask yourself: *Who needs access today? Who will need access once the instance scales? How difficult will it be to offboard someone later?*
 
-* **[GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/):** A perfect fit if your entire team already has accounts. Cloudflare allows you to write Access policies based on specific users, email addresses, or GitHub organization membership.
-* **[Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/):** A no-brainer if your team utilizes standard Gmail or Google Workspace accounts.
-* **Corporate IdPs (e.g., [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/entra-id/)):** Cloudflare One supports most major enterprise solutions. Integrating your corporate IdP allows you to inherit existing security policies and streamline user offboarding.
+- **[GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/):** A perfect fit if your entire team already has accounts. Cloudflare allows you to write Access policies based on specific users, email addresses, or GitHub organization membership
+- **[Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/):** A no-brainer if your team utilizes standard Gmail or Google Workspace accounts
+- **Corporate IdPs, such as [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/entra-id/):** Cloudflare One supports most major enterprise solutions. Integrating your corporate IdP allows you to inherit existing security policies and streamline user offboarding
 
 ### Flexibility by Design
 
 You can easily start with a One-Time PIN and configure identity providers for the same application later; your first choice doesn't have to define your permanent architecture.
 
 Furthermore, if a user shares the same email address across multiple identity providers, Cloudflare handles it seamlessly with no technical conflicts:
+
 1. The user selects their preferred identity provider on the login screen.
 2. Cloudflare validates the identity returned by that specific provider.
 3. If an Access policy allows `user@example.com`, the login succeeds as long as the chosen provider verifies that email address.
 
 ### Secure Today, Scale Tomorrow
 
-Don't let analysis paralysis stall your deployment. If you are just getting vanityURLs off the ground, start with the **One-Time PIN** setup to lock down your dashboard immediately. As your team grows or your workflow changes, you can layer on GitHub or Google authentication in minutes without breaking a thing. 
+Don't let analysis paralysis stall your deployment. If you are just getting vanityURLs off the ground, start with the **One-Time PIN** setup to lock down your dashboard immediately. As your team grows or your workflow changes, you can layer on GitHub or Google authentication in minutes without breaking a thing.
 
-Ready to lock down your setup? Head over to your Cloudflare Zero Trust dashboard and follow our [Access control](docs/access-control) documentation to get started.
+Ready to lock down your setup? Head over to your Cloudflare Zero Trust dashboard and follow the [Access control](/docs/access-control/) documentation to get started.

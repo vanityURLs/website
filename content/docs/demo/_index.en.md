@@ -16,7 +16,7 @@ Search-style home, expand page, localized status pages, icons, manifest, securit
 Sample exact links, namespaced links, lifecycle test links, metadata, tags, owners, and expiry behavior.
 {{< /card >}}
 {{< card title="Worker runtime" icon="cloud" href="/docs/cloudflare/" >}}
-Static assets plus Worker routing, generated `v8s.json`, Cloudflare Access protection, and server-side analytics hooks.
+Static assets plus Worker routing, generated `v8s.json`, [Cloudflare Access protection](/docs/access-control/), and server-side analytics hooks.
 {{< /card >}}
 {{< /cards >}}
 

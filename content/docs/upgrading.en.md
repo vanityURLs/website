@@ -97,7 +97,7 @@ Use this section when moving from the older Cloudflare Pages `_redirects` model 
 - The build copies `defaults/`, overlays `custom/`, and generates `build/v8s.json`, `build/v8s-blocklist.json`, and `build/v8s-site-config.json`
 - `custom/v8s-links.txt` is preferred when it exists; otherwise the build uses `defaults/v8s-links.txt`
 - Editable source policy is `v8s-policies.json`; `build/v8s-blocklist.json` is generated runtime output
-- `/_stats` and `/_tests` are protected by Cloudflare Access
+- `/_stats` and `/_tests` are protected by [Cloudflare Access](/docs/access-control/)
 - Server-side analytics are emitted by the Worker
 - Scanner probes and risky destinations are blocked by the generated runtime policy
 
@@ -139,6 +139,6 @@ Use `--default-state permanent` if omitted statuses should become permanent link
 3. Visit a valid short link and confirm the redirect
 4. Visit a missing slug and confirm the localized 404
 5. Visit `/expand/`
-6. Visit `/_stats` from a private browser and confirm Cloudflare Access login
+6. Visit `/_stats` from a private browser and confirm Cloudflare Access login using [Access control](/docs/access-control/) as the expected configuration
 7. Visit `/file.php` and confirm scanner probes are blocked or return a plain 404
 8. Confirm Umami or Fathom receives redirect events if analytics are configured

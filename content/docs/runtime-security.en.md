@@ -18,7 +18,7 @@ The Worker keeps the runtime path narrow:
 - redirect targets with credentials, missing hostnames, control characters, or unsupported protocols fail closed
 - splat values are URL-encoded segment by segment before insertion
 - lifecycle states resolve through explicit routing rules
-- protected operational paths verify Cloudflare Access JWTs and fail closed when Access is not configured
+- protected operational paths verify [Cloudflare Access](/docs/access-control/) JWTs and fail closed when Access is not configured
 - scanner probes return a plain no-store 404 before short-link lookup or analytics
 - analytics is sent with `ctx.waitUntil()` so provider failure does not delay redirects
 

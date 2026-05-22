@@ -85,7 +85,7 @@ Every public instance owner is responsible for their own terms, privacy notice, 
 
 Replace the expand page with `custom/public/expand/index.html`. Localized expand pages use language directories, for example `custom/public/fr/expand/index.html`.
 
-Replace the protected dashboard shell with `custom/public/_stats/index.html` only when you need a different static dashboard page. Keep `/_stats` and `/_tests` protected with Cloudflare Access because those views expose routing and diagnostic information.
+Replace the protected dashboard shell with `custom/public/_stats/index.html` only when you need a different static dashboard page. Keep `/_stats` and `/_tests` protected with [Cloudflare Access](/docs/access-control/) because those views expose routing and diagnostic information.
 
 Replace headers and machine-readable policy files with care. If you override `custom/public/_headers`, keep security and cache rules compatible with the Worker and protected paths.
 

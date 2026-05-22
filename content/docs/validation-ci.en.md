@@ -64,7 +64,7 @@ Before promoting a production change:
 - confirm a known active short link returns the expected redirect
 - confirm a hidden or missing slug returns 404
 - confirm a blocked target fails validation
-- confirm `/_stats` and `/_tests` are protected by Cloudflare Access
+- confirm `/_stats` and `/_tests` are protected by [Cloudflare Access](/docs/access-control/)
 - confirm server-side analytics receive one test event when analytics are enabled
 - confirm WAF and bot controls block commodity scanner traffic before it reaches the Worker
 

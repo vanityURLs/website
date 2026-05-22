@@ -20,6 +20,8 @@ sections:
         url: /docs/custom-overrides/
       - title: Setup decisions
         url: /docs/setup-decisions/
+      - title: Access control
+        url: /docs/access-control/
       - title: Internationalization
         url: /docs/i18n/
       - title: Blocklist policy

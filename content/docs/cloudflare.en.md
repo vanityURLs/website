@@ -42,19 +42,11 @@ Set runtime variables and secrets in **Workers & Pages**, under the Worker setti
 
 The Worker also supports other analytics providers and privacy modes. Keep provider IDs, API keys, Access audiences, and client secrets out of Git unless a value is explicitly documented as public configuration.
 
-## Identity providers
+## Access control
 
-Cloudflare Access can authenticate maintainers with one-time PIN, GitHub, Google, Okta, or multiple providers at the same time. Configure providers in **Zero Trust**, under **Integrations**, **Identity providers**.
+Use Cloudflare Access to protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*`. Keep public redirects outside Access so visitors can follow short links without logging in.
 
-One-time PIN is the simplest option because Cloudflare emails approved users a code. It still depends on your Access policy including the correct email addresses.
-
-GitHub works for individual accounts, organization membership, specific usernames, and email-based policies. Be careful with email selectors because some GitHub profiles do not expose a public email address.
-
-Google can be configured as a generic Google identity provider for Workspace or personal Google accounts, depending on your policy. Use Cloudflare's provider setup steps and store the generated OAuth client secret outside the repository.
-
-Okta can be configured through the Okta app catalog or OIDC. Store the Okta client ID, client secret, and account URL in your password manager and Cloudflare settings. Do not commit screenshots, copied provider tables, or temporary setup notes that contain these values.
-
-When more than one identity provider is enabled, users choose a provider on the Cloudflare Access login page. The Access policy is satisfied when the selected provider returns an identity that matches the policy, such as an allowed email, group, or organization membership.
+The canonical vanityURLs Access setup lives in [Access control](/docs/access-control/). Use that page for Zero Trust applications, policy selectors, identity-provider choices, the Access team domain, and the `CF_ACCESS_AUD` Worker secret.
 
 ## Recommended Worker shape
 
@@ -251,45 +243,7 @@ For a private, family, team, or internal short-link domain, it is reasonable to 
 
 ## Protected operations
 
-Protect these paths with a Cloudflare Zero Trust self-hosted application:
-
-```text
-v8s.link/_stats
-v8s.link/_stats/*
-v8s.link/_tests
-v8s.link/_tests/*
-```
-
-Use one self-hosted Access application for these private operations. Configure the destinations exactly, then attach a default-deny policy model with a single allow policy for maintainers.
-
-Recommended Access settings:
-
-| Setting | Recommendation |
-|---|---|
-| Application type | Self-hosted |
-| Public hostnames | `v8s.link/_stats`, `v8s.link/_stats/*`, `v8s.link/_tests`, `v8s.link/_tests/*` |
-| Policy | Allow named maintainer emails or a maintained identity group |
-| Session duration | 24 hours |
-| MFA | Respect global enforcement or require it directly on the policy |
-| Browser rendering | Off |
-| Identity providers | Use account-managed IdPs such as GitHub, Google Workspace, or Okta |
-
-Do not commit identity-provider app IDs, client secrets, Access audiences, or service tokens. Keep them in Cloudflare Zero Trust and Worker secrets. Rotate provider secrets if they are ever exposed in a screenshot, log, or repository.
-
-Set the team domain as a Worker variable and the Access audience as a secret:
-
-```toml
-[vars]
-CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
-```
-
-```bash
-npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
-```
-
-The Worker validates the `Cf-Access-Jwt-Assertion` header. If Access is not configured, protected paths fail closed.
-
-Test the policy from Cloudflare Zero Trust before release, then visit `/_stats` and `/_tests` from a signed-out browser profile to confirm both paths are denied.
+The private operational paths are documented in [Access control](/docs/access-control/). After configuring Access, test `/_stats` and `/_tests` from a signed-out browser profile and confirm Cloudflare Access appears before the dashboard or test page.
 
 ## Observability split
 

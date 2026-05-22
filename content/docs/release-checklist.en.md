@@ -21,8 +21,8 @@ Use this checklist before launching a new instance or promoting a major upgrade.
 - Confirm the Worker has an `ASSETS` binding.
 - Confirm the custom domain points to the Worker.
 - Disable public `workers.dev` and preview URLs if they are not part of the service.
-- Protect `/_stats` and `/_tests` with Cloudflare Access.
-- Keep `/_stats/*` and `/_tests/*` policies narrow.
+- Protect `/_stats` and `/_tests` with [Cloudflare Access](/docs/access-control/)
+- Keep `/_stats/*` and `/_tests/*` policies narrow
 - Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS`.
 - Confirm raw runtime files return 404: `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json`.
 - Confirm response headers include `X-Generated-By: vanityURLs.link` unless intentionally overridden.
@@ -31,7 +31,7 @@ Use this checklist before launching a new instance or promoting a major upgrade.
 
 In Cloudflare, the relevant settings are split across three places:
 
-- **Zero Trust**: Access applications, Access policies, identity providers, and Zero Trust settings
+- **Zero Trust**: Access applications, Access policies, identity providers, and Zero Trust settings. See [Access control](/docs/access-control/)
 - **Workers & Pages**: Worker deployment, assets binding, variables, observability, custom domains, and build settings
 - **Domain configuration**: DNS, SSL/TLS, WAF, Security, AI Crawl Control, Rules, Network, Caching, and analytics
 
