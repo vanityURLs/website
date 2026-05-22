@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Implementation handoff"
 description: "Current implementation notes for documentation updates across defaults, custom overrides, local tooling, policies, languages, badges, and install workflows."
 ---

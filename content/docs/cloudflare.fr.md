@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Cloudflare Workers"
 description: "Configuration Cloudflare recommandee pour Workers vanityURLs, domaines custom, DNS, Access, observability et protection de zone."
 nav_order: 10

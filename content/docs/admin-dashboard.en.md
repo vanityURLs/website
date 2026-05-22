@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Admin dashboard"
 description: "Read-only operational dashboard for route inventory, effective states, metadata quality, and protected stats."
 ---

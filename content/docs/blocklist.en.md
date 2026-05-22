@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Policy and blocklist"
 description: "Source policy and generated runtime blocklist behavior for target URLs, shortener loops, malware hosts, risky schemes, and local overrides."
 ---

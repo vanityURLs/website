@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Local helper"
 description: "Use the read-only v8s shell helper to open known redirects from your terminal."
 nav_order: 13

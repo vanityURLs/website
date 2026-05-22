@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Configuration files"
 description: "Reference the vanityURLs source, custom, local, and generated configuration files."
 nav_order: 4

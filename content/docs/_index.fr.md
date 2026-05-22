@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Documentation"
 description: "Documentation v8s.link pour le Worker vanityURLs actuel, les defaults, le registre de liens, la protection et le deploiement."
 ---

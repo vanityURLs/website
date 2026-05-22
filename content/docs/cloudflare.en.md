@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Cloudflare setup"
 description: "Cloudflare setup and operating guidance for vanityURLs Workers, custom domains, DNS, Access, identity providers, observability, and zone protection."
 nav_order: 10

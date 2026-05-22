@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Demarrage rapide"
 description: "Creer une instance vanityURLs de type v8s.link sur Cloudflare Workers avec le repertoire defaults actuel."
 nav_order: 1

@@ -2,7 +2,7 @@ sections:
   - title: Configuration
     pages:
       - title: Demarrage rapide
-        url: /docs/getting-started/
+        url: /docs/quickstart/
       - title: Configuration Cloudflare
         url: /docs/cloudflare/
       - title: Checklist de release

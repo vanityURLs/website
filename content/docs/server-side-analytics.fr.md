@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Analytics serveur"
 description: "Configurer des analytics serveur pour redirections, misses, bots, previews expand et pageviews vanityURLs."
 ---

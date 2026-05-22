@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Surcharges custom"
 description: "Transformer une instance vanityURLs simple en instance marquee en ajoutant des fichiers dans custom/ tout en gardant les defaults faciles a mettre a jour."
 ---

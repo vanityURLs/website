@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "LNK Command Line Interface"
 description: "Use the Node-based v8s CLI to manage links, schedules, and source policy."
 ---

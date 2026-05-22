@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Structure du depot"
 description: "Comment le depot vanityURLs est organise autour des defaults, custom, sorties generees, outillage local, et source Worker."
 ---

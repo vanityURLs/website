@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Overview"
 description: "What you need before setting up a vanityURLs redirector and how the first deployment path fits together."
 nav_order: 1
@@ -30,4 +31,4 @@ Before starting, make sure you have these pieces ready:
 - **A password manager** to store sensitive information such as the Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information
 - **Optional analytics**. The supported solutions are [Fathom](https://usefathom.com/) and [Umami](https://umami.is/). You can enable it during the customization phase, such as phase 2. Read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/) before creating an analytics account
 
-[Quickstart](/docs/getting-started/) is about making the redirector work, so use simple answers; you will be able to refine them during [customization](/docs/customize-overview/).
+[Quickstart](/docs/quickstart/) is about making the redirector work, so use simple answers; you will be able to refine them during [customization](/docs/customize-overview/).

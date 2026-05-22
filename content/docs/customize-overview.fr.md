@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Vue d'ensemble custom"
 description: "Comment defaults, custom, les sorties generees, et les fichiers locaux s'assemblent avant de personnaliser une instance vanityURLs."
 ---

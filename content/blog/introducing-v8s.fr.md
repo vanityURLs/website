@@ -31,4 +31,4 @@ v8s n'est *pas* un nouveau vendeur qui hébergera vos liens. C'est un ensemble d
 
 La réponse est simple : **contrôle et fiabilité**. v8s garantit que vos liens restent intacts et fonctionnels, quels que soient les changements dans le monde des services tiers. Vous possédez votre domaine. Vous possédez votre fichier de redirection. Vous possédez vos liens.
 
-[Lire le guide d'installation →](/fr/docs/getting-started/)
+[Lire le guide d'installation →](/fr/docs/quickstart/)

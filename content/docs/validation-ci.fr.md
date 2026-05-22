@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Validation et CI"
 description: "Les controles locaux et continus qui gardent une instance v8s deployable et sure."
 ---

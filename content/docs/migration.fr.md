@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Guide de migration"
 description: "Migrer une ancienne instance vanityURLs Pages ou .lnk vers le runtime Cloudflare Workers actuel."
 ---

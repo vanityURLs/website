@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Customize overview"
 description: "Plan the phase-2 customization work after the first vanityURLs deployment is online."
 ---

@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Upgrading and migration"
 description: "Keep custom instance files safe while refreshing vanityURLs defaults and scripts from upstream, or migrate an older instance to the current runtime."
 ---

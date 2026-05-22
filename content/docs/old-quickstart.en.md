@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Old Quickstart"
 description: "Archived copy of the previous Quickstart, kept while the installation guide is being rewritten."
 nav_order: 99

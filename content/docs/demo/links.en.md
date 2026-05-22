@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Default links"
 description: "Annotated examples from defaults/v8s-links.txt in the current v8s.link reference implementation."
 ---

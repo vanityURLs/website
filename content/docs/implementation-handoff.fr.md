@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Passation implementation"
 description: "Notes courantes pour mettre a jour la documentation sur defaults, custom, l'outillage local, les politiques, les langues, les badges et les workflows d'installation."
 ---

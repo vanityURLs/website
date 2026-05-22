@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Reference v8s.link"
 description: "Comment l'instance publique v8s.link montre les defaults vanityURLs actuels et le runtime Worker."
 ---

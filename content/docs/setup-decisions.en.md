@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Setup decisions"
 description: "Understand the setup answers that are safe to defer until the customization phase."
 nav_order: 2

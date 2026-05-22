@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Link format"
 description: "The v8s-links.txt source format for exact links, splat links, states, metadata, expiry, and generated v8s.json."
 ---

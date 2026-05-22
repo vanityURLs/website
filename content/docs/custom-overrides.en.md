@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Custom overrides"
 description: "Turn a plain vanityURLs deployment into your own branded instance by adding files under custom/ while keeping defaults upgradable."
 ---

@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Runtime security approach"
 description: "How the vanityURLs Worker stays small, deterministic, and defensive at the edge."
 ---

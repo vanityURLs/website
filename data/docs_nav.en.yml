@@ -4,7 +4,7 @@ sections:
       - title: Overview
         url: /docs/overview/
       - title: Quickstart
-        url: /docs/getting-started/
+        url: /docs/quickstart/
       - title: Old Quickstart
         url: /docs/old-quickstart/
       - title: Cloudflare setup
@@ -20,7 +20,7 @@ sections:
         url: /docs/custom-overrides/
       - title: Setup decisions
         url: /docs/setup-decisions/
-      - title: Languages
+      - title: Internationalization
         url: /docs/i18n/
       - title: Blocklist policy
         url: /docs/blocklist/

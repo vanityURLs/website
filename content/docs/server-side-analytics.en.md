@@ -1,4 +1,5 @@
 ---
+aside: false
 title: "Server-side analytics"
 description: "Configure privacy-preserving server-side analytics for vanityURLs redirects, misses, bots, expand previews, and pageviews."
 ---
