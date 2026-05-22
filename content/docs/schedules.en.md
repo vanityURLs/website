@@ -8,6 +8,8 @@ weight: 90
 
 Scheduled links let a stable slug point somewhere different during configured time windows. Keep the normal link in `v8s-links.txt`, then add rules in `v8s-schedules.json`.
 
+For use cases and decision guidance, read [When scheduled links are useful](/blog/when-scheduled-links-are-useful/).
+
 Schedules currently apply to exact links. Splat links stay path-driven.
 
 For common schedule changes, use the Node CLI instead of hand-editing JSON:

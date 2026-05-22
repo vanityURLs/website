@@ -10,7 +10,7 @@ weight: 20
   <section class="brand-hero">
     <p class="brand-kicker">Brand reference</p>
     <h1 class="brand-title">vanityURLs visual system</h1>
-    <p class="brand-lede">This page records the current public brand decisions for the website and self-hosted redirector badges. Logo work is still in progress, so treat logo placement as provisional and badge color tokens as the stable reference.</p>
+    <p class="brand-lede">This page records current brand assets, color tokens, and badge files. For the customization narrative, read <a href="/blog/branding-your-short-link-domain/">Branding your short-link domain</a>.</p>
   </section>
 
   <section class="brand-section">

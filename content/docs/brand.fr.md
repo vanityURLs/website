@@ -10,7 +10,7 @@ weight: 20
   <section class="brand-hero">
     <p class="brand-kicker">Reference de marque</p>
     <h1 class="brand-title">Systeme visuel vanityURLs</h1>
-    <p class="brand-lede">Cette page documente les decisions de marque actuelles pour le site public et les badges de redirection auto-heberges. Le travail sur les logos continue, donc le placement des logos reste provisoire et les couleurs des badges sont la reference stable.</p>
+    <p class="brand-lede">Cette page documente les assets de marque, couleurs et fichiers de badges actuels. Pour le recit de personnalisation, lisez <a href="/fr/blog/branding-your-short-link-domain/">Habiller votre domaine court</a>.</p>
   </section>
 
   <section class="brand-section">

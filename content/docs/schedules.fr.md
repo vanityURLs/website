@@ -8,6 +8,8 @@ weight: 90
 
 Les liens planifies permettent a un slug stable de pointer ailleurs pendant certaines plages horaires. Gardez le lien normal dans `v8s-links.txt`, puis ajoutez les regles dans `v8s-schedules.json`.
 
+Pour les cas d'usage et la logique de decision, lisez [Quand les liens planifies sont utiles](/fr/blog/when-scheduled-links-are-useful/).
+
 Les planifications s'appliquent actuellement aux liens exacts. Les liens splat restent bases sur le chemin.
 
 Pour les changements courants, utilisez la CLI Node au lieu de modifier le JSON a la main :

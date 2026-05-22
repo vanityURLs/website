@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">vanityURLs admin dashboard preview</title>
+  <desc id="desc">A preview of the protected stats dashboard showing route inventory, states, filters, and link metadata.</desc>
+  <rect width="1440" height="900" fill="#f8fafc"/>
+  <rect x="72" y="72" width="1296" height="756" rx="18" fill="#ffffff" stroke="#dbe4ec"/>
+  <rect x="72" y="72" width="1296" height="86" rx="18" fill="#0f172a"/>
+  <rect x="72" y="132" width="1296" height="26" fill="#0f172a"/>
+  <text x="116" y="126" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="800">v8s.link stats</text>
+  <text x="116" y="198" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700">Route inventory</text>
+  <text x="116" y="234" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="16">Read-only operational view protected by Cloudflare Access</text>
+  <g transform="translate(116 278)">
+    <rect width="268" height="112" rx="12" fill="#ecfdf5" stroke="#a7f3d0"/>
+    <text x="24" y="42" fill="#0f766e" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Total routes</text>
+    <text x="24" y="88" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">65</text>
+  </g>
+  <g transform="translate(412 278)">
+    <rect width="268" height="112" rx="12" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="24" y="42" fill="#2563eb" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Exact links</text>
+    <text x="24" y="88" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">58</text>
+  </g>
+  <g transform="translate(708 278)">
+    <rect width="268" height="112" rx="12" fill="#fefce8" stroke="#fde68a"/>
+    <text x="24" y="42" fill="#a16207" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Review soon</text>
+    <text x="24" y="88" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">4</text>
+  </g>
+  <g transform="translate(1004 278)">
+    <rect width="268" height="112" rx="12" fill="#fff1f2" stroke="#fecdd3"/>
+    <text x="24" y="42" fill="#be123c" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Missing metadata</text>
+    <text x="24" y="88" fill="#0f172a" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">3</text>
+  </g>
+  <rect x="116" y="438" width="1156" height="52" rx="10" fill="#f1f5f9"/>
+  <text x="144" y="472" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800">Slug</text>
+  <text x="330" y="472" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800">State</text>
+  <text x="484" y="472" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800">Type</text>
+  <text x="642" y="472" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800">Owner</text>
+  <text x="820" y="472" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="800">Target</text>
+  <g font-family="JetBrains Mono, Menlo, monospace" font-size="16">
+    <rect x="116" y="500" width="1156" height="62" fill="#ffffff"/>
+    <text x="144" y="538" fill="#0f172a">docs</text>
+    <text x="330" y="538" fill="#047857">permanent</text>
+    <text x="484" y="538" fill="#334155">exact</text>
+    <text x="642" y="538" fill="#334155">docs</text>
+    <text x="820" y="538" fill="#334155">https://www.vanityurls.link/en/docs/</text>
+    <line x1="116" y1="562" x2="1272" y2="562" stroke="#e2e8f0"/>
+    <rect x="116" y="563" width="1156" height="62" fill="#ffffff"/>
+    <text x="144" y="601" fill="#0f172a">status</text>
+    <text x="330" y="601" fill="#047857">permanent</text>
+    <text x="484" y="601" fill="#334155">exact</text>
+    <text x="642" y="601" fill="#334155">ops</text>
+    <text x="820" y="601" fill="#334155">https://status.vanityurls.link</text>
+    <line x1="116" y1="625" x2="1272" y2="625" stroke="#e2e8f0"/>
+    <rect x="116" y="626" width="1156" height="62" fill="#ffffff"/>
+    <text x="144" y="664" fill="#0f172a">event/*</text>
+    <text x="330" y="664" fill="#b45309">ephemeral</text>
+    <text x="484" y="664" fill="#334155">splat</text>
+    <text x="642" y="664" fill="#334155">events</text>
+    <text x="820" y="664" fill="#334155">https://example.com/:splat</text>
+    <line x1="116" y1="688" x2="1272" y2="688" stroke="#e2e8f0"/>
+    <rect x="116" y="689" width="1156" height="62" fill="#ffffff"/>
+    <text x="144" y="727" fill="#0f172a">old-campaign</text>
+    <text x="330" y="727" fill="#be123c">expired</text>
+    <text x="484" y="727" fill="#334155">exact</text>
+    <text x="642" y="727" fill="#334155">marketing</text>
+    <text x="820" y="727" fill="#334155">https://archive.example.com/campaign</text>
+  </g>
+  <rect x="1060" y="192" width="212" height="46" rx="23" fill="#ccfbf1"/>
+  <text x="1092" y="222" fill="#0f766e" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800">Protected view</text>
+</svg>

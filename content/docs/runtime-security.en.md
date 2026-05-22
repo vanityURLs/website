@@ -6,9 +6,9 @@ weight: 80
 
 ---
 
-The vanityURLs runtime is deliberately simple. It is not a public link-submission service, not a database-backed application, and not a general web framework. It is a Git-built redirect engine: validate the link registry, deploy static assets, read `v8s.json`, and return one of a small set of outcomes.
+The vanityURLs runtime is deliberately small: validate the generated registry, serve static assets, read `v8s.json`, and return one of a small set of outcomes.
 
-Simplicity is part of the security model. The Worker has fewer moving parts than a typical shortener: no public write API, no visitor accounts, no cookies, no client-side analytics, no database query layer, and no origin server behind Cloudflare.
+For the design rationale, read [Runtime security for a small redirector](/blog/runtime-security-for-a-small-redirector/). This page is the compact reference for controls to preserve.
 
 ## Defensive runtime
 
@@ -24,24 +24,11 @@ The Worker keeps the runtime path narrow:
 - scanner probes return a plain no-store 404 before short-link lookup or analytics
 - analytics is sent with `ctx.waitUntil()` so provider failure does not delay redirects
 
-The important point is not that any code is magically bulletproof. The point is that the runtime is small enough to reason about, test, and surround with edge controls.
-
 ## Build-time guardrails
 
 `npm run check` builds the same assets used for deployment, validates the generated registry, validates policy files, lints the repository, and runs Worker tests.
 
-For targeted local work, use:
-
-```bash
-npm run lint
-npm test
-npm run build
-npm run smoke:analytics
-```
-
 Validation verifies that link rows have the expected shape, URL targets normalize safely, unsafe targets are rejected, splat aliases do not shadow unsafe parent paths, schedules are valid, generated runtime assets use the expected schema, raw runtime assets stay unreachable, and generated `src/` matches the Worker source in `scripts/workers/`.
-
-Warnings should be reviewed. Errors should be fixed instead of bypassed; a redirector can damage its domain reputation quickly if bad targets slip through.
 
 The generated registry and runtime policy are treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`; canonical Worker source stays in `scripts/workers/`; generated `src/` is only for Wrangler compatibility. That keeps updates reviewable and makes rollback a normal Git operation.
 
@@ -50,11 +37,5 @@ Default response headers include `X-Generated-By: vanityURLs.link`. If you overr
 ## Cloudflare edge controls
 
 Cloudflare should reject commodity abuse before the Worker runs. Use [Network protection](/docs/network-protection/) for WAF custom rules, rate limiting, Bot Fight Mode, AI crawler controls, Browser Integrity Check, managed rules, and related domain settings. Use [Access control](/docs/access-control/) for private operational paths.
-
-This split matters:
-
-- Cloudflare Security Events show WAF, bot, crawler, Access, and rate-limit decisions
-- Worker analytics shows application events that actually reached runtime
-- Umami or Fathom should not be used as the primary source for edge-blocked traffic
 
 Keep the Worker blocklist as the fallback, not the first line of defense for high-volume abuse. The canonical WAF, AI crawler, Rules, Network, DNS, SSL/TLS, Security, Caching, and Cloudflare analytics guidance lives in [Network protection](/docs/network-protection/).
