@@ -8,6 +8,8 @@ La personnalisation commence avec une regle simple : les fichiers source vivent 
 
 Pensez a `defaults/` comme la base produit et a `custom/` comme la couche du proprietaire d'instance. Le build combine les deux dans les assets statiques et les JSON runtime deployes sur Cloudflare.
 
+Utilisez [Protection reseau](/fr/docs/network-protection/) lorsque vous voulez configurer les controles Cloudflare qui protegent le domaine avant que le trafic atteigne le Worker.
+
 ```text
 defaults + custom -> build -> build/v8s.json, build/v8s-blocklist.json et build/v8s-site-config.json
 ```

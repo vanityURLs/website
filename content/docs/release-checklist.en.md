@@ -42,7 +42,7 @@ In Cloudflare, the relevant settings are split across three places:
   - observability
   - custom domains
   - build settings
-- **Domain configuration**: {{< arrow left >}} [Network protection](/docs/access-control/) documentation
+- **Domain configuration**: {{< arrow left >}} [Network protection](/docs/network-protection/) documentation
   - AI Crawl Control
   - Analytics
   - Caching
@@ -53,25 +53,11 @@ In Cloudflare, the relevant settings are split across three places:
   - SSL/TLS
   - WAF
 
-Recommended baseline:
+Use [Network protection](/docs/network-protection/) for the recommended DNS, SSL/TLS, Security, WAF, AI Crawl Control, Rules, Network, Caching, and Cloudflare analytics settings.
 
-- SSL/TLS mode: Full (strict)
-- Always Use HTTPS: on
-- HSTS: on after certificate and redirect behavior are confirmed
-- Minimum TLS: TLS 1.2 or newer
-- Bot Fight Mode or equivalent bot controls: on when available
-- AI crawler controls: block unwanted AI bots while allowing `/robots.txt`
-- Managed `robots.txt`: off when you publish your own files from `defaults/public/`
-- URL normalization: on
-- Remove `X-Powered-By` response headers: on
+## Abuse controls
 
-## WAF and abuse controls
-
-- Block obvious scanner probes before they reach the Worker
-- Block unexpected HTTP methods at the edge
-- Challenge suspicious non-bot traffic that targets short-link candidates
-- Rate-limit short-link candidates to protect Worker CPU and analytics quotas
-- Keep runtime blocklist policy enabled as the application fallback
+- Keep runtime blocklist policy enabled as the application fallback after Cloudflare network controls
 - Review `defaults/v8s-blocklist-categories.json` when generated feeds change
 - Keep editable source policy in `custom/v8s-policies.json`; treat `build/v8s-blocklist.json` as generated output
 
@@ -81,7 +67,7 @@ Do not use a redirector for phishing, malware, disguised tracking, undisclosed a
 
 - Use server-side analytics only; do not add browser tracking scripts
 - Configure either Umami or Fathom with Worker variables and secrets
-- Confirm blocked WAF traffic is not sent to analytics
+- Confirm traffic blocked by [Network protection](/docs/network-protection/) is not sent to analytics
 - Confirm collection works with one test redirect
 - Review vendor rate limits and account quotas before launch
 - Watch the first 24 hours for scanner noise that could consume quota

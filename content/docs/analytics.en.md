@@ -50,9 +50,9 @@ Use secrets for provider API keys that are only needed by local helper scripts. 
 
 Scanner probes matched by the runtime blocklist return a plain `404` before analytics. That keeps common probes such as PHP and WordPress paths out of miss metrics.
 
-Requests blocked by Cloudflare before the Worker do not emit vanityURLs analytics events. Review WAF, rate limiting, Access, bot, and AI crawler decisions in Cloudflare Security Events or the relevant Cloudflare dashboard.
+Requests blocked by Cloudflare before the Worker do not emit vanityURLs analytics events. Review WAF, rate limiting, bot, and AI crawler decisions with [Network protection](/docs/network-protection/), and review Access decisions with [Access control](/docs/access-control/).
 
-An unknown short-link domain can still receive serious scanner and bot traffic. Treat WAF rules, Cloudflare bot controls, AI crawler controls, and the runtime blocklist as quota protection for analytics, not only as security features. Traffic blocked before the Worker cannot spend Umami or Fathom collection capacity.
+An unknown short-link domain can still receive serious scanner and bot traffic. Treat Cloudflare network controls and the runtime blocklist as quota protection for analytics, not only as security features. Traffic blocked before the Worker cannot spend Umami or Fathom collection capacity.
 
 ## Umami data model
 

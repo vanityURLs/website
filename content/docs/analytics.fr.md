@@ -50,9 +50,9 @@ Utilisez des secrets pour les cles API necessaires seulement aux scripts locaux.
 
 Les probes reconnues par la blocklist runtime retournent un `404` simple avant analytics. Cela garde les chemins PHP et WordPress hors des metriques de miss.
 
-Les requetes bloquees par Cloudflare avant le Worker n'emettent pas d'evenements analytics vanityURLs. Consultez WAF, rate limiting, Access, bot, et les decisions crawler IA dans Cloudflare Security Events ou le dashboard Cloudflare pertinent.
+Les requetes bloquees par Cloudflare avant le Worker n'emettent pas d'evenements analytics vanityURLs. Consultez les decisions WAF, rate limiting, bot, et crawler IA avec [Protection reseau](/fr/docs/network-protection/), et les decisions Access avec [Controle d'acces](/fr/docs/access-control/).
 
-Un domaine court inconnu peut quand meme recevoir beaucoup de trafic scanner et bot. Traitez les regles WAF, les controles bot Cloudflare, les controles crawler IA, et la blocklist runtime comme une protection de quota analytics, pas seulement comme des fonctions securite. Le trafic bloque avant le Worker ne peut pas consommer la capacite de collecte Umami ou Fathom.
+Un domaine court inconnu peut quand meme recevoir beaucoup de trafic scanner et bot. Traitez les controles reseau Cloudflare et la blocklist runtime comme une protection de quota analytics, pas seulement comme des fonctions securite. Le trafic bloque avant le Worker ne peut pas consommer la capacite de collecte Umami ou Fathom.
 
 ## Modele Umami
 

@@ -66,6 +66,6 @@ Avant de promouvoir un changement en production :
 - confirmez qu'une cible bloquee echoue la validation
 - confirmez que `/_stats` et `/_tests` sont proteges par Cloudflare Access
 - confirmez que les analytics serveur recoivent un evenement test si les analytics sont actives
-- confirmez que WAF et controles bot bloquent le trafic scanner banal avant qu'il atteigne le Worker
+- confirmez que [Protection reseau](/fr/docs/network-protection/) bloque le trafic scanner banal avant qu'il atteigne le Worker
 
 Pour les instances existantes, utilisez le workflow de mise a jour pour rafraichir `defaults/` et `scripts/` tout en preservant `custom/`, `wrangler.toml`, les secrets, et la sortie generee.

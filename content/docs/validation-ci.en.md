@@ -66,6 +66,6 @@ Before promoting a production change:
 - confirm a blocked target fails validation
 - confirm `/_stats` and `/_tests` are protected by [Cloudflare Access](/docs/access-control/)
 - confirm server-side analytics receive one test event when analytics are enabled
-- confirm WAF and bot controls block commodity scanner traffic before it reaches the Worker
+- confirm [Network protection](/docs/network-protection/) blocks commodity scanner traffic before it reaches the Worker
 
 For existing instances, use the upgrade workflow to refresh `defaults/` and `scripts/` while preserving `custom/`, `wrangler.toml`, secrets, and generated output.

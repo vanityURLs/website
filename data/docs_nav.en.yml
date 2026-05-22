@@ -22,6 +22,8 @@ sections:
         url: /docs/legal-trust-pages/
       - title: Access control
         url: /docs/access-control/
+      - title: Network protection
+        url: /docs/network-protection/
       - title: Internationalization
         url: /docs/i18n/
       - title: Blocklist policy

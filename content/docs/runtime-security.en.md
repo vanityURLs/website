@@ -34,7 +34,7 @@ Default response headers include `X-Generated-By: vanityURLs.link`. If you overr
 
 ## Cloudflare edge controls
 
-Cloudflare should reject commodity abuse before the Worker runs. Use WAF custom rules, rate limiting, Bot Fight Mode, AI crawler controls, Browser Integrity Check, managed rules, and Access as the outer layer.
+Cloudflare should reject commodity abuse before the Worker runs. Use [Network protection](/docs/network-protection/) for WAF custom rules, rate limiting, Bot Fight Mode, AI crawler controls, Browser Integrity Check, managed rules, and related domain settings. Use [Access control](/docs/access-control/) for private operational paths.
 
 This split matters:
 
@@ -42,16 +42,4 @@ This split matters:
 - Worker analytics shows application events that actually reached runtime
 - Umami or Fathom should not be used as the primary source for edge-blocked traffic
 
-## WAF rule entry notes
-
-Cloudflare's visual rule builder can be awkward for nested expressions. When creating vanityURLs WAF rules, use the expression editor for the final rule, paste one complete expression at a time, validate it, save the rule disabled if you are still tuning, then enable after checking Security Events.
-
-Good first rules are:
-
-- block scanner probes such as `.php`, `/wp-`, `/.env`, admin paths, and framework probes
-- block unexpected methods for the public redirect hostname
-- managed-challenge suspicious clients while excluding `/_stats`, `/_tests`, static assets, `robots.txt`, and verified bots
-- block unwanted AI crawlers while allowing `/robots.txt`
-- rate-limit repeated short-link candidates and misses
-
-Keep the Worker blocklist as the fallback, not the first line of defense for high-volume abuse.
+Keep the Worker blocklist as the fallback, not the first line of defense for high-volume abuse. The canonical WAF, AI crawler, Rules, Network, DNS, SSL/TLS, Security, Caching, and Cloudflare analytics guidance lives in [Network protection](/docs/network-protection/).

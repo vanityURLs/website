@@ -42,7 +42,7 @@ Dans Cloudflare, les reglages pertinents sont repartis dans trois endroits :
   - observabilite
   - domaines custom
   - reglages de build
-- **Configuration du domaine** : {{< arrow left >}} documentation [Protection reseau](/docs/access-control/)
+- **Configuration du domaine** : {{< arrow left >}} documentation [Protection reseau](/fr/docs/network-protection/)
   - AI Crawl Control
   - Analytics
   - Caching
@@ -53,25 +53,11 @@ Dans Cloudflare, les reglages pertinents sont repartis dans trois endroits :
   - SSL/TLS
   - WAF
 
-Base recommandee :
+Utilisez [Protection reseau](/fr/docs/network-protection/) pour les reglages recommandes de DNS, SSL/TLS, Security, WAF, AI Crawl Control, Rules, Network, Caching, et analytics Cloudflare.
 
-- Mode SSL/TLS : Full (strict)
-- Always Use HTTPS : active
-- HSTS : active apres confirmation des certificats et redirections
-- TLS minimum : TLS 1.2 ou plus recent
-- Bot Fight Mode ou controles bot equivalents : active quand disponible
-- Controles crawler IA : bloquer les bots IA non voulus tout en permettant `/robots.txt`
-- `robots.txt` gere par Cloudflare : desactive quand vous publiez vos propres fichiers depuis `defaults/public/`
-- Normalisation URL : activee
-- Retrait des headers `X-Powered-By` : active
+## Controles anti-abus
 
-## WAF et controles anti-abus
-
-- Bloquez les probes scanner evidents avant qu'ils atteignent le Worker
-- Bloquez les methodes HTTP inattendues a l'edge
-- Challengez le trafic non-bot suspect qui vise des candidats de liens courts
-- Rate-limitez les candidats de liens courts pour proteger le CPU Worker et les quotas analytics
-- Gardez la blocklist runtime activee comme fallback applicatif
+- Gardez la blocklist runtime activee comme fallback applicatif apres les controles reseau Cloudflare
 - Relisez `defaults/v8s-blocklist-categories.json` quand les feeds generes changent
 - Gardez la politique source editable dans `custom/v8s-policies.json`; traitez `build/v8s-blocklist.json` comme sortie generee
 
@@ -81,7 +67,7 @@ N'utilisez pas un redirecteur pour du phishing, malware, tracking dissimule, rou
 
 - Utilisez seulement des analytics serveur; n'ajoutez pas de scripts de tracking navigateur
 - Configurez Umami ou Fathom avec les variables et secrets Worker
-- Confirmez que le trafic bloque par WAF n'est pas envoye aux analytics
+- Confirmez que le trafic bloque par [Protection reseau](/fr/docs/network-protection/) n'est pas envoye aux analytics
 - Confirmez la collecte avec une redirection test
 - Relisez les limites de debit et quotas du fournisseur avant lancement
 - Surveillez les premieres 24 heures pour le bruit scanner qui pourrait consommer du quota

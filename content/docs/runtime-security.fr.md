@@ -34,7 +34,7 @@ Les headers par defaut incluent `X-Generated-By: vanityURLs.link`. Si vous surch
 
 ## Controles edge Cloudflare
 
-Cloudflare devrait rejeter les abus courants avant que le Worker s'execute. Utilisez WAF custom rules, rate limiting, Bot Fight Mode, controles crawler IA, Browser Integrity Check, managed rules, et Access comme couche externe.
+Cloudflare devrait rejeter les abus courants avant que le Worker s'execute. Utilisez [Protection reseau](/fr/docs/network-protection/) pour les WAF custom rules, rate limiting, Bot Fight Mode, controles crawler IA, Browser Integrity Check, managed rules, et les reglages de domaine associes. Utilisez [Controle d'acces](/fr/docs/access-control/) pour les chemins operationnels prives.
 
 Cette separation compte :
 
@@ -42,16 +42,4 @@ Cette separation compte :
 - les analytics Worker montrent les evenements applicatifs qui ont atteint le runtime
 - Umami ou Fathom ne doivent pas etre la source principale pour le trafic bloque a l'edge
 
-## Notes de saisie des regles WAF
-
-Le rule builder visuel de Cloudflare peut etre difficile pour les expressions imbriquees. Pour les regles WAF vanityURLs, utilisez l'editeur d'expression pour la regle finale, collez une expression complete a la fois, validez-la, sauvegardez la regle desactivee si vous la calibrez encore, puis activez-la apres verification dans Security Events.
-
-Bonnes premieres regles :
-
-- bloquer les probes scanner comme `.php`, `/wp-`, `/.env`, chemins admin, et probes de frameworks
-- bloquer les methodes inattendues sur le hostname public de redirection
-- managed-challenge pour les clients suspects en excluant `/_stats`, `/_tests`, assets statiques, `robots.txt`, et bots verifies
-- bloquer les crawlers IA indesires tout en autorisant `/robots.txt`
-- rate-limit les candidats liens courts et misses repetes
-
-Gardez la blocklist Worker comme fallback, pas comme premiere ligne de defense contre les abus a fort volume.
+Gardez la blocklist Worker comme fallback, pas comme premiere ligne de defense contre les abus a fort volume. Les recommandations canoniques pour WAF, crawlers IA, Rules, Network, DNS, SSL/TLS, Security, Caching, et analytics Cloudflare vivent dans [Protection reseau](/fr/docs/network-protection/).

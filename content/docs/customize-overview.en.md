@@ -18,6 +18,7 @@ Start with the area that hurts most:
 | Finish legal-page and analytics choices | [Setup decisions](/docs/setup-decisions/) |
 | Configure jurisdiction and public trust contacts | [Legal and trust pages](/docs/legal-trust-pages/) |
 | Protect private operational paths | [Access control](/docs/access-control/) |
+| Protect the domain before traffic reaches the Worker | [Network protection](/docs/network-protection/) |
 | Configure redirect analytics | [Analytics](/docs/analytics/) |
 | Tune allow/block policy | [Policy and blocklist](/docs/blocklist/) |
 
