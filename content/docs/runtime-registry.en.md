@@ -2,6 +2,8 @@
 aside: false
 title: "Runtime registry"
 description: "How v8s builds the private routing registry and runtime artifacts used by the Cloudflare Worker."
+weight: 60
+
 ---
 
 The Worker does not read `v8s-links.txt` on every request. The build creates a private runtime registry at `build/v8s.json` and publishes it as an internal asset.

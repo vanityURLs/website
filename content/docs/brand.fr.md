@@ -2,6 +2,8 @@
 aside: false
 title: "Marque"
 description: "Tokens de marque vanityURLs, polices auto-hebergees, couleurs des badges de redirection, et recommandations d'assets."
+weight: 40
+
 ---
 
 <div class="brand-system">

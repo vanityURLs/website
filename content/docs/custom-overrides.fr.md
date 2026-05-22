@@ -2,6 +2,8 @@
 aside: false
 title: "Surcharges custom"
 description: "Transformer une instance vanityURLs simple en instance marquee en ajoutant des fichiers dans custom/ tout en gardant les defaults faciles a mettre a jour."
+weight: 80
+
 ---
 
 Utilisez `custom/` pour les fichiers propres a l'instance. Cela garde les deploiements faciles a mettre a jour pendant que les pages par defaut, la logique Worker, la politique source et les reglages locaux evoluent.

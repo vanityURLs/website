@@ -2,6 +2,8 @@
 aside: false
 title: "Protection réseau"
 description: "Configurer les réglages de domaine Cloudflare qui protègent une zone vanityURLs avant que le trafic atteigne le Worker."
+weight: 70
+
 ---
 
 La protection réseau couvre les réglages de domaine Cloudflare placés devant le Worker vanityURLs. Ces contrôles décident comment DNS, TLS, caching, trafic bot, trafic crawler, règles WAF et sécurité de zone se comportent avant qu'une requête consomme du CPU Worker ou du quota analytics.

@@ -2,6 +2,8 @@
 aside: false
 title: "Reference v8s.link"
 description: "Comment l'instance publique v8s.link montre les defaults vanityURLs actuels et le runtime Worker."
+weight: 10
+
 ---
 
 v8s.link est l'instance publique de reference de vanityURLs. Elle montre le repertoire defaults actuel, le registre genere, les pages operationnelles protegees, les etats de cycle de vie, la politique blocklist et le deploiement Worker Cloudflare.

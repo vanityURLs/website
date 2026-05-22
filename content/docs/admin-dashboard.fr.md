@@ -2,6 +2,8 @@
 aside: false
 title: "Tableau admin"
 description: "Tableau operationnel en lecture seule pour inventaire, etats effectifs, qualite metadata et stats protegees."
+weight: 80
+
 ---
 
 Le tableau admin est volontairement en lecture seule. C'est une vue operationnelle du registre genere, pas un CMS.

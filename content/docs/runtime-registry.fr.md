@@ -2,6 +2,8 @@
 aside: false
 title: "Registre runtime"
 description: "Comment v8s construit le registre de routage prive et les artefacts runtime utilises par le Worker Cloudflare."
+weight: 50
+
 ---
 
 Le Worker ne lit pas `v8s-links.txt` a chaque requete. Le build cree un registre runtime prive dans `build/v8s.json` et le publie comme asset interne.

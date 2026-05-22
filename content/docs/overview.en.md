@@ -2,7 +2,7 @@
 aside: false
 title: "Overview"
 description: "What you need before setting up a vanityURLs redirector and how the first deployment path fits together."
-nav_order: 1
+weight: 10
 ---
 
 vanityURLs is an open source solution for running your own branded short-link domain as code.

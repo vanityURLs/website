@@ -2,6 +2,8 @@
 aside: false
 title: "Brand"
 description: "Current vanityURLs brand tokens, self-hosted fonts, redirected badge colors, and badge asset guidance."
+weight: 20
+
 ---
 
 <div class="brand-system">

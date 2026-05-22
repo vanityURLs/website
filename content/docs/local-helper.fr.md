@@ -2,7 +2,7 @@
 aside: false
 title: "Helper local"
 description: "Utiliser le helper shell v8s en lecture seule pour ouvrir des redirections connues depuis votre terminal."
-nav_order: 13
+weight: 10
 ---
 
 Le helper local est la commande terminal `v8s`. Il vous permet d'ouvrir un lien court connu directement depuis votre terminal au lieu de passer d'abord au navigateur, taper le domaine court et attendre la redirection. Pour le travail quotidien, cela rend les liens répétés plus rapides à atteindre.

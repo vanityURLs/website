@@ -2,7 +2,7 @@
 aside: false
 title: "Local helper"
 description: "Use the read-only v8s shell helper to open known redirects from your terminal."
-nav_order: 13
+weight: 10
 ---
 
 The local helper is the `v8s` terminal command. It lets you open a known short link directly from your terminal instead of switching to a browser first, typing the short domain, and waiting for the redirect. For day-to-day work, that makes repeat links faster to reach.

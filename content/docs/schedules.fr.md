@@ -2,6 +2,8 @@
 aside: false
 title: "Liens planifies"
 description: "Configurer des liens exacts sensibles au temps avec v8s-schedules.json et le registre v8s.json genere."
+weight: 30
+
 ---
 
 Les liens planifies permettent a un slug stable de pointer ailleurs pendant certaines plages horaires. Gardez le lien normal dans `v8s-links.txt`, puis ajoutez les regles dans `v8s-schedules.json`.

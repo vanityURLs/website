@@ -2,6 +2,8 @@
 aside: false
 title: "Custom overrides"
 description: "Turn a plain vanityURLs deployment into your own branded instance by adding files under custom/ while keeping defaults upgradable."
+weight: 50
+
 ---
 
 Use `custom/` for instance-owned files. This keeps your deployment upgradable because default pages, Worker logic, source policy, and local helper settings can move forward without mixing in every local brand choice.

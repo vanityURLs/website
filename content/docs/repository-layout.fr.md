@@ -2,6 +2,8 @@
 aside: false
 title: "Structure du depot"
 description: "Comment le depot vanityURLs est organise autour des defaults, custom, sorties generees, outillage local, et source Worker."
+weight: 70
+
 ---
 
 Le depot separe les defaults produit des changements propres a l'instance. Cette separation permet de mettre a jour `defaults/` et `scripts/` sans perdre les liens, le branding, la politique, ou les choix locaux.

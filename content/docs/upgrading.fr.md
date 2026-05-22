@@ -2,6 +2,8 @@
 aside: false
 title: "Mettre a jour une instance"
 description: "Garder les fichiers locaux en securite pendant le rafraichissement des defaults et scripts vanityURLs."
+weight: 30
+
 ---
 
 Installer une instance vanityURLs est facile. La mettre a jour proprement demande un workflow reproductible, parce que le proprietaire doit garder ses liens, sa marque, sa politique et sa configuration Cloudflare tout en recevant les nouveaux defaults, scripts, correctifs et durcissements securite.

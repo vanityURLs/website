@@ -2,6 +2,8 @@
 aside: false
 title: "Vue d'ensemble custom"
 description: "Comment defaults, custom, les sorties generees, et les fichiers locaux s'assemblent avant de personnaliser une instance vanityURLs."
+weight: 10
+
 ---
 
 La personnalisation commence avec une regle simple : les fichiers source vivent dans `defaults/` et `custom/`, mais le Worker deploye lit les fichiers runtime generes dans `build/`.

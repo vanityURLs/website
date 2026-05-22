@@ -1,7 +1,7 @@
 ---
 title: "Quickstart"
 description: "Launch a plain vanityURLs redirector on your own short domain in about 10 minutes, then customize it once the first deployment works."
-nav_order: 2
+weight: 20
 aside: false
 ---
 

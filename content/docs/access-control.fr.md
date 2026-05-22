@@ -2,6 +2,8 @@
 aside: false
 title: "Contrôle d'accès"
 description: "Configurer Cloudflare Access, les fournisseurs d'identité, les politiques et les secrets Worker pour les chemins opérationnels privés de vanityURLs."
+weight: 30
+
 ---
 
 vanityURLs garde les redirections publiques ouvertes et protège les chemins opérationnels avec Cloudflare Access. Les chemins protégés exposent l'inventaire des liens, les diagnostics runtime et les surfaces de test; ils doivent donc exiger une authentification avant que le Worker les serve.

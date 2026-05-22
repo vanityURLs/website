@@ -2,6 +2,8 @@
 aside: false
 title: "Admin dashboard"
 description: "Read-only operational dashboard for route inventory, effective states, metadata quality, and protected stats."
+weight: 10
+
 ---
 
 The admin dashboard is intentionally read-only. It is an operational view over the generated registry, not a content management system.

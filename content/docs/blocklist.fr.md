@@ -2,6 +2,8 @@
 aside: false
 title: "Politique et blocklist"
 description: "Politique source et blocklist runtime generee pour les URLs cibles, chaines de shorteners, malware, schemas risques et choix locaux."
+weight: 60
+
 ---
 
 vanityURLs edite la politique source comme `v8s-policies.json` et deploie la politique runtime comme `build/v8s-blocklist.json`.

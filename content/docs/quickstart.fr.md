@@ -2,7 +2,7 @@
 aside: false
 title: "Demarrage rapide"
 description: "Creer une instance vanityURLs de type v8s.link sur Cloudflare Workers avec le repertoire defaults actuel."
-nav_order: 1
+weight: 20
 ---
 
 vanityURLs est un moteur de liens courts gere dans Git pour votre propre domaine. Le runtime actuel se deploie comme Worker Cloudflare avec assets statiques. Le build part de `defaults/`, applique vos fichiers `custom/`, genere `build/v8s.json`, `build/v8s-blocklist.json` et `build/v8s-site-config.json`, puis publie le Worker avec Wrangler.

@@ -2,19 +2,23 @@
 aside: false
 title: "Release checklist"
 description: "Production checklist for deploying or upgrading a v8s instance on Cloudflare."
+weight: 40
+
 ---
 
 Use this checklist before launching a new instance or promoting a major upgrade. A vanityURLs instance is robust, but anything shiny on the internet attracts scanners, bots, and abuse attempts.
 
 ## Repository
 
-- Run `npm run clean`
+- Run `npm run clean` before release or before comparing generated output
 - Refresh upstream `defaults/` and `scripts/` with the [upgrade workflow](/docs/upgrading/)
 - Keep all instance-owned files in `custom/`
 - Keep Worker runtime edits in `scripts/workers/`; treat `src/` as generated
 - Run `npm run check`
 - Review generated registry, runtime policy, and site config changes
 - Commit and deploy from a clean working tree
+
+CI should run `npm run check` before deployment. Keep deployment credentials out of the repo and configure them as GitHub or Cloudflare secrets.
 
 ## Worker and assets
 
@@ -71,6 +75,15 @@ Do not use a redirector for phishing, malware, disguised tracking, undisclosed a
 - Confirm collection works with one test redirect
 - Review vendor rate limits and account quotas before launch
 - Watch the first 24 hours for scanner noise that could consume quota
+
+## Operational smoke checks
+
+- Confirm a known active short link returns the expected redirect
+- Confirm a hidden or missing slug returns 404
+- Confirm a blocked target fails validation
+- Confirm `/_stats` and `/_tests` are protected by [Cloudflare Access](/docs/access-control/)
+- Confirm server-side analytics receive one test event when analytics are enabled
+- Confirm [Network protection](/docs/network-protection/) blocks commodity scanner traffic before it reaches the Worker
 
 ## Legal and public files
 

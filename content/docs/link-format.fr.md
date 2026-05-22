@@ -2,6 +2,8 @@
 aside: false
 title: "Format des liens"
 description: "Le format v8s-links.txt pour liens exacts, splat, etats, metadonnees, expiration et v8s.json genere."
+weight: 20
+
 ---
 
 `v8s-links.txt` est la source de verite humaine pour les liens. Chaque ligne non vide et non commentee est separee par des pipes :

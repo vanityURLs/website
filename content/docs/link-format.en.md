@@ -2,6 +2,8 @@
 aside: false
 title: "Link format"
 description: "The v8s-links.txt source format for exact links, splat links, states, metadata, expiry, and generated v8s.json."
+weight: 40
+
 ---
 
 `v8s-links.txt` is the human-authored source of truth for links. Each non-empty, non-comment row is pipe-delimited:

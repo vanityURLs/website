@@ -14,44 +14,39 @@ sections:
     pages:
       - title: Overview
         url: /docs/customize-overview/
-      - title: Custom overrides
-        url: /docs/custom-overrides/
-      - title: Legal and trust pages
-        url: /docs/legal-trust-pages/
       - title: Access control
         url: /docs/access-control/
-      - title: Network protection
-        url: /docs/network-protection/
-      - title: Internationalization
-        url: /docs/i18n/
-      - title: Blocklist policy
-        url: /docs/blocklist/
       - title: Analytics
         url: /docs/analytics/
-
-  - title: Operate
-    pages:
-      - title: Validation and CI
-        url: /docs/validation-ci/
-      - title: Admin dashboard
-        url: /docs/admin-dashboard/
+      - title: Blocklist policy
+        url: /docs/blocklist/
+      - title: Custom overrides
+        url: /docs/custom-overrides/
+      - title: Internationalization
+        url: /docs/i18n/
+      - title: Legal and trust pages
+        url: /docs/legal-trust-pages/
+      - title: Network protection
+        url: /docs/network-protection/
 
   - title: Reference
     pages:
+      - title: Admin dashboard
+        url: /docs/admin-dashboard/
       - title: Brand
         url: /docs/brand/
+      - title: Configuration files
+        url: /docs/configuration-files/
       - title: Link format
         url: /docs/link-format/
-      - title: Scheduled links
-        url: /docs/schedules/
-      - title: Runtime security
-        url: /docs/runtime-security/
       - title: Repository layout
         url: /docs/repository-layout/
       - title: Runtime registry
         url: /docs/runtime-registry/
-      - title: Configuration files
-        url: /docs/configuration-files/
+      - title: Runtime security
+        url: /docs/runtime-security/
+      - title: Scheduled links
+        url: /docs/schedules/
 
   - title: Command line interface
     pages:
@@ -60,7 +55,7 @@ sections:
       - title: LNK
         url: /docs/cli/
 
-  - title: v8s.link reference
+  - title: "Demo: v8s.link"
     pages:
       - title: Overview
         url: /docs/demo/

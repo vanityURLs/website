@@ -2,6 +2,8 @@
 aside: false
 title: "Network protection"
 description: "Configure Cloudflare domain settings that protect a vanityURLs short-link zone before traffic reaches the Worker."
+weight: 80
+
 ---
 
 Network protection covers the Cloudflare domain settings that sit in front of the vanityURLs Worker. These controls decide how DNS, TLS, caching, bot traffic, crawler traffic, WAF rules, and zone-level security behave before a request spends Worker CPU or analytics quota.

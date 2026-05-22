@@ -2,6 +2,8 @@
 aside: false
 title: "Customize overview"
 description: "Plan the phase-2 customization work after the first vanityURLs deployment is online."
+weight: 10
+
 ---
 
 After the Quickstart works, customization is where the instance becomes yours. Phase 2 is not one task; it is a set of small decisions you can make in any order.

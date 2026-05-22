@@ -2,6 +2,8 @@
 aside: false
 title: "LNK"
 description: "Use the Node-based v8s CLI to manage links, schedules, and source policy."
+weight: 20
+
 ---
 
 The repo-local CLI is `./scripts/lnk`. It is a Node executable, so it works on macOS, Linux, Windows, and CI environments where Node and Git are available.

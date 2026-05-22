@@ -2,6 +2,8 @@
 aside: false
 title: "Repository layout"
 description: "How the current vanityURLs repository is organized around defaults, custom overrides, generated output, local tooling, and Worker source."
+weight: 50
+
 ---
 
 The repository separates product defaults from instance-owned changes. That separation lets an instance owner update upstream `defaults/` and `scripts/` without losing local links, branding, policy, or workstation choices.

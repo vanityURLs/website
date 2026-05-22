@@ -2,19 +2,23 @@
 aside: false
 title: "Checklist de release"
 description: "Checklist production pour deployer ou mettre a jour une instance v8s sur Cloudflare."
+weight: 40
+
 ---
 
 Utilisez cette checklist avant de lancer une nouvelle instance ou de promouvoir une mise a jour majeure. Une instance vanityURLs est robuste, mais tout ce qui brille sur internet attire scanners, bots, et tentatives d'abus.
 
 ## Depot
 
-- Lancez `npm run clean`
+- Lancez `npm run clean` avant une release ou avant de comparer la sortie generee
 - Rafraichissez `defaults/` et `scripts/` upstream avec le workflow de mise a jour
 - Gardez tous les fichiers propres a l'instance dans `custom/`
 - Gardez les changements runtime Worker dans `scripts/workers/`; traitez `src/` comme genere
 - Lancez `npm run check`
 - Relisez les changements de registre genere, politique runtime, et configuration de site
 - Commitez et deployez depuis un working tree propre
+
+La CI devrait lancer `npm run check` avant le deploiement. Gardez les identifiants de deploiement hors du depot et configurez-les comme secrets GitHub ou Cloudflare.
 
 ## Worker et assets
 
@@ -71,6 +75,15 @@ N'utilisez pas un redirecteur pour du phishing, malware, tracking dissimule, rou
 - Confirmez la collecte avec une redirection test
 - Relisez les limites de debit et quotas du fournisseur avant lancement
 - Surveillez les premieres 24 heures pour le bruit scanner qui pourrait consommer du quota
+
+## Smoke checks operationnels
+
+- Confirmez qu'un lien court actif connu retourne la redirection attendue
+- Confirmez qu'un slug cache ou absent retourne 404
+- Confirmez qu'une cible bloquee echoue la validation
+- Confirmez que `/_stats` et `/_tests` sont proteges par [Cloudflare Access](/fr/docs/access-control/)
+- Confirmez que les analytics serveur recoivent un evenement test si les analytics sont actives
+- Confirmez que [Protection reseau](/fr/docs/network-protection/) bloque le trafic scanner banal avant qu'il atteigne le Worker
 
 ## Legal et fichiers publics
 

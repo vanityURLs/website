@@ -2,7 +2,7 @@
 aside: false
 title: "Fichiers de configuration"
 description: "Référence des fichiers de configuration source, custom, locaux et générés de vanityURLs."
-nav_order: 4
+weight: 10
 ---
 
 vanityURLs garde les valeurs par défaut du produit, les choix propres à l'instance, les réglages locaux du poste et les artefacts runtime générés dans des fichiers séparés.
@@ -28,4 +28,4 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 | `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
-Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis [reconstruisez](/fr/docs/validation-ci/).
+Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.

@@ -2,6 +2,8 @@
 aside: false
 title: "Upgrading and migration"
 description: "Keep custom instance files safe while refreshing vanityURLs defaults and scripts from upstream, or migrate an older instance to the current runtime."
+weight: 30
+
 ---
 
 Installing a vanityURLs instance is easy. Updating one safely is the part that needs a repeatable workflow, because the instance owner should keep links, branding, policy, and Cloudflare configuration while receiving new defaults, scripts, fixes, and security hardening.

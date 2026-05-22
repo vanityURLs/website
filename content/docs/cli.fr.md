@@ -2,6 +2,8 @@
 aside: false
 title: "LNK"
 description: "Utiliser la CLI v8s basee sur Node pour gerer liens, horaires, et politique source."
+weight: 20
+
 ---
 
 La CLI locale au depot est `./scripts/lnk`. C'est un executable Node, donc il fonctionne sur macOS, Linux, Windows, et les environnements CI ou Node et Git sont disponibles.

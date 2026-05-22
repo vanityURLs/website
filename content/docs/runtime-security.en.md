@@ -2,6 +2,8 @@
 aside: false
 title: "Runtime security approach"
 description: "How the vanityURLs Worker stays small, deterministic, and defensive at the edge."
+weight: 70
+
 ---
 
 The vanityURLs runtime is deliberately simple. It is not a public link-submission service, not a database-backed application, and not a general web framework. It is a Git-built redirect engine: validate the link registry, deploy static assets, read `v8s.json`, and return one of a small set of outcomes.
@@ -27,6 +29,19 @@ The important point is not that any code is magically bulletproof. The point is 
 ## Build-time guardrails
 
 `npm run check` builds the same assets used for deployment, validates the generated registry, validates policy files, lints the repository, and runs Worker tests.
+
+For targeted local work, use:
+
+```bash
+npm run lint
+npm test
+npm run build
+npm run smoke:analytics
+```
+
+Validation verifies that link rows have the expected shape, URL targets normalize safely, unsafe targets are rejected, splat aliases do not shadow unsafe parent paths, schedules are valid, generated runtime assets use the expected schema, raw runtime assets stay unreachable, and generated `src/` matches the Worker source in `scripts/workers/`.
+
+Warnings should be reviewed. Errors should be fixed instead of bypassed; a redirector can damage its domain reputation quickly if bad targets slip through.
 
 The generated registry and runtime policy are treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`; canonical Worker source stays in `scripts/workers/`; generated `src/` is only for Wrangler compatibility. That keeps updates reviewable and makes rollback a normal Git operation.
 

@@ -2,6 +2,8 @@
 aside: false
 title: "Pages légales et de confiance"
 description: "Comprendre les réponses de setup utilisées pour générer les pages confidentialité, conditions, Trust & Safety, sécurité et security.txt."
+weight: 50
+
 ---
 
 vanityURLs peut publier des pages légales et de confiance depuis les valeurs opérateur stockées dans `custom/v8s-site-config.json`. Ces pages font partie de la posture publique d'un domaine de liens courts : elles indiquent aux visiteurs, signalants, registraires et chercheurs en sécurité qui exploite le redirecteur et comment joindre le bon contact.

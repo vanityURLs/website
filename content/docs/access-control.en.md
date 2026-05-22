@@ -2,6 +2,8 @@
 aside: false
 title: "Access control"
 description: "Configure Cloudflare Access, identity providers, policies, and Worker secrets for private vanityURLs operational paths."
+weight: 20
+
 ---
 
 vanityURLs keeps public redirects open and protects operational paths with Cloudflare Access. The protected paths expose link inventory, runtime diagnostics, and test surfaces, so they should require authentication before the Worker serves them.

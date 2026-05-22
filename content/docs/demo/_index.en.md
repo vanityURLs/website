@@ -2,6 +2,8 @@
 aside: false
 title: "v8s.link reference"
 description: "How the public v8s.link instance demonstrates the current vanityURLs defaults and Worker runtime."
+weight: 10
+
 ---
 
 v8s.link is the public reference instance for vanityURLs. It demonstrates the current defaults directory, generated registry, protected operational pages, lifecycle states, blocklist policy, and Cloudflare Worker deployment model.

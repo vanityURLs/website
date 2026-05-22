@@ -2,6 +2,8 @@
 aside: false
 title: "Legal and trust pages"
 description: "Understand the setup answers used to generate privacy, terms, Trust & Safety, security, and security.txt pages."
+weight: 70
+
 ---
 
 vanityURLs can publish legal and trust pages from the operator values stored in `custom/v8s-site-config.json`. These pages are part of the public posture of a short-link domain: they tell visitors, reporters, registrars, and security researchers who operates the redirector and how to reach the right contact.

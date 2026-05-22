@@ -2,7 +2,7 @@
 aside: false
 title: "Configuration files"
 description: "Reference the vanityURLs source, custom, local, and generated configuration files."
-nav_order: 4
+weight: 30
 ---
 
 vanityURLs keeps product defaults, instance-owned choices, local workstation settings, and generated runtime artifacts in separate files.
@@ -28,4 +28,4 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 | `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
 
-Do not edit generated files in `build/`. Edit `custom/`, then [rebuild](/docs/validation-ci/).
+Do not edit generated files in `build/`. Edit `custom/`, then rebuild with `npm run check`.

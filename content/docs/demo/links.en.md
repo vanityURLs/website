@@ -2,6 +2,8 @@
 aside: false
 title: "Default links"
 description: "Annotated examples from defaults/v8s-links.txt in the current v8s.link reference implementation."
+weight: 20
+
 ---
 
 The default link registry is `defaults/v8s-links.txt`. A production instance normally replaces it with `custom/v8s-links.txt`, but the defaults are useful because they show the supported shape of a real registry.

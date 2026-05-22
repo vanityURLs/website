@@ -2,6 +2,8 @@
 aside: false
 title: "Scheduled links"
 description: "Configure time-aware exact links with v8s-schedules.json and the generated v8s.json registry."
+weight: 80
+
 ---
 
 Scheduled links let a stable slug point somewhere different during configured time windows. Keep the normal link in `v8s-links.txt`, then add rules in `v8s-schedules.json`.

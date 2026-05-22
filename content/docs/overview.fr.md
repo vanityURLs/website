@@ -2,7 +2,7 @@
 aside: false
 title: "Vue d'ensemble"
 description: "Ce qu'il faut avant de configurer un redirecteur vanityURLs et comment le premier déploiement s'articule."
-nav_order: 1
+weight: 10
 ---
 
 vanityURLs est une solution open source pour exploiter votre propre domaine de liens courts marqué comme du code.

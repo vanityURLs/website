@@ -14,44 +14,39 @@ sections:
     pages:
       - title: Vue d'ensemble
         url: /docs/customize-overview/
-      - title: Surcharges custom
-        url: /docs/custom-overrides/
-      - title: Pages legales et de confiance
-        url: /docs/legal-trust-pages/
-      - title: Controle d'acces
-        url: /docs/access-control/
-      - title: Protection reseau
-        url: /docs/network-protection/
-      - title: Internationalisation
-        url: /docs/i18n/
-      - title: Politique blocklist
-        url: /docs/blocklist/
       - title: Analytics
         url: /docs/analytics/
-
-  - title: Operer
-    pages:
-      - title: Validation et CI
-        url: /docs/validation-ci/
-      - title: Tableau admin
-        url: /docs/admin-dashboard/
+      - title: Controle d'acces
+        url: /docs/access-control/
+      - title: Internationalisation
+        url: /docs/i18n/
+      - title: Pages legales et de confiance
+        url: /docs/legal-trust-pages/
+      - title: Politique blocklist
+        url: /docs/blocklist/
+      - title: Protection reseau
+        url: /docs/network-protection/
+      - title: Surcharges custom
+        url: /docs/custom-overrides/
 
   - title: Reference
     pages:
-      - title: Marque
-        url: /docs/brand/
+      - title: Fichiers de configuration
+        url: /docs/configuration-files/
       - title: Format des liens
         url: /docs/link-format/
       - title: Liens planifies
         url: /docs/schedules/
+      - title: Marque
+        url: /docs/brand/
+      - title: Registre runtime
+        url: /docs/runtime-registry/
       - title: Securite runtime
         url: /docs/runtime-security/
       - title: Structure du depot
         url: /docs/repository-layout/
-      - title: Registre runtime
-        url: /docs/runtime-registry/
-      - title: Fichiers de configuration
-        url: /docs/configuration-files/
+      - title: Tableau admin
+        url: /docs/admin-dashboard/
 
   - title: Interface en ligne de commande
     pages:
@@ -60,7 +55,7 @@ sections:
       - title: LNK
         url: /docs/cli/
 
-  - title: Reference v8s.link
+  - title: "Demo: v8s.link"
     pages:
       - title: Vue d'ensemble
         url: /docs/demo/

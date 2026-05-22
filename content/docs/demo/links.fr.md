@@ -2,6 +2,8 @@
 aside: false
 title: "Liens par defaut"
 description: "Exemples annotes depuis defaults/v8s-links.txt dans l'implementation de reference v8s.link actuelle."
+weight: 20
+
 ---
 
 Le registre par defaut est `defaults/v8s-links.txt`. Une instance de production le remplace normalement par `custom/v8s-links.txt`, mais les defaults sont utiles parce qu'ils montrent la forme d'un vrai registre.
