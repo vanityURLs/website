@@ -1,7 +1,9 @@
 ---
 aside: false
-title: "Server-side analytics"
-description: "Configure privacy-preserving server-side analytics for vanityURLs redirects, misses, bots, expand previews, and pageviews."
+title: "Analytics"
+description: "Configure privacy-preserving analytics for vanityURLs redirects, misses, bots, expand previews, and pageviews."
+aliases:
+  - /docs/server-side-analytics/
 ---
 
 vanityURLs records analytics from the Worker, not from browser JavaScript. Redirects can be measured even when the visitor never loads an HTML page, and the public pages do not need client-side tracking scripts.

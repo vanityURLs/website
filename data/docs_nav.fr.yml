@@ -16,13 +16,13 @@ sections:
         url: /docs/custom-overrides/
       - title: Politique blocklist
         url: /docs/blocklist/
+      - title: Analytics
+        url: /docs/analytics/
 
   - title: Operer
     pages:
       - title: Validation et CI
         url: /docs/validation-ci/
-      - title: Analytics serveur
-        url: /docs/server-side-analytics/
       - title: Tableau admin
         url: /docs/admin-dashboard/
       - title: Mise a jour d'une instance

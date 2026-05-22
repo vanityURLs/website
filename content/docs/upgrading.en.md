@@ -98,7 +98,7 @@ Use this section when moving from the older Cloudflare Pages `_redirects` model 
 - `custom/v8s-links.txt` is preferred when it exists; otherwise the build uses `defaults/v8s-links.txt`
 - Editable source policy is `v8s-policies.json`; `build/v8s-blocklist.json` is generated runtime output
 - `/_stats` and `/_tests` are protected by [Cloudflare Access](/docs/access-control/)
-- Server-side analytics are emitted by the Worker
+- Analytics events are emitted by the Worker
 - Scanner probes and risky destinations are blocked by the generated runtime policy
 
 ### Convert legacy .lnk files

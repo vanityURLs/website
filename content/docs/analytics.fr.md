@@ -1,7 +1,9 @@
 ---
 aside: false
-title: "Analytics serveur"
+title: "Analytics"
 description: "Configurer des analytics serveur pour redirections, misses, bots, previews expand et pageviews vanityURLs."
+aliases:
+  - /fr/docs/server-side-analytics/
 ---
 
 vanityURLs enregistre les analytics depuis le Worker, pas depuis du JavaScript navigateur. Les redirections peuvent etre mesurees meme quand le visiteur ne charge jamais de page HTML, et les pages publiques n'ont pas besoin de script de tracking client.

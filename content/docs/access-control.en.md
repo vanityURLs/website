@@ -15,6 +15,19 @@ Use this page as the canonical setup for:
 
 The Worker validates the `Cf-Access-Jwt-Assertion` header on protected paths. If Cloudflare Access is not configured or the token is missing, those paths fail closed.
 
+## Other access controls
+
+Cloudflare Access protects operational pages, but it is not the only control that limits file access.
+
+| Control | Paths | What it does |
+| :--- | :--- | :--- |
+| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Returns `404` with `no-store` and `X-Robots-Tag: noindex, nofollow` for direct public requests |
+| Static `_headers` fallback | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Adds no-cache and no-index headers when static assets are served directly |
+| Protected stats API | `/_stats/api/v8s.json` | Exposes the generated registry only through the protected stats surface, with download headers and no-index headers |
+| Reserved slug validation | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational and runtime paths |
+
+These controls are layered. Keep Cloudflare Access on `/_stats` and `/_tests`, keep the Worker runtime-file guard enabled, and keep the `_headers` runtime-file entries unless you have a deliberate public-disclosure reason.
+
 ## What to decide first
 
 Before creating the Access application, decide who should be allowed in:

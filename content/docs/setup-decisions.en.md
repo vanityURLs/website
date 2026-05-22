@@ -27,7 +27,7 @@ Use `disabled` for phase 1. Once redirects work, decide whether analytics answer
 
 If analytics stay disabled, setup skips analytics disclosure and retention questions. If you enable Fathom or Umami, setup asks those questions because the generated privacy page needs to explain what is enabled and how long the analytics provider keeps data.
 
-See [Server-side analytics](/docs/server-side-analytics/) for configuration details.
+See [Analytics](/docs/analytics/) for configuration details.
 
 ## Derived Defaults
 

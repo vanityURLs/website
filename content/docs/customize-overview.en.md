@@ -17,7 +17,7 @@ Start with the area that hurts most:
 | Decide which languages to publish | [Languages](/docs/i18n/) |
 | Finish legal-page and analytics choices | [Setup decisions](/docs/setup-decisions/) |
 | Protect private operational paths | [Access control](/docs/access-control/) |
-| Configure redirect analytics | [Server-side analytics](/docs/server-side-analytics/) |
+| Configure redirect analytics | [Analytics](/docs/analytics/) |
 | Tune allow/block policy | [Policy and blocklist](/docs/blocklist/) |
 
 The important rule is simple: edit `custom/`, not generated files in `build/`. Product defaults live in `defaults/`; your instance-owned choices live in `custom/`; the build combines both into the Worker assets and runtime JSON that Cloudflare deploys.

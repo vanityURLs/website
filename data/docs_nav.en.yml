@@ -26,13 +26,13 @@ sections:
         url: /docs/i18n/
       - title: Blocklist policy
         url: /docs/blocklist/
+      - title: Analytics
+        url: /docs/analytics/
 
   - title: Operate
     pages:
       - title: Validation and CI
         url: /docs/validation-ci/
-      - title: Server-side analytics
-        url: /docs/server-side-analytics/
       - title: Admin dashboard
         url: /docs/admin-dashboard/
       - title: Upgrading an instance
