@@ -6,22 +6,9 @@ weight: 10
 
 ---
 
-After the Quickstart works, customization is where the instance becomes yours. Phase 2 is not one task; it is a set of small decisions you can make in any order.
+After the Quickstart works, customization is where the instance becomes yours. Use this section when you are ready to refine links, branding, public pages, policy, access control, analytics, and operational settings.
 
-Start with the area that hurts most:
-
-| Goal | Start here |
-| :--- | :--- |
-| Change the public look and static pages | [Custom overrides](/docs/custom-overrides/) |
-| Configure the split-color wordmark and brand assets | [Brand](/docs/brand/) |
-| Add, inspect, or update short links | [LNK](/docs/cli/) and [Link format](/docs/link-format/) |
-| Add time-based destinations | [Scheduled links](/docs/schedules/) |
-| Decide which languages to publish | [Languages](/docs/i18n/) |
-| Configure jurisdiction and public trust contacts | [Legal and trust pages](/docs/legal-trust-pages/) |
-| Protect private operational paths | [Access control](/docs/access-control/) |
-| Protect the domain before traffic reaches the Worker | [Network protection](/docs/network-protection/) |
-| Configure redirect analytics | [Analytics](/docs/analytics/) |
-| Tune allow/block policy | [Policy and blocklist](/docs/blocklist/) |
+For a practical map of what to customize first, read [Where to start customizing vanityURLs](/blog/where-to-start-customizing-vanityurls/).
 
 The important rule is simple: edit `custom/`, not generated files in `build/`. Product defaults live in `defaults/`; your instance-owned choices live in `custom/`; the build combines both into the Worker assets and runtime JSON that Cloudflare deploys.
 
