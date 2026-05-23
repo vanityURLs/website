@@ -24,6 +24,16 @@ The Worker keeps the runtime path narrow:
 - scanner probes return a plain no-store 404 before short-link lookup or analytics
 - analytics is sent with `ctx.waitUntil()` so provider failure does not delay redirects
 
+Default runtime protections include:
+
+- non-HTTP(S) protocols
+- credentials embedded in URLs
+- localhost, `.localhost`, and `.local` targets
+- private, loopback, reserved, multicast, and documentation IP ranges
+- known public shorteners used for redirect chains
+- local examples of phishing lure domains
+- high-risk executable download extensions such as `.exe`, `.scr`, `.bat`, `.cmd`, `.msi`, `.ps1`, `.vbs`, and `.jar`
+
 ## Build-time guardrails
 
 `npm run check` builds the same assets used for deployment, validates the generated registry, validates policy files, lints the repository, and runs Worker tests.

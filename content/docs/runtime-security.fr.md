@@ -24,6 +24,16 @@ Le Worker garde un chemin runtime etroit :
 - les probes scanner retournent un 404 simple no-store avant lookup ou analytics
 - les analytics sont envoyes avec `ctx.waitUntil()` pour qu'une panne fournisseur ne ralentisse pas les redirections
 
+Les protections runtime par defaut incluent :
+
+- protocoles non HTTP(S)
+- identifiants dans les URLs
+- cibles localhost, `.localhost`, et `.local`
+- plages IP privees, loopback, reservees, multicast, et documentation
+- shorteners publics utilises pour cacher la destination finale
+- exemples locaux de domaines de phishing
+- extensions de telechargement a haut risque comme `.exe`, `.scr`, `.bat`, `.cmd`, `.msi`, `.ps1`, `.vbs`, et `.jar`
+
 ## Garde-fous de build
 
 `npm run check` construit les memes assets que le deploiement, valide le registre genere, valide les fichiers de politique, lint le depot, et execute les tests Worker.

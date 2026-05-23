@@ -20,15 +20,7 @@ La politique source est choisie avant le build :
 
 ## Protections par defaut
 
-- Protocoles non HTTP(S)
-- Identifiants dans les URLs
-- Cibles localhost, `.localhost`, et `.local`
-- Plages IP privees, loopback, reservees, multicast, et documentation
-- Shorteners publics utilises pour cacher la destination finale
-- Exemples locaux de domaines de phishing
-- Extensions de telechargement a haut risque comme `.exe`, `.scr`, `.bat`, `.cmd`, `.msi`, `.ps1`, `.vbs`, et `.jar`
-
-Le runtime bloque aussi les probes de scanners courantes avant la recherche de lien.
+Les protections runtime integrees sont documentees dans [Securite runtime](/fr/docs/runtime-security/). Utilisez cette page lorsque vous devez ajouter, remplacer ou reviser la politique de l'instance avec `custom/v8s-policies.json`.
 
 ## Categories et sources generees
 

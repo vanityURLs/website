@@ -21,15 +21,7 @@ The source policy file is selected before build:[^legacy-policy]
 
 ## Default protections
 
-- Non-HTTP(S) protocols
-- Credentials embedded in URLs
-- Localhost, `.localhost`, and `.local` targets
-- Private, loopback, reserved, multicast, and documentation IP ranges
-- Known public shorteners used for redirect chains
-- Local examples of phishing lure domains
-- High-risk executable download extensions such as `.exe`, `.scr`, `.bat`, `.cmd`, `.msi`, `.ps1`, `.vbs`, and `.jar`
-
-The runtime also blocks common scanner probes before short-link lookup so paths such as PHP or WordPress probes do not become ordinary miss analytics.
+Built-in runtime protections are documented in [Runtime security](/docs/runtime-security/). Use this page when you need to add, replace, or review instance policy through `custom/v8s-policies.json`.
 
 ## Categories and generated sources
 
