@@ -134,8 +134,25 @@ Successful link, schedule, and policy write operations run:
 ```text
 npm run check
 git add FILE
-git commit -m "..."
+git commit -m OPERATION_MESSAGE
 git push
+```
+
+Direct `lnk` write commands use operation-specific conventional commits, such as `feat(links): add SLUG`, `feat(schedules): update SLUG`, `feat(policies): block DOMAIN`, and `feat(policies): allow DOMAIN`.
+
+For broader local publishing, `npm run local-publish` selects commit messages from `local_publish.commit_messages` in `defaults/v8s-local-config.json`, merged with `custom/v8s-local-config.json`. The default keys are:
+
+| Key | Used when |
+| :--- | :--- |
+| `links` | Only `custom/v8s-links.txt` is staged |
+| `policies` | Only `custom/v8s-policies.json` or `custom/v8s-blocklist.json` is staged |
+| `site_config` | Only `custom/v8s-site-config.json` is staged |
+| `mixed` | Multiple files or configured publish paths are staged |
+
+Override the selected local-publish message with:
+
+```bash
+npm run local-publish -- --message "chore: update short-link configuration"
 ```
 
 That means `lnk` is intentionally opinionated: it is for changes you are ready to validate and publish. Use `DRY_RUN=true` or command-specific `--dry-run` when you want to preview first.
