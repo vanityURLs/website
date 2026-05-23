@@ -1,24 +1,50 @@
 ---
 aside: false
 title: "LNK"
-description: "Utiliser la CLI v8s basee sur Node pour gerer liens, horaires, et politique source."
+description: "Utiliser la commande Node lnk pour gerer les liens, les horaires et la politique source dans custom/."
 weight: 20
 
 ---
 
-La CLI locale au depot est `./scripts/lnk`. C'est un executable Node, donc il fonctionne sur macOS, Linux, Windows, et les environnements CI ou Node et Git sont disponibles.
+`lnk` est l'interface en ligne de commande du depot pour modifier une instance vanityURLs. Elle modifie les fichiers source dans `custom/`, lance `npm run check`, puis stage, commit et pousse les operations d'ecriture reussies.
 
-La CLI modifie les fichiers source dans `custom/`. Apres les changements, lancez `npm run build`, `npm run check`, ou `npm run local-publish` pour regenerer et publier les artefacts runtime.
+Utilisez-la lorsque le changement doit entrer dans l'historique Git et se deployer par le workflow Worker normal. Utilisez [Helper local](/fr/docs/local-helper/) lorsque vous voulez seulement ouvrir une redirection existante depuis le terminal.
 
 ## Prerequis
 
+- Un depot vanityURLs configure disponible localement
 - Node.js 20 ou plus recent
 - npm
 - Git
-- Wrangler pour les commandes de deploiement
-- Un compte Cloudflare seulement pour deployer ou gerer les secrets Worker
 
-Sur Windows, lancez les commandes depuis PowerShell, Windows Terminal, ou un shell qui voit Git. La CLI ne demande pas WSL.
+Lancez la commande locale au depot :
+
+```bash
+./scripts/lnk --help
+```
+
+Si vous avez installe les outils poste avec `npm run local-install`, vous pouvez habituellement lancer `lnk` depuis n'importe quel repertoire. Definissez `V8S_REPO` lorsqu'une commande installee doit pointer vers un depot local precis.
+
+## Commandes principales
+
+| Commande | Effet |
+| :--- | :--- |
+| `./scripts/lnk LONG_URL [SLUG]` | Ajoute un lien dans `custom/v8s-links.txt` |
+| `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Ajoute un lien splat stocke comme `SLUG/*` |
+| `./scripts/lnk list [SLUG]` | Liste les entrees du registre genere depuis `build/v8s.json` |
+| `./scripts/lnk schedule add SLUG TARGET ...` | Ajoute ou remplace une regle de cible planifiee |
+| `./scripts/lnk schedule default SLUG TARGET` | Definit la cible fallback d'un horaire existant |
+| `./scripts/lnk schedule list [SLUG]` | Liste les regles d'horaire |
+| `./scripts/lnk block add DOMAIN ...` | Ajoute ou met a jour un domaine bloque |
+| `./scripts/lnk block keyword KEYWORD ...` | Ajoute ou met a jour un mot-cle bloque |
+| `./scripts/lnk block allow DOMAIN ...` | Ajoute ou met a jour un domaine autorise |
+| `./scripts/lnk list policy` | Resume la politique source active |
+| `./scripts/lnk list categories` | Liste les categories et severites de politique |
+| `./scripts/lnk list domain [block\|allow]` | Liste les domaines bloques et autorises |
+| `./scripts/lnk list keyword` | Liste les mots-cles bloques |
+| `./scripts/lnk version` | Affiche la version du paquet |
+
+Les commandes de liste acceptent `--format table` ou `--format json`. Table est le format par defaut.
 
 ## Ajouter des liens
 
@@ -26,13 +52,72 @@ Sur Windows, lancez les commandes depuis PowerShell, Windows Terminal, ou un she
 ./scripts/lnk https://github.com/vanityURLs github
 ./scripts/lnk https://www.linkedin.com/company/example social/linkedin --title LinkedIn --tags social --owner team
 ./scripts/lnk --splat https://docs.example.com/:splat docs
+./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-Par defaut, la CLI ecrit dans `custom/v8s-links.txt` et cree le fichier si necessaire. Pour pointer une CLI installee vers le depot et definir l'owner par defaut :
+Si vous omettez le slug, `lnk` genere un slug court aleatoire. Les etats valides sont `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance` et `deactivated`.
+
+Options utiles pour les liens :
+
+| Option | Role |
+| :--- | :--- |
+| `--state STATE` | Definit l'etat de cycle de vie |
+| `--title TEXT` | Ajoute un titre lisible |
+| `--description TEXT` | Ajoute une description lisible |
+| `--tags TAGS` | Ajoute des tags separes par des virgules |
+| `--owner OWNER` | Definit le libelle de responsabilite |
+| `--expires-at DATE` | Definit une date ISO ou un timestamp |
+| `--notes TEXT` | Ajoute des notes internes |
+| `--splat` | Stocke le slug comme `SLUG/*` et exige `:splat` dans la cible |
+
+## Lister les liens
 
 ```bash
-V8S_REPO=/path/to/YOUR-SHORT-DOMAIN V8S_LINKS_OWNER=team ./scripts/lnk https://example.com example
+./scripts/lnk list
+./scripts/lnk list social/linkedin
+./scripts/lnk list --format json
 ```
+
+`lnk list` lit le registre genere. Si `build/v8s.json` n'existe pas, la commande lance d'abord `npm run build`.
+
+## Gerer les horaires
+
+```bash
+./scripts/lnk schedule add hangout https://zoom.us/j/work --label work --days mon,tue,wed,thu,fri --from 09:00 --to 17:00 --timezone America/Toronto --default https://discord.gg/personal
+./scripts/lnk schedule default hangout https://discord.gg/personal --timezone America/Toronto
+./scripts/lnk schedule list hangout
+```
+
+Les regles d'horaire sont ecrites dans `custom/v8s-schedules.json`. `schedule add` exige `--label`, `--days`, `--from` et `--to`. Les heures utilisent `HH:MM`; les jours utilisent `mon`, `tue`, `wed`, `thu`, `fri`, `sat` et `sun`.
+
+Utilisez `--dry-run` sur les commandes d'horaire pour afficher le JSON mis a jour sans ecrire, verifier, commit ou pousser.
+
+## Gerer la politique source
+
+```bash
+./scripts/lnk list policy
+./scripts/lnk list categories
+./scripts/lnk list domain block
+./scripts/lnk list keyword --format json
+./scripts/lnk block add example-bad.test --category phishing --severity high --reason "Fake login page"
+./scripts/lnk block keyword wallet-drain --category phishing --severity high --reason "Credential theft lure"
+./scripts/lnk block allow example.com --reason "Domaine controle par le proprietaire"
+```
+
+Les commandes de politique ecrivent `custom/v8s-policies.json`. Le build transforme la politique source en `build/v8s-blocklist.json`. Les categories et severites sont validees avec `defaults/v8s-blocklist-categories.json`.
+
+Utilisez `--dry-run` sur les commandes de politique pour afficher le JSON mis a jour sans ecrire, verifier, commit ou pousser.
+
+## Variables d'environnement
+
+| Variable | Role |
+| :--- | :--- |
+| `DRY_RUN=true` | Affiche le changement prevu sans ecrire, verifier, commit ou pousser |
+| `V8S_REPO=PATH` | Pointe une commande `lnk` installee vers un depot vanityURLs local |
+| `V8S_LINKS_OWNER=OWNER` | Definit la valeur owner par defaut pour les nouveaux liens |
+| `V8S_LINKS_FILE=FILE` | Remplace le fichier de liens |
+| `V8S_SCHEDULES_FILE=FILE` | Remplace le fichier des horaires |
+| `V8S_POLICY_FILE=FILE` | Remplace le fichier de politique |
 
 Sur Windows PowerShell :
 
@@ -42,78 +127,15 @@ $env:V8S_LINKS_OWNER="team"
 node ./scripts/lnk https://example.com example
 ```
 
-`V8S_REPO` pointe vers le depot local. `V8S_LINKS_OWNER` definit la valeur owner par defaut pour les nouveaux liens.
+## Comportement d'ecriture
 
-La CLI ajoute la ligne, lance `git add`, commit avec `feat(links): add SLUG`, puis pousse. Utilisez `DRY_RUN=true` pour afficher la ligne sans ecrire.
+Les operations d'ecriture reussies pour les liens, horaires et politiques lancent :
 
-## Ajouter des planifications
-
-```bash
-./scripts/lnk schedule add hangout https://zoom.us/j/work --label work --days mon,tue,wed,thu,fri --from 09:00 --to 17:00 --timezone America/Toronto --default https://discord.gg/personal
-./scripts/lnk schedule list hangout
+```text
+npm run check
+git add FILE
+git commit -m "..."
+git push
 ```
 
-Les commandes de planification ecrivent `custom/v8s-schedules.json` par defaut, commit avec `feat(schedules): update SLUG`, puis poussent. Utilisez `--dry-run` pour inspecter le JSON.
-
-Utilisez `schedule default` plus tard si vous devez mettre a jour la cible de fallback pour un slug qui a deja au moins une regle de planification.
-
-## Gerer la politique source
-
-```bash
-./scripts/lnk list policy
-./scripts/lnk list categories
-./scripts/lnk block add example-bad.test --category phishing --severity high --reason "Fake login page"
-./scripts/lnk block keyword wallet-drain --category phishing --severity high --reason "Credential theft lure"
-./scripts/lnk block allow example.com --reason "Domaine controle par le proprietaire"
-```
-
-Les commandes de politique ecrivent `custom/v8s-policies.json`. Le build transforme la politique source selectionnee en artefact runtime `build/v8s-blocklist.json`.
-
-## Helper shell optionnel
-
-`scripts/v8s.sh` est un helper neutre shell pour ouvrir des redirections connues depuis le terminal. `scripts/v8s.zsh` reste un wrapper de compatibilite. Le helper est separe de `./scripts/lnk` : la CLI Node modifie les fichiers source, tandis que le helper lit seulement le registre runtime genere.
-
-```zsh
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
-```
-
-Le helper lit le chemin de registre local configure, habituellement `~/.v8s.json`. `npm run build` ecrit `build/v8s.json` et le copie au registre local seulement quand la configuration locale active le helper. Lancez `npm run local-install` pour le configurer.
-
-Si vous gardez le registre ailleurs, definissez `V8S_REGISTRY` avant de sourcer ou d'utiliser le helper :
-
-```zsh
-export V8S_REGISTRY=/path/to/YOUR-SHORT-DOMAIN/build/v8s.json
-source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
-```
-
-Commandes utiles :
-
-```zsh
-v8s --list
-v8s docs
-v8s --print docs
-v8s --path
-```
-
-| Commande | Comportement |
-|---|---|
-| `v8s --list` | Liste les slugs actifs `permanent` et `ephemeral` depuis le registre. |
-| `v8s docs` | Ouvre la cible du slug exact `docs`. |
-| `v8s --print docs` | Affiche la cible sans l'ouvrir. |
-| `v8s --path` | Affiche le chemin du registre utilise. |
-
-Le helper demande `jq`, car il lit `links[]` dans le registre JSON genere. `npm run local-install` verifie `jq` et affiche des suggestions d'installation par plateforme. Sur macOS :
-
-```bash
-brew install jq
-```
-
-Le helper est volontairement limite :
-
-- Il ne cree pas, ne modifie pas, ne commit pas, et ne pousse pas de liens
-- Il ouvre seulement les slugs exacts qui existent deja dans `build/v8s.json` ou le registre configure
-- Il ouvre seulement les liens dont l'etat est `permanent` ou `ephemeral`
-- Il refuse les cibles non web et ouvre seulement les URL `http://` ou `https://`
-- Il valide le slug avant de chercher la cible
-
-Utilisez `./scripts/lnk` pour modifier l'instance. Utilisez `v8s` pour ouvrir rapidement une redirection existante depuis votre terminal.
+Cela rend `lnk` volontairement opinionated : la commande sert aux changements que vous etes pret a valider et publier. Utilisez `DRY_RUN=true` ou le `--dry-run` propre a la commande lorsque vous voulez previsualiser d'abord.

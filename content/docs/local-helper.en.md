@@ -7,7 +7,7 @@ weight: 10
 
 The local helper is the `v8s` terminal command. It lets you open a known short link directly from your terminal instead of switching to a browser first, typing the short domain, and waiting for the redirect. For day-to-day work, that makes repeat links faster to reach.
 
-The helper is deliberately read-only. It reads a generated registry such as `build/v8s.json` or `~/.v8s.json`, opens exact slugs that already exist, and refuses targets that are not web URLs.
+The helper is deliberately read-only. It reads a generated registry such as `build/v8s.json` or `~/.v8s.json`, opens exact slugs that already exist, and refuses targets that are not web URLs. It does not create, edit, commit, or push links. It only opens `permanent` and `ephemeral` links with `http://` or `https://` targets after validating the slug input.
 
 The helper is separate from the [CLI](/docs/cli/). The `lnk` CLI edits source files in `custom/`, commits, and pushes. The `v8s` helper only opens existing redirects.
 
@@ -47,28 +47,11 @@ source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 
 ## Use helper
 
-Useful commands:
-
-```zsh
-v8s --list
-v8s slug
-v8s --print slug
-v8s --path
-```
-
 | Command | Behavior |
 | --- | --- |
 | `v8s --list` | Lists active `permanent` and `ephemeral` slugs from the registry |
 | `v8s slug` | Opens the target for the exact `slug` value |
 | `v8s --print slug` | Prints the target without opening it |
 | `v8s --path` | Prints the registry path currently in use |
-
-## Limits
-
-- It does not create, edit, commit, or push links
-- It only opens exact slugs that already exist in `build/v8s.json` or the configured registry
-- It only opens links whose state is `permanent` or `ephemeral`
-- It refuses non-web targets and only opens `http://` or `https://` URLs
-- It validates slug input before looking up the target
 
 Use `./scripts/lnk` when you want to change the instance. Use `v8s` when you want a fast local shortcut to an existing redirect.
