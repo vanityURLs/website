@@ -46,7 +46,7 @@ When you use `custom/public/`, keep `i18n.supported_languages` aligned with the 
 | Localized public pages | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths | [Internationalization](/docs/reference/i18n/) |
 | Redirected badges | `custom/public/{language}/v8s-redirected.svg` and `v8s-redirected-dark.svg` | [Brand](/docs/reference/brand/) |
 | Expand page | `custom/public/expand/index.html` | [Link format](/docs/reference/link-format/) |
-| Dashboard shell | `custom/public/_stats/index.html` | [Admin dashboard](/docs/reference/admin-dashboard/) and [Access control](/docs/customize/access-control/) |
+| Dashboard shell | `custom/public/_stats/index.html` | [Reading your vanityURLs admin dashboard](/blog/reading-your-admin-dashboard/) and [Access control](/docs/customize/access-control/) |
 | Headers | `custom/public/_headers` | [Runtime security approach](/docs/reference/runtime-security/) |
 
 ## Status pages

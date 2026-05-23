@@ -13,7 +13,6 @@ Commencez ici lorsque votre instance fonctionne deja et que vous voulez comprend
 
 | Page | Utilisation |
 | --- | --- |
-| [Tableau admin](/fr/docs/reference/admin-dashboard/) | Visibilite lecture seule du routage et du cycle de vie |
 | [Marque](/fr/docs/reference/brand/) | Assets de badge, configuration du wordmark et marque d'instance |
 | [Fichiers de configuration](/fr/docs/reference/configuration-files/) | Fichiers source, custom, locaux et generes |
 | [Internationalisation](/fr/docs/reference/i18n/) | Langues supportees, pages localisees et fichiers de badges |

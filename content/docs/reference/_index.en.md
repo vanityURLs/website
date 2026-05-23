@@ -13,7 +13,6 @@ Start here when you already have an instance running and want to understand how 
 
 | Page | Use it for |
 | --- | --- |
-| [Admin dashboard](/docs/reference/admin-dashboard/) | Read-only routing and lifecycle visibility |
 | [Brand](/docs/reference/brand/) | Badge assets, wordmark configuration, and instance branding |
 | [Configuration files](/docs/reference/configuration-files/) | Source, custom, local, and generated configuration files |
 | [Internationalization](/docs/reference/i18n/) | Supported languages, localized pages, and badge files |

@@ -40,8 +40,6 @@ sections:
         url: /docs/reference/runtime-security/
       - title: Structure du depot
         url: /docs/reference/repository-layout/
-      - title: Tableau admin
-        url: /docs/reference/admin-dashboard/
 
   - title: Interface en ligne de commande
     url: /docs/command-line-interface/

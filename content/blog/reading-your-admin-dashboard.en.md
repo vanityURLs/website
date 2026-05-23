@@ -5,6 +5,9 @@ author: "Benoît H. Dicaire"
 description: "Use the protected _stats dashboard to inspect routes, lifecycle states, and metadata quality without turning vanityURLs into a CMS."
 tags: ["admin", "operations", "cloudflare-access"]
 featured: false
+aliases:
+  - /docs/admin-dashboard/
+  - /docs/reference/admin-dashboard/
 ---
 
 The `/_stats` dashboard is intentionally modest. It does not edit links, publish changes, or replace Git review. It gives the operator a protected read-only view of what the Worker will do with the generated registry.
@@ -41,4 +44,4 @@ The read-only design keeps the workflow boring in the best way:
 
 The dashboard should sit behind Cloudflare Access. Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*`, then use [Access control](/docs/customize/access-control/) as the expected configuration.
 
-The compact reference page is [Admin dashboard](/docs/reference/admin-dashboard/).
+For the configuration details around protecting `/_stats`, use [Access control](/docs/customize/access-control/).

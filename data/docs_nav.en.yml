@@ -24,8 +24,6 @@ sections:
   - title: Reference
     url: /docs/reference/
     pages:
-      - title: Admin dashboard
-        url: /docs/reference/admin-dashboard/
       - title: Brand
         url: /docs/reference/brand/
       - title: Configuration files

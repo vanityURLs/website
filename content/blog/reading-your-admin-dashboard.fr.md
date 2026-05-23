@@ -5,6 +5,9 @@ author: "Benoît H. Dicaire"
 description: "Utiliser le tableau _stats protege pour inspecter les routes, les etats de cycle de vie et la qualite des metadonnees sans transformer vanityURLs en CMS."
 tags: ["admin", "operations", "cloudflare-access"]
 featured: false
+aliases:
+  - /docs/admin-dashboard/
+  - /docs/reference/admin-dashboard/
 ---
 
 Le tableau `/_stats` est volontairement modeste. Il ne modifie pas les liens, ne publie pas de changements et ne remplace pas la revue Git. Il donne a l'operateur une vue protegee en lecture seule de ce que le Worker fera avec le registre genere.
@@ -41,4 +44,4 @@ Le design en lecture seule garde le workflow simple :
 
 Le tableau devrait etre derriere Cloudflare Access. Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*`, puis utilisez [Controle d'acces](/fr/docs/customize/access-control/) comme configuration attendue.
 
-La page de reference compacte est [Tableau admin](/fr/docs/reference/admin-dashboard/).
+Pour les details de configuration autour de la protection de `/_stats`, utilisez [Controle d'acces](/fr/docs/customize/access-control/).
