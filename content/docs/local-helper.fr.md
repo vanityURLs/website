@@ -9,7 +9,7 @@ Le helper local est la commande terminal `v8s`. Il vous permet d'ouvrir un lien 
 
 Le helper est volontairement en lecture seule. Il lit un registre généré comme `build/v8s.json` ou `~/.v8s.json`, ouvre les slugs exacts qui existent déjà et refuse les cibles qui ne sont pas des URL web. Il ne crée pas, ne modifie pas, ne commit pas et ne pousse pas de liens. Il ouvre seulement les liens `permanent` et `ephemeral` avec des cibles `http://` ou `https://` après validation du slug.
 
-Le helper est séparé de la [CLI](/fr/docs/cli/). La CLI `lnk` modifie les fichiers source dans `custom/`, commit et pousse. Le helper `v8s` ouvre seulement les redirections existantes.
+Le helper est séparé de la [CLI](/fr/docs/cli/). Utilisez `./scripts/lnk` lorsque vous voulez modifier l'instance : la CLI `lnk` modifie les fichiers source dans `custom/`, commit et pousse. Utilisez `v8s` lorsque vous voulez un raccourci local rapide vers une redirection existante.
 
 ## Prérequis
 
@@ -53,5 +53,3 @@ source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 | `v8s slug` | Ouvre la cible pour la valeur exacte `slug` |
 | `v8s --print slug` | Affiche la cible sans l'ouvrir |
 | `v8s --path` | Affiche le chemin du registre actuellement utilisé |
-
-Utilisez `./scripts/lnk` lorsque vous voulez modifier l'instance. Utilisez `v8s` lorsque vous voulez un raccourci local rapide vers une redirection existante.
