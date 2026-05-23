@@ -12,6 +12,8 @@ vanityURLs enregistre les analytics depuis le Worker, pas depuis du JavaScript n
 
 Les analytics sont non bloquants. Le Worker envoie les evenements avec `ctx.waitUntil()`, donc la latence des redirections ne depend pas de la disponibilite de Umami, Fathom, ou autre fournisseur.
 
+Pour le choix du fournisseur et les compromis de confidentialite, lisez [Choisir des analytics respectueux de la vie privee pour les liens courts](/fr/blog/choosing-privacy-friendly-analytics-for-short-links/). Cette page se concentre sur la configuration, les evenements et la verification.
+
 ## Fournisseurs
 
 Definissez un ou plusieurs fournisseurs avec `ANALYTICS_PROVIDER` :
@@ -54,7 +56,7 @@ Les probes reconnues par la blocklist runtime retournent un `404` simple avant a
 
 Les requetes bloquees par Cloudflare avant le Worker n'emettent pas d'evenements analytics vanityURLs. Consultez les decisions WAF, rate limiting, bot, et crawler IA avec [Protection reseau](/fr/docs/network-protection/), et les decisions Access avec [Controle d'acces](/fr/docs/access-control/).
 
-Un domaine court inconnu peut quand meme recevoir beaucoup de trafic scanner et bot. Traitez les controles reseau Cloudflare et la blocklist runtime comme une protection de quota analytics, pas seulement comme des fonctions securite. Le trafic bloque avant le Worker ne peut pas consommer la capacite de collecte Umami ou Fathom.
+Traitez les controles reseau Cloudflare et la blocklist runtime comme une protection de quota analytics, pas seulement comme des fonctions securite. Le trafic bloque avant le Worker ne peut pas consommer la capacite de collecte Umami ou Fathom.
 
 ## Modele Umami
 
@@ -100,8 +102,6 @@ Les payloads d'evenement Fathom incluent :
 - correlation ID
 - chemin et query demandes
 
-Utilisez Fathom si vous voulez des rapports de trafic et d'evenements simples, orientes confidentialite, sans JavaScript navigateur. Utilisez Umami si vous avez besoin de filtrage plus riche sur des proprietes custom.
-
 ## Limites fournisseur
 
 Les limites fournisseur dependent du compte et du produit, donc verifiez la documentation courante du fournisseur et le plan lie a l'instance avant d'activer une collecte a fort volume.
@@ -109,14 +109,6 @@ Les limites fournisseur dependent du compte et du produit, donc verifiez la docu
 Pour Fathom, le Worker utilise l'endpoint de collecte et n'a pas besoin de la cle API de gestion. La documentation publique de l'API Fathom indique actuellement que les requetes API comptent dans les pageviews mensuelles, avec des limites de 2 000 requetes par heure sur les endpoints Sites et Events et 10 requetes par minute sur aggregations et currents. Traitez les pageviews et evenements Fathom emis par le Worker comme du trafic qui consomme le quota, et surveillez les premieres 24 heures apres lancement pour le bruit scanner.
 
 Pour Umami Cloud, le Worker envoie les evenements de collecte a `/api/send`, pas des requetes de reporting authentifiees. Umami documente que `/api/send` ne demande pas de token d'authentification, mais doit inclure un header `User-Agent` valide. La documentation API-key d'Umami Cloud limite actuellement les appels avec cle API a 50 appels toutes les 15 secondes. Traitez les appels reporting/helper et les evenements de collecte comme des chemins separes, puis confirmez les limites reelles du plan Cloud avant lancement.
-
-Cote operationnel :
-
-- bloquez les probes scanner, methodes inattendues, et familles de crawlers indesirees avant analytics
-- ne comptez pas sur les dashboards des fournisseurs analytics pour voir le trafic bloque edge
-- attendez-vous a recevoir des probes meme sur des domaines obscurs
-- verifiez Workers Logs pour `umami tracking failed` et `fathom tracking failed`
-- mettez les analytics en pause pendant un incident bot actif si le quota fournisseur devient le risque immediat
 
 References : [documentation API Fathom](https://usefathom.com/docs/api-reference), [documentation Umami `/api/send`](https://umami.is/docs/api/sending-stats), et [documentation API-key Umami Cloud](https://umami.is/docs/cloud/api-key).
 

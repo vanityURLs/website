@@ -14,8 +14,6 @@ sections:
         url: /docs/analytics/
       - title: Controle d'acces
         url: /docs/access-control/
-      - title: Internationalisation
-        url: /docs/i18n/
       - title: Pages legales et de confiance
         url: /docs/legal-trust-pages/
       - title: Politique blocklist
@@ -33,6 +31,8 @@ sections:
         url: /docs/configuration-files/
       - title: Format des liens
         url: /docs/link-format/
+      - title: Internationalisation
+        url: /docs/i18n/
       - title: Liens planifies
         url: /docs/schedules/
       - title: Marque

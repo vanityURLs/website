@@ -63,6 +63,14 @@ vanityURLs can send server-side events from the Worker. That means no browser tr
 
 Traffic stopped before the Worker, such as requests blocked by [Cloudflare Access](/docs/access-control/), WAF rules, rate limiting, or bot controls, will not appear in analytics because vanityURLs never receives it.
 
+## Operate analytics as a quota-sensitive feature
+
+Analytics providers are not the place to observe every hostile request on the internet. Keep scanner probes, unexpected methods, and unwanted crawler families blocked before analytics so they do not spend provider quota or make dashboards harder to read.
+
+Do not rely on analytics provider dashboards to show edge-blocked traffic. Review Cloudflare Security Events for WAF, bot, crawler, Access, and rate-limit decisions, then use Umami or Fathom for application events that reached the Worker.
+
+Expect obscure domains to receive unsolicited probes. Check Workers Logs for `umami tracking failed` and `fathom tracking failed`, especially during the first day after enabling analytics. If provider quota becomes the immediate risk during an active bot incident, pause analytics until edge controls are tuned.
+
 ## A practical recommendation
 
 For the first deployment, leave analytics off. Once the redirector works, decide whether you need reporting.

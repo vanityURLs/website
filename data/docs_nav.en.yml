@@ -18,8 +18,6 @@ sections:
         url: /docs/blocklist/
       - title: Custom overrides
         url: /docs/custom-overrides/
-      - title: Internationalization
-        url: /docs/i18n/
       - title: Legal and trust pages
         url: /docs/legal-trust-pages/
       - title: Network protection
@@ -33,6 +31,8 @@ sections:
         url: /docs/brand/
       - title: Configuration files
         url: /docs/configuration-files/
+      - title: Internationalization
+        url: /docs/i18n/
       - title: Link format
         url: /docs/link-format/
       - title: Release checklist

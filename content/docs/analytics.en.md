@@ -12,6 +12,8 @@ vanityURLs records analytics from the Worker, not from browser JavaScript. Redir
 
 Analytics is non-blocking. The Worker sends events with `ctx.waitUntil()`, so redirect latency is not tied to Umami, Fathom, or another provider being available.
 
+For provider selection and privacy tradeoffs, read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/). This page focuses on configuration, events, and verification.
+
 ## Providers
 
 Set one or more providers with `ANALYTICS_PROVIDER`:
@@ -54,7 +56,7 @@ Scanner probes matched by the runtime blocklist return a plain `404` before anal
 
 Requests blocked by Cloudflare before the Worker do not emit vanityURLs analytics events. Review WAF, rate limiting, bot, and AI crawler decisions with [Network protection](/docs/network-protection/), and review Access decisions with [Access control](/docs/access-control/).
 
-An unknown short-link domain can still receive serious scanner and bot traffic. Treat Cloudflare network controls and the runtime blocklist as quota protection for analytics, not only as security features. Traffic blocked before the Worker cannot spend Umami or Fathom collection capacity.
+Treat Cloudflare network controls and the runtime blocklist as quota protection for analytics, not only as security features. Traffic blocked before the Worker cannot spend Umami or Fathom collection capacity.
 
 ## Umami data model
 
@@ -100,8 +102,6 @@ Fathom event payloads include:
 - correlation ID
 - requested path and query
 
-Use Fathom when you want simple privacy-oriented traffic and event reporting without adding browser JavaScript. Use Umami when you need richer per-event filtering over custom properties.
-
 ## Provider limits
 
 Provider limits are account- and product-specific, so verify the current vendor documentation and the plan attached to the instance before enabling high-volume collection.
@@ -109,14 +109,6 @@ Provider limits are account- and product-specific, so verify the current vendor 
 For Fathom, the Worker uses the collection endpoint and does not need the management API key. Fathom's public API documentation currently says API requests count against monthly pageviews, with limits of 2,000 requests per hour on Sites and Events endpoints and 10 requests per minute on aggregations and currents. Treat Fathom pageviews and events emitted by the Worker as quota-bearing traffic, and watch the first 24 hours after launch for scanner noise.
 
 For Umami Cloud, the Worker sends collection events to `/api/send`, not authenticated reporting queries. Umami documents that `/api/send` does not require an authentication token, but it must include a proper `User-Agent` header. Umami Cloud's API-key documentation currently limits API-key calls to 50 calls every 15 seconds. Treat reporting/helper calls and collection events as separate paths, then confirm the actual Cloud plan limits before launch.
-
-Operationally:
-
-- keep scanner probes, unexpected methods, and unwanted crawler families blocked before analytics
-- do not rely on analytics provider dashboards to show edge-blocked traffic
-- expect obscure domains to receive unsolicited probes
-- check Workers Logs for `umami tracking failed` and `fathom tracking failed`
-- pause analytics during an active bot incident if provider quota becomes the immediate risk
 
 References: [Fathom API documentation](https://usefathom.com/docs/api-reference), [Umami `/api/send` documentation](https://umami.is/docs/api/sending-stats), and [Umami Cloud API-key documentation](https://umami.is/docs/cloud/api-key).
 
