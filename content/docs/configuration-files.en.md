@@ -29,3 +29,27 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
 
 Do not edit generated files in `build/`. Edit `custom/`, then rebuild with `npm run check`.
+
+## Runtime artifacts
+
+The Worker does not read `v8s-links.txt` on every request. The build creates runtime artifacts from source files, validates them, and deploys them with the Worker assets.
+
+Build inputs include:
+
+- `defaults/v8s-links.txt`, replaced by `custom/v8s-links.txt` when present
+- `defaults/v8s-schedules.json`, with `custom/v8s-schedules.json` merged over it
+- `defaults/v8s-policies.json`, replaced by `custom/v8s-policies.json` when present
+- `defaults/v8s-site-config.json`, with `custom/v8s-site-config.json` merged into site-level choices
+- static page assets from `defaults/public/`, overlaid by `custom/public/`
+- generated blocklist feed data when `npm run generate:blocklist` has produced it
+
+The build writes:
+
+| Artifact | Purpose |
+| :--- | :--- |
+| `build/v8s.json` | Redirect registry consumed by the Worker |
+| `build/v8s-blocklist.json` | Runtime policy artifact consumed by the Worker |
+| `build/v8s-site-config.json` | Site configuration used by the build |
+| `src/worker.mjs` | Generated Worker entry copied from `scripts/workers/` for Wrangler |
+
+`scripts/workers/` is the Worker source of truth. `src/` is generated output. Direct public requests for raw runtime files such as `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` should return 404.

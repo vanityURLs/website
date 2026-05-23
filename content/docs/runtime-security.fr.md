@@ -34,6 +34,20 @@ Les protections runtime par defaut incluent :
 - exemples locaux de domaines de phishing
 - extensions de telechargement a haut risque comme `.exe`, `.scr`, `.bat`, `.cmd`, `.msi`, `.ps1`, `.vbs`, et `.jar`
 
+## Ordre de resolution
+
+Pour chaque requete, le Worker suit un chemin volontairement etroit :
+
+1. refuse les assets runtime bruts et les probes de scanners
+2. accepte seulement `GET`, `HEAD`, et `OPTIONS` pour les routes publiques
+3. normalise le chemin entrant
+4. cherche un lien exact
+5. cherche un lien splat si aucun exact ne correspond
+6. applique les horaires et l'etat
+7. retourne une redirection, une page d'information, ou une 404
+
+Les horaires s'appliquent seulement aux liens exacts. Les liens splat sont utiles pour les namespaces stables, mais ne devraient pas etre utilises pour des redirections sensibles au temps.
+
 ## Garde-fous de build
 
 `npm run check` construit les memes assets que le deploiement, valide le registre genere, valide les fichiers de politique, lint le depot, et execute les tests Worker.

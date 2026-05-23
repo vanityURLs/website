@@ -29,3 +29,27 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
 Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.
+
+## Artefacts runtime
+
+Le Worker ne lit pas `v8s-links.txt` a chaque requete. Le build cree les artefacts runtime depuis les fichiers source, les valide, puis les deploie avec les assets Worker.
+
+Les entrees de build incluent :
+
+- `defaults/v8s-links.txt`, remplace par `custom/v8s-links.txt` quand present
+- `defaults/v8s-schedules.json`, avec `custom/v8s-schedules.json` fusionne par-dessus
+- `defaults/v8s-policies.json`, remplace par `custom/v8s-policies.json` quand present
+- `defaults/v8s-site-config.json`, avec `custom/v8s-site-config.json` fusionne pour les choix de site
+- les assets statiques de `defaults/public/`, surcharges par `custom/public/`
+- les donnees de feeds generees par `npm run generate:blocklist`
+
+Le build ecrit :
+
+| Artefact | Role |
+| :--- | :--- |
+| `build/v8s.json` | Registre de redirection consomme par le Worker |
+| `build/v8s-blocklist.json` | Artefact de politique runtime consomme par le Worker |
+| `build/v8s-site-config.json` | Configuration de site utilisee par le build |
+| `src/worker.mjs` | Entree Worker generee depuis `scripts/workers/` pour Wrangler |
+
+`scripts/workers/` est la source de verite du Worker. `src/` est une sortie generee. Les requetes publiques directes vers les fichiers runtime bruts comme `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` devraient retourner 404.

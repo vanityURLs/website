@@ -39,8 +39,6 @@ sections:
         url: /docs/brand/
       - title: Mise a jour d'une instance
         url: /docs/upgrading/
-      - title: Registre runtime
-        url: /docs/runtime-registry/
       - title: Securite runtime
         url: /docs/runtime-security/
       - title: Structure du depot
