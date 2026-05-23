@@ -119,6 +119,17 @@ weight: 20
   </section>
 
   <section class="brand-section">
+    <h2>Surcharges d'assets d'instance</h2>
+    <p>Placez les assets de marque propres a l'instance sous <code>custom/public/</code> pour qu'ils remplacent les assets publics par defaut pendant le build.</p>
+    <pre class="brand-code"><code>custom/public/v8s-logo.svg
+custom/public/favicon.svg
+custom/public/site.webmanifest
+custom/public/apple-touch-icon.png
+custom/public/icon-192.png
+custom/public/icon-512.png</code></pre>
+  </section>
+
+  <section class="brand-section">
     <h2>Notes d'usage</h2>
     <div class="brand-grid">
       <div class="brand-panel">

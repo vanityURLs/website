@@ -119,6 +119,17 @@ weight: 20
   </section>
 
   <section class="brand-section">
+    <h2>Instance asset overrides</h2>
+    <p>Put instance-owned brand assets under <code>custom/public/</code> so they overlay the default public assets during build.</p>
+    <pre class="brand-code"><code>custom/public/v8s-logo.svg
+custom/public/favicon.svg
+custom/public/site.webmanifest
+custom/public/apple-touch-icon.png
+custom/public/icon-192.png
+custom/public/icon-512.png</code></pre>
+  </section>
+
+  <section class="brand-section">
     <h2>Usage notes</h2>
     <div class="brand-grid">
       <div class="brand-panel">

@@ -80,3 +80,16 @@ Ces réponses de setup alimentent les fichiers publics générés :
 | `/.well-known/security.txt` | Contact de divulgation de vulnérabilités lisible par machine |
 
 Si vous remplacez plus tard les pages générées par du HTML custom sous `custom/public/`, gardez les mêmes contacts et chemins publics de signalement exacts.
+
+## Pages publiques custom
+
+Remplacez les pages generees seulement lorsque vous avez besoin de HTML completement custom. Utilisez ces chemins :
+
+| Page | Fichier custom |
+| :--- | :--- |
+| Confidentialite | `custom/public/privacy.html` |
+| Conditions | `custom/public/terms.html` |
+| Trust & Safety | `custom/public/abuse.html` |
+| Securite | `custom/public/security.html` |
+
+Les pages anglaises ont aussi des alias sans extension comme `/privacy`, `/terms`, `/trust-safety`, et `/security`. Les pages localisees utilisent le repertoire de langue, par exemple `custom/public/fr/privacy.html`.

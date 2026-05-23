@@ -28,7 +28,38 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 | `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
+Exemple :
+
+```json
+{
+  "i18n": {
+    "default_language": "en",
+    "supported_languages": ["en", "fr"]
+  },
+  "branding": {
+    "domain": "example.link",
+    "custom_public": true,
+    "wordmark": {
+      "black": "example.",
+      "green": "link"
+    }
+  }
+}
+```
+
 Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.
+
+## Ordre de surcharge publique
+
+Le build des assets publics est deterministe :
+
+1. copier `defaults/public/` dans `build/`
+2. appliquer `custom/public/` lorsqu'il existe
+3. copier le `defaults/public/_stats/index.html` par defaut
+4. appliquer `custom/public/_stats/index.html` lorsqu'il existe
+5. retirer les repertoires de langues non supportees selon `v8s-site-config.json`
+6. construire `v8s.json`, `v8s-blocklist.json`, et `v8s-site-config.json`
+7. generer `src/` depuis `scripts/workers/` pour Wrangler
 
 ## Artefacts runtime
 

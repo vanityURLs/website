@@ -1,67 +1,31 @@
 ---
 aside: false
 title: "Custom overrides"
-description: "Turn a plain vanityURLs deployment into your own branded instance by adding files under custom/ while keeping defaults upgradable."
+description: "Map instance-owned files under custom/ to the vanityURLs pages that document each customization surface."
 weight: 50
 
 ---
 
 Use `custom/` for instance-owned files. This keeps your deployment upgradable because default pages, Worker logic, source policy, and local helper settings can move forward without mixing in every local brand choice.
 
-For the upgrade rationale, read [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/). This page keeps the file paths and overlay behavior close at hand.
+For the upgrade rationale, read [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/). For the build order and generated artifacts, read [Configuration files](/docs/configuration-files/).
 
 ## Defaults versus custom
 
 `defaults/` is the product baseline. `custom/` is your instance overlay. Files in `custom/` either replace specific defaults or provide instance data that should survive upstream updates.
 
-The build order is:
+Keep product changes in `defaults/` only when you are contributing back to vanityURLs. Keep instance changes in `custom/` when the change is only for your short domain.
 
-1. Copy `defaults/public/` into `build/`
-2. Overlay `custom/public/` when it exists
-3. Copy the default `defaults/public/_stats/index.html`
-4. Overlay `custom/public/_stats/index.html` when it exists
-5. Prune unsupported language directories based on `v8s-site-config.json`
-6. Build `v8s.json` from `custom/v8s-links.txt` when it exists, otherwise from `defaults/v8s-links.txt`
-7. Build `v8s-blocklist.json` from `custom/v8s-policies.json` when it exists, otherwise from `defaults/v8s-policies.json`
-8. Write `v8s-site-config.json` and generate `src/` from `scripts/workers/` for Wrangler
+## Custom file map
 
-## Common custom files
-
-```text
-custom/v8s-links.txt
-custom/v8s-schedules.json
-custom/v8s-policies.json
-custom/v8s-site-config.json
-custom/v8s-local-config.json
-custom/public/v8s-logo.svg
-custom/public/favicon.svg
-custom/public/site.webmanifest
-custom/public/robots.txt
-custom/public/security.txt
-custom/public/llms.txt
-custom/public/llms-full.txt
-```
-
-Use `custom/v8s-links.txt` for your redirect inventory, `custom/v8s-schedules.json` for scheduled link state changes, and `custom/v8s-policies.json` for instance-specific allow and block policy.
-
-Use `custom/v8s-site-config.json` for site-level choices such as supported languages and split-color wordmark configuration:
-
-```json
-{
-  "i18n": {
-    "default_language": "en",
-    "supported_languages": ["en", "fr"]
-  },
-  "branding": {
-    "domain": "example.link",
-    "custom_public": true,
-    "wordmark": {
-      "black": "example.",
-      "green": "link"
-    }
-  }
-}
-```
+| File or path | Use it for | Details |
+| :--- | :--- | :--- |
+| `custom/v8s-links.txt` | Redirect inventory | [Link format](/docs/link-format/) and [LNK](/docs/cli/) |
+| `custom/v8s-schedules.json` | Scheduled link state changes | [Scheduled links](/docs/scheduled-links/) |
+| `custom/v8s-policies.json` | Instance allow and block policy | [Blocklist policy](/docs/blocklist-policy/) |
+| `custom/v8s-site-config.json` | Site settings written by setup | [Configuration files](/docs/configuration-files/) |
+| `custom/v8s-local-config.json` | Workstation helper paths | [Local helper](/docs/local-helper/) |
+| `custom/public/` | Public page and asset overrides | See [Public overrides](#public-overrides) |
 
 ## Installer-managed public pages
 
@@ -69,79 +33,32 @@ Use `custom/v8s-site-config.json` for site-level choices such as supported langu
 
 The installer records those choices in `custom/v8s-site-config.json` so repeated setup runs are predictable. If `custom/public/` already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass `--force`.
 
-When you use `custom/public/`, set `i18n.supported_languages` in `custom/v8s-site-config.json`. Otherwise it is easy to create a mixed-language instance where only one or two languages are customized but every default language still appears.
+When you use `custom/public/`, keep `i18n.supported_languages` aligned with the localized pages you actually support. See [Internationalization](/docs/i18n/) for the language directory rules.
 
-## What can be customized
+## Public overrides
 
-Replace branding assets under `custom/public/`, such as `v8s-logo.svg`, `favicon.svg`, PNG icons, and `site.webmanifest`.
+| Override | Path | Details |
+| :--- | :--- | :--- |
+| Brand assets | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Brand](/docs/brand/) |
+| Legal and trust pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Legal and trust pages](/docs/legal-trust-pages/) |
+| Localized public pages | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths | [Internationalization](/docs/i18n/) |
+| Redirected badges | `custom/public/{language}/v8s-redirected.svg` and `v8s-redirected-dark.svg` | [Brand](/docs/brand/) |
+| Expand page | `custom/public/expand/index.html` | [Link format](/docs/link-format/) |
+| Dashboard shell | `custom/public/_stats/index.html` | [Admin dashboard](/docs/admin-dashboard/) and [Access control](/docs/access-control/) |
+| Headers | `custom/public/_headers` | [Runtime security approach](/docs/runtime-security/) |
 
-Customize public policy pages under `custom/public/`, such as `privacy.html`, `terms.html`, `abuse.html`, and `security.html`. English defaults have extension-free aliases such as `/privacy`, `/terms`, `/abuse`, and `/security`. French policy pages are served under `/fr/privacy.html`, `/fr/terms.html`, `/fr/abuse.html`, and `/fr/security.html`.
-
-Replace the expand page with `custom/public/expand/index.html`. Localized expand pages use language directories, for example `custom/public/fr/expand/index.html`.
-
-Replace the protected dashboard shell with `custom/public/_stats/index.html` only when you need a different static dashboard page. Keep `/_stats` and `/_tests` protected with [Cloudflare Access](/docs/access-control/) because those views expose routing and diagnostic information.
-
-Replace headers and machine-readable policy files with care. If you override `custom/public/_headers`, keep security and cache rules compatible with the Worker and protected paths.
-
-The default `_headers` includes `X-Generated-By: vanityURLs.link` and blocks raw runtime files such as `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` from direct public access.
-
-## Redirected badges
-
-<div class="brand-badge-stage brand-badge-stage-light brand-badge-stage-left">
-  <img src="/images/v8s-redirected-en.svg" alt="English light redirected badge">
-</div>
-
-Localized redirected badges live under the language directories:
-
-```text
-defaults/public/en/v8s-redirected.svg
-defaults/public/fr/v8s-redirected.svg
-defaults/public/es/v8s-redirected.svg
-defaults/public/it/v8s-redirected.svg
-defaults/public/de/v8s-redirected.svg
-```
-
-Each language also has a `v8s-redirected-dark.svg` variant. The English badges are copied to the build root so existing root references keep working.
-
-After editing default badge SVGs, run:
-
-```bash
-npm run optimize:badges
-```
-
-## Custom status pages
+## Status pages
 
 The Worker serves specific files for link and routing states. To build custom status pages from scratch, place the files at these exact paths:
 
-```text
-custom/public/404.html
-custom/public/disabled.html
-custom/public/expired.html
-custom/public/maintenance.html
-```
-
-Localized versions use the [language code](/docs/i18n/#supported-languages) as the first directory segment:
-
-```text
-custom/public/fr/404.html
-custom/public/fr/disabled.html
-custom/public/fr/expired.html
-custom/public/fr/maintenance.html
-custom/public/es/404.html
-custom/public/de/404.html
-custom/public/it/404.html
-```
-
-You only need to add the localized pages you actually support. If a localized page is missing, the Worker can fall back to the default page for the requested state.
-
-The HTTP status code comes from the Worker, not the HTML file:
-
 | File | Used for | Status |
-|---|---|---|
-| `404.html` | Unknown short links and missing pages | 404 |
-| `disabled.html` | Disabled links | 403 |
-| `expired.html` | Expired links | 410 |
-| `maintenance.html` | Temporarily unavailable links | 503 |
+| :--- | :--- | :--- |
+| `custom/public/404.html` | Unknown short links and missing pages | 404 |
+| `custom/public/disabled.html` | Disabled links | 403 |
+| `custom/public/expired.html` | Expired links | 410 |
+| `custom/public/maintenance.html` | Temporarily unavailable links | 503 |
+
+Localized versions use the [language code](/docs/i18n/#supported-languages) as the first directory segment, for example `custom/public/fr/404.html`. You only need to add the localized pages you actually support. If a localized page is missing, the Worker can fall back to the default page for the requested state.
 
 If you replace `404.html`, include these placeholders where you want runtime context to appear:
 
@@ -150,8 +67,4 @@ If you replace `404.html`, include these placeholders where you want runtime con
 <!-- {{REFERENCE_LINE}} -->
 ```
 
-`{{SLUG_MESSAGE}}` is replaced with a safe message about the requested slug. `{{REFERENCE_LINE}}` is replaced with a correlation reference that helps with support and log review. If you omit the placeholders, the page still works, but users and maintainers get less context.
-
-Status pages can be self-contained HTML. If they use shared styling or images, put those assets in `custom/public/` and reference them from the site root, for example `/status.css`, `/favicon.svg`, or `/v8s-logo.svg`.
-
-Keep status pages static. Do not depend on a browser tracking script for analytics; server-side analytics are emitted by the Worker when configured.
+`{{SLUG_MESSAGE}}` is replaced with a safe message about the requested slug. `{{REFERENCE_LINE}}` is replaced with a correlation reference that helps with support and log review.

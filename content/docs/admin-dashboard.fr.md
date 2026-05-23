@@ -33,3 +33,5 @@ Les analytics restent dans Umami ou Fathom. Le dashboard est le plan routage et 
 ## Protection
 
 Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*` avec Cloudflare Access. Le Worker valide l'assertion Access et reste ferme si la protection est incomplete.
+
+Remplacez le shell statique du tableau seulement si vous avez besoin d'une page en lecture seule differente. Le chemin de surcharge est `custom/public/_stats/index.html`; gardez la meme protection Access parce que le tableau expose de l'information de routage et de diagnostic.

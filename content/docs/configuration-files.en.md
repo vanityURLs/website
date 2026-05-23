@@ -28,7 +28,38 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 | `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
 
+Example:
+
+```json
+{
+  "i18n": {
+    "default_language": "en",
+    "supported_languages": ["en", "fr"]
+  },
+  "branding": {
+    "domain": "example.link",
+    "custom_public": true,
+    "wordmark": {
+      "black": "example.",
+      "green": "link"
+    }
+  }
+}
+```
+
 Do not edit generated files in `build/`. Edit `custom/`, then rebuild with `npm run check`.
+
+## Public overlay order
+
+The public asset build is deterministic:
+
+1. Copy `defaults/public/` into `build/`
+2. Overlay `custom/public/` when it exists
+3. Copy the default `defaults/public/_stats/index.html`
+4. Overlay `custom/public/_stats/index.html` when it exists
+5. Prune unsupported language directories based on `v8s-site-config.json`
+6. Build `v8s.json`, `v8s-blocklist.json`, and `v8s-site-config.json`
+7. Generate `src/` from `scripts/workers/` for Wrangler
 
 ## Runtime artifacts
 

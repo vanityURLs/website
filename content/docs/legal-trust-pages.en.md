@@ -80,3 +80,16 @@ These setup answers feed generated public files:
 | `/.well-known/security.txt` | Machine-readable vulnerability disclosure contact |
 
 If you later replace generated pages with custom HTML under `custom/public/`, keep the same contacts and public reporting paths accurate.
+
+## Custom public pages
+
+Replace generated pages only when you need fully custom HTML. Use these paths:
+
+| Page | Custom file |
+| :--- | :--- |
+| Privacy | `custom/public/privacy.html` |
+| Terms | `custom/public/terms.html` |
+| Trust & Safety | `custom/public/abuse.html` |
+| Security | `custom/public/security.html` |
+
+English pages also have extension-free aliases such as `/privacy`, `/terms`, `/trust-safety`, and `/security`. Localized pages use the language directory, for example `custom/public/fr/privacy.html`.
