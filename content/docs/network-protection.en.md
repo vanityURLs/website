@@ -6,9 +6,11 @@ weight: 80
 
 ---
 
-Network protection covers the Cloudflare domain settings that sit in front of the vanityURLs Worker. These controls decide how DNS, TLS, caching, bot traffic, crawler traffic, WAF rules, and zone-level security behave before a request spends Worker CPU or analytics quota.
+Network protection covers the Cloudflare domain settings that sit in front of the vanityURLs Worker.
 
 Use this page for settings under the Cloudflare domain configuration area: **AI Crawl Control**, **Analytics**, **Caching**, **DNS**, **Network**, **Rules**, **Security**, **SSL/TLS**, and **WAF**.
+
+For the layered security rationale, read [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/).
 
 ## DNS
 
@@ -58,7 +60,7 @@ Do not enable client certificates, mTLS rules, visitor location headers, or True
 
 ## WAF
 
-Cloudflare security rules run before the Worker. Use them for traffic that should never spend Worker CPU, then leave the Worker blocklist as the application-level fallback.
+Cloudflare security rules run before the Worker. Use them for traffic that should never reach application code.
 
 Recommended rule set:
 
@@ -93,15 +95,11 @@ not starts_with(http.request.uri.path, "/_tests") and
 http.request.uri.path ne "/robots.txt"
 ```
 
-Cloudflare's visual rule builder can make nested expressions hard to reproduce. For these rules, use the expression editor for the final expression, paste and validate one complete expression at a time, save rules disabled while tuning, then enable them after checking Security Events.
+Use the expression editor for nested rules, paste and validate one complete expression at a time, save rules disabled while tuning, then enable them after checking Security Events.
 
 ## AI Crawl Control
 
 If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repo the source of truth and avoids Cloudflare overwriting intentional directives.
-
-The default `defaults/public/robots.txt` disallows crawling by default and only allows policy/context files such as `/robots.txt`, `/llms.txt`, and `/llms-full.txt`. Those files exist to describe the software and the deployed surface, not to advertise the link inventory.
-
-Use AI Crawl Control or a WAF user-agent rule when you want Cloudflare to block selected AI crawler traffic before it reaches the Worker. Mirror the same policy in `robots.txt` for transparency, but treat `robots.txt` as advisory and the WAF rule as enforcement.
 
 Useful defaults:
 
@@ -111,9 +109,7 @@ Useful defaults:
 - Keep verified search engine crawlers allowed unless your instance is intentionally private
 - Review Cloudflare Security Events after enabling the rule, because it will not appear in Worker analytics when blocked at the edge
 
-For a private, family, team, or internal short-link domain, it is reasonable to block all crawler families except the ones you explicitly want. Do not rely on `robots.txt` alone for this; use Cloudflare AI Crawl Control, WAF rules, and the runtime blocklist together.
-
-Keep the exact AI crawler list in Cloudflare, not in public docs, because crawler names and policy choices change. At minimum, leave `/robots.txt` allowed so crawlers can read the published policy.
+At minimum, leave `/robots.txt` allowed so crawlers can read the published policy.
 
 ## Rules
 
@@ -166,4 +162,4 @@ Use Cloudflare analytics and Security Events for infrastructure decisions:
 
 Use vanityURLs server-side [Analytics](/docs/analytics/) for application events such as pageviews, redirects, short-link misses, expand lookups, and normalized bot events that reach the Worker.
 
-Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events, not in Umami or Fathom.
+Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events.

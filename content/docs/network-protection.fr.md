@@ -6,9 +6,11 @@ weight: 70
 
 ---
 
-La protection réseau couvre les réglages de domaine Cloudflare placés devant le Worker vanityURLs. Ces contrôles décident comment DNS, TLS, caching, trafic bot, trafic crawler, règles WAF et sécurité de zone se comportent avant qu'une requête consomme du CPU Worker ou du quota analytics.
+La protection réseau couvre les réglages de domaine Cloudflare placés devant le Worker vanityURLs.
 
 Utilisez cette page pour les réglages sous la configuration de domaine Cloudflare : **AI Crawl Control**, **Analytics**, **Caching**, **DNS**, **Network**, **Rules**, **Security**, **SSL/TLS** et **WAF**.
+
+Pour le raisonnement de securite par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/).
 
 ## DNS
 
@@ -58,7 +60,7 @@ N'activez pas les certificats client, règles mTLS, en-têtes de localisation vi
 
 ## WAF
 
-Les règles de sécurité Cloudflare s'exécutent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais consommer du CPU Worker, puis gardez la blocklist Worker comme fallback applicatif.
+Les règles de sécurité Cloudflare s'exécutent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais atteindre le code applicatif.
 
 Jeu de règles recommandé :
 
@@ -93,15 +95,11 @@ not starts_with(http.request.uri.path, "/_tests") and
 http.request.uri.path ne "/robots.txt"
 ```
 
-Le rule builder visuel de Cloudflare peut rendre les expressions imbriquées difficiles à reproduire. Pour ces règles, utilisez l'éditeur d'expression pour l'expression finale, collez et validez une expression complète à la fois, sauvegardez les règles désactivées pendant le calibrage, puis activez-les après vérification dans Security Events.
+Utilisez l'éditeur d'expression pour les règles imbriquées, collez et validez une expression complète à la fois, sauvegardez les règles désactivées pendant le calibrage, puis activez-les après vérification dans Security Events.
 
 ## AI Crawl Control
 
 Si le dépôt fournit `robots.txt`, gardez Cloudflare Managed robots.txt désactivé. Cela fait du dépôt la source de vérité et évite que Cloudflare écrase des directives intentionnelles.
-
-Le fichier par défaut `defaults/public/robots.txt` interdit le crawling par défaut et autorise seulement les fichiers de politique/contexte comme `/robots.txt`, `/llms.txt` et `/llms-full.txt`. Ces fichiers existent pour décrire le logiciel et la surface déployée, pas pour annoncer l'inventaire des liens.
-
-Utilisez AI Crawl Control ou une règle WAF sur user-agent lorsque vous voulez que Cloudflare bloque certains crawlers IA avant qu'ils atteignent le Worker. Reproduisez la même politique dans `robots.txt` pour la transparence, mais traitez `robots.txt` comme indicatif et la règle WAF comme enforcement.
 
 Réglages utiles :
 
@@ -111,9 +109,7 @@ Réglages utiles :
 - Garder les crawlers de moteurs de recherche vérifiés autorisés sauf si votre instance est volontairement privée
 - Revoir Cloudflare Security Events après activation, car le trafic bloqué n'apparaît pas dans les analytics Worker
 
-Pour un domaine court privé, familial, d'équipe ou interne, il est raisonnable de bloquer toutes les familles de crawlers sauf celles que vous voulez explicitement. Ne comptez pas seulement sur `robots.txt`; utilisez ensemble Cloudflare AI Crawl Control, les règles WAF et la blocklist runtime.
-
-Gardez la liste exacte de crawlers IA dans Cloudflare, pas dans la documentation publique, parce que les noms de crawlers et les choix de politique changent. Au minimum, laissez `/robots.txt` autorisé pour que les crawlers puissent lire la politique publiée.
+Au minimum, laissez `/robots.txt` autorisé pour que les crawlers puissent lire la politique publiée.
 
 ## Rules
 
@@ -166,4 +162,4 @@ Utilisez les analytics Cloudflare et Security Events pour les décisions d'infra
 
 Utilisez les [Analytics](/fr/docs/analytics/) serveur vanityURLs pour les événements applicatifs comme pageviews, redirections, misses de liens courts, recherches expand et événements bot normalisés qui atteignent le Worker.
 
-Le trafic bloqué par WAF, AI Crawl Control, Access ou rate limiting n'atteint pas le Worker et doit être consulté dans Cloudflare Security Events, pas dans Umami ou Fathom.
+Le trafic bloqué par WAF, AI Crawl Control, Access ou rate limiting n'atteint pas le Worker et doit être consulté dans Cloudflare Security Events.
