@@ -20,8 +20,8 @@ sections:
         url: /docs/blocklist/
       - title: Custom overrides
         url: /docs/custom-overrides/
-      - title: Legal and trust pages
-        url: /docs/legal-trust-pages/
+      - title: Footer & pages
+        url: /docs/footer-pages/
       - title: Network protection
         url: /docs/network-protection/
 

@@ -73,7 +73,7 @@ Utilisez [Analytics](/fr/docs/analytics/) pour les variables, noms d'evenements,
 - Confirmez que les badges de redirection localises existent pour les langues supportees
 - Lancez `npm run optimize:badges` apres modification des SVG de badge par defaut
 
-Utilisez [Pages legales et de confiance](/fr/docs/legal-trust-pages/), [Internationalisation](/fr/docs/i18n/), et [Marque](/fr/docs/brand/) pour les details.
+Utilisez [Pied de page et pages](/fr/docs/footer-pages/), [Internationalisation](/fr/docs/i18n/), et [Marque](/fr/docs/brand/) pour les details.
 
 ## Smoke checks operationnels
 

@@ -16,8 +16,8 @@ sections:
         url: /docs/analytics/
       - title: Controle d'acces
         url: /docs/access-control/
-      - title: Pages legales et de confiance
-        url: /docs/legal-trust-pages/
+      - title: Pied de page et pages
+        url: /docs/footer-pages/
       - title: Politique blocklist
         url: /docs/blocklist/
       - title: Protection reseau

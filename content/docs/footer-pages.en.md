@@ -1,12 +1,14 @@
 ---
 aside: false
-title: "Legal and trust pages"
-description: "Understand the setup answers used to generate privacy, terms, Trust & Safety, security, and security.txt pages."
+title: "Footer & pages"
+description: "Understand the setup answers used to generate footer links, privacy, terms, Trust & Safety, security, and security.txt pages."
 weight: 70
+aliases:
+  - /docs/legal-trust-pages/
 
 ---
 
-vanityURLs can publish legal and trust pages from the operator values stored in `custom/v8s-site-config.json`. These pages are part of the public posture of a short-link domain: they tell visitors, reporters, registrars, and security researchers who operates the redirector and how to reach the right contact.
+vanityURLs can publish footer links and public pages from the operator values stored in `custom/v8s-site-config.json`. These pages are part of the public posture of a short-link domain: they tell visitors, reporters, registrars, and security researchers who operates the redirector and how to reach the right contact.
 
 This page is not legal advice. It explains what each setup question controls so you can provide simple phase-1 values, then refine them with the right internal or legal review later.
 
@@ -97,6 +99,16 @@ These setup answers feed generated public files:
 | `/.well-known/security.txt` | Machine-readable vulnerability disclosure contact |
 
 If you later replace generated pages with custom HTML under `custom/public/`, keep the same contacts and public reporting paths accurate.
+
+## Footer links
+
+Default public pages include footer links to the policy pages that exist for the current language. When privacy and terms are configured, the footer is a natural place to add concise expectation text, for example:
+
+```text
+By continuing, you agree to the Terms and conditions, including the Privacy notice.
+```
+
+If vanityURLs adds this as generated behavior, the text should only render when both destinations exist. The words `Terms and conditions` and `Privacy notice` should link to the generated or custom pages for the current language.
 
 ## Custom public pages
 

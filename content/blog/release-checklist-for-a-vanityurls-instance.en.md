@@ -74,7 +74,7 @@ Use [Analytics](/docs/analytics/) for variables, event names, provider limits, I
 - Confirm localized redirected badges exist for supported languages
 - Run `npm run optimize:badges` after editing default redirected badge SVGs
 
-Use [Legal and trust pages](/docs/legal-trust-pages/), [Internationalization](/docs/i18n/), and [Brand](/docs/brand/) for the underlying details.
+Use [Footer & pages](/docs/footer-pages/), [Internationalization](/docs/i18n/), and [Brand](/docs/brand/) for the underlying details.
 
 ## Operational smoke checks
 

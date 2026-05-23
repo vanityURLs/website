@@ -88,16 +88,16 @@ The interactive installer asks these questions:
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/analytics/) during customization |
 | Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/i18n/) |
-| Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Legal and trust pages](/docs/legal-trust-pages/) during customization |
-| Operator legal name | `Example Inc.` | Simple operator name for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
-| Operator jurisdiction, for example Canada | `Canada` | Simple jurisdiction for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
-| Governing law | `Canada` | Usually the same as jurisdiction for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
+| Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Footer & pages](/docs/footer-pages/) during customization |
+| Operator legal name | `Example Inc.` | Simple operator name for phase 1. See [Footer & pages](/docs/footer-pages/) |
+| Operator jurisdiction, for example Canada | `Canada` | Simple jurisdiction for phase 1. See [Footer & pages](/docs/footer-pages/) |
+| Governing law | `Canada` | Usually the same as jurisdiction for phase 1. See [Footer & pages](/docs/footer-pages/) |
 | Operator contact email | `hello@v8s.link` | General role address. Defaults to `hello@<short-domain>` |
 | Privacy contact | `privacy@v8s.link` | Privacy role address. Defaults to `privacy@<short-domain>` |
 | Trust & Safety contact | `abuse@v8s.link` | Abuse reporting role address. Defaults to `abuse@<short-domain>` |
 | Security contact | `security@v8s.link` | Vulnerability reporting role address. Defaults to `security@<short-domain>` |
 | Legal pages last updated date | `2026-05-21` | Use today's date in `YYYY-MM-DD` format |
-| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
+| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. See [Footer & pages](/docs/footer-pages/) |
 | Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
 | Black wordmark portion | `v8s.` | First part of the homepage wordmark |
 | Green wordmark portion | `link` | Second part of the homepage wordmark |

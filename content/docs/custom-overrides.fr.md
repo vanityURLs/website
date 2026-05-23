@@ -40,7 +40,7 @@ Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligne
 | Surcharge | Chemin | Details |
 | --- | --- | --- |
 | Assets de marque | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Marque](/fr/docs/brand/) |
-| Pages legales et confiance | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pages legales et de confiance](/fr/docs/legal-trust-pages/) |
+| Pied de page et pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pied de page et pages](/fr/docs/footer-pages/) |
 | Pages publiques localisees | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires | [Internationalisation](/fr/docs/i18n/) |
 | Badges rediriges | `custom/public/{language}/v8s-redirected.svg` et `v8s-redirected-dark.svg` | [Marque](/fr/docs/brand/) |
 | Page expand | `custom/public/expand/index.html` | [Format des liens](/fr/docs/link-format/) |

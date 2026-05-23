@@ -1,12 +1,14 @@
 ---
 aside: false
-title: "Pages légales et de confiance"
-description: "Comprendre les réponses de setup utilisées pour générer les pages confidentialité, conditions, Trust & Safety, sécurité et security.txt."
+title: "Pied de page et pages"
+description: "Comprendre les réponses de setup utilisées pour générer les liens de pied de page, confidentialité, conditions, Trust & Safety, sécurité et security.txt."
 weight: 50
+aliases:
+  - /docs/legal-trust-pages/
 
 ---
 
-vanityURLs peut publier des pages légales et de confiance depuis les valeurs opérateur stockées dans `custom/v8s-site-config.json`. Ces pages font partie de la posture publique d'un domaine de liens courts : elles indiquent aux visiteurs, signalants, registraires et chercheurs en sécurité qui exploite le redirecteur et comment joindre le bon contact.
+vanityURLs peut publier des liens de pied de page et des pages publiques depuis les valeurs opérateur stockées dans `custom/v8s-site-config.json`. Ces pages font partie de la posture publique d'un domaine de liens courts : elles indiquent aux visiteurs, signalants, registraires et chercheurs en sécurité qui exploite le redirecteur et comment joindre le bon contact.
 
 Cette page n'est pas un avis juridique. Elle explique ce que chaque question de setup contrôle afin que vous puissiez fournir des valeurs simples en phase 1, puis les raffiner plus tard avec la bonne revue interne ou juridique.
 
@@ -97,6 +99,16 @@ Ces réponses de setup alimentent les fichiers publics générés :
 | `/.well-known/security.txt` | Contact de divulgation de vulnérabilités lisible par machine |
 
 Si vous remplacez plus tard les pages générées par du HTML custom sous `custom/public/`, gardez les mêmes contacts et chemins publics de signalement exacts.
+
+## Liens de pied de page
+
+Les pages publiques par défaut incluent des liens de pied de page vers les pages de politique qui existent pour la langue courante. Lorsque les pages confidentialité et conditions sont configurées, le pied de page est un endroit naturel pour ajouter une phrase courte, par exemple :
+
+```text
+En continuant, vous acceptez les Conditions, incluant l'avis de confidentialité.
+```
+
+Si vanityURLs ajoute ce comportement généré, le texte devrait seulement s'afficher lorsque les deux destinations existent. Les mots `Conditions` et `avis de confidentialité` devraient pointer vers les pages générées ou custom de la langue courante.
 
 ## Pages publiques custom
 

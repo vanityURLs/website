@@ -18,7 +18,7 @@ You do not need to customize everything at once. Start with the area that hurts 
 | Add, inspect, or update short links | [LNK](/docs/cli/) and [Link format](/docs/link-format/) |
 | Add time-based destinations | [Scheduled links](/docs/schedules/) |
 | Decide which languages to publish | [Internationalization](/docs/i18n/) |
-| Configure jurisdiction and public trust contacts | [Legal and trust pages](/docs/legal-trust-pages/) |
+| Configure jurisdiction and public trust contacts | [Footer & pages](/docs/footer-pages/) |
 | Protect private operational paths | [Access control](/docs/access-control/) |
 | Protect the domain before traffic reaches the Worker | [Network protection](/docs/network-protection/) |
 | Configure redirect analytics | [Analytics](/docs/analytics/) |
