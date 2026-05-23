@@ -44,4 +44,4 @@ That separation keeps updates reviewable and makes rollback a normal Git operati
 
 The Worker should not be the first place high-volume abuse gets handled. Use Cloudflare WAF, rate limiting, bot controls, AI crawler controls, DNS, SSL/TLS, and Access policies to reject commodity abuse before it reaches runtime.
 
-Use [Network protection](/docs/network-protection/) for edge controls and [Runtime security](/docs/runtime-security/) for the compact runtime reference.
+Use [Network protection](/docs/customize/network-protection/) for edge controls and [Runtime security](/docs/reference/runtime-security/) for the compact runtime reference.

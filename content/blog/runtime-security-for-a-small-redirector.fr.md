@@ -44,4 +44,4 @@ Cette separation garde les mises a jour lisibles et rend le rollback normal dans
 
 Le Worker ne devrait pas etre le premier endroit ou les abus a fort volume sont geres. Utilisez Cloudflare WAF, rate limiting, controles bot, controles crawler IA, DNS, SSL/TLS, et politiques Access pour rejeter les abus courants avant le runtime.
 
-Utilisez [Protection reseau](/fr/docs/network-protection/) pour les controles edge et [Securite runtime](/fr/docs/runtime-security/) pour la reference runtime compacte.
+Utilisez [Protection reseau](/fr/docs/customize/network-protection/) pour les controles edge et [Securite runtime](/fr/docs/reference/runtime-security/) pour la reference runtime compacte.

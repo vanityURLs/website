@@ -16,7 +16,7 @@ La meilleure posture de release est sobre : petit Worker, fichiers generes relus
 ## Depot et build
 
 - Lancez `npm run clean` avant une release ou avant de comparer la sortie generee
-- Rafraichissez `defaults/` et `scripts/` avec [Mettre a jour une instance](/fr/docs/upgrading/)
+- Rafraichissez `defaults/` et `scripts/` avec [Mettre a jour une instance](/fr/docs/reference/upgrading/)
 - Gardez les fichiers propres a l'instance dans `custom/`
 - Gardez les changements runtime Worker dans `scripts/workers/`; traitez `src/` comme genere
 - Lancez `npm run check`
@@ -30,7 +30,7 @@ La CI devrait lancer `npm run check` avant le deploiement. Gardez les identifian
 - Confirmez que le Worker a un binding `ASSETS`
 - Confirmez que le domaine custom pointe vers le Worker
 - Desactivez les URL publiques `workers.dev` et preview si elles ne font pas partie du service
-- Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*` avec [Controle d'acces](/fr/docs/access-control/)
+- Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*` avec [Controle d'acces](/fr/docs/customize/access-control/)
 - Confirmez que le Worker accepte seulement `GET`, `HEAD`, et `OPTIONS` sur les routes publiques
 - Confirmez que les fichiers runtime bruts retournent 404 : `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json`
 - Confirmez que les headers incluent `X-Generated-By: vanityURLs.link` sauf surcharge intentionnelle
@@ -43,7 +43,7 @@ Les reglages Cloudflare sont repartis dans trois zones :
 - **Workers & Pages** : deploiement, binding assets, variables, observabilite, domaines custom et reglages de build
 - **Configuration du domaine** : AI Crawl Control, Analytics, Caching, DNS, Network, Rules, Security, SSL/TLS et WAF
 
-Utilisez [Controle d'acces](/fr/docs/access-control/) pour les chemins operationnels prives, [Protection reseau](/fr/docs/network-protection/) pour les reglages de domaine, et [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/) pour le nom du Worker et `wrangler.toml`.
+Utilisez [Controle d'acces](/fr/docs/customize/access-control/) pour les chemins operationnels prives, [Protection reseau](/fr/docs/customize/network-protection/) pour les reglages de domaine, et [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/) pour le nom du Worker et `wrangler.toml`.
 
 ## Abus et politique
 
@@ -52,17 +52,17 @@ Utilisez [Controle d'acces](/fr/docs/access-control/) pour les chemins operation
 - Gardez la politique source editable dans `custom/v8s-policies.json`; traitez `build/v8s-blocklist.json` comme sortie generee
 - N'utilisez pas le redirecteur pour phishing, malware, tracking dissimule, routage affilie non divulgue, chaines de raccourcisseurs, ou destinations qui contredisent les attentes des visiteurs
 
-Utilisez [Politique et blocklist](/fr/docs/blocklist/) pour la politique d'instance et [Securite runtime](/fr/docs/runtime-security/) pour les protections runtime integrees.
+Utilisez [Politique et blocklist](/fr/docs/customize/blocklist/) pour la politique d'instance et [Securite runtime](/fr/docs/reference/runtime-security/) pour les protections runtime integrees.
 
 ## Analytics
 
 - Utilisez seulement des analytics serveur; n'ajoutez pas de scripts de tracking navigateur
 - Configurez Umami ou Fathom avec les variables et secrets Worker
-- Confirmez que le trafic bloque par [Protection reseau](/fr/docs/network-protection/) n'est pas envoye aux analytics
+- Confirmez que le trafic bloque par [Protection reseau](/fr/docs/customize/network-protection/) n'est pas envoye aux analytics
 - Relisez les limites de debit et quotas du fournisseur avant lancement
 - Surveillez les premieres 24 heures pour le bruit scanner qui pourrait consommer du quota
 
-Utilisez [Analytics](/fr/docs/analytics/) pour les variables, noms d'evenements, limites fournisseur, mode IP et verification.
+Utilisez [Analytics](/fr/docs/customize/analytics/) pour les variables, noms d'evenements, limites fournisseur, mode IP et verification.
 
 ## Fichiers publics et marque
 
@@ -73,7 +73,7 @@ Utilisez [Analytics](/fr/docs/analytics/) pour les variables, noms d'evenements,
 - Confirmez que les badges de redirection localises existent pour les langues supportees
 - Lancez `npm run optimize:badges` apres modification des SVG de badge par defaut
 
-Utilisez [Pied de page et pages](/fr/docs/footer-pages/), [Internationalisation](/fr/docs/i18n/), et [Marque](/fr/docs/brand/) pour les details.
+Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/), [Internationalisation](/fr/docs/reference/i18n/), et [Marque](/fr/docs/reference/brand/) pour les details.
 
 ## Smoke checks operationnels
 

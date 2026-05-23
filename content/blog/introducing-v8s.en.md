@@ -39,6 +39,6 @@ The answer is simple: **control and reliability**. v8s ensures that your links r
 
 Setting up v8s is straightforward, and we provide scripts to automate the process.
 
-[Read the installation guide →](/docs/quickstart/)
+[Read the installation guide →](/docs/setup/quickstart/)
 
 Don't let your links fall victim to the whims of third-party providers. Take control with v8s.

@@ -39,6 +39,6 @@ Le design en lecture seule garde le workflow simple :
 
 ## Le proteger
 
-Le tableau devrait etre derriere Cloudflare Access. Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*`, puis utilisez [Controle d'acces](/fr/docs/access-control/) comme configuration attendue.
+Le tableau devrait etre derriere Cloudflare Access. Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*`, puis utilisez [Controle d'acces](/fr/docs/customize/access-control/) comme configuration attendue.
 
-La page de reference compacte est [Tableau admin](/fr/docs/admin-dashboard/).
+La page de reference compacte est [Tableau admin](/fr/docs/reference/admin-dashboard/).

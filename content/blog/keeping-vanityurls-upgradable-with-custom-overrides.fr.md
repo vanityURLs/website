@@ -50,4 +50,4 @@ Cela veut dire que la plupart des personnalisations devraient eviter les edits d
 - `src/`, parce qu'il est genere pour Wrangler
 - `build/`, parce que c'est une sortie de deploiement generee
 
-Utilisez [Surcharges custom](/fr/docs/custom-overrides/) pour les chemins exacts et [Mettre a jour une instance](/fr/docs/upgrading/) pour le workflow de mise a jour.
+Utilisez [Surcharges custom](/fr/docs/customize/custom-overrides/) pour les chemins exacts et [Mettre a jour une instance](/fr/docs/reference/upgrading/) pour le workflow de mise a jour.

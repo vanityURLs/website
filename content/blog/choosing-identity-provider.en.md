@@ -37,4 +37,4 @@ Furthermore, if a user shares the same email address across multiple identity pr
 
 Don't let analysis paralysis stall your deployment. If you are just getting vanityURLs off the ground, start with the **One-Time PIN** setup to lock down your dashboard immediately. As your team grows or your workflow changes, you can layer on GitHub or Google authentication in minutes without breaking a thing.
 
-Ready to lock down your setup? Head over to your Cloudflare Zero Trust dashboard and follow the [Access control](/docs/access-control/) documentation to get started.
+Ready to lock down your setup? Head over to your Cloudflare Zero Trust dashboard and follow the [Access control](/docs/customize/access-control/) documentation to get started.

@@ -5,7 +5,6 @@
 {{ $norm := strings.TrimSuffix "/" $cur }}
 {{ $toc     := .TableOfContents }}
 {{ $showTOC := and (ne (.Params.toc | default true) false) (ne (.Params.aside | default true) false) }}
-{{ $navMatch := partial "docs/nav-match.html" (dict "page" . "nav" $nav) }}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div class="{{ if $showTOC }}flex gap-8 xl:gap-10{{ else }}flex gap-8{{ end }}">
@@ -17,7 +16,9 @@
         {{ $sectionTitle := .title }}
         <div class="mb-4">
           {{ with .url }}
-          <a href="{{ . | relLangURL }}" class="sidebar-section-title hover:text-brand-600 dark:hover:text-brand-400 transition-colors no-underline">{{ $sectionTitle }}</a>
+          {{ $sURL := . | relLangURL }}
+          {{ $sActive := or (eq $cur $sURL) (eq $norm (strings.TrimSuffix "/" $sURL)) }}
+          <a href="{{ $sURL }}" class="sidebar-section-title{{ if $sActive }} active{{ end }} hover:text-brand-600 dark:hover:text-brand-400 transition-colors no-underline">{{ $sectionTitle }}</a>
           {{ else }}
           <p class="sidebar-section-title">{{ .title }}</p>
           {{ end }}
@@ -66,20 +67,17 @@
       <nav class="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400 mb-6 flex-wrap" aria-label="{{ i18n "nav_breadcrumb" }}">
         <a href="{{ $docsURL }}"
            class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ i18n "docs_label" }}</a>
+        {{ with .Parent }}
+          {{ if and (eq .Section "docs") (ne .RelPermalink $docsURL) }}
         <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        {{ with index $navMatch "sectionTitle" }}
-          {{ $sectionURL := index $navMatch "sectionURL" }}
-          {{ if $sectionURL }}
-        <a href="{{ $sectionURL }}" class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ . }}</a>
-          {{ else }}
-        <span class="text-gray-600 dark:text-gray-400">{{ . }}</span>
+        <a href="{{ .RelPermalink }}" class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ .Title }}</a>
           {{ end }}
+        {{ end }}
         <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        {{ end }}
         <span class="text-gray-600 dark:text-gray-300">{{ .Title }}</span>
       </nav>
 
@@ -91,7 +89,14 @@
                        focus:outline-none focus:ring-2 focus:ring-brand-500"
                 aria-label="{{ i18n "mobile_nav_label" }}">
           {{ range $nav.sections }}
+          {{ $sectionTitle := .title }}
           <optgroup label="{{ .title }}">
+            {{ with .url }}
+            {{ $sURL := . | relLangURL }}
+            <option value="{{ $sURL }}"{{ if or (eq $cur $sURL) (eq $norm (strings.TrimSuffix "/" $sURL)) }} selected{{ end }}>
+              {{ $sectionTitle }}
+            </option>
+            {{ end }}
             {{ range .pages }}
             {{ $pURL := .url | relLangURL }}
             {{ $hasKids := and .children (gt (len .children) 0) }}

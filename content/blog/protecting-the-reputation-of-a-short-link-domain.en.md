@@ -45,4 +45,4 @@ Cloudflare network controls should block obvious abuse before the Worker runs. W
 
 The Worker blocklist is the application fallback. It catches unsafe redirect destinations and scanner probes that reach the runtime, and it keeps those probes out of normal short-link miss analytics.
 
-Use [Policy and blocklist](/docs/blocklist/) for the exact `custom/v8s-policies.json` format, and use [Network protection](/docs/network-protection/) for the Cloudflare controls around the Worker.
+Use [Policy and blocklist](/docs/customize/blocklist/) for the exact `custom/v8s-policies.json` format, and use [Network protection](/docs/customize/network-protection/) for the Cloudflare controls around the Worker.

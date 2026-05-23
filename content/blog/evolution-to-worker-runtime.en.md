@@ -31,7 +31,7 @@ That change is not about making the system bigger. It is about making the simple
 
 - the link registry is generated and validated before deploy
 - the Worker accepts only the narrow request surface it needs
-- operational pages such as `/_stats` and `/_tests` can be protected with [Cloudflare Access](/docs/access-control/)
+- operational pages such as `/_stats` and `/_tests` can be protected with [Cloudflare Access](/docs/customize/access-control/)
 - server-side analytics can be emitted without browser JavaScript
 - blocklist checks, lifecycle states, and schedules run consistently at the edge
 - the same code can power a private instance today and a public instance later

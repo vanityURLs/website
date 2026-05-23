@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Reference v8s.link"
+title: "Demo: v8s.link"
 description: "Comment l'instance publique v8s.link montre les defaults vanityURLs actuels et le runtime Worker."
 weight: 10
 
@@ -11,13 +11,13 @@ v8s.link est l'instance publique de reference de vanityURLs. Elle montre le repe
 ## Ce que la reference montre
 
 {{< cards >}}
-{{< card title="Pages par defaut" icon="layout" href="/fr/docs/repository-layout/" >}}
+{{< card title="Pages par defaut" icon="layout" href="/fr/docs/reference/repository-layout/" >}}
 Accueil de recherche, page expand, pages d'etat localisees, icones, manifest, en-tetes de securite, et shell stats protege.
 {{< /card >}}
 {{< card title="v8s-links.txt" icon="link" href="/fr/docs/demo/links/" >}}
 Liens exacts exemples, namespaces, liens de test lifecycle, metadonnees, tags, proprietaires, et expirations.
 {{< /card >}}
-{{< card title="Runtime Worker" icon="cloud" href="/fr/docs/runtime-security/" >}}
+{{< card title="Runtime Worker" icon="cloud" href="/fr/docs/reference/runtime-security/" >}}
 Assets statiques plus routage Worker, `v8s.json` genere, protection Cloudflare Access, et hooks analytics serveur.
 {{< /card >}}
 {{< /cards >}}

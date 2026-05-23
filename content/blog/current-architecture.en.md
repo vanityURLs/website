@@ -37,7 +37,7 @@ This is the security posture. Simplicity is not decoration; it is part of the th
 
 The Worker is only one layer. A production instance should also use Cloudflare's domain security tools:
 
-- [Zero Trust Access](/docs/access-control/) for `/_stats` and `/_tests`
+- [Zero Trust Access](/docs/customize/access-control/) for `/_stats` and `/_tests`
 - WAF rules for scanner probes and unexpected methods
 - rate limiting for short-link candidates
 - bot controls and AI crawler controls

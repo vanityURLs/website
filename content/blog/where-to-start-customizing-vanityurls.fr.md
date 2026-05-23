@@ -13,16 +13,16 @@ Vous n'avez pas besoin de tout personnaliser en meme temps. Commencez par la zon
 
 | Objectif | Commencer ici |
 | --- | --- |
-| Changer l'apparence publique et les pages statiques | [Surcharges custom](/fr/docs/custom-overrides/) |
-| Configurer le wordmark bicolore et les assets de marque | [Marque](/fr/docs/brand/) |
-| Ajouter, inspecter ou mettre a jour les liens courts | [LNK](/fr/docs/cli/) et [Format des liens](/fr/docs/link-format/) |
-| Ajouter des destinations selon le temps | [Liens planifies](/fr/docs/schedules/) |
-| Decider quelles langues publier | [Internationalisation](/fr/docs/i18n/) |
-| Configurer la juridiction et les contacts publics de confiance | [Pied de page et pages](/fr/docs/footer-pages/) |
-| Proteger les chemins operationnels prives | [Controle d'acces](/fr/docs/access-control/) |
-| Proteger le domaine avant que le trafic atteigne le Worker | [Protection reseau](/fr/docs/network-protection/) |
-| Configurer les analytics de redirection | [Analytics](/fr/docs/analytics/) |
-| Ajuster la politique allow/block | [Politique et blocklist](/fr/docs/blocklist/) |
+| Changer l'apparence publique et les pages statiques | [Surcharges custom](/fr/docs/customize/custom-overrides/) |
+| Configurer le wordmark bicolore et les assets de marque | [Marque](/fr/docs/reference/brand/) |
+| Ajouter, inspecter ou mettre a jour les liens courts | [LNK](/fr/docs/command-line-interface/lnk/) et [Format des liens](/fr/docs/reference/link-format/) |
+| Ajouter des destinations selon le temps | [Liens planifies](/fr/docs/reference/schedules/) |
+| Decider quelles langues publier | [Internationalisation](/fr/docs/reference/i18n/) |
+| Configurer la juridiction et les contacts publics de confiance | [Pied de page et pages](/fr/docs/customize/footer-pages/) |
+| Proteger les chemins operationnels prives | [Controle d'acces](/fr/docs/customize/access-control/) |
+| Proteger le domaine avant que le trafic atteigne le Worker | [Protection reseau](/fr/docs/customize/network-protection/) |
+| Configurer les analytics de redirection | [Analytics](/fr/docs/customize/analytics/) |
+| Ajuster la politique allow/block | [Politique et blocklist](/fr/docs/customize/blocklist/) |
 
 Le meilleur chemin n'est habituellement pas lineaire. Une instance personnelle peut commencer par les liens et la marque. Une instance d'equipe peut commencer par le controle d'acces et les labels owner. Un domaine marketing public peut commencer par les pages legales, les analytics et la protection reseau.
 

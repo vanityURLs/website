@@ -152,19 +152,18 @@
     "name"     "Documentation"
     "item"     $docsBase) -}}
 
-{{- $nav := index hugo.Data (printf "docs_nav.%s" $lang) -}}
-{{- $navMatch := partial "docs/nav-match.html" (dict "page" . "nav" $nav) -}}
 {{- $pos := 2 -}}
-{{- with index $navMatch "sectionTitle" -}}
-  {{- $sectionURL := index $navMatch "sectionURL" -}}
+{{- with .Parent -}}
+  {{- if and (eq .Section "docs") (ne .RelPermalink ("/docs/" | relLangURL)) -}}
   {{- $crumbs = $crumbs | append (dict
       "@type"    "ListItem"
       "position" $pos
-      "name"     .
-      "item"     ($sectionURL | absURL)) -}}
+      "name"     .Title
+      "item"     .Permalink) -}}
   {{- $pos = add $pos 1 -}}
+  {{- end -}}
 {{- end -}}
-{{- if not .IsSection -}}
+{{- if ne .RelPermalink ("/docs/" | relLangURL) -}}
   {{- $crumbs = $crumbs | append (dict
       "@type"    "ListItem"
       "position" $pos

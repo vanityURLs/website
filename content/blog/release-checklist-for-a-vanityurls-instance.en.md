@@ -17,7 +17,7 @@ The strongest release posture is boring: a small Worker, reviewed generated file
 ## Repository and build
 
 - Run `npm run clean` before release or before comparing generated output
-- Refresh upstream `defaults/` and `scripts/` with [Upgrading an instance](/docs/upgrading/)
+- Refresh upstream `defaults/` and `scripts/` with [Upgrading an instance](/docs/reference/upgrading/)
 - Keep instance-owned files in `custom/`
 - Keep Worker runtime edits in `scripts/workers/`; treat `src/` as generated
 - Run `npm run check`
@@ -31,7 +31,7 @@ CI should run `npm run check` before deployment. Keep deployment credentials out
 - Confirm the Worker has an `ASSETS` binding
 - Confirm the custom domain points to the Worker
 - Disable public `workers.dev` and preview URLs if they are not part of the service
-- Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*` with [Access control](/docs/access-control/)
+- Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*` with [Access control](/docs/customize/access-control/)
 - Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS` on public routes
 - Confirm raw runtime files return 404: `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json`
 - Confirm response headers include `X-Generated-By: vanityURLs.link` unless intentionally overridden
@@ -44,7 +44,7 @@ Cloudflare settings are split across three areas:
 - **Workers & Pages**: deployment, assets binding, variables, observability, custom domains, and build settings
 - **Domain configuration**: AI Crawl Control, Analytics, Caching, DNS, Network, Rules, Security, SSL/TLS, and WAF
 
-Use [Access control](/docs/access-control/) for private operational paths, [Network protection](/docs/network-protection/) for domain settings, and [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/) for Worker naming and `wrangler.toml` guidance.
+Use [Access control](/docs/customize/access-control/) for private operational paths, [Network protection](/docs/customize/network-protection/) for domain settings, and [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/) for Worker naming and `wrangler.toml` guidance.
 
 ## Abuse and policy
 
@@ -53,17 +53,17 @@ Use [Access control](/docs/access-control/) for private operational paths, [Netw
 - Keep editable source policy in `custom/v8s-policies.json`; treat `build/v8s-blocklist.json` as generated output
 - Do not use the redirector for phishing, malware, disguised tracking, undisclosed affiliate routing, shortener chains, or destinations that violate user expectations
 
-Use [Policy and blocklist](/docs/blocklist/) for instance policy and [Runtime security](/docs/runtime-security/) for built-in runtime protections.
+Use [Policy and blocklist](/docs/customize/blocklist/) for instance policy and [Runtime security](/docs/reference/runtime-security/) for built-in runtime protections.
 
 ## Analytics
 
 - Use server-side analytics only; do not add browser tracking scripts
 - Configure Umami or Fathom with Worker variables and secrets
-- Confirm traffic blocked by [Network protection](/docs/network-protection/) is not sent to analytics
+- Confirm traffic blocked by [Network protection](/docs/customize/network-protection/) is not sent to analytics
 - Review vendor rate limits and account quotas before launch
 - Watch the first 24 hours for scanner noise that could consume quota
 
-Use [Analytics](/docs/analytics/) for variables, event names, provider limits, IP mode, and verification.
+Use [Analytics](/docs/customize/analytics/) for variables, event names, provider limits, IP mode, and verification.
 
 ## Public files and brand
 
@@ -74,7 +74,7 @@ Use [Analytics](/docs/analytics/) for variables, event names, provider limits, I
 - Confirm localized redirected badges exist for supported languages
 - Run `npm run optimize:badges` after editing default redirected badge SVGs
 
-Use [Footer & pages](/docs/footer-pages/), [Internationalization](/docs/i18n/), and [Brand](/docs/brand/) for the underlying details.
+Use [Footer & pages](/docs/customize/footer-pages/), [Internationalization](/docs/reference/i18n/), and [Brand](/docs/reference/brand/) for the underlying details.
 
 ## Operational smoke checks
 

@@ -53,7 +53,7 @@ Traitez les badges comme des assets produit :
 - mettre a jour toutes les langues supportees ensemble
 - utiliser le badge clair sur les surfaces claires et le badge fonce sur les surfaces foncees
 
-Les noms d'assets et les couleurs actuelles vivent dans [Marque](/fr/docs/brand/).
+Les noms d'assets et les couleurs actuelles vivent dans [Marque](/fr/docs/reference/brand/).
 
 ## Personnaliser apres que le redirecteur fonctionne
 

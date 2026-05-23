@@ -45,4 +45,4 @@ Les analytics vanityURLs servent aux questions applicatives : redirections, miss
 
 Les deux vues comptent, mais elles ne repondent pas aux memes questions. Les melanger transforme le trafic scanner en comportement produit et peut cacher le travail utile que Cloudflare fait deja avant le Worker.
 
-Utilisez [Protection reseau](/fr/docs/network-protection/) pour la checklist Cloudflare et [Securite runtime](/fr/docs/runtime-security/) pour les controles cote Worker.
+Utilisez [Protection reseau](/fr/docs/customize/network-protection/) pour la checklist Cloudflare et [Securite runtime](/fr/docs/reference/runtime-security/) pour les controles cote Worker.

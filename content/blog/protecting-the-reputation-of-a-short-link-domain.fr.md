@@ -45,4 +45,4 @@ Les controles reseau Cloudflare devraient bloquer les abus evidents avant que le
 
 La blocklist Worker est le fallback applicatif. Elle attrape les destinations de redirection dangereuses et les probes scanner qui atteignent le runtime, et garde ces probes hors des analytics normaux de liens manques.
 
-Utilisez [Politique et blocklist](/fr/docs/blocklist/) pour le format exact de `custom/v8s-policies.json`, et [Protection reseau](/fr/docs/network-protection/) pour les controles Cloudflare autour du Worker.
+Utilisez [Politique et blocklist](/fr/docs/customize/blocklist/) pour le format exact de `custom/v8s-policies.json`, et [Protection reseau](/fr/docs/customize/network-protection/) pour les controles Cloudflare autour du Worker.

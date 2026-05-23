@@ -39,6 +39,6 @@ The read-only design keeps the workflow boring in the best way:
 
 ## Protect it
 
-The dashboard should sit behind Cloudflare Access. Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*`, then use [Access control](/docs/access-control/) as the expected configuration.
+The dashboard should sit behind Cloudflare Access. Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*`, then use [Access control](/docs/customize/access-control/) as the expected configuration.
 
-The compact reference page is [Admin dashboard](/docs/admin-dashboard/).
+The compact reference page is [Admin dashboard](/docs/reference/admin-dashboard/).

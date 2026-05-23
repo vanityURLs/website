@@ -45,4 +45,4 @@ vanityURLs analytics is for application questions: redirects, misses, expand loo
 
 Both views matter, but they answer different questions. Mixing them makes scanner traffic look like product behavior and can hide the fact that Cloudflare is already doing useful work before the Worker runs.
 
-Use [Network protection](/docs/network-protection/) for the Cloudflare settings checklist and [Runtime security](/docs/runtime-security/) for the Worker-side controls.
+Use [Network protection](/docs/customize/network-protection/) for the Cloudflare settings checklist and [Runtime security](/docs/reference/runtime-security/) for the Worker-side controls.

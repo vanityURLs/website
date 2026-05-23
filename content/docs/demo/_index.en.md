@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "v8s.link reference"
+title: "Demo: v8s.link"
 description: "How the public v8s.link instance demonstrates the current vanityURLs defaults and Worker runtime."
 weight: 10
 
@@ -11,14 +11,14 @@ v8s.link is the public reference instance for vanityURLs. It demonstrates the cu
 ## What the reference shows
 
 {{< cards >}}
-{{< card title="Default pages" icon="layout" href="/docs/repository-layout/" >}}
+{{< card title="Default pages" icon="layout" href="/docs/reference/repository-layout/" >}}
 Search-style home, expand page, localized status pages, icons, manifest, security headers, and protected stats shell.
 {{< /card >}}
 {{< card title="v8s-links.txt" icon="link" href="/docs/demo/links/" >}}
 Sample exact links, namespaced links, lifecycle test links, metadata, tags, owners, and expiry behavior.
 {{< /card >}}
-{{< card title="Worker runtime" icon="cloud" href="/docs/runtime-security/" >}}
-Static assets plus Worker routing, generated `v8s.json`, [Cloudflare Access protection](/docs/access-control/), and server-side analytics hooks.
+{{< card title="Worker runtime" icon="cloud" href="/docs/reference/runtime-security/" >}}
+Static assets plus Worker routing, generated `v8s.json`, [Cloudflare Access protection](/docs/customize/access-control/), and server-side analytics hooks.
 {{< /card >}}
 {{< /cards >}}
 

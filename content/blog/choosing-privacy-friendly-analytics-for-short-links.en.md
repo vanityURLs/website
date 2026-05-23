@@ -61,7 +61,7 @@ Cons:
 
 vanityURLs can send server-side events from the Worker. That means no browser tracking script is required on redirect pages. Events can cover redirect traffic, public page views, misses, and expand-page activity that reaches the Worker.
 
-Traffic stopped before the Worker, such as requests blocked by [Cloudflare Access](/docs/access-control/), WAF rules, rate limiting, or bot controls, will not appear in analytics because vanityURLs never receives it.
+Traffic stopped before the Worker, such as requests blocked by [Cloudflare Access](/docs/customize/access-control/), WAF rules, rate limiting, or bot controls, will not appear in analytics because vanityURLs never receives it.
 
 ## Operate analytics as a quota-sensitive feature
 

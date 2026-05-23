@@ -39,4 +39,4 @@ Une fois vos redirections dans Git, vous obtenez gratuitement tout ce que Git vo
 
 La question n'est pas "pourquoi vanityURLs plutôt que bit.ly ?" La question est : voulez-vous que vos liens fonctionnent dans cinq ans ?
 
-[Commencer →](/fr/docs/quickstart/)
+[Commencer →](/fr/docs/setup/quickstart/)

@@ -53,7 +53,7 @@ Treat badges as product assets:
 - update every supported language together
 - use the light badge on light surfaces and the dark badge on dark surfaces
 
-The exact current asset names and color tokens live in [Brand](/docs/brand/).
+The exact current asset names and color tokens live in [Brand](/docs/reference/brand/).
 
 ## Brand after the redirector works
 

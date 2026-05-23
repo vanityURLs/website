@@ -32,4 +32,4 @@ That keeps the link understandable in code review. The slug exists in the link i
 
 For normal edits, use `lnk schedule` instead of hand-editing JSON. It keeps the file shape consistent and makes simple changes easier to review.
 
-Use [Scheduled links](/docs/schedules/) for the exact command examples and JSON forms.
+Use [Scheduled links](/docs/reference/schedules/) for the exact command examples and JSON forms.

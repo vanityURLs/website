@@ -1,68 +1,58 @@
 sections:
   - title: Configuration
-    url: /docs/overview/
+    url: /docs/setup/
     pages:
-      - title: Vue d'ensemble
-        url: /docs/overview/
       - title: Demarrage rapide
-        url: /docs/quickstart/
+        url: /docs/setup/quickstart/
 
   - title: Personnaliser
-    url: /docs/customize-overview/
+    url: /docs/customize/
     pages:
-      - title: Vue d'ensemble
-        url: /docs/customize-overview/
       - title: Analytics
-        url: /docs/analytics/
+        url: /docs/customize/analytics/
       - title: Controle d'acces
-        url: /docs/access-control/
+        url: /docs/customize/access-control/
       - title: Pied de page et pages
-        url: /docs/footer-pages/
+        url: /docs/customize/footer-pages/
       - title: Politique blocklist
-        url: /docs/blocklist/
+        url: /docs/customize/blocklist/
       - title: Protection reseau
-        url: /docs/network-protection/
+        url: /docs/customize/network-protection/
       - title: Surcharges custom
-        url: /docs/custom-overrides/
+        url: /docs/customize/custom-overrides/
 
   - title: Reference
     url: /docs/reference/
     pages:
-      - title: Vue d'ensemble
-        url: /docs/reference/
       - title: Fichiers de configuration
-        url: /docs/configuration-files/
+        url: /docs/reference/configuration-files/
       - title: Format des liens
-        url: /docs/link-format/
+        url: /docs/reference/link-format/
       - title: Internationalisation
-        url: /docs/i18n/
+        url: /docs/reference/i18n/
       - title: Liens planifies
-        url: /docs/schedules/
+        url: /docs/reference/schedules/
       - title: Marque
-        url: /docs/brand/
+        url: /docs/reference/brand/
       - title: Mise a jour d'une instance
-        url: /docs/upgrading/
+        url: /docs/reference/upgrading/
       - title: Securite runtime
-        url: /docs/runtime-security/
+        url: /docs/reference/runtime-security/
       - title: Structure du depot
-        url: /docs/repository-layout/
+        url: /docs/reference/repository-layout/
       - title: Tableau admin
-        url: /docs/admin-dashboard/
+        url: /docs/reference/admin-dashboard/
 
   - title: Interface en ligne de commande
     url: /docs/command-line-interface/
     pages:
-      - title: Vue d'ensemble
-        url: /docs/command-line-interface/
       - title: Helper local
-        url: /docs/local-helper/
+        url: /docs/command-line-interface/local-helper/
       - title: LNK
-        url: /docs/cli/
+        url: /docs/command-line-interface/lnk/
 
   - title: "Demo: v8s.link"
     url: /docs/demo/
     pages:
-      - title: Vue d'ensemble
-        url: /docs/demo/
       - title: Liens par defaut
         url: /docs/demo/links/

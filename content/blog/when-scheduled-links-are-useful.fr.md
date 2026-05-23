@@ -32,4 +32,4 @@ Cela garde le lien comprehensible en code review. Le slug existe dans l'inventai
 
 Pour les edits normaux, utilisez `lnk schedule` au lieu de modifier le JSON a la main. Cela garde la forme du fichier coherente et rend les changements simples plus faciles a reviser.
 
-Utilisez [Liens planifies](/fr/docs/schedules/) pour les exemples de commandes et les formes JSON exactes.
+Utilisez [Liens planifies](/fr/docs/reference/schedules/) pour les exemples de commandes et les formes JSON exactes.

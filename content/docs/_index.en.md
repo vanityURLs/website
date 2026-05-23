@@ -4,7 +4,7 @@ title: "Documentation"
 description: "v8s.link documentation for the current vanityURLs Worker, defaults, link registry, protection, and deployment model."
 ---
 
-v8s.link is the public reference instance for the current vanityURLs runtime. The application builds a Cloudflare Worker with static assets, a generated `v8s.json` registry, default pages, optional custom overrides, [protected operational views](/docs/access-control/), [network protection](/docs/network-protection/), and abuse-prevention policy.
+v8s.link is the public reference instance for the current vanityURLs runtime. The application builds a Cloudflare Worker with static assets, a generated `v8s.json` registry, default pages, optional custom overrides, [protected operational views](/docs/customize/access-control/), [network protection](/docs/customize/network-protection/), and abuse-prevention policy.
 
 Start with Setup if you are creating a new short-link domain. Read the overview first, then use the Quickstart for the first deployment path: get a short domain, create a Cloudflare account, clone the repository, configure the Worker, deploy, and test.
 

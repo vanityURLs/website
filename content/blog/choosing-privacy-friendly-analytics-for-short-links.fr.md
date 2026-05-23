@@ -61,7 +61,7 @@ Limites :
 
 vanityURLs peut envoyer des evenements serveur depuis le Worker. Aucun script de tracking navigateur n'est requis sur les pages de redirection. Les evenements peuvent couvrir les redirections, pageviews publiques, misses et activite de la page expand qui atteignent le Worker.
 
-Le trafic arrete avant le Worker, par exemple par [Controle d'acces](/fr/docs/access-control/), WAF, rate limiting ou controles bot, n'apparaitra pas dans les analytics parce que vanityURLs ne le recoit jamais.
+Le trafic arrete avant le Worker, par exemple par [Controle d'acces](/fr/docs/customize/access-control/), WAF, rate limiting ou controles bot, n'apparaitra pas dans les analytics parce que vanityURLs ne le recoit jamais.
 
 ## Operer les analytics comme une fonction sensible au quota
 

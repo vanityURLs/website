@@ -55,4 +55,4 @@ The question isn't "why vanityURLs instead of bit.ly?" The question is: do you w
 
 If yes, own the infrastructure. It costs nothing, takes an afternoon to set up, and you'll never think about it again — except when a redirect needs updating, which takes 30 seconds and a `git push`.
 
-[Get started →](/docs/quickstart/)
+[Get started →](/docs/setup/quickstart/)
