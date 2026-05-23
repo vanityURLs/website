@@ -22,6 +22,23 @@ When you defer full legal pages:
 
 Choose `Y` when you are ready to publish privacy, terms, and security language for the instance operator.
 
+## Setup question reference
+
+The Quickstart keeps these answers simple so the instance can deploy quickly. Use this reference when you are ready to refine the operator, jurisdiction, contact, and response details.
+
+| Setup question | Simple answer | What it controls |
+| --- | --- | --- |
+| Configure privacy, terms, and security pages now? | `N` for phase 1 | Whether full privacy, terms, and standalone security pages are generated now |
+| Operator legal name | Person, team, company, or organization name | Public operator identity shown on generated trust and legal pages |
+| Operator jurisdiction, for example Canada | Country, province/state, or other operating location | The place whose laws govern the operator or instance |
+| Governing law | Usually the same as jurisdiction | Legal frame used by the generated terms page |
+| Operator contact email | `hello@<short-domain>` | General contact address for the redirector |
+| Privacy contact | `privacy@<short-domain>` | Address for privacy and data-protection questions |
+| Trust & Safety contact | `abuse@<short-domain>` | Address for abuse, phishing, malware, impersonation, and harmful-link reports |
+| Security contact | `security@<short-domain>` | Address for vulnerability reports and `/.well-known/security.txt` |
+| Legal pages last updated date | Today's date as `YYYY-MM-DD` | Date printed on generated policy pages |
+| Trust & Safety response window | `5 business days` | Good-faith expectation for reviewing abuse and safety reports |
+
 ## Operator identity
 
 | Setup question | What it means |

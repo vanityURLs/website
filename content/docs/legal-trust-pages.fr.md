@@ -22,6 +22,23 @@ Lorsque vous différez les pages légales complètes :
 
 Choisissez `Y` lorsque vous êtes prêt à publier le texte de confidentialité, conditions et sécurité pour l'opérateur de l'instance.
 
+## Reference des questions de setup
+
+Le Quickstart garde ces reponses simples pour deployer l'instance rapidement. Utilisez cette reference lorsque vous etes pret a raffiner l'operateur, la juridiction, les contacts et les details de reponse.
+
+| Question de setup | Reponse simple | Ce que cela controle |
+| --- | --- | --- |
+| Configurer les pages confidentialite, conditions et securite maintenant? | `N` en phase 1 | Determine si les pages confidentialite, conditions et securite autonome sont generees maintenant |
+| Operator legal name | Nom de personne, equipe, entreprise ou organisation | Identite publique de l'operateur affichee sur les pages de confiance et legales generees |
+| Operator jurisdiction, for example Canada | Pays, province/etat ou autre lieu d'exploitation | Lieu dont les lois gouvernent l'operateur ou l'instance |
+| Governing law | Habituellement la meme valeur que la juridiction | Cadre juridique utilise par la page des conditions generee |
+| Operator contact email | `hello@<short-domain>` | Adresse de contact generale du redirecteur |
+| Privacy contact | `privacy@<short-domain>` | Adresse pour les questions de confidentialite et de protection des donnees |
+| Trust & Safety contact | `abuse@<short-domain>` | Adresse pour les signalements d'abus, phishing, malware, usurpation et liens dangereux |
+| Security contact | `security@<short-domain>` | Adresse pour les signalements de vulnerabilites et `/.well-known/security.txt` |
+| Legal pages last updated date | Date du jour en format `YYYY-MM-DD` | Date affichee sur les pages de politique generees |
+| Trust & Safety response window | `5 business days` | Attente de bonne foi pour la revue des signalements d'abus et de securite |
+
 ## Identité opérateur
 
 | Question de setup | Ce que cela signifie |

@@ -89,15 +89,15 @@ The interactive installer asks these questions:
 | Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/i18n/) |
 | Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Legal and trust pages](/docs/legal-trust-pages/) during customization |
-| Operator legal name | `Example Inc.` | The person or organization responsible for the instance and its legal pages. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
-| Operator jurisdiction, for example Canada | `Canada` | Keep this simple for phase 1. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
-| Governing law | `Canada` | Usually the same as jurisdiction. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
-| Operator contact email | `hello@v8s.link` | General contact. Defaults to `hello@<short-domain>` |
-| Privacy contact | `privacy@v8s.link` | Privacy requests and data-protection questions. Defaults to `privacy@<short-domain>` |
-| Trust & Safety contact | `abuse@v8s.link` | Abuse reports, phishing, malware, impersonation, and harmful links. Defaults to `abuse@<short-domain>` |
-| Security contact | `security@v8s.link` | Vulnerability reports and the address published in `security.txt`. Defaults to `security@<short-domain>` |
-| Legal pages last updated date | `2026-05-21` | Date used on generated legal pages. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
-| Trust & Safety response window | `5 business days` | Good-faith response expectation, not a guaranteed service-level agreement. Refer to [Legal and trust pages](/docs/legal-trust-pages/) |
+| Operator legal name | `Example Inc.` | Simple operator name for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
+| Operator jurisdiction, for example Canada | `Canada` | Simple jurisdiction for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
+| Governing law | `Canada` | Usually the same as jurisdiction for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
+| Operator contact email | `hello@v8s.link` | General role address. Defaults to `hello@<short-domain>` |
+| Privacy contact | `privacy@v8s.link` | Privacy role address. Defaults to `privacy@<short-domain>` |
+| Trust & Safety contact | `abuse@v8s.link` | Abuse reporting role address. Defaults to `abuse@<short-domain>` |
+| Security contact | `security@v8s.link` | Vulnerability reporting role address. Defaults to `security@<short-domain>` |
+| Legal pages last updated date | `2026-05-21` | Use today's date in `YYYY-MM-DD` format |
+| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. See [Legal and trust pages](/docs/legal-trust-pages/) |
 | Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
 | Black wordmark portion | `v8s.` | First part of the homepage wordmark |
 | Green wordmark portion | `link` | Second part of the homepage wordmark |
