@@ -46,7 +46,9 @@ If you installed the workstation tools with `npm run local-install`, you can usu
 
 List commands accept `--format table` or `--format json`. Table is the default.
 
-## Add links
+## Command details
+
+### Add links
 
 ```bash
 ./scripts/lnk https://github.com/vanityURLs github
@@ -70,7 +72,7 @@ Useful link options:
 | `--notes TEXT` | Add internal notes |
 | `--splat` | Store the slug as `SLUG/*` and require `:splat` in the target |
 
-## List links
+### List links
 
 ```bash
 ./scripts/lnk list
@@ -80,7 +82,7 @@ Useful link options:
 
 `lnk list` reads the generated registry. If `build/v8s.json` does not exist, it runs `npm run build` first.
 
-## Manage schedules
+### Manage schedules
 
 ```bash
 ./scripts/lnk schedule add hangout https://zoom.us/j/work --label work --days mon,tue,wed,thu,fri --from 09:00 --to 17:00 --timezone America/Toronto --default https://discord.gg/personal
@@ -92,7 +94,7 @@ Schedule rules are written to `custom/v8s-schedules.json`. `schedule add` requir
 
 Use `--dry-run` on schedule commands to print the updated JSON without writing, checking, committing, or pushing.
 
-## Manage source policy
+### Manage source policy
 
 ```bash
 ./scripts/lnk list policy

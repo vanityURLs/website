@@ -46,7 +46,9 @@ Si vous avez installe les outils poste avec `npm run local-install`, vous pouvez
 
 Les commandes de liste acceptent `--format table` ou `--format json`. Table est le format par defaut.
 
-## Ajouter des liens
+## Details des commandes
+
+### Ajouter des liens
 
 ```bash
 ./scripts/lnk https://github.com/vanityURLs github
@@ -70,7 +72,7 @@ Options utiles pour les liens :
 | `--notes TEXT` | Ajoute des notes internes |
 | `--splat` | Stocke le slug comme `SLUG/*` et exige `:splat` dans la cible |
 
-## Lister les liens
+### Lister les liens
 
 ```bash
 ./scripts/lnk list
@@ -80,7 +82,7 @@ Options utiles pour les liens :
 
 `lnk list` lit le registre genere. Si `build/v8s.json` n'existe pas, la commande lance d'abord `npm run build`.
 
-## Gerer les horaires
+### Gerer les horaires
 
 ```bash
 ./scripts/lnk schedule add hangout https://zoom.us/j/work --label work --days mon,tue,wed,thu,fri --from 09:00 --to 17:00 --timezone America/Toronto --default https://discord.gg/personal
@@ -92,7 +94,7 @@ Les regles d'horaire sont ecrites dans `custom/v8s-schedules.json`. `schedule ad
 
 Utilisez `--dry-run` sur les commandes d'horaire pour afficher le JSON mis a jour sans ecrire, verifier, commit ou pousser.
 
-## Gerer la politique source
+### Gerer la politique source
 
 ```bash
 ./scripts/lnk list policy
