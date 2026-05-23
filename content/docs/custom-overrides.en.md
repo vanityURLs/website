@@ -19,7 +19,7 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 ## Custom file map
 
 | File or path | Use it for | Details |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | `custom/v8s-links.txt` | Redirect inventory | [Link format](/docs/link-format/) and [LNK](/docs/cli/) |
 | `custom/v8s-schedules.json` | Scheduled link state changes | [Scheduled links](/docs/scheduled-links/) |
 | `custom/v8s-policies.json` | Instance allow and block policy | [Blocklist policy](/docs/blocklist-policy/) |
@@ -38,7 +38,7 @@ When you use `custom/public/`, keep `i18n.supported_languages` aligned with the 
 ## Public overrides
 
 | Override | Path | Details |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Brand assets | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Brand](/docs/brand/) |
 | Legal and trust pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Legal and trust pages](/docs/legal-trust-pages/) |
 | Localized public pages | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths | [Internationalization](/docs/i18n/) |
@@ -52,7 +52,7 @@ When you use `custom/public/`, keep `i18n.supported_languages` aligned with the 
 The Worker serves specific files for link and routing states. To build custom status pages from scratch, place the files at these exact paths:
 
 | File | Used for | Status |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | `custom/public/404.html` | Unknown short links and missing pages | 404 |
 | `custom/public/disabled.html` | Disabled links | 403 |
 | `custom/public/expired.html` | Expired links | 410 |

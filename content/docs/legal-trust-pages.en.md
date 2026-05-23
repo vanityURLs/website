@@ -25,7 +25,7 @@ Choose `Y` when you are ready to publish privacy, terms, and security language f
 ## Operator identity
 
 | Setup question | What it means |
-| :--- | :--- |
+| --- | --- |
 | Operator legal name | The person, company, nonprofit, team, or organization responsible for the instance |
 | Operator contact email | General contact address for the redirector |
 | Privacy contact | Address for privacy and data-protection questions |
@@ -72,7 +72,7 @@ Avoid promises you cannot reliably keep. The purpose is to set a human expectati
 These setup answers feed generated public files:
 
 | Output | Purpose |
-| :--- | :--- |
+| --- | --- |
 | `/privacy` | Privacy notice for data handled by the redirector |
 | `/terms` | Terms for using the short-link domain |
 | `/trust-safety` | Abuse reporting and coordinated vulnerability disclosure |
@@ -86,7 +86,7 @@ If you later replace generated pages with custom HTML under `custom/public/`, ke
 Replace generated pages only when you need fully custom HTML. Use these paths:
 
 | Page | Custom file |
-| :--- | :--- |
+| --- | --- |
 | Privacy | `custom/public/privacy.html` |
 | Terms | `custom/public/terms.html` |
 | Trust & Safety | `custom/public/abuse.html` |

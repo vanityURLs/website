@@ -13,7 +13,7 @@ slug|target|state|title|description|tags|owner|expires_at|notes
 ```
 
 | Champ | Requis | Description |
-|---|---:|---|
+|---|---|---|
 | `slug` | oui | Chemin sans `/` initial |
 | `target` | oui | URL `http` ou `https`, ou hostname normalise vers `https://` |
 | `state` | non | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |

@@ -51,7 +51,7 @@ npm run convert:lnk -- .lnk custom/v8s-links.txt --owner v8s --force
 Status codes map to states:
 
 | Legacy status | New state |
-| :--- | :--- |
+| --- | --- |
 | `301`, `308` | `permanent` |
 | `302`, `303`, `307` | `ephemeral` |
 | omitted | `ephemeral` by default |

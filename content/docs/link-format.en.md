@@ -13,7 +13,7 @@ slug|target|state|title|description|tags|owner|expires_at|notes
 ```
 
 | Field | Required | Description |
-|---|---:|---|
+|---|---|---|
 | `slug` | yes | Slash-delimited alias path, without leading `/` |
 | `target` | yes | Absolute `http` or `https` URL, or a hostname normalized to `https://` |
 | `state` | no | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |

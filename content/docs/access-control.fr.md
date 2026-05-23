@@ -22,7 +22,7 @@ Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur les chemins protégés
 Cloudflare Access protège les pages opérationnelles, mais ce n'est pas le seul contrôle qui limite l'accès aux fichiers.
 
 | Contrôle | Chemins | Ce qu'il fait |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Retourne `404` avec `no-store` et `X-Robots-Tag: noindex, nofollow` pour les requêtes publiques directes |
 | Fallback statique `_headers` | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Ajoute des en-têtes no-cache et no-index lorsque des assets statiques sont servis directement |
 | API stats protégée | `/_stats/api/v8s.json` | Expose le registre généré seulement à travers la surface stats protégée, avec en-têtes de téléchargement et no-index |
@@ -35,7 +35,7 @@ Ces contrôles sont superposés. Gardez Cloudflare Access sur `/_stats` et `/_te
 Avant de créer l'application Access, décidez qui doit être autorisé :
 
 | Décision | Recommandation phase 1 | Personnalisation ultérieure |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Méthode d'authentification | Code à usage unique avec courriels nommés | GitHub, Google, Okta, Entra ID ou autre fournisseur géré par compte |
 | Sélecteur de politique | Adresses courriel | Adresses courriel, groupes, organisation GitHub ou sélecteurs pays |
 | Durée de session | 24 heures | Plus courte pour les équipes sensibles, plus longue pour les instances personnelles à faible risque |
@@ -68,7 +68,7 @@ Cloudflare Access peut authentifier les mainteneurs avec un code à usage unique
 Options courantes :
 
 | Fournisseur | Quand il convient | Notes |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | [Code à usage unique](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) | Instances personnelles, petites équipes, configuration phase 1 | Cloudflare envoie un code par courriel aux utilisateurs approuvés; aucun IdP externe n'est requis |
 | [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Les mainteneurs utilisent déjà GitHub | Les politiques Access peuvent utiliser des utilisateurs précis, des adresses courriel ou l'appartenance à une organisation GitHub |
 | [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Les utilisateurs ont déjà des comptes Gmail ou Google Workspace | Stockez les secrets client OAuth hors du dépôt |
@@ -83,7 +83,7 @@ Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**,
 Configurez les destinations avec *votre* domaine court :
 
 | Sous-domaine | Domaine | Chemin |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | | `v8s.link` | `_stats` |
 | | `v8s.link` | `_stats/*` |
 | | `v8s.link` | `_tests` |
@@ -94,7 +94,7 @@ Utilisez une seule application Access pour les opérations privées vanityURLs. 
 Réglages recommandés :
 
 | Réglage | Recommandation |
-| :--- | :--- |
+| --- | --- |
 | Type d'application | Self-hosted |
 | Hostnames publics | `v8s.link/_stats`, `v8s.link/_stats/*`, `v8s.link/_tests`, `v8s.link/_tests/*` |
 | Durée de session | 24 heures |
@@ -108,7 +108,7 @@ Remplacez `v8s.link` par *votre* domaine court partout.
 Commencez avec une politique d'autorisation simple :
 
 | Champ | Valeur |
-| :--- | :--- |
+| --- | --- |
 | Nom de politique | `Allow maintainers` |
 | Action | `Allow` |
 | Sélecteur Include | `Emails` |

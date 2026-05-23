@@ -8,7 +8,7 @@ weight: 30
 vanityURLs keeps product defaults, instance-owned choices, local workstation settings, and generated runtime artifacts in separate files.
 
 | File | Purpose |
-| :--- | :--- |
+| --- | --- |
 | `defaults/v8s-site-config.json` | Product baseline for languages and operator fields |
 | `custom/v8s-site-config.json` | Instance-owned site settings. Details are in [Site config](#site-config) below |
 | `custom/v8s-links.txt` | [Human-authored source of truth for links](/docs/link-format/) |
@@ -23,7 +23,7 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 `custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, and legal-page mode. The important top-level sections are:
 
 | Section | Purpose |
-| :--- | :--- |
+| --- | --- |
 | `i18n` | Default language and supported languages |
 | `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
@@ -77,7 +77,7 @@ Build inputs include:
 The build writes:
 
 | Artifact | Purpose |
-| :--- | :--- |
+| --- | --- |
 | `build/v8s.json` | Redirect registry consumed by the Worker |
 | `build/v8s-blocklist.json` | Runtime policy artifact consumed by the Worker |
 | `build/v8s-site-config.json` | Site configuration used by the build |

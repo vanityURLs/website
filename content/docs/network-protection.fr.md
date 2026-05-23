@@ -25,7 +25,7 @@ Utilisez des records proxifiés séparés seulement pour de vrais sous-domaines 
 Commencez avec ces réglages :
 
 | Réglage | Recommandation |
-| :--- | :--- |
+| --- | --- |
 | SSL/TLS mode | Full strict |
 | Universal SSL | On |
 | Always Use HTTPS | On |
@@ -42,7 +42,7 @@ Activez HSTS seulement après que chaque hostname et sous-domaine de production 
 Les réglages de sécurité du plan gratuit doivent rester sobres et explicites. Activez les protections qui réduisent les abus courants, mais évitez les fonctionnalités qui modifient le contenu public ou exposent des données visiteur supplémentaires sans besoin clair.
 
 | Réglage | Recommandation | Pourquoi |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | New application security dashboard | On | Utiliser la vue actuelle du tableau de bord pour les événements de sécurité et actions |
 | Bot Fight Mode | On | Ajoute des challenges bot de base sur le plan gratuit |
 | Browser Integrity Check | On | Bloque les requêtes navigateur malformées ou suspectes avant l'exécution du Worker |
@@ -65,7 +65,7 @@ Les règles de sécurité Cloudflare s'exécutent avant le Worker. Utilisez-les 
 Jeu de règles recommandé :
 
 | Règle | Action | Notes |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Bloquer les probes scanner | Block | Cible les chemins d'exploit courants comme `.php`, `/wp-`, `/.env` et probes admin |
 | Bloquer les méthodes inattendues | Block | Autorise seulement `GET`, `HEAD` et `OPTIONS` pour le hostname public de redirection |
 | Challenger les clients suspects | Managed Challenge | Exclut les bots vérifiés, `/_stats`, `/_tests`, les assets statiques et `robots.txt` |
@@ -116,7 +116,7 @@ Au minimum, laissez `/robots.txt` autorisé pour que les crawlers puissent lire 
 Réglages Rules recommandés :
 
 | Réglage | Recommandation |
-| :--- | :--- |
+| --- | --- |
 | Remove `X-Powered-By` response headers | On |
 | Add visitor location headers | Off |
 | Remove visitor IP headers | Off sauf si une origine derrière le Worker les reçoit |
@@ -132,7 +132,7 @@ La normalisation des URLs entrantes est particulièrement importante parce que W
 Réglages Network recommandés :
 
 | Réglage | Recommandation |
-| :--- | :--- |
+| --- | --- |
 | IPv6 Compatibility | On |
 | gRPC | Off |
 | WebSockets | Off sauf si une page custom en a besoin |

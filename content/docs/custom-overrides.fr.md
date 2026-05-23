@@ -19,7 +19,7 @@ Gardez les changements produit dans `defaults/` seulement lorsque vous contribue
 ## Carte des fichiers custom
 
 | Fichier ou chemin | Utilisation | Details |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | `custom/v8s-links.txt` | Inventaire de redirection | [Format des liens](/fr/docs/link-format/) et [LNK](/fr/docs/cli/) |
 | `custom/v8s-schedules.json` | Changements d'etat planifies | [Liens planifies](/fr/docs/scheduled-links/) |
 | `custom/v8s-policies.json` | Politique allow/block de l'instance | [Politique de blocklist](/fr/docs/blocklist-policy/) |
@@ -38,7 +38,7 @@ Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligne
 ## Surcharges publiques
 
 | Surcharge | Chemin | Details |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Assets de marque | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Marque](/fr/docs/brand/) |
 | Pages legales et confiance | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pages legales et de confiance](/fr/docs/legal-trust-pages/) |
 | Pages publiques localisees | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires | [Internationalisation](/fr/docs/i18n/) |
@@ -52,7 +52,7 @@ Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligne
 Le Worker sert des fichiers precis pour les etats de lien et de routage. Pour creer des pages de statut custom, placez les fichiers a ces chemins exacts :
 
 | Fichier | Utilise pour | Statut |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | `custom/public/404.html` | Liens courts inconnus et pages manquantes | 404 |
 | `custom/public/disabled.html` | Liens desactives | 403 |
 | `custom/public/expired.html` | Liens expires | 410 |

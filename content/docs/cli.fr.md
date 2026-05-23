@@ -28,7 +28,7 @@ Si vous avez installe les outils poste avec `npm run local-install`, vous pouvez
 ## Commandes principales
 
 | Commande | Effet |
-| :--- | :--- |
+| --- | --- |
 | `./scripts/lnk LONG_URL [SLUG]` | Ajoute un lien dans `custom/v8s-links.txt` |
 | `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Ajoute un lien splat stocke comme `SLUG/*` |
 | `./scripts/lnk list [SLUG]` | Liste les entrees du registre genere depuis `build/v8s.json` |
@@ -60,7 +60,7 @@ Si vous omettez le slug, `lnk` genere un slug court aleatoire. Les etats valides
 Options utiles pour les liens :
 
 | Option | Role |
-| :--- | :--- |
+| --- | --- |
 | `--state STATE` | Definit l'etat de cycle de vie |
 | `--title TEXT` | Ajoute un titre lisible |
 | `--description TEXT` | Ajoute une description lisible |
@@ -111,7 +111,7 @@ Utilisez `--dry-run` sur les commandes de politique pour afficher le JSON mis a 
 ## Variables d'environnement
 
 | Variable | Role |
-| :--- | :--- |
+| --- | --- |
 | `DRY_RUN=true` | Affiche le changement prevu sans ecrire, verifier, commit ou pousser |
 | `V8S_REPO=PATH` | Pointe une commande `lnk` installee vers un depot vanityURLs local |
 | `V8S_LINKS_OWNER=OWNER` | Definit la valeur owner par defaut pour les nouveaux liens |
@@ -143,7 +143,7 @@ Les commandes d'ecriture directes de `lnk` utilisent des commits conventionnels 
 Pour une publication locale plus large, `npm run local-publish` selectionne les messages depuis `local_publish.commit_messages` dans `defaults/v8s-local-config.json`, fusionne avec `custom/v8s-local-config.json`. Les cles par defaut sont :
 
 | Cle | Utilisee quand |
-| :--- | :--- |
+| --- | --- |
 | `links` | Seulement `custom/v8s-links.txt` est stage |
 | `policies` | Seulement `custom/v8s-policies.json` ou `custom/v8s-blocklist.json` est stage |
 | `site_config` | Seulement `custom/v8s-site-config.json` est stage |

@@ -8,7 +8,7 @@ weight: 30
 vanityURLs garde les valeurs par défaut du produit, les choix propres à l'instance, les réglages locaux du poste et les artefacts runtime générés dans des fichiers séparés.
 
 | Fichier | Rôle |
-| :--- | :--- |
+| --- | --- |
 | `defaults/v8s-site-config.json` | Base produit pour les langues et les champs opérateur |
 | `custom/v8s-site-config.json` | Réglages de site propres à l'instance. Les détails sont dans [Configuration du site](#configuration-du-site) ci-dessous |
 | `custom/v8s-links.txt` | [Source de vérité rédigée par un humain pour les liens](/fr/docs/link-format/) |
@@ -23,7 +23,7 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 `custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur et le mode des pages légales. Les sections principales importantes sont :
 
 | Section | Rôle |
-| :--- | :--- |
+| --- | --- |
 | `i18n` | Langue par défaut et langues supportées |
 | `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
@@ -77,7 +77,7 @@ Les entrees de build incluent :
 Le build ecrit :
 
 | Artefact | Role |
-| :--- | :--- |
+| --- | --- |
 | `build/v8s.json` | Registre de redirection consomme par le Worker |
 | `build/v8s-blocklist.json` | Artefact de politique runtime consomme par le Worker |
 | `build/v8s-site-config.json` | Configuration de site utilisee par le build |

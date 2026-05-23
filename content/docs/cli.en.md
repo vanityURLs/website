@@ -28,7 +28,7 @@ If you installed the workstation tools with `npm run local-install`, you can usu
 ## Core commands
 
 | Command | What it does |
-| :--- | :--- |
+| --- | --- |
 | `./scripts/lnk LONG_URL [SLUG]` | Add a link to `custom/v8s-links.txt` |
 | `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Add a splat link stored as `SLUG/*` |
 | `./scripts/lnk list [SLUG]` | List generated registry entries from `build/v8s.json` |
@@ -60,7 +60,7 @@ If you omit the slug, `lnk` generates a short random slug. Valid states are `per
 Useful link options:
 
 | Option | Purpose |
-| :--- | :--- |
+| --- | --- |
 | `--state STATE` | Set the lifecycle state |
 | `--title TEXT` | Add a human-readable title |
 | `--description TEXT` | Add a human-readable description |
@@ -111,7 +111,7 @@ Use `--dry-run` on policy commands to print the updated JSON without writing, ch
 ## Environment overrides
 
 | Variable | Purpose |
-| :--- | :--- |
+| --- | --- |
 | `DRY_RUN=true` | Print the planned change without writing, checking, committing, or pushing |
 | `V8S_REPO=PATH` | Point an installed `lnk` command at a local vanityURLs repository |
 | `V8S_LINKS_OWNER=OWNER` | Set the default owner value for new links |
@@ -143,7 +143,7 @@ Direct `lnk` write commands use operation-specific conventional commits, such as
 For broader local publishing, `npm run local-publish` selects commit messages from `local_publish.commit_messages` in `defaults/v8s-local-config.json`, merged with `custom/v8s-local-config.json`. The default keys are:
 
 | Key | Used when |
-| :--- | :--- |
+| --- | --- |
 | `links` | Only `custom/v8s-links.txt` is staged |
 | `policies` | Only `custom/v8s-policies.json` or `custom/v8s-blocklist.json` is staged |
 | `site_config` | Only `custom/v8s-site-config.json` is staged |

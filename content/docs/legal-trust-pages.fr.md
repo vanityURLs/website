@@ -25,7 +25,7 @@ Choisissez `Y` lorsque vous êtes prêt à publier le texte de confidentialité,
 ## Identité opérateur
 
 | Question de setup | Ce que cela signifie |
-| :--- | :--- |
+| --- | --- |
 | Operator legal name | La personne, entreprise, OBNL, équipe ou organisation responsable de l'instance |
 | Operator contact email | Adresse de contact générale pour le redirecteur |
 | Privacy contact | Adresse pour les questions de confidentialité et de protection des données |
@@ -72,7 +72,7 @@ as soon as practical
 Ces réponses de setup alimentent les fichiers publics générés :
 
 | Sortie | Rôle |
-| :--- | :--- |
+| --- | --- |
 | `/privacy` | Avis de confidentialité pour les données traitées par le redirecteur |
 | `/terms` | Conditions d'utilisation du domaine court |
 | `/trust-safety` | Signalement d'abus et divulgation coordonnée des vulnérabilités |
@@ -86,7 +86,7 @@ Si vous remplacez plus tard les pages générées par du HTML custom sous `custo
 Remplacez les pages generees seulement lorsque vous avez besoin de HTML completement custom. Utilisez ces chemins :
 
 | Page | Fichier custom |
-| :--- | :--- |
+| --- | --- |
 | Confidentialite | `custom/public/privacy.html` |
 | Conditions | `custom/public/terms.html` |
 | Trust & Safety | `custom/public/abuse.html` |

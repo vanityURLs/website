@@ -25,7 +25,7 @@ Use separate proxied records only for real web subdomains, such as `mta-sts`, `w
 Start with these settings:
 
 | Setting | Recommendation |
-| :--- | :--- |
+| --- | --- |
 | SSL/TLS mode | Full strict |
 | Universal SSL | On |
 | Always Use HTTPS | On |
@@ -42,7 +42,7 @@ Enable HSTS only after every production hostname and subdomain is ready for HTTP
 The free-plan security settings should stay boring and explicit. Turn on protections that reduce commodity abuse, but avoid features that alter public content or expose extra visitor data unless there is a clear need.
 
 | Setting | Recommendation | Why |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | New application security dashboard | On | Use the current dashboard view for security events and action items |
 | Bot Fight Mode | On | Adds baseline bot challenges on the free plan |
 | Browser Integrity Check | On | Blocks malformed or suspicious browser requests before Worker code runs |
@@ -65,7 +65,7 @@ Cloudflare security rules run before the Worker. Use them for traffic that shoul
 Recommended rule set:
 
 | Rule | Action | Notes |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Block scanner probes | Block | Match common exploit paths such as `.php`, `/wp-`, `/.env`, and admin probes |
 | Block unexpected methods | Block | Allow only `GET`, `HEAD`, and `OPTIONS` for the public redirect hostname |
 | Challenge suspicious clients | Managed Challenge | Exclude verified bots, `/_stats`, `/_tests`, static assets, and `robots.txt` |
@@ -116,7 +116,7 @@ At minimum, leave `/robots.txt` allowed so crawlers can read the published polic
 Recommended Rules settings:
 
 | Setting | Recommendation |
-| :--- | :--- |
+| --- | --- |
 | Remove `X-Powered-By` response headers | On |
 | Add visitor location headers | Off |
 | Remove visitor IP headers | Off unless an origin behind the Worker receives them |
@@ -132,7 +132,7 @@ Incoming URL normalization is especially important because WAF rules, Access, an
 Recommended Network settings:
 
 | Setting | Recommendation |
-| :--- | :--- |
+| --- | --- |
 | IPv6 Compatibility | On |
 | gRPC | Off |
 | WebSockets | Off unless a custom page requires them |

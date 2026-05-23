@@ -50,7 +50,7 @@ npm run convert:lnk -- .lnk custom/v8s-links.txt --owner v8s --force
 Les codes HTTP deviennent des etats :
 
 | Ancien statut | Nouvel etat |
-| :--- | :--- |
+| --- | --- |
 | `301`, `308` | `permanent` |
 | `302`, `303`, `307` | `ephemeral` |
 | omis | `ephemeral` par defaut |

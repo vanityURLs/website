@@ -10,7 +10,7 @@ This Quickstart is the hands-on setup sequence for a plain vanityURLs instance. 
 The activities below use example values from the `v8s.link` demo instance. It is configured and documented as an inspiration point while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, and email addresses with the values for your own instance. Detailed `v8s.link` configuration will live in the [v8s.link reference](/docs/demo/) section as the reference instance matures.
 
 | Assumption | Example used below |
-| :--- | :--- |
+| --- | --- |
 | Short domain | `v8s.link` |
 | Local directory | `v8s-link` |
 | GitHub account name | `your-github-account` |
@@ -81,7 +81,7 @@ npm run setup
 The interactive installer asks these questions:
 
 | Question | Sample answer | How to answer |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Short domain | `v8s.link` | The domain that will serve your short links |
 | Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
 | Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
@@ -201,7 +201,7 @@ The installer creates these initial custom links in `custom/v8s-links.txt`:
 If `custom/v8s-links.txt` does not exist, setup creates a small starter file with `home`, `status`, and `docs` links. It does not copy `defaults/v8s-links.txt`; `custom/` is your instance-owned layer, while `defaults/` stays the upstream product baseline.
 
 | Slug | Long link |
-| :--- | :--- |
+| --- | --- |
 | `home` | `https://<short-domain>` |
 | `status` | `https://status.<short-domain>` |
 | `docs` | `https://vanityURLs.link/en/docs/` |
@@ -209,7 +209,7 @@ If `custom/v8s-links.txt` does not exist, setup creates a small starter file wit
 The upstream default link file has a larger set of examples. Once setup creates `custom/v8s-links.txt`, your instance uses the custom starter links above instead of these defaults, but the defaults are useful examples while learning the file format:
 
 | Slug | Long link |
-| :--- | :--- |
+| --- | --- |
 | `ai/chat` | `https://chatgpt.com` |
 | `ai/claude` | `https://claude.ai` |
 | `ai/g` | `https://gemini.google.com/` |

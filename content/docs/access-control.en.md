@@ -22,7 +22,7 @@ The Worker validates the `Cf-Access-Jwt-Assertion` header on protected paths. If
 Cloudflare Access protects operational pages, but it is not the only control that limits file access.
 
 | Control | Paths | What it does |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Returns `404` with `no-store` and `X-Robots-Tag: noindex, nofollow` for direct public requests |
 | Static `_headers` fallback | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Adds no-cache and no-index headers when static assets are served directly |
 | Protected stats API | `/_stats/api/v8s.json` | Exposes the generated registry only through the protected stats surface, with download headers and no-index headers |
@@ -35,7 +35,7 @@ These controls are layered. Keep Cloudflare Access on `/_stats` and `/_tests`, k
 Before creating the Access application, decide who should be allowed in:
 
 | Decision | Phase 1 recommendation | Later customization |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | Authentication method | One-time PIN with named emails | GitHub, Google, Okta, Entra ID, or another account-managed provider |
 | Policy selector | Email addresses | Email addresses, groups, GitHub organization, or country selectors |
 | Session duration | 24 hours | Shorter for sensitive teams, longer for low-risk personal instances |
@@ -68,7 +68,7 @@ Cloudflare Access can authenticate maintainers with one-time PIN, GitHub, Google
 Common options:
 
 | Provider | When it fits | Notes |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | [One-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) | Personal instances, small teams, phase 1 setup | Cloudflare emails approved users a code; no external IdP setup is required |
 | [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Maintainers already use GitHub | Access policies can use specific users, email addresses, or GitHub organization membership |
 | [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Users already have Gmail or Google Workspace accounts | Store OAuth client secrets outside the repository |
@@ -83,7 +83,7 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 Configure the destinations with *your* short domain:
 
 | Subdomain | Domain | Path |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | | `v8s.link` | `_stats` |
 | | `v8s.link` | `_stats/*` |
 | | `v8s.link` | `_tests` |
@@ -94,7 +94,7 @@ Use one Access application for the private vanityURLs operations. The public red
 Recommended application settings:
 
 | Setting | Recommendation |
-| :--- | :--- |
+| --- | --- |
 | Application type | Self-hosted |
 | Public hostnames | `v8s.link/_stats`, `v8s.link/_stats/*`, `v8s.link/_tests`, `v8s.link/_tests/*` |
 | Session duration | 24 hours |
@@ -108,7 +108,7 @@ Replace `v8s.link` with *your* short domain everywhere.
 Start with a simple allow policy:
 
 | Field | Value |
-| :--- | :--- |
+| --- | --- |
 | Policy name | `Allow maintainers` |
 | Action | `Allow` |
 | Include selector | `Emails` |

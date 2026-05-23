@@ -12,7 +12,7 @@ Quand le demarrage rapide fonctionne, le redirecteur est deja utile. La personna
 Vous n'avez pas besoin de tout personnaliser en meme temps. Commencez par la zone qui fait le plus mal.
 
 | Objectif | Commencer ici |
-| :--- | :--- |
+| --- | --- |
 | Changer l'apparence publique et les pages statiques | [Surcharges custom](/fr/docs/custom-overrides/) |
 | Configurer le wordmark bicolore et les assets de marque | [Marque](/fr/docs/brand/) |
 | Ajouter, inspecter ou mettre a jour les liens courts | [LNK](/fr/docs/cli/) et [Format des liens](/fr/docs/link-format/) |

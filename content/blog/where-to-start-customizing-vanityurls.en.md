@@ -12,7 +12,7 @@ Once the Quickstart works, the redirector is already useful. Customization is th
 You do not need to customize everything at once. Start with the area that hurts most.
 
 | Goal | Start here |
-| :--- | :--- |
+| --- | --- |
 | Change the public look and static pages | [Custom overrides](/docs/custom-overrides/) |
 | Configure the split-color wordmark and brand assets | [Brand](/docs/brand/) |
 | Add, inspect, or update short links | [LNK](/docs/cli/) and [Link format](/docs/link-format/) |
