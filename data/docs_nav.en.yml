@@ -35,8 +35,6 @@ sections:
         url: /docs/i18n/
       - title: Link format
         url: /docs/link-format/
-      - title: Release checklist
-        url: /docs/release-checklist/
       - title: Repository layout
         url: /docs/repository-layout/
       - title: Runtime security

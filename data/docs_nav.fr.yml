@@ -25,8 +25,6 @@ sections:
 
   - title: Reference
     pages:
-      - title: Checklist de release
-        url: /docs/release-checklist/
       - title: Fichiers de configuration
         url: /docs/configuration-files/
       - title: Format des liens
