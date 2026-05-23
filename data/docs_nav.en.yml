@@ -1,5 +1,6 @@
 sections:
   - title: Setup
+    url: /docs/overview/
     pages:
       - title: Overview
         url: /docs/overview/
@@ -7,6 +8,7 @@ sections:
         url: /docs/quickstart/
 
   - title: Customize
+    url: /docs/customize-overview/
     pages:
       - title: Overview
         url: /docs/customize-overview/
@@ -24,7 +26,10 @@ sections:
         url: /docs/network-protection/
 
   - title: Reference
+    url: /docs/reference/
     pages:
+      - title: Overview
+        url: /docs/reference/
       - title: Admin dashboard
         url: /docs/admin-dashboard/
       - title: Brand
@@ -45,13 +50,17 @@ sections:
         url: /docs/upgrading/
 
   - title: Command line interface
+    url: /docs/command-line-interface/
     pages:
+      - title: Overview
+        url: /docs/command-line-interface/
       - title: Local helper
         url: /docs/local-helper/
       - title: LNK
         url: /docs/cli/
 
   - title: "Demo: v8s.link"
+    url: /docs/demo/
     pages:
       - title: Overview
         url: /docs/demo/

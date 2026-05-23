@@ -5,6 +5,7 @@
 {{ $norm := strings.TrimSuffix "/" $cur }}
 {{ $toc     := .TableOfContents }}
 {{ $showTOC := and (ne (.Params.toc | default true) false) (ne (.Params.aside | default true) false) }}
+{{ $navMatch := partial "docs/nav-match.html" (dict "page" . "nav" $nav) }}
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <div class="{{ if $showTOC }}flex gap-8 xl:gap-10{{ else }}flex gap-8{{ end }}">
@@ -13,8 +14,13 @@
     <aside class="hidden lg:block w-56 xl:w-60 shrink-0">
       <div class="sticky top-20 overflow-y-auto max-h-[calc(100vh-6rem)] pb-8">
         {{ range $nav.sections }}
+        {{ $sectionTitle := .title }}
         <div class="mb-4">
+          {{ with .url }}
+          <a href="{{ . | relLangURL }}" class="sidebar-section-title hover:text-brand-600 dark:hover:text-brand-400 transition-colors no-underline">{{ $sectionTitle }}</a>
+          {{ else }}
           <p class="sidebar-section-title">{{ .title }}</p>
+          {{ end }}
           {{ range .pages }}
           {{ $pURL    := .url | relLangURL }}
           {{ $pNorm   := strings.TrimSuffix "/" $pURL }}
@@ -56,27 +62,26 @@
     <div class="min-w-0 flex-1">
 
       {{/* Breadcrumb */}}
-      {{ $section  := .CurrentSection }}
       {{ $docsURL  := "/docs/" | relLangURL }}
-      {{/* Only show a mid-level crumb when the section is a true sub-section
-           (not the docs root itself — which would duplicate "Documentation") */}}
-      {{ $isDocsRoot := eq (strings.TrimSuffix "/" $section.RelPermalink) (strings.TrimSuffix "/" $docsURL) }}
-      {{ if and $section (ne $section.Title .Title) }}
       <nav class="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400 mb-6 flex-wrap" aria-label="{{ i18n "nav_breadcrumb" }}">
         <a href="{{ $docsURL }}"
            class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ i18n "docs_label" }}</a>
         <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
-        {{ if and (not $isDocsRoot) $section.Parent }}
-        <a href="{{ $section.RelPermalink }}" class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ $section.Title }}</a>
+        {{ with index $navMatch "sectionTitle" }}
+          {{ $sectionURL := index $navMatch "sectionURL" }}
+          {{ if $sectionURL }}
+        <a href="{{ $sectionURL }}" class="hover:text-gray-600 dark:hover:text-gray-300 transition-colors">{{ . }}</a>
+          {{ else }}
+        <span class="text-gray-600 dark:text-gray-400">{{ . }}</span>
+          {{ end }}
         <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
         {{ end }}
         <span class="text-gray-600 dark:text-gray-300">{{ .Title }}</span>
       </nav>
-      {{ end }}
 
       {{/* Mobile dropdown */}}
       <div class="lg:hidden mb-6">

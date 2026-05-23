@@ -892,6 +892,7 @@
   }
 
   /* Sidebar links — visible focus ring in the sidebar nav */
+  .sidebar-section-title:focus-visible,
   .sidebar-link:focus-visible,
   .sidebar-parent:focus-visible,
   .sidebar-child-link:focus-visible {

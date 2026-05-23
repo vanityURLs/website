@@ -1,5 +1,6 @@
 sections:
   - title: Configuration
+    url: /docs/overview/
     pages:
       - title: Vue d'ensemble
         url: /docs/overview/
@@ -7,6 +8,7 @@ sections:
         url: /docs/quickstart/
 
   - title: Personnaliser
+    url: /docs/customize-overview/
     pages:
       - title: Vue d'ensemble
         url: /docs/customize-overview/
@@ -24,7 +26,10 @@ sections:
         url: /docs/custom-overrides/
 
   - title: Reference
+    url: /docs/reference/
     pages:
+      - title: Vue d'ensemble
+        url: /docs/reference/
       - title: Fichiers de configuration
         url: /docs/configuration-files/
       - title: Format des liens
@@ -45,13 +50,17 @@ sections:
         url: /docs/admin-dashboard/
 
   - title: Interface en ligne de commande
+    url: /docs/command-line-interface/
     pages:
+      - title: Vue d'ensemble
+        url: /docs/command-line-interface/
       - title: Helper local
         url: /docs/local-helper/
       - title: LNK
         url: /docs/cli/
 
   - title: "Demo: v8s.link"
+    url: /docs/demo/
     pages:
       - title: Vue d'ensemble
         url: /docs/demo/
