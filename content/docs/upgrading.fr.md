@@ -47,29 +47,6 @@ git commit -m "chore: upgrade vanityurls runtime"
 git push
 ```
 
-## Remote upstream
-
-Pour une instance durable, ajoutez un remote upstream qui pointe vers la source du runtime vanityURLs :
-
-```bash
-git remote add upstream https://github.com/vanityurls/v8s.git
-npm run upgrade -- --remote upstream --ref main
-```
-
-Remplacez `https://github.com/vanityurls/v8s.git` par l'URL du depot Git que vous utilisez comme upstream produit pour votre propre instance. Si vous utilisez un fork ou un miroir du runtime, pointez `upstream` vers ce fork ou ce miroir.
-
-Vous pouvez aussi utiliser une URL directement :
-
-```bash
-npm run upgrade -- --remote https://github.com/vanityurls/v8s.git --ref main
-```
-
-Pour une repetition sans changement :
-
-```bash
-npm run upgrade -- --source HEAD --dry-run
-```
-
 ## Fichiers locaux proteges
 
 L'outil d'upgrade refuse de remplacer :
@@ -81,25 +58,3 @@ L'outil d'upgrade refuse de remplacer :
 - sortie generee `build/`
 
 Cela garde les liens locaux, pages legales, politique de confidentialite, politique source, marque, reglages Access, IDs analytics, chemins locaux et forme de deploiement sous controle du proprietaire de l'instance.
-
-## Installation locale et publication
-
-Lancez le setup local quand vous voulez le helper shell ou la commande `lnk` installee :
-
-```bash
-npm run local-install
-```
-
-La commande verifie `jq`, installe le helper neutre shell depuis `scripts/v8s.sh` si demande, copie `scripts/lnk` vers le chemin bin configure, et enregistre les chemins dans `custom/v8s-local-config.json`.
-
-Utilisez la publication locale quand le proprietaire veut valider, stage, commit et pousser les chemins configures :
-
-```bash
-npm run local-publish
-```
-
-Le chemin par defaut est `custom`, et le message de commit par defaut est `chore: update local vanityURLs configuration`.
-
-## Pourquoi pas Homebrew maintenant
-
-Homebrew pourra etre utile plus tard pour une CLI autonome `v8s`. Il ne resout pas le probleme difficile aujourd'hui : rafraichir proprement une instance geree dans Git sans ecraser les fichiers locaux. Une commande locale au depot est plus facile a inspecter, tester et adapter pendant que le runtime evolue encore vite.
