@@ -53,6 +53,12 @@ You can override it for one command:
 ./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
 ```
 
+Or generate a short bug link using the `debug` tag default:
+
+```bash
+./scripts/lnk https://github.com/vanityURLs/code/issues/4 --tags debug
+```
+
 ## Use tags when intent changes the slug shape
 
 Tag-specific lengths let the link purpose decide how much room the random slug should have.

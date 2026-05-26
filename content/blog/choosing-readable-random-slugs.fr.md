@@ -53,6 +53,12 @@ Vous pouvez la remplacer pour une seule commande :
 ./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
 ```
 
+Ou generer un lien court pour un bug avec la valeur par defaut du tag `debug` :
+
+```bash
+./scripts/lnk https://github.com/vanityURLs/code/issues/4 --tags debug
+```
+
 ## Utiliser les tags lorsque l'intention change la forme du slug
 
 Les longueurs propres aux tags permettent au type de lien de choisir l'espace necessaire au slug aleatoire.
