@@ -59,7 +59,9 @@ List commands accept `--format table` or `--format json`. Table is the default.
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-If you omit the slug, `lnk` generates a short random slug. Valid states are `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, and `deactivated`.
+If you omit the slug, `lnk` generates a 6-character random slug using 3 cryptographic random bytes encoded as lowercase hexadecimal, for example `4f9a2c`. That means generated slugs use only `0-9` and `a-f`. The command checks `custom/v8s-links.txt` before writing and fails if the slug already exists; it does not currently retry with another random slug. There is no option today to choose the generated slug length.
+
+Valid states are `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, and `deactivated`.
 
 Useful link options:
 
