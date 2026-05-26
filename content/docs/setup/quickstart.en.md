@@ -104,10 +104,6 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
-When branding is enabled, the installer can copy editable public pages into `custom/public`, optionally set a localized slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix:
-
-![Split-color domain wordmark example](/images/docs/split-color-domain-wordmark.svg)
-
 ### Install local helpers
 
 ```bash

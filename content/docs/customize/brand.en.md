@@ -41,6 +41,10 @@ You can run `npm run setup` again later. The installer reads existing branding v
 
 Localized slogans are stored in `custom/v8s-site-config.json` under `branding.slogan`. Existing instances that still have a single slogan string continue to work; setup writes the localized map for new branding runs.
 
+When branding is enabled, the installer can copy editable public pages into `custom/public`, optionally set a localized slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix:
+
+![Split-color domain wordmark example](/images/docs/split-color-domain-wordmark.svg)
+
 ## vanityURLs visual system
 
 <div class="brand-system">

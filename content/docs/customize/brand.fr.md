@@ -43,6 +43,10 @@ Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs d
 
 Les slogans localises sont stockes dans `custom/v8s-site-config.json` sous `branding.slogan`. Les instances existantes qui ont encore un seul slogan texte continuent de fonctionner; setup ecrit la map localisee lors des nouveaux passages de branding.
 
+Lorsque la marque est activee, l'installateur peut copier les pages publiques modifiables dans `custom/public`, ajouter un slogan localise sous les wordmarks des pages publiques generees et separer le wordmark du domaine en un prefixe fonce et un suffixe vert :
+
+![Exemple de wordmark de domaine bicolore](/images/docs/split-color-domain-wordmark.svg)
+
 ## Systeme visuel vanityURLs
 
 <div class="brand-system">
