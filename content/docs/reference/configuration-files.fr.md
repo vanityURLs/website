@@ -12,7 +12,7 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 
 | Fichier | Rôle |
 | --- | --- |
-| `defaults/v8s-site-config.json` | Base produit pour les langues et les champs opérateur |
+| `defaults/v8s-site-config.json` | Base produit pour les langues, les champs opérateur et les valeurs par défaut de la CLI de liens |
 | `custom/v8s-site-config.json` | Réglages de site propres à l'instance. Les détails sont dans [Configuration du site](#configuration-du-site) ci-dessous |
 | `custom/v8s-links.txt` | [Source de vérité rédigée par un humain pour les liens](/fr/docs/reference/link-format/) |
 | `custom/v8s-policies.json` | Choix de blocklist et de politique propres à l'instance |
@@ -23,12 +23,13 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 
 ## Configuration du site
 
-`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur et le mode des pages légales. Les sections principales importantes sont :
+`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. Les sections principales importantes sont :
 
 | Section | Rôle |
 | --- | --- |
 | `i18n` | Langue par défaut et langues supportées |
 | `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
+| `links` | Longueur par défaut des slugs générés et longueurs par tag pour `lnk` |
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
 Exemple :
@@ -38,6 +39,12 @@ Exemple :
   "i18n": {
     "default_language": "en",
     "supported_languages": ["en", "fr"]
+  },
+  "links": {
+    "random_slug_length": 3,
+    "tag_random_slug_lengths": {
+      "social": 5
+    }
   },
   "branding": {
     "domain": "example.link",

@@ -88,6 +88,7 @@ The interactive installer asks these questions:
 | Short domain | `v8s.link` | The domain that will serve your short links |
 | Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
 | Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
+| Random slug length | `3` | Default character count when `lnk` generates a slug. You can override it per command or per tag later |
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
 | Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/reference/i18n/) |

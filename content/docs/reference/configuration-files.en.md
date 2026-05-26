@@ -12,7 +12,7 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 
 | File | Purpose |
 | --- | --- |
-| `defaults/v8s-site-config.json` | Product baseline for languages and operator fields |
+| `defaults/v8s-site-config.json` | Product baseline for languages, operator fields, and link CLI defaults |
 | `custom/v8s-site-config.json` | Instance-owned site settings. Details are in [Site config](#site-config) below |
 | `custom/v8s-links.txt` | [Human-authored source of truth for links](/docs/reference/link-format/) |
 | `custom/v8s-policies.json` | Instance-owned blocklist and policy choices |
@@ -23,12 +23,13 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 
 ## Site Config
 
-`custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, and legal-page mode. The important top-level sections are:
+`custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, legal-page mode, and link CLI defaults. The important top-level sections are:
 
 | Section | Purpose |
 | --- | --- |
 | `i18n` | Default language and supported languages |
 | `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
+| `links` | Default generated slug length and tag-specific generated slug lengths for `lnk` |
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
 
 Example:
@@ -38,6 +39,12 @@ Example:
   "i18n": {
     "default_language": "en",
     "supported_languages": ["en", "fr"]
+  },
+  "links": {
+    "random_slug_length": 3,
+    "tag_random_slug_lengths": {
+      "social": 5
+    }
   },
   "branding": {
     "domain": "example.link",

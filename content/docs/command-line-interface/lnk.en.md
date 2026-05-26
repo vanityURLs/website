@@ -32,8 +32,12 @@ If you installed the workstation tools with `npm run local-install`, you can usu
 | Command | What it does |
 | --- | --- |
 | `./scripts/lnk LONG_URL [SLUG]` | Add a link to `custom/v8s-links.txt` |
+| `./scripts/lnk LONG_URL --random-slug-length N` | Add a link with a generated slug of `N` characters |
 | `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Add a splat link stored as `SLUG/*` |
 | `./scripts/lnk list [SLUG]` | List generated registry entries from `build/v8s.json` |
+| `./scripts/lnk tag list` | List tag-specific random slug defaults |
+| `./scripts/lnk tag set TAG --random-slug-length N` | Set a random slug length for a tag |
+| `./scripts/lnk tag unset TAG` | Remove a tag-specific random slug length |
 | `./scripts/lnk schedule add SLUG TARGET ...` | Add or replace a scheduled target rule |
 | `./scripts/lnk schedule default SLUG TARGET` | Set the fallback target for an existing schedule |
 | `./scripts/lnk schedule list [SLUG]` | List schedule rules |
@@ -59,7 +63,25 @@ List commands accept `--format table` or `--format json`. Table is the default.
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-If you omit the slug, `lnk` generates a 6-character random slug using 3 cryptographic random bytes encoded as lowercase hexadecimal, for example `4f9a2c`. That means generated slugs use only `0-9` and `a-f`. The command checks `custom/v8s-links.txt` before writing and fails if the slug already exists; it does not currently retry with another random slug. There is no option today to choose the generated slug length.
+If you omit the slug, `lnk` generates one with the default random slug length from `custom/v8s-site-config.json`. `npm run setup` proposes `3`. Generated slugs use readable lowercase characters: `23456789abcdefghjkmnpqrstuvwxyz`.
+
+Override the length for one command with:
+
+```bash
+./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
+```
+
+You can also configure tag-specific defaults:
+
+```bash
+./scripts/lnk tag set social --random-slug-length 5
+./scripts/lnk tag list
+./scripts/lnk tag unset social
+```
+
+When a generated link has multiple tags with configured lengths, `lnk` uses the shortest matching tag length. An explicit `--random-slug-length` or `--slug-length` on the command line wins over tag and global defaults.
+
+If the slug already exists, `lnk` shows the current entry and the proposed replacement, then asks whether to replace it. Use `--replace` to replace without prompting, or `--no-replace` to leave the existing entry unchanged.
 
 Valid states are `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, and `deactivated`.
 
@@ -74,6 +96,10 @@ Useful link options:
 | `--owner OWNER` | Set the accountability label |
 | `--expires-at DATE` | Set an ISO date or timestamp |
 | `--notes TEXT` | Add internal notes |
+| `--random-slug-length N` | Set the generated slug length for this command |
+| `--slug-length N` | Alias for `--random-slug-length` |
+| `--replace` | Replace an existing slug without prompting |
+| `--no-replace` | Leave an existing slug unchanged |
 | `--splat` | Store the slug as `SLUG/*` and require `:splat` in the target |
 
 ### List links

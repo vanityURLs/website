@@ -32,8 +32,12 @@ Si vous avez installe les outils poste avec `npm run local-install`, vous pouvez
 | Commande | Effet |
 | --- | --- |
 | `./scripts/lnk LONG_URL [SLUG]` | Ajoute un lien dans `custom/v8s-links.txt` |
+| `./scripts/lnk LONG_URL --random-slug-length N` | Ajoute un lien avec un slug genere de `N` caracteres |
 | `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Ajoute un lien splat stocke comme `SLUG/*` |
 | `./scripts/lnk list [SLUG]` | Liste les entrees du registre genere depuis `build/v8s.json` |
+| `./scripts/lnk tag list` | Liste les longueurs de slugs aleatoires propres aux tags |
+| `./scripts/lnk tag set TAG --random-slug-length N` | Definit une longueur de slug aleatoire pour un tag |
+| `./scripts/lnk tag unset TAG` | Supprime une longueur de slug propre a un tag |
 | `./scripts/lnk schedule add SLUG TARGET ...` | Ajoute ou remplace une regle de cible planifiee |
 | `./scripts/lnk schedule default SLUG TARGET` | Definit la cible fallback d'un horaire existant |
 | `./scripts/lnk schedule list [SLUG]` | Liste les regles d'horaire |
@@ -59,7 +63,25 @@ Les commandes de liste acceptent `--format table` ou `--format json`. Table est 
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-Si vous omettez le slug, `lnk` genere un slug aleatoire de 6 caracteres avec 3 octets aleatoires cryptographiques encodes en hexadecimal minuscule, par exemple `4f9a2c`. Les slugs generes utilisent donc seulement `0-9` et `a-f`. La commande verifie `custom/v8s-links.txt` avant d'ecrire et echoue si le slug existe deja; elle ne regenere pas automatiquement un autre slug. Il n'y a pas d'option aujourd'hui pour choisir la longueur du slug genere.
+Si vous omettez le slug, `lnk` en genere un avec la longueur par defaut configuree dans `custom/v8s-site-config.json`. `npm run setup` propose `3`. Les slugs generes utilisent des caracteres minuscules lisibles : `23456789abcdefghjkmnpqrstuvwxyz`.
+
+Remplacez la longueur pour une seule commande avec :
+
+```bash
+./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
+```
+
+Vous pouvez aussi configurer des valeurs par defaut propres aux tags :
+
+```bash
+./scripts/lnk tag set social --random-slug-length 5
+./scripts/lnk tag list
+./scripts/lnk tag unset social
+```
+
+Lorsqu'un lien genere possede plusieurs tags avec des longueurs configurees, `lnk` utilise la longueur la plus courte parmi les tags applicables. Un `--random-slug-length` ou `--slug-length` explicite dans la commande gagne sur les valeurs par tag et sur la valeur globale.
+
+Si le slug existe deja, `lnk` affiche l'entree actuelle et le remplacement propose, puis demande si vous voulez remplacer l'entree. Utilisez `--replace` pour remplacer sans question, ou `--no-replace` pour conserver l'entree existante.
 
 Les etats valides sont `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance` et `deactivated`.
 
@@ -74,6 +96,10 @@ Options utiles pour les liens :
 | `--owner OWNER` | Definit le libelle de responsabilite |
 | `--expires-at DATE` | Definit une date ISO ou un timestamp |
 | `--notes TEXT` | Ajoute des notes internes |
+| `--random-slug-length N` | Definit la longueur du slug genere pour cette commande |
+| `--slug-length N` | Alias de `--random-slug-length` |
+| `--replace` | Remplace un slug existant sans question |
+| `--no-replace` | Conserve un slug existant |
 | `--splat` | Stocke le slug comme `SLUG/*` et exige `:splat` dans la cible |
 
 ### Lister les liens
