@@ -39,6 +39,8 @@ La commande :
 5. lance `npm run check`
 6. laisse un diff Git normal pour revue
 
+Si `npm run check` echoue, l'upgrade peut deja avoir rafraichi `defaults/` et `scripts/` avant de s'arreter. Lancez `git status --short` et inspectez l'erreur avant de reessayer. Si l'echec est cause par un bogue corrige depuis upstream, relancez `npm run upgrade` apres avoir confirme que la nouvelle release ou le nouveau commit est disponible sur GitHub. Par exemple, vanityURLs 2.7.1 a corrige la compatibilite des anciens mots-cles de scanner pour les destinations PHP de confiance.
+
 Puis revisez et commitez :
 
 ```bash

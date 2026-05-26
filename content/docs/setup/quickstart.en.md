@@ -147,7 +147,7 @@ git push -u origin main
 
 ### Connect the repository to Workers & Pages
 
-In Cloudflare, open **Workers & Pages** from the account main menu, then:
+In Cloudflare, open **Build** > **Compute** > **Workers & Pages** from the account main menu, then:
 
 1. Create an application with the Worker name from `wrangler.toml`, such as `v8s-link`. The Cloudflare console does not rename Workers after creation, so see [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/#pick-one-name-and-reuse-it) for why this name should match your local directory and GitHub repository
 2. Continue with GitHub
