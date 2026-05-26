@@ -6,7 +6,11 @@ tags: ["links", "operations", "configuration"]
 featured: false
 ---
 
+Dans vanityURLs, un <dfn>slug</dfn> est le chemin apres votre domaine court. Dans `https://v8s.link/docs`, le slug est `docs`. Dans `https://v8s.link/ab3`, le slug est `ab3`.
+
 Les slugs aleatoires sont pratiques lorsque le mot-cle exact n'a pas d'importance. Vous collez une longue URL, laissez `lnk` choisir le slug, puis vous continuez. Le detail important, c'est qu'un slug aleatoire reste parfois lu, tape, dicte, colle dans un ticket ou compare dans une capture d'ecran par un humain.
+
+Cette fonctionnalite exige vanityURLs 2.7.0 ou plus recent. Les instances existantes peuvent l'obtenir avec le workflow [mise a niveau d'une instance](/fr/docs/reference/upgrading/), incluant `npm run upgrade`.
 
 C'est pourquoi vanityURLs utilise un alphabet lisible plutot que tous les caracteres URL-safe possibles.
 

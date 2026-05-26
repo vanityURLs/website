@@ -6,7 +6,11 @@ tags: ["links", "operations", "configuration"]
 featured: false
 ---
 
+In vanityURLs, a <dfn>slug</dfn> is the path after your short domain. In `https://v8s.link/docs`, the slug is `docs`. In `https://v8s.link/ab3`, the slug is `ab3`.
+
 Random slugs are convenient when the exact keyword does not matter. You paste a long URL, let `lnk` pick the slug, and keep moving. The trick is that a random slug is still a thing a human may need to read, type, say out loud, paste into a ticket, or compare in a screenshot.
+
+This functionality requires vanityURLs 2.7.0 or newer. Existing instances can get it by following the [upgrading an instance](/docs/reference/upgrading/) workflow, including `npm run upgrade`.
 
 That is why vanityURLs uses a readable alphabet instead of the full set of possible URL-safe characters.
 
