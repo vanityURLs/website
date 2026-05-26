@@ -12,10 +12,10 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 
 | Fichier | Rôle |
 | --- | --- |
-| `defaults/v8s-site-config.json` | Base produit pour les langues, les champs opérateur et les valeurs par défaut de la CLI de liens |
+| [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) | Base produit pour les langues, les champs opérateur et les valeurs par défaut de la CLI de liens |
 | `custom/v8s-site-config.json` | Réglages de site propres à l'instance. Les détails sont dans [Configuration du site](#configuration-du-site) ci-dessous |
 | `custom/v8s-links.txt` | [Source de vérité rédigée par un humain pour les liens](/fr/docs/reference/link-format/) |
-| `custom/v8s-policies.json` | Choix de blocklist et de politique propres à l'instance |
+| [`custom/v8s-policies.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-policies.json) | Choix de blocklist et de politique propres à l'instance, bases sur le default produit |
 | `custom/v8s-local-config.json` | Chemins du helper propres au poste, écrits par `npm run local-install` |
 | `build/v8s.json` | Registre runtime de redirection généré |
 | `build/v8s-blocklist.json` | Politique runtime de blocklist générée |
@@ -23,19 +23,21 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 
 ## Configuration du site
 
-`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. Les sections principales importantes sont :
+`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. La liste exacte des champs est définie par [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) et l'installateur. Les sections principales importantes sont :
 
 | Section | Rôle |
 | --- | --- |
+| `schema_version` | Version du contrat de configuration stocké. Elle change seulement lorsqu'un fichier custom existant doit migrer |
 | `i18n` | Langue par défaut et langues supportées |
-| `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
 | `links` | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk` |
+| `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
 Exemple :
 
 ```json
 {
+  "schema_version": "1.0",
   "i18n": {
     "default_language": "en",
     "supported_languages": ["en", "fr"]
@@ -48,6 +50,14 @@ Exemple :
       "debug": 2
     }
   },
+  "operator": {
+    "legal_name": "Example Inc.",
+    "short_domain": "example.link",
+    "abuse_contact": "abuse@example.link",
+    "security_contact": "security@example.link",
+    "abuse_response_window": "5 business days",
+    "legal_pages_enabled": false
+  },
   "branding": {
     "domain": "example.link",
     "custom_public": true,
@@ -58,6 +68,8 @@ Exemple :
   }
 }
 ```
+
+Des champs additifs peuvent apparaitre sans changer `schema_version`. Les changements de version de schema sont reserves aux changements incompatibles de configuration stockee qui demandent une migration; la decision est consignée dans les ADR du depot de code.
 
 Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.
 

@@ -12,10 +12,10 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 
 | File | Purpose |
 | --- | --- |
-| `defaults/v8s-site-config.json` | Product baseline for languages, operator fields, and link CLI defaults |
+| [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) | Product baseline for languages, operator fields, and link CLI defaults |
 | `custom/v8s-site-config.json` | Instance-owned site settings. Details are in [Site config](#site-config) below |
 | `custom/v8s-links.txt` | [Human-authored source of truth for links](/docs/reference/link-format/) |
-| `custom/v8s-policies.json` | Instance-owned blocklist and policy choices |
+| [`custom/v8s-policies.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-policies.json) | Instance-owned blocklist and policy choices, shaped from the product default |
 | `custom/v8s-local-config.json` | Workstation-only helper paths written by `npm run local-install` |
 | `build/v8s.json` | Generated runtime redirect registry |
 | `build/v8s-blocklist.json` | Generated runtime blocklist policy |
@@ -23,19 +23,21 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 
 ## Site Config
 
-`custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, legal-page mode, and link CLI defaults. The important top-level sections are:
+`custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, legal-page mode, and link CLI defaults. The exact field list is defined by [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) and the installer. The important top-level sections are:
 
 | Section | Purpose |
 | --- | --- |
+| `schema_version` | Stored configuration contract version. It changes only when an existing custom file needs migration |
 | `i18n` | Default language and supported languages |
-| `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
 | `links` | Default generated slug length, readable alphabet, and tag-specific generated slug lengths for `lnk` |
+| `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
 
 Example:
 
 ```json
 {
+  "schema_version": "1.0",
   "i18n": {
     "default_language": "en",
     "supported_languages": ["en", "fr"]
@@ -48,6 +50,14 @@ Example:
       "debug": 2
     }
   },
+  "operator": {
+    "legal_name": "Example Inc.",
+    "short_domain": "example.link",
+    "abuse_contact": "abuse@example.link",
+    "security_contact": "security@example.link",
+    "abuse_response_window": "5 business days",
+    "legal_pages_enabled": false
+  },
   "branding": {
     "domain": "example.link",
     "custom_public": true,
@@ -58,6 +68,8 @@ Example:
   }
 }
 ```
+
+Additive fields can appear without changing `schema_version`. Schema version changes are reserved for incompatible stored-config changes that need migration; the decision is recorded in the code repository ADRs.
 
 Do not edit generated files in `build/`. Edit `custom/`, then rebuild with `npm run check`.
 
