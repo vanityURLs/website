@@ -67,7 +67,7 @@ docs|https://docs.example.com|permanent|Docs|Documentation principale|docs|team|
 
 Les schemas manquants sont normalises vers `https://`. Utilisez `permanent` pour les redirections 301 stables et `ephemeral` pour les redirections 302 temporaires.
 
-Si vous voulez que l'installateur genere des pages marquees, lancez `npm run setup`. Il peut copier `defaults/public/` vers `custom/public/`, configurer les langues supportees et remplacer le wordmark en deux couleurs par les portions de votre domaine.
+Si vous voulez que l'installateur genere des pages marquees, lancez `npm run setup`. Il peut copier `defaults/public/` vers `custom/public/`, configurer les langues supportees, ajouter un slogan localise sous le wordmark et remplacer le wordmark en deux couleurs par les portions de votre domaine.
 
 ### Construire et valider
 

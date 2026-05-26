@@ -32,7 +32,10 @@ L'installeur peut stocker un wordmark bicolore dans `custom/v8s-site-config.json
 {
   "branding": {
     "domain": "v8s.link",
-    "slogan": "Un service de liens courts pour les projets de Example Inc.",
+    "slogan": {
+      "en": "A short-link service for Example Inc.'s projects",
+      "fr": "Un service de liens courts pour les projets de Example Inc."
+    },
     "wordmark": {
       "black": "v8s.",
       "green": "link"

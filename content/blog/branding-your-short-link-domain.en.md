@@ -32,7 +32,10 @@ The installer can store a split-color wordmark in `custom/v8s-site-config.json`.
 {
   "branding": {
     "domain": "v8s.link",
-    "slogan": "A short-link service for Example Inc.'s projects",
+    "slogan": {
+      "en": "A short-link service for Example Inc.'s projects",
+      "fr": "Un service de liens courts pour les projets de Example Inc."
+    },
     "wordmark": {
       "black": "v8s.",
       "green": "link"

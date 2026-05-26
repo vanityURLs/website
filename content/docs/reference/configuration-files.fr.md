@@ -75,7 +75,10 @@ Exemple :
   },
   "branding": {
     "domain": "example.link",
-    "slogan": "Un service de liens courts pour les projets de Example Inc.",
+    "slogan": {
+      "en": "A short-link service for Example Inc.'s projects",
+      "fr": "Un service de liens courts pour les projets de Example Inc."
+    },
     "custom_public": true,
     "wordmark": {
       "black": "example.",

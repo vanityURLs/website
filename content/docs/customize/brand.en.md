@@ -18,7 +18,8 @@ Use this page before or during `npm run setup` when you are ready to make the in
 | Decision | Phase 1 recommendation | Later customization |
 | --- | --- | --- |
 | Configure branding now? | Use `Y` when you want installer-managed public pages | Use `N` when you already maintain `custom/public/` by hand |
-| Brand slogan | Use a short sentence that names the operator or purpose | Keep it durable enough to appear on trust, privacy, terms, and security pages |
+| Slogan line | Use `Y` when you want a short line under the domain wordmark | Use `N` when the domain wordmark should stand alone |
+| Brand slogan per language | Use the generated localized defaults when they fit | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages |
 | Copy default web pages to `custom/public`? | Use `Y` for a first instance | Use `N` when custom pages already exist and should not be overwritten |
 | Black wordmark portion | Domain prefix, such as `v8s.` | Use the portion that should render in the dark brand color |
 | Green wordmark portion | Domain suffix, such as `link` | Use the portion that should render in vanityURLs teal |
@@ -30,12 +31,15 @@ If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated
 | Setup question | When it appears | What it controls |
 | --- | --- | --- |
 | Configure branding now? | Always | Whether setup asks the branding questions now |
-| Brand slogan | When branding is enabled | Text shown below the split-color domain wordmark on generated public pages |
+| Add a slogan line under the domain name on your pages...? | When branding is enabled | Whether generated pages include a short slogan below the split-color domain wordmark |
+| Brand slogan `[language]` | When the slogan line is enabled | Localized text shown below the split-color domain wordmark on generated public pages |
 | Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
 | Black wordmark portion | When copied public pages are enabled | First part of the homepage and public-page wordmark |
 | Green wordmark portion | When copied public pages are enabled | Second part of the homepage and public-page wordmark |
 
 You can run `npm run setup` again later. The installer reads existing branding values and offers them as defaults, so it is fine to start with the generated split and refine the assets later.
+
+Localized slogans are stored in `custom/v8s-site-config.json` under `branding.slogan`. Existing instances that still have a single slogan string continue to work; setup writes the localized map for new branding runs.
 
 ## vanityURLs visual system
 
@@ -143,7 +147,10 @@ You can run `npm run setup` again later. The installer reads existing branding v
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",
-    "slogan": "A short-link service for Example Inc.'s projects",
+    "slogan": {
+      "en": "A short-link service for Example Inc.'s projects",
+      "fr": "Un service de liens courts pour les projets de Example Inc."
+    },
     "wordmark": {
       "black": "example.",
       "green": "link"

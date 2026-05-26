@@ -20,7 +20,8 @@ Utilisez cette page avant ou pendant `npm run setup` lorsque vous voulez que l'i
 | Decision | Recommandation phase 1 | Personnalisation ulterieure |
 | --- | --- | --- |
 | Configurer la marque maintenant? | Utilisez `Y` lorsque vous voulez des pages publiques gerees par l'installateur | Utilisez `N` lorsque vous maintenez deja `custom/public/` a la main |
-| Slogan de marque | Utilisez une courte phrase qui nomme l'operateur ou le but | Gardez-le assez durable pour apparaitre sur les pages confiance, confidentialite, conditions et securite |
+| Ligne de slogan | Utilisez `Y` lorsque vous voulez une courte ligne sous le wordmark du domaine | Utilisez `N` lorsque le wordmark du domaine doit rester seul |
+| Slogan par langue | Utilisez les valeurs localisees generees lorsqu'elles conviennent | Gardez chaque slogan assez durable pour apparaitre sur les pages confiance, confidentialite, conditions et securite |
 | Copier les pages web par defaut vers `custom/public`? | Utilisez `Y` pour une premiere instance | Utilisez `N` lorsque des pages custom existent deja et ne doivent pas etre remplacees |
 | Portion noire du wordmark | Prefixe du domaine, comme `v8s.` | Utilisez la portion qui doit apparaitre dans la couleur de marque sombre |
 | Portion verte du wordmark | Suffixe du domaine, comme `link` | Utilisez la portion qui doit apparaitre en teal vanityURLs |
@@ -32,12 +33,15 @@ Si `operator.operator_domain` est defini dans `custom/v8s-site-config.json`, les
 | Question de setup | Quand elle apparait | Ce que cela controle |
 | --- | --- | --- |
 | Configure branding now? | Toujours | Determine si setup pose les questions de marque maintenant |
-| Brand slogan | Lorsque la marque est activee | Texte affiche sous le wordmark du domaine bicolore sur les pages publiques generees |
+| Add a slogan line under the domain name on your pages...? | Lorsque la marque est activee | Determine si les pages generees incluent une courte ligne sous le wordmark du domaine bicolore |
+| Brand slogan `[language]` | Lorsque la ligne de slogan est activee | Texte localise affiche sous le wordmark du domaine bicolore sur les pages publiques generees |
 | Copy default web pages to custom/public with a split-color domain wordmark? | Lorsque la marque est activee | Determine si setup copie les pages publiques modifiables dans `custom/public/` et applique le wordmark bicolore |
 | Black wordmark portion | Lorsque les pages publiques copiees sont activees | Premiere partie du wordmark de la page d'accueil et des pages publiques |
 | Green wordmark portion | Lorsque les pages publiques copiees sont activees | Deuxieme partie du wordmark de la page d'accueil et des pages publiques |
 
 Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs de marque existantes et les propose comme defauts, donc vous pouvez commencer avec la separation generee et raffiner les assets plus tard.
+
+Les slogans localises sont stockes dans `custom/v8s-site-config.json` sous `branding.slogan`. Les instances existantes qui ont encore un seul slogan texte continuent de fonctionner; setup ecrit la map localisee lors des nouveaux passages de branding.
 
 ## Systeme visuel vanityURLs
 
@@ -145,7 +149,10 @@ Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs d
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",
-    "slogan": "Un service de liens courts pour les projets de Example Inc.",
+    "slogan": {
+      "en": "A short-link service for Example Inc.'s projects",
+      "fr": "Un service de liens courts pour les projets de Example Inc."
+    },
     "wordmark": {
       "black": "example.",
       "green": "link"
