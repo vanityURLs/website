@@ -10,7 +10,7 @@ aliases:
 
 This Quickstart is the hands-on setup sequence for a plain vanityURLs instance. Start with the simple path, get the redirector deployed, then refine branding, legal pages, analytics, access control, and link inventory during customization.
 
-The activities below use example values from the `v8s.link` demo instance. It is configured and documented as an inspiration point while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, and email addresses with the values for your own instance. Detailed `v8s.link` configuration will live in the [v8s.link reference](/docs/demo/) section as the reference instance matures.
+The activities below use example values from the `v8s.link` demo instance. It is configured and documented as an inspiration point while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, operator identity, and email addresses with the values for your own instance. Detailed `v8s.link` configuration will live in the [v8s.link reference](/docs/demo/) section as the reference instance matures.
 
 | Assumption | Example used below |
 | --- | --- |
@@ -19,8 +19,11 @@ The activities below use example values from the `v8s.link` demo instance. It is
 | GitHub account name | `your-github-account` |
 | GitHub repository name | `v8s-link` |
 | Worker name | `v8s-link` |
-| Cloudflare Access team domain | `team.cloudflareaccess.com` |
-| Operator contact domain | `v8s.link` |
+| Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` |
+| Operator legal name | `Benoît H. Dicaire` |
+| Operator domain for contact emails | `vanityurls.link` |
+| Trust & Safety contact | `abuse@vanityurls.link` |
+| Security contact | `security@vanityurls.link` |
 
 Use simple answers during the Quickstart. You can run `npm run setup` as often as you like; the installer is idempotent, reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
 
@@ -90,9 +93,14 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
 | Random slug length | `3` | Default character count when `lnk` generates a slug. You can override it per command or per tag later |
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
-| Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
-| Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/reference/i18n/) |
-| Configure branding now? | `Y` | Use `Y` for phase 1 if you want installer-managed public pages. Refer to [Brand](/docs/customize/brand/) for the branding questions |
+| Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
+| Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the main and fallback language when a localized page is unavailable. See [Languages](/docs/reference/i18n/) |
+| Operator legal name | `Benoît H. Dicaire` | Simple operator name for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
+| Operator domain for contact emails | `vanityurls.link` | Domain used for default contact addresses such as `abuse@vanityurls.link` and `security@vanityurls.link` |
+| Trust & Safety contact | `abuse@vanityurls.link` | Email used for abuse and trust reports |
+| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
+| Security contact | `security@vanityurls.link` | Email published for security reports and `security.txt` |
+| Configure branding now? | `N` | Stay disabled for phase 1. Refer to [Brand](/docs/customize/brand/) during customization |
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
