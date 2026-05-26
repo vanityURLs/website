@@ -94,19 +94,14 @@ The interactive installer asks these questions:
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/reference/i18n/) |
 | Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Footer & pages](/docs/customize/footer-pages/) during customization |
 | Operator legal name | `Example Inc.` | Simple operator name for phase 1. See [Footer & pages](/docs/customize/footer-pages/) |
-| Operator jurisdiction, for example Canada | `Canada` | Simple jurisdiction for phase 1. See [Footer & pages](/docs/customize/footer-pages/) |
-| Governing law | `Canada` | Usually the same as jurisdiction for phase 1. See [Footer & pages](/docs/customize/footer-pages/) |
-| Operator contact email | `hello@v8s.link` | General role address. Defaults to `hello@<short-domain>` |
-| Privacy contact | `privacy@v8s.link` | Privacy role address. Defaults to `privacy@<short-domain>` |
 | Trust & Safety contact | `abuse@v8s.link` | Abuse reporting role address. Defaults to `abuse@<short-domain>` |
-| Security contact | `security@v8s.link` | Vulnerability reporting role address. Defaults to `security@<short-domain>` |
-| Legal pages last updated date | `2026-05-21` | Use today's date in `YYYY-MM-DD` format |
 | Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. See [Footer & pages](/docs/customize/footer-pages/) |
+| Security contact | `security@v8s.link` | Vulnerability reporting role address. Defaults to `security@<short-domain>` |
 | Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
 | Black wordmark portion | `v8s.` | First part of the homepage wordmark |
 | Green wordmark portion | `link` | Second part of the homepage wordmark |
 
-Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
+Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages. If you answer `Y` to configure privacy, terms, and security pages now, setup also asks for jurisdiction, governing law, general contact, privacy contact, and the legal pages last updated date.
 
 When the installer asks for a split-color domain wordmark, it means the homepage logo can be split into a dark prefix and a green suffix:
 
