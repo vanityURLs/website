@@ -1,56 +1,30 @@
 ---
 aside: false
 title: "Demo links"
-description: "Annotated examples from the v8s.link reference instance link inventory."
+description: "The starter links used by the v8s.link demo instance."
 weight: 20
 
 ---
 
-The product starter file `defaults/v8s-links.txt` is intentionally tiny: `home`, `status`, and `docs`. The v8s.link demo instance can carry a larger `custom/v8s-links.txt` inventory to show naming patterns, namespaces, lifecycle states, and project links.
+The v8s.link demo intentionally keeps the same slim starter inventory that `npm run setup` creates from `defaults/v8s-links.txt`.
 
-## Namespaced examples
+## Current links
 
-The demo inventory groups links by human task area:
-
-| Prefix | Examples | Purpose |
+| Slug | Long link | Purpose |
 |---|---|---|
-| `ai/` | `ai/chat`, `ai/claude`, `ai/hf` | AI tools and model resources |
-| `edu/` | `edu/a`, `edu/d`, `edu/s` | Research and academic lookup |
-| `g/` | `g/cal`, `g/drive`, `g/meet` | Google productivity surfaces |
-| `meet/` | `meet/g`, `meet/t`, `meet/z` | Meeting-room aliases |
-| `pkg/` | `pkg/d`, `pkg/n`, `pkg/p`, `pkg/r` | Package registries |
-| `social/` | `social/fb`, `social/ig`, `social/x` | Social profiles |
-| `v8s/` | `v8s/code`, `v8s/doc`, `v8s/status` | vanityURLs project links |
-
-Namespacing keeps the root short-link space clean while still allowing memorable URLs such as `v8s.link/social/x`.
-
-## Lifecycle test links
-
-The demo inventory includes test links that exercise every runtime state:
-
-| Slug | State | Expected behavior |
-|---|---|---|
-| `test/1` | `permanent` | 301 to target |
-| `test/2` | `ephemeral` | 302 to target |
-| `test/3` | `expired` | 302 to `/expired` |
-| `test/4` | `disabled` | 302 to `/disabled` |
-| `test/5` | `maintenance` | 302 to `/maintenance` |
-| `test/6` | `deactivated` | true 404 |
-
-These links are for validation. Replace them in your own `custom/v8s-links.txt` unless you want public lifecycle probes on your domain.
-
-## Project links
-
-The `v8s/` namespace demonstrates how a public instance can document itself:
+| `home` | `https://v8s.link` | Root home link |
+| `status` | `https://status.v8s.link` | Status page placeholder |
+| `docs` | `https://vanityURLs.link/en/docs/` | vanityURLs documentation |
 
 ```text
-v8s/code|github.com/vanityURLs/vanityURLs||V8S web site|documentation|v8s,git|bhd|||
-v8s/doc|vanityUrls.link/en/docs/||VanityURLs documentation||v8s,git|bhd|||
-v8s/status|status.vanityUrls.link||Uptime monitoring|status page|v8s,web|bhd|||
+# slug|target|state|title|description|tags|owner|expires_at|notes
+home|https://v8s.link|permanent|Home|Primary website|core|bhd||
+status|https://status.v8s.link|ephemeral|Status|Service status page|status|bhd||
+docs|https://vanityURLs.link/en/docs/|permanent|Docs|vanityURLs documentation|docs|bhd||
 ```
 
-The omitted state falls back to the registry default. The build normalizes bare hostnames to `https://`.
+## Why the demo is small
 
-## What to change
+The demo is meant to prove that the Quickstart works, not to become a large public directory of example links. Larger link inventories, namespaces, lifecycle examples, schedules, and migration examples belong in focused documentation and blog posts.
 
-For a new instance, keep the structure but replace the sample rows with your own links, owner labels, and tags. Add `custom/v8s-schedules.json` only for links that need time-aware destinations.
+Run `./scripts/lnk list` in your own instance to see the same starter inventory after setup.

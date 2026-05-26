@@ -95,6 +95,7 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the main and fallback language when a localized page is unavailable. See [Languages](/docs/reference/i18n/) |
+| Configure jurisdiction, privacy, terms, and security pages now? | `N` | Stay disabled for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
 | Operator legal name | `Benoît H. Dicaire` | Simple operator name for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
 | Operator domain for contact emails | `vanityurls.link` | Domain used for default contact addresses such as `abuse@vanityurls.link` and `security@vanityurls.link` |
 | Trust & Safety contact | `abuse@vanityurls.link` | Email used for abuse and trust reports |
