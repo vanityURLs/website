@@ -98,7 +98,6 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Operator legal name | `Benoît H. Dicaire` | Simple operator name for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
 | Operator domain for contact emails | `vanityurls.link` | Domain used for default contact addresses such as `abuse@vanityurls.link` and `security@vanityurls.link` |
 | Trust & Safety contact | `abuse@vanityurls.link` | Email used for abuse and trust reports |
-| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
 | Security contact | `security@vanityurls.link` | Email published for security reports and `security.txt` |
 | Configure branding now? | `N` | Stay disabled for phase 1. Refer to [Brand](/docs/customize/brand/) during customization |
 
