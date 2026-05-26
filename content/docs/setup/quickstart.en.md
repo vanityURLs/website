@@ -91,7 +91,7 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Short domain | `v8s.link` | The domain that will serve your short links |
 | Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
 | Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
-| Random slug length | `3` | Default character count when `lnk` generates a slug. You can override it per command or per tag later |
+| Random slug length | `3` | Default character count when `lnk` generates a slug. You can override it per command or per tag later. See [Choosing readable random slugs](/blog/choosing-readable-random-slugs/) |
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the main and fallback language when a localized page is unavailable. See [Languages](/docs/reference/i18n/) |
