@@ -36,4 +36,4 @@ Static assets plus Worker routing, generated `v8s.json`, [Cloudflare Access prot
 
 ## What to copy
 
-Use the layout, default pages, `custom/` override pattern, Worker settings, and validation workflow. Replace the sample links with your own `custom/v8s-links.txt`; the default list includes public examples and lifecycle tests rather than a production policy for your domain.
+Use the layout, default pages, `custom/` override pattern, Worker settings, and validation workflow. Replace the demo links with your own `custom/v8s-links.txt`; the product starter file stays intentionally small.

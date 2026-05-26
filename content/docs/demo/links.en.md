@@ -1,16 +1,16 @@
 ---
 aside: false
-title: "Default links"
-description: "Annotated examples from defaults/v8s-links.txt in the current v8s.link reference implementation."
+title: "Demo links"
+description: "Annotated examples from the v8s.link reference instance link inventory."
 weight: 20
 
 ---
 
-The default link registry is `defaults/v8s-links.txt`. A production instance normally replaces it with `custom/v8s-links.txt`, but the defaults are useful because they show the supported shape of a real registry.
+The product starter file `defaults/v8s-links.txt` is intentionally tiny: `home`, `status`, and `docs`. The v8s.link demo instance can carry a larger `custom/v8s-links.txt` inventory to show naming patterns, namespaces, lifecycle states, and project links.
 
 ## Namespaced examples
 
-The default file groups links by human task area:
+The demo inventory groups links by human task area:
 
 | Prefix | Examples | Purpose |
 |---|---|---|
@@ -26,7 +26,7 @@ Namespacing keeps the root short-link space clean while still allowing memorable
 
 ## Lifecycle test links
 
-The defaults include test links that exercise every runtime state:
+The demo inventory includes test links that exercise every runtime state:
 
 | Slug | State | Expected behavior |
 |---|---|---|

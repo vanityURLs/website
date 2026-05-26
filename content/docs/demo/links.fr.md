@@ -1,16 +1,16 @@
 ---
 aside: false
-title: "Liens par defaut"
-description: "Exemples annotes depuis defaults/v8s-links.txt dans l'implementation de reference v8s.link actuelle."
+title: "Liens demo"
+description: "Exemples annotes depuis l'inventaire de liens de l'instance de reference v8s.link."
 weight: 20
 
 ---
 
-Le registre par defaut est `defaults/v8s-links.txt`. Une instance de production le remplace normalement par `custom/v8s-links.txt`, mais les defaults sont utiles parce qu'ils montrent la forme d'un vrai registre.
+Le fichier de depart produit `defaults/v8s-links.txt` est volontairement petit : `home`, `status`, et `docs`. L'instance demo v8s.link peut porter un inventaire `custom/v8s-links.txt` plus large pour montrer les conventions de nommage, namespaces, etats lifecycle et liens projet.
 
 ## Exemples namespaces
 
-Le fichier par defaut groupe les liens par zone d'usage :
+L'inventaire demo groupe les liens par zone d'usage :
 
 | Prefixe | Exemples | Usage |
 |---|---|---|
@@ -26,7 +26,7 @@ Le namespacing garde l'espace racine propre tout en permettant des URLs memorabl
 
 ## Liens de test lifecycle
 
-Les defaults incluent des liens qui testent chaque etat runtime :
+L'inventaire demo inclut des liens qui testent chaque etat runtime :
 
 | Slug | Etat | Comportement attendu |
 |---|---|---|

@@ -188,26 +188,13 @@ Cloudflare should deploy from GitHub after the push.
 
 Open the home page, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
 
-The installer creates these initial custom links in `custom/v8s-links.txt`:
-
-If `custom/v8s-links.txt` does not exist, setup creates a small starter file with `home`, `status`, and `docs` links. It does not copy `defaults/v8s-links.txt`; `custom/` is your instance-owned layer, while `defaults/` stays the upstream product baseline.
+If `custom/v8s-links.txt` does not exist, setup creates it from `defaults/v8s-links.txt`, then adapts the starter `home`, `status`, and `docs` links for your short domain and owner label.
 
 | Slug | Long link |
 | --- | --- |
 | `home` | `https://<short-domain>` |
 | `status` | `https://status.<short-domain>` |
 | `docs` | `https://vanityURLs.link/en/docs/` |
-
-The upstream default link file has a larger set of examples. Once setup creates `custom/v8s-links.txt`, your instance uses the custom starter links above instead of these defaults, but the defaults are useful examples while learning the file format:
-
-| Slug | Long link |
-| --- | --- |
-| `ai/chat` | `https://chatgpt.com` |
-| `ai/claude` | `https://claude.ai` |
-| `ai/g` | `https://gemini.google.com/` |
-| `v8s/doc` | `https://vanityURLs.link/en/docs/` |
-| `test/1` | `https://youtu.be/dQw4w9WgXcQ` |
-| `test/4` | `https://youtu.be/dQw4w9WgXcQ` |
 
 Test at least one initial custom link, such as `https://<short-domain>/docs`, and confirm that it redirects to the long link shown in the table.
 

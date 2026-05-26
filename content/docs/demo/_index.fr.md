@@ -37,4 +37,4 @@ Assets statiques plus routage Worker, `v8s.json` genere, protection Cloudflare A
 
 Copiez la structure, les pages par defaut, le modele de surcharge `custom/`, les reglages Worker et le workflow de validation.
 
-Remplacez les liens exemples par votre propre `custom/v8s-links.txt`. La liste par defaut contient des exemples publics et des tests lifecycle, pas une politique de production pour votre domaine.
+Remplacez les liens demo par votre propre `custom/v8s-links.txt`. Le fichier de depart produit reste volontairement petit.
