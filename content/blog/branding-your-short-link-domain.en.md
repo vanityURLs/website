@@ -32,6 +32,7 @@ The installer can store a split-color wordmark in `custom/v8s-site-config.json`.
 {
   "branding": {
     "domain": "v8s.link",
+    "slogan": "A short-link service for Example Inc.'s projects",
     "wordmark": {
       "black": "v8s.",
       "green": "link"
@@ -53,7 +54,7 @@ Treat badges as product assets:
 - update every supported language together
 - use the light badge on light surfaces and the dark badge on dark surfaces
 
-The exact current asset names and color tokens live in [Brand](/docs/reference/brand/).
+The exact current asset names and color tokens live in [Brand](/docs/customize/brand/).
 
 ## Brand after the redirector works
 

@@ -41,10 +41,10 @@ Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligne
 
 | Surcharge | Chemin | Details |
 | --- | --- | --- |
-| Assets de marque | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Marque](/fr/docs/reference/brand/) |
+| Assets de marque | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Marque](/fr/docs/customize/brand/) |
 | Pied de page et pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pied de page et pages](/fr/docs/customize/footer-pages/) |
 | Pages publiques localisees | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires | [Internationalisation](/fr/docs/reference/i18n/) |
-| Badges rediriges | `custom/public/{language}/v8s-redirected.svg` et `v8s-redirected-dark.svg` | [Marque](/fr/docs/reference/brand/) |
+| Badges rediriges | `custom/public/{language}/v8s-redirected.svg` et `v8s-redirected-dark.svg` | [Marque](/fr/docs/customize/brand/) |
 | Page expand | `custom/public/expand/index.html` | [Format des liens](/fr/docs/reference/link-format/) |
 | Shell du tableau admin | `custom/public/_stats/index.html` | [Lire le tableau admin vanityURLs](/fr/blog/reading-your-admin-dashboard/) et [Controle d'acces](/fr/docs/customize/access-control/) |
 | Headers | `custom/public/_headers` | [Approche securite du runtime](/fr/docs/reference/runtime-security/) |

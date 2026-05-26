@@ -52,6 +52,7 @@ defaults/v8s-local-config.json
   },
   "branding": {
     "domain": "example.link",
+    "slogan": "A short-link service for Example Inc.'s projects",
     "custom_public": true,
     "wordmark": {
       "black": "example.",

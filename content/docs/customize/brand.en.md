@@ -1,18 +1,49 @@
 ---
 aside: false
 title: "Brand"
-description: "Current vanityURLs brand tokens, self-hosted fonts, redirected badge colors, and badge asset guidance."
-weight: 20
+description: "Decide the public branding values used by installer-managed vanityURLs pages."
+weight: 35
 aliases:
   - /docs/brand/
+  - /docs/reference/brand/
 
 ---
+
+Branding controls the public wordmark, the short line under generated legal and trust pages, and the default public assets copied into `custom/public/`.
+
+Use this page before or during `npm run setup` when you are ready to make the instance look like your domain instead of the upstream product defaults.
+
+## What to decide first
+
+| Decision | Phase 1 recommendation | Later customization |
+| --- | --- | --- |
+| Configure branding now? | Use `Y` when you want installer-managed public pages | Use `N` when you already maintain `custom/public/` by hand |
+| Brand slogan | Use a short sentence that names the operator or purpose | Keep it durable enough to appear on trust, privacy, terms, and security pages |
+| Copy default web pages to `custom/public`? | Use `Y` for a first instance | Use `N` when custom pages already exist and should not be overwritten |
+| Black wordmark portion | Domain prefix, such as `v8s.` | Use the portion that should render in the dark brand color |
+| Green wordmark portion | Domain suffix, such as `link` | Use the portion that should render in vanityURLs teal |
+
+If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated pages link the operator legal name inside the slogan to that domain. For example, `A short-link service for Example Inc.'s projects` can link `Example Inc.` to `https://example.com`.
+
+## Setup questions
+
+| Setup question | When it appears | What it controls |
+| --- | --- | --- |
+| Configure branding now? | Always | Whether setup asks the branding questions now |
+| Brand slogan | When branding is enabled | Text shown below the split-color domain wordmark on generated public pages |
+| Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
+| Black wordmark portion | When copied public pages are enabled | First part of the homepage and public-page wordmark |
+| Green wordmark portion | When copied public pages are enabled | Second part of the homepage and public-page wordmark |
+
+You can run `npm run setup` again later. The installer reads existing branding values and offers them as defaults, so it is fine to start with the generated split and refine the assets later.
+
+## vanityURLs visual system
 
 <div class="brand-system">
   <section class="brand-hero">
     <p class="brand-kicker">Brand reference</p>
-    <h1 class="brand-title">vanityURLs visual system</h1>
-    <p class="brand-lede">This page records current brand assets, color tokens, and badge files. For the customization narrative, read <a href="/blog/branding-your-short-link-domain/">Branding your short-link domain</a>.</p>
+    <p class="brand-title">vanityURLs visual system</p>
+    <p class="brand-lede">This page records current brand assets, color tokens, and badge files. For the customization narrative, read <a href="/en/blog/branding-your-short-link-domain/">Branding your short-link domain</a>.</p>
   </section>
 
   <section class="brand-section">
@@ -112,6 +143,7 @@ aliases:
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",
+    "slogan": "A short-link service for Example Inc.'s projects",
     "wordmark": {
       "black": "example.",
       "green": "link"

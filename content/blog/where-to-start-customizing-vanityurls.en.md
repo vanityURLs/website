@@ -14,7 +14,7 @@ You do not need to customize everything at once. Start with the area that hurts 
 | Goal | Start here |
 | --- | --- |
 | Change the public look and static pages | [Custom overrides](/docs/customize/custom-overrides/) |
-| Configure the split-color wordmark and brand assets | [Brand](/docs/reference/brand/) |
+| Configure the split-color wordmark and brand assets | [Brand](/docs/customize/brand/) |
 | Add, inspect, or update short links | [LNK](/docs/command-line-interface/lnk/) and [Link format](/docs/reference/link-format/) |
 | Add time-based destinations | [Scheduled links](/docs/reference/schedules/) |
 | Decide which languages to publish | [Internationalization](/docs/reference/i18n/) |

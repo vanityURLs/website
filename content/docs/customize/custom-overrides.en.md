@@ -41,10 +41,10 @@ When you use `custom/public/`, keep `i18n.supported_languages` aligned with the 
 
 | Override | Path | Details |
 | --- | --- | --- |
-| Brand assets | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Brand](/docs/reference/brand/) |
+| Brand assets | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Brand](/docs/customize/brand/) |
 | Footer & pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Footer & pages](/docs/customize/footer-pages/) |
 | Localized public pages | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths | [Internationalization](/docs/reference/i18n/) |
-| Redirected badges | `custom/public/{language}/v8s-redirected.svg` and `v8s-redirected-dark.svg` | [Brand](/docs/reference/brand/) |
+| Redirected badges | `custom/public/{language}/v8s-redirected.svg` and `v8s-redirected-dark.svg` | [Brand](/docs/customize/brand/) |
 | Expand page | `custom/public/expand/index.html` | [Link format](/docs/reference/link-format/) |
 | Dashboard shell | `custom/public/_stats/index.html` | [Reading your vanityURLs admin dashboard](/blog/reading-your-admin-dashboard/) and [Access control](/docs/customize/access-control/) |
 | Headers | `custom/public/_headers` | [Runtime security approach](/docs/reference/runtime-security/) |

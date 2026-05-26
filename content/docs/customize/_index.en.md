@@ -15,3 +15,5 @@ For a practical map of what to customize first, read [Where to start customizing
 The important rule is simple: edit `custom/`, not generated files in `build/`. Product defaults live in `defaults/`; your instance-owned choices live in `custom/`; the build combines both into the Worker assets and runtime JSON that Cloudflare deploys.
 
 For exact file behavior, use [Configuration files](/docs/reference/configuration-files/) and [Custom overrides](/docs/customize/custom-overrides/).
+
+Use [Brand](/docs/customize/brand/) when you are ready to set the public slogan, split-color wordmark, and installer-managed page assets.

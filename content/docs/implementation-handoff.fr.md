@@ -42,7 +42,7 @@ defaults/v8s-local-config.json
 
 `build/v8s-blocklist.json` reste le nom du fichier runtime consomme par le Worker. Cette distinction est intentionnelle : la politique source est editee comme politique; la sortie runtime est servie comme artefact de blocage.
 
-`custom/v8s-site-config.json` stocke les choix de site de l'instance, notamment les langues supportees et le branding.
+`custom/v8s-site-config.json` stocke les choix de site de l'instance, notamment les langues supportees, le branding, le slogan public et les contacts operateur.
 
 `custom/v8s-local-config.json` stocke les choix du poste de travail comme les chemins d'installation, le registre local, le chemin du depot et les defaults de publication locale. Il est cree ou mis a jour par `npm run local-install`.
 

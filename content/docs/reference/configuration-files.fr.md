@@ -45,7 +45,7 @@ Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent
 | `i18n` | Langue par défaut et langues supportées |
 | `links` | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk` |
 | `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
-| `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
+| `branding` | Domaine court, slogan public, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
 Exemple :
 
@@ -75,6 +75,7 @@ Exemple :
   },
   "branding": {
     "domain": "example.link",
+    "slogan": "Un service de liens courts pour les projets de Example Inc.",
     "custom_public": true,
     "wordmark": {
       "black": "example.",

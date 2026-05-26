@@ -45,7 +45,7 @@ Legacy `custom/v8s-blocklist.json` and `defaults/v8s-blocklist.json` may still b
 | `i18n` | Default language and supported languages |
 | `links` | Default generated slug length, readable alphabet, and tag-specific generated slug lengths for `lnk` |
 | `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
-| `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
+| `branding` | Short domain, public slogan, installer-managed public-page flag, and split-color wordmark |
 
 Example:
 
@@ -75,6 +75,7 @@ Example:
   },
   "branding": {
     "domain": "example.link",
+    "slogan": "A short-link service for Example Inc.'s projects",
     "custom_public": true,
     "wordmark": {
       "black": "example.",

@@ -1,17 +1,50 @@
 ---
 aside: false
 title: "Marque"
-description: "Tokens de marque vanityURLs, polices auto-hebergees, couleurs des badges de redirection, et recommandations d'assets."
-weight: 20
+description: "Decider les valeurs de marque publiques utilisees par les pages vanityURLs gerees par l'installateur."
+weight: 35
 aliases:
   - /docs/brand/
+  - /fr/docs/brand/
+  - /docs/reference/brand/
+  - /fr/docs/reference/brand/
 
 ---
+
+La marque controle le wordmark public, la courte ligne sous les pages legales et de confiance generees, et les assets publics par defaut copies dans `custom/public/`.
+
+Utilisez cette page avant ou pendant `npm run setup` lorsque vous voulez que l'instance ressemble a votre domaine plutot qu'aux defaults du produit upstream.
+
+## Decider d'abord
+
+| Decision | Recommandation phase 1 | Personnalisation ulterieure |
+| --- | --- | --- |
+| Configurer la marque maintenant? | Utilisez `Y` lorsque vous voulez des pages publiques gerees par l'installateur | Utilisez `N` lorsque vous maintenez deja `custom/public/` a la main |
+| Slogan de marque | Utilisez une courte phrase qui nomme l'operateur ou le but | Gardez-le assez durable pour apparaitre sur les pages confiance, confidentialite, conditions et securite |
+| Copier les pages web par defaut vers `custom/public`? | Utilisez `Y` pour une premiere instance | Utilisez `N` lorsque des pages custom existent deja et ne doivent pas etre remplacees |
+| Portion noire du wordmark | Prefixe du domaine, comme `v8s.` | Utilisez la portion qui doit apparaitre dans la couleur de marque sombre |
+| Portion verte du wordmark | Suffixe du domaine, comme `link` | Utilisez la portion qui doit apparaitre en teal vanityURLs |
+
+Si `operator.operator_domain` est defini dans `custom/v8s-site-config.json`, les pages generees lient le nom legal de l'operateur dans le slogan vers ce domaine. Par exemple, `Un service de liens courts pour les projets de Example Inc.` peut lier `Example Inc.` vers `https://example.com`.
+
+## Questions de setup
+
+| Question de setup | Quand elle apparait | Ce que cela controle |
+| --- | --- | --- |
+| Configure branding now? | Toujours | Determine si setup pose les questions de marque maintenant |
+| Brand slogan | Lorsque la marque est activee | Texte affiche sous le wordmark du domaine bicolore sur les pages publiques generees |
+| Copy default web pages to custom/public with a split-color domain wordmark? | Lorsque la marque est activee | Determine si setup copie les pages publiques modifiables dans `custom/public/` et applique le wordmark bicolore |
+| Black wordmark portion | Lorsque les pages publiques copiees sont activees | Premiere partie du wordmark de la page d'accueil et des pages publiques |
+| Green wordmark portion | Lorsque les pages publiques copiees sont activees | Deuxieme partie du wordmark de la page d'accueil et des pages publiques |
+
+Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs de marque existantes et les propose comme defauts, donc vous pouvez commencer avec la separation generee et raffiner les assets plus tard.
+
+## Systeme visuel vanityURLs
 
 <div class="brand-system">
   <section class="brand-hero">
     <p class="brand-kicker">Reference de marque</p>
-    <h1 class="brand-title">Systeme visuel vanityURLs</h1>
+    <p class="brand-title">Systeme visuel vanityURLs</p>
     <p class="brand-lede">Cette page documente les assets de marque, couleurs et fichiers de badges actuels. Pour le recit de personnalisation, lisez <a href="/fr/blog/branding-your-short-link-domain/">Habiller votre domaine court</a>.</p>
   </section>
 
@@ -112,6 +145,7 @@ aliases:
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",
+    "slogan": "Un service de liens courts pour les projets de Example Inc.",
     "wordmark": {
       "black": "example.",
       "green": "link"

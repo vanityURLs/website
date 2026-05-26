@@ -32,6 +32,7 @@ L'installeur peut stocker un wordmark bicolore dans `custom/v8s-site-config.json
 {
   "branding": {
     "domain": "v8s.link",
+    "slogan": "Un service de liens courts pour les projets de Example Inc.",
     "wordmark": {
       "black": "v8s.",
       "green": "link"
@@ -53,7 +54,7 @@ Traitez les badges comme des assets produit :
 - mettre a jour toutes les langues supportees ensemble
 - utiliser le badge clair sur les surfaces claires et le badge fonce sur les surfaces foncees
 
-Les noms d'assets et les couleurs actuelles vivent dans [Marque](/fr/docs/reference/brand/).
+Les noms d'assets et les couleurs actuelles vivent dans [Marque](/fr/docs/customize/brand/).
 
 ## Personnaliser apres que le redirecteur fonctionne
 

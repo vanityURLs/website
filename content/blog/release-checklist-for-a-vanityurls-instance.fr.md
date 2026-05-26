@@ -73,7 +73,7 @@ Utilisez [Analytics](/fr/docs/customize/analytics/) pour les variables, noms d'e
 - Confirmez que les badges de redirection localises existent pour les langues supportees
 - Lancez `npm run optimize:badges` apres modification des SVG de badge par defaut
 
-Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/), [Internationalisation](/fr/docs/reference/i18n/), et [Marque](/fr/docs/reference/brand/) pour les details.
+Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/), [Internationalisation](/fr/docs/reference/i18n/), et [Marque](/fr/docs/customize/brand/) pour les details.
 
 ## Smoke checks operationnels
 

@@ -92,13 +92,11 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
 | Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/reference/i18n/) |
-| Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
-| Black wordmark portion | `v8s.` | First part of the homepage wordmark |
-| Green wordmark portion | `link` | Second part of the homepage wordmark |
+| Configure branding now? | `Y` | Use `Y` for phase 1 if you want installer-managed public pages. Refer to [Brand](/docs/customize/brand/) for the branding questions |
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
-When the installer asks for a split-color domain wordmark, it means the homepage logo can be split into a dark prefix and a green suffix:
+When branding is enabled, the installer can copy editable public pages into `custom/public`, set the short slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix:
 
 ![Split-color domain wordmark example](/images/docs/split-color-domain-wordmark.svg)
 
