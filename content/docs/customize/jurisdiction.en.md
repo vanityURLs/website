@@ -19,6 +19,7 @@ Before configuring the public pages, decide who operates the instance and who ha
 | Decision | Phase 1 recommendation | Later customization |
 | --- | --- | --- |
 | Operator identity | Person, team, company, or organization responsible for the instance | Align the wording with the entity that owns the domain and repository |
+| Operator contact domain | Leave blank when contacts should use the short domain | Use the operator's primary domain when contacts live somewhere else |
 | Jurisdiction | Country, province/state, or operating location | Refine with internal or legal review if the instance is organizational |
 | Governing law | Usually the same as jurisdiction | Use a narrower value only when that is the right legal context |
 | General contact | `hello@<short-domain>` | Route to the team that owns the redirector |
@@ -29,6 +30,8 @@ Before configuring the public pages, decide who operates the instance and who ha
 
 Use role-based addresses when you can. They are easier to transfer when ownership changes and easier for visitors, registrars, and researchers to recognize.
 
+If the operator contact domain is blank, setup defaults role-based addresses to the short domain, such as `abuse@example.link`. If you enter an operator domain, such as `example.com`, setup defaults role-based addresses to that domain instead, such as `abuse@example.com`.
+
 ## Setup questions
 
 The Quickstart can defer full privacy, terms, and standalone security pages. Trust & Safety and `security.txt` can still publish with a smaller set of answers.
@@ -37,6 +40,7 @@ The Quickstart can defer full privacy, terms, and standalone security pages. Tru
 | --- | --- | --- |
 | Configure privacy, terms, and security pages now? | Always | Whether full privacy, terms, and standalone security pages are generated now |
 | Operator legal name | Always | Public operator identity shown on generated trust and legal pages |
+| Operator domain for contact emails | Always | Domain used for default role-based contact emails; blank uses the short domain |
 | Trust & Safety contact | Always | Public address for abuse and harmful-link reports |
 | Trust & Safety response window | Always | Good-faith expectation for reviewing reports |
 | Security contact | Always | Address for vulnerability reports and `/.well-known/security.txt` |

@@ -19,6 +19,7 @@ Avant de configurer les pages publiques, decidez qui exploite l'instance et qui 
 | Decision | Recommandation phase 1 | Personnalisation ulterieure |
 | --- | --- | --- |
 | Identite operateur | Personne, equipe, entreprise ou organisation responsable de l'instance | Aligner le texte avec l'entite qui possede le domaine et le depot |
+| Domaine de contact operateur | Laisser vide lorsque les contacts doivent utiliser le domaine court | Utiliser le domaine principal de l'operateur lorsque les contacts vivent ailleurs |
 | Juridiction | Pays, province/etat ou lieu d'exploitation | Raffiner avec une revue interne ou juridique si l'instance est organisationnelle |
 | Droit applicable | Habituellement la meme valeur que la juridiction | Utiliser une valeur plus precise seulement lorsque c'est le bon contexte legal |
 | Contact general | `hello@<short-domain>` | Router vers l'equipe qui possede le redirecteur |
@@ -29,6 +30,8 @@ Avant de configurer les pages publiques, decidez qui exploite l'instance et qui 
 
 Utilisez des adresses par role lorsque possible. Elles sont plus faciles a transferer lorsque la propriete change et plus faciles a reconnaitre pour les visiteurs, registraires et chercheurs.
 
+Si le domaine de contact operateur est vide, setup propose des adresses par role sur le domaine court, par exemple `abuse@example.link`. Si vous entrez un domaine operateur, par exemple `example.com`, setup propose plutot les adresses par role sur ce domaine, par exemple `abuse@example.com`.
+
 ## Questions de setup
 
 Le Quickstart peut differer les pages confidentialite, conditions et securite autonome. Trust & Safety et `security.txt` peuvent quand meme etre publies avec un plus petit ensemble de reponses.
@@ -37,6 +40,7 @@ Le Quickstart peut differer les pages confidentialite, conditions et securite au
 | --- | --- | --- |
 | Configurer les pages confidentialite, conditions et securite maintenant? | Toujours | Determine si les pages confidentialite, conditions et securite autonome sont generees maintenant |
 | Operator legal name | Toujours | Identite publique de l'operateur affichee sur les pages de confiance et legales generees |
+| Operator domain for contact emails | Toujours | Domaine utilise pour proposer les contacts par role; vide utilise le domaine court |
 | Trust & Safety contact | Toujours | Adresse publique pour les signalements d'abus et de liens dangereux |
 | Trust & Safety response window | Toujours | Attente de bonne foi pour la revue des signalements |
 | Security contact | Toujours | Adresse pour les signalements de vulnerabilites et `/.well-known/security.txt` |

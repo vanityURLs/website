@@ -20,7 +20,7 @@ Utilisez cette page pour identifier les fichiers de configuration actuels et la 
 | [`package.json`](https://github.com/vanityURLs/code/blob/main/package.json) | Manifeste npm JSON | `scripts`, `devDependencies`, metadonnees du paquet | Produit |
 | `package-lock.json` | Lockfile npm JSON | Graphe de dependances verrouille genere par npm | Produit |
 | [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) | Configuration de site vanityURLs JSON, `schema_version: "1.0"` | Base produit pour `i18n`, `links`, et `operator` | Produit |
-| `custom/v8s-site-config.json` | Configuration de site vanityURLs JSON, `schema_version: "1.0"` | Surcharges d'instance pour `i18n`, `links`, `operator`, et `branding` | Instance |
+| `custom/v8s-site-config.json` | Configuration de site vanityURLs JSON, `schema_version: "1.0"` | Surcharges d'instance pour `i18n`, `links`, `operator`, et `branding`; `operator.operator_domain` peut piloter le domaine par defaut des contacts | Instance |
 | [`defaults/v8s-links.txt`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-links.txt) | Texte delimite par pipes | `slug\|target\|state\|title\|description\|tags\|owner\|expires_at\|notes` | Liens de depart produit |
 | `custom/v8s-links.txt` | Texte delimite par pipes | Meme format que `defaults/v8s-links.txt`; c'est la [source de verite redigee par un humain pour les liens](/fr/docs/reference/link-format/) | Instance |
 | [`defaults/v8s-schedules.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-schedules.json) | Horaire vanityURLs JSON | Objet indexe par slug; chaque valeur supporte `timezone`, `default`, des raccourcis comme `9to5`, et `rules[]` avec `label`, `timezone`, `days`, `from`, `to`, `target` | Horaires de depart produit |
@@ -67,8 +67,9 @@ Exemple :
   "operator": {
     "legal_name": "Example Inc.",
     "short_domain": "example.link",
-    "abuse_contact": "abuse@example.link",
-    "security_contact": "security@example.link",
+    "operator_domain": "example.com",
+    "abuse_contact": "abuse@example.com",
+    "security_contact": "security@example.com",
     "abuse_response_window": "5 business days",
     "legal_pages_enabled": false
   },
@@ -83,7 +84,7 @@ Exemple :
 }
 ```
 
-Des champs additifs peuvent apparaitre sans changer `schema_version`. Les changements de version de schema sont reserves aux changements incompatibles de configuration stockee qui demandent une migration; la decision est consignée dans les ADR du depot de code.
+Des champs additifs peuvent apparaitre sans changer `schema_version`. Les changements de version de schema sont reserves aux changements incompatibles de configuration stockee qui demandent une migration; la decision est consignée dans les ADR du depot de code. Les champs additifs sont suivis dans [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/docs/schema-changelog.md) du depot de code.
 
 Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.
 
