@@ -92,10 +92,10 @@ The interactive installer asks these questions:
 | Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
 | Cloudflare Access team domain | `team.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
 | Supported languages | `en,fr,es,it,de` | Comma-separated language codes for English, French, Spanish, Italian, and German. See [Languages](/docs/reference/i18n/) |
-| Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Footer & pages](/docs/customize/footer-pages/) during customization |
-| Operator legal name | `Example Inc.` | Simple operator name for phase 1. See [Footer & pages](/docs/customize/footer-pages/) |
+| Configure privacy, terms, and security pages now? | `N` | Use `N` for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
+| Operator legal name | `Example Inc.` | Simple operator name for phase 1. See [Jurisdiction](/docs/customize/jurisdiction/) |
 | Trust & Safety contact | `abuse@v8s.link` | Abuse reporting role address. Defaults to `abuse@<short-domain>` |
-| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. See [Footer & pages](/docs/customize/footer-pages/) |
+| Trust & Safety response window | `5 business days` | Simple response expectation for phase 1. See [Jurisdiction](/docs/customize/jurisdiction/) |
 | Security contact | `security@v8s.link` | Vulnerability reporting role address. Defaults to `security@<short-domain>` |
 | Copy default web pages to custom/public with a split-color domain wordmark? | `Y` | Copies editable public pages into `custom/public` and applies the wordmark split |
 | Black wordmark portion | `v8s.` | First part of the homepage wordmark |

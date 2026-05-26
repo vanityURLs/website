@@ -18,7 +18,7 @@ Vous n'avez pas besoin de tout personnaliser en meme temps. Commencez par la zon
 | Ajouter, inspecter ou mettre a jour les liens courts | [LNK](/fr/docs/command-line-interface/lnk/) et [Format des liens](/fr/docs/reference/link-format/) |
 | Ajouter des destinations selon le temps | [Liens planifies](/fr/docs/reference/schedules/) |
 | Decider quelles langues publier | [Internationalisation](/fr/docs/reference/i18n/) |
-| Configurer la juridiction et les contacts publics de confiance | [Pied de page et pages](/fr/docs/customize/footer-pages/) |
+| Configurer la juridiction et les contacts publics de confiance | [Juridiction](/fr/docs/customize/jurisdiction/) |
 | Proteger les chemins operationnels prives | [Controle d'acces](/fr/docs/customize/access-control/) |
 | Proteger le domaine avant que le trafic atteigne le Worker | [Protection reseau](/fr/docs/customize/network-protection/) |
 | Configurer les analytics de redirection | [Analytics](/fr/docs/customize/analytics/) |
