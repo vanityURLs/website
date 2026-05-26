@@ -29,7 +29,7 @@ vanityURLs keeps product defaults, instance-owned choices, local workstation set
 | --- | --- |
 | `i18n` | Default language and supported languages |
 | `operator` | Operator identity, contacts, legal-page mode, analytics disclosure, and response window |
-| `links` | Default generated slug length and tag-specific generated slug lengths for `lnk` |
+| `links` | Default generated slug length, readable alphabet, and tag-specific generated slug lengths for `lnk` |
 | `branding` | Short domain, installer-managed public-page flag, and split-color wordmark |
 
 Example:
@@ -42,8 +42,10 @@ Example:
   },
   "links": {
     "random_slug_length": 3,
+    "random_slug_alphabet": "34789abcdefghjkmnpqrstvwxy",
     "tag_random_slug_lengths": {
-      "social": 5
+      "training": 4,
+      "debug": 2
     }
   },
   "branding": {

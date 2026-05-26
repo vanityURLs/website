@@ -63,7 +63,7 @@ List commands accept `--format table` or `--format json`. Table is the default.
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-If you omit the slug, `lnk` generates one with the default random slug length from `custom/v8s-site-config.json`. `npm run setup` proposes `3`. Generated slugs use readable lowercase characters: `23456789abcdefghjkmnpqrstuvwxyz`.
+If you omit the slug, `lnk` generates one with the default random slug length from `custom/v8s-site-config.json`. `npm run setup` proposes `3`. Generated slugs use the configured readable alphabet. The product default is `34789abcdefghjkmnpqrstvwxy`.
 
 Override the length for one command with:
 
@@ -80,6 +80,8 @@ You can also configure tag-specific defaults:
 ```
 
 When a generated link has multiple tags with configured lengths, `lnk` uses the shortest matching tag length. An explicit `--random-slug-length` or `--slug-length` on the command line wins over tag and global defaults.
+
+The product defaults include `training` links at 4 characters and `debug` links at 2 characters.
 
 If the slug already exists, `lnk` shows the current entry and the proposed replacement, then asks whether to replace it. Use `--replace` to replace without prompting, or `--no-replace` to leave the existing entry unchanged.
 

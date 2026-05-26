@@ -29,7 +29,7 @@ vanityURLs garde les valeurs par défaut du produit, les choix propres à l'inst
 | --- | --- |
 | `i18n` | Langue par défaut et langues supportées |
 | `operator` | Identité opérateur, contacts, mode des pages légales, divulgation analytics et fenêtre de réponse |
-| `links` | Longueur par défaut des slugs générés et longueurs par tag pour `lnk` |
+| `links` | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk` |
 | `branding` | Domaine court, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
 
 Exemple :
@@ -42,8 +42,10 @@ Exemple :
   },
   "links": {
     "random_slug_length": 3,
+    "random_slug_alphabet": "34789abcdefghjkmnpqrstvwxy",
     "tag_random_slug_lengths": {
-      "social": 5
+      "training": 4,
+      "debug": 2
     }
   },
   "branding": {

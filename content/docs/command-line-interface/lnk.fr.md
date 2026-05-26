@@ -63,7 +63,7 @@ Les commandes de liste acceptent `--format table` ou `--format json`. Table est 
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-Si vous omettez le slug, `lnk` en genere un avec la longueur par defaut configuree dans `custom/v8s-site-config.json`. `npm run setup` propose `3`. Les slugs generes utilisent des caracteres minuscules lisibles : `23456789abcdefghjkmnpqrstuvwxyz`.
+Si vous omettez le slug, `lnk` en genere un avec la longueur par defaut configuree dans `custom/v8s-site-config.json`. `npm run setup` propose `3`. Les slugs generes utilisent l'alphabet lisible configure. La valeur produit par defaut est `34789abcdefghjkmnpqrstvwxy`.
 
 Remplacez la longueur pour une seule commande avec :
 
@@ -80,6 +80,8 @@ Vous pouvez aussi configurer des valeurs par defaut propres aux tags :
 ```
 
 Lorsqu'un lien genere possede plusieurs tags avec des longueurs configurees, `lnk` utilise la longueur la plus courte parmi les tags applicables. Un `--random-slug-length` ou `--slug-length` explicite dans la commande gagne sur les valeurs par tag et sur la valeur globale.
+
+Les valeurs produit par defaut configurent les liens `training` a 4 caracteres et les liens `debug` a 2 caracteres.
 
 Si le slug existe deja, `lnk` affiche l'entree actuelle et le remplacement propose, puis demande si vous voulez remplacer l'entree. Utilisez `--replace` pour remplacer sans question, ou `--no-replace` pour conserver l'entree existante.
 
