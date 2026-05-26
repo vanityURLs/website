@@ -1,0 +1,25 @@
+{{ $page := .Page }}
+{{ $sections := .Sections }}
+{{ $cur := $page.RelPermalink }}
+{{ $norm := strings.TrimSuffix "/" $cur }}
+
+<select data-action="navigate-on-change"
+        class="w-full text-sm border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2
+               bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300
+               focus:outline-none focus:ring-2 focus:ring-brand-500"
+        aria-label="{{ i18n "mobile_nav_label" }}">
+  {{ range $sections }}
+  <optgroup label="{{ .Title }}">
+    {{ $sectionURL := .RelPermalink }}
+    <option value="{{ $sectionURL }}"{{ if or (eq $cur $sectionURL) (eq $norm (strings.TrimSuffix "/" $sectionURL)) }} selected{{ end }}>
+      {{ .Title }}
+    </option>
+    {{ range .RegularPages.ByWeight }}
+    {{ $pageURL := .RelPermalink }}
+    <option value="{{ $pageURL }}"{{ if or (eq $cur $pageURL) (eq $norm (strings.TrimSuffix "/" $pageURL)) }} selected{{ end }}>
+      {{ .Title }}
+    </option>
+    {{ end }}
+  </optgroup>
+  {{ end }}
+</select>

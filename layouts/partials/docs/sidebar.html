@@ -1,0 +1,18 @@
+{{ $page := .Page }}
+{{ $sections := .Sections }}
+{{ $cur := $page.RelPermalink }}
+{{ $norm := strings.TrimSuffix "/" $cur }}
+
+{{ range $sections }}
+{{ $sectionURL := .RelPermalink }}
+{{ $sectionNorm := strings.TrimSuffix "/" $sectionURL }}
+{{ $sectionActive := or (eq $cur $sectionURL) (eq $norm $sectionNorm) }}
+<div class="mb-4">
+  <a href="{{ $sectionURL }}" class="sidebar-section-title{{ if $sectionActive }} active{{ end }} hover:text-brand-600 dark:hover:text-brand-400 transition-colors no-underline">{{ .Title }}</a>
+  {{ range .RegularPages.ByWeight }}
+  {{ $pageURL := .RelPermalink }}
+  {{ $pageActive := or (eq $cur $pageURL) (eq $norm (strings.TrimSuffix "/" $pageURL)) }}
+  <a href="{{ $pageURL }}" class="sidebar-link{{ if $pageActive }} active{{ end }}">{{ .Title }}</a>
+  {{ end }}
+</div>
+{{ end }}

@@ -2,7 +2,7 @@
 aside: false
 title: "Customize"
 description: "Plan the phase-2 customization work after the first vanityURLs deployment is online."
-weight: 10
+weight: 20
 aliases:
   - /docs/customize-overview/
 

@@ -2,7 +2,7 @@
 aside: false
 title: "Demo: v8s.link"
 description: "How the public v8s.link instance demonstrates the current vanityURLs defaults and Worker runtime."
-weight: 10
+weight: 50
 
 ---
 

@@ -2,7 +2,7 @@
 aside: false
 title: "Personnaliser"
 description: "Planifier la personnalisation de phase 2 apres la mise en ligne d'une premiere instance vanityURLs."
-weight: 10
+weight: 20
 aliases:
   - /docs/customize-overview/
 

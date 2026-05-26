@@ -1,0 +1,5 @@
+{{ $pages := slice }}
+{{ range .Sections }}
+  {{ $pages = $pages | append .RegularPages.ByWeight }}
+{{ end }}
+{{ return $pages }}
