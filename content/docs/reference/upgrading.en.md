@@ -39,7 +39,7 @@ The command:
 5. runs `npm run check`
 6. leaves a normal Git diff for review
 
-If `npm run check` fails, the upgrade may already have refreshed `defaults/` and `scripts/` before stopping. Run `git status --short` and inspect the error before retrying. If the failure is caused by a bug that has since been fixed upstream, rerun `npm run upgrade` after confirming the newer release or commit is available on GitHub. For example, vanityURLs 2.7.1 fixed legacy scanner keyword handling for trusted PHP destination URLs.
+If `npm run check` fails, the upgrade may already have refreshed `defaults/` and `scripts/` before stopping. Run `git status --short` and inspect the error before retrying. If the failure is caused by a bug that has since been fixed upstream, rerun `npm run upgrade` after confirming the newer release or commit is available on GitHub. For example, scanner keyword handling for trusted PHP destination URLs was fixed after 2.7.0.
 
 Then review and commit:
 
