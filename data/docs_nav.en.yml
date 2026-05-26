@@ -28,6 +28,8 @@ sections:
         url: /docs/reference/brand/
       - title: Configuration files
         url: /docs/reference/configuration-files/
+      - title: Glossary
+        url: /docs/reference/glossary/
       - title: Internationalization
         url: /docs/reference/i18n/
       - title: Link format

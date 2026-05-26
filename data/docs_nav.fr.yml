@@ -26,6 +26,8 @@ sections:
     pages:
       - title: Fichiers de configuration
         url: /docs/reference/configuration-files/
+      - title: Glossaire
+        url: /docs/reference/glossary/
       - title: Format des liens
         url: /docs/reference/link-format/
       - title: Internationalisation
