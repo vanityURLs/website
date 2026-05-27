@@ -234,12 +234,247 @@
         ],
         "website_documentation": "Document Workers analytics as the Cloudflare-side source for infrastructure request volume, errors, CPU and duration. Application-level redirects and misses belong to vanityURLs analytics."
       }
+    },
+    "DNS": {
+      "Records": {
+        "Recommendations": [
+          {
+            "message": "Add an A, AAAA, or CNAME record for www and optionally create a redirect rule to send visitors to v8s.link.",
+            "label": "New Alert",
+            "website_documentation": "Document the www decision as optional. The apex Worker record is the required redirector path."
+          }
+        ],
+        "DNS management": {
+          "dns_setup": "Full",
+          "controls": [
+            "Import and Export",
+            "Dashboard Display Settings",
+            "Add filter",
+            "Search DNS Records",
+            "Add record"
+          ],
+          "table_columns": [
+            "Type",
+            "Name",
+            "Content",
+            "Proxy status",
+            "TTL",
+            "Actions"
+          ],
+          "records": [
+            {"type": "MX", "name": "v8s.link", "content": ".", "proxy_status": "DNS only", "ttl": "1 hr"},
+            {"type": "TXT", "name": "v8s.link", "content": "v=spf1 -all", "proxy_status": "DNS only", "ttl": "1 hr"},
+            {"type": "TXT", "name": "_dmarc", "content": "v=DMARC1;p=reject;sp=reject;...", "proxy_status": "DNS only", "ttl": "1 hr"},
+            {"type": "TXT", "name": "*._domainkey", "content": "v=DKIM1; p=", "proxy_status": "DNS only", "ttl": "1 hr"},
+            {"type": "Worker", "name": "v8s.link", "content": "v8s-link", "proxy_status": "Proxied", "ttl": "Auto"}
+          ],
+          "website_documentation": "Document the proxied Worker record for the apex short domain and keep mail policy records DNS-only."
+        },
+        "Cloudflare Nameservers": [
+          "eve.ns.cloudflare.com",
+          "syeef.ns.cloudflare.com"
+        ]
+      },
+      "Analytics": {
+        "DNS queries": {
+          "controls": ["Add filter", "Print report", "Download data"],
+          "time_range": "Last 24 hours",
+          "query_overview_dimensions": [
+            "Query name",
+            "Query type",
+            "Response code",
+            "Data center",
+            "Source IP",
+            "Destination IP"
+          ],
+          "query_statistics": [
+            "Total queries",
+            "Average queries per second",
+            "Average processing time"
+          ],
+          "breakdowns": [
+            "DNS queries by data center",
+            "Queries by source",
+            "Query name",
+            "Response Code",
+            "Record type",
+            "Source IP",
+            "Destination IP",
+            "Transport Protocol",
+            "IP version"
+          ],
+          "website_documentation": "Mention as an optional diagnostic surface for DNS propagation and unexpected query patterns. Do not document captured counts as defaults."
+        }
+      },
+      "Settings": {
+        "DNSSEC": {
+          "default_state": "enabled",
+          "status": "Success! v8s.link is protected with DNSSEC.",
+          "action": "Disable DNSSEC",
+          "website_documentation": "Document DNSSEC as recommended when the registrar delegation is correctly configured."
+        },
+        "Multi-signer DNSSEC": {
+          "default_state": "off",
+          "website_documentation": "Do not document as a default requirement."
+        },
+        "Multi-provider DNS": {
+          "default_state": "off",
+          "website_documentation": "Do not document as a default requirement."
+        },
+        "Email Security": {
+          "available": true,
+          "action": "Configure",
+          "website_documentation": "Do not document Cloudflare Email Security as a redirector requirement."
+        }
+      }
+    },
+    "Email": {
+      "Email Routing": {
+        "state": "setup in progress",
+        "banner": "New: Email Routing has a new home. Start using the new UI today.",
+        "current_step": "Verify destination address",
+        "destination_address": "operator@example.com",
+        "destination_status": "Pending verification",
+        "actions": ["Resend email", "Previous", "Continue", "Skip getting started"],
+        "website_documentation": "Document email routing only when the operator wants Cloudflare to forward role addresses. It is not required for redirects."
+      },
+      "DMARC Management": {
+        "label": "Beta",
+        "default_state": "disabled",
+        "action": "Enable DMARC Management",
+        "capabilities": [
+          "Identify and track third-party senders",
+          "Prevent email spoofing and email phishing",
+          "Review deliverability reports for messages"
+        ],
+        "website_documentation": "Do not document Cloudflare DMARC Management as required; vanityURLs should document the DNS DMARC records instead."
+      },
+      "Email Security": {
+        "default_state": "disabled",
+        "action": "Launch Zero Trust Email Security",
+        "capabilities": [
+          "Stop phishing attacks before damage",
+          "Fits into any email security stack",
+          "DMARC Management"
+        ],
+        "website_documentation": "Do not document Cloudflare Email Security as required for a redirector."
+      }
+    },
+    "SSL/TLS": {
+      "Overview": {
+        "Advanced Certificate Manager": {
+          "available": true,
+          "default_state": "not active",
+          "action": "Activate"
+        },
+        "SSL/TLS encryption": {
+          "current_encryption_mode": "Flexible",
+          "automatic_mode": "enabled",
+          "action": "Configure",
+          "website_documentation": "Document Full strict as the desired production setting for vanityURLs, not the captured Flexible state."
+        },
+        "Traffic Served Over TLS": {
+          "time_range": "Last 24 hours",
+          "metrics": ["None (not secure)", "TLS v1.2", "TLS v1.3"],
+          "website_documentation": "Do not document captured traffic counts as defaults."
+        }
+      },
+      "Edge Certificates": {
+        "Manage Edge Certificates": {
+          "certificates": [
+            {"hosts": ["*.v8s.link", "v8s.link"], "type": "Advanced", "status": "Active", "expires_on": "2026-08-24", "managed": true},
+            {"hosts": ["*.v8s.link", "v8s.link"], "type": "Universal", "status": "Active", "expires_on": "2026-07-19", "managed": true},
+            {"hosts": ["*.v8s.link", "v8s.link"], "type": "Backup", "status": "Backup issued", "expires_on": "2026-09-28", "managed": true}
+          ],
+          "website_documentation": "Document Universal SSL as required and Advanced Certificate Manager as optional."
+        },
+        "Advanced Certificate Manager": {
+          "default_state": "not active",
+          "action": "Activate",
+          "website_documentation": "Do not document as a default requirement."
+        },
+        "Total TLS": {
+          "default_state": "off",
+          "requires": "Advanced Certificate Manager",
+          "website_documentation": "Do not document as a default requirement."
+        },
+        "Cipher suites": {
+          "requires": "Advanced Certificate Manager",
+          "website_documentation": "Do not document as a default requirement."
+        },
+        "Always Use HTTPS": {
+          "default_state": "off",
+          "website_documentation": "Document On as a recommended production setting."
+        },
+        "HTTP Strict Transport Security (HSTS)": {
+          "default_state": "off",
+          "action": "Enable HSTS",
+          "website_documentation": "Document as recommended after all production hostnames are HTTPS-ready."
+        },
+        "Minimum TLS Version": {
+          "default_state": "TLS 1.0 (default)",
+          "website_documentation": "Document TLS 1.2 or stricter as the desired production setting."
+        },
+        "Opportunistic Encryption": {
+          "default_state": "on",
+          "website_documentation": "Do not document as a vanityURLs requirement."
+        },
+        "TLS 1.3": {
+          "default_state": "on",
+          "website_documentation": "Document On as recommended."
+        },
+        "Automatic HTTPS Rewrites": {
+          "default_state": "on",
+          "website_documentation": "Document On as recommended."
+        },
+        "Certificate Transparency Monitoring": {
+          "default_state": "off",
+          "website_documentation": "Document as optional."
+        },
+        "Disable Universal SSL": {
+          "available": true,
+          "website_documentation": "Do not document except as something to avoid for normal instances."
+        }
+      },
+      "Client Certificates": {
+        "Cloudflare-issued": {
+          "Hosts": "None",
+          "certificates": [],
+          "actions": ["Create mTLS Rule", "Add Certificate"],
+          "website_documentation": "Do not document client certificates or mTLS as default public redirector requirements."
+        },
+        "BYOCA": {
+          "available": true
+        }
+      },
+      "Origin Server": {
+        "Origin Certificates": {
+          "certificates": [],
+          "actions": ["Create Certificate"],
+          "website_documentation": "Do not document origin certificates for a Worker-only redirector."
+        },
+        "Authenticated Origin Pulls": {
+          "available": true,
+          "website_documentation": "Do not document unless an external origin is introduced."
+        }
+      },
+      "Custom Hostnames": {
+        "default_state": "disabled",
+        "action": "Enable Cloudflare for SaaS",
+        "included_custom_hostnames": 100,
+        "website_documentation": "Do not document as a default requirement for a single operator-owned short domain."
+      }
     }
   },
   "website_documentation_scope": {
     "document": [
       "Keep Cloudflare Managed robots.txt off when the vanityURLs repository ships robots.txt.",
       "Confirm /robots.txt returns 200 OK after deployment.",
+      "Use the proxied Worker DNS record for the apex short domain.",
+      "Keep mail policy DNS records DNS-only.",
+      "Use DNSSEC when the registrar delegation is configured correctly.",
+      "Use Full strict SSL/TLS mode, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites and a minimum TLS version of 1.2 or stricter for production.",
+      "Enable HSTS only after every production hostname and subdomain is ready for HTTPS.",
       "Use AI Crawl Control Security toggles only when the operator intentionally wants Cloudflare to block specific crawlers before the Worker.",
       "Use Cloudflare Security Events and Analytics for traffic blocked before the Worker.",
       "Use Workers analytics for infrastructure request volume, errors, CPU time, wall time and duration.",
@@ -250,6 +485,10 @@
       "Default Cloudflare dashboard cards.",
       "Cloudflare Web Analytics RUM enablement.",
       "Argo Smart Routing.",
+      "Cloudflare Email Routing, DMARC Management and Email Security.",
+      "Advanced Certificate Manager, Total TLS, cipher suites, client certificates, origin certificates and custom hostnames.",
+      "DNS analytics captured counts and traffic breakdowns from the sample zone.",
+      "Captured TLS traffic counts from the sample zone.",
       "Per-crawler activity counts from an idle zone."
     ]
   }

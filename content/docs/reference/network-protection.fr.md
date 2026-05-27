@@ -24,6 +24,9 @@ Utilisez la capture pour suivre les changements de menus Cloudflare, mais docume
 | AI Crawl Control > Security | Traiter les interrupteurs de blocage des crawlers comme controles edge optionnels, pas comme exigences de configuration par defaut. |
 | Analytics > Workers | Utiliser pour le volume de requetes d'infrastructure cote Cloudflare, les erreurs, le temps CPU, le wall time et la duree. |
 | Analytics > Dashboards, Web analytics et Performance | Mentionner seulement comme surfaces de revue optionnelles; vanityURLs ne requiert pas Cloudflare RUM ni Argo Smart Routing. |
+| DNS > Records et Settings | Documenter le record Worker apex, les records de politique courriel en DNS-only et DNSSEC quand la delegation registrar est prete. |
+| Email | Ne pas documenter Cloudflare Email Routing, DMARC Management ou Email Security comme exigences du redirecteur. |
+| SSL/TLS > Overview et Edge Certificates | Documenter les reglages de production vises, pas l'etat capture : Full strict, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites, TLS minimum 1.2 ou plus strict, et HSTS apres que les hostnames soient prets pour HTTPS. |
 | Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
 
 ## DNS
