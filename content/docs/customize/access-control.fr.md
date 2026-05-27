@@ -12,7 +12,7 @@ Utilisez Cloudflare Access pour protéger les chemins opérationnels de vanityUR
 
 Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins; consultez [Stocker l'audience Access](#stocker-laudience-access) ci-dessous. Si le secret est absent ou invalide, le chemin protégé échoue fermé.
 
-![le chemin protégé échoue fermé](./cf-access-not-configured.fr.png)
+![le chemin protégé échoue fermé](../cf-access-not-configured.fr.png)
 
 Ne commitez pas d'information sensible comme les audiences Access, les secrets client IdP, les jetons de service, les secrets client OAuth ou les captures d'écran qui contiennent ces valeurs.
 

@@ -9,9 +9,7 @@ aliases:
 ---
 Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)? No rush; this page can wait with unusual patience.
 
-<p>
-  An <dfn id="idempotent-installer">idempotent installer</dfn> can be run repeatedly without requiring a fresh clone. Use simple answers during the Quickstart; <code>npm run setup</code> reads your existing configuration, shows previous answers as defaults, and updates the same generated files. See the <a href="/en/docs/reference/glossary/#idempotent">glossary definition</a>.
-</p>
+An {{< dfn id="idempotent" text="idempotent" >}} installer can be run repeatedly without requiring a fresh clone. Use simple answers during the Quickstart; `npm run setup` reads your existing configuration, shows previous answers as defaults, and updates the same generated files. See the [glossary definition](/docs/reference/glossary/#idempotent).
 
 The maintainers insisted that the steps below use a pertinent stuff instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named [v8s.link](/docs/v8s-link/) to demonstrate what works without ambiguity.
 

@@ -12,7 +12,7 @@ Use Cloudflare Access to protect the vanityURLs operational paths while keeping 
 
 The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths; refer to [Store the Access audience](#store-the-access-audience) below. If the secret is missing or invalid, the protected path fails closed.
 
-![protected path fails closed](./cf-access-not-configured.png)
+![protected path fails closed](../cf-access-not-configured.png)
 
 Do not commit sensitive information such as Access audiences, IdP client secrets, service tokens, OAuth client secrets, or screenshots that contain those values.
 

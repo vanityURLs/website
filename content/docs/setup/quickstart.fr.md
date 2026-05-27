@@ -9,9 +9,7 @@ aliases:
 ---
 Allons-y. Avez-vous les prérequis de [Configuration](/fr/docs/setup/) ? Pas de stress; cette page peut attendre avec une patience presque suspecte.
 
-<p>
-  Un <dfn id="installateur-idempotent">installateur idempotent</dfn> peut être relancé sans exiger un nouveau clone. Utilisez des réponses simples pendant le démarrage rapide; <code>npm run setup</code> lit votre configuration existante, affiche vos réponses précédentes comme valeurs par défaut et met à jour les mêmes fichiers générés. Consultez la <a href="/fr/docs/reference/glossary/#idempotent">définition du glossaire</a>.
-</p>
+Un installateur {{< dfn id="idempotent" text="idempotent" >}} peut être relancé sans exiger un nouveau clone. Utilisez des réponses simples pendant le démarrage rapide; `npm run setup` lit votre configuration existante, affiche vos réponses précédentes comme valeurs par défaut et met à jour les mêmes fichiers générés. Consultez la [définition du glossaire](/fr/docs/reference/glossary/#idempotent).
 
 Les mainteneurs ont insisté pour que les étapes ci-dessous utilisent des valeurs pertinentes au lieu d'une pile de placeholders `example.com` qui laisse tout le monde perplexe et en besoin d'un verre. Nous avons donc créé une instance démo nommée [v8s.link](/fr/docs/v8s-link/) pour démontrer ce qui fonctionne sans ambiguïté.
 

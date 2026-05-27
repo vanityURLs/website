@@ -1,0 +1,35 @@
+{{- $id := .Get "id" | default (.Get 0) -}}
+{{- $text := .Get "text" | default "" -}}
+{{- $lang := cond (hasPrefix .Page.Language.Lang "fr") "fr" "en" -}}
+{{- $data := dict -}}
+{{- with index hugo.Data (printf "glossary.%s" $lang) -}}
+  {{- $data = . -}}
+{{- end -}}
+{{- if not $data -}}
+  {{- with index hugo.Data (printf "glossary.%s" "en") -}}
+    {{- $data = . -}}
+  {{- end -}}
+{{- end -}}
+{{- $entry := dict -}}
+{{- range $data.terms -}}
+  {{- if eq .id $id -}}
+    {{- $entry = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (not $entry) $data.abbreviations -}}
+  {{- range $data.abbreviations -}}
+    {{- if eq .id $id -}}
+      {{- $entry = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $text -}}
+  {{- $text = cond $entry $entry.term $id -}}
+{{- end -}}
+{{- $definition := "" -}}
+{{- with $entry -}}
+  {{- $definition = .definition | markdownify | plainify -}}
+{{- else -}}
+  {{- warnf "dfn shortcode could not find glossary entry %q on %s" $id .Page.File.Path -}}
+{{- end -}}
+<dfn id="{{ $id }}"{{ with $definition }} data-definition="{{ . }}" aria-label="{{ $text }}: {{ . }}"{{ end }}>{{ $text }}</dfn>
