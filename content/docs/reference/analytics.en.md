@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Analytics reference"
+title: "Analytics"
 description: "Server-side analytics events, provider payloads, IP modes, and blocked-traffic behavior in vanityURLs."
 weight: 55
 aliases:

@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Référence Analytics"
+title: "Analytics"
 description: "Événements analytics serveur, payloads fournisseur, modes IP et comportement du trafic bloqué dans vanityURLs."
 weight: 55
 aliases:

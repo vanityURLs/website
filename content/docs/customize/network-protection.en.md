@@ -10,7 +10,7 @@ aliases:
 
 Use this page when you are ready to configure Cloudflare controls in front of the Worker. Network protection keeps commodity abuse, unexpected methods, scanner probes, unwanted crawlers, and infrastructure noise away from application code.
 
-For exact Cloudflare settings and WAF expressions, read [Network protection reference](/docs/reference/network-protection/). For the layered security rationale, read [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/).
+For exact Cloudflare settings and WAF expressions, read [Network protection](/docs/reference/network-protection/). For the layered security rationale, read [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/).
 
 {{% steps %}}
 

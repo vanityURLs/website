@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Reference protection reseau"
+title: "Protection reseau"
 description: "Reglages Cloudflare DNS, TLS, WAF, crawlers, caching et analytics qui protegent une zone vanityURLs avant que le trafic atteigne le Worker."
 weight: 59
 aliases:

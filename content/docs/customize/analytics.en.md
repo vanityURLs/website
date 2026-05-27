@@ -11,7 +11,7 @@ weight: 30
 
 Use server-side analytics when you want redirect and page activity without adding browser tracking JavaScript. vanityURLs sends analytics from the Worker with `ctx.waitUntil()`, so provider failures should not delay redirects.
 
-For provider selection and privacy tradeoffs, read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/). For event names, provider payloads, IP handling, and blocked-traffic behavior, read [Analytics reference](/docs/reference/analytics/).
+For provider selection and privacy tradeoffs, read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/). For event names, provider payloads, IP handling, and blocked-traffic behavior, read [Analytics](/docs/reference/analytics/).
 
 {{% steps %}}
 

@@ -10,7 +10,7 @@ aliases:
 
 Use policy and blocklist customization when your instance needs local trust-and-safety decisions beyond the product defaults.
 
-For the trust-and-safety rationale, read [Protecting the reputation of a short-link domain](/blog/protecting-the-reputation-of-a-short-link-domain/). For source file selection, categories, generated feeds, runtime artifacts, and field behavior, read [Policy and blocklist reference](/docs/reference/policy-blocklist/).
+For the trust-and-safety rationale, read [Protecting the reputation of a short-link domain](/blog/protecting-the-reputation-of-a-short-link-domain/). For source file selection, categories, generated feeds, runtime artifacts, and field behavior, read [Policy and blocklist](/docs/reference/policy-blocklist/).
 
 {{% steps %}}
 

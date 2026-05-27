@@ -75,4 +75,4 @@ Cloudflare Access n'est pas la seule couche qui limite l'acces aux fichiers oper
 
 Cloudflare devrait rejeter les abus courants avant que le Worker s'execute. Utilisez [Protection reseau](/fr/docs/customize/network-protection/) pour le flux operateur autour des WAF custom rules, rate limiting, Bot Fight Mode, controles crawler IA, Browser Integrity Check, managed rules, et reglages de domaine associes. Utilisez [Controle d'acces](/fr/docs/customize/access-control/) pour les chemins operationnels prives.
 
-Gardez la blocklist Worker comme fallback, pas comme premiere ligne de defense contre les abus a fort volume. Les reglages canoniques pour WAF, crawlers IA, Rules, Network, DNS, SSL/TLS, Security, Caching, et analytics Cloudflare vivent dans [Reference protection reseau](/fr/docs/reference/network-protection/).
+Gardez la blocklist Worker comme fallback, pas comme premiere ligne de defense contre les abus a fort volume. Les reglages canoniques pour WAF, crawlers IA, Rules, Network, DNS, SSL/TLS, Security, Caching, et analytics Cloudflare vivent dans [Protection reseau](/fr/docs/reference/network-protection/).

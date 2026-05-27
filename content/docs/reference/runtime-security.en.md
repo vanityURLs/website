@@ -75,4 +75,4 @@ Cloudflare Access is not the only layer that limits operational file access. Kee
 
 Cloudflare should reject commodity abuse before the Worker runs. Use [Network protection](/docs/customize/network-protection/) for the operator workflow around WAF custom rules, rate limiting, Bot Fight Mode, AI crawler controls, Browser Integrity Check, managed rules, and related domain settings. Use [Access control](/docs/customize/access-control/) for private operational paths.
 
-Keep the Worker blocklist as the fallback, not the first line of defense for high-volume abuse. The canonical WAF, AI crawler, Rules, Network, DNS, SSL/TLS, Security, Caching, and Cloudflare analytics settings live in [Network protection reference](/docs/reference/network-protection/).
+Keep the Worker blocklist as the fallback, not the first line of defense for high-volume abuse. The canonical WAF, AI crawler, Rules, Network, DNS, SSL/TLS, Security, Caching, and Cloudflare analytics settings live in [Network protection](/docs/reference/network-protection/).
