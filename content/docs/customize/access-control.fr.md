@@ -116,17 +116,10 @@ npm run check
 
 Après le déploiement, répétez le test de navigateur déconnecté contre le vrai domaine court.
 
-### Connaître les autres gardes de fichiers
+### Revoir les autres gardes de fichiers
 
-Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
+Cloudflare Access n'est pas la seule couche qui limite l'acces aux fichiers operationnels. Pour le tableau complet des gardes, lisez [Securite runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Gardez l'accès contrôlé sur `/_stats` et `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime activés, sauf si vous avez une **raison délibérée de divulgation publique**.
-
-| Contrôle | Chemins | Ce qu'il fait |
-|---|---|---|
-| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Retourne `404` pour les requêtes publiques directes |
-| Fallback statique `_headers` | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
-| API stats protégée | `/_stats/api/v8s.json` | Expose le registre généré seulement à travers la surface stats protégée |
-| Validation des slugs réservés | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empêche la création de liens courts sous les chemins opérationnels réservés |
+Gardez l'acces controle sur `/_stats` et `/_tests`, les entrees de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actives, sauf si vous avez une **raison deliberee de divulgation publique**.
 
 {{% /steps %}}

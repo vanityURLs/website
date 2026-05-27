@@ -60,8 +60,19 @@ Le registre genere et la politique runtime sont traites comme des donnees, pas c
 
 Les headers par defaut incluent `X-Generated-By: vanityURLs.link`. Si vous surchargez `custom/public/_headers`, gardez cette identite de generation, des regles cache et securite compatibles, et les blocages des fichiers runtime bruts sauf raison explicite.
 
+## Gardes des fichiers operationnels
+
+Cloudflare Access n'est pas la seule couche qui limite l'acces aux fichiers operationnels. Gardez l'acces controle sur `/_stats` et `/_tests`, les entrees de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actives, sauf si vous avez une raison deliberee de divulgation publique.
+
+| Controle | Chemins | Ce qu'il fait |
+|---|---|---|
+| Garde Worker des assets runtime prives | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Retourne `404` pour les requetes publiques directes |
+| Fallback statique `_headers` | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Ajoute des en-tetes no-cache et no-index si des assets statiques sont servis directement |
+| API stats protegee | `/_stats/api/v8s.json` | Expose le registre genere seulement a travers la surface stats protegee |
+| Validation des slugs reserves | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empeche la creation de liens courts sous les chemins operationnels reserves |
+
 ## Controles edge Cloudflare
 
-Cloudflare devrait rejeter les abus courants avant que le Worker s'execute. Utilisez [Protection reseau](/fr/docs/customize/network-protection/) pour les WAF custom rules, rate limiting, Bot Fight Mode, controles crawler IA, Browser Integrity Check, managed rules, et les reglages de domaine associes. Utilisez [Controle d'acces](/fr/docs/customize/access-control/) pour les chemins operationnels prives.
+Cloudflare devrait rejeter les abus courants avant que le Worker s'execute. Utilisez [Protection reseau](/fr/docs/customize/network-protection/) pour le flux operateur autour des WAF custom rules, rate limiting, Bot Fight Mode, controles crawler IA, Browser Integrity Check, managed rules, et reglages de domaine associes. Utilisez [Controle d'acces](/fr/docs/customize/access-control/) pour les chemins operationnels prives.
 
-Gardez la blocklist Worker comme fallback, pas comme premiere ligne de defense contre les abus a fort volume. Les recommandations canoniques pour WAF, crawlers IA, Rules, Network, DNS, SSL/TLS, Security, Caching, et analytics Cloudflare vivent dans [Protection reseau](/fr/docs/customize/network-protection/).
+Gardez la blocklist Worker comme fallback, pas comme premiere ligne de defense contre les abus a fort volume. Les reglages canoniques pour WAF, crawlers IA, Rules, Network, DNS, SSL/TLS, Security, Caching, et analytics Cloudflare vivent dans [Reference protection reseau](/fr/docs/reference/network-protection/).
