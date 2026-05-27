@@ -8,7 +8,7 @@ draft: true
 ---
 > I built an open source url shortener, it's available on https://www.VanityURLS.link, https://github.com/vanityURLs/code and https://github.com/vanityURLs/website.
 
-For example, the offical redirector example is at https://vanityurls.link and my personal instance at dicai.re
+For example, the official redirector example is at https://vanityurls.link and my personal instance at dicai.re
 
 I'll copy a zip of both public repo so you'll have the context.
 
@@ -22,7 +22,7 @@ What are the statements / pages including content requires on their redirector i
 
 Currently, it seems like Privacy, Terms ,Abuse, and Security pages might works although it's only based on gut feeling and some content can probably be consolidated on one page.
 
-## Let me check what the Worker actually does with visitor data and what analytics paths exist.
+## Worker visitor data and analytics paths
 
 Keep Privacy and Terms separate. They do different legal jobs — Privacy is a disclosure under data-protection regimes (PIPEDA, Law 25, GDPR, CCPA), Terms is a unilateral contract limiting liability and reserving the operator's right to disable links. Conflating them weakens both, and tools that scan domains for compliance (and registrars enforcing their AUP) look for the named pages. Abuse and Security can defensibly merge into a single "Report" or "Trust & Safety" page if the deployer wants to consolidate — they're both inbound reporting channels with different severities. The only reason to keep /security as its own URL is that security.txt already points at it via the Policy: field, and CERT-style scanners expect a stable path. So my recommendation: keep all four for any public-facing instance, allow a /legal bundle (with #privacy, #terms, #abuse, #security anchors) as a documented mode for personal/non-commercial deployers.
 

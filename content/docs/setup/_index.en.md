@@ -8,11 +8,11 @@ aliases:
 
 ---
 
-The pages in this setup section are for operators who want to build and run their own vanityURLs instance from the code available in the [vanityURLs/code](https://github.com/vanityURLs/code) repository.
+Let's manage your short links with your own instance of vanityURLs. The pages in this setup section are for operators who want to build and run an instance from the code available in the [vanityURLs/code](https://github.com/vanityURLs/code) repository.
 
-The objective is to get a plain instance running on Cloudflare Workers in about 20 minutes once you have the prerequisites listed below. Quickstart focuses on that happy path: get the redirector deployed first, then refine branding, legal pages, analytics, access control, and link inventory during customization.
+The objective is to get a plain instance up and running in 20 minutes or less once you have the prerequisites listed below.
 
-That happy path is:
+Quickstart focuses on that happy path:
 
 1. Choose a short domain
 2. Put that domain on Cloudflare DNS
@@ -34,4 +34,4 @@ Before starting, make sure you have these pieces ready:
 - **A password manager** to store sensitive information such as the Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information
 - **Optional analytics**. The supported solutions are [Fathom](https://usefathom.com/) and [Umami](https://umami.is/). You can enable it during the customization phase, such as phase 2. Read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/) before creating an analytics account
 
-If you get stuck while setting up your instance, compare your work with the public demo instance in [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link). Then continue through [Quickstart](/docs/setup/quickstart/) with simple answers; you can refine them during [customization](/docs/customize/).
+If you get stuck while setting up your instance, compare your work with the public demo instance in [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link). Then continue through [Quickstart](/docs/setup/quickstart/); you can always change your mind during [customization](/docs/customize/).

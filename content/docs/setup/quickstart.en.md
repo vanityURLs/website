@@ -8,9 +8,11 @@ aliases:
 
 ---
 
-This Quickstart is the hands-on setup sequence for a plain vanityURLs instance. Start with the simple path, get the redirector deployed, then refine branding, legal pages, analytics, access control, and link inventory during customization.
+Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)? No rush; this page can wait with unusual patience.
 
-The activities below use example values from the `v8s.link` demo instance. It is configured and documented as an inspiration point while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, operator identity, and email addresses with the values for your own instance. Detailed `v8s.link` configuration will live in the [v8s.link reference](/docs/demo/) section as the reference instance matures.
+The maintainers insisted that the steps below use a pertinent short domain, GitHub account, repository name, Cloudflare team domain, operator domain, and email addresses instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named `v8s.link` to demonstrate what works without ambiguity.
+
+Use the `v8s.link` values as examples while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, operator identity, and email addresses with the values for your own instance. If you get stuck, compare your work with the public demo instance in [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link).
 
 | Assumption | Example used below |
 | --- | --- |
