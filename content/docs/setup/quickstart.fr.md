@@ -153,9 +153,21 @@ La commande setup écrit déjà le domaine d'équipe Access dans `wrangler.toml`
 CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
 
+### Configurer la protection réseau
+
+Configurez les contrôles de zone Cloudflare qui protègent le domaine court avant que le trafic atteigne le Worker. Pour le démarrage rapide, gardez seulement la base :
+
+1. Confirmez que le domaine court utilise le record Worker Custom Domain proxifié dans **DNS**
+2. Établissez la base HTTPS dans **SSL/TLS**, incluant Full strict, Always Use HTTPS, TLS 1.3 et une version TLS minimale de 1.2 ou plus stricte
+3. Activez les contrôles de sécurité simples dans **Security**, comme Bot Fight Mode, Browser Integrity Check, les règles gérées Cloudflare et `security.txt`
+4. Ajoutez des règles WAF pour les probes de scanners, les méthodes HTTP inattendues, les clients suspects, les crawlers IA non désirés et les échecs répétés de liens courts
+5. Gardez la mise en cache conservatrice afin que les décisions de redirection restent dans le Worker
+
+Suivez [Protection réseau](/fr/docs/customize/network-protection/) pour les menus Cloudflare exacts, les valeurs recommandées et les exemples d'expressions WAF. Le trafic bloqué par Cloudflare n'atteint pas les analytics vanityURLs; consultez ces événements dans Cloudflare Security Events.
+
 ### Optionnel : tester localement
 
-Avant de pousser le commit du secret Access, vous pouvez lancer le Worker localement :
+Avant de pousser le commit Access et protection réseau, vous pouvez lancer le Worker localement :
 
 ```bash
 npm run dev
@@ -168,7 +180,7 @@ Wrangler démarre un serveur de développement local afin que vous puissiez vér
 ```bash
 npm run check
 git add .
-git commit -m "configure Cloudflare Access"
+git commit -m "configure Cloudflare Access and network protection"
 git push
 ```
 

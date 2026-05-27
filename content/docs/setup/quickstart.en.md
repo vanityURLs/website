@@ -153,9 +153,21 @@ The setup command already writes the Access team domain to `wrangler.toml`. Conf
 CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 ```
 
+### Configure network protection
+
+Configure the Cloudflare zone controls that protect the short domain before traffic reaches the Worker. Quickstart only needs the baseline:
+
+1. Confirm the short domain uses the proxied Worker Custom Domain record in **DNS**
+2. Set the HTTPS baseline in **SSL/TLS**, including Full strict, Always Use HTTPS, TLS 1.3, and a minimum TLS version of 1.2 or stricter
+3. Enable the boring security controls in **Security**, such as Bot Fight Mode, Browser Integrity Check, Cloudflare managed rules, and `security.txt`
+4. Add WAF rules for scanner probes, unexpected HTTP methods, suspicious clients, unwanted AI crawlers, and repeated short-link misses
+5. Keep caching conservative so redirect decisions stay in the Worker
+
+Follow [Network protection](/docs/customize/network-protection/) for the exact Cloudflare menus, recommended values, and example WAF expressions. Traffic blocked by Cloudflare does not reach vanityURLs analytics; review those events in Cloudflare Security Events.
+
 ### Optional: test locally
 
-Before pushing the Access secret commit, you can run the Worker locally:
+Before pushing the Access and network protection commit, you can run the Worker locally:
 
 ```bash
 npm run dev
@@ -168,7 +180,7 @@ Wrangler starts a local development server so you can check the homepage, genera
 ```bash
 npm run check
 git add .
-git commit -m "configure Cloudflare Access"
+git commit -m "configure Cloudflare Access and network protection"
 git push
 ```
 

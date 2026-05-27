@@ -1,8 +1,57 @@
 {{ define "main" }}
-<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <article class="prose prose-gray dark:prose-invert max-w-none" data-pagefind-body>
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
+{{ $lang := .Site.Language.Lang }}
+{{ $data := index hugo.Data (printf "faq.%s" $lang) }}
+{{ $groups := $data.groups | default slice }}
+{{ $count := 0 }}
+{{ range $groups }}{{ $count = add $count (len (.items | default slice)) }}{{ end }}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <header class="mb-10">
+    <p class="text-sm font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300 mb-3">
+      {{ $count }} {{ if eq $lang "fr" }}questions{{ else }}questions{{ end }}
+    </p>
+    <h1 class="text-4xl font-bold tracking-tight text-gray-950 dark:text-gray-50 mb-4">{{ .Title }}</h1>
+    <p class="text-lg leading-8 text-gray-600 dark:text-gray-300 max-w-3xl">
+      {{ $data.intro | default .Description }}
+    </p>
+  </header>
+
+  {{ if gt (len $groups) 0 }}
+  <nav class="not-prose mb-10 flex flex-wrap gap-2" aria-label="{{ if eq $lang "fr" }}Sections FAQ{{ else }}FAQ sections{{ end }}">
+    {{ range $groups }}
+    {{ $items := .items | default slice }}
+    <a href="#{{ .title | anchorize }}"
+       class="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors hover:border-brand-300 hover:text-brand-700 dark:border-gray-700 dark:text-gray-300 dark:hover:border-brand-500 dark:hover:text-brand-300">
+      <span>{{ .title }}</span>
+      <span class="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-400">{{ len $items }}</span>
+    </a>
+    {{ end }}
+  </nav>
+  {{ end }}
+
+  <article class="space-y-12" data-pagefind-body>
+    {{ range $groupIndex, $group := $groups }}
+    {{ $items := $group.items | default slice }}
+    <section id="{{ $group.title | anchorize }}" class="scroll-mt-24">
+      <div class="mb-5 flex items-end justify-between gap-4 border-b border-gray-200 pb-3 dark:border-gray-800">
+        <h2 class="text-2xl font-semibold tracking-tight text-gray-950 dark:text-gray-50">{{ $group.title }}</h2>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{ len $items }}</span>
+      </div>
+      <div class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white dark:divide-gray-800 dark:border-gray-800 dark:bg-gray-950">
+        {{ range $itemIndex, $item := $items }}
+        <details class="group"{{ if and (eq $groupIndex 0) (eq $itemIndex 0) }} open{{ end }}>
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-gray-900 transition-colors hover:text-brand-700 dark:text-gray-100 dark:hover:text-brand-300">
+            <span>{{ $item.question }}</span>
+            <span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-gray-300 text-gray-500 transition-transform group-open:rotate-45 dark:border-gray-700 dark:text-gray-400" aria-hidden="true">+</span>
+          </summary>
+          <div class="prose prose-gray dark:prose-invert max-w-none px-5 pb-5 pt-0 text-[0.95rem]">
+            {{ $item.answer | markdownify }}
+          </div>
+        </details>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
   </article>
 </div>
 {{ end }}
