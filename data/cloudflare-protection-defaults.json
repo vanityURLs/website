@@ -1087,6 +1087,14 @@
         {"name": "Network Error Logging", "default_state": "on", "website_documentation": "Document On."},
         {"name": "Onion Routing", "default_state": "on", "website_documentation": "Document On."}
       ]
+    },
+    "Web3": {
+      "Web3 Gateways": {
+        "default_state": "not subscribed",
+        "action": "Subscribe to Web3 Gateways",
+        "description": "Web3, or the distributed web, is a set of technologies that enables hosting content and web applications in a serverless manner by leveraging distributed systems and consensus protocols.",
+        "website_documentation": "Do not document Web3 Gateways as required for a vanityURLs redirector."
+      }
     }
   },
   "website_documentation_scope": {
@@ -1132,7 +1140,8 @@
       "Zone-level Workers Routes as a default requirement when the Worker custom domain is active.",
       "Rules templates, Snippets, Cloud Connector, legacy Page Rules, Bulk Redirects and Cloudflare Custom Errors as default requirements.",
       "True-Client-IP and visitor IP/location managed transforms as default requirements.",
-      "Per-crawler activity counts from an idle zone."
+      "Per-crawler activity counts from an idle zone.",
+      "Web3 Gateways as a default requirement."
     ]
   }
 }

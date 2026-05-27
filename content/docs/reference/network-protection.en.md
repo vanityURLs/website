@@ -34,6 +34,7 @@ Use the capture to track Cloudflare menu changes, but document only the settings
 | Workers Routes | Do not document zone-level Workers Routes as required when the Worker custom domain is active for the apex short domain. |
 | Rules | Document URL normalization and carefully chosen modern Rules; do not make templates, Snippets, Cloud Connector, legacy Page Rules, Bulk Redirects, or Custom Errors part of default setup. |
 | Network | Document the simple network posture: IPv6, IP Geolocation, Network Error Logging, and Onion Routing on; gRPC and Pseudo IPv4 off; WebSockets off unless a custom page needs them. |
+| Web3 | Do not document Web3 Gateways as required for a vanityURLs redirector. |
 | Captured metric values | Do not document idle-zone zeros or per-crawler counts as defaults. |
 
 ## DNS

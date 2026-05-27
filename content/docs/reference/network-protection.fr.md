@@ -34,6 +34,7 @@ Utilisez la capture pour suivre les changements de menus Cloudflare, mais docume
 | Workers Routes | Ne pas documenter les Workers Routes de zone comme requis quand le Worker custom domain est actif pour le domaine court apex. |
 | Rules | Documenter URL normalization et les Rules modernes choisies avec prudence; ne pas integrer les templates, Snippets, Cloud Connector, Page Rules legacy, Bulk Redirects ou Custom Errors a la configuration par defaut. |
 | Network | Documenter la posture reseau simple : IPv6, IP Geolocation, Network Error Logging et Onion Routing actifs; gRPC et Pseudo IPv4 desactives; WebSockets desactive sauf si une page custom en a besoin. |
+| Web3 | Ne pas documenter Web3 Gateways comme requis pour un redirecteur vanityURLs. |
 | Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
 
 ## DNS
