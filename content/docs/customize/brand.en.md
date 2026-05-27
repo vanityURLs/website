@@ -9,11 +9,11 @@ aliases:
 
 ---
 
-Branding controls the public wordmark, the short line under generated legal and trust pages, and the default public assets copied into `custom/public/`.
+Branding controls the public wordmark, the short line under generated legal and trust pages, and the default public assets copied into `custom/public/` at build time.
 
-Use this page before or during `npm run setup` when you are ready to make the instance look like your domain instead of the upstream product defaults.
+You can customize during `npm run setup` or by manually updating files in `custom/`.
 
-## What to decide first
+If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated pages link the operator legal name inside the slogan to that domain. For example, `A short-link service for Example Inc.'s projects` can link `Example Inc.` to `https://example.com`.
 
 | Decision | Phase 1 recommendation | Later customization |
 | --- | --- | --- |
@@ -23,8 +23,6 @@ Use this page before or during `npm run setup` when you are ready to make the in
 | Copy default web pages to `custom/public`? | Use `Y` for a first instance | Use `N` when custom pages already exist and should not be overwritten |
 | Black wordmark portion | Domain prefix, such as `v8s.` | Use the portion that should render in the dark brand color |
 | Green wordmark portion | Domain suffix, such as `link` | Use the portion that should render in vanityURLs teal |
-
-If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated pages link the operator legal name inside the slogan to that domain. For example, `A short-link service for Example Inc.'s projects` can link `Example Inc.` to `https://example.com`.
 
 ## Setup questions
 

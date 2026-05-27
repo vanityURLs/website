@@ -11,11 +11,11 @@ aliases:
 
 ---
 
-La marque controle le wordmark public, la courte ligne sous les pages legales et de confiance generees, et les assets publics par defaut copies dans `custom/public/`.
+La marque contrôle le wordmark public, la courte ligne sous les pages légales et de confiance générées, et les assets publics par défaut copiés dans `custom/public/` au moment du build.
 
-Utilisez cette page avant ou pendant `npm run setup` lorsque vous voulez que l'instance ressemble a votre domaine plutot qu'aux defaults du produit upstream.
+Vous pouvez personnaliser pendant `npm run setup` ou en mettant à jour manuellement les fichiers dans `custom/`.
 
-## Decider d'abord
+Si `operator.operator_domain` est défini dans `custom/v8s-site-config.json`, les pages générées lient le nom légal de l'opérateur dans le slogan vers ce domaine. Par exemple, `Un service de liens courts pour les projets de Example Inc.` peut lier `Example Inc.` vers `https://example.com`.
 
 | Decision | Recommandation phase 1 | Personnalisation ulterieure |
 | --- | --- | --- |
@@ -25,8 +25,6 @@ Utilisez cette page avant ou pendant `npm run setup` lorsque vous voulez que l'i
 | Copier les pages web par defaut vers `custom/public`? | Utilisez `Y` pour une premiere instance | Utilisez `N` lorsque des pages custom existent deja et ne doivent pas etre remplacees |
 | Portion noire du wordmark | Prefixe du domaine, comme `v8s.` | Utilisez la portion qui doit apparaitre dans la couleur de marque sombre |
 | Portion verte du wordmark | Suffixe du domaine, comme `link` | Utilisez la portion qui doit apparaitre en teal vanityURLs |
-
-Si `operator.operator_domain` est defini dans `custom/v8s-site-config.json`, les pages generees lient le nom legal de l'operateur dans le slogan vers ce domaine. Par exemple, `Un service de liens courts pour les projets de Example Inc.` peut lier `Example Inc.` vers `https://example.com`.
 
 ## Questions de setup
 
