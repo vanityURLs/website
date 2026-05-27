@@ -26,7 +26,7 @@ Avant de commencer, assurez-vous d'avoir ces éléments prêts :
 
 ### Enregistrer un domaine court
 
-Utilisez un domaine que vous reserverez seulement aux redirections, comme `ex.am`. Si vous n'en avez pas encore choisi, lisez [Choisir un domaine court pour les redirections](/fr/blog/choosing-a-short-domain-for-redirects/).
+Utilisez un domaine que vous reserverez seulement aux redirections, comme `ex.am`. Si vous n'en avez pas encore choisi, lisez [Choisir un domaine court pour les redirections](/en/blog/choosing-a-short-domain-for-redirects/).
 
 ### Preparer un compte GitHub
 

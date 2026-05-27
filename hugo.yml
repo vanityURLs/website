@@ -32,7 +32,7 @@ languages:
             - name: Documentation
               url: /docs/
             - name: Try the Demo
-              url: /docs/demo/
+              url: /docs/v8s-link/
         col3:
           title: Community
           links:
@@ -81,7 +81,7 @@ languages:
             - name: Documentation
               url: /docs/
             - name: Essayer la démo
-              url: /docs/demo/
+              url: /docs/v8s-link/
         col3:
           title: Communauté
           links:

@@ -13,7 +13,7 @@ Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)?
   An <dfn id="idempotent-installer">idempotent installer</dfn> can be run repeatedly without requiring a fresh clone. Use simple answers during the Quickstart; <code>npm run setup</code> reads your existing configuration, shows previous answers as defaults, and updates the same generated files. See the <a href="/en/docs/reference/glossary/#idempotent">glossary definition</a>.
 </p>
 
-The maintainers insisted that the steps below use a pertinent stuff instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named [v8s.link](/docs/demo/) to demonstrate what works without ambiguity.
+The maintainers insisted that the steps below use a pertinent stuff instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named [v8s.link](/docs/v8s-link/) to demonstrate what works without ambiguity.
 
 {{% steps %}}
 

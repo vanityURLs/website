@@ -1,8 +1,10 @@
 ---
 aside: false
-title: "v8s.link demo"
+title: "v8s.link"
 description: "Official demo instance for building and debugging your own vanityURLs instance."
 weight: 50
+aliases:
+  - /docs/demo/
 
 ---
 

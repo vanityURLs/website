@@ -1,9 +1,10 @@
 ---
-aside: false
 title: "Demo configuration"
 description: "Configuration values used by the public v8s.link demo instance."
 weight: 10
-
+aside: false
+aliases:
+  - /docs/demo/configuration/
 ---
 
 The source repository is [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link), and the deployed instance is [https://v8s.link](https://v8s.link). The demo intentionally does not configure analytics, final legal copy, jurisdiction-specific privacy and terms pages, or finished branding. Refer to the documentation for the customization.
@@ -12,10 +13,10 @@ Quickstart uses the demo values to ensure that commands stay concrete. Needless 
 
 | File | What to inspect |
 |---|---|
-| [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json) | Instance settings created by `npm run setup` |
-| [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/wrangler.toml) | Worker name, build command, Access team domain, route, and custom domain |
 | [`custom/public/en/index.html`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Copied homepage with the split-color domain wordmark |
 | [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt) | Human-authored source of truth for short links |
+| [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json) | Instance settings created by `npm run setup` |
+| [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/wrangler.toml) | Worker name, build command, Access team domain, route, and custom domain |
 
 When your instance behaves differently, compare your `custom/` files to the demo before digging into `defaults/`.
 
@@ -25,9 +26,10 @@ When your instance behaves differently, compare your `custom/` files to the demo
 | --- | --- |
 | Short domain | `v8s.link` |
 | Local directory | `v8s-link` |
+| Worker name | `v8s-link` |
 | GitHub account name | [https://github.com/vanityURLs](https://github.com/vanityURLs) |
 | Repository | [`vanityURLs/v8s.link`](https://github.com/vanityURLs/v8s.link) |
-| Worker name | `v8s-link` |
+
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` |
 | Operator legal name | `Benoît H. Dicaire` |
 | Operator domain for contact emails | `vanityurls.link` |
@@ -35,8 +37,8 @@ When your instance behaves differently, compare your `custom/` files to the demo
 | Security contact | `security@vanityurls.link` |
 | Supported languages | `de,en,es,fr,it`, with English as the fallback |
 | Analytics | Disabled |
-| Legal and jurisdiction pages | Deferred |
 | Branding | Split-color domain wordmark is `v8s.` and `link`; no slogan |
+| Legal and jurisdiction pages | Deferred |
 
 ## Link inventory
 
