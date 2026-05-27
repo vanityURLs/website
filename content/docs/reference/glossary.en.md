@@ -5,6 +5,6 @@ description: "Definitions for common vanityURLs terms used across the documentat
 weight: 32
 ---
 
-This glossary defines the terms used across vanityURLs documentation. Use it when a page mentions a concept before explaining the file or workflow behind it.
+The glossary defines the terms and abbreviations used on the web site.
 
 {{< glossary >}}

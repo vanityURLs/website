@@ -40,7 +40,7 @@
   <h2>{{ $abbrTitle }}</h2>
   <dl>
     {{- range $data.abbreviations }}
-      <dt><dfn id="{{ .id }}"><abbr title="{{ .term }}">{{ .abbr }}</abbr></dfn></dt>
+      <dt><dfn id="{{ .id }}"><abbr class="no-underline" title="{{ .term }}">{{ .abbr }}</abbr> &larr; {{ .term }}</dfn></dt>
       <dd>{{ .definition | markdownify }}</dd>
     {{- end }}
   </dl>

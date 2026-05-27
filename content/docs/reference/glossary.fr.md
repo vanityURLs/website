@@ -5,6 +5,6 @@ description: "Definitions des termes vanityURLs utilises dans la documentation, 
 weight: 32
 ---
 
-Ce glossaire definit les termes utilises dans la documentation vanityURLs. Utilisez-le lorsqu'une page mentionne un concept avant d'expliquer le fichier ou le workflow associe.
+Le glossaire definit les termes et abreviations utilises sur le site web.
 
 {{< glossary >}}
