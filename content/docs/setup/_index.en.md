@@ -43,7 +43,7 @@ Use a Cloudflare account for DNS and Workers services. You can use an existing a
 
 Use Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, jq, and your preferred text editor.
 
-### Prepare a password manager
+### Use a password manager
 
 Store sensitive information such as the Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information.
 
