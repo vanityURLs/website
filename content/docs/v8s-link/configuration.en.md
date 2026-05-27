@@ -29,7 +29,6 @@ When your instance behaves differently, compare your `custom/` files to the demo
 | Worker name | `v8s-link` |
 | GitHub account name | [https://github.com/vanityURLs](https://github.com/vanityURLs) |
 | Repository | [`vanityURLs/v8s.link`](https://github.com/vanityURLs/v8s.link) |
-
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` |
 | Operator legal name | `Benoît H. Dicaire` |
 | Operator domain for contact emails | `vanityurls.link` |

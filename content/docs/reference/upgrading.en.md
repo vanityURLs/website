@@ -1,59 +1,26 @@
 ---
 aside: false
 title: "Upgrading an instance"
-description: "Keep custom instance files safe while refreshing vanityURLs defaults and scripts from upstream."
+description: "Refresh vanityURLs product files with npm run upgrade while preserving instance-owned configuration."
 weight: 100
 aliases:
   - /docs/upgrading/
 
 ---
 
-Installing a vanityURLs instance is easy. Updating one safely is the part that needs a repeatable workflow, because the instance owner should keep links, branding, policy, and Cloudflare configuration while receiving new defaults, scripts, fixes, and security hardening.
+Use `npm run upgrade` to refresh an existing vanityURLs instance. The command updates the product-owned files and leaves your instance-owned files alone.
 
-If you are moving an older Cloudflare Pages `_redirects` instance to the current Worker runtime, use [Migrating from Cloudflare Pages redirects to vanityURLs Workers](/blog/migrating-from-cloudflare-pages-redirects/).
-
-The rule is simple:
-
-- instance-owned files live in `custom/`
-- Cloudflare deployment settings live in `wrangler.toml`
-- generated output is disposable
-- upstream product files live in `defaults/` and `scripts/`
-- generated Worker entry files live in `src/`
-
-## Upgrade command
-
-Run from a clean worktree:
+Run it from a clean worktree:
 
 ```bash
 npm run upgrade
 ```
 
-`npm run update` is a convenience alias for the same upgrade workflow.
+The command fetches the configured upstream source, refreshes product files such as `defaults/` and `scripts/`, runs the project checks, and leaves a normal Git diff for review.
 
-The command:
+## What stays yours
 
-1. refuses to run if local changes are present
-2. runs `npm run clean` first
-3. fetches the configured upstream ref
-4. replaces product-owned paths, currently `defaults/` and `scripts/`
-5. runs `npm run check`
-6. leaves a normal Git diff for review
-
-If `npm run check` fails, the upgrade may already have refreshed `defaults/` and `scripts/` before stopping. Run `git status --short` and inspect the error before retrying. If the failure is caused by a bug that has since been fixed upstream, rerun `npm run upgrade` after confirming the newer release or commit is available on GitHub. For example, scanner keyword handling for trusted PHP destination URLs was fixed after 2.7.0.
-
-Then review and commit:
-
-```bash
-git status --short
-git diff
-git add defaults scripts
-git commit -m "chore: upgrade vanityurls runtime"
-git push
-```
-
-## Protected local files
-
-The upgrade tool refuses to replace:
+The upgrade workflow does not replace:
 
 - `custom/`
 - `wrangler.toml`
@@ -61,4 +28,19 @@ The upgrade tool refuses to replace:
 - Cloudflare secrets
 - generated `build/` output
 
-That keeps local links, legal pages, privacy policy, source policy, branding, Access settings, analytics IDs, local helper paths, and deployment shape under the instance owner's control.
+That keeps your links, branding, policies, legal pages, Access configuration, analytics settings, and deployment shape under your control.
+
+## Review and publish
+
+After the command finishes:
+
+```bash
+git status --short
+git diff
+npm run check
+git add defaults scripts
+git commit -m "chore: upgrade vanityurls runtime"
+git push
+```
+
+If the command stops, read the error and inspect `git status --short` before retrying. If you are migrating an older Cloudflare Pages `_redirects` instance to the Worker runtime, read [Migrating from Cloudflare Pages redirects to vanityURLs Workers](/blog/migrating-from-cloudflare-pages-redirects/) first.
