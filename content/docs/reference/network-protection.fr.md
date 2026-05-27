@@ -32,6 +32,8 @@ Utilisez la capture pour suivre les changements de menus Cloudflare, mais docume
 | Speed | Documenter HTTP/2, HTTP/3, HTTP/2 to Origin, TLS 1.3 et les diagnostics optionnels; ne pas exiger RUM, Smart Shield, Origin Analytics, Argo, Polish, Zaraz ou les scores de tests captures. |
 | Caching | Documenter les defauts conservateurs : les redirections dynamiques restent dans le Worker, Development Mode reste desactive sauf pendant le debogage, et les regles de cache pour redirections exigent des tests explicites des etats, horaires, analytics et misses. |
 | Workers Routes | Ne pas documenter les Workers Routes de zone comme requis quand le Worker custom domain est actif pour le domaine court apex. |
+| Rules | Documenter URL normalization et les Rules modernes choisies avec prudence; ne pas integrer les templates, Snippets, Cloud Connector, Page Rules legacy, Bulk Redirects ou Custom Errors a la configuration par defaut. |
+| Network | Documenter la posture reseau simple : IPv6, IP Geolocation, Network Error Logging et Onion Routing actifs; gRPC et Pseudo IPv4 desactives; WebSockets desactive sauf si une page custom en a besoin. |
 | Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
 
 ## DNS

@@ -32,6 +32,8 @@ Use the capture to track Cloudflare menu changes, but document only the settings
 | Speed | Document HTTP/2, HTTP/3, HTTP/2 to Origin, TLS 1.3, and optional diagnostics; do not require RUM, Smart Shield, Origin Analytics, Argo, Polish, Zaraz, or captured test scores. |
 | Caching | Document conservative defaults: dynamic redirects stay in the Worker, Development Mode stays off except while debugging, and cache rules for redirects need explicit lifecycle and analytics testing. |
 | Workers Routes | Do not document zone-level Workers Routes as required when the Worker custom domain is active for the apex short domain. |
+| Rules | Document URL normalization and carefully chosen modern Rules; do not make templates, Snippets, Cloud Connector, legacy Page Rules, Bulk Redirects, or Custom Errors part of default setup. |
+| Network | Document the simple network posture: IPv6, IP Geolocation, Network Error Logging, and Onion Routing on; gRPC and Pseudo IPv4 off; WebSockets off unless a custom page needs them. |
 | Captured metric values | Do not document idle-zone zeros or per-crawler counts as defaults. |
 
 ## DNS
