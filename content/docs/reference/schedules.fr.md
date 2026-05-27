@@ -2,7 +2,7 @@
 aside: false
 title: "Liens planifies"
 description: "Configurer des liens exacts sensibles au temps avec v8s-schedules.json et le registre v8s.json genere."
-weight: 90
+weight: 70
 aliases:
   - /docs/schedules/
 

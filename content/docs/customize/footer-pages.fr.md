@@ -2,7 +2,7 @@
 aside: false
 title: "Pied de page et pages"
 description: "Comprendre les réponses de setup utilisées pour générer les liens de pied de page, confidentialité, conditions, Trust & Safety, sécurité et security.txt."
-weight: 60
+weight: 50
 aliases:
   - /docs/footer-pages/
   - /docs/legal-trust-pages/

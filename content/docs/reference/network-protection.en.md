@@ -2,7 +2,7 @@
 aside: false
 title: "Network protection"
 description: "Cloudflare DNS, TLS, WAF, crawler, caching, and analytics settings that protect a vanityURLs short-link zone before traffic reaches the Worker."
-weight: 59
+weight: 70
 aliases:
   - /docs/reference/cloudflare-network-protection/
 

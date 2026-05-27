@@ -2,7 +2,7 @@
 aside: false
 title: "Repository layout"
 description: "How a current vanityURLs instance is organized around product defaults, instance-owned custom files, build output, local tooling, and Worker source."
-weight: 60
+weight: 90
 aliases:
   - /docs/repository-layout/
 

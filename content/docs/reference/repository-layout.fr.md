@@ -2,7 +2,7 @@
 aside: false
 title: "Structure du dépôt"
 description: "Comment une instance vanityURLs actuelle est organisée autour des defaults produit, fichiers custom, sorties générées, outillage local et source Worker."
-weight: 60
+weight: 110
 aliases:
   - /docs/repository-layout/
 

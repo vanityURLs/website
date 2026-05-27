@@ -2,7 +2,7 @@
 aside: false
 title: "Configuration files"
 description: "Reference the vanityURLs source, custom, local, and generated configuration files."
-weight: 30
+weight: 20
 aliases:
   - /docs/configuration-files/
 

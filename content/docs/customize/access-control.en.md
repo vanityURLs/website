@@ -2,7 +2,7 @@
 aside: false
 title: "Access control"
 description: "Configure Cloudflare Access for private vanityURLs operational paths."
-weight: 20
+weight: 10
 aliases:
   - /docs/access-control/
 

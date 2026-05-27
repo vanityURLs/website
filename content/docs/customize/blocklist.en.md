@@ -2,7 +2,7 @@
 aside: false
 title: "Policy and blocklist"
 description: "Configure instance allow and block policy for target URLs, shortener loops, malware hosts, risky schemes, and local overrides."
-weight: 40
+weight: 70
 aliases:
   - /docs/blocklist/
 

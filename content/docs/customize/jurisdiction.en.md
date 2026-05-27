@@ -2,7 +2,7 @@
 aside: false
 title: "Jurisdiction"
 description: "Decide the operator, jurisdiction, governing law, and trust contacts used by generated vanityURLs public pages."
-weight: 70
+weight: 50
 aliases:
   - /docs/jurisdiction/
 

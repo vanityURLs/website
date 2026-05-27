@@ -2,7 +2,7 @@
 aside: false
 title: "Upgrading an instance"
 description: "Refresh vanityURLs product files with npm run upgrade while preserving instance-owned configuration."
-weight: 100
+weight: 120
 aliases:
   - /docs/upgrading/
 

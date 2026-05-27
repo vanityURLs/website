@@ -2,7 +2,7 @@
 aside: false
 title: "Mettre à jour une instance"
 description: "Rafraîchir les fichiers produit vanityURLs avec npm run upgrade tout en préservant la configuration propre à l'instance."
-weight: 100
+weight: 80
 aliases:
   - /docs/upgrading/
 

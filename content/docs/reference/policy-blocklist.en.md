@@ -2,7 +2,7 @@
 aside: false
 title: "Policy and blocklist"
 description: "Source policy files, runtime blocklist artifacts, categories, generated feeds, and validation behavior in vanityURLs."
-weight: 57
+weight: 80
 aliases:
   - /docs/blocklist-policy/
   - /docs/reference/blocklist/

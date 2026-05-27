@@ -6,7 +6,7 @@ aliases:
   - /docs/analytics/
   - /docs/server-side-analytics/
   - /fr/docs/server-side-analytics/
-weight: 20
+weight: 10
 
 ---
 

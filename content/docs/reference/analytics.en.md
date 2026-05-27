@@ -2,7 +2,7 @@
 aside: false
 title: "Analytics"
 description: "Server-side analytics events, provider payloads, IP modes, and blocked-traffic behavior in vanityURLs."
-weight: 55
+weight: 10
 aliases:
   - /docs/reference/server-side-analytics/
 

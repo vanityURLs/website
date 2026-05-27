@@ -5,7 +5,7 @@ description: "Configure server-side analytics for vanityURLs redirects, misses, 
 aliases:
   - /docs/analytics/
   - /docs/server-side-analytics/
-weight: 30
+weight: 20
 
 ---
 

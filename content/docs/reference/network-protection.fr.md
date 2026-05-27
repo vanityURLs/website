@@ -2,7 +2,7 @@
 aside: false
 title: "Protection reseau"
 description: "Reglages Cloudflare DNS, TLS, WAF, crawlers, caching et analytics qui protegent une zone vanityURLs avant que le trafic atteigne le Worker."
-weight: 59
+weight: 100
 aliases:
   - /docs/reference/cloudflare-network-protection/
 

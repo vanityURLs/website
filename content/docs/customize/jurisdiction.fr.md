@@ -2,7 +2,7 @@
 aside: false
 title: "Juridiction"
 description: "Decider l'operateur, la juridiction, le droit applicable et les contacts de confiance utilises par les pages publiques generees de vanityURLs."
-weight: 70
+weight: 30
 aliases:
   - /docs/jurisdiction/
 

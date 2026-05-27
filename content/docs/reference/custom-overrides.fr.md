@@ -2,7 +2,7 @@
 aside: false
 title: "Surcharges custom"
 description: "Associer les fichiers propres à l'instance sous custom/ aux pages vanityURLs qui documentent chaque surface de personnalisation."
-weight: 58
+weight: 120
 aliases:
   - /docs/custom-overrides/
   - /fr/docs/custom-overrides/

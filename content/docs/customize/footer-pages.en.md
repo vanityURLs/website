@@ -2,7 +2,7 @@
 aside: false
 title: "Footer & pages"
 description: "Understand the setup answers used to generate footer links, privacy, terms, Trust & Safety, security, and security.txt pages."
-weight: 60
+weight: 40
 aliases:
   - /docs/footer-pages/
   - /docs/legal-trust-pages/

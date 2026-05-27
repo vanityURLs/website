@@ -2,7 +2,7 @@
 aside: false
 title: "Custom overrides"
 description: "Map instance-owned files under custom/ to the vanityURLs pages that document each customization surface."
-weight: 58
+weight: 30
 aliases:
   - /docs/custom-overrides/
   - /docs/customize/custom-overrides/

@@ -2,7 +2,7 @@
 aside: false
 title: "Brand"
 description: "Decide the public branding values used by installer-managed vanityURLs pages."
-weight: 35
+weight: 30
 aliases:
   - /docs/brand/
   - /docs/reference/brand/

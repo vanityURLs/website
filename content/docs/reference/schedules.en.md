@@ -2,7 +2,7 @@
 aside: false
 title: "Scheduled links"
 description: "Configure time-aware exact links with v8s-schedules.json and the generated v8s.json registry."
-weight: 90
+weight: 110
 aliases:
   - /docs/schedules/
 

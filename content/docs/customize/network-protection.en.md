@@ -2,7 +2,7 @@
 aside: false
 title: "Network protection"
 description: "Configure the Cloudflare domain controls that protect a vanityURLs short-link zone before traffic reaches the Worker."
-weight: 80
+weight: 60
 aliases:
   - /docs/network-protection/
 

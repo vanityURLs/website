@@ -2,7 +2,7 @@
 aside: false
 title: "Approche securite du runtime"
 description: "Comment le Worker vanityURLs reste petit, deterministe et defensif a la peripherie."
-weight: 80
+weight: 20
 aliases:
   - /docs/runtime-security/
 
