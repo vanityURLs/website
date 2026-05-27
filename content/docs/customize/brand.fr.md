@@ -17,43 +17,26 @@ Vous pouvez personnaliser pendant `npm run setup` ou en mettant à jour manuelle
 
 Si `operator.operator_domain` est défini dans `custom/v8s-site-config.json`, les pages générées lient le nom légal de l'opérateur dans le slogan vers ce domaine. Par exemple, `Un service de liens courts pour les projets de Example Inc.` peut lier `Example Inc.` vers `https://example.com`.
 
-| Decision | Recommandation phase 1 | Personnalisation ulterieure |
-| --- | --- | --- |
-| Configurer la marque maintenant? | Utilisez `Y` lorsque vous voulez des pages publiques gerees par l'installateur | Utilisez `N` lorsque vous maintenez deja `custom/public/` a la main |
-| Ligne de slogan | Utilisez `Y` lorsque vous voulez une courte ligne sous le wordmark du domaine | Utilisez `N` lorsque le wordmark du domaine doit rester seul |
-| Slogan par langue | Utilisez les valeurs localisees generees lorsqu'elles conviennent | Gardez chaque slogan assez durable pour apparaitre sur les pages confiance, confidentialite, conditions et securite |
-| Copier les pages web par defaut vers `custom/public`? | Utilisez `Y` pour une premiere instance | Utilisez `N` lorsque des pages custom existent deja et ne doivent pas etre remplacees |
-| Portion noire du wordmark | Prefixe du domaine, comme `v8s.` | Utilisez la portion qui doit apparaitre dans la couleur de marque sombre |
-| Portion verte du wordmark | Suffixe du domaine, comme `link` | Utilisez la portion qui doit apparaitre en teal vanityURLs |
-
 ## Questions de setup
 
-| Question de setup | Quand elle apparait | Ce que cela controle |
-| --- | --- | --- |
-| Configure branding now? | Toujours | Determine si setup pose les questions de marque maintenant |
-| Add a slogan line under the domain name on your pages...? | Lorsque la marque est activee | Determine si les pages generees incluent une courte ligne sous le wordmark du domaine bicolore |
-| Brand slogan `[language]` | Lorsque la ligne de slogan est activee | Texte localise affiche sous le wordmark du domaine bicolore sur les pages publiques generees |
-| Copy default web pages to custom/public with a split-color domain wordmark? | Lorsque la marque est activee | Determine si setup copie les pages publiques modifiables dans `custom/public/` et applique le wordmark bicolore |
-| Black wordmark portion | Lorsque les pages publiques copiees sont activees | Premiere partie du wordmark de la page d'accueil et des pages publiques |
-| Green wordmark portion | Lorsque les pages publiques copiees sont activees | Deuxieme partie du wordmark de la page d'accueil et des pages publiques |
+| Question de setup | Quand elle apparaît | Recommandation phase 1 | Personnalisation ultérieure | Ce que cela contrôle |
+| --- | --- | --- | --- | --- |
+| Configure branding now? | Toujours | Utilisez `Y` lorsque vous voulez des pages publiques gérées par l'installateur | Utilisez `N` lorsque vous maintenez déjà `custom/public/` à la main | Détermine si setup pose les questions de marque maintenant |
+| Add a slogan line under the domain name on your pages...? | Lorsque la marque est activée | Utilisez `Y` lorsque vous voulez une courte ligne sous le wordmark du domaine | Utilisez `N` lorsque le wordmark du domaine doit rester seul | Détermine si les pages générées incluent une courte ligne sous le wordmark du domaine bicolore |
+| Brand slogan `[language]` | Lorsque la ligne de slogan est activée | Utilisez les valeurs localisées générées lorsqu'elles conviennent | Gardez chaque slogan assez durable pour apparaître sur les pages confiance, confidentialité, conditions et sécurité | Texte localisé affiché sous le wordmark du domaine bicolore sur les pages publiques générées |
+| Copy default web pages to custom/public with a split-color domain wordmark? | Lorsque la marque est activée | Utilisez `Y` pour une première instance | Utilisez `N` lorsque des pages custom existent déjà et ne doivent pas être remplacées | Détermine si setup copie les pages publiques modifiables dans `custom/public/` et applique le wordmark bicolore |
+| Black wordmark portion | Lorsque les pages publiques copiées sont activées | Préfixe du domaine, comme `v8s.` | Utilisez la portion qui doit apparaître dans la couleur de marque sombre | Première partie du wordmark de la page d'accueil et des pages publiques |
+| Green wordmark portion | Lorsque les pages publiques copiées sont activées | Suffixe du domaine, comme `link` | Utilisez la portion qui doit apparaître en teal vanityURLs | Deuxième partie du wordmark de la page d'accueil et des pages publiques |
 
 Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs de marque existantes et les propose comme defauts, donc vous pouvez commencer avec la separation generee et raffiner les assets plus tard.
 
 Les slogans localises sont stockes dans `custom/v8s-site-config.json` sous `branding.slogan`. Les instances existantes qui ont encore un seul slogan texte continuent de fonctionner; setup ecrit la map localisee lors des nouveaux passages de branding.
 
-Lorsque la marque est activee, l'installateur peut copier les pages publiques modifiables dans `custom/public`, ajouter un slogan localise sous les wordmarks des pages publiques generees et separer le wordmark du domaine en un prefixe fonce et un suffixe vert :
-
-![Exemple de wordmark de domaine bicolore](/images/docs/split-color-domain-wordmark.svg)
-
 ## Systeme visuel vanityURLs
 
-<div class="brand-system">
-  <section class="brand-hero">
-    <p class="brand-kicker">Reference de marque</p>
-    <p class="brand-title">Systeme visuel vanityURLs</p>
-    <p class="brand-lede">Cette page documente les assets de marque, couleurs et fichiers de badges actuels. Pour le recit de personnalisation, lisez <a href="/fr/blog/branding-your-short-link-domain/">Habiller votre domaine court</a>.</p>
-  </section>
+Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fichiers de badges localisés, les notes de typographie, la configuration du wordmark d'instance et les surcharges d'assets propres à l'instance. Pour le récit de personnalisation, lisez [Habiller votre domaine court](/fr/blog/branding-your-short-link-domain/).
 
+<div class="brand-system">
   <section class="brand-section">
     <h2>Couleurs des badges</h2>
     <p>Les badges de redirection utilisent des fonds transparents. Utilisez le badge clair sur une surface claire et le badge sombre sur une surface sombre.</p>
@@ -133,21 +116,16 @@ Lorsque la marque est activee, l'installateur peut copier les pages publiques mo
 
   <section class="brand-section">
     <h2>Typographie</h2>
-    <div class="brand-grid">
-      <div class="brand-panel">
-        <h3>Polices actuelles du site</h3>
-        <p>Le site auto-heberge Inter Variable pour l'interface et les textes, puis JetBrains Mono pour le code. Les fichiers vivent sous <code>/static/fonts/</code> et sont declares dans <code>assets/css/main.css</code>.</p>
-      </div>
-      <div class="brand-panel">
-        <h3>Reference typographique</h3>
-        <p>L'implementation <code>bhdicaire-com</code> utilise Red Hat Display, Red Hat Text, Red Hat Mono et Source Serif 4 avec des tokens fluides de type Utopia. Cette page reprend seulement l'approche fluide, limitee a <code>.brand-system</code>, pour garder le reste du site stable jusqu'a la mise a jour des logos.</p>
-      </div>
-    </div>
+    <h3>Polices actuelles du site</h3>
+    <p>Le site auto-héberge Inter Variable pour l'interface et les textes, puis JetBrains Mono pour le code. Les fichiers vivent sous <code>/static/fonts/</code> et sont déclarés dans <code>assets/css/main.css</code>.</p>
+    <h3>Référence typographique</h3>
+    <p>L'implémentation <code>bhdicaire-com</code> utilise Red Hat Display, Red Hat Text, Red Hat Mono et Source Serif 4 avec des tokens fluides de type Utopia. Cette page reprend seulement l'approche fluide, limitée à <code>.brand-system</code>, pour garder le reste du site stable jusqu'à la mise à jour des logos.</p>
   </section>
 
   <section class="brand-section">
     <h2>Configuration du wordmark d'instance</h2>
     <p>Les instances gerees par l'installateur peuvent stocker un wordmark en deux couleurs dans <code>custom/v8s-site-config.json</code>. La portion verte devrait utiliser le teal vanityURLs sauf si l'instance a un systeme local volontaire.</p>
+    <p>Lorsque la marque est activée, l'installateur peut copier les pages publiques modifiables dans <code>custom/public</code>, ajouter un slogan localisé sous les wordmarks des pages publiques générées et séparer le wordmark du domaine en un préfixe foncé et un suffixe vert.</p>
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",
@@ -161,30 +139,37 @@ Lorsque la marque est activee, l'installateur peut copier les pages publiques mo
     }
   }
 }</code></pre>
+    <p><img src="/images/docs/split-color-domain-wordmark.svg" alt="Exemple de wordmark de domaine bicolore"></p>
   </section>
 
   <section class="brand-section">
     <h2>Surcharges d'assets d'instance</h2>
     <p>Placez les assets de marque propres a l'instance sous <code>custom/public/</code> pour qu'ils remplacent les assets publics par defaut pendant le build.</p>
-    <pre class="brand-code"><code>custom/public/v8s-logo.svg
-custom/public/favicon.svg
-custom/public/site.webmanifest
-custom/public/apple-touch-icon.png
-custom/public/icon-192.png
-custom/public/icon-512.png</code></pre>
+{{< filetree/container >}}
+{{< filetree/folder name="custom" >}}
+  {{< filetree/folder name="public" annotation="surcharges d'assets publics propres à l'instance" >}}
+    {{< filetree/file name="v8s-logo.svg" >}}
+    {{< filetree/file name="favicon.svg" >}}
+    {{< filetree/file name="site.webmanifest" >}}
+    {{< filetree/file name="apple-touch-icon.png" >}}
+    {{< filetree/file name="icon-192.png" >}}
+    {{< filetree/file name="icon-512.png" >}}
+  {{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}
   </section>
 
   <section class="brand-section">
     <h2>Notes d'usage</h2>
-    <div class="brand-grid">
-      <div class="brand-panel">
-        <h3>A faire</h3>
-        <p>Utilisez les badges SVG, gardez les fonds transparents, conservez le texte localise, et lancez <code>npm run optimize:badges</code> apres modification des SVG de badge par defaut dans le depot code.</p>
-      </div>
-      <div class="brand-panel">
-        <h3>A eviter</h3>
-        <p>Ne rasterisez pas les badges, n'ajoutez pas de fond opaque, ne recolorez pas une seule langue, et ne traitez pas les logos actuels comme definitifs pendant la mise a jour.</p>
-      </div>
-    </div>
+    <ul>
+      <li>Utilisez les badges SVG.</li>
+      <li>Gardez les fonds de badge transparents.</li>
+      <li>Conservez le texte localisé.</li>
+      <li>Lancez <code>npm run optimize:badges</code> après modification des SVG de badge par défaut dans le dépôt code.</li>
+      <li>Ne rasterisez pas les badges.</li>
+      <li>N'ajoutez pas de fond opaque.</li>
+      <li>Ne recolorez pas une seule langue.</li>
+      <li>Ne traitez pas les logos actuels comme définitifs pendant la mise à jour.</li>
+    </ul>
   </section>
 </div>

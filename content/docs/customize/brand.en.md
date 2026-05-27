@@ -15,43 +15,26 @@ You can customize during `npm run setup` or by manually updating files in `custo
 
 If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated pages link the operator legal name inside the slogan to that domain. For example, `A short-link service for Example Inc.'s projects` can link `Example Inc.` to `https://example.com`.
 
-| Decision | Phase 1 recommendation | Later customization |
-| --- | --- | --- |
-| Configure branding now? | Use `Y` when you want installer-managed public pages | Use `N` when you already maintain `custom/public/` by hand |
-| Slogan line | Use `Y` when you want a short line under the domain wordmark | Use `N` when the domain wordmark should stand alone |
-| Brand slogan per language | Use the generated localized defaults when they fit | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages |
-| Copy default web pages to `custom/public`? | Use `Y` for a first instance | Use `N` when custom pages already exist and should not be overwritten |
-| Black wordmark portion | Domain prefix, such as `v8s.` | Use the portion that should render in the dark brand color |
-| Green wordmark portion | Domain suffix, such as `link` | Use the portion that should render in vanityURLs teal |
-
 ## Setup questions
 
-| Setup question | When it appears | What it controls |
-| --- | --- | --- |
-| Configure branding now? | Always | Whether setup asks the branding questions now |
-| Add a slogan line under the domain name on your pages...? | When branding is enabled | Whether generated pages include a short slogan below the split-color domain wordmark |
-| Brand slogan `[language]` | When the slogan line is enabled | Localized text shown below the split-color domain wordmark on generated public pages |
-| Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
-| Black wordmark portion | When copied public pages are enabled | First part of the homepage and public-page wordmark |
-| Green wordmark portion | When copied public pages are enabled | Second part of the homepage and public-page wordmark |
+| Setup question | When it appears | Phase 1 recommendation | Later customization | What it controls |
+| --- | --- | --- | --- | --- |
+| Configure branding now? | Always | Use `Y` when you want installer-managed public pages | Use `N` when you already maintain `custom/public/` by hand | Whether setup asks the branding questions now |
+| Add a slogan line under the domain name on your pages...? | When branding is enabled | Use `Y` when you want a short line under the domain wordmark | Use `N` when the domain wordmark should stand alone | Whether generated pages include a short slogan below the split-color domain wordmark |
+| Brand slogan `[language]` | When the slogan line is enabled | Use the generated localized defaults when they fit | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages | Localized text shown below the split-color domain wordmark on generated public pages |
+| Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled | Use `Y` for a first instance | Use `N` when custom pages already exist and should not be overwritten | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
+| Black wordmark portion | When copied public pages are enabled | Domain prefix, such as `v8s.` | Use the portion that should render in the dark brand color | First part of the homepage and public-page wordmark |
+| Green wordmark portion | When copied public pages are enabled | Domain suffix, such as `link` | Use the portion that should render in vanityURLs teal | Second part of the homepage and public-page wordmark |
 
 You can run `npm run setup` again later. The installer reads existing branding values and offers them as defaults, so it is fine to start with the generated split and refine the assets later.
 
 Localized slogans are stored in `custom/v8s-site-config.json` under `branding.slogan`. Existing instances that still have a single slogan string continue to work; setup writes the localized map for new branding runs.
 
-When branding is enabled, the installer can copy editable public pages into `custom/public`, optionally set a localized slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix:
-
-![Split-color domain wordmark example](/images/docs/split-color-domain-wordmark.svg)
-
 ## vanityURLs visual system
 
-<div class="brand-system">
-  <section class="brand-hero">
-    <p class="brand-kicker">Brand reference</p>
-    <p class="brand-title">vanityURLs visual system</p>
-    <p class="brand-lede">This page records current brand assets, color tokens, and badge files. For the customization narrative, read <a href="/en/blog/branding-your-short-link-domain/">Branding your short-link domain</a>.</p>
-  </section>
+The vanityURLs visual system currently covers badge colors, localized badge files, typography notes, instance wordmark configuration, and instance-owned asset overrides. For the customization narrative, read [Branding your short-link domain](/blog/branding-your-short-link-domain/).
 
+<div class="brand-system">
   <section class="brand-section">
     <h2>Badge color tokens</h2>
     <p>The redirected badges use transparent backgrounds. Choose the light badge for light surfaces and the dark badge for dark surfaces.</p>
@@ -131,21 +114,16 @@ When branding is enabled, the installer can copy editable public pages into `cus
 
   <section class="brand-section">
     <h2>Typography</h2>
-    <div class="brand-grid">
-      <div class="brand-panel">
-        <h3>Current website fonts</h3>
-        <p>The website currently self-hosts Inter Variable for interface and prose text, plus JetBrains Mono for code. The files live under <code>/static/fonts/</code> and are declared in <code>assets/css/main.css</code>.</p>
-      </div>
-      <div class="brand-panel">
-        <h3>Reference typography</h3>
-        <p>The <code>bhdicaire-com</code> implementation uses Red Hat Display, Red Hat Text, Red Hat Mono, and Source Serif 4 with Utopia-style fluid type and spacing tokens. This brand page adopts the fluid token approach only, scoped to <code>.brand-system</code>, so the broader website typography stays stable until the logo refresh lands.</p>
-      </div>
-    </div>
+    <h3>Current website fonts</h3>
+    <p>The website currently self-hosts Inter Variable for interface and prose text, plus JetBrains Mono for code. The files live under <code>/static/fonts/</code> and are declared in <code>assets/css/main.css</code>.</p>
+    <h3>Reference typography</h3>
+    <p>The <code>bhdicaire-com</code> implementation uses Red Hat Display, Red Hat Text, Red Hat Mono, and Source Serif 4 with Utopia-style fluid type and spacing tokens. This brand page adopts the fluid token approach only, scoped to <code>.brand-system</code>, so the broader website typography stays stable until the logo refresh lands.</p>
   </section>
 
   <section class="brand-section">
     <h2>Instance wordmark configuration</h2>
     <p>Installer-managed instances can store a split-color wordmark in <code>custom/v8s-site-config.json</code>. The green portion should use the vanityURLs brand teal unless the instance has a deliberate local brand system.</p>
+    <p>When branding is enabled, the installer can copy editable public pages into <code>custom/public</code>, optionally set a localized slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix.</p>
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",
@@ -159,30 +137,37 @@ When branding is enabled, the installer can copy editable public pages into `cus
     }
   }
 }</code></pre>
+    <p><img src="/images/docs/split-color-domain-wordmark.svg" alt="Split-color domain wordmark example"></p>
   </section>
 
   <section class="brand-section">
     <h2>Instance asset overrides</h2>
     <p>Put instance-owned brand assets under <code>custom/public/</code> so they overlay the default public assets during build.</p>
-    <pre class="brand-code"><code>custom/public/v8s-logo.svg
-custom/public/favicon.svg
-custom/public/site.webmanifest
-custom/public/apple-touch-icon.png
-custom/public/icon-192.png
-custom/public/icon-512.png</code></pre>
+{{< filetree/container >}}
+{{< filetree/folder name="custom" >}}
+  {{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
+    {{< filetree/file name="v8s-logo.svg" >}}
+    {{< filetree/file name="favicon.svg" >}}
+    {{< filetree/file name="site.webmanifest" >}}
+    {{< filetree/file name="apple-touch-icon.png" >}}
+    {{< filetree/file name="icon-192.png" >}}
+    {{< filetree/file name="icon-512.png" >}}
+  {{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}
   </section>
 
   <section class="brand-section">
     <h2>Usage notes</h2>
-    <div class="brand-grid">
-      <div class="brand-panel">
-        <h3>Do</h3>
-        <p>Use SVG badges, keep backgrounds transparent, preserve the localized badge text, and run <code>npm run optimize:badges</code> after editing default badge SVGs in the code repository.</p>
-      </div>
-      <div class="brand-panel">
-        <h3>Do not</h3>
-        <p>Do not rasterize the badges, add opaque backgrounds, recolor only one language, or treat the current logo set as final while the logo refresh is still underway.</p>
-      </div>
-    </div>
+    <ul>
+      <li>Use SVG badges.</li>
+      <li>Keep badge backgrounds transparent.</li>
+      <li>Preserve the localized badge text.</li>
+      <li>Run <code>npm run optimize:badges</code> after editing default badge SVGs in the code repository.</li>
+      <li>Do not rasterize the badges.</li>
+      <li>Do not add opaque backgrounds.</li>
+      <li>Do not recolor only one language.</li>
+      <li>Do not treat the current logo set as final while the logo refresh is still underway.</li>
+    </ul>
   </section>
 </div>
