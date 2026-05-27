@@ -35,7 +35,9 @@ Définissez `ANALYTICS_PROVIDER` dans `wrangler.toml`.
 
 Ne gardez pas une collecte double plus longtemps que nécessaire; elle double le trafic de collecte.
 
-### Configurer Umami
+### Configurer la solution analytics
+
+Configurez Umami ou Fathom dans `wrangler.toml`.
 
 Pour Umami, configurez le fournisseur, l'endpoint, l'identifiant du site et le mode IP :
 
@@ -49,7 +51,7 @@ UMAMI_GEO_IP_MODE = "truncated"
 
 Pour un déploiement public orienté confidentialité, utilisez `truncated` ou `none` pour `UMAMI_GEO_IP_MODE` sauf besoin opérationnel précis pour une géolocalisation complète.
 
-### Configurer Fathom
+OU
 
 Pour Fathom, configurez le fournisseur, l'identifiant de site et l'endpoint de collecte :
 
@@ -82,7 +84,7 @@ Le smoke test bâtit l'instance et intercepte les appels analytics localement. I
 
 Après le déploiement :
 
-1. Visitez `/`, `/terms` et `/expand`; confirmez les pageviews
+1. Visitez `https://v8s.link/expand` et confirmez les pageviews dans le dashboard analytics
 2. Visitez un lien court valide; confirmez un événement `redirect`
 3. Visitez un slug manquant réaliste; confirmez un événement `short-link-miss`
 4. Visitez `/file.php`; confirmez le blocage sans événement miss
