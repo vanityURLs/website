@@ -1,0 +1,153 @@
+terms:
+  - id: access-application
+    term: Application Access
+    definition: Une application Cloudflare Zero Trust qui protege certains chemins, comme `/_stats/*` et `/_tests/*`, avant que le Worker serve ces pages.
+  - id: access-policy
+    term: Politique Access
+    definition: Une regle Cloudflare Zero Trust qui decide quelles identites peuvent atteindre une application Access protegee.
+  - id: block-policy
+    term: Politique de blocage
+    definition: Les regles propres a l'instance dans `custom/v8s-policies.json` qui bloquent les domaines dangereux, mots-cles, chemins de scanner ou trafic indesirable avant la recherche de redirection.
+  - id: build-artifact
+    term: Artefact de build
+    definition: Un fichier genere sous `build/` ou `src/`. Modifiez les fichiers source dans `custom/` ou `defaults/`, puis reconstruisez au lieu de modifier les artefacts directement.
+  - id: custom-overlay
+    term: Overlay custom
+    definition: La couche propre a l'instance sous `custom/`. Elle remplace ou etend les defaults produit sans modifier les fichiers upstream.
+  - id: default-target
+    term: Cible par defaut
+    definition: La destination fallback utilisee par un lien planifie lorsqu'aucune regle horaire n'est active.
+  - id: destination
+    term: Destination
+    definition: La longue URL vers laquelle un lien court redirige. Dans le format de lien, elle est stockee dans la colonne `target`.
+  - id: generated-registry
+    term: Registre genere
+    definition: Le registre runtime de redirection ecrit dans `build/v8s.json` pendant le build a partir des liens, horaires, politiques et configurations.
+  - id: identity-provider
+    term: Fournisseur d'identite
+    definition: Une source de connexion utilisee par Cloudflare Access, comme GitHub, Google ou un code a usage unique, pour confirmer qui essaie d'acceder a une page protegee.
+  - id: idempotent
+    term: Idempotent
+    definition: Une commande ou operation qui peut etre relancee avec les memes entrees sans creer d'etat en double ni exiger une nouvelle installation. Dans vanityURLs, `npm run setup` relit les reponses existantes et met a jour les memes fichiers generes.
+  - id: link-registry
+    term: Registre de liens
+    definition: L'ensemble des enregistrements de liens courts utilises par vanityURLs. Les humains modifient `custom/v8s-links.txt`; le build produit le registre genere consomme par le Worker.
+  - id: operator
+    term: Operateur
+    definition: La personne, l'equipe ou l'organisation responsable de l'instance vanityURLs, des pages publiques, des contacts de confiance et de la configuration des pages legales.
+  - id: owner-label
+    term: Libelle owner
+    definition: Une courte valeur interne dans `v8s-links.txt` qui identifie la personne ou l'equipe responsable d'un lien.
+  - id: random-slug
+    term: Slug aleatoire
+    definition: Un slug genere par `lnk` lorsque vous fournissez une destination sans choisir vous-meme le chemin court.
+  - id: route
+    term: Route
+    definition: Le mappage Cloudflare Workers qui envoie les requetes pour votre domaine court vers le Worker vanityURLs.
+  - id: runtime
+    term: Runtime
+    definition: Le Worker Cloudflare et les assets statiques qui servent les redirections et les pages apres le build et le deploiement.
+  - id: scheduled-link
+    term: Lien planifie
+    definition: Un lien court dont la destination peut changer selon le jour, la fenetre horaire et le fuseau horaire avec `custom/v8s-schedules.json`.
+  - id: short-domain
+    term: Domaine court
+    definition: Le domaine utilise pour les redirections, comme `v8s.link` ou `go.example.com`.
+  - id: slug
+    term: Slug
+    definition: Le chemin apres votre domaine court. Dans `https://v8s.link/docs`, le slug est `docs`.
+  - id: splat-link
+    term: Lien splat
+    definition: Un lien stocke comme `slug/*` qui transmet le reste du chemin dans une destination contenant `:splat`.
+  - id: tag
+    term: Tag
+    definition: Un libelle separe par virgules sur une ligne de lien, utilise pour grouper les liens, decrire l'intention ou choisir des longueurs de slugs aleatoires propres aux tags.
+  - id: worker
+    term: Worker
+    definition: L'application Cloudflare Workers qui execute le redirecteur vanityURLs.
+
+abbreviations:
+  - id: adr
+    abbr: ADR
+    term: Architecture Decision Record
+    definition: Un court document qui enregistre une decision d'implementation et sa raison.
+  - id: api
+    abbr: API
+    term: Application Programming Interface
+    definition: Une interface documentee qu'un logiciel peut appeler, comme un endpoint analytics ou fournisseur.
+  - id: cli
+    abbr: CLI
+    term: Command Line Interface
+    definition: Une interface de commande en terminal, comme le helper `lnk` utilise pour gerer les liens.
+  - id: ci
+    abbr: CI
+    term: Continuous Integration
+    definition: Des verifications automatisees lancees avant fusion ou deploiement.
+  - id: csp
+    abbr: CSP
+    term: Content Security Policy
+    definition: Des regles de securite navigateur qui limitent les scripts, styles, images et connexions qu'une page peut utiliser.
+  - id: dns
+    abbr: DNS
+    term: Domain Name System
+    definition: Le systeme qui associe les noms d'hote aux destinations reseau et permet a Cloudflare de router votre domaine court.
+  - id: gdpr
+    abbr: GDPR
+    term: General Data Protection Regulation
+    definition: Reglement europeen sur la protection des donnees qui peut concerner les operateurs traitant des donnees personnelles de visiteurs de l'UE.
+  - id: html
+    abbr: HTML
+    term: HyperText Markup Language
+    definition: Le langage de balisage utilise pour les pages web.
+  - id: http
+    abbr: HTTP
+    term: Hypertext Transfer Protocol
+    definition: Le protocole utilise par les navigateurs, clients et Workers pour demander et retourner des ressources web.
+  - id: ip
+    abbr: IP
+    term: Internet Protocol
+    definition: L'adressage reseau utilise pour router le trafic; les analytics et logs peuvent inclure des adresses IP visiteur.
+  - id: json
+    abbr: JSON
+    term: JavaScript Object Notation
+    definition: Un format de donnees structurees utilise par vanityURLs pour les registres generes et les fichiers de configuration.
+  - id: otp
+    abbr: OTP
+    term: One-Time PIN
+    definition: Un code de connexion temporaire que Cloudflare Access peut envoyer directement a une adresse courriel autorisee.
+  - id: qr
+    abbr: QR
+    term: Quick Response
+    definition: Un format de code-barres scannable souvent utilise pour partager des liens courts sur papier ou dans des diapositives.
+  - id: rfc
+    abbr: RFC
+    term: Request for Comments
+    definition: Une publication de standard ou d'information, comme RFC 9116 pour `security.txt`.
+  - id: sla
+    abbr: SLA
+    term: Service-Level Agreement
+    definition: Un engagement de service formel; la documentation vanityURLs recommande de ne pas en promettre un a la legere.
+  - id: tls
+    abbr: TLS
+    term: Transport Layer Security
+    definition: Le protocole de chiffrement derriere HTTPS.
+  - id: url
+    abbr: URL
+    term: Uniform Resource Locator
+    definition: L'adresse d'une ressource web, incluant le protocole, l'hote, le chemin et une eventuelle query string.
+  - id: utm
+    abbr: UTM
+    term: Urchin Tracking Module
+    definition: Des parametres de campagne dans l'URL utilises par les outils analytics.
+  - id: vdp
+    abbr: VDP
+    term: Vulnerability Disclosure Policy
+    definition: Une politique qui explique comment les chercheurs en securite devraient signaler les vulnerabilites.
+  - id: waf
+    abbr: WAF
+    term: Web Application Firewall
+    definition: Des regles edge Cloudflare qui bloquent le trafic suspect ou abusif avant qu'il atteigne le Worker.
+  - id: yaml
+    abbr: YAML
+    term: YAML Ain't Markup Language
+    definition: Un format de donnees structurees lisible par les humains, utilise par le site de documentation pour les donnees et la configuration.

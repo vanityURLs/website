@@ -1,16 +1,17 @@
 ---
 title: "Quickstart"
-description: "Launch a plain vanityURLs redirector on your own short domain in about 20 minutes, then customize it once the first deployment works."
+description: "Launch a plain vanityURLs redirector on your own short domain, then customize it once the first deployment works."
 weight: 20
 aside: false
 aliases:
   - /docs/quickstart/
 
 ---
-
 Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)? No rush; this page can wait with unusual patience.
 
-Use simple answers during the Quickstart. You can run `npm run setup` as often as you like; the installer is <a href="/docs/reference/glossary/#idempotent"><dfn>idempotent</dfn></a>, reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
+<p>
+  An <dfn id="idempotent-installer">idempotent installer</dfn> can be run repeatedly without requiring a fresh clone. Use simple answers during the Quickstart; <code>npm run setup</code> reads your existing configuration, shows previous answers as defaults, and updates the same generated files. See the <a href="/en/docs/reference/glossary/#idempotent">glossary definition</a>.
+</p>
 
 The maintainers insisted that the steps below use a pertinent stuff instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named [v8s.link](/docs/demo/) to demonstrate what works without ambiguity.
 

@@ -1,0 +1,47 @@
+{{- $lang := cond (hasPrefix .Page.Language.Lang "fr") "fr" "en" -}}
+{{- $data := dict -}}
+{{- with index hugo.Data (printf "glossary.%s" $lang) -}}
+  {{- $data = . -}}
+{{- end -}}
+{{- if not $data -}}
+{{- with index hugo.Data "glossary" -}}
+  {{- with index . $lang -}}
+    {{- $data = . -}}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
+{{- if not $data -}}
+  {{- with index hugo.Data (printf "glossary.%s" "en") -}}
+    {{- $data = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $data -}}
+  {{- with index hugo.Data "glossary" -}}
+    {{- with index . "en" -}}
+      {{- $data = . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $termsTitle := cond (eq $lang "fr") "Termes" "Terms" -}}
+{{- $abbrTitle := cond (eq $lang "fr") "Abreviations" "Abbreviations" -}}
+
+<section id="terms">
+  <h2>{{ $termsTitle }}</h2>
+  <dl>
+    {{- range $data.terms }}
+      <dt><dfn id="{{ .id }}">{{ .term }}</dfn></dt>
+      <dd>{{ .definition | markdownify }}</dd>
+    {{- end }}
+  </dl>
+</section>
+
+<section id="abbreviations">
+  <h2>{{ $abbrTitle }}</h2>
+  <dl>
+    {{- range $data.abbreviations }}
+      <dt><dfn id="{{ .id }}"><abbr title="{{ .term }}">{{ .abbr }}</abbr></dfn></dt>
+      <dd>{{ .definition | markdownify }}</dd>
+    {{- end }}
+  </dl>
+</section>
