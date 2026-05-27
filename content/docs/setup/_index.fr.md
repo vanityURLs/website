@@ -5,6 +5,7 @@ weight: 10
 aliases:
   - /docs/overview/
 aside: false
+show_section_pages: false
 ---
 
 Gerons les liens courts rediriges avec _votre_ moteur vanityURLs. Une instance peut etre operationnelle en 10 minutes, une fois les prerequis ci-dessous reunis.

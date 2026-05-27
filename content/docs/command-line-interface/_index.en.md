@@ -3,6 +3,7 @@ aside: false
 title: "Command line interface"
 description: "Choose between the read-only local helper and the lnk command-line interface."
 weight: 15
+show_section_pages: false
 ---
 
 vanityURLs has two local command-line tools, and they serve different jobs.

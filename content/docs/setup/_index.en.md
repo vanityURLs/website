@@ -5,6 +5,7 @@ weight: 10
 aliases:
   - /docs/overview/
 aside: false
+show_section_pages: false
 ---
 
 Let's manage redirected short links with _your_ vanityURLs engine. An instance can be up and running in 10 minutes, once you have the prerequisites listed below.
