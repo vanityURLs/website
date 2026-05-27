@@ -142,7 +142,7 @@ The vanityURLs visual system currently covers badge colors, localized badge file
 
   <section class="brand-section">
     <h3>Instance asset overrides</h3>
-    <p>Put instance-owned brand assets under <code>custom/public/</code> so they overlay the default public assets during build.</p>
+    <p>Put instance-owned brand assets under <code>custom/public/</code> so they overlay the default public assets during build. Redirected badges also live under localized public directories.</p>
 {{< filetree/container >}}
 {{< filetree/folder name="custom" >}}
   {{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
@@ -152,9 +152,20 @@ The vanityURLs visual system currently covers badge colors, localized badge file
     {{< filetree/file name="apple-touch-icon.png" >}}
     {{< filetree/file name="icon-192.png" >}}
     {{< filetree/file name="icon-512.png" >}}
+    {{< filetree/folder name="en" annotation="localized badge overrides" >}}
+      {{< filetree/file name="v8s-redirected.svg" >}}
+      {{< filetree/file name="v8s-redirected-dark.svg" >}}
+    {{< /filetree/folder >}}
   {{< /filetree/folder >}}
 {{< /filetree/folder >}}
 {{< /filetree/container >}}
+  </section>
+
+  <section class="brand-section">
+    <h3>Installer-managed public pages</h3>
+    <p><code>npm run setup</code> can copy <code>defaults/public/</code> into <code>custom/public/</code>, rewrite the default <code>Vanity</code> + <code>URLs</code> wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.</p>
+    <p>The installer records those choices in <code>custom/v8s-site-config.json</code> so repeated setup runs are predictable. If <code>custom/public/</code> already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass <code>--force</code>.</p>
+    <p>When you use <code>custom/public/</code>, keep <code>i18n.supported_languages</code> aligned with the localized pages you actually support. See <a href="/docs/reference/i18n/">Internationalization</a> for the language directory rules.</p>
   </section>
 
   <section class="brand-section">

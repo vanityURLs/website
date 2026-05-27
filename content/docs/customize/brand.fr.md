@@ -144,7 +144,7 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
 
   <section class="brand-section">
     <h3>Surcharges d'assets d'instance</h3>
-    <p>Placez les assets de marque propres a l'instance sous <code>custom/public/</code> pour qu'ils remplacent les assets publics par defaut pendant le build.</p>
+    <p>Placez les assets de marque propres à l'instance sous <code>custom/public/</code> pour qu'ils remplacent les assets publics par défaut pendant le build. Les badges redirigés vivent aussi dans les répertoires publics localisés.</p>
 {{< filetree/container >}}
 {{< filetree/folder name="custom" >}}
   {{< filetree/folder name="public" annotation="surcharges d'assets publics propres à l'instance" >}}
@@ -154,9 +154,20 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
     {{< filetree/file name="apple-touch-icon.png" >}}
     {{< filetree/file name="icon-192.png" >}}
     {{< filetree/file name="icon-512.png" >}}
+    {{< filetree/folder name="fr" annotation="surcharges de badges localisés" >}}
+      {{< filetree/file name="v8s-redirected.svg" >}}
+      {{< filetree/file name="v8s-redirected-dark.svg" >}}
+    {{< /filetree/folder >}}
   {{< /filetree/folder >}}
 {{< /filetree/folder >}}
 {{< /filetree/container >}}
+  </section>
+
+  <section class="brand-section">
+    <h3>Pages publiques gérées par l'installateur</h3>
+    <p><code>npm run setup</code> peut copier <code>defaults/public/</code> vers <code>custom/public/</code>, remplacer le wordmark <code>Vanity</code> + <code>URLs</code> par les portions noire et verte configurées, mettre à jour les libellés et liens de marque, puis retirer les langues non supportées.</p>
+    <p>L'installateur enregistre ces choix dans <code>custom/v8s-site-config.json</code> pour que les exécutions répétées restent prévisibles. Si <code>custom/public/</code> contient déjà des fichiers et n'est pas marqué comme géré par l'installateur, setup refuse de le remplacer sauf avec <code>--force</code>.</p>
+    <p>Lorsque vous utilisez <code>custom/public/</code>, gardez <code>i18n.supported_languages</code> aligné avec les pages localisées que vous supportez vraiment. Voir <a href="/fr/docs/reference/i18n/">Internationalisation</a> pour les règles de répertoires de langue.</p>
   </section>
 
   <section class="brand-section">

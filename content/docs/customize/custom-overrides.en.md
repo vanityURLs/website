@@ -8,7 +8,7 @@ aliases:
 
 ---
 
-Use `custom/` for instance-owned files. This keeps your deployment upgradable because default pages, Worker logic, source policy, and local helper settings can move forward without mixing in every local brand choice.
+Use `custom/` for instance-owned files. This keeps your deployment upgradable because default pages, Worker logic, source policy, and local helper settings can move forward without mixing in every local choice.
 
 For the upgrade rationale, read [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/). For the build order and generated artifacts, read [Configuration files](/docs/reference/configuration-files/).
 
@@ -23,28 +23,19 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 | File or path | Use it for | Details |
 | --- | --- | --- |
 | `custom/v8s-links.txt` | Redirect inventory | [Link format](/docs/reference/link-format/) and [LNK](/docs/command-line-interface/lnk/) |
-| `custom/v8s-schedules.json` | Scheduled link state changes | [Scheduled links](/docs/scheduled-links/) |
-| `custom/v8s-policies.json` | Instance allow and block policy | [Blocklist policy](/docs/blocklist-policy/) |
+| `custom/v8s-schedules.json` | Scheduled link state changes | [Scheduled links](/docs/reference/schedules/) |
+| `custom/v8s-policies.json` | Instance allow and block policy | [Policy and blocklist](/docs/customize/blocklist/) |
 | `custom/v8s-site-config.json` | Site settings written by setup | [Configuration files](/docs/reference/configuration-files/) |
 | `custom/v8s-local-config.json` | Workstation helper paths | [Local helper](/docs/command-line-interface/local-helper/) |
-| `custom/public/` | Public page and asset overrides | See [Public overrides](#public-overrides) |
+| `custom/public/` | Public page and asset overrides | [Brand](/docs/customize/brand/), [Footer & pages](/docs/customize/footer-pages/), and [Internationalization](/docs/reference/i18n/) |
 
-## Installer-managed public pages
-
-`npm run setup` can copy `defaults/public/` into `custom/public/`, rewrite the default `Vanity` + `URLs` wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.
-
-The installer records those choices in `custom/v8s-site-config.json` so repeated setup runs are predictable. If `custom/public/` already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass `--force`.
-
-When you use `custom/public/`, keep `i18n.supported_languages` aligned with the localized pages you actually support. See [Internationalization](/docs/reference/i18n/) for the language directory rules.
-
-## Public overrides
+## Public override map
 
 | Override | Path | Details |
 | --- | --- | --- |
-| Brand assets | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Brand](/docs/customize/brand/) |
-| Footer & pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Footer & pages](/docs/customize/footer-pages/) |
+| Brand assets and redirected badges | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg` | [Brand](/docs/customize/brand/) |
+| Footer and legal pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Footer & pages](/docs/customize/footer-pages/) |
 | Localized public pages | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths | [Internationalization](/docs/reference/i18n/) |
-| Redirected badges | `custom/public/{language}/v8s-redirected.svg` and `v8s-redirected-dark.svg` | [Brand](/docs/customize/brand/) |
 | Expand page | `custom/public/expand/index.html` | [Link format](/docs/reference/link-format/) |
 | Dashboard shell | `custom/public/_stats/index.html` | [Reading your vanityURLs admin dashboard](/blog/reading-your-admin-dashboard/) and [Access control](/docs/customize/access-control/) |
 | Headers | `custom/public/_headers` | [Runtime security approach](/docs/reference/runtime-security/) |

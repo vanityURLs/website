@@ -1,72 +1,63 @@
 ---
 aside: false
 title: "Surcharges custom"
-description: "Associer les fichiers propres a l'instance sous custom/ aux pages vanityURLs qui documentent chaque surface de personnalisation."
+description: "Associer les fichiers propres à l'instance sous custom/ aux pages vanityURLs qui documentent chaque surface de personnalisation."
 weight: 80
 aliases:
   - /docs/custom-overrides/
 
 ---
 
-Utilisez `custom/` pour les fichiers propres a l'instance. Cela garde les deploiements faciles a mettre a jour pendant que les pages par defaut, la logique Worker, la politique source et les reglages locaux evoluent.
+Utilisez `custom/` pour les fichiers propres à l'instance. Cela garde les déploiements faciles à mettre à jour pendant que les pages par défaut, la logique Worker, la politique source et les réglages locaux évoluent.
 
-Pour le raisonnement de mise a jour, lisez [Garder vanityURLs facile a mettre a jour avec custom](/fr/blog/keeping-vanityurls-upgradable-with-custom-overrides/). Pour l'ordre de build et les artefacts generes, lisez [Fichiers de configuration](/fr/docs/reference/configuration-files/).
+Pour le raisonnement de mise à jour, lisez [Garder vanityURLs facile à mettre à jour avec custom](/fr/blog/keeping-vanityurls-upgradable-with-custom-overrides/). Pour l'ordre de build et les artefacts générés, lisez [Fichiers de configuration](/fr/docs/reference/configuration-files/).
 
 ## Defaults versus custom
 
-`defaults/` est la base produit. `custom/` est la couche de l'instance. Les fichiers dans `custom/` remplacent certains defaults ou fournissent des donnees propres a l'instance qui doivent survivre aux mises a jour upstream.
+`defaults/` est la base produit. `custom/` est la couche de l'instance. Les fichiers dans `custom/` remplacent certains defaults ou fournissent des données propres à l'instance qui doivent survivre aux mises à jour upstream.
 
-Gardez les changements produit dans `defaults/` seulement lorsque vous contribuez a vanityURLs. Gardez les changements d'instance dans `custom/` lorsque le changement appartient seulement a votre domaine court.
+Gardez les changements produit dans `defaults/` seulement lorsque vous contribuez à vanityURLs. Gardez les changements d'instance dans `custom/` lorsque le changement appartient seulement à votre domaine court.
 
 ## Carte des fichiers custom
 
-| Fichier ou chemin | Utilisation | Details |
+| Fichier ou chemin | Utilisation | Détails |
 | --- | --- | --- |
 | `custom/v8s-links.txt` | Inventaire de redirection | [Format des liens](/fr/docs/reference/link-format/) et [LNK](/fr/docs/command-line-interface/lnk/) |
-| `custom/v8s-schedules.json` | Changements d'etat planifies | [Liens planifies](/fr/docs/scheduled-links/) |
-| `custom/v8s-policies.json` | Politique allow/block de l'instance | [Politique de blocklist](/fr/docs/blocklist-policy/) |
-| `custom/v8s-site-config.json` | Reglages de site ecrits par setup | [Fichiers de configuration](/fr/docs/reference/configuration-files/) |
+| `custom/v8s-schedules.json` | Changements d'état planifiés | [Liens planifiés](/fr/docs/reference/schedules/) |
+| `custom/v8s-policies.json` | Politique allow/block de l'instance | [Politique et blocklist](/fr/docs/customize/blocklist/) |
+| `custom/v8s-site-config.json` | Réglages de site écrits par setup | [Fichiers de configuration](/fr/docs/reference/configuration-files/) |
 | `custom/v8s-local-config.json` | Chemins de helper propres au poste | [Helper local](/fr/docs/command-line-interface/local-helper/) |
-| `custom/public/` | Surcharges de pages publiques et d'assets | Voir [Surcharges publiques](#surcharges-publiques) |
+| `custom/public/` | Surcharges de pages publiques et d'assets | [Marque](/fr/docs/customize/brand/), [Pied de page et pages](/fr/docs/customize/footer-pages/) et [Internationalisation](/fr/docs/reference/i18n/) |
 
-## Pages publiques gerees par l'installateur
+## Carte des surcharges publiques
 
-`npm run setup` peut copier `defaults/public/` vers `custom/public/`, remplacer le wordmark `Vanity` + `URLs` par les portions noire et verte configurees, mettre a jour les libelles et liens de marque, puis retirer les langues non supportees.
-
-L'installateur enregistre ces choix dans `custom/v8s-site-config.json` pour que les executions repetees restent previsibles. Si `custom/public/` contient deja des fichiers et n'est pas marque comme gere par l'installateur, setup refuse de le remplacer sauf avec `--force`.
-
-Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligne avec les pages localisees que vous supportez vraiment. Voir [Internationalisation](/fr/docs/reference/i18n/) pour les regles de repertoires de langue.
-
-## Surcharges publiques
-
-| Surcharge | Chemin | Details |
+| Surcharge | Chemin | Détails |
 | --- | --- | --- |
-| Assets de marque | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/site.webmanifest` | [Marque](/fr/docs/customize/brand/) |
-| Pied de page et pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pied de page et pages](/fr/docs/customize/footer-pages/) |
-| Pages publiques localisees | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires | [Internationalisation](/fr/docs/reference/i18n/) |
-| Badges rediriges | `custom/public/{language}/v8s-redirected.svg` et `v8s-redirected-dark.svg` | [Marque](/fr/docs/customize/brand/) |
+| Assets de marque et badges redirigés | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg` | [Marque](/fr/docs/customize/brand/) |
+| Pied de page et pages légales | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pied de page et pages](/fr/docs/customize/footer-pages/) |
+| Pages publiques localisées | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires | [Internationalisation](/fr/docs/reference/i18n/) |
 | Page expand | `custom/public/expand/index.html` | [Format des liens](/fr/docs/reference/link-format/) |
-| Shell du tableau admin | `custom/public/_stats/index.html` | [Lire le tableau admin vanityURLs](/fr/blog/reading-your-admin-dashboard/) et [Controle d'acces](/fr/docs/customize/access-control/) |
-| Headers | `custom/public/_headers` | [Approche securite du runtime](/fr/docs/reference/runtime-security/) |
+| Shell du tableau admin | `custom/public/_stats/index.html` | [Lire le tableau admin vanityURLs](/fr/blog/reading-your-admin-dashboard/) et [Contrôle d'accès](/fr/docs/customize/access-control/) |
+| Headers | `custom/public/_headers` | [Approche sécurité du runtime](/fr/docs/reference/runtime-security/) |
 
 ## Pages de statut
 
-Le Worker sert des fichiers precis pour les etats de lien et de routage. Pour creer des pages de statut custom, placez les fichiers a ces chemins exacts :
+Le Worker sert des fichiers précis pour les états de lien et de routage. Pour créer des pages de statut custom, placez les fichiers à ces chemins exacts :
 
-| Fichier | Utilise pour | Statut |
+| Fichier | Utilisé pour | Statut |
 | --- | --- | --- |
 | `custom/public/404.html` | Liens courts inconnus et pages manquantes | 404 |
-| `custom/public/disabled.html` | Liens desactives | 403 |
-| `custom/public/expired.html` | Liens expires | 410 |
+| `custom/public/disabled.html` | Liens désactivés | 403 |
+| `custom/public/expired.html` | Liens expirés | 410 |
 | `custom/public/maintenance.html` | Liens temporairement indisponibles | 503 |
 
-Les versions localisees utilisent le [code langue](/fr/docs/reference/i18n/#langues-supportees) comme premier segment de repertoire, par exemple `custom/public/fr/404.html`. Vous devez seulement ajouter les pages localisees que vous supportez vraiment. Si une page localisee manque, le Worker peut revenir a la page par defaut pour l'etat demande.
+Les versions localisées utilisent le [code langue](/fr/docs/reference/i18n/#langues-supportees) comme premier segment de répertoire, par exemple `custom/public/fr/404.html`. Vous devez seulement ajouter les pages localisées que vous supportez vraiment. Si une page localisée manque, le Worker peut revenir à la page par défaut pour l'état demandé.
 
-Si vous remplacez `404.html`, incluez ces placeholders ou vous voulez afficher le contexte runtime :
+Si vous remplacez `404.html`, incluez ces placeholders où vous voulez afficher le contexte runtime :
 
 ```html
 <!-- {{SLUG_MESSAGE}} -->
 <!-- {{REFERENCE_LINE}} -->
 ```
 
-`{{SLUG_MESSAGE}}` est remplace par un message securitaire au sujet du slug demande. `{{REFERENCE_LINE}}` est remplace par une reference de correlation utile pour le support et la revue des logs.
+`{{SLUG_MESSAGE}}` est remplacé par un message sécuritaire au sujet du slug demandé. `{{REFERENCE_LINE}}` est remplacé par une référence de corrélation utile pour le support et la revue des logs.

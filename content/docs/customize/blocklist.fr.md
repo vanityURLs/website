@@ -1,38 +1,32 @@
 ---
 aside: false
 title: "Politique et blocklist"
-description: "Politique source et blocklist runtime generee pour les URLs cibles, chaines de shorteners, malware, schemas risques et choix locaux."
+description: "Configurer la politique allow/block de l'instance pour URLs cibles, chaînes de shorteners, malware, schémas risqués et choix locaux."
 weight: 60
 aliases:
   - /docs/blocklist/
 
 ---
 
-vanityURLs edite la politique source comme `v8s-policies.json` et deploie la politique runtime comme `build/v8s-blocklist.json`.
+Utilisez la personnalisation de politique et blocklist lorsque votre instance a besoin de décisions locales de confiance et sécurité au-delà des defaults produit.
 
-Pour le raisonnement confiance et securite, lisez [Proteger la reputation d'un domaine court](/fr/blog/protecting-the-reputation-of-a-short-link-domain/). Cette page garde le format modifiable et le workflow de validation a portee de main.
+Pour le raisonnement confiance et sécurité, lisez [Protéger la réputation d'un domaine court](/fr/blog/protecting-the-reputation-of-a-short-link-domain/). Pour la sélection des fichiers source, catégories, feeds générés, artefacts runtime et comportement des champs, lisez la [référence politique et blocklist](/fr/docs/reference/policy-blocklist/).
 
-La politique source est choisie avant le build :
+{{% steps %}}
 
-- `defaults/v8s-policies.json` est la politique source upstream
-- `custom/v8s-policies.json` remplace la politique source par defaut pour une instance
-- Les anciens fichiers source `v8s-blocklist.json` peuvent encore etre reconnus pour migration, mais les nouvelles instances devraient utiliser `v8s-policies.json`
+### Décider si une politique locale est nécessaire
 
-`custom/v8s-policies.json` ne fusionne pas par-dessus la politique par defaut. Quand une instance possede sa politique, elle possede le remplacement.
+Commencez avec la politique par défaut sauf si vous avez une raison concrète de la remplacer. Les raisons courantes incluent :
 
-## Protections par defaut
+- autoriser un domaine contrôlé par l'opérateur qu'un feed généré bloque
+- bloquer une famille de destinations risquée avant une campagne publique
+- répondre à un signalement d'abus
+- importer des liens depuis un autre raccourcisseur
+- changer le propriétaire, l'audience ou le but de l'instance
 
-Les protections runtime integrees sont documentees dans [Securite runtime](/fr/docs/reference/runtime-security/). Utilisez cette page lorsque vous devez ajouter, remplacer ou reviser la politique de l'instance avec `custom/v8s-policies.json`.
+### Créer le fichier de politique custom
 
-## Categories et sources generees
-
-`defaults/v8s-blocklist-categories.json` definit les categories et severites utilisees par la politique source et les donnees generees. Les categories expliquent pourquoi un element est bloque; les severites decrivent le risque.
-
-Les feeds generes reduisent les risques evidents, mais peuvent avoir des faux positifs. Relisez les changements avant release et gardez les `allow_domains` etroits.
-
-## Configurer la politique d'instance
-
-Creez `custom/v8s-policies.json` pour les regles propres a l'instance :
+Créez `custom/v8s-policies.json` lorsque l'instance a besoin de ses propres règles :
 
 ```json
 {
@@ -54,26 +48,32 @@ Creez `custom/v8s-policies.json` pour les regles propres a l'instance :
 }
 ```
 
-Validez apres chaque changement :
+`custom/v8s-policies.json` remplace la politique source par défaut. Il ne fusionne pas par-dessus `defaults/v8s-policies.json`.
+
+### Garder les règles allow étroites
+
+Utilisez `allow_domains` seulement pour des domaines de confiance contrôlés par l'opérateur. Préférez autoriser un hostname précis plutôt qu'un domaine enregistrable entier lorsqu'un seul sous-domaine est nécessaire.
+
+Les règles allow peuvent surcharger les blocages de domaines générés et locaux. Elles ne surchargent pas les URLs mal formées, protocoles refusés ou URLs avec identifiants.
+
+### Valider avant le déploiement
+
+Lancez la validation après chaque changement de politique :
 
 ```bash
 npm run check
 ```
 
-Le validateur compare les liens configures a la blocklist runtime generee. Corrigez les liens rejetes avant de deployer.
+Le validateur compare les liens configurés à la blocklist runtime générée. Corrigez les liens rejetés avant de déployer au lieu de contourner la politique.
 
-## Artefact runtime
+### Réviser après incident
 
-Generez les donnees machine optionnelles avec :
+Révisez la politique après un signalement d'abus, un changement de destination à fort volume, une mise à jour de feed généré ou une nouvelle campagne publique.
+
+Lancez les mises à jour optionnelles de politique générée seulement lorsque vous êtes prêt à relire les résultats :
 
 ```bash
 npm run generate:blocklist
 ```
 
-Le build ecrit l'artefact runtime ici :
-
-```text
-build/v8s-blocklist.json
-```
-
-Ce fichier est consomme par le Worker et bloque en acces public direct sous `/v8s-blocklist.json`. C'est une sortie generee, pas un fichier a editer a la main.
+{{% /steps %}}
