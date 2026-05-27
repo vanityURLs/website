@@ -20,7 +20,6 @@ Commencez ici lorsque votre instance fonctionne deja et que vous voulez comprend
 | [Glossaire](/fr/docs/reference/glossary/) | Termes courants utilises dans la documentation, le blog et les pages publiques |
 | [Internationalisation](/fr/docs/reference/i18n/) | Langues supportees, pages localisees et fichiers de badges |
 | [Format des liens](/fr/docs/reference/link-format/) | Lignes et champs metadata de `custom/v8s-links.txt` |
-| [Protection reseau](/fr/docs/reference/network-protection/) | Reglages Cloudflare DNS, TLS, WAF, crawlers, caching et analytics |
 | [Politique et blocklist](/fr/docs/reference/policy-blocklist/) | Fichiers de politique source, blocklist runtime générée, catégories et comportement des champs |
 | [Structure du depot](/fr/docs/reference/repository-layout/) | Emplacement des defaults produit, fichiers custom, sorties generees et source Worker |
 | [Securite runtime](/fr/docs/reference/runtime-security/) | Garde-fous Worker, ordre de resolution et controles edge |
