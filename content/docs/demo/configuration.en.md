@@ -6,32 +6,25 @@ weight: 10
 
 ---
 
-Use this page as the configuration reference for the values used throughout [Quickstart](/docs/setup/quickstart/). The demo repository shows the operator-owned layer, not only the upstream product defaults.
+The source repository is [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link), and the deployed instance is [https://v8s.link](https://v8s.link). Quickstart uses these values to ensure that commands stay concrete. Replace them with your own.
 
-## Quickstart assumptions
+The demo intentionally does not configure analytics, final legal copy, jurisdiction-specific privacy and terms pages, or finished branding. Refer to the documentation for the customization.
 
-Quickstart uses these values so the commands stay concrete. Replace them with the short domain, repository, Cloudflare team, operator identity, and contact emails for your own instance.
+## Configuration values
 
-| Assumption | Example used in Quickstart |
+| Value | Demo configuration |
 | --- | --- |
 | Short domain | `v8s.link` |
 | Local directory | `v8s-link` |
 | GitHub account name | `your-github-account` |
 | GitHub repository name | `v8s-link` |
 | Worker name | `v8s-link` |
+| Repository | [`vanityURLs/v8s.link`](https://github.com/vanityURLs/v8s.link) |
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` |
 | Operator legal name | `Benoît H. Dicaire` |
 | Operator domain for contact emails | `vanityurls.link` |
 | Trust & Safety contact | `abuse@vanityurls.link` |
 | Security contact | `security@vanityurls.link` |
-
-## Instance configuration
-
-| Area | Demo value |
-|---|---|
-| Short domain | `v8s.link` |
-| Repository | [`vanityURLs/v8s.link`](https://github.com/vanityURLs/v8s.link) |
-| Worker name | `v8s-link` |
 | Supported languages | `de,en,es,fr,it`, with English as the fallback |
 | Analytics | Disabled |
 | Legal and jurisdiction pages | Deferred |
@@ -51,20 +44,18 @@ When your instance behaves differently, compare your `custom/` files to the demo
 
 ## Related documentation
 
-{{< cards >}}
-{{< card title="Configuration files" icon="file-cog" href="/docs/reference/configuration-files/" >}}
-How `custom/v8s-site-config.json`, `wrangler.toml`, generated files, and local settings fit together.
-{{< /card >}}
-{{< card title="Repository layout" icon="folder-tree" href="/docs/reference/repository-layout/" >}}
-Where defaults, custom overrides, generated output, local tooling, and Worker source live.
-{{< /card >}}
-{{< card title="Custom overrides" icon="layers" href="/docs/customize/custom-overrides/" >}}
-How instance-owned files under `custom/` replace or extend product defaults safely.
-{{< /card >}}
-{{< /cards >}}
+### Planning context
 
-For planning context, read [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/), [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/), and [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/).
+- [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/)
+- [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/)
+- [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/)
+- [Where to start customizing vanityURLs](/blog/where-to-start-customizing-vanityurls/)
 
-## What not to read into it
+### Reference documentation
 
-The demo intentionally does not configure analytics, final legal copy, jurisdiction-specific privacy and terms pages, or finished branding. Those are phase 2 customization decisions.
+- [Configuration files](/docs/reference/configuration-files/)
+- [Repository layout](/docs/reference/repository-layout/)
+- [Custom overrides](/docs/customize/custom-overrides/)
+- [Brand](/docs/customize/brand/)
+- [Footer & pages](/docs/customize/footer-pages/)
+- [Jurisdiction](/docs/customize/jurisdiction/)
