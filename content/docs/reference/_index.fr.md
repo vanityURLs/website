@@ -13,6 +13,7 @@ Commencez ici lorsque votre instance fonctionne deja et que vous voulez comprend
 
 | Page | Utilisation |
 | --- | --- |
+| [Référence Analytics](/fr/docs/reference/analytics/) | Événements analytics serveur, payloads fournisseur, modes IP et trafic bloqué |
 | [Fichiers de configuration](/fr/docs/reference/configuration-files/) | Fichiers source, custom, locaux et generes |
 | [Glossaire](/fr/docs/reference/glossary/) | Termes courants utilises dans la documentation, le blog et les pages publiques |
 | [Internationalisation](/fr/docs/reference/i18n/) | Langues supportees, pages localisees et fichiers de badges |

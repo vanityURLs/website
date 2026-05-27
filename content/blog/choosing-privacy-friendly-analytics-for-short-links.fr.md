@@ -63,6 +63,10 @@ vanityURLs peut envoyer des evenements serveur depuis le Worker. Aucun script de
 
 Le trafic arrete avant le Worker, par exemple par [Controle d'acces](/fr/docs/customize/access-control/), WAF, rate limiting ou controles bot, n'apparaitra pas dans les analytics parce que vanityURLs ne le recoit jamais.
 
+Cette séparation est volontaire. Cloudflare analytics et Security Events répondent aux questions d'infrastructure : DNS, TLS, WAF, Access, rate limits, contrôles crawler et trafic bloqué. Les analytics vanityURLs répondent aux questions applicatives : quel lien court a redirigé, quel slug a manqué, quelle recherche expand a été exécutée et quelle page publique a été vue après que la requête a atteint le Worker.
+
+Pour les noms d'événements, payloads fournisseur et modes IP exacts, utilisez la [référence Analytics](/fr/docs/reference/analytics/). Pour les étapes de configuration, utilisez [Analytics](/fr/docs/customize/analytics/).
+
 ## Operer les analytics comme une fonction sensible au quota
 
 Les fournisseurs d'analytics ne sont pas l'endroit pour observer chaque requete hostile sur Internet. Bloquez les probes scanner, methodes inattendues et familles de crawlers indesirees avant les analytics pour eviter de consommer le quota fournisseur ou de rendre les tableaux plus difficiles a lire.
