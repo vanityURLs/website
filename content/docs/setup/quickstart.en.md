@@ -114,14 +114,14 @@ git branch -M main
 Use the repository URL from the GitHub repository you created for your instance:
 
 ```bash
-git remote add origin git@github.com:your-github-account/v8s-link.git
+git remote add origin git@github.com:vanityURLs/v8s.link.git
 git push -u origin main
 ```
 
 or
 
 ```bash
-git remote add origin https://github.com/your-github-account/v8s-link.git
+git remote add origin https://github.com/vanityURLs/v8s.link.git
 git push -u origin main
 ```
 
