@@ -82,6 +82,7 @@ docs_new_title: Nouveau sur vanityURLs ?
 docs_new_body: Mettez en place votre propre lien court personnalisé en quatre étapes — sans serveur.
 docs_new_cta: Commencer →
 docs_index_subtitle: Tout ce dont vous avez besoin pour configurer et gérer votre déploiement vanityURLs.
+in_this_section: Dans cette section
 docs_how_it_works: "Comment ça fonctionne"
 docs_commands: "Commandes"
 docs_advanced: "Cloudflare Pages"

@@ -1,6 +1,4 @@
 {{ define "main" }}
-{{ $lang := .Site.Language.Lang }}
-{{ $data := index hugo.Data (printf "docs_index.%s" $lang) }}
 {{ $docs := .Site.GetPage "section" "docs" }}
 {{ $sections := $docs.Sections.ByWeight }}
 
@@ -49,7 +47,7 @@
       {{ if .Pages }}
       <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
         <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
-          {{ $data.in_this_section }}
+          {{ i18n "in_this_section" }}
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {{ range .RegularPages.ByWeight }}

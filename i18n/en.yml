@@ -82,6 +82,7 @@ docs_new_title: New to vanityURLs?
 docs_new_body: Get your own branded short URL running in four steps — no server required.
 docs_new_cta: Get started →
 docs_index_subtitle: Everything you need to set up and manage your vanityURLs deployment.
+in_this_section: In this section
 docs_how_it_works: "How it works"
 docs_commands: "Commands"
 docs_advanced: "Cloudflare Pages"
