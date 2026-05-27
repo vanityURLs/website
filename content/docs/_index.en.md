@@ -1,13 +1,34 @@
 ---
 aside: false
 title: "Documentation"
-description: "v8s.link documentation for the current vanityURLs Worker, defaults, link registry, protection, and deployment model."
+description: "Find the vanityURLs setup, customization, command-line, demo, and reference pages."
 ---
 
-v8s.link is the public reference instance for the current vanityURLs runtime. The application builds a Cloudflare Worker with static assets, a generated `v8s.json` registry, default pages, optional custom overrides, [protected operational views](/docs/customize/access-control/), [network protection](/docs/customize/network-protection/), and abuse-prevention policy.
+Use these docs to build, customize, operate, and maintain your own vanityURLs instance. Most instance-owned changes live in `custom/`; product defaults live in `defaults/`; build output is generated.
 
-Start with Setup if you are creating a new short-link domain. Read the overview first, then use the Quickstart for the first deployment path: get a short domain, create a Cloudflare account, clone the repository, configure the Worker, deploy, and test.
+## Set up a new instance
 
-Use Customize when you are moving from the plain default instance to your own link inventory, brand assets, public policy files, status pages, and localized pages. Use Reference for runtime details, security, analytics, admin views, and release work.
+- [Setup](/docs/setup/) lists the prerequisites and decisions to make before installing.
+- [Quickstart](/docs/setup/quickstart/) walks the happy path from repository creation to the first deployed redirect.
+- [v8s.link](/docs/v8s-link/) is the official demo instance to compare against when setup values or runtime behavior differ.
 
-For long-lived instances, use the upgrading guide to refresh `defaults/` and `scripts/` while preserving `custom/`, `wrangler.toml`, secrets, and generated output.
+## Use the command line
+
+- [Command line interface](/docs/command-line-interface/) explains the local helper and the `lnk` tool.
+- [LNK](/docs/command-line-interface/lnk/) changes links, schedules, and source policy in `custom/`.
+- [Local helper](/docs/command-line-interface/local-helper/) opens existing short links from your terminal.
+
+## Customize an instance
+
+- [Customize](/docs/customize/) maps the work after the first deployment.
+- [Brand](/docs/customize/brand/) covers wordmarks, slogans, badges, and installer-managed public assets.
+- [Footer & pages](/docs/customize/footer-pages/) covers public legal and trust pages.
+- [Access control](/docs/customize/access-control/) protects operational paths with Cloudflare Access.
+- [Analytics](/docs/customize/analytics/), [Policy and blocklist](/docs/customize/blocklist/), and [Network protection](/docs/customize/network-protection/) cover traffic visibility and abuse controls.
+
+## Inspect exact behavior
+
+- [Reference](/docs/reference/) documents files, runtime artifacts, security behavior, link formats, schedules, and upgrades.
+- [Repository layout](/docs/reference/repository-layout/) shows where source, custom, generated, and Worker files live.
+- [Custom overrides](/docs/reference/custom-overrides/) maps instance-owned files to the surfaces they replace.
+- [Upgrading an instance](/docs/reference/upgrading/) keeps an existing instance current.
