@@ -1,167 +1,65 @@
 ---
 aside: false
-title: "Protection réseau"
-description: "Configurer les réglages de domaine Cloudflare qui protègent une zone vanityURLs avant que le trafic atteigne le Worker."
+title: "Protection reseau"
+description: "Configurer les controles de domaine Cloudflare qui protegent une zone vanityURLs avant que le trafic atteigne le Worker."
 weight: 70
 aliases:
   - /docs/network-protection/
 
 ---
 
-La protection réseau couvre les réglages de domaine Cloudflare placés devant le Worker vanityURLs.
+Utilisez cette page lorsque vous etes pret a configurer les controles Cloudflare devant le Worker. La protection reseau garde les abus courants, les methodes inattendues, les probes de scanners, les crawlers non desires et le bruit d'infrastructure loin du code applicatif.
 
-Utilisez cette page pour les réglages sous la configuration de domaine Cloudflare : **AI Crawl Control**, **Analytics**, **Caching**, **DNS**, **Network**, **Rules**, **Security**, **SSL/TLS** et **WAF**.
+Pour les reglages Cloudflare exacts et les expressions WAF, lisez [Reference protection reseau](/fr/docs/reference/network-protection/). Pour le raisonnement de securite par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/).
 
-Pour le raisonnement de securite par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/).
+{{% steps %}}
 
-## DNS
+### Confirmer le domaine custom du Worker
 
-Pour le domaine court racine, préférez la ligne Worker Custom Domain créée par Cloudflare pour le Worker. Elle devrait apparaître comme un record Worker proxifié pour le hostname, comme `v8s.link -> v8s-link`.
+Dans **DNS**, utilisez le record Worker Custom Domain que Cloudflare cree pour le domaine court. Il devrait apparaitre comme un record Worker proxifie pour le hostname, par exemple `v8s.link -> v8s-link`.
 
-Évitez de garder les anciens records synthétiques `AAAA 100::` pour le même hostname une fois le Custom Domain actif. Gardez les records mail, DKIM, DMARC, MTA-STS et vérification de propriété en DNS-only sauf exigence contraire du service.
+Supprimez les anciens records synthetiques `AAAA 100::` pour le meme hostname une fois le Custom Domain actif. Gardez les records mail, DKIM, DMARC, MTA-STS et verification de propriete en DNS-only sauf si le fournisseur exige explicitement le proxy.
 
-Utilisez des records proxifiés séparés seulement pour de vrais sous-domaines web, comme `mta-sts`, `www` ou un site de documentation.
+### Etablir la base HTTPS
 
-## SSL/TLS
+Dans **SSL/TLS**, commencez avec Full strict, Universal SSL, Always Use HTTPS, TLS 1.3 et Automatic HTTPS Rewrites.
 
-Commencez avec ces réglages :
+Activez HSTS seulement apres que chaque hostname et sous-domaine de production soit pret pour HTTPS. Commencez avec un max age conservateur; incluez les sous-domaines et preload seulement quand toute la zone est volontairement HTTPS-only.
 
-| Réglage | Recommandation |
-| --- | --- |
-| SSL/TLS mode | Full strict |
-| Universal SSL | On |
-| Always Use HTTPS | On |
-| TLS 1.3 | On |
-| Minimum TLS | 1.2 ou plus strict |
-| Automatic HTTPS Rewrites | On |
-| HSTS | On après que chaque hostname et sous-domaine de production soit prêt pour HTTPS |
-| Certificate Transparency Monitoring | Optionnel, utile pour les alertes de certificats inattendus |
+### Activer les controles de securite de base
 
-Activez HSTS seulement après que chaque hostname et sous-domaine de production soit prêt pour HTTPS. Un max age d'un mois est un bon premier réglage; incluez les sous-domaines et preload seulement quand toute la zone est volontairement HTTPS-only.
+Dans **Security**, activez d'abord les controles peu surprenants : Bot Fight Mode, Browser Integrity Check, le Cloudflare managed ruleset et une valeur pratique de Challenge Passage.
 
-## Security
+Evitez les controles qui exposent des donnees visiteur supplementaires ou changent le contenu public sauf si votre instance en a besoin. `security.txt` devrait etre configure avant la release pour fournir un contact clair aux rapports de vulnerabilite.
 
-Les réglages de sécurité du plan gratuit doivent rester sobres et explicites. Activez les protections qui réduisent les abus courants, mais évitez les fonctionnalités qui modifient le contenu public ou exposent des données visiteur supplémentaires sans besoin clair.
+### Ajouter les regles WAF
 
-| Réglage | Recommandation | Pourquoi |
-| --- | --- | --- |
-| New application security dashboard | On | Utiliser la vue actuelle du tableau de bord pour les événements de sécurité et actions |
-| Bot Fight Mode | On | Ajoute des challenges bot de base sur le plan gratuit |
-| Browser Integrity Check | On | Bloque les requêtes navigateur malformées ou suspectes avant l'exécution du Worker |
-| Challenge Passage | 30 minutes | Garde les challenges managés utiles sans rendre les visites légitimes répétées trop bruyantes |
-| Cloudflare managed ruleset | On | Fournit une protection applicative de base maintenue par Cloudflare |
-| Email Address Obfuscation | On si des pages publiques affichent des adresses courriel | Protège les adresses visibles sans modifier le contenu lisible par humain |
-| Hotlink Protection | Off par défaut | Les assets du raccourcisseur sont petits; activez seulement si la réutilisation d'images hors site devient un vrai coût |
-| Leaked Credentials Detection | Off sauf si l'application a un login par mot de passe | vanityURLs n'authentifie pas les visiteurs avec des mots de passe |
-| Security.txt | Configurer avant release | Publie un chemin de contact pour les rapports de vulnérabilité |
-| Replace insecure JavaScript libraries | On | Permet à Cloudflare de remplacer les bibliothèques vulnérables lorsque supporté |
-| Schema Validation | Off sauf si des schémas API sont définis | Nécessite des endpoints et schémas actifs pour être utile |
-| Zone IP allowlist rules | Off sauf si les chemins admin ont besoin d'une allowlist IP | Cloudflare Access est le contrôle principal pour les chemins privés |
+Dans **WAF**, ajoutez des regles pour le trafic qui ne devrait jamais atteindre le Worker :
 
-N'activez pas les certificats client, règles mTLS, en-têtes de localisation visiteur ou en-têtes True-Client-IP pour le raccourcisseur public sauf si un service en aval en a explicitement besoin. Le Worker reçoit déjà les métadonnées pays et colo Cloudflare pour les analytics agrégés.
+- bloquer les probes de scanners comme `.php`, `/wp-`, `/.env` et les probes admin
+- bloquer les methodes inattendues pour que les redirections publiques acceptent seulement `GET`, `HEAD` et `OPTIONS`
+- challenger les clients suspects en excluant les bots verifies, les chemins operationnels proteges, les assets statiques et `robots.txt`
+- bloquer les crawlers IA non desires tout en gardant `/robots.txt` lisible
+- limiter les misses repetes et les candidats de type scanner plutot que les redirections reussies
 
-## WAF
+Collez et validez une expression complete a la fois. Sauvegardez les regles desactivees pendant le calibrage, puis activez-les apres verification dans Security Events.
 
-Les règles de sécurité Cloudflare s'exécutent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais atteindre le code applicatif.
+### Decider des controles de crawlers
 
-Jeu de règles recommandé :
+Si votre depot fournit `robots.txt`, gardez Cloudflare Managed robots.txt desactive pour que le depot reste la source de verite.
 
-| Règle | Action | Notes |
-| --- | --- | --- |
-| Bloquer les probes scanner | Block | Cible les chemins d'exploit courants comme `.php`, `/wp-`, `/.env` et probes admin |
-| Bloquer les méthodes inattendues | Block | Autorise seulement `GET`, `HEAD` et `OPTIONS` pour le hostname public de redirection |
-| Challenger les clients suspects | Managed Challenge | Exclut les bots vérifiés, `/_stats`, `/_tests`, les assets statiques et `robots.txt` |
-| Bloquer les crawlers IA non désirés | Block | Exclut `/robots.txt`; cible les user agents de crawlers que vous ne voulez pas servir |
-| Rate limiter les candidats de liens courts | Block ou challenge | Compte les misses répétés et candidats de type scanner, pas les redirections réussies |
+Autorisez `/robots.txt` au minimum. Autorisez `/llms.txt` et `/llms-full.txt` seulement si vous publiez volontairement du contexte lisible par machine.
 
-Exemples d'expressions pour une zone `v8s.link` :
+### Garder le caching conservateur
 
-```text
-http.host in {"v8s.link" "www.v8s.link"} and (
-  ends_with(lower(http.request.uri.path), ".php") or
-  contains(lower(http.request.uri.path), "/wp-") or
-  contains(lower(http.request.uri.path), "/.env")
-)
-```
+Laissez le Worker prendre les decisions de redirection. N'ajoutez pas de regles de cache pour les reponses de redirection sans avoir teste les etats de cycle de vie, les horaires, les analytics, les misses et les pages de statut.
 
-```text
-http.host eq "v8s.link" and
-not http.request.method in {"GET" "HEAD" "OPTIONS"}
-```
+Gardez Development Mode desactive sauf pendant un debogage actif.
 
-```text
-http.host eq "v8s.link" and
-not cf.client.bot and
-not starts_with(http.request.uri.path, "/_stats") and
-not starts_with(http.request.uri.path, "/_tests") and
-http.request.uri.path ne "/robots.txt"
-```
+### Consulter la bonne surface analytics
 
-Utilisez l'éditeur d'expression pour les règles imbriquées, collez et validez une expression complète à la fois, sauvegardez les règles désactivées pendant le calibrage, puis activez-les après vérification dans Security Events.
+Utilisez les analytics Cloudflare et Security Events pour DNS, TLS, les metriques d'infrastructure Worker, WAF, rate limiting, bot, crawlers IA et decisions Access.
 
-## AI Crawl Control
+Utilisez les [Analytics](/fr/docs/customize/analytics/) serveur vanityURLs pour les evenements applicatifs qui atteignent le Worker, comme les pageviews, redirections, misses de liens courts, recherches expand et evenements bot normalises.
 
-Si le dépôt fournit `robots.txt`, gardez Cloudflare Managed robots.txt désactivé. Cela fait du dépôt la source de vérité et évite que Cloudflare écrase des directives intentionnelles.
-
-Réglages utiles :
-
-- Autoriser `/robots.txt`
-- Autoriser `/llms.txt` et `/llms-full.txt` seulement si vous publiez volontairement du contexte lisible par machine
-- Bloquer les crawlers et assistants IA non désirés dans Cloudflare
-- Garder les crawlers de moteurs de recherche vérifiés autorisés sauf si votre instance est volontairement privée
-- Revoir Cloudflare Security Events après activation, car le trafic bloqué n'apparaît pas dans les analytics Worker
-
-Au minimum, laissez `/robots.txt` autorisé pour que les crawlers puissent lire la politique publiée.
-
-## Rules
-
-Réglages Rules recommandés :
-
-| Réglage | Recommandation |
-| --- | --- |
-| Remove `X-Powered-By` response headers | On |
-| Add visitor location headers | Off |
-| Remove visitor IP headers | Off sauf si une origine derrière le Worker les reçoit |
-| Add security headers transform | Off si le Worker émet déjà les en-têtes voulus |
-| URL normalization type | Cloudflare |
-| Normalize incoming URLs | On |
-| Normalize URLs to origin | Off |
-
-La normalisation des URLs entrantes est particulièrement importante parce que WAF, Access et Workers évaluent l'URL normalisée. Gardez la normalisation vers l'origine inactive sauf si une autre origine derrière Cloudflare attend des chemins déjà normalisés.
-
-## Network
-
-Réglages Network recommandés :
-
-| Réglage | Recommandation |
-| --- | --- |
-| IPv6 Compatibility | On |
-| gRPC | Off |
-| WebSockets | Off sauf si une page custom en a besoin |
-| Pseudo IPv4 | Off |
-| IP Geolocation | On |
-| Maximum Upload Size | Plus bas défaut pratique du plan |
-| Network Error Logging | On |
-| Onion Routing | On |
-
-## Caching
-
-Gardez le caching sobre pour un redirecteur :
-
-- Laissez les décisions de redirection dynamiques au Worker
-- Laissez les assets statiques sous `build/` utiliser le Worker et les en-têtes d'assets
-- Gardez Development Mode désactivé sauf pendant un débogage actif
-- N'ajoutez pas de règles de cache qui mettent les réponses de redirection en cache sans tester les états de cycle de vie, les horaires, les analytics et les misses
-
-## Analytics
-
-Utilisez les analytics Cloudflare et Security Events pour les décisions d'infrastructure :
-
-- Statut DNS, certificat et TLS
-- Requêtes Worker, erreurs, temps CPU, wall time et durée des requêtes
-- Événements WAF, rate limiting, bot et crawler IA
-- Décisions de connexion Access pour les chemins protégés
-
-Utilisez les [Analytics](/fr/docs/customize/analytics/) serveur vanityURLs pour les événements applicatifs comme pageviews, redirections, misses de liens courts, recherches expand et événements bot normalisés qui atteignent le Worker.
-
-Le trafic bloqué par WAF, AI Crawl Control, Access ou rate limiting n'atteint pas le Worker et doit être consulté dans Cloudflare Security Events.
+{{% /steps %}}

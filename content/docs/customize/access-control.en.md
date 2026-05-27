@@ -116,17 +116,10 @@ npm run check
 
 After deployment, repeat the signed-out browser test against the real short domain.
 
-### Know the other file guards
+### Review the other file guards
 
-Cloudflare Access is not the only layer that limits operational file access. For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
+Cloudflare Access is not the only layer that limits operational file access. For the complete guard table, read [Runtime security](/docs/reference/runtime-security/). For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**.
-
-| Control | Paths | What it does |
-|---|---|---|
-| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Returns `404` for direct public requests |
-| Static `_headers` fallback | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Adds no-cache and no-index headers if static assets are served directly |
-| Protected stats API | `/_stats/api/v8s.json` | Exposes the generated registry only through the protected stats surface |
-| Reserved slug validation | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational paths |
+Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**.
 
 {{% /steps %}}
