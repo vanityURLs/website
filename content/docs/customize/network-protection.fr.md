@@ -10,7 +10,7 @@ aliases:
 
 Utilisez cette page lorsque vous etes pret a configurer les controles Cloudflare devant le Worker. La protection reseau garde les abus courants, les methodes inattendues, les probes de scanners, les crawlers non desires et le bruit d'infrastructure loin du code applicatif.
 
-Pour les reglages Cloudflare exacts et les expressions WAF, lisez [Reference protection reseau](/fr/docs/reference/network-protection/). Pour le raisonnement de securite par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/).
+Pour les reglages Cloudflare exacts et les expressions WAF, lisez [Protection reseau](/fr/docs/reference/network-protection/). Pour le raisonnement de securite par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/).
 
 {{% steps %}}
 

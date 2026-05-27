@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Référence politique et blocklist"
+title: "Politique et blocklist"
 description: "Fichiers de politique source, artefacts de blocklist runtime, catégories, feeds générés et validation dans vanityURLs."
 weight: 57
 aliases:

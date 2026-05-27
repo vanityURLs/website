@@ -13,14 +13,14 @@ Commencez ici lorsque votre instance fonctionne deja et que vous voulez comprend
 
 | Page | Utilisation |
 | --- | --- |
-| [Référence Analytics](/fr/docs/reference/analytics/) | Événements analytics serveur, payloads fournisseur, modes IP et trafic bloqué |
+| [Analytics](/fr/docs/reference/analytics/) | Événements analytics serveur, payloads fournisseur, modes IP et trafic bloqué |
 | [Fichiers de configuration](/fr/docs/reference/configuration-files/) | Fichiers source, custom, locaux et generes |
 | [Surcharges custom](/fr/docs/reference/custom-overrides/) | Couches de fichiers propres a l'instance, chemins de surcharges publiques et placeholders des pages de statut |
 | [Glossaire](/fr/docs/reference/glossary/) | Termes courants utilises dans la documentation, le blog et les pages publiques |
 | [Internationalisation](/fr/docs/reference/i18n/) | Langues supportees, pages localisees et fichiers de badges |
 | [Format des liens](/fr/docs/reference/link-format/) | Lignes et champs metadata de `custom/v8s-links.txt` |
-| [Reference protection reseau](/fr/docs/reference/network-protection/) | Reglages Cloudflare DNS, TLS, WAF, crawlers, caching et analytics |
-| [Référence politique et blocklist](/fr/docs/reference/policy-blocklist/) | Fichiers de politique source, blocklist runtime générée, catégories et comportement des champs |
+| [Protection reseau](/fr/docs/reference/network-protection/) | Reglages Cloudflare DNS, TLS, WAF, crawlers, caching et analytics |
+| [Politique et blocklist](/fr/docs/reference/policy-blocklist/) | Fichiers de politique source, blocklist runtime générée, catégories et comportement des champs |
 | [Structure du depot](/fr/docs/reference/repository-layout/) | Emplacement des defaults produit, fichiers custom, sorties generees et source Worker |
 | [Securite runtime](/fr/docs/reference/runtime-security/) | Garde-fous Worker, ordre de resolution et controles edge |
 | [Liens planifies](/fr/docs/reference/schedules/) | Regles de destination selon l'horaire |

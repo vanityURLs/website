@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Network protection reference"
+title: "Network protection"
 description: "Cloudflare DNS, TLS, WAF, crawler, caching, and analytics settings that protect a vanityURLs short-link zone before traffic reaches the Worker."
 weight: 59
 aliases:

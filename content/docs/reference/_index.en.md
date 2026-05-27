@@ -13,14 +13,14 @@ Start here when you already have an instance running and want to understand how 
 
 | Page | Use it for |
 | --- | --- |
-| [Analytics reference](/docs/reference/analytics/) | Server-side analytics events, provider payloads, IP modes, and blocked traffic |
+| [Analytics](/docs/reference/analytics/) | Server-side analytics events, provider payloads, IP modes, and blocked traffic |
 | [Configuration files](/docs/reference/configuration-files/) | Source, custom, local, and generated configuration files |
 | [Custom overrides](/docs/reference/custom-overrides/) | Instance-owned file overlays, public override paths, and status-page placeholders |
 | [Glossary](/docs/reference/glossary/) | Common terms used across the documentation, blog, and public pages |
 | [Internationalization](/docs/reference/i18n/) | Supported languages, localized pages, and badge files |
 | [Link format](/docs/reference/link-format/) | `custom/v8s-links.txt` rows and metadata fields |
-| [Network protection reference](/docs/reference/network-protection/) | Cloudflare DNS, TLS, WAF, crawler, caching, and analytics settings |
-| [Policy and blocklist reference](/docs/reference/policy-blocklist/) | Source policy files, generated runtime blocklist, categories, and field behavior |
+| [Network protection](/docs/reference/network-protection/) | Cloudflare DNS, TLS, WAF, crawler, caching, and analytics settings |
+| [Policy and blocklist](/docs/reference/policy-blocklist/) | Source policy files, generated runtime blocklist, categories, and field behavior |
 | [Repository layout](/docs/reference/repository-layout/) | Where product defaults, custom files, generated output, and Worker source live |
 | [Runtime security](/docs/reference/runtime-security/) | Worker guardrails, resolution order, and edge controls |
 | [Scheduled links](/docs/reference/schedules/) | Time-based destination rules |
