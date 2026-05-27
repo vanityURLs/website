@@ -8,11 +8,11 @@ aliases:
 
 ---
 
-The v8s.link demo uses an expanded `custom/v8s-links.txt` so new operators can inspect realistic examples without inventing them from scratch. Start with [Demo configuration](/docs/demo/configuration/) for the values used by the instance, then use this page to inspect how those values behave at runtime.
+The source repository is [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link), and the deployed instance is [https://v8s.link](https://v8s.link). It's time to inspect how this instance behave at runtime.
 
-The full file lives in the demo repository: [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt).
+## Core pages
 
-## Useful live paths
+English (`en`) is the main and fallback language when a localized page is unavailable because it's not currently [supported](https://www.vanityurls.link/en/docs/reference/i18n/) or installed during setup.
 
 | Path | What it proves |
 |---|---|
@@ -22,17 +22,17 @@ The full file lives in the demo repository: [`custom/v8s-links.txt`](https://git
 | [v8s.link/expired.html](https://v8s.link/expired.html) | Expired lifecycle page |
 | [v8s.link/disabled.html](https://v8s.link/disabled.html) | Disabled lifecycle page |
 | [v8s.link/maintenance.html](https://v8s.link/maintenance.html) | Maintenance lifecycle page |
-| [v8s.link/.well-known/security.txt](https://v8s.link/.well-known/security.txt) | Machine-readable vulnerability disclosure contact following [RFC 9116: A File Format to Aid in Security Vulnerability Disclosure](https://www.rfc-editor.org/info/rfc9116/) |
+| [v8s.link/.well-known/security.txt](https://v8s.link/.well-known/security.txt) | Machine-readable vulnerability disclosure contact. |
 
-## Format reminder
+## Links
 
-Each non-comment row uses the link format documented in [Link format](/docs/reference/link-format/):
+The current links are stored in [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt). Each non-comment row uses the link format documented in [Link format](/docs/reference/link-format/):
 
 ```text
 slug|target|state|title|description|tags|owner|expires_at|notes
 ```
 
-## Namespace examples
+Run `./scripts/lnk list` in your own instance to see the current local inventory. Run `./scripts/lnk add` when you are ready to add a link through the command line interface.
 
 | Slug | Long link | What it demonstrates |
 |---|---|---|
@@ -40,12 +40,22 @@ slug|target|state|title|description|tags|owner|expires_at|notes
 | [`v8s.link/pkg/n`](https://v8s.link/pkg/n) | `www.npmjs.com/package` | Compact package-manager namespace |
 | [`v8s.link/social/x`](https://v8s.link/social/x) | `x.com/BHDicaire/` | Social profile namespace |
 | [`v8s.link/v8s/doc`](https://v8s.link/v8s/doc) | `vanityUrls.link/en/docs/` | Project documentation shortcut |
+| [`v8s.link/v8s/hugo`](https://v8s.link/v8s/hugo) | `github.com/vanityURLs/website` | Website source shortcut |
+| [`v8s.link/v8s/issues`](https://v8s.link/v8s/issues) | `github.com/vanityurls/vanityurls/issues` | Issue tracker shortcut |
+| [`v8s.link/v8s/latest`](https://v8s.link/v8s/latest) | `github.com/vanityURLs/website/releases/latest` | Latest release shortcut |
+| [`v8s.link/v8s/roadmap`](https://v8s.link/v8s/roadmap) | `github.com/orgs/vanityURLs/projects` | Project roadmap shortcut |
+| [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` | Public status shortcut |
 
 ```text
 ai/chat|chatgpt.com||Open AI|Artificial Intelligence|ai|bhd||
 pkg/n|www.npmjs.com/package||NPM|Distribution / package manager|pkg,js|bhd||
 social/x|x.com/BHDicaire/||X profile|Social profile on X|social|bhd||
 v8s/doc|vanityUrls.link/en/docs/||VanityURLs documentation (web)||v8s,git|bhd|||
+v8s/hugo|github.com/vanityURLs/website||V8S website (hugo)|v8s,hugo|bhd|||
+v8s/issues|github.com/vanityurls/vanityurls/issues||V8S web site|documentation|v8s,git|bhd|||
+v8s/latest|github.com/vanityURLs/website/releases/latest||V8S web site|documentation|v8s,git|bhd|||
+v8s/roadmap|github.com/orgs/vanityURLs/projects||V8S web site|documentation|v8s,git|bhd|||
+v8s/status|status.vanityUrls.link||Uptime monitoring|status page|v8s,web|bhd|||
 ```
 
 ## Lifecycle examples
@@ -67,20 +77,6 @@ test/4|youtu.be/dQw4w9WgXcQ|disabled|Test disabled (state)|-> /disabled|test|bhd
 test/5|youtu.be/dQw4w9WgXcQ|maintenance|Test maintenance (state)||test|bhd|||
 test/6|youtu.be/dQw4w9WgXcQ|deactivated|Test deactivated (state)|deactivated -> true 404|test|bhd|||
 ```
-
-## vanityURLs project examples
-
-These links make the demo useful while you are reading the documentation:
-
-| Slug | Long link |
-|---|---|
-| [`v8s.link/v8s/hugo`](https://v8s.link/v8s/hugo) | `github.com/vanityURLs/website` |
-| [`v8s.link/v8s/issues`](https://v8s.link/v8s/issues) | `github.com/vanityurls/vanityurls/issues` |
-| [`v8s.link/v8s/latest`](https://v8s.link/v8s/latest) | `github.com/vanityURLs/website/releases/latest` |
-| [`v8s.link/v8s/roadmap`](https://v8s.link/v8s/roadmap) | `github.com/orgs/vanityURLs/projects` |
-| [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` |
-
-Run `./scripts/lnk list` in your own instance to see the current local inventory. Run `./scripts/lnk add` when you are ready to add a link through the command line interface.
 
 ## Operational references
 
