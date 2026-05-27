@@ -36,43 +36,43 @@ The vanityURLs visual system currently covers badge colors, localized badge file
 
 <div class="brand-system">
   <section class="brand-section">
-    <h2>Badge color tokens</h2>
+    <h3>Badge color tokens</h3>
     <p>The redirected badges use transparent backgrounds. Choose the light badge for light surfaces and the dark badge for dark surfaces.</p>
     <div class="brand-grid brand-grid-3">
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-redirected-light" aria-hidden="true"></div>
-        <h3>Redirected, light badge</h3>
+        <h4>Redirected, light badge</h4>
         <p><code>#111827</code></p>
       </div>
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-vanity" aria-hidden="true"></div>
-        <h3>vanityURLs</h3>
+        <h4>vanityURLs</h4>
         <p><code>#0F766E</code></p>
       </div>
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-swoop" aria-hidden="true"></div>
-        <h3>Swoop</h3>
+        <h4>Swoop</h4>
         <p><code>#14B8A6</code></p>
       </div>
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-redirected-dark" aria-hidden="true"></div>
-        <h3>Redirected, dark badge</h3>
+        <h4>Redirected, dark badge</h4>
         <p><code>#FFFFFF</code></p>
       </div>
     </div>
   </section>
 
   <section class="brand-section">
-    <h2>Badge examples</h2>
+    <h3>Badge examples</h3>
     <div class="brand-grid">
       <div class="brand-panel">
-        <h3>Light surface</h3>
+        <h4>Light surface</h4>
         <div class="brand-badge-stage brand-badge-stage-light">
           <img src="/images/v8s-redirected-en.svg" alt="Redirected by vanityURLs.link badge">
         </div>
       </div>
       <div class="brand-panel">
-        <h3>Dark surface</h3>
+        <h4>Dark surface</h4>
         <div class="brand-badge-stage brand-badge-stage-dark">
           <img src="/images/v8s-redirected-en-dark.svg" alt="Redirected by vanityURLs.link badge for dark surfaces">
         </div>
@@ -81,7 +81,7 @@ The vanityURLs visual system currently covers badge colors, localized badge file
   </section>
 
   <section class="brand-section">
-    <h2>Localized badge files</h2>
+    <h3>Localized badge files</h3>
     <p>The website mirrors the redirector badge SVGs from the code repository under <code>/static/images/</code>. The source of truth for deployed user instances remains <code>defaults/public/{language}/</code> in the code repository.</p>
     <div class="brand-asset-grid">
       <div class="brand-asset">
@@ -113,15 +113,15 @@ The vanityURLs visual system currently covers badge colors, localized badge file
   </section>
 
   <section class="brand-section">
-    <h2>Typography</h2>
-    <h3>Current website fonts</h3>
+    <h3>Typography</h3>
+    <h4>Current website fonts</h4>
     <p>The website currently self-hosts Inter Variable for interface and prose text, plus JetBrains Mono for code. The files live under <code>/static/fonts/</code> and are declared in <code>assets/css/main.css</code>.</p>
-    <h3>Reference typography</h3>
+    <h4>Reference typography</h4>
     <p>The <code>bhdicaire-com</code> implementation uses Red Hat Display, Red Hat Text, Red Hat Mono, and Source Serif 4 with Utopia-style fluid type and spacing tokens. This brand page adopts the fluid token approach only, scoped to <code>.brand-system</code>, so the broader website typography stays stable until the logo refresh lands.</p>
   </section>
 
   <section class="brand-section">
-    <h2>Instance wordmark configuration</h2>
+    <h3>Instance wordmark configuration</h3>
     <p>Installer-managed instances can store a split-color wordmark in <code>custom/v8s-site-config.json</code>. The green portion should use the vanityURLs brand teal unless the instance has a deliberate local brand system.</p>
     <p>When branding is enabled, the installer can copy editable public pages into <code>custom/public</code>, optionally set a localized slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix.</p>
     <pre class="brand-code"><code>{
@@ -141,7 +141,7 @@ The vanityURLs visual system currently covers badge colors, localized badge file
   </section>
 
   <section class="brand-section">
-    <h2>Instance asset overrides</h2>
+    <h3>Instance asset overrides</h3>
     <p>Put instance-owned brand assets under <code>custom/public/</code> so they overlay the default public assets during build.</p>
 {{< filetree/container >}}
 {{< filetree/folder name="custom" >}}
@@ -158,7 +158,7 @@ The vanityURLs visual system currently covers badge colors, localized badge file
   </section>
 
   <section class="brand-section">
-    <h2>Usage notes</h2>
+    <h3>Usage notes</h3>
     <ul>
       <li>Use SVG badges.</li>
       <li>Keep badge backgrounds transparent.</li>

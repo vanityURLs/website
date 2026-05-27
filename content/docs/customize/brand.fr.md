@@ -38,43 +38,43 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
 
 <div class="brand-system">
   <section class="brand-section">
-    <h2>Couleurs des badges</h2>
+    <h3>Couleurs des badges</h3>
     <p>Les badges de redirection utilisent des fonds transparents. Utilisez le badge clair sur une surface claire et le badge sombre sur une surface sombre.</p>
     <div class="brand-grid brand-grid-3">
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-redirected-light" aria-hidden="true"></div>
-        <h3>Redirected, badge clair</h3>
+        <h4>Redirected, badge clair</h4>
         <p><code>#111827</code></p>
       </div>
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-vanity" aria-hidden="true"></div>
-        <h3>vanityURLs</h3>
+        <h4>vanityURLs</h4>
         <p><code>#0F766E</code></p>
       </div>
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-swoop" aria-hidden="true"></div>
-        <h3>Swoop</h3>
+        <h4>Swoop</h4>
         <p><code>#14B8A6</code></p>
       </div>
       <div class="brand-panel">
         <div class="brand-swatch brand-swatch-redirected-dark" aria-hidden="true"></div>
-        <h3>Redirected, badge sombre</h3>
+        <h4>Redirected, badge sombre</h4>
         <p><code>#FFFFFF</code></p>
       </div>
     </div>
   </section>
 
   <section class="brand-section">
-    <h2>Exemples de badges</h2>
+    <h3>Exemples de badges</h3>
     <div class="brand-grid">
       <div class="brand-panel">
-        <h3>Surface claire</h3>
+        <h4>Surface claire</h4>
         <div class="brand-badge-stage brand-badge-stage-light">
           <img src="/images/v8s-redirected-fr.svg" alt="Badge redirige par vanityURLs.link">
         </div>
       </div>
       <div class="brand-panel">
-        <h3>Surface sombre</h3>
+        <h4>Surface sombre</h4>
         <div class="brand-badge-stage brand-badge-stage-dark">
           <img src="/images/v8s-redirected-fr-dark.svg" alt="Badge redirige par vanityURLs.link pour surfaces sombres">
         </div>
@@ -83,7 +83,7 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
   </section>
 
   <section class="brand-section">
-    <h2>Fichiers de badges localises</h2>
+    <h3>Fichiers de badges localisés</h3>
     <p>Le site met en miroir les SVG de badge depuis le depot code sous <code>/static/images/</code>. La source de verite pour les instances deployees reste <code>defaults/public/{language}/</code> dans le depot code.</p>
     <div class="brand-asset-grid">
       <div class="brand-asset">
@@ -115,15 +115,15 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
   </section>
 
   <section class="brand-section">
-    <h2>Typographie</h2>
-    <h3>Polices actuelles du site</h3>
+    <h3>Typographie</h3>
+    <h4>Polices actuelles du site</h4>
     <p>Le site auto-héberge Inter Variable pour l'interface et les textes, puis JetBrains Mono pour le code. Les fichiers vivent sous <code>/static/fonts/</code> et sont déclarés dans <code>assets/css/main.css</code>.</p>
-    <h3>Référence typographique</h3>
+    <h4>Référence typographique</h4>
     <p>L'implémentation <code>bhdicaire-com</code> utilise Red Hat Display, Red Hat Text, Red Hat Mono et Source Serif 4 avec des tokens fluides de type Utopia. Cette page reprend seulement l'approche fluide, limitée à <code>.brand-system</code>, pour garder le reste du site stable jusqu'à la mise à jour des logos.</p>
   </section>
 
   <section class="brand-section">
-    <h2>Configuration du wordmark d'instance</h2>
+    <h3>Configuration du wordmark d'instance</h3>
     <p>Les instances gerees par l'installateur peuvent stocker un wordmark en deux couleurs dans <code>custom/v8s-site-config.json</code>. La portion verte devrait utiliser le teal vanityURLs sauf si l'instance a un systeme local volontaire.</p>
     <p>Lorsque la marque est activée, l'installateur peut copier les pages publiques modifiables dans <code>custom/public</code>, ajouter un slogan localisé sous les wordmarks des pages publiques générées et séparer le wordmark du domaine en un préfixe foncé et un suffixe vert.</p>
     <pre class="brand-code"><code>{
@@ -143,7 +143,7 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
   </section>
 
   <section class="brand-section">
-    <h2>Surcharges d'assets d'instance</h2>
+    <h3>Surcharges d'assets d'instance</h3>
     <p>Placez les assets de marque propres a l'instance sous <code>custom/public/</code> pour qu'ils remplacent les assets publics par defaut pendant le build.</p>
 {{< filetree/container >}}
 {{< filetree/folder name="custom" >}}
@@ -160,7 +160,7 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
   </section>
 
   <section class="brand-section">
-    <h2>Notes d'usage</h2>
+    <h3>Notes d'usage</h3>
     <ul>
       <li>Utilisez les badges SVG.</li>
       <li>Gardez les fonds de badge transparents.</li>

@@ -664,10 +664,15 @@
     display: grid;
     gap: var(--brand-space-s);
   }
-  .brand-section h2 {
+  .brand-section h3 {
     margin: 0;
-    font-size: var(--brand-step-2);
-    line-height: 1.08;
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+  .brand-section h4 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
   }
   .brand-grid {
     display: grid;
@@ -692,13 +697,16 @@
   .dark .brand-panel {
     background: rgba(31, 41, 55, 0.42);
   }
-  .brand-panel h3 {
+  .brand-panel h4 {
     margin: 0;
-    font-size: var(--brand-step-1);
+    font-size: 0.9375rem;
+    line-height: 1.35;
   }
   .brand-panel p {
     margin: 0;
     color: var(--brand-muted);
+    font-size: 0.875rem;
+    line-height: 1.45;
   }
   .brand-swatch {
     min-height: 5rem;
@@ -758,6 +766,10 @@
     padding: 0.75rem;
     border: 1px solid var(--brand-line);
     border-radius: 0.5rem;
+  }
+  .brand-asset code {
+    font-size: 0.75rem;
+    line-height: 1.35;
   }
   .brand-asset img {
     width: 100%;
