@@ -28,6 +28,8 @@ Utilisez la capture pour suivre les changements de menus Cloudflare, mais docume
 | Email | Ne pas documenter Cloudflare Email Routing, DMARC Management ou Email Security comme exigences du redirecteur. |
 | SSL/TLS > Overview et Edge Certificates | Documenter les reglages de production vises, pas l'etat capture : Full strict, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites, TLS minimum 1.2 ou plus strict, et HSTS apres que les hostnames soient prets pour HTTPS. |
 | Security > Analytics, Security rules et Settings | Documenter les sampled logs, les regles WAF custom, le rate limiting, les protections DDoS, Bot Fight Mode, Browser Integrity Check, le managed ruleset et Security.txt; ne pas documenter Web assets ou schema validation comme requis. |
+| Access | Documenter Cloudflare Access pour les chemins vanityURLs prives; ne pas documenter les noms d'applications du compte, les courriels utilisateurs ou les comptes de connexions. |
+| Speed | Documenter HTTP/2, HTTP/3, HTTP/2 to Origin, TLS 1.3 et les diagnostics optionnels; ne pas exiger RUM, Smart Shield, Origin Analytics, Argo, Polish, Zaraz ou les scores de tests captures. |
 | Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
 
 ## DNS

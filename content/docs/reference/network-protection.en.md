@@ -28,6 +28,8 @@ Use the capture to track Cloudflare menu changes, but document only the settings
 | Email | Do not document Cloudflare Email Routing, DMARC Management, or Email Security as redirector requirements. |
 | SSL/TLS > Overview and Edge Certificates | Document the desired production settings, not the captured state: Full strict, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites, minimum TLS 1.2 or stricter, and HSTS after hostnames are HTTPS-ready. |
 | Security > Analytics, Security rules, and Settings | Document sampled logs, WAF custom rules, rate limiting, DDoS protections, Bot Fight Mode, Browser Integrity Check, managed ruleset, and Security.txt; do not document Web assets or schema validation as required. |
+| Access | Document Cloudflare Access for private vanityURLs paths; do not document account-specific application names, user emails, or login counts. |
+| Speed | Document HTTP/2, HTTP/3, HTTP/2 to Origin, TLS 1.3, and optional diagnostics; do not require RUM, Smart Shield, Origin Analytics, Argo, Polish, Zaraz, or captured test scores. |
 | Captured metric values | Do not document idle-zone zeros or per-crawler counts as defaults. |
 
 ## DNS
