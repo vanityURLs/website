@@ -1,75 +1,106 @@
 ---
 aside: false
 title: "Repository layout"
-description: "How the current vanityURLs repository is organized around defaults, custom overrides, generated output, local tooling, and Worker source."
+description: "How a current vanityURLs instance is organized around product defaults, instance-owned custom files, build output, local tooling, and Worker source."
 weight: 60
 aliases:
   - /docs/repository-layout/
 
 ---
 
-The repository separates product defaults from instance-owned changes. That separation lets an instance owner update upstream `defaults/` and `scripts/` without losing local links, branding, policy, or workstation choices.
+A vanityURLs instance keeps product-owned files separate from instance-owned files. That is what makes `npm run upgrade` practical: upstream can refresh `defaults/` and `scripts/`, while your links, branding, policy choices, and Cloudflare deployment settings stay under your control.
 
-```text
-defaults/
-  public/                         # default HTML, CSS, icons, localized pages, badges
-  public/_stats/                  # read-only stats dashboard shell
-  v8s-links.txt                   # demo/default link registry
-  v8s-schedules.json              # optional schedule rules
-  v8s-policies.json               # default trust-and-safety policy source
-  v8s-blocklist-categories.json   # policy category and severity labels
-  v8s-site-config.json            # default site languages and branding
-  v8s-local-config.json           # default workstation helper settings
+The public [v8s.link repository](https://github.com/vanityURLs/v8s.link) follows this layout:
 
-custom/
-  public/                         # instance branding and page overrides
-  v8s-links.txt                   # instance-owned links
-  v8s-schedules.json              # instance schedules
-  v8s-policies.json               # instance policy replacement
-  v8s-site-config.json            # supported languages and branding choices
-  v8s-local-config.json           # local helper and publish paths
+{{< filetree/container >}}
+{{< filetree/file name="package.json" annotation="npm scripts and dependencies" >}}
+{{< filetree/file name="package-lock.json" annotation="locked dependency graph" >}}
+{{< filetree/file name="wrangler.toml" annotation="Cloudflare Worker deployment settings" >}}
+{{< filetree/folder name="defaults" annotation="product baseline refreshed by upgrade" >}}
+  {{< filetree/folder name="public" annotation="default pages, assets, badges, status pages, and headers" >}}
+    {{< filetree/file name="_headers" annotation="static asset cache and no-index headers" >}}
+    {{< filetree/file name="robots.txt" >}}
+    {{< filetree/file name="style.css" >}}
+    {{< filetree/file name="script.js" >}}
+  {{< /filetree/folder >}}
+  {{< filetree/file name="v8s-links.txt" annotation="starter link inventory" >}}
+  {{< filetree/file name="v8s-schedules.json" annotation="starter schedule rules" >}}
+  {{< filetree/file name="v8s-policies.json" annotation="default trust-and-safety policy" >}}
+  {{< filetree/file name="v8s-blocklist-categories.json" annotation="policy category labels" >}}
+  {{< filetree/file name="v8s-site-config.json" annotation="default languages, branding, and operator values" >}}
+  {{< filetree/file name="v8s-local-config.json" annotation="default workstation helper settings" >}}
+{{< /filetree/folder >}}
+{{< filetree/folder name="custom" annotation="instance-owned overrides" >}}
+  {{< filetree/folder name="public" annotation="instance branding, pages, assets, and headers" >}}
+    {{< filetree/file name="_headers" >}}
+    {{< filetree/file name="robots.txt" >}}
+    {{< filetree/file name="style.css" >}}
+    {{< filetree/file name="script.js" >}}
+  {{< /filetree/folder >}}
+  {{< filetree/file name="v8s-links.txt" annotation="human-authored source of truth for links" >}}
+  {{< filetree/file name="v8s-site-config.json" annotation="instance languages, branding, operator values, and contacts" >}}
+{{< /filetree/folder >}}
+{{< filetree/folder name="scripts" annotation="product tooling" >}}
+  {{< filetree/folder name="workers" annotation="canonical Worker source and tests" >}}
+    {{< filetree/file name="worker.mjs" >}}
+    {{< filetree/file name="worker.test.mjs" >}}
+  {{< /filetree/folder >}}
+  {{< filetree/file name="lnk" annotation="CLI for links, schedules, and policy workflows" >}}
+  {{< filetree/file name="build.mjs" annotation="build defaults plus custom into deploy output" >}}
+  {{< filetree/file name="install.mjs" annotation="npm run setup" >}}
+  {{< filetree/file name="upgrade.mjs" annotation="npm run upgrade" >}}
+  {{< filetree/file name="local-install.mjs" annotation="local helper setup" >}}
+  {{< filetree/file name="v8s.sh" annotation="read-only local helper" >}}
+{{< /filetree/folder >}}
+{{< filetree/folder name="src" annotation="generated Worker entry copied from scripts/workers" >}}
+  {{< filetree/file name="worker.mjs" >}}
+{{< /filetree/folder >}}
+{{< filetree/folder name="build" annotation="generated deploy output" >}}
+  {{< filetree/file name="v8s.json" annotation="runtime redirect registry" >}}
+  {{< filetree/file name="v8s-blocklist.json" annotation="runtime policy artifact" >}}
+  {{< filetree/file name="v8s-site-config.json" annotation="runtime site configuration" >}}
+  {{< filetree/file name="_headers" >}}
+  {{< filetree/file name="index.html" >}}
+  {{< filetree/folder name="_stats" annotation="protected stats shell" >}}
+    {{< filetree/file name="index.html" >}}
+  {{< /filetree/folder >}}
+  {{< filetree/folder name="_tests" annotation="protected runtime test page" >}}
+    {{< filetree/file name="index.html" >}}
+  {{< /filetree/folder >}}
+  {{< filetree/folder name="en" annotation="localized public pages and assets" >}}
+    {{< filetree/file name="index.html" >}}
+    {{< filetree/file name="404.html" >}}
+    {{< filetree/file name="expired.html" >}}
+    {{< filetree/file name="disabled.html" >}}
+    {{< filetree/file name="maintenance.html" >}}
+  {{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}
 
-scripts/
-  workers/
-    worker.mjs                    # canonical Worker runtime source
-    worker.test.mjs               # Worker runtime tests
-  lnk                             # Node CLI for links, schedules, and policies
-  v8s.sh                          # shell-neutral local helper
-  v8s.zsh                         # compatibility wrapper
-  build.mjs                       # build defaults + custom into deploy output
-  install.mjs                     # first-time instance setup
-  local-install.mjs               # workstation helper setup
-  local-publish.mjs               # validate, commit, and push configured local paths
-  upgrade.mjs                     # refresh product-owned files from upstream
+## Product Defaults
 
-src/
-  worker.mjs                      # generated from scripts/workers/ for Wrangler
+`defaults/` is the product baseline. It contains public pages, localized status pages, redirected badges, policy pages, icons, the protected stats shell, starter links, default policy, optional schedules, site configuration, and local-helper defaults.
 
-build/
-  v8s.json                        # generated runtime registry
-  v8s-blocklist.json              # generated runtime policy artifact
-  v8s-site-config.json            # generated site configuration artifact
-  ...static assets...
-```
+`scripts/` is product tooling. Edit it only when you are changing vanityURLs itself. Instance operators usually receive updates to this directory through `npm run upgrade`.
 
-## Defaults
+## Instance Files
 
-`defaults/` is the product baseline. It contains the default public pages, localized status pages, localized redirected badges, policy pages, icons, protected stats shell, sample links, source policy, schedules, site configuration, and local-install defaults.
+`custom/` belongs to the instance owner. Put links, brand assets, page overrides, site configuration, local helper configuration, and policy replacement here.
 
-## Custom
+The build prefers `custom/v8s-links.txt` when it exists. If it does not, the build falls back to `defaults/v8s-links.txt` so a fresh clone can still produce a working starter instance.
 
-`custom/` belongs to the instance owner. Put brand assets, page overrides, link lists, schedules, site configuration, local helper configuration, and policy replacement here.
+`custom/v8s-policies.json` replaces the default policy source when present. It is not merged with `defaults/v8s-policies.json`; removed custom policy decisions should not reappear through a default merge.
 
-The build prefers `custom/v8s-links.txt` when it exists. If it does not, the build falls back to `defaults/v8s-links.txt`, which is why a fresh clone can still produce a usable demo.
+`wrangler.toml` also belongs to the instance. It defines the Worker name, route or custom domain, build command, and Cloudflare Access team domain.
 
-`custom/v8s-policies.json` replaces the default policy source. It is not merged with `defaults/v8s-policies.json`; removed custom policy decisions should not reappear through a default merge.
+## Generated Output
 
-## Generated output
+`build/` and `src/` are generated. Do not edit them by hand.
 
-`build/v8s.json` is the runtime registry. It contains routing rules, generated timestamps, normalized link targets, lifecycle states, metadata, and optional schedule blocks.
+`build/v8s.json` is the runtime redirect registry. It contains normalized link targets, routing rules, lifecycle states, metadata, generated timestamps, and optional schedule blocks.
 
-`build/v8s-blocklist.json` is the runtime policy artifact consumed by the Worker. It is generated from the selected source policy and optional generated feed data.
+`build/v8s-blocklist.json` is the runtime policy artifact consumed by the Worker. It is generated from the selected policy source and optional generated feed data.
 
-`build/v8s-site-config.json` records the site configuration used for the build, including `i18n.supported_languages` and branding. The build also prunes unsupported language directories from `build/`.
+`build/v8s-site-config.json` records the site configuration used for the build, including supported languages, branding, operator information, and contact settings.
 
-`src/` is generated during `npm run build` so Wrangler can deploy `src/worker.mjs`. It is not the source of truth. Edit `scripts/workers/`, then let the build copy it into place. `npm run clean` removes generated `build/`, `src/`, and old compatibility output.
+`src/worker.mjs` is generated during `npm run build` so Wrangler can deploy the Worker. The source of truth is `scripts/workers/worker.mjs`. `npm run clean` removes generated `build/`, `src/`, and old compatibility output.
