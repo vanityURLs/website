@@ -12,6 +12,20 @@ La protection reseau couvre les reglages de domaine Cloudflare places devant le 
 
 Utilisez cette reference pour les reglages sous la configuration de domaine Cloudflare : **AI Crawl Control**, **Analytics**, **Caching**, **DNS**, **Network**, **Rules**, **Security**, **SSL/TLS** et **WAF**. Utilisez [Protection reseau](/fr/docs/customize/network-protection/) pour le flux de configuration et [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/) pour le raisonnement.
 
+## Capture par defaut
+
+La capture brute du tableau de bord Cloudflare se trouve dans [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). Elle a ete prise depuis une nouvelle zone `a6z.link` sur le plan Free, puis documentee comme `v8s.link` afin de garder les exemples alignes avec l'instance de demo.
+
+Utilisez la capture pour suivre les changements de menus Cloudflare, mais documentez seulement les reglages qui affectent un operateur vanityURLs :
+
+| Surface Cloudflare | A documenter sur le site |
+| --- | --- |
+| AI Crawl Control > Overview et Signals | Garder Managed robots.txt desactive quand le depot fournit `robots.txt`; confirmer que `/robots.txt` retourne `200 OK`; garder le depot comme source de verite. |
+| AI Crawl Control > Security | Traiter les interrupteurs de blocage des crawlers comme controles edge optionnels, pas comme exigences de configuration par defaut. |
+| Analytics > Workers | Utiliser pour le volume de requetes d'infrastructure cote Cloudflare, les erreurs, le temps CPU, le wall time et la duree. |
+| Analytics > Dashboards, Web analytics et Performance | Mentionner seulement comme surfaces de revue optionnelles; vanityURLs ne requiert pas Cloudflare RUM ni Argo Smart Routing. |
+| Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
+
 ## DNS
 
 Pour le domaine court racine, preferez la ligne Worker Custom Domain creee par Cloudflare pour le Worker. Elle devrait apparaitre comme un record Worker proxifie pour le hostname, comme `v8s.link -> v8s-link`.

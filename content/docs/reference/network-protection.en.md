@@ -12,6 +12,20 @@ Network protection covers the Cloudflare domain settings that sit in front of th
 
 Use this reference for settings under the Cloudflare domain configuration area: **AI Crawl Control**, **Analytics**, **Caching**, **DNS**, **Network**, **Rules**, **Security**, **SSL/TLS**, and **WAF**. Use [Network protection](/docs/customize/network-protection/) for the setup workflow and [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/) for the rationale.
 
+## Default capture
+
+The raw Cloudflare dashboard capture lives in [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). It was captured from a fresh `a6z.link` zone on the Free plan, then documented as `v8s.link` so the examples stay aligned with the demo instance.
+
+Use the capture to track Cloudflare menu changes, but document only the settings that affect a vanityURLs operator:
+
+| Cloudflare surface | Document on the website |
+| --- | --- |
+| AI Crawl Control > Overview and Signals | Keep Managed robots.txt off when the repository ships `robots.txt`; confirm `/robots.txt` returns `200 OK`; keep the repo as the source of truth. |
+| AI Crawl Control > Security | Treat crawler block toggles as optional edge controls, not default setup requirements. |
+| Analytics > Workers | Use for Cloudflare-side infrastructure request volume, errors, CPU time, wall time, and duration. |
+| Analytics > Dashboards, Web analytics, and Performance | Mention as optional review surfaces only; vanityURLs does not require Cloudflare RUM or Argo Smart Routing. |
+| Captured metric values | Do not document idle-zone zeros or per-crawler counts as defaults. |
+
 ## DNS
 
 For the root short domain, prefer the Worker Custom Domain row that Cloudflare creates for the Worker. It should appear as a proxied Worker record for the hostname, like `v8s.link -> v8s-link`.

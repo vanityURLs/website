@@ -1,0 +1,256 @@
+{
+  "source": {
+    "captured_at": "2026-05-27",
+    "captured_from_domain": "a6z.link",
+    "documented_as_domain": "v8s.link",
+    "cloudflare_plan": "Free",
+    "purpose": "Raw Cloudflare dashboard defaults and available surfaces for a newly added zone. Menu labels are preserved as nested JSON keys so future UI captures can be compared by menu path."
+  },
+  "Cloudflare dashboard": {
+    "AI Crawl Control": {
+      "Overview": {
+        "Managed robots.txt": {
+          "default_state": "off",
+          "description": "When enabled, Cloudflare creates or updates robots.txt to signal that content should not be used for AI training.",
+          "website_documentation": "Document that this should remain off when the repository ships robots.txt and the repo should stay the source of truth."
+        },
+        "Filters": {
+          "crawler": "Select crawler",
+          "operator": "Select operator",
+          "add_filter": true,
+          "time_range": "Last 24 hours"
+        },
+        "Summary": {
+          "empty_state": "No requests from AI Crawlers with the selected filters"
+        },
+        "Metrics": {
+          "Total requests": 0,
+          "Allowed requests": 0,
+          "Unsuccessful requests": 0
+        },
+        "Crawlers": [
+          {
+            "operator": "Google",
+            "visible_crawlers": ["Googlebot"],
+            "additional_crawlers_count": 2,
+            "allowed_requests": 0
+          },
+          {
+            "operator": "OpenAI",
+            "visible_crawlers": ["ChatGPT-User"],
+            "additional_crawlers_count": 2,
+            "allowed_requests": 0
+          },
+          {
+            "operator": "Microsoft",
+            "visible_crawlers": ["BingBot"],
+            "allowed_requests": 0
+          },
+          {
+            "operator": "Anthropic",
+            "visible_crawlers": ["ClaudeBot"],
+            "additional_crawlers_count": 2,
+            "allowed_requests": 0
+          },
+          {
+            "operator": "Apple",
+            "visible_crawlers": ["Applebot"],
+            "allowed_requests": 0
+          },
+          {
+            "operator": "ByteDance",
+            "visible_crawlers": ["Bytespider"],
+            "additional_crawlers_count": 2,
+            "allowed_requests": 0
+          },
+          {
+            "operator": "Perplexity",
+            "visible_crawlers": ["PerplexityBot"],
+            "additional_crawlers_count": 1,
+            "allowed_requests": 0
+          },
+          {
+            "operator": "Common Crawl",
+            "visible_crawlers": ["CCBot"],
+            "allowed_requests": 0
+          },
+          {
+            "operator": "DuckDuckGo",
+            "visible_crawlers": ["DuckAssistBot"],
+            "allowed_requests": 0
+          },
+          {
+            "operator": "Huawei",
+            "visible_crawlers": ["PetalBot"],
+            "allowed_requests": 0
+          }
+        ]
+      },
+      "Security": {
+        "Configure Response": {
+          "available": true,
+          "default_state": "not configured",
+          "description": "Set the response code and message shown to blocked crawlers.",
+          "website_documentation": "Document as an optional customization only when operators choose to block crawlers at Cloudflare."
+        },
+        "Filters": {
+          "crawler": "Select crawler",
+          "operator": "Select operator",
+          "add_filter": true,
+          "time_range": "Last 24 hours",
+          "show_inactive_crawlers": true
+        },
+        "Table columns": [
+          "Crawler",
+          "Category",
+          "Bytes Transferred",
+          "Requests",
+          "Block Crawler"
+        ],
+        "Crawler defaults": [
+          {"crawler": "Amazonbot", "operator": "Amazon", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Anchor Browser", "operator": "Anchor", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Applebot", "operator": "Apple", "category": "AI Search", "block_crawler": false},
+          {"crawler": "archive.org_bot", "operator": "Internet Archive", "category": "Archiver", "block_crawler": false},
+          {"crawler": "Arquivo Web Crawler", "operator": "Arquivo", "category": "Archiver", "block_crawler": false},
+          {"crawler": "BingBot", "operator": "Microsoft", "category": "Search Engine Crawler", "block_crawler": false},
+          {"crawler": "Bytespider", "operator": "ByteDance", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "CCBot", "operator": "Common Crawl", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "ChatGPT-User", "operator": "OpenAI", "category": "AI Assistant", "block_crawler": false},
+          {"crawler": "Claude-SearchBot", "operator": "Anthropic", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Claude-User", "operator": "Anthropic", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "ClaudeBot", "operator": "Anthropic", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Cloudflare Crawler", "operator": "Cloudflare", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "DuckAssistBot", "operator": "DuckDuckGo", "category": "AI Assistant", "block_crawler": false},
+          {"crawler": "FacebookBot", "operator": "Meta", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Google-CloudVertexBot", "operator": "Google", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Googlebot", "operator": "Google", "category": "Search Engine Crawler", "block_crawler": false},
+          {"crawler": "GPTBot", "operator": "OpenAI", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Manus Bot", "operator": "Manus", "category": "AI Assistant", "block_crawler": false},
+          {"crawler": "Meta-ExternalAgent", "operator": "Meta", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Meta-ExternalFetcher", "operator": "Meta", "category": "AI Assistant", "block_crawler": false},
+          {"crawler": "MistralAI-User", "operator": "Mistral", "category": "AI Assistant", "block_crawler": false},
+          {"crawler": "Nouvellum AI Crawl", "operator": "Nouvellum", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "OAI-SearchBot", "operator": "OpenAI", "category": "AI Search", "block_crawler": false},
+          {"crawler": "Perplexity-User", "operator": "Perplexity", "category": "AI Assistant", "block_crawler": false},
+          {"crawler": "PerplexityBot", "operator": "Perplexity", "category": "AI Search", "block_crawler": false},
+          {"crawler": "PetalBot", "operator": "Huawei", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "ProRataInc", "operator": "ProRata.ai", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Terracotta Bot", "operator": "Ceramic", "category": "Search Engine Crawler", "block_crawler": false},
+          {"crawler": "TikTok Spider", "operator": "ByteDance", "category": "AI Crawler", "block_crawler": false},
+          {"crawler": "Timpibot", "operator": "Timpibot", "category": "AI Crawler", "block_crawler": false}
+        ],
+        "Default activity": {
+          "bytes_transferred": "0 B",
+          "allowed_requests": 0,
+          "unsuccessful_requests": 0
+        }
+      },
+      "Signals": {
+        "Managed robots.txt": {
+          "default_state": "off",
+          "description": "When enabled, Cloudflare creates or updates robots.txt to signal that content should not be used for AI training."
+        },
+        "Agent Readiness": {
+          "available": true,
+          "label": "New",
+          "action": "Check your site",
+          "description": "Check if your site is ready for AI agents by testing robots.txt and related configurations."
+        },
+        "Filters": {
+          "crawler": "Select crawler",
+          "operator": "Select operator",
+          "add_filter": true,
+          "time_range": "Last 24 hours"
+        },
+        "Robots.txt availability": {
+          "hostname": "v8s",
+          "url": "https://v8s.link/robots.txt",
+          "requests": {
+            "successful": 0,
+            "unsuccessful": 0
+          },
+          "status": "200 OK",
+          "content_signals": "Not set",
+          "website_documentation": "Document that robots.txt should be reachable and owned by the repository; do not document request counts from the capture."
+        },
+        "Robots.txt violations": {
+          "empty_state": "No violations found with the current filters."
+        }
+      }
+    },
+    "Analytics": {
+      "Dashboards": {
+        "Create a Dashboard": {
+          "available": true
+        },
+        "Default dashboards": [
+          {"name": "DNS Analytics", "charts": 8},
+          {"name": "R2 Storage", "charts": 7},
+          {"name": "Email routing", "charts": 8},
+          {"name": "Workers overview", "charts": 9},
+          {"name": "Error monitoring", "charts": 8},
+          {"name": "Security overview", "charts": 9},
+          {"name": "Traffic overview", "charts": 17}
+        ],
+        "website_documentation": "Do not document the default dashboard cards as required configuration. Mention Cloudflare dashboards as optional infrastructure review surfaces."
+      },
+      "Web analytics": {
+        "Real User Measurements (RUM)": {
+          "default_state": "disabled",
+          "message": "No data available. Enable RUM for free to view the real user data.",
+          "actions": ["Enable Globally", "Exclude EU"],
+          "website_documentation": "Document that vanityURLs does not require Cloudflare browser RUM. Prefer Worker server-side analytics for application events."
+        }
+      },
+      "Performance": {
+        "Argo Smart Routing": {
+          "default_state": "not enabled",
+          "plan_or_product": "paid add-on",
+          "action": "Enable Now",
+          "website_documentation": "Do not document as a default requirement for a redirector."
+        },
+        "Overview widgets": [
+          "Client HTTP Version Used",
+          "Bandwidth Saved",
+          "Content Type Breakdown"
+        ]
+      },
+      "Workers": {
+        "Cloudflare Workers": {
+          "available": true,
+          "action": "Get started"
+        },
+        "Controls": {
+          "download_data": true,
+          "time_range": "Last 24 hours",
+          "refresh": true
+        },
+        "Metrics": [
+          "Subrequests",
+          "Bandwidth",
+          "Status Codes",
+          "Total requests"
+        ],
+        "website_documentation": "Document Workers analytics as the Cloudflare-side source for infrastructure request volume, errors, CPU and duration. Application-level redirects and misses belong to vanityURLs analytics."
+      }
+    }
+  },
+  "website_documentation_scope": {
+    "document": [
+      "Keep Cloudflare Managed robots.txt off when the vanityURLs repository ships robots.txt.",
+      "Confirm /robots.txt returns 200 OK after deployment.",
+      "Use AI Crawl Control Security toggles only when the operator intentionally wants Cloudflare to block specific crawlers before the Worker.",
+      "Use Cloudflare Security Events and Analytics for traffic blocked before the Worker.",
+      "Use Workers analytics for infrastructure request volume, errors, CPU time, wall time and duration.",
+      "Use vanityURLs server-side analytics for redirects, short-link misses, expand lookups and normalized bot events."
+    ],
+    "do_not_document_as_required_setup": [
+      "Zero request counts from the default capture.",
+      "Default Cloudflare dashboard cards.",
+      "Cloudflare Web Analytics RUM enablement.",
+      "Argo Smart Routing.",
+      "Per-crawler activity counts from an idle zone."
+    ]
+  }
+}
