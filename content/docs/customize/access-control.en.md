@@ -8,16 +8,13 @@ aliases:
 
 ---
 
-Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure:
+Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure `/_stats` and `/_tests`.
 
-- `/_stats`
-- `/_stats/*`
-- `/_tests`
-- `/_tests/*`
+The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths; refer to [Store the Access audience](#store-the-access-audience) below. If the secret is missing or invalid, the protected path fails closed.
 
-The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths. If Cloudflare Access is missing or the token is invalid, the protected path fails closed.
+![protected path fails closed](./cf-access-not-configured.png)
 
-For provider strategy, read [Choosing an Identity Provider](/blog/choosing-identity-provider/). For ongoing review habits, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
+Do not commit sensitive information such as Access audiences, IdP client secrets, service tokens, OAuth client secrets, or screenshots that contain those values.
 
 {{% steps %}}
 
@@ -25,13 +22,7 @@ For provider strategy, read [Choosing an Identity Provider](/blog/choosing-ident
 
 In Cloudflare, open **Zero Trust** > **Settings**, then copy the **Team domain**.
 
-It looks like:
-
-```text
-<team>.cloudflareaccess.com
-```
-
-The installer stores it in `wrangler.toml`:
+The installer stores it in `wrangler.toml` during `npm run setup`:
 
 ```toml
 [vars]
@@ -42,14 +33,13 @@ This value is not a secret, but it must match the Cloudflare account that owns t
 
 ### Choose the identity provider
 
-For phase 1, use [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) unless you already have a provider ready.
+For phase 1, use [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) unless you already have a provider ready. For provider strategy, read [Choosing an Identity Provider](/blog/choosing-identity-provider/).
 
 | Option | Use when |
 |---|---|
-| One-time PIN | You want the fastest path with named email addresses |
 | [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Maintainers already use GitHub and you want user or organization selectors |
 | [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Maintainers already use Gmail or Google Workspace |
-| Corporate IdP | Your organization already manages workforce identities and offboarding |
+| [Corporate IdP](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/) | Your organization already manages workforce identities and offboarding |
 
 If you enable multiple providers, users choose one on the Cloudflare Access login page. The policy succeeds when the selected provider returns an identity that matches the policy.
 
@@ -109,8 +99,6 @@ Store it as a Worker secret:
 npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Do not commit Access audiences, IdP client secrets, service tokens, OAuth client secrets, or screenshots that contain those values. Keep them in Cloudflare and in your password manager.
-
 ### Validate the protection
 
 Before release:
@@ -132,7 +120,9 @@ After deployment, repeat the signed-out browser test against the real short doma
 
 ### Know the other file guards
 
-Cloudflare Access is not the only layer that limits operational file access.
+Cloudflare Access is not the only layer that limits operational file access. For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
+
+Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**.
 
 | Control | Paths | What it does |
 |---|---|---|
@@ -140,7 +130,5 @@ Cloudflare Access is not the only layer that limits operational file access.
 | Static `_headers` fallback | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Adds no-cache and no-index headers if static assets are served directly |
 | Protected stats API | `/_stats/api/v8s.json` | Exposes the generated registry only through the protected stats surface |
 | Reserved slug validation | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational paths |
-
-Keep Access on `/_stats` and `/_tests`, keep the Worker runtime-file guard enabled, and keep the `_headers` runtime-file entries unless you have a deliberate public-disclosure reason.
 
 {{% /steps %}}

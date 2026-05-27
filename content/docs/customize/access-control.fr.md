@@ -2,36 +2,27 @@
 aside: false
 title: "Contrôle d'accès"
 description: "Configurer Cloudflare Access pour les chemins opérationnels privés de vanityURLs."
-weight: 30
+weight: 20
 aliases:
   - /docs/access-control/
 
 ---
 
-Utilisez Cloudflare Access pour protéger les chemins opérationnels de vanityURLs tout en gardant les redirections publiques ouvertes. Suivez cette page lorsque vous êtes prêt à sécuriser :
+Utilisez Cloudflare Access pour protéger les chemins opérationnels de vanityURLs tout en gardant les redirections publiques ouvertes. Suivez cette page lorsque vous êtes prêt à sécuriser `/_stats` et `/_tests`.
 
-- `/_stats`
-- `/_stats/*`
-- `/_tests`
-- `/_tests/*`
+Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins; consultez [Stocker l'audience Access](#stocker-laudience-access) ci-dessous. Si le secret est absent ou invalide, le chemin protégé échoue fermé.
 
-Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins. Si Cloudflare Access est absent ou si le jeton est invalide, le chemin protégé échoue fermé.
+![le chemin protégé échoue fermé](./cf-access-not-configured.fr.png)
 
-Pour la stratégie de fournisseur d'identité, lisez [Choisir un fournisseur d'identité](/fr/blog/choosing-identity-provider/). Pour les habitudes de revue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
+Ne commitez pas d'information sensible comme les audiences Access, les secrets client IdP, les jetons de service, les secrets client OAuth ou les captures d'écran qui contiennent ces valeurs.
 
 {{% steps %}}
 
-### Trouver le domaine d'equipe
+### Trouver le domaine Team
 
 Dans Cloudflare, ouvrez **Zero Trust** > **Settings**, puis copiez le **Team domain**.
 
-Il ressemble à :
-
-```text
-<team>.cloudflareaccess.com
-```
-
-L'installateur le conserve dans `wrangler.toml` :
+L'installateur le conserve dans `wrangler.toml` pendant `npm run setup` :
 
 ```toml
 [vars]
@@ -40,20 +31,19 @@ CF_ACCESS_TEAM_DOMAIN = "vanityurls.cloudflareaccess.com"
 
 Cette valeur n'est pas un secret, mais elle doit correspondre au compte Cloudflare qui possède l'application Access.
 
-### Choisir le fournisseur d'identite
+### Choisir le fournisseur d'identité
 
-Pour la phase 1, utilisez le [code à usage unique](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) sauf si un fournisseur est déjà prêt.
+Pour la phase 1, utilisez le [code à usage unique](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) sauf si un fournisseur est déjà prêt. Pour la stratégie de fournisseur, lisez [Choisir un fournisseur d'identité](/fr/blog/choosing-identity-provider/).
 
 | Option | Utilisez-le quand |
 |---|---|
-| Code à usage unique | Vous voulez le chemin le plus rapide avec des adresses courriel nommées |
 | [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Les mainteneurs utilisent déjà GitHub et vous voulez des sélecteurs d'utilisateur ou d'organisation |
 | [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Les mainteneurs utilisent déjà Gmail ou Google Workspace |
-| IdP corporatif | Votre organisation gère déjà les identités et le processus de départ |
+| [IdP corporatif](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/) | Votre organisation gère déjà les identités de travail et le départ des employés |
 
 Si vous activez plusieurs fournisseurs, les utilisateurs en choisissent un sur la page de connexion Cloudflare Access. La politique réussit lorsque le fournisseur choisi retourne une identité qui correspond à la politique.
 
-### Creer l'application Access
+### Créer l'application Access
 
 Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**, puis :
 
@@ -83,7 +73,7 @@ Réglages recommandés :
 | Fournisseurs d'identité | Code à usage unique pour la phase 1, ou les fournisseurs que vous avez configurés |
 | Browser rendering | Off |
 
-### Creer la politique Access
+### Créer la politique Access
 
 Commencez avec une politique d'autorisation simple :
 
@@ -109,8 +99,6 @@ Stockez-le comme secret Worker :
 npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Ne commitez pas les audiences Access, secrets client IdP, jetons de service, secrets client OAuth ou captures d'écran qui contiennent ces valeurs. Gardez-les dans Cloudflare et dans votre gestionnaire de mots de passe.
-
 ### Valider la protection
 
 Avant la release :
@@ -130,9 +118,11 @@ npm run check
 
 Après le déploiement, répétez le test de navigateur déconnecté contre le vrai domaine court.
 
-### Connaitre les autres gardes
+### Connaître les autres gardes de fichiers
 
-Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels.
+Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
+
+Gardez l'accès contrôlé sur `/_stats` et `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime activés, sauf si vous avez une **raison délibérée de divulgation publique**.
 
 | Contrôle | Chemins | Ce qu'il fait |
 |---|---|---|
@@ -140,7 +130,5 @@ Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers op�
 | Fallback statique `_headers` | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
 | API stats protégée | `/_stats/api/v8s.json` | Expose le registre généré seulement à travers la surface stats protégée |
 | Validation des slugs réservés | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empêche la création de liens courts sous les chemins opérationnels réservés |
-
-Gardez Access sur `/_stats` et `/_tests`, gardez la garde Worker des fichiers runtime activée, et conservez les entrées `_headers` des fichiers runtime sauf si vous avez une raison délibérée de divulgation publique.
 
 {{% /steps %}}
