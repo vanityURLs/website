@@ -35,6 +35,9 @@ This glossary defines the terms used across vanityURLs documentation. Use it whe
   <dt><dfn>Identity provider</dfn></dt>
   <dd>A login source used by Cloudflare Access, such as GitHub, Google, or one-time PIN, to confirm who is trying to reach a protected page.</dd>
 
+  <dt id="idempotent"><dfn>Idempotent</dfn></dt>
+  <dd>A command or operation that can be run repeatedly with the same inputs without creating duplicate state or requiring a fresh setup. In vanityURLs, <code>npm run setup</code> rereads existing answers and updates the same generated files.</dd>
+
   <dt><dfn>Link registry</dfn></dt>
   <dd>The set of short-link records used by vanityURLs. Humans edit <code>custom/v8s-links.txt</code>; the build produces the generated registry consumed by the Worker.</dd>
 

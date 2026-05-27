@@ -10,11 +10,9 @@ aliases:
 
 Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)? No rush; this page can wait with unusual patience.
 
-The maintainers insisted that the steps below use a pertinent short domain, GitHub account, repository name, Cloudflare team domain, operator domain, and email addresses instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named `v8s.link` to demonstrate what works without ambiguity.
+Use simple answers during the Quickstart. You can run `npm run setup` as often as you like; the installer is <a href="/docs/reference/glossary/#idempotent"><dfn>idempotent</dfn></a>, reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
 
-Use the `v8s.link` values as examples while you build and debug your own instance. The full assumption table now lives in [Demo configuration](/docs/demo/). Replace the short domain, GitHub account, repository name, Cloudflare team domain, operator identity, and email addresses with the values for your own instance. If you get stuck, compare your work with the public demo instance in [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link).
-
-Use simple answers during the Quickstart. You can run `npm run setup` as often as you like; the installer is idempotent, reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
+The maintainers insisted that the steps below use a pertinent stuff instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named [v8s.link](/docs/demo/) to demonstrate what works without ambiguity.
 
 {{% steps %}}
 
