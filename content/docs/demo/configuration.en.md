@@ -10,6 +10,15 @@ The source repository is [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s
 
 Quickstart uses the demo values to ensure that commands stay concrete. Needless to say, replace them with your own during setup.
 
+| File | What to inspect |
+|---|---|
+| [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json) | Instance settings created by `npm run setup` |
+| [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/wrangler.toml) | Worker name, build command, Access team domain, route, and custom domain |
+| [`custom/public/en/index.html`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Copied homepage with the split-color domain wordmark |
+| [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt) | Human-authored source of truth for short links |
+
+When your instance behaves differently, compare your `custom/` files to the demo before digging into `defaults/`.
+
 ## Configuration values
 
 | Field | Value |
@@ -28,17 +37,6 @@ Quickstart uses the demo values to ensure that commands stay concrete. Needless 
 | Analytics | Disabled |
 | Legal and jurisdiction pages | Deferred |
 | Branding | Split-color domain wordmark is `v8s.` and `link`; no slogan |
-
-## Configuration files
-
-| File | What to inspect |
-|---|---|
-| [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json) | Instance settings created by `npm run setup` |
-| [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/wrangler.toml) | Worker name, build command, Access team domain, route, and custom domain |
-| [`custom/public/en/index.html`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Copied homepage with the split-color domain wordmark |
-| [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt) | Human-authored source of truth for short links |
-
-When your instance behaves differently, compare your `custom/` files to the demo before digging into `defaults/`.
 
 ## Link inventory
 
@@ -114,14 +112,14 @@ When your instance behaves differently, compare your `custom/` files to the demo
 
 ## Related documentation
 
-### Planning context
+**Planning context**
 
 - [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/)
 - [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/)
 - [Keeping vanityURLs upgradable with custom overrides](/blog/keeping-vanityurls-upgradable-with-custom-overrides/)
 - [Where to start customizing vanityURLs](/blog/where-to-start-customizing-vanityurls/)
 
-### Reference documentation
+**Reference documentation**
 
 - [Configuration files](/docs/reference/configuration-files/)
 - [Repository layout](/docs/reference/repository-layout/)
