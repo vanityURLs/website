@@ -71,7 +71,7 @@
 
     {{/* Right TOC */}}
     {{ $toc := .TableOfContents }}
-    {{ $showTOC := ne (.Params.toc | default true) false }}
+    {{ $showTOC := and (ne (.Params.toc | default true) false) (ne (.Params.aside | default true) false) }}
     {{ if and $showTOC $toc }}
     <aside class="hidden xl:block w-48 shrink-0">
       <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-8">
