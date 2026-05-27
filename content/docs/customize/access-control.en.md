@@ -1,127 +1,103 @@
 ---
 aside: false
 title: "Access control"
-description: "Configure Cloudflare Access, identity providers, policies, and Worker secrets for private vanityURLs operational paths."
+description: "Configure Cloudflare Access for private vanityURLs operational paths."
 weight: 20
 aliases:
   - /docs/access-control/
 
 ---
 
-vanityURLs keeps public redirects open and protects operational paths with Cloudflare Access. The protected paths expose link inventory, runtime diagnostics, and test surfaces, so they should require authentication before the Worker serves them.
-
-Use this page as the canonical setup for:
+Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure:
 
 - `/_stats`
 - `/_stats/*`
 - `/_tests`
 - `/_tests/*`
 
-The Worker validates the `Cf-Access-Jwt-Assertion` header on protected paths. If Cloudflare Access is not configured or the token is missing, those paths fail closed.
+The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths. If Cloudflare Access is missing or the token is invalid, the protected path fails closed.
 
-## Other access controls
+For provider strategy, read [Choosing an Identity Provider](/blog/choosing-identity-provider/). For ongoing review habits, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Cloudflare Access protects operational pages, but it is not the only control that limits file access.
+## 1. Find the Team domain
 
-| Control | Paths | What it does |
-| --- | --- | --- |
-| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Returns `404` with `no-store` and `X-Robots-Tag: noindex, nofollow` for direct public requests |
-| Static `_headers` fallback | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Adds no-cache and no-index headers when static assets are served directly |
-| Protected stats API | `/_stats/api/v8s.json` | Exposes the generated registry only through the protected stats surface, with download headers and no-index headers |
-| Reserved slug validation | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational and runtime paths |
+In Cloudflare, open **Zero Trust** > **Settings**, then copy the **Team domain**.
 
-These controls are layered. Keep Cloudflare Access on `/_stats` and `/_tests`, keep the Worker runtime-file guard enabled, and keep the `_headers` runtime-file entries unless you have a deliberate public-disclosure reason.
-
-## What to decide first
-
-Before creating the Access application, decide who should be allowed in:
-
-| Decision | Phase 1 recommendation | Later customization |
-| --- | --- | --- |
-| Authentication method | One-time PIN with named emails | GitHub, Google, Okta, Entra ID, or another account-managed provider |
-| Policy selector | Email addresses | Email addresses, groups, GitHub organization, or country selectors |
-| Session duration | 24 hours | Shorter for sensitive teams, longer for low-risk personal instances |
-| MFA | Follow global Zero Trust setting | Require MFA directly in the policy when the IdP supports it |
-| Secrets storage | Cloudflare secrets plus password manager | Same model, with rotation notes and owner documentation |
-
-For the identity-provider tradeoffs, read [Choosing an Identity Provider](/blog/choosing-identity-provider/). For phase 1, one-time PIN is usually enough because it protects private paths without creating GitHub, Google, or workforce IdP credentials first.
-
-## Team domain
-
-Find the Cloudflare Access team domain in **Zero Trust** > **Settings**. It looks like:
+It looks like:
 
 ```text
 <team>.cloudflareaccess.com
 ```
 
-The installer writes this value to `wrangler.toml` as `CF_ACCESS_TEAM_DOMAIN`:
+The installer stores it in `wrangler.toml`:
 
 ```toml
 [vars]
-CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
+CF_ACCESS_TEAM_DOMAIN = "vanityurls.cloudflareaccess.com"
 ```
 
-This value is not a secret, but it should still match the Cloudflare account that owns the Access application.
+This value is not a secret, but it must match the Cloudflare account that owns the Access application.
 
-## Identity providers
+## 2. Choose the identity provider
 
-Cloudflare Access can authenticate maintainers with one-time PIN, GitHub, Google, Okta, Entra ID, or multiple providers at the same time. Configure providers in **Zero Trust** > **Integrations** > **Identity providers**.
+For phase 1, use [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) unless you already have a provider ready.
 
-Common options:
+| Option | Use when |
+|---|---|
+| One-time PIN | You want the fastest path with named email addresses |
+| [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Maintainers already use GitHub and you want user or organization selectors |
+| [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Maintainers already use Gmail or Google Workspace |
+| Corporate IdP | Your organization already manages workforce identities and offboarding |
 
-| Provider | When it fits | Notes |
-| --- | --- | --- |
-| [One-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) | Personal instances, small teams, phase 1 setup | Cloudflare emails approved users a code; no external IdP setup is required |
-| [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Maintainers already use GitHub | Access policies can use specific users, email addresses, or GitHub organization membership |
-| [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Users already have Gmail or Google Workspace accounts | Store OAuth client secrets outside the repository |
-| Corporate IdP | Organizations already manage workforce identities | Use the existing joiner, mover, and leaver process instead of maintaining a separate allowlist |
+If you enable multiple providers, users choose one on the Cloudflare Access login page. The policy succeeds when the selected provider returns an identity that matches the policy.
 
-If more than one identity provider is enabled, users choose a provider on the Cloudflare Access login page. The Access policy is satisfied when the selected provider returns an identity that matches the policy, such as an allowed email, group, or organization membership.
+## 3. Create the Access application
 
-## Create the Access application
+In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, then:
 
-In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, then create a **Self-hosted and private** application.
-
-Configure the destinations with *your* short domain:
+1. Create an application
+2. Select **Self-hosted and private**
+3. Continue with **Self-hosted and private**
+4. Configure the destinations with *your* short domain
 
 | Subdomain | Domain | Path |
-| --- | --- | --- |
+|---|---|---|
 | | `v8s.link` | `_stats` |
 | | `v8s.link` | `_stats/*` |
 | | `v8s.link` | `_tests` |
 | | `v8s.link` | `_tests/*` |
 
-Use one Access application for the private vanityURLs operations. The public redirect paths should stay outside Access so visitors can follow short links without logging in.
-
-Recommended application settings:
-
-| Setting | Recommendation |
-| --- | --- |
-| Application type | Self-hosted |
-| Public hostnames | `v8s.link/_stats`, `v8s.link/_stats/*`, `v8s.link/_tests`, `v8s.link/_tests/*` |
-| Session duration | 24 hours |
-| Identity providers | One-time PIN for phase 1, or account-managed providers such as GitHub, Google, Okta, or Entra ID |
-| Browser rendering | Off |
-
 Replace `v8s.link` with *your* short domain everywhere.
 
-## Create the Access policy
+Use one Access application for the private vanityURLs operations. Public redirect paths should stay outside Access so visitors can follow short links without logging in.
+
+Recommended settings:
+
+| Setting | Value |
+|---|---|
+| Application type | Self-hosted |
+| Application name | Your Worker name, such as `v8s-link` |
+| Session duration | `24 hours` |
+| Identity providers | One-time PIN for phase 1, or the providers you configured |
+| Browser rendering | Off |
+
+## 4. Create the Access policy
 
 Start with a simple allow policy:
 
 | Field | Value |
-| --- | --- |
+|---|---|
 | Policy name | `Allow maintainers` |
 | Action | `Allow` |
 | Include selector | `Emails` |
 | Include value | Your maintainer email addresses |
 | Session duration | `24 hours` |
 
-Use the policy tester before saving. Test at least one allowed email address and one address that should be denied.
+Use the policy tester before saving. Test one allowed email address and one address that should be denied.
 
-For a larger team, prefer a maintained group or identity-provider selector over a long list of individual email addresses. That makes access review part of the normal team offboarding process.
+For a larger team, prefer a maintained group or IdP selector over a long list of individual email addresses.
 
-## Store the Access audience
+## 5. Store the Access audience
 
 After the application is created, open **Additional settings** and copy the **Application Audience (AUD) Tag**.
 
@@ -133,7 +109,7 @@ npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 
 Do not commit Access audiences, IdP client secrets, service tokens, OAuth client secrets, or screenshots that contain those values. Keep them in Cloudflare and in your password manager.
 
-## Validate the protection
+## 6. Validate the protection
 
 Before release:
 
@@ -152,14 +128,15 @@ npm run check
 
 After deployment, repeat the signed-out browser test against the real short domain.
 
-## Operations notes
+## 7. Know the other file guards
 
-Review Access settings when:
+Cloudflare Access is not the only layer that limits operational file access.
 
-- A maintainer joins or leaves
-- The short domain moves to a new Cloudflare account
-- The Access team domain changes
-- You switch from one-time PIN to GitHub, Google, or another IdP
-- A screenshot, log, or repository accidentally exposes Access configuration values
+| Control | Paths | What it does |
+|---|---|---|
+| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Returns `404` for direct public requests |
+| Static `_headers` fallback | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Adds no-cache and no-index headers if static assets are served directly |
+| Protected stats API | `/_stats/api/v8s.json` | Exposes the generated registry only through the protected stats surface |
+| Reserved slug validation | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational paths |
 
-Traffic blocked by Cloudflare Access never reaches the Worker. Review those decisions in Cloudflare Access logs or Security Events, not in Umami or Fathom.
+Keep Access on `/_stats` and `/_tests`, keep the Worker runtime-file guard enabled, and keep the `_headers` runtime-file entries unless you have a deliberate public-disclosure reason.
