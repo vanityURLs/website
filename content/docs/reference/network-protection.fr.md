@@ -30,6 +30,8 @@ Utilisez la capture pour suivre les changements de menus Cloudflare, mais docume
 | Security > Analytics, Security rules et Settings | Documenter les sampled logs, les regles WAF custom, le rate limiting, les protections DDoS, Bot Fight Mode, Browser Integrity Check, le managed ruleset et Security.txt; ne pas documenter Web assets ou schema validation comme requis. |
 | Access | Documenter Cloudflare Access pour les chemins vanityURLs prives; ne pas documenter les noms d'applications du compte, les courriels utilisateurs ou les comptes de connexions. |
 | Speed | Documenter HTTP/2, HTTP/3, HTTP/2 to Origin, TLS 1.3 et les diagnostics optionnels; ne pas exiger RUM, Smart Shield, Origin Analytics, Argo, Polish, Zaraz ou les scores de tests captures. |
+| Caching | Documenter les defauts conservateurs : les redirections dynamiques restent dans le Worker, Development Mode reste desactive sauf pendant le debogage, et les regles de cache pour redirections exigent des tests explicites des etats, horaires, analytics et misses. |
+| Workers Routes | Ne pas documenter les Workers Routes de zone comme requis quand le Worker custom domain est actif pour le domaine court apex. |
 | Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
 
 ## DNS
