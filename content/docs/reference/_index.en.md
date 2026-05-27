@@ -15,6 +15,7 @@ Start here when you already have an instance running and want to understand how 
 | --- | --- |
 | [Analytics reference](/docs/reference/analytics/) | Server-side analytics events, provider payloads, IP modes, and blocked traffic |
 | [Configuration files](/docs/reference/configuration-files/) | Source, custom, local, and generated configuration files |
+| [Custom overrides](/docs/reference/custom-overrides/) | Instance-owned file overlays, public override paths, and status-page placeholders |
 | [Glossary](/docs/reference/glossary/) | Common terms used across the documentation, blog, and public pages |
 | [Internationalization](/docs/reference/i18n/) | Supported languages, localized pages, and badge files |
 | [Link format](/docs/reference/link-format/) | `custom/v8s-links.txt` rows and metadata fields |

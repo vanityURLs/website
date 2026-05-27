@@ -50,4 +50,4 @@ That means most instance customization should avoid direct edits to:
 - `src/`, because it is generated for Wrangler compatibility
 - `build/`, because it is generated deployment output
 
-Use [Custom overrides](/docs/customize/custom-overrides/) for exact file paths and [Upgrading an instance](/docs/reference/upgrading/) for the upgrade workflow.
+Use [Custom overrides](/docs/reference/custom-overrides/) for exact file paths and [Upgrading an instance](/docs/reference/upgrading/) for the upgrade workflow.

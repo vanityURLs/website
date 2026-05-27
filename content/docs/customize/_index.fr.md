@@ -14,6 +14,6 @@ Pour une carte pratique des premieres zones a personnaliser, lisez [Par ou comme
 
 La regle importante est simple : modifiez `custom/`, pas les fichiers generes dans `build/`. Les defaults produit vivent dans `defaults/`; vos choix propres a l'instance vivent dans `custom/`; le build combine les deux dans les assets Worker et les JSON runtime deployes par Cloudflare.
 
-Pour le comportement exact des fichiers, utilisez [Fichiers de configuration](/fr/docs/reference/configuration-files/) et [Surcharges custom](/fr/docs/customize/custom-overrides/).
+Pour le comportement exact des fichiers, utilisez [Fichiers de configuration](/fr/docs/reference/configuration-files/) et [Surcharges custom](/fr/docs/reference/custom-overrides/).
 
 Utilisez [Marque](/fr/docs/customize/brand/) lorsque vous etes pret a definir le slogan public, le wordmark bicolore et les assets de pages geres par l'installateur.

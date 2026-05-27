@@ -2,9 +2,12 @@
 aside: false
 title: "Surcharges custom"
 description: "Associer les fichiers propres à l'instance sous custom/ aux pages vanityURLs qui documentent chaque surface de personnalisation."
-weight: 80
+weight: 58
 aliases:
   - /docs/custom-overrides/
+  - /fr/docs/custom-overrides/
+  - /docs/customize/custom-overrides/
+  - /fr/docs/customize/custom-overrides/
 
 ---
 
@@ -53,7 +56,7 @@ Le Worker sert des fichiers précis pour les états de lien et de routage. Pour 
 
 Les versions localisées utilisent le [code langue](/fr/docs/reference/i18n/#langues-supportees) comme premier segment de répertoire, par exemple `custom/public/fr/404.html`. Vous devez seulement ajouter les pages localisées que vous supportez vraiment. Si une page localisée manque, le Worker peut revenir à la page par défaut pour l'état demandé.
 
-Si vous remplacez `404.html`, incluez ces placeholders où vous voulez afficher le contexte runtime :
+Seul `404.html` a des placeholders runtime. Si vous le remplacez, incluez ces placeholders ou vous voulez afficher le contexte runtime :
 
 ```html
 <!-- {{SLUG_MESSAGE}} -->
@@ -61,3 +64,5 @@ Si vous remplacez `404.html`, incluez ces placeholders où vous voulez afficher 
 ```
 
 `{{SLUG_MESSAGE}}` est remplacé par un message sécuritaire au sujet du slug demandé. `{{REFERENCE_LINE}}` est remplacé par une référence de corrélation utile pour le support et la revue des logs.
+
+`disabled.html`, `expired.html` et `maintenance.html` sont servis comme pages d'etat statiques. Ils ne demandent pas de placeholders runtime.

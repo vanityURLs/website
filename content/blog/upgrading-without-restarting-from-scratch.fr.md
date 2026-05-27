@@ -44,4 +44,4 @@ Traitez le resultat comme tout autre changement operationnel. Revisez le diff Gi
 
 Si le diff reflete seulement le nouveau comportement produit et les reponses attendues pour votre instance, commitez et poussez. Cloudflare reconstruira depuis GitHub et votre instance continuera d'avancer sans rituel de reconstruction depuis zero.
 
-Utilisez [Mettre a jour une instance](/fr/docs/reference/upgrading/) pour la reference des commandes et [Surcharges custom](/fr/docs/customize/custom-overrides/) pour la frontiere entre defaults produit et changements propres a l'instance.
+Utilisez [Mettre a jour une instance](/fr/docs/reference/upgrading/) pour la reference des commandes et [Surcharges custom](/fr/docs/reference/custom-overrides/) pour la frontiere entre defaults produit et changements propres a l'instance.

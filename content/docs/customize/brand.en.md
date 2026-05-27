@@ -30,6 +30,35 @@ You can run `npm run setup` again later. The installer reads existing branding v
 
 Localized slogans are stored in `custom/v8s-site-config.json` under `branding.slogan`. Existing instances that still have a single slogan string continue to work; setup writes the localized map for new branding runs.
 
+## Instance asset overrides
+
+Put instance-owned brand assets under `custom/public/` so they overlay the default public assets during build. Redirected badges also live under localized public directories.
+
+{{< filetree/container >}}
+{{< filetree/folder name="custom" >}}
+  {{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
+    {{< filetree/file name="v8s-logo.svg" >}}
+    {{< filetree/file name="favicon.svg" >}}
+    {{< filetree/file name="site.webmanifest" >}}
+    {{< filetree/file name="apple-touch-icon.png" >}}
+    {{< filetree/file name="icon-192.png" >}}
+    {{< filetree/file name="icon-512.png" >}}
+    {{< filetree/folder name="en" annotation="localized badge overrides" >}}
+      {{< filetree/file name="v8s-redirected.svg" >}}
+      {{< filetree/file name="v8s-redirected-dark.svg" >}}
+    {{< /filetree/folder >}}
+  {{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}
+
+## Installer-managed public pages
+
+`npm run setup` can copy `defaults/public/` into `custom/public/`, rewrite the default `Vanity` + `URLs` wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.
+
+The installer records those choices in `custom/v8s-site-config.json` so repeated setup runs are predictable. If `custom/public/` already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass `--force`.
+
+When you use `custom/public/`, keep `i18n.supported_languages` aligned with the localized pages you actually support. See [Internationalization](/docs/reference/i18n/) for the language directory rules.
+
 ## vanityURLs visual system
 
 The vanityURLs visual system currently covers badge colors, localized badge files, typography notes, instance wordmark configuration, and instance-owned asset overrides. For the customization narrative, read [Branding your short-link domain](/blog/branding-your-short-link-domain/).
@@ -138,34 +167,6 @@ The vanityURLs visual system currently covers badge colors, localized badge file
   }
 }</code></pre>
     <p><img src="/images/docs/split-color-domain-wordmark.svg" alt="Split-color domain wordmark example"></p>
-  </section>
-
-  <section class="brand-section">
-    <h3>Instance asset overrides</h3>
-    <p>Put instance-owned brand assets under <code>custom/public/</code> so they overlay the default public assets during build. Redirected badges also live under localized public directories.</p>
-{{< filetree/container >}}
-{{< filetree/folder name="custom" >}}
-  {{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
-    {{< filetree/file name="v8s-logo.svg" >}}
-    {{< filetree/file name="favicon.svg" >}}
-    {{< filetree/file name="site.webmanifest" >}}
-    {{< filetree/file name="apple-touch-icon.png" >}}
-    {{< filetree/file name="icon-192.png" >}}
-    {{< filetree/file name="icon-512.png" >}}
-    {{< filetree/folder name="en" annotation="localized badge overrides" >}}
-      {{< filetree/file name="v8s-redirected.svg" >}}
-      {{< filetree/file name="v8s-redirected-dark.svg" >}}
-    {{< /filetree/folder >}}
-  {{< /filetree/folder >}}
-{{< /filetree/folder >}}
-{{< /filetree/container >}}
-  </section>
-
-  <section class="brand-section">
-    <h3>Installer-managed public pages</h3>
-    <p><code>npm run setup</code> can copy <code>defaults/public/</code> into <code>custom/public/</code>, rewrite the default <code>Vanity</code> + <code>URLs</code> wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.</p>
-    <p>The installer records those choices in <code>custom/v8s-site-config.json</code> so repeated setup runs are predictable. If <code>custom/public/</code> already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass <code>--force</code>.</p>
-    <p>When you use <code>custom/public/</code>, keep <code>i18n.supported_languages</code> aligned with the localized pages you actually support. See <a href="/docs/reference/i18n/">Internationalization</a> for the language directory rules.</p>
   </section>
 
   <section class="brand-section">

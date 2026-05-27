@@ -2,9 +2,10 @@
 aside: false
 title: "Custom overrides"
 description: "Map instance-owned files under custom/ to the vanityURLs pages that document each customization surface."
-weight: 50
+weight: 58
 aliases:
   - /docs/custom-overrides/
+  - /docs/customize/custom-overrides/
 
 ---
 
@@ -53,7 +54,7 @@ The Worker serves specific files for link and routing states. To build custom st
 
 Localized versions use the [language code](/docs/reference/i18n/#supported-languages) as the first directory segment, for example `custom/public/fr/404.html`. You only need to add the localized pages you actually support. If a localized page is missing, the Worker can fall back to the default page for the requested state.
 
-If you replace `404.html`, include these placeholders where you want runtime context to appear:
+Only `404.html` has runtime placeholders. If you replace it, include these placeholders where you want runtime context to appear:
 
 ```html
 <!-- {{SLUG_MESSAGE}} -->
@@ -61,3 +62,5 @@ If you replace `404.html`, include these placeholders where you want runtime con
 ```
 
 `{{SLUG_MESSAGE}}` is replaced with a safe message about the requested slug. `{{REFERENCE_LINE}}` is replaced with a correlation reference that helps with support and log review.
+
+`disabled.html`, `expired.html`, and `maintenance.html` are served as static state pages. They do not require runtime placeholders.
