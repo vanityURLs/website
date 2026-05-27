@@ -464,6 +464,164 @@
         "included_custom_hostnames": 100,
         "website_documentation": "Do not document as a default requirement for a single operator-owned short domain."
       }
+    },
+    "Security": {
+      "Overview": {
+        "Security Overview": {
+          "empty_state": "No scans yet",
+          "action": "Scan now",
+          "description": "Quickly identify security action items and view the security posture of your domain."
+        },
+        "Security action items": [
+          {"date": "2025-09-24", "title": "Review and block AI bots from accessing your assets", "severity": "Moderate", "category": "Bot traffic"},
+          {"date": "2026-03-02", "title": "Detect and mitigate automated traffic with Bot Fight Mode", "severity": "Moderate", "category": "Bot traffic"},
+          {"date": "2025-09-24", "title": "Disrupt unwanted AI crawlers with AI Labyrinth", "severity": "Low", "category": "Bot traffic"},
+          {"date": "2025-03-30", "title": "Configure your website's Security.txt to help security researchers", "severity": "Low", "category": "Client-side abuse"}
+        ],
+        "Detection tools": [
+          {"name": "Web app exploits", "status": "All running"},
+          {"name": "DDoS attacks", "status": "All running"},
+          {"name": "Bot traffic", "status": "0/2 running"},
+          {"name": "API abuse", "status": "All running"},
+          {"name": "Client-side abuse", "status": "0/1 running"},
+          {"name": "Fraud protection", "status": "All running"}
+        ],
+        "Traffic overview": {
+          "time_range": "Past 24 hours",
+          "metrics": ["Daily requests", "Mitigated", "Served by Cloudflare", "Served by origin"],
+          "website_documentation": "Mention as an optional dashboard for edge security posture. Do not document captured traffic counts."
+        }
+      },
+      "Analytics": {
+        "description": "Analyze incoming HTTP requests for your domain and learn how malicious traffic is mitigated by Cloudflare.",
+        "tabs": ["Traffic", "Events"],
+        "filters": ["Suspicious activity", "Add filter"],
+        "time_range": "Last 24 hours",
+        "controls": ["Security analytics documentation", "View guide", "Dashboard tour", "Create custom security rule"],
+        "Request activity": {
+          "metrics": ["Total", "Mitigated by Cloudflare", "Served by Cloudflare", "Served by origin"],
+          "group_by": "All",
+          "website_documentation": "Document as the place to review traffic blocked before the Worker."
+        },
+        "Top statistics": [
+          "Source IPs",
+          "Source device types",
+          "Source operating systems",
+          "Cache statuses",
+          "Source browsers",
+          "HTTP methods",
+          "Countries",
+          "HTTP versions",
+          "Security services",
+          "Security actions"
+        ],
+        "Sampled logs": {
+          "available": true,
+          "visible_columns": ["Time", "Source IP", "Host", "Path"],
+          "website_documentation": "Mention sampled logs as a way to inspect probes such as robots.txt, abuse reports and scanner paths."
+        }
+      },
+      "Web assets": {
+        "description": "Discover your web assets and instruct Cloudflare how to best protect them.",
+        "tabs": [
+          "Endpoints",
+          "Discovery",
+          "Schema validation",
+          "Client-side resources",
+          "Upgrade"
+        ],
+        "Endpoints": {
+          "default_state": "No endpoints added",
+          "action": "Add endpoints",
+          "website_documentation": "Do not document endpoint inventory as required for a redirector."
+        },
+        "Discovery": {
+          "default_state": "No web assets detected",
+          "website_documentation": "Do not document web asset discovery as required for a redirector."
+        },
+        "Schema validation": {
+          "total_endpoints": 0,
+          "no_validation": 0,
+          "default_action": "None",
+          "actions": ["Add validation", "Schema settings", "Search", "Show filters"],
+          "website_documentation": "Do not document schema validation as required unless vanityURLs exposes explicit API schemas."
+        }
+      },
+      "Security rules": {
+        "description": "Configure both Cloudflare managed rules and custom security rules.",
+        "tabs": ["Security rules", "DDoS protection"],
+        "controls": [
+          "Show all rule types",
+          "Search by id or rule name",
+          "Status",
+          "Create rule",
+          "Templates"
+        ],
+        "Security rules": {
+          "Custom rules": {
+            "used": "0/5",
+            "default_state": "No Custom rules created",
+            "website_documentation": "Document custom WAF rules as recommended edge controls."
+          },
+          "Rate limiting rules": {
+            "used": "0/1",
+            "default_state": "No Rate limiting rules created",
+            "website_documentation": "Document rate limiting as an optional control for repeated misses or scanner-like traffic."
+          },
+          "Managed rules": {
+            "active": 0,
+            "default_state": "No Managed rules created",
+            "upgrade_prompt": "Upgrade to Pro",
+            "website_documentation": "Document Cloudflare managed rules only when the plan supports them."
+          }
+        }
+      },
+      "Settings": {
+        "filters": [
+          "Web application exploits",
+          "DDoS attacks",
+          "Bot traffic",
+          "API abuse",
+          "Client side abuse",
+          "Domain settings",
+          "Web assets and endpoints",
+          "Rule templates",
+          "Detection tools",
+          "Fraud",
+          "Dashboard version"
+        ],
+        "settings": [
+          {"name": "New application security dashboard", "default_state": "on", "website_documentation": "Document On."},
+          {"name": "AI Labyrinth", "default_state": "off", "website_documentation": "Document as optional only."},
+          {"name": "Block AI bots", "default_state": "not configured", "configuration": "Blocks AI bots except Do not block list", "website_documentation": "Document only when the operator intentionally blocks AI crawlers."},
+          {"name": "Bot Fight mode", "default_state": "off", "configuration": "JS Detections On", "website_documentation": "Document On as recommended for baseline bot defense on the Free plan."},
+          {"name": "Browser integrity check", "default_state": "on", "configuration": "API", "website_documentation": "Document On."},
+          {"name": "Challenge passage", "configuration": "Timeout: 30 minutes", "website_documentation": "Document 30 minutes as the recommended starting point."},
+          {"name": "Client certificates", "website_documentation": "Do not document as required."},
+          {"name": "Cloudflare managed ruleset", "default_state": "on", "status": "Always active", "website_documentation": "Document On."},
+          {"name": "Continuous script monitoring", "default_state": "off", "website_documentation": "Do not document as required."},
+          {"name": "Custom fallback routes", "website_documentation": "Do not document as required."},
+          {"name": "Email Address Obfuscation", "default_state": "on", "configuration": "API", "website_documentation": "Document On if public pages show email addresses."},
+          {"name": "Endpoint Labels", "website_documentation": "Do not document as required."},
+          {"name": "Hotlink Protection", "default_state": "off", "configuration": "API", "website_documentation": "Document Off by default."},
+          {"name": "HTTP DDoS attack protection", "default_state": "on", "status": "Always active", "website_documentation": "Document as always active."},
+          {"name": "IP access rules", "website_documentation": "Do not document as required; prefer Cloudflare Access for private paths."},
+          {"name": "IP lists", "website_documentation": "Document only when custom rules need reusable IP sets."},
+          {"name": "Leaked credentials detection", "default_state": "off", "website_documentation": "Document Off unless the app has password login."},
+          {"name": "Manage your robots.txt", "configuration": "Robots.txt configuration: Content Signals Policy", "website_documentation": "Document Cloudflare Managed robots.txt off when the repo ships robots.txt."},
+          {"name": "mTLS rules", "website_documentation": "Do not document as required."},
+          {"name": "Network-layer DDoS attack protection", "default_state": "on", "status": "Always active", "website_documentation": "Document as always active."},
+          {"name": "Rate limit authentication requests", "website_documentation": "Do not document as required without password login."},
+          {"name": "Replace insecure JavaScript libraries", "default_state": "on", "configuration": "API", "website_documentation": "Document On."},
+          {"name": "Schema validation", "default_state": "on", "configuration": "Default action: No action", "website_documentation": "Document Off or no-op unless schemas are configured."},
+          {"name": "Security level", "configuration": "I'm under attack mode: disabled", "website_documentation": "Document only for active incident response."},
+          {"name": "Security.txt", "default_state": "off", "configuration": "Security.txt undefined", "website_documentation": "Document Configure before release."},
+          {"name": "SSL/TLS DDoS attack protection", "default_state": "on", "status": "Always active", "website_documentation": "Document as always active."},
+          {"name": "User agent blocking", "website_documentation": "Document only as optional; prefer precise custom WAF rules when possible."},
+          {"name": "Web asset discovery", "default_state": "on", "status": "Always active", "website_documentation": "Do not document as a redirector requirement."},
+          {"name": "Zone lockdown", "website_documentation": "Do not document as required; prefer Cloudflare Access for private paths."}
+        ]
+      }
     }
   },
   "website_documentation_scope": {
@@ -476,6 +634,10 @@
       "Use Full strict SSL/TLS mode, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites and a minimum TLS version of 1.2 or stricter for production.",
       "Enable HSTS only after every production hostname and subdomain is ready for HTTPS.",
       "Use AI Crawl Control Security toggles only when the operator intentionally wants Cloudflare to block specific crawlers before the Worker.",
+      "Use Security Analytics and sampled logs for traffic blocked before the Worker.",
+      "Use custom security rules and rate limiting for scanner-like traffic and repeated short-link misses.",
+      "Keep Browser Integrity Check, Cloudflare managed ruleset, HTTP DDoS protection, Network-layer DDoS protection, SSL/TLS DDoS protection, Replace insecure JavaScript libraries and the new application security dashboard enabled.",
+      "Configure Security.txt before release.",
       "Use Cloudflare Security Events and Analytics for traffic blocked before the Worker.",
       "Use Workers analytics for infrastructure request volume, errors, CPU time, wall time and duration.",
       "Use vanityURLs server-side analytics for redirects, short-link misses, expand lookups and normalized bot events."
@@ -489,6 +651,9 @@
       "Advanced Certificate Manager, Total TLS, cipher suites, client certificates, origin certificates and custom hostnames.",
       "DNS analytics captured counts and traffic breakdowns from the sample zone.",
       "Captured TLS traffic counts from the sample zone.",
+      "Security Overview captured action-item dates and traffic counts.",
+      "Web assets endpoint inventory, discovery, schema validation and labels unless explicit API schemas are configured.",
+      "AI Labyrinth, client certificates, mTLS, Zone Lockdown, leaked credential controls and authentication rate limiting as default requirements.",
       "Per-crawler activity counts from an idle zone."
     ]
   }

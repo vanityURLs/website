@@ -27,6 +27,7 @@ Utilisez la capture pour suivre les changements de menus Cloudflare, mais docume
 | DNS > Records et Settings | Documenter le record Worker apex, les records de politique courriel en DNS-only et DNSSEC quand la delegation registrar est prete. |
 | Email | Ne pas documenter Cloudflare Email Routing, DMARC Management ou Email Security comme exigences du redirecteur. |
 | SSL/TLS > Overview et Edge Certificates | Documenter les reglages de production vises, pas l'etat capture : Full strict, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites, TLS minimum 1.2 ou plus strict, et HSTS apres que les hostnames soient prets pour HTTPS. |
+| Security > Analytics, Security rules et Settings | Documenter les sampled logs, les regles WAF custom, le rate limiting, les protections DDoS, Bot Fight Mode, Browser Integrity Check, le managed ruleset et Security.txt; ne pas documenter Web assets ou schema validation comme requis. |
 | Valeurs de metriques capturees | Ne pas documenter les zeros d'une zone inactive ni les comptes par crawler comme des valeurs par defaut. |
 
 ## DNS
