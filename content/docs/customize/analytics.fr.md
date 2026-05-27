@@ -82,13 +82,11 @@ Le smoke test bâtit l'instance et intercepte les appels analytics localement. I
 
 ### Vérifier après déploiement
 
-Après le déploiement :
-
 1. Visitez `https://v8s.link/expand` et confirmez les pageviews dans le dashboard analytics
 2. Visitez un lien court valide; confirmez un événement `redirect`
 3. Visitez un slug manquant réaliste; confirmez un événement `short-link-miss`
 4. Visitez `/file.php`; confirmez le blocage sans événement miss
-5. Vérifiez Workers Logs pour `umami tracking failed` ou `fathom tracking failed`
+5. Vérifiez Workers Logs pour umami ou fathom tracking failed
 
 Les dashboards fournisseur peuvent avoir du retard. Utilisez Workers Logs en premier pour diagnostiquer l'ingestion.
 

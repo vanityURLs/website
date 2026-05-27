@@ -81,13 +81,11 @@ The smoke test builds the instance and intercepts analytics calls locally. It ve
 
 ### Verify after deployment
 
-After deployment:
-
 1. Visit `https://v8s.link/expand` and confirm pageviews with the analytics dashboard
 2. Visit a valid short link; confirm a `redirect` event
 3. Visit a realistic missing slug; confirm a `short-link-miss` event
 4. Visit `/file.php`; confirm it is blocked without a miss event
-5. Check Workers Logs for `umami tracking failed` or `fathom tracking failed`
+5. Check Workers Logs for umami or fathom tracking failed
 
 Provider dashboards can lag. Use Workers Logs first when debugging ingestion errors.
 
