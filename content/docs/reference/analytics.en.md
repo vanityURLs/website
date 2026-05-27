@@ -10,7 +10,13 @@ aliases:
 
 vanityURLs analytics runs inside the Cloudflare Worker. It does not require browser tracking JavaScript, cookies, or a visitor account.
 
-The Worker sends analytics with `ctx.waitUntil()`. Redirects and pages should continue responding even when the analytics provider is slow or unavailable.
+The Worker sends analytics with `ctx.waitUntil()`.[^wait-until] Redirects and pages should continue responding even when the analytics provider is slow or unavailable.
+
+Provider limits are account- and product-specific. Verify the current vendor documentation and the plan attached to the instance before enabling high-volume collection.
+
+The Worker uses collection endpoints for runtime analytics. Treat management API keys, reporting APIs, helper scripts, and collection events as separate paths with separate limits and credentials.
+
+References: [Fathom API documentation](https://usefathom.com/docs/api-reference), [Umami sending stats documentation](https://umami.is/docs/api/sending-stats), and [Umami Cloud API-key documentation](https://umami.is/docs/cloud/api-key).
 
 ## Configuration Fields
 
@@ -109,10 +115,4 @@ Fathom event payloads can include:
 
 Fathom collection does not require forwarding `CF-Connecting-IP` from the Worker. The Worker sends provider-native Fathom requests with the visitor user agent when safe, and falls back to a generic Worker user agent for known bot traffic.
 
-## Provider Limits
-
-Provider limits are account- and product-specific. Verify the current vendor documentation and the plan attached to the instance before enabling high-volume collection.
-
-The Worker uses collection endpoints for runtime analytics. Treat management API keys, reporting APIs, helper scripts, and collection events as separate paths with separate limits and credentials.
-
-References: [Fathom API documentation](https://usefathom.com/docs/api-reference), [Umami sending stats documentation](https://umami.is/docs/api/sending-stats), and [Umami Cloud API-key documentation](https://umami.is/docs/cloud/api-key).
+[^wait-until]: `ctx.waitUntil()` is called from `src/worker.mjs`, the main vanityURLs application run by Cloudflare Workers.

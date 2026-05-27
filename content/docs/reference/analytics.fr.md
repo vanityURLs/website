@@ -10,7 +10,13 @@ aliases:
 
 Les analytics vanityURLs s'exécutent dans le Cloudflare Worker. Elles ne demandent pas de JavaScript de tracking navigateur, de cookies ou de compte visiteur.
 
-Le Worker envoie les analytics avec `ctx.waitUntil()`. Les redirections et les pages devraient continuer à répondre même si le fournisseur analytics est lent ou indisponible.
+Le Worker envoie les analytics avec `ctx.waitUntil()`.[^wait-until] Les redirections et les pages devraient continuer à répondre même si le fournisseur analytics est lent ou indisponible.
+
+Les limites fournisseur dépendent du compte et du produit. Vérifiez la documentation courante du fournisseur et le plan lié à l'instance avant d'activer une collecte à fort volume.
+
+Le Worker utilise les endpoints de collecte pour les analytics runtime. Traitez les clés API de gestion, API de reporting, scripts helper et événements de collecte comme des chemins séparés avec leurs propres limites et identifiants.
+
+Références : [documentation API Fathom](https://usefathom.com/docs/api-reference), [documentation Umami sending stats](https://umami.is/docs/api/sending-stats), et [documentation API-key Umami Cloud](https://umami.is/docs/cloud/api-key).
 
 ## Champs de configuration
 
@@ -109,10 +115,4 @@ Les payloads d'événement Fathom peuvent inclure :
 
 La collecte Fathom ne demande pas de transmettre `CF-Connecting-IP` depuis le Worker. Le Worker envoie les requêtes Fathom natives avec le user agent visiteur lorsque c'est prudent, et utilise un user agent générique Worker pour le trafic bot connu.
 
-## Limites fournisseur
-
-Les limites fournisseur dépendent du compte et du produit. Vérifiez la documentation courante du fournisseur et le plan lié à l'instance avant d'activer une collecte à fort volume.
-
-Le Worker utilise les endpoints de collecte pour les analytics runtime. Traitez les clés API de gestion, API de reporting, scripts helper et événements de collecte comme des chemins séparés avec leurs propres limites et identifiants.
-
-Références : [documentation API Fathom](https://usefathom.com/docs/api-reference), [documentation Umami sending stats](https://umami.is/docs/api/sending-stats), et [documentation API-key Umami Cloud](https://umami.is/docs/cloud/api-key).
+[^wait-until]: `ctx.waitUntil()` est appelé depuis `src/worker.mjs`, l'application principale vanityURLs exécutée par Cloudflare Workers.
