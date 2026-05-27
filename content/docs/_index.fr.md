@@ -4,10 +4,6 @@ title: "Documentation"
 description: "Trouver les pages de setup, personnalisation, ligne de commande, demo et reference vanityURLs."
 ---
 
-Utilisez cette documentation pour creer, personnaliser, exploiter et maintenir votre propre instance vanityURLs. La plupart des changements propres a l'instance vivent dans `custom/`; les defaults produit vivent dans `defaults/`; la sortie de build est generee.
-
-## Configurer une nouvelle instance
-
 - [Setup](/fr/docs/setup/) liste les prerequis et les decisions a prendre avant l'installation.
 - [Demarrage rapide](/fr/docs/setup/quickstart/) suit le chemin simple depuis la creation du depot jusqu'a la premiere redirection deployee.
 - [v8s.link](/fr/docs/v8s-link/) est l'instance demo officielle a comparer lorsque des valeurs de setup ou des comportements runtime different.
