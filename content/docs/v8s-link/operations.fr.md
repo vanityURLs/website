@@ -31,28 +31,23 @@ Les liens actuels sont stockés dans [`custom/v8s-links.txt`](https://github.com
 
 Lancez `./scripts/lnk list` dans votre propre instance pour voir l'inventaire local courant. Lancez `./scripts/lnk LONG_URL [SLUG]` lorsque vous êtes prêt à ajouter un lien avec l'interface en ligne de commande.
 
-| Slug | Lien long | Ce que cela démontre |
-|---|---|---|
-| [`v8s.link/ai/chat`](https://v8s.link/ai/chat) | `chatgpt.com` | Namespace imbriqué pour les outils AI |
-| [`v8s.link/pkg/n`](https://v8s.link/pkg/n) | `www.npmjs.com/package` | Namespace compact de gestionnaire de paquets |
-| [`v8s.link/social/x`](https://v8s.link/social/x) | `x.com/BHDicaire/` | Namespace de profil social |
-| [`v8s.link/v8s/doc`](https://v8s.link/v8s/doc) | `vanityUrls.link/en/docs/` | Raccourci vers la documentation du projet |
-| [`v8s.link/v8s/hugo`](https://v8s.link/v8s/hugo) | `github.com/vanityURLs/website` | Raccourci vers la source du site |
-| [`v8s.link/v8s/issues`](https://v8s.link/v8s/issues) | `github.com/vanityurls/vanityurls/issues` | Raccourci vers le suivi des enjeux |
-| [`v8s.link/v8s/latest`](https://v8s.link/v8s/latest) | `github.com/vanityURLs/website/releases/latest` | Raccourci vers la dernière release |
-| [`v8s.link/v8s/roadmap`](https://v8s.link/v8s/roadmap) | `github.com/orgs/vanityURLs/projects` | Raccourci vers la roadmap |
-| [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` | Raccourci vers le statut public |
-
-## Exemples de cycle de vie
-
-| Slug | État | Résultat attendu |
-|---|---|---|
-| [`v8s.link/test/1`](https://v8s.link/test/1) | `permanent` | Redirection permanente |
-| [`v8s.link/test/2`](https://v8s.link/test/2) | `ephemeral` | Redirection temporaire |
-| [`v8s.link/test/3`](https://v8s.link/test/3) | `expired` avec date d'expiration | Page d'état expiré |
-| [`v8s.link/test/4`](https://v8s.link/test/4) | `disabled` | Page d'état désactivé |
-| [`v8s.link/test/5`](https://v8s.link/test/5) | `maintenance` | Page d'état maintenance |
-| [`v8s.link/test/6`](https://v8s.link/test/6) | `deactivated` | Vrai comportement introuvable |
+| Slug | Lien long | État | Ce que cela démontre |
+|---|---|---|---|
+| [`v8s.link/ai/chat`](https://v8s.link/ai/chat) | `chatgpt.com` | default | Namespace imbriqué pour les outils AI |
+| [`v8s.link/pkg/n`](https://v8s.link/pkg/n) | `www.npmjs.com/package` | default | Namespace compact de gestionnaire de paquets |
+| [`v8s.link/social/x`](https://v8s.link/social/x) | `x.com/BHDicaire/` | default | Namespace de profil social |
+| [`v8s.link/test/1`](https://v8s.link/test/1) | `youtu.be/dQw4w9WgXcQ` | `permanent` | Redirection permanente |
+| [`v8s.link/test/2`](https://v8s.link/test/2) | `youtu.be/dQw4w9WgXcQ` | `ephemeral` | Redirection temporaire |
+| [`v8s.link/test/3`](https://v8s.link/test/3) | `youtu.be/dQw4w9WgXcQ` | `expired` avec date d'expiration | Page d'état expiré |
+| [`v8s.link/test/4`](https://v8s.link/test/4) | `youtu.be/dQw4w9WgXcQ` | `disabled` | Page d'état désactivé |
+| [`v8s.link/test/5`](https://v8s.link/test/5) | `youtu.be/dQw4w9WgXcQ` | `maintenance` | Page d'état maintenance |
+| [`v8s.link/test/6`](https://v8s.link/test/6) | `youtu.be/dQw4w9WgXcQ` | `deactivated` | Vrai comportement introuvable |
+| [`v8s.link/v8s/doc`](https://v8s.link/v8s/doc) | `vanityUrls.link/en/docs/` | default | Raccourci vers la documentation du projet |
+| [`v8s.link/v8s/hugo`](https://v8s.link/v8s/hugo) | `github.com/vanityURLs/website` | default | Raccourci vers la source du site |
+| [`v8s.link/v8s/issues`](https://v8s.link/v8s/issues) | `github.com/vanityurls/vanityurls/issues` | default | Raccourci vers le suivi des enjeux |
+| [`v8s.link/v8s/latest`](https://v8s.link/v8s/latest) | `github.com/vanityURLs/website/releases/latest` | default | Raccourci vers la dernière release |
+| [`v8s.link/v8s/roadmap`](https://v8s.link/v8s/roadmap) | `github.com/orgs/vanityURLs/projects` | default | Raccourci vers la roadmap |
+| [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` | default | Raccourci vers le statut public |
 
 ## Références opérationnelles
 

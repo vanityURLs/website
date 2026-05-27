@@ -50,7 +50,7 @@ Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**,
 1. Créez une application
 2. Sélectionnez **Self-hosted and private**
 3. Continuez avec **Self-hosted and private**
-4. Configurez les destinations avec *votre* domaine court
+4. Configurez les destinations avec *votre* domaine court ← remplacez `v8s.link` par *votre* domaine court partout
 
 | Sous-domaine | Domaine | Chemin |
 |---|---|---|
@@ -58,8 +58,6 @@ Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**,
 | | `v8s.link` | `_stats/*` |
 | | `v8s.link` | `_tests` |
 | | `v8s.link` | `_tests/*` |
-
-Remplacez `v8s.link` par *votre* domaine court partout.
 
 Utilisez une seule application Access pour les opérations privées vanityURLs. Les chemins de redirection publics doivent rester hors Access pour que les visiteurs puissent suivre les liens courts sans connexion.
 

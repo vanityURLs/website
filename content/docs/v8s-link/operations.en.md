@@ -31,26 +31,23 @@ The current links are stored in [`custom/v8s-links.txt`](https://github.com/vani
 
 Run `./scripts/lnk list` in your own instance to see the current local inventory. Run `./scripts/lnk LONG_URL [SLUG]` when you are ready to add a link through the command line interface.
 
-| Slug | Long link | What it demonstrates |
-|---|---|---|
-| [`v8s.link/ai/chat`](https://v8s.link/ai/chat) | `chatgpt.com` | Nested namespace for AI tools |
-| [`v8s.link/pkg/n`](https://v8s.link/pkg/n) | `www.npmjs.com/package` | Compact package-manager namespace |
-| [`v8s.link/social/x`](https://v8s.link/social/x) | `x.com/BHDicaire/` | Social profile namespace |
-| [`v8s.link/v8s/doc`](https://v8s.link/v8s/doc) | `vanityUrls.link/en/docs/` | Project documentation shortcut |
-| [`v8s.link/v8s/hugo`](https://v8s.link/v8s/hugo) | `github.com/vanityURLs/website` | Website source shortcut |
-| [`v8s.link/v8s/issues`](https://v8s.link/v8s/issues) | `github.com/vanityurls/vanityurls/issues` | Issue tracker shortcut |
-| [`v8s.link/v8s/latest`](https://v8s.link/v8s/latest) | `github.com/vanityURLs/website/releases/latest` | Latest release shortcut |
-| [`v8s.link/v8s/roadmap`](https://v8s.link/v8s/roadmap) | `github.com/orgs/vanityURLs/projects` | Project roadmap shortcut |
-| [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` | Public status shortcut |
-
-| Slug | State | What to expect |
-|---|---|---|
-| [`v8s.link/test/1`](https://v8s.link/test/1) | `permanent` | Permanent redirect |
-| [`v8s.link/test/2`](https://v8s.link/test/2) | `ephemeral` | Temporary redirect |
-| [`v8s.link/test/3`](https://v8s.link/test/3) | `expired` with an expiry date | Expired state page |
-| [`v8s.link/test/4`](https://v8s.link/test/4) | `disabled` | Disabled state page |
-| [`v8s.link/test/5`](https://v8s.link/test/5) | `maintenance` | Maintenance state page |
-| [`v8s.link/test/6`](https://v8s.link/test/6) | `deactivated` | True not-found behavior |
+| Slug | Long link | State | What it demonstrates |
+|---|---|---|---|
+| [`v8s.link/ai/chat`](https://v8s.link/ai/chat) | `chatgpt.com` | default | Nested namespace for AI tools |
+| [`v8s.link/pkg/n`](https://v8s.link/pkg/n) | `www.npmjs.com/package` | default | Compact package-manager namespace |
+| [`v8s.link/social/x`](https://v8s.link/social/x) | `x.com/BHDicaire/` | default | Social profile namespace |
+| [`v8s.link/test/1`](https://v8s.link/test/1) | `youtu.be/dQw4w9WgXcQ` | `permanent` | Permanent redirect |
+| [`v8s.link/test/2`](https://v8s.link/test/2) | `youtu.be/dQw4w9WgXcQ` | `ephemeral` | Temporary redirect |
+| [`v8s.link/test/3`](https://v8s.link/test/3) | `youtu.be/dQw4w9WgXcQ` | `expired` with an expiry date | Expired state page |
+| [`v8s.link/test/4`](https://v8s.link/test/4) | `youtu.be/dQw4w9WgXcQ` | `disabled` | Disabled state page |
+| [`v8s.link/test/5`](https://v8s.link/test/5) | `youtu.be/dQw4w9WgXcQ` | `maintenance` | Maintenance state page |
+| [`v8s.link/test/6`](https://v8s.link/test/6) | `youtu.be/dQw4w9WgXcQ` | `deactivated` | True not-found behavior |
+| [`v8s.link/v8s/doc`](https://v8s.link/v8s/doc) | `vanityUrls.link/en/docs/` | default | Project documentation shortcut |
+| [`v8s.link/v8s/hugo`](https://v8s.link/v8s/hugo) | `github.com/vanityURLs/website` | default | Website source shortcut |
+| [`v8s.link/v8s/issues`](https://v8s.link/v8s/issues) | `github.com/vanityurls/vanityurls/issues` | default | Issue tracker shortcut |
+| [`v8s.link/v8s/latest`](https://v8s.link/v8s/latest) | `github.com/vanityURLs/website/releases/latest` | default | Latest release shortcut |
+| [`v8s.link/v8s/roadmap`](https://v8s.link/v8s/roadmap) | `github.com/orgs/vanityURLs/projects` | default | Project roadmap shortcut |
+| [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` | default | Public status shortcut |
 
 ## Operational references
 

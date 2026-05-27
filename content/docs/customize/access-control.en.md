@@ -50,7 +50,7 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 1. Create an application
 2. Select **Self-hosted and private**
 3. Continue with **Self-hosted and private**
-4. Configure the destinations with *your* short domain
+4. Configure the destinations with *your* short domain ← replace `v8s.link` with *your* short domain everywhere
 
 | Subdomain | Domain | Path |
 |---|---|---|
@@ -58,8 +58,6 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 | | `v8s.link` | `_stats/*` |
 | | `v8s.link` | `_tests` |
 | | `v8s.link` | `_tests/*` |
-
-Replace `v8s.link` with *your* short domain everywhere.
 
 Use one Access application for the private vanityURLs operations. Public redirect paths should stay outside Access so visitors can follow short links without logging in.
 
