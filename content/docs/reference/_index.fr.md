@@ -3,6 +3,7 @@ aside: false
 title: "Reference"
 description: "Pages de reference pour les fichiers vanityURLs, le comportement runtime, la marque, l'internationalisation et les surfaces operationnelles."
 weight: 30
+show_section_pages: false
 ---
 
 Utilisez la section reference lorsque vous avez besoin de la forme exacte d'un fichier, d'un artefact runtime, d'un asset par defaut ou d'une surface operationnelle.

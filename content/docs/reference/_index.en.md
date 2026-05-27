@@ -3,6 +3,7 @@ aside: false
 title: "Reference"
 description: "Reference pages for vanityURLs files, runtime behavior, branding, internationalization, and operational surfaces."
 weight: 30
+show_section_pages: false
 ---
 
 Use the reference section when you need the exact shape of a file, runtime artifact, default asset, or operational surface.

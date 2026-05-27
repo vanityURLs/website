@@ -44,7 +44,7 @@
       </article>
 
       {{/* Pages in this section */}}
-      {{ if .Pages }}
+      {{ if and (.Params.show_section_pages | default true) .Pages }}
       <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
         <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
           {{ i18n "in_this_section" }}
