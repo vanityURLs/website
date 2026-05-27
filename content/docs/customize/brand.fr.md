@@ -32,6 +32,35 @@ Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs d
 
 Les slogans localises sont stockes dans `custom/v8s-site-config.json` sous `branding.slogan`. Les instances existantes qui ont encore un seul slogan texte continuent de fonctionner; setup ecrit la map localisee lors des nouveaux passages de branding.
 
+## Surcharges d'assets d'instance
+
+Placez les assets de marque propres a l'instance sous `custom/public/` pour qu'ils remplacent les assets publics par defaut pendant le build. Les badges rediriges vivent aussi dans les repertoires publics localises.
+
+{{< filetree/container >}}
+{{< filetree/folder name="custom" >}}
+  {{< filetree/folder name="public" annotation="surcharges d'assets publics propres a l'instance" >}}
+    {{< filetree/file name="v8s-logo.svg" >}}
+    {{< filetree/file name="favicon.svg" >}}
+    {{< filetree/file name="site.webmanifest" >}}
+    {{< filetree/file name="apple-touch-icon.png" >}}
+    {{< filetree/file name="icon-192.png" >}}
+    {{< filetree/file name="icon-512.png" >}}
+    {{< filetree/folder name="fr" annotation="surcharges de badges localises" >}}
+      {{< filetree/file name="v8s-redirected.svg" >}}
+      {{< filetree/file name="v8s-redirected-dark.svg" >}}
+    {{< /filetree/folder >}}
+  {{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}
+
+## Pages publiques gerees par l'installateur
+
+`npm run setup` peut copier `defaults/public/` vers `custom/public/`, remplacer le wordmark `Vanity` + `URLs` par les portions noire et verte configurees, mettre a jour les libelles et liens de marque, puis retirer les langues non supportees.
+
+L'installateur enregistre ces choix dans `custom/v8s-site-config.json` pour que les executions repetees restent previsibles. Si `custom/public/` contient deja des fichiers et n'est pas marque comme gere par l'installateur, setup refuse de le remplacer sauf avec `--force`.
+
+Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligne avec les pages localisees que vous supportez vraiment. Voir [Internationalisation](/fr/docs/reference/i18n/) pour les regles de repertoires de langue.
+
 ## Systeme visuel vanityURLs
 
 Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fichiers de badges localisés, les notes de typographie, la configuration du wordmark d'instance et les surcharges d'assets propres à l'instance. Pour le récit de personnalisation, lisez [Habiller votre domaine court](/fr/blog/branding-your-short-link-domain/).
@@ -140,34 +169,6 @@ Le système visuel vanityURLs couvre actuellement les couleurs de badges, les fi
   }
 }</code></pre>
     <p><img src="/images/docs/split-color-domain-wordmark.svg" alt="Exemple de wordmark de domaine bicolore"></p>
-  </section>
-
-  <section class="brand-section">
-    <h3>Surcharges d'assets d'instance</h3>
-    <p>Placez les assets de marque propres à l'instance sous <code>custom/public/</code> pour qu'ils remplacent les assets publics par défaut pendant le build. Les badges redirigés vivent aussi dans les répertoires publics localisés.</p>
-{{< filetree/container >}}
-{{< filetree/folder name="custom" >}}
-  {{< filetree/folder name="public" annotation="surcharges d'assets publics propres à l'instance" >}}
-    {{< filetree/file name="v8s-logo.svg" >}}
-    {{< filetree/file name="favicon.svg" >}}
-    {{< filetree/file name="site.webmanifest" >}}
-    {{< filetree/file name="apple-touch-icon.png" >}}
-    {{< filetree/file name="icon-192.png" >}}
-    {{< filetree/file name="icon-512.png" >}}
-    {{< filetree/folder name="fr" annotation="surcharges de badges localisés" >}}
-      {{< filetree/file name="v8s-redirected.svg" >}}
-      {{< filetree/file name="v8s-redirected-dark.svg" >}}
-    {{< /filetree/folder >}}
-  {{< /filetree/folder >}}
-{{< /filetree/folder >}}
-{{< /filetree/container >}}
-  </section>
-
-  <section class="brand-section">
-    <h3>Pages publiques gérées par l'installateur</h3>
-    <p><code>npm run setup</code> peut copier <code>defaults/public/</code> vers <code>custom/public/</code>, remplacer le wordmark <code>Vanity</code> + <code>URLs</code> par les portions noire et verte configurées, mettre à jour les libellés et liens de marque, puis retirer les langues non supportées.</p>
-    <p>L'installateur enregistre ces choix dans <code>custom/v8s-site-config.json</code> pour que les exécutions répétées restent prévisibles. Si <code>custom/public/</code> contient déjà des fichiers et n'est pas marqué comme géré par l'installateur, setup refuse de le remplacer sauf avec <code>--force</code>.</p>
-    <p>Lorsque vous utilisez <code>custom/public/</code>, gardez <code>i18n.supported_languages</code> aligné avec les pages localisées que vous supportez vraiment. Voir <a href="/fr/docs/reference/i18n/">Internationalisation</a> pour les règles de répertoires de langue.</p>
   </section>
 
   <section class="brand-section">

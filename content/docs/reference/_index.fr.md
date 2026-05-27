@@ -15,6 +15,7 @@ Commencez ici lorsque votre instance fonctionne deja et que vous voulez comprend
 | --- | --- |
 | [Référence Analytics](/fr/docs/reference/analytics/) | Événements analytics serveur, payloads fournisseur, modes IP et trafic bloqué |
 | [Fichiers de configuration](/fr/docs/reference/configuration-files/) | Fichiers source, custom, locaux et generes |
+| [Surcharges custom](/fr/docs/reference/custom-overrides/) | Couches de fichiers propres a l'instance, chemins de surcharges publiques et placeholders des pages de statut |
 | [Glossaire](/fr/docs/reference/glossary/) | Termes courants utilises dans la documentation, le blog et les pages publiques |
 | [Internationalisation](/fr/docs/reference/i18n/) | Langues supportees, pages localisees et fichiers de badges |
 | [Format des liens](/fr/docs/reference/link-format/) | Lignes et champs metadata de `custom/v8s-links.txt` |

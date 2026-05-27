@@ -44,4 +44,4 @@ Treat the result like any other operational change. Review the Git diff, especia
 
 If the diff only reflects the new product behavior and your expected instance answers, commit it and push. Cloudflare will rebuild from GitHub and your instance keeps moving forward without a rebuild-from-zero ritual.
 
-Use [Upgrading an instance](/docs/reference/upgrading/) for the command reference and [Custom overrides](/docs/customize/custom-overrides/) for the file boundary between product defaults and instance-owned changes.
+Use [Upgrading an instance](/docs/reference/upgrading/) for the command reference and [Custom overrides](/docs/reference/custom-overrides/) for the file boundary between product defaults and instance-owned changes.
