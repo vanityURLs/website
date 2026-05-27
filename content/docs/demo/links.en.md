@@ -1,14 +1,26 @@
 ---
 aside: false
-title: "Demo links"
-description: "The example link inventory used by the v8s.link demo instance."
+title: "Demo operation"
+description: "Operational behavior, live paths, and example link inventory for the v8s.link demo instance."
 weight: 20
 
 ---
 
-The v8s.link demo uses an expanded `custom/v8s-links.txt` so new operators can inspect realistic examples without inventing them from scratch.
+The v8s.link demo uses an expanded `custom/v8s-links.txt` so new operators can inspect realistic examples without inventing them from scratch. Start with [Demo configuration](/docs/demo/) for the values used by the instance, then use this page to inspect how those values behave at runtime.
 
 The full file lives in the demo repository: [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt).
+
+## Useful live paths
+
+| Path | What it proves |
+|---|---|
+| [v8s.link](https://v8s.link) | Default home page for searching or opening short links |
+| [v8s.link/expand/](https://v8s.link/expand/) | Preview a short-link destination without opening it |
+| [v8s.link/404.html](https://v8s.link/404.html) | Localized missing-link page |
+| [v8s.link/expired.html](https://v8s.link/expired.html) | Expired lifecycle page |
+| [v8s.link/disabled.html](https://v8s.link/disabled.html) | Disabled lifecycle page |
+| [v8s.link/maintenance.html](https://v8s.link/maintenance.html) | Maintenance lifecycle page |
+| [v8s.link/.well-known/security.txt](https://v8s.link/.well-known/security.txt) | Machine-readable vulnerability disclosure contact following [RFC 9116: A File Format to Aid in Security Vulnerability Disclosure](https://www.rfc-editor.org/info/rfc9116/) |
 
 ## Format reminder
 
@@ -67,3 +79,12 @@ These links make the demo useful while you are reading the documentation:
 | [`v8s.link/v8s/status`](https://v8s.link/v8s/status) | `status.vanityUrls.link` |
 
 Run `./scripts/lnk list` in your own instance to see the current local inventory. Run `./scripts/lnk add` when you are ready to add a link through the command line interface.
+
+## Operational references
+
+- [Link format](/docs/reference/link-format/) documents the pipe-separated source format used by `custom/v8s-links.txt`
+- [Runtime security](/docs/reference/runtime-security/) explains Worker routing, generated runtime files, protected assets, and Cloudflare Access boundaries
+- [Access control](/docs/customize/access-control/) covers Cloudflare Access for private operational paths
+- [Policy and blocklist](/docs/customize/blocklist/) explains target URL policy, shortener loops, malware hosts, and local overrides
+- [Reading your admin dashboard](/blog/reading-your-admin-dashboard/) gives context for monitoring an instance after deployment
+- [Runtime security for a small redirector](/blog/runtime-security-for-a-small-redirector/) explains why the Worker stays small and lets Cloudflare handle edge protection

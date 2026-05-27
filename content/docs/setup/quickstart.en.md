@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-description: "Launch a plain vanityURLs redirector on your own short domain in about 10 minutes, then customize it once the first deployment works."
+description: "Launch a plain vanityURLs redirector on your own short domain in about 20 minutes, then customize it once the first deployment works."
 weight: 20
 aside: false
 aliases:
@@ -12,20 +12,7 @@ Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)?
 
 The maintainers insisted that the steps below use a pertinent short domain, GitHub account, repository name, Cloudflare team domain, operator domain, and email addresses instead of a pile of `example.com` placeholders that leave everyone perplexed and in need of a drink. So we spun up a demo instance named `v8s.link` to demonstrate what works without ambiguity.
 
-Use the `v8s.link` values as examples while you build and debug your own instance. Replace the short domain, GitHub account, repository name, Cloudflare team domain, operator identity, and email addresses with the values for your own instance. If you get stuck, compare your work with the public demo instance in [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link).
-
-| Assumption | Example used below |
-| --- | --- |
-| Short domain | `v8s.link` |
-| Local directory | `v8s-link` |
-| GitHub account name | `your-github-account` |
-| GitHub repository name | `v8s-link` |
-| Worker name | `v8s-link` |
-| Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` |
-| Operator legal name | `Benoît H. Dicaire` |
-| Operator domain for contact emails | `vanityurls.link` |
-| Trust & Safety contact | `abuse@vanityurls.link` |
-| Security contact | `security@vanityurls.link` |
+Use the `v8s.link` values as examples while you build and debug your own instance. The full assumption table now lives in [Demo configuration](/docs/demo/). Replace the short domain, GitHub account, repository name, Cloudflare team domain, operator identity, and email addresses with the values for your own instance. If you get stuck, compare your work with the public demo instance in [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link).
 
 Use simple answers during the Quickstart. You can run `npm run setup` as often as you like; the installer is idempotent, reads your existing configuration, shows previous answers as defaults, and updates the same generated files instead of requiring a fresh clone.
 
