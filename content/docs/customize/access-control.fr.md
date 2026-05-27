@@ -19,7 +19,9 @@ Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins. Si Cloudf
 
 Pour la stratégie de fournisseur d'identité, lisez [Choisir un fournisseur d'identité](/fr/blog/choosing-identity-provider/). Pour les habitudes de revue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-## 1. Trouver le domaine d'équipe
+{{% steps %}}
+
+### Trouver le domaine d'equipe
 
 Dans Cloudflare, ouvrez **Zero Trust** > **Settings**, puis copiez le **Team domain**.
 
@@ -38,7 +40,7 @@ CF_ACCESS_TEAM_DOMAIN = "vanityurls.cloudflareaccess.com"
 
 Cette valeur n'est pas un secret, mais elle doit correspondre au compte Cloudflare qui possède l'application Access.
 
-## 2. Choisir le fournisseur d'identité
+### Choisir le fournisseur d'identite
 
 Pour la phase 1, utilisez le [code à usage unique](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) sauf si un fournisseur est déjà prêt.
 
@@ -51,7 +53,7 @@ Pour la phase 1, utilisez le [code à usage unique](https://developers.cloudflar
 
 Si vous activez plusieurs fournisseurs, les utilisateurs en choisissent un sur la page de connexion Cloudflare Access. La politique réussit lorsque le fournisseur choisi retourne une identité qui correspond à la politique.
 
-## 3. Créer l'application Access
+### Creer l'application Access
 
 Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**, puis :
 
@@ -81,7 +83,7 @@ Réglages recommandés :
 | Fournisseurs d'identité | Code à usage unique pour la phase 1, ou les fournisseurs que vous avez configurés |
 | Browser rendering | Off |
 
-## 4. Créer la politique Access
+### Creer la politique Access
 
 Commencez avec une politique d'autorisation simple :
 
@@ -97,7 +99,7 @@ Utilisez le testeur de politique avant de sauvegarder. Testez une adresse courri
 
 Pour une équipe plus grande, préférez un groupe maintenu ou un sélecteur IdP à une longue liste d'adresses individuelles.
 
-## 5. Stocker l'audience Access
+### Stocker l'audience Access
 
 Après la création de l'application, ouvrez **Additional settings** et copiez le **Application Audience (AUD) Tag**.
 
@@ -109,7 +111,7 @@ npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 
 Ne commitez pas les audiences Access, secrets client IdP, jetons de service, secrets client OAuth ou captures d'écran qui contiennent ces valeurs. Gardez-les dans Cloudflare et dans votre gestionnaire de mots de passe.
 
-## 6. Valider la protection
+### Valider la protection
 
 Avant la release :
 
@@ -128,7 +130,7 @@ npm run check
 
 Après le déploiement, répétez le test de navigateur déconnecté contre le vrai domaine court.
 
-## 7. Connaître les autres gardes
+### Connaitre les autres gardes
 
 Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels.
 
@@ -140,3 +142,5 @@ Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers op�
 | Validation des slugs réservés | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empêche la création de liens courts sous les chemins opérationnels réservés |
 
 Gardez Access sur `/_stats` et `/_tests`, gardez la garde Worker des fichiers runtime activée, et conservez les entrées `_headers` des fichiers runtime sauf si vous avez une raison délibérée de divulgation publique.
+
+{{% /steps %}}

@@ -22,10 +22,29 @@ Let's manage redirected short links with _your_ vanityURLs engine. An instance c
 
 Before starting, make sure you have these pieces ready:
 
-1. **A registered short domain** that you will use only for redirects, such as `ex.am`. If you have not chosen one yet, read [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/)
-2. **A GitHub account** for the repository that stores your links and deployment history. The repository can be public, or private if you do not want to show all your short links. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it
-3. **A Cloudflare account** for DNS and Workers services. You can use an existing account or create a new one; refer to [Cloudflare documentation](https://developers.cloudflare.com/fundamentals/account/create-account/) when creating an account
-   * **Cloudflare authoritative DNS for the short domain**. vanityURLs expects Cloudflare to manage the DNS zone used by the Worker route or custom domain. Cloudflare's [full setup guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) explains how to add a domain and change nameservers at your registrar
-   * **Cloudflare Access team domain**. The installer asks for it during the setup; find it in **Zero Trust** > **Settings** as the **Team domain**, such as `<team>.cloudflareaccess.com`. See [Access control](/docs/customize/access-control/) for the full Zero Trust setup
-4. **A local workstation** running Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, jq, and your preferred text editor
-5. **A password manager** to store sensitive information such as the Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information.
+{{% steps %}}
+
+### Register a short domain
+
+Use a domain that you will use only for redirects, such as `ex.am`. If you have not chosen one yet, read [Choosing a short domain for redirects](/blog/choosing-a-short-domain-for-redirects/).
+
+### Prepare a GitHub account
+
+Use GitHub for the repository that stores your links and deployment history. The repository can be public, or private if you do not want to show all your short links. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it.
+
+### Prepare Cloudflare
+
+Use a Cloudflare account for DNS and Workers services. You can use an existing account or create a new one; refer to [Cloudflare documentation](https://developers.cloudflare.com/fundamentals/account/create-account/) when creating an account.
+
+- **Cloudflare authoritative DNS for the short domain**. vanityURLs expects Cloudflare to manage the DNS zone used by the Worker route or custom domain. Cloudflare's [full setup guide](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/) explains how to add a domain and change nameservers at your registrar
+- **Cloudflare Access team domain**. The installer asks for it during the setup; find it in **Zero Trust** > **Settings** as the **Team domain**, such as `<team>.cloudflareaccess.com`. See [Access control](/docs/customize/access-control/) for the full Zero Trust setup
+
+### Prepare a local workstation
+
+Use Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, jq, and your preferred text editor.
+
+### Prepare a password manager
+
+Store sensitive information such as the Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information.
+
+{{% /steps %}}

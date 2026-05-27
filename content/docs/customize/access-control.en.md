@@ -19,7 +19,9 @@ The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths. If Clo
 
 For provider strategy, read [Choosing an Identity Provider](/blog/choosing-identity-provider/). For ongoing review habits, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-## 1. Find the Team domain
+{{% steps %}}
+
+### Find the Team domain
 
 In Cloudflare, open **Zero Trust** > **Settings**, then copy the **Team domain**.
 
@@ -38,7 +40,7 @@ CF_ACCESS_TEAM_DOMAIN = "vanityurls.cloudflareaccess.com"
 
 This value is not a secret, but it must match the Cloudflare account that owns the Access application.
 
-## 2. Choose the identity provider
+### Choose the identity provider
 
 For phase 1, use [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) unless you already have a provider ready.
 
@@ -51,7 +53,7 @@ For phase 1, use [one-time PIN](https://developers.cloudflare.com/cloudflare-one
 
 If you enable multiple providers, users choose one on the Cloudflare Access login page. The policy succeeds when the selected provider returns an identity that matches the policy.
 
-## 3. Create the Access application
+### Create the Access application
 
 In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, then:
 
@@ -81,7 +83,7 @@ Recommended settings:
 | Identity providers | One-time PIN for phase 1, or the providers you configured |
 | Browser rendering | Off |
 
-## 4. Create the Access policy
+### Create the Access policy
 
 Start with a simple allow policy:
 
@@ -97,7 +99,7 @@ Use the policy tester before saving. Test one allowed email address and one addr
 
 For a larger team, prefer a maintained group or IdP selector over a long list of individual email addresses.
 
-## 5. Store the Access audience
+### Store the Access audience
 
 After the application is created, open **Additional settings** and copy the **Application Audience (AUD) Tag**.
 
@@ -109,7 +111,7 @@ npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 
 Do not commit Access audiences, IdP client secrets, service tokens, OAuth client secrets, or screenshots that contain those values. Keep them in Cloudflare and in your password manager.
 
-## 6. Validate the protection
+### Validate the protection
 
 Before release:
 
@@ -128,7 +130,7 @@ npm run check
 
 After deployment, repeat the signed-out browser test against the real short domain.
 
-## 7. Know the other file guards
+### Know the other file guards
 
 Cloudflare Access is not the only layer that limits operational file access.
 
@@ -140,3 +142,5 @@ Cloudflare Access is not the only layer that limits operational file access.
 | Reserved slug validation | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational paths |
 
 Keep Access on `/_stats` and `/_tests`, keep the Worker runtime-file guard enabled, and keep the `_headers` runtime-file entries unless you have a deliberate public-disclosure reason.
+
+{{% /steps %}}
