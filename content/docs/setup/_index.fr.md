@@ -8,11 +8,11 @@ aliases:
 
 ---
 
-vanityURLs est une solution open source pour exploiter votre propre domaine de liens courts marqué comme du code.
+Les pages de cette section de configuration s'adressent aux operateurs qui veulent creer et exploiter leur propre instance vanityURLs a partir du code disponible dans le depot [vanityURLs/code](https://github.com/vanityURLs/code).
 
-Le chemin de setup ci-dessous est volontairement étroit : obtenir d'abord une instance simple qui fonctionne sur Cloudflare Workers, puis ajuster la marque et la configuration une fois le redirecteur en ligne.
+L'objectif est d'obtenir une instance simple fonctionnelle sur Cloudflare Workers en environ 20 minutes une fois les prerequis ci-dessous reunis. Le Quickstart se concentre sur ce chemin heureux : deployer d'abord le redirecteur, puis raffiner la marque, les pages legales, les analytics, le controle d'acces et l'inventaire des liens pendant la personnalisation.
 
-Le chemin heureux est :
+Ce chemin heureux est :
 
 1. Choisir un domaine court
 2. Placer ce domaine sur Cloudflare DNS
@@ -34,4 +34,4 @@ Avant de commencer, assurez-vous d'avoir ces éléments prêts :
 - **Un gestionnaire de mots de passe** pour stocker les informations sensibles comme les identifiants de compte Cloudflare, jetons API, secrets Worker, identifiants analytics et informations de récupération
 - **Analytics optionnels**. Les solutions supportées sont [Fathom](https://usefathom.com/) et [Umami](https://umami.is/). Vous pouvez les activer pendant la phase de personnalisation, par exemple en phase 2. Lisez [Choisir des analytics respectueux de la vie privée pour les liens courts](/fr/blog/choosing-privacy-friendly-analytics-for-short-links/) avant de créer un compte analytics
 
-[Quickstart](/fr/docs/setup/quickstart/) vise à faire fonctionner le redirecteur, donc utilisez des réponses simples; vous pourrez les raffiner pendant la [personnalisation](/fr/docs/customize/).
+Si vous restez bloque pendant la configuration de votre instance, comparez votre travail avec l'instance de demonstration publique dans [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.link). Continuez ensuite le [Quickstart](/fr/docs/setup/quickstart/) avec des reponses simples; vous pourrez les raffiner pendant la [personnalisation](/fr/docs/customize/).
