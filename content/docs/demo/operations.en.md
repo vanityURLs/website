@@ -1,12 +1,14 @@
 ---
 aside: false
-title: "Demo operation"
+title: "Demo operations"
 description: "Operational behavior, live paths, and example link inventory for the v8s.link demo instance."
 weight: 20
+aliases:
+  - /docs/demo/links/
 
 ---
 
-The v8s.link demo uses an expanded `custom/v8s-links.txt` so new operators can inspect realistic examples without inventing them from scratch. Start with [Demo configuration](/docs/demo/) for the values used by the instance, then use this page to inspect how those values behave at runtime.
+The v8s.link demo uses an expanded `custom/v8s-links.txt` so new operators can inspect realistic examples without inventing them from scratch. Start with [Demo configuration](/docs/demo/configuration/) for the values used by the instance, then use this page to inspect how those values behave at runtime.
 
 The full file lives in the demo repository: [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt).
 
