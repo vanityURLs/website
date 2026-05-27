@@ -8,9 +8,9 @@ aliases:
 
 ---
 
-Let's manage your short links with your own instance of vanityURLs. The pages in this setup section are for operators who want to build and run an instance from the code available in the [vanityURLs/code](https://github.com/vanityURLs/code) repository.
+Let's manage short links with _your_ own instance from the code available in the [vanityURLs/code](https://github.com/vanityURLs/code) repository.
 
-The objective is to get a plain instance up and running in 20 minutes or less once you have the prerequisites listed below.
+You should be able to get a plain instance up and running in 10 minutes, once you have the prerequisites listed below.
 
 Quickstart focuses on that happy path:
 
