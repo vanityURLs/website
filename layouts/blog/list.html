@@ -26,7 +26,6 @@
   <!-- Featured post — only on page 1, only once -->
   {{ $f := index $featured 0 }}
   {{ $coverClass := "blog-cover-default" }}
-  {{ range $f.Params.tags }}{{ if eq . "release" }}{{ $coverClass = "blog-cover-release" }}{{ end }}{{ if eq . "guide" }}{{ $coverClass = "blog-cover-guide" }}{{ end }}{{ if eq . "tutorial" }}{{ $coverClass = "blog-cover-tutorial" }}{{ end }}{{ if eq . "news" }}{{ $coverClass = "blog-cover-news" }}{{ end }}{{ end }}
   <a href="{{ $f.RelPermalink }}" class="blog-card-featured group block mb-10">
     <div class="blog-cover {{ $coverClass }}"></div>
     <div class="blog-card-featured-inner">
@@ -50,9 +49,6 @@
           <time datetime="{{ $f.Date.Format "2006-01-02" }}">{{ $f.Date.Format (i18n "date_format_long") }}</time>
           {{ with $f.ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
         </div>
-        <div class="flex flex-wrap gap-2">
-          {{ range $f.Params.tags }}<span class="tag-pill">{{ . }}</span>{{ end }}
-        </div>
       </div>
     </div>
   </a>
@@ -62,11 +58,11 @@
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {{ range $paginator.Pages }}
     {{ $coverClass := "blog-cover-default" }}
-    {{ range .Params.tags }}{{ if eq . "release" }}{{ $coverClass = "blog-cover-release" }}{{ end }}{{ if eq . "guide" }}{{ $coverClass = "blog-cover-guide" }}{{ end }}{{ if eq . "tutorial" }}{{ $coverClass = "blog-cover-tutorial" }}{{ end }}{{ if eq . "news" }}{{ $coverClass = "blog-cover-news" }}{{ end }}{{ end }}
     <a href="{{ .RelPermalink }}" class="blog-card group">
       <div class="blog-cover {{ $coverClass }}"></div>
       <div class="blog-card-body">
         <div class="blog-card-meta">
+          {{ with .Params.author }}<span>{{ . }}</span><span>·</span>{{ end }}
           <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (i18n "date_format_long") }}</time>
           {{ with .ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
         </div>
@@ -74,9 +70,6 @@
         <p class="blog-card-excerpt">
           {{ .Description | default (.Summary | plainify | truncate 120) }}
         </p>
-        <div class="flex flex-wrap gap-1.5 mt-auto">
-          {{ range .Params.tags }}<span class="tag-pill text-[0.7rem]">{{ . }}</span>{{ end }}
-        </div>
       </div>
     </a>
     {{ end }}

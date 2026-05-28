@@ -133,8 +133,7 @@
     "@type": "Blog",
     "@id": "{{ (printf "%sblog/" $baseURL) }}#blog",
     "name": "{{ .Site.Title }} Blog"
-  }{{ with .Params.tags }},
-  "keywords": {{ . | jsonify }}{{ end }}
+  }
 }
 </script>
 {{- end }}

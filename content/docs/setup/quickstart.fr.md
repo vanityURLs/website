@@ -190,15 +190,15 @@ Si ce n'est pas votre premier push et que `git status --short` est vide, il n'y 
 
 Ouvrez la page d'accueil, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html` et `/maintenance.html`.
 
-Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-links.txt`, puis adapte les liens de départ `home`, `status` et `docs` à votre domaine court et à votre étiquette propriétaire.
+Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-links.txt`, puis adapte les liens de départ `home`, `contact` et `docs` à votre domaine court et à votre étiquette propriétaire.
 
 | Slug | Lien long |
 | --- | --- |
 | `home` | `https://<short-domain>` |
-| `status` | `https://status.<short-domain>` |
+| `contact` | `https://www.youtube.com/watch?v=dQw4w9WgXcQ` |
 | `docs` | `https://vanityURLs.link/en/docs/` |
 
-Testez au moins un lien initial, comme `https://<short-domain>/docs`, et confirmez qu'il redirige vers le lien long indiqué dans le tableau.
+Testez au moins un lien initial, comme `https://<short-domain>/docs`, et confirmez qu'il redirige vers le lien long indiqué dans le tableau. Testez `https://<short-domain>/contact` lorsque vous voulez voir l'horaire de départ remplacer cette cible pendant la fenêtre 9 à 5 configurée.
 
 Testez ensuite `/_stats` et `/_tests` depuis un profil de navigateur déconnecté ou privé. Vous devriez voir Cloudflare Access avant le tableau de bord protégé ou la page de test.
 

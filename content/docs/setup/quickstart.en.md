@@ -190,15 +190,15 @@ If this is not your first push and `git status --short` is empty, there is nothi
 
 Open the home page, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
 
-If `custom/v8s-links.txt` does not exist, setup creates it from `defaults/v8s-links.txt`, then adapts the starter `home`, `status`, and `docs` links for your short domain and owner label.
+If `custom/v8s-links.txt` does not exist, setup creates it from `defaults/v8s-links.txt`, then adapts the starter `home`, `contact`, and `docs` links for your short domain and owner label.
 
 | Slug | Long link |
 | --- | --- |
 | `home` | `https://<short-domain>` |
-| `status` | `https://status.<short-domain>` |
+| `contact` | `https://www.youtube.com/watch?v=dQw4w9WgXcQ` |
 | `docs` | `https://vanityURLs.link/en/docs/` |
 
-Test at least one initial custom link, such as `https://<short-domain>/docs`, and confirm that it redirects to the long link shown in the table.
+Test at least one initial custom link, such as `https://<short-domain>/docs`, and confirm that it redirects to the long link shown in the table. Test `https://<short-domain>/contact` when you want to see the starter schedule override that default during the configured 9-to-5 window.
 
 Then test `/_stats` and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page.
 

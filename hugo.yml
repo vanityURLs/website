@@ -11,12 +11,9 @@ disableHugoGeneratorInject: false
 enableGitInfo: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
-
-taxonomies:
-  tag: tags
-  # The `category` taxonomy is intentionally omitted — no content uses it,
-  # which would otherwise produce an empty /categories/ index page that
-  # ends up in sitemap.xml as low-quality SEO clutter. Re-add if needed.
+disableKinds:
+  - taxonomy
+  - term
 
 languages:
   en:
@@ -162,7 +159,5 @@ related:
   threshold: 80
   toLower: true
   indices:
-    - name: tags
-      weight: 100
     - name: date
       weight: 10

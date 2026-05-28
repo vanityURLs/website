@@ -1,7 +1,6 @@
 {{ define "main" }}
 {{ $lang     := .Site.Language.Lang }}
 {{ $blogURL  := "/blog/" | relLangURL }}
-{{ $tagsBase := "/tags/" | relLangURL }}
 
 {{ $allPosts := (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
 {{ $curIdx   := 0 }}
@@ -10,12 +9,6 @@
 {{ $prevPost := index $allPosts (add $curIdx 1) }}
 
 {{ $coverClass := "blog-cover-default" }}
-{{ range .Params.tags }}
-  {{ if eq . "release" }}{{ $coverClass = "blog-cover-release" }}{{ end }}
-  {{ if eq . "guide"   }}{{ $coverClass = "blog-cover-guide"   }}{{ end }}
-  {{ if eq . "tutorial"}}{{ $coverClass = "blog-cover-tutorial"}}{{ end }}
-  {{ if eq . "news"    }}{{ $coverClass = "blog-cover-news"    }}{{ end }}
-{{ end }}
 
 <!-- Reading progress bar -->
 <div id="reading-progress"
@@ -35,13 +28,6 @@
 
   <!-- Cover stripe -->
   <div class="rounded-lg h-1.5 mb-8 {{ $coverClass }}"></div>
-
-  <!-- Tags -->
-  <div class="flex flex-wrap gap-2 mb-4">
-    {{ range .Params.tags }}
-    <a href="{{ $tagsBase }}{{ . | urlize }}/" class="tag-pill">{{ . }}</a>
-    {{ end }}
-  </div>
 
   <!-- Title -->
   <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight mb-6">
@@ -168,11 +154,11 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       {{ range . }}
       {{ $rc := "blog-cover-default" }}
-      {{ range .Params.tags }}{{ if eq . "release" }}{{ $rc = "blog-cover-release" }}{{ end }}{{ if eq . "guide" }}{{ $rc = "blog-cover-guide" }}{{ end }}{{ if eq . "tutorial" }}{{ $rc = "blog-cover-tutorial" }}{{ end }}{{ end }}
       <a href="{{ .RelPermalink }}" class="blog-card group">
         <div class="blog-cover {{ $rc }}"></div>
         <div class="blog-card-body">
           <div class="blog-card-meta">
+            {{ with .Params.author }}<span>{{ . }}</span><span>·</span>{{ end }}
             <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (i18n "date_format_long") }}</time>
           </div>
           <h3 class="blog-card-title text-sm">{{ .Title }}</h3>
