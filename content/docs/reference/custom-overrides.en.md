@@ -2,7 +2,7 @@
 aside: false
 title: "Custom overrides"
 description: "Map instance-owned files under custom/ to the vanityURLs pages that document each customization surface."
-weight: 30
+weight: 40
 aliases:
   - /docs/custom-overrides/
   - /docs/customize/custom-overrides/
@@ -28,13 +28,13 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 | `custom/v8s-policies.json` | Instance allow and block policy | [Policy and blocklist](/docs/customize/blocklist/) |
 | `custom/v8s-site-config.json` | Site settings written by setup | [Configuration files](/docs/reference/configuration-files/) |
 | `custom/v8s-local-config.json` | Workstation helper paths | [Local helper](/docs/command-line-interface/local-helper/) |
-| `custom/public/` | Public page and asset overrides | [Brand](/docs/customize/brand/), [Footer & pages](/docs/customize/footer-pages/), and [Internationalization](/docs/reference/i18n/) |
+| `custom/public/` | Public page and asset overrides | [Brand](/docs/reference/brand/), [Footer & pages](/docs/customize/footer-pages/), and [Internationalization](/docs/reference/i18n/) |
 
 ## Public override map
 
 | Override | Path | Details |
 | --- | --- | --- |
-| Brand assets and redirected badges | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg` | [Brand](/docs/customize/brand/) |
+| Brand assets and redirected badges | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg` | [Brand](/docs/reference/brand/) |
 | Footer and legal pages | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Footer & pages](/docs/customize/footer-pages/) |
 | Localized public pages | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths | [Internationalization](/docs/reference/i18n/) |
 | Expand page | `custom/public/expand/index.html` | [Link format](/docs/reference/link-format/) |

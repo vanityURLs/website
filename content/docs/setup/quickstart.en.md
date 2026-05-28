@@ -86,7 +86,7 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Operator domain for contact emails | `vanityurls.link` | Domain used for default contact addresses such as `abuse@vanityurls.link` and `security@vanityurls.link` |
 | Trust & Safety contact | `abuse@vanityurls.link` | Email used for abuse and trust reports |
 | Security contact | `security@vanityurls.link` | Email published for security reports and `security.txt` |
-| Configure branding now? | `N` | Stay disabled for phase 1. Refer to [Brand](/docs/customize/brand/) during customization |
+| Configure branding now? | `N` | Stay disabled for phase 1. Refer to [Brand](/docs/reference/brand/) during customization |
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
@@ -96,7 +96,7 @@ Some defaults are derived from your previous answers so the installer does not a
 npm run local-install
 ```
 
-The installation script copies local tools to the expected path on your workstation. The `v8s` shell module lets you open a known short link directly from your terminal instead of switching to a browser first. The command line interface `lnk` lets you manage the content of `v8s-links.txt` and `v8s-schedules.json` without using a text editor. See [Local helper](/docs/command-line-interface/local-helper/) and [LNK](/docs/command-line-interface/lnk/) for more information.
+This installs the optional workstation shortcuts. Use [Local helper](/docs/command-line-interface/local-helper/) for the read-only `v8s` shortcut, and [LNK](/docs/command-line-interface/lnk/) when you are ready to manage links and schedules from the terminal.
 
 ### Create your first commit
 
@@ -138,7 +138,7 @@ In Cloudflare, open **Build** > **Compute** > **Workers & Pages** from the accou
 
 Protect `/_stats` and `/_tests` with Cloudflare Access before treating the instance as production. For phase 1, use one-time PIN with approved email addresses. You can switch to GitHub, Google, or another identity provider later.
 
-Follow [Access control](/docs/customize/access-control/) to create the Zero Trust application, configure the policy, and copy the **Application Audience (AUD) Tag**.
+Open [Access control](/docs/customize/access-control/) in another tab and complete the activities there. Come back here after the Cloudflare Access application protects both `/_stats` and `/_tests`, and after you have copied the **Application Audience (AUD) Tag**.
 
 In your local terminal, store the Access audience as a Worker secret:
 
@@ -155,7 +155,7 @@ CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 
 ### Configure network protection
 
-Configure the Cloudflare zone controls that protect the short domain before traffic reaches the Worker. Quickstart only needs the baseline:
+Configure the Cloudflare zone controls that protect the short domain before traffic reaches the Worker. Open [Network protection](/docs/customize/network-protection/) in another tab and follow the exact Cloudflare menu paths there. For Quickstart, complete the baseline activities:
 
 1. Confirm the short domain uses the proxied Worker Custom Domain record in **DNS**
 2. Set the HTTPS baseline in **SSL/TLS**, including Full strict, Always Use HTTPS, TLS 1.3, and a minimum TLS version of 1.2 or stricter
@@ -163,28 +163,28 @@ Configure the Cloudflare zone controls that protect the short domain before traf
 4. Add WAF rules for scanner probes, unexpected HTTP methods, suspicious clients, unwanted AI crawlers, and repeated short-link misses
 5. Keep caching conservative so redirect decisions stay in the Worker
 
-Follow [Network protection](/docs/customize/network-protection/) for the exact Cloudflare menus, recommended values, and example WAF expressions. Traffic blocked by Cloudflare does not reach vanityURLs analytics; review those events in Cloudflare Security Events.
+Return here when those settings are in place. Traffic blocked by Cloudflare does not reach vanityURLs analytics; review those events in Cloudflare Security Events.
 
-### Optional: test locally
+### _Optional_: test locally
 
-Before pushing the Access and network protection commit, you can run the Worker locally:
-
-```bash
-npm run dev
-```
-
-Wrangler starts a local development server so you can check the homepage, generated pages, and basic redirects before Cloudflare deploys from GitHub.
+Before validating the instance, you can run the Worker locally with `npm run dev`. Wrangler starts a local development server so you can check the homepage, generated pages, and basic redirects before Cloudflare deploys from GitHub.
 
 ### Validate and push
 
 ```bash
 npm run check
+git status --short
+```
+
+If validation changed generated files or you still have local setup changes to publish:
+
+```bash
 git add .
-git commit -m "configure Cloudflare Access and network protection"
+git commit -m "chore: finish initial instance setup"
 git push
 ```
 
-Cloudflare should deploy from GitHub after the push.
+If this is not your first push and `git status --short` is empty, there is nothing new to commit. Cloudflare should deploy from GitHub after the next push that changes the repository.
 
 ### Test the deployment
 

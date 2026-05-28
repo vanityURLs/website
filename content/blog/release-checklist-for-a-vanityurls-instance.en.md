@@ -74,7 +74,7 @@ Use [Analytics](/docs/customize/analytics/) for variables, event names, provider
 - Confirm localized redirected badges exist for supported languages
 - Run `npm run optimize:badges` after editing default redirected badge SVGs
 
-Use [Footer & pages](/docs/customize/footer-pages/), [Internationalization](/docs/reference/i18n/), and [Brand](/docs/customize/brand/) for the underlying details.
+Use [Footer & pages](/docs/customize/footer-pages/), [Internationalization](/docs/reference/i18n/), and [Brand](/docs/reference/brand/) for the underlying details.
 
 ## Operational smoke checks
 

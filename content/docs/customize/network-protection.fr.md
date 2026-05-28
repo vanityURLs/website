@@ -14,6 +14,8 @@ Utilisez cette page lorsque vous etes pret a configurer les controles Cloudflare
 
 Pour le raisonnement de securite par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/). La capture brute du tableau de bord Cloudflare se trouve dans [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json); utilisez-la pour suivre les changements de menus Cloudflare, pas comme checklist operateur.
 
+Pour les fonctionnalites volontairement exclues du setup par defaut, lisez [Fonctionnalités Cloudflare à ne pas activer par défaut](/fr/blog/cloudflare-features-not-to-enable-by-default/).
+
 {{% steps %}}
 
 ### Confirmer le domaine custom du Worker
@@ -181,7 +183,3 @@ Utilisez les [Analytics](/fr/docs/customize/analytics/) serveur vanityURLs pour 
 Le trafic bloque par WAF, AI Crawl Control, Access ou rate limiting n'atteint pas le Worker et doit etre consulte dans Cloudflare Security Events.
 
 {{% /steps %}}
-
-## A ne pas configurer par defaut
-
-N'integrez pas ces surfaces Cloudflare a la configuration vanityURLs par defaut : Cloudflare RUM, Argo Smart Routing, Email Routing, DMARC Management, Email Security, Advanced Certificate Manager, Web assets inventory, schema validation, Cloudflare Snippets, Cloud Connector, Page Rules legacy, Bulk Redirects, Custom Errors, Cache Reserve, Smart Shield, Web3 Gateways ou Workers Routes de zone.

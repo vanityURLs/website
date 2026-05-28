@@ -14,7 +14,7 @@ Vous n'avez pas besoin de tout personnaliser en meme temps. Commencez par la zon
 | Objectif | Commencer ici |
 | --- | --- |
 | Changer l'apparence publique et les pages statiques | [Surcharges custom](/fr/docs/reference/custom-overrides/) |
-| Configurer le wordmark bicolore et les assets de marque | [Marque](/fr/docs/customize/brand/) |
+| Configurer le wordmark bicolore et les assets de marque | [Marque](/fr/docs/reference/brand/) |
 | Ajouter, inspecter ou mettre a jour les liens courts | [LNK](/fr/docs/command-line-interface/lnk/) et [Format des liens](/fr/docs/reference/link-format/) |
 | Ajouter des destinations selon le temps | [Liens planifies](/fr/docs/reference/schedules/) |
 | Decider quelles langues publier | [Internationalisation](/fr/docs/reference/i18n/) |

@@ -14,6 +14,8 @@ Use this page when you are ready to configure Cloudflare controls in front of th
 
 For the layered security rationale, read [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/). The raw Cloudflare dashboard capture lives in [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json); use it to track Cloudflare menu changes, not as an operator checklist.
 
+For the features intentionally left out of the default setup, read [Cloudflare features not to enable by default](/blog/cloudflare-features-not-to-enable-by-default/).
+
 {{% steps %}}
 
 ### Confirm the Worker custom domain
@@ -181,7 +183,3 @@ Use vanityURLs server-side [Analytics](/docs/customize/analytics/) for applicati
 Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events.
 
 {{% /steps %}}
-
-## What not to configure by default
-
-Do not make these Cloudflare surfaces part of the default vanityURLs setup: Cloudflare RUM, Argo Smart Routing, Email Routing, DMARC Management, Email Security, Advanced Certificate Manager, Web assets inventory, schema validation, Cloudflare Snippets, Cloud Connector, legacy Page Rules, Bulk Redirects, Custom Errors, Cache Reserve, Smart Shield, Web3 Gateways, or zone-level Workers Routes.

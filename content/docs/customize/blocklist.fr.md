@@ -16,7 +16,7 @@ Pour le raisonnement confiance et sécurité, lisez [Protéger la réputation d'
 
 ### Décider si une politique locale est nécessaire
 
-Commencez avec la politique par défaut sauf si vous avez une raison concrète de la remplacer. Les raisons courantes incluent :
+Dans le dépôt de votre instance, relisez `defaults/v8s-policies.json` avant de créer une surcharge. Commencez avec la politique par défaut sauf si vous avez une raison concrète de la remplacer. Les raisons courantes incluent :
 
 - autoriser un domaine contrôlé par l'opérateur qu'un feed généré bloque
 - bloquer une famille de destinations risquée avant une campagne publique
@@ -26,7 +26,7 @@ Commencez avec la politique par défaut sauf si vous avez une raison concrète d
 
 ### Créer le fichier de politique custom
 
-Créez `custom/v8s-policies.json` lorsque l'instance a besoin de ses propres règles :
+Dans le dépôt de votre instance, créez `custom/v8s-policies.json` lorsque l'instance a besoin de ses propres règles :
 
 ```json
 {
@@ -52,13 +52,13 @@ Créez `custom/v8s-policies.json` lorsque l'instance a besoin de ses propres rè
 
 ### Garder les règles allow étroites
 
-Utilisez `allow_domains` seulement pour des domaines de confiance contrôlés par l'opérateur. Préférez autoriser un hostname précis plutôt qu'un domaine enregistrable entier lorsqu'un seul sous-domaine est nécessaire.
+Dans `custom/v8s-policies.json`, utilisez `allow_domains` seulement pour des domaines de confiance contrôlés par l'opérateur. Préférez autoriser un hostname précis plutôt qu'un domaine enregistrable entier lorsqu'un seul sous-domaine est nécessaire.
 
 Les règles allow peuvent surcharger les blocages de domaines générés et locaux. Elles ne surchargent pas les URLs mal formées, protocoles refusés ou URLs avec identifiants.
 
 ### Valider avant le déploiement
 
-Lancez la validation après chaque changement de politique :
+Dans le terminal, à la racine du dépôt de l'instance, lancez la validation après chaque changement de politique :
 
 ```bash
 npm run check
@@ -68,7 +68,7 @@ Le validateur compare les liens configurés à la blocklist runtime générée. 
 
 ### Réviser après incident
 
-Révisez la politique après un signalement d'abus, un changement de destination à fort volume, une mise à jour de feed généré ou une nouvelle campagne publique.
+Dans le dépôt de votre instance, révisez `custom/v8s-policies.json` après un signalement d'abus, un changement de destination à fort volume, une mise à jour de feed généré ou une nouvelle campagne publique.
 
 Lancez les mises à jour optionnelles de politique générée seulement lorsque vous êtes prêt à relire les résultats :
 

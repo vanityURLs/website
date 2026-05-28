@@ -10,68 +10,46 @@ aliases:
 
 vanityURLs pose quelques questions sur l'operateur afin que les pages publiques generees aient un vrai responsable, un chemin de signalement et un contexte legal. Utilisez cette page avant ou pendant `npm run setup` lorsque vous decidez quoi saisir.
 
-Cette page n'est pas un avis juridique. Elle explique ce que les champs controlent et propose des reponses de phase 1 assez pratiques pour mettre une instance en ligne.
+Cette page n'est pas un avis juridique. Elle explique ce que les champs controlent et propose des reponses de phase 1 assez pratiques pour mettre une instance en ligne. Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/) lorsque vous avez besoin des chemins generes, des liens de pied de page, des alias et des surcharges de pages custom.
 
-## Decider d'abord
+{{% steps %}}
 
-Avant de configurer les pages publiques, decidez qui exploite l'instance et qui traite les signalements.
+### Identifier l'operateur
 
-| Decision | Recommandation phase 1 | Personnalisation ulterieure |
-| --- | --- | --- |
-| Identite operateur | Personne, equipe, entreprise ou organisation responsable de l'instance | Aligner le texte avec l'entite qui possede le domaine et le depot |
-| Domaine de contact operateur | Laisser vide lorsque les contacts doivent utiliser le domaine court | Utiliser le domaine principal de l'operateur lorsque les contacts vivent ailleurs |
-| Juridiction | Pays, province/etat ou lieu d'exploitation | Raffiner avec une revue interne ou juridique si l'instance est organisationnelle |
-| Droit applicable | Habituellement la meme valeur que la juridiction | Utiliser une valeur plus precise seulement lorsque c'est le bon contexte legal |
-| Contact general | `hello@<short-domain>` | Router vers l'equipe qui possede le redirecteur |
-| Contact confidentialite | `privacy@<short-domain>` | Router vers la personne ou l'equipe qui traite les questions de confidentialite |
-| Contact Trust & Safety | `abuse@<short-domain>` | Router les signalements d'abus, phishing, malware, usurpation et liens dangereux |
-| Contact securite | `security@<short-domain>` | Router les signalements de vulnerabilites et publier via `/.well-known/security.txt` |
-| Fenetre de reponse | `5 business days` | Utiliser une attente de reponse humaine realiste, pas un SLA garanti |
+Dans `npm run setup`, repondez a **Operator legal name** avec la personne, l'equipe, l'entreprise ou l'organisation responsable de l'instance. Alignez le texte avec l'entite qui possede le domaine et le depot.
 
-Utilisez des adresses par role lorsque possible. Elles sont plus faciles a transferer lorsque la propriete change et plus faciles a reconnaitre pour les visiteurs, registraires et chercheurs.
+### Choisir le domaine de contact
+
+Dans `npm run setup`, repondez a **Operator domain for contact emails** avec le domaine qui doit recevoir les adresses de contact par role. Laissez vide lorsque les contacts doivent utiliser le domaine court.
 
 Si le domaine de contact operateur est vide, setup propose des adresses par role sur le domaine court, par exemple `abuse@example.link`. Si vous entrez un domaine operateur, par exemple `example.com`, setup propose plutot les adresses par role sur ce domaine, par exemple `abuse@example.com`.
 
-## Questions de setup
+### Definir les contacts de signalement
 
-Le Quickstart peut differer les pages confidentialite, conditions et securite autonome. Trust & Safety et `security.txt` peuvent quand meme etre publies avec un plus petit ensemble de reponses.
+Dans `npm run setup`, utilisez des adresses par role lorsque possible. Elles sont plus faciles a transferer lorsque la propriete change et plus faciles a reconnaitre pour les visiteurs, registraires et chercheurs.
 
-| Question de setup | Quand elle apparait | Ce que cela controle |
+| Question de setup | Recommandation phase 1 | Ce que cela controle |
 | --- | --- | --- |
-| Configurer les pages confidentialite, conditions et securite maintenant? | Toujours | Determine si les pages confidentialite, conditions et securite autonome sont generees maintenant |
-| Operator legal name | Toujours | Identite publique de l'operateur affichee sur les pages de confiance et legales generees |
-| Operator domain for contact emails | Toujours | Domaine utilise pour proposer les contacts par role; vide utilise le domaine court |
-| Trust & Safety contact | Toujours | Adresse publique pour les signalements d'abus et de liens dangereux |
-| Trust & Safety response window | Toujours | Attente de bonne foi pour la revue des signalements |
-| Security contact | Toujours | Adresse pour les signalements de vulnerabilites et `/.well-known/security.txt` |
-| Operator jurisdiction, for example Canada | Seulement lorsque les pages legales completes sont activees | Lieu dont les lois gouvernent l'operateur ou l'instance |
-| Governing law | Seulement lorsque les pages legales completes sont activees | Cadre juridique utilise par la page des conditions generee |
-| Operator contact email | Seulement lorsque les pages legales completes sont activees | Adresse de contact generale du redirecteur |
-| Privacy contact | Seulement lorsque les pages legales completes sont activees | Adresse pour les questions de confidentialite et de protection des donnees |
-| Legal pages last updated date | Seulement lorsque les pages legales completes sont activees | Date affichee sur les pages confidentialite, conditions et securite generees |
+| Trust & Safety contact | `abuse@<short-domain>` | Adresse publique pour les signalements d'abus, phishing, malware, usurpation et liens dangereux |
+| Security contact | `security@<short-domain>` | Adresse pour les signalements de vulnerabilites et `/.well-known/security.txt` |
+| Operator contact email | `hello@<short-domain>` | Adresse de contact generale lorsque les pages legales completes sont activees |
+| Privacy contact | `privacy@<short-domain>` | Contact confidentialite et protection des donnees lorsque les pages legales completes sont activees |
 
-Vous pouvez relancer `npm run setup` plus tard. L'installateur lit les valeurs existantes et les propose comme defauts, donc vous pouvez utiliser des reponses simples en phase 1 et les raffiner pendant la personnalisation.
+### Decider le contexte legal
 
-## Juridiction et droit applicable
+Dans `npm run setup`, activez les pages legales completes lorsque vous etes pret a publier les pages confidentialite, conditions et securite autonome. Ces questions apparaissent seulement lorsque les pages legales completes sont activees :
 
-La juridiction est le lieu dont les lois gouvernent l'operateur ou l'instance. Pour un redirecteur personnel, c'est generalement l'endroit ou vous vivez. Pour une organisation, c'est generalement l'endroit ou l'organisation exploitante est etablie.
+| Question de setup | Recommandation phase 1 | Ce que cela controle |
+| --- | --- | --- |
+| Operator jurisdiction | Pays, province/etat ou lieu d'exploitation | Lieu dont les lois gouvernent l'operateur ou l'instance |
+| Governing law | Habituellement la meme valeur que la juridiction | Cadre juridique utilise par la page des conditions generee |
+| Legal pages last updated date | Date de revue courante au format `YYYY-MM-DD` | Date affichee sur les pages confidentialite, conditions et securite generees |
 
-Le droit applicable est le cadre juridique utilise par la page des conditions. Il est souvent le meme que la juridiction. Utilisez une valeur plus precise, comme `Quebec, Canada`, seulement lorsque c'est le bon contexte legal pour l'operateur.
+Pour un redirecteur personnel, la juridiction est generalement l'endroit ou vous vivez. Pour une organisation, c'est generalement l'endroit ou l'organisation exploitante est etablie. Utilisez une valeur de droit applicable plus precise, comme `Quebec, Canada`, seulement lorsque c'est le bon contexte legal pour l'operateur.
 
-## Date de derniere mise a jour
+### Definir la fenetre de reponse
 
-La date de derniere mise a jour des pages legales est affichee sur les pages de politique generees. Utilisez `YYYY-MM-DD`.
-
-Mettez cette date a jour lorsque le contenu publie change de maniere significative, par exemple :
-
-- nouveau fournisseur d'analytics
-- changement d'adresse de contact
-- changement de juridiction ou de droit applicable
-- changement materiel au texte de confidentialite, conditions, confiance ou securite
-
-## Fenetre de reponse
-
-La fenetre de reponse Trust & Safety est une attente de bonne foi pour la revue des signalements. Ce n'est pas un accord de niveau de service garanti.
+Dans `npm run setup`, repondez a **Trust & Safety response window** avec une attente de revue humaine realiste, pas un accord de niveau de service garanti.
 
 Exemples raisonnables :
 
@@ -83,6 +61,15 @@ as soon as practical
 
 Evitez les promesses que vous ne pouvez pas tenir de maniere fiable. Le but est de definir une attente humaine et de montrer que les signalements d'abus ont un vrai chemin de traitement.
 
-## Pages liees
+### Revoir lorsque les engagements publics changent
 
-Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/) pour les chemins de sortie generes, les liens de pied de page, les alias et les surcharges de pages custom.
+Relancez `npm run setup` lorsque le contenu publie change de maniere significative, par exemple :
+
+- nouveau fournisseur d'analytics
+- changement d'adresse de contact
+- changement de juridiction ou de droit applicable
+- changement materiel au texte de confidentialite, conditions, confiance ou securite
+
+L'installateur lit les valeurs existantes et les propose comme defauts, donc vous pouvez utiliser des reponses simples en phase 1 et les raffiner pendant la personnalisation.
+
+{{% /steps %}}

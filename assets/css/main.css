@@ -674,6 +674,11 @@
     font-size: 1rem;
     line-height: 1.35;
   }
+  .brand-section > p,
+  .brand-section li {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
   .brand-grid {
     display: grid;
     gap: var(--brand-space-s);

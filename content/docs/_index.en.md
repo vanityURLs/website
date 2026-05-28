@@ -17,7 +17,7 @@ description: "Find the vanityURLs setup, customization, command-line, demo, and 
 ## Customize an instance
 
 - [Customize](/docs/customize/) maps the work after the first deployment.
-- [Brand](/docs/customize/brand/) covers wordmarks, slogans, badges, and installer-managed public assets.
+- [Brand](/docs/reference/brand/) covers wordmarks, slogans, badges, and installer-managed public assets.
 - [Footer & pages](/docs/customize/footer-pages/) covers public legal and trust pages.
 - [Access control](/docs/customize/access-control/) protects operational paths with Cloudflare Access.
 - [Analytics](/docs/customize/analytics/), [Policy and blocklist](/docs/customize/blocklist/), and [Network protection](/docs/customize/network-protection/) cover traffic visibility and abuse controls.

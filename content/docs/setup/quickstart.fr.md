@@ -86,7 +86,7 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 | Domaine de l'opérateur pour les courriels de contact | `vanityurls.link` | Domaine utilisé pour les adresses de contact par défaut comme `abuse@vanityurls.link` et `security@vanityurls.link` |
 | Contact Trust & Safety | `abuse@vanityurls.link` | Courriel utilisé pour les rapports d'abus et de confiance |
 | Contact sécurité | `security@vanityurls.link` | Courriel publié pour les rapports de sécurité et `security.txt` |
-| Configurer la marque maintenant ? | `N` | Restez désactivé pour la phase 1. Consultez [Marque](/fr/docs/customize/brand/) pendant la personnalisation |
+| Configurer la marque maintenant ? | `N` | Restez désactivé pour la phase 1. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
 
@@ -96,7 +96,7 @@ Certains défauts sont dérivés de vos réponses précédentes afin que l'insta
 npm run local-install
 ```
 
-Le script d'installation copie les outils locaux au chemin attendu sur votre poste. Le module shell `v8s` vous permet d'ouvrir un lien court connu depuis votre terminal au lieu de passer au navigateur. L'interface en ligne de commande `lnk` vous permet de gérer le contenu de `v8s-links.txt` et `v8s-schedules.json` sans éditeur texte. Consultez [Helper local](/fr/docs/command-line-interface/local-helper/) et [LNK](/fr/docs/command-line-interface/lnk/) pour plus d'information.
+Cette commande installe les raccourcis optionnels du poste. Utilisez [Helper local](/fr/docs/command-line-interface/local-helper/) pour le raccourci en lecture seule `v8s`, et [LNK](/fr/docs/command-line-interface/lnk/) lorsque vous voulez gérer les liens et horaires depuis le terminal.
 
 ### Créer votre premier commit
 
@@ -138,7 +138,7 @@ Dans Cloudflare, ouvrez **Build** > **Compute** > **Workers & Pages** depuis le 
 
 Protégez `/_stats` et `/_tests` avec Cloudflare Access avant de traiter l'instance comme production. Pour la phase 1, utilisez un code à usage unique avec des adresses courriel approuvées. Vous pourrez passer à GitHub, Google ou un autre fournisseur d'identité plus tard.
 
-Suivez [Contrôle d'accès](/fr/docs/customize/access-control/) pour créer l'application Zero Trust, configurer la politique et copier le **Application Audience (AUD) Tag**.
+Ouvrez [Contrôle d'accès](/fr/docs/customize/access-control/) dans un autre onglet et complétez les activités de cette page. Revenez ici lorsque l'application Cloudflare Access protège `/_stats` et `/_tests`, et après avoir copié le **Application Audience (AUD) Tag**.
 
 Dans votre terminal local, stockez l'audience Access comme secret Worker :
 
@@ -155,7 +155,7 @@ CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 
 ### Configurer la protection réseau
 
-Configurez les contrôles de zone Cloudflare qui protègent le domaine court avant que le trafic atteigne le Worker. Pour le démarrage rapide, gardez seulement la base :
+Configurez les contrôles de zone Cloudflare qui protègent le domaine court avant que le trafic atteigne le Worker. Ouvrez [Protection réseau](/fr/docs/customize/network-protection/) dans un autre onglet et suivez les chemins exacts des menus Cloudflare. Pour le démarrage rapide, complétez les activités de base :
 
 1. Confirmez que le domaine court utilise le record Worker Custom Domain proxifié dans **DNS**
 2. Établissez la base HTTPS dans **SSL/TLS**, incluant Full strict, Always Use HTTPS, TLS 1.3 et une version TLS minimale de 1.2 ou plus stricte
@@ -163,28 +163,28 @@ Configurez les contrôles de zone Cloudflare qui protègent le domaine court ava
 4. Ajoutez des règles WAF pour les probes de scanners, les méthodes HTTP inattendues, les clients suspects, les crawlers IA non désirés et les échecs répétés de liens courts
 5. Gardez la mise en cache conservatrice afin que les décisions de redirection restent dans le Worker
 
-Suivez [Protection réseau](/fr/docs/customize/network-protection/) pour les menus Cloudflare exacts, les valeurs recommandées et les exemples d'expressions WAF. Le trafic bloqué par Cloudflare n'atteint pas les analytics vanityURLs; consultez ces événements dans Cloudflare Security Events.
+Revenez ici lorsque ces réglages sont en place. Le trafic bloqué par Cloudflare n'atteint pas les analytics vanityURLs; consultez ces événements dans Cloudflare Security Events.
 
-### Optionnel : tester localement
+### _Optionnel_ : tester localement
 
-Avant de pousser le commit Access et protection réseau, vous pouvez lancer le Worker localement :
-
-```bash
-npm run dev
-```
-
-Wrangler démarre un serveur de développement local afin que vous puissiez vérifier la page d'accueil, les pages générées et les redirections de base avant que Cloudflare déploie depuis GitHub.
+Avant de valider l'instance, vous pouvez lancer le Worker localement avec `npm run dev`. Wrangler démarre un serveur de développement local afin que vous puissiez vérifier la page d'accueil, les pages générées et les redirections de base avant que Cloudflare déploie depuis GitHub.
 
 ### Valider et pousser
 
 ```bash
 npm run check
+git status --short
+```
+
+Si la validation a modifié des fichiers générés ou si vous avez encore des changements locaux de setup à publier :
+
+```bash
 git add .
-git commit -m "configure Cloudflare Access and network protection"
+git commit -m "chore: finish initial instance setup"
 git push
 ```
 
-Cloudflare devrait déployer depuis GitHub après le push.
+Si ce n'est pas votre premier push et que `git status --short` est vide, il n'y a rien de nouveau à committer. Cloudflare déploiera depuis GitHub après le prochain push qui modifie le dépôt.
 
 ### Tester le déploiement
 

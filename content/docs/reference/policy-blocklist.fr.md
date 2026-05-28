@@ -2,7 +2,7 @@
 aside: false
 title: "Politique et blocklist"
 description: "Fichiers de politique source, artefacts de blocklist runtime, catégories, feeds générés et validation dans vanityURLs."
-weight: 90
+weight: 80
 aliases:
   - /docs/blocklist-policy/
   - /fr/docs/blocklist-policy/

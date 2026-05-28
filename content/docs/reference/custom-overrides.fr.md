@@ -2,7 +2,7 @@
 aside: false
 title: "Surcharges custom"
 description: "Associer les fichiers propres à l'instance sous custom/ aux pages vanityURLs qui documentent chaque surface de personnalisation."
-weight: 120
+weight: 40
 aliases:
   - /docs/custom-overrides/
   - /fr/docs/custom-overrides/
@@ -30,13 +30,13 @@ Gardez les changements produit dans `defaults/` seulement lorsque vous contribue
 | `custom/v8s-policies.json` | Politique allow/block de l'instance | [Politique et blocklist](/fr/docs/customize/blocklist/) |
 | `custom/v8s-site-config.json` | Réglages de site écrits par setup | [Fichiers de configuration](/fr/docs/reference/configuration-files/) |
 | `custom/v8s-local-config.json` | Chemins de helper propres au poste | [Helper local](/fr/docs/command-line-interface/local-helper/) |
-| `custom/public/` | Surcharges de pages publiques et d'assets | [Marque](/fr/docs/customize/brand/), [Pied de page et pages](/fr/docs/customize/footer-pages/) et [Internationalisation](/fr/docs/reference/i18n/) |
+| `custom/public/` | Surcharges de pages publiques et d'assets | [Marque](/fr/docs/reference/brand/), [Pied de page et pages](/fr/docs/customize/footer-pages/) et [Internationalisation](/fr/docs/reference/i18n/) |
 
 ## Carte des surcharges publiques
 
 | Surcharge | Chemin | Détails |
 | --- | --- | --- |
-| Assets de marque et badges redirigés | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg` | [Marque](/fr/docs/customize/brand/) |
+| Assets de marque et badges redirigés | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg` | [Marque](/fr/docs/reference/brand/) |
 | Pied de page et pages légales | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pied de page et pages](/fr/docs/customize/footer-pages/) |
 | Pages publiques localisées | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires | [Internationalisation](/fr/docs/reference/i18n/) |
 | Page expand | `custom/public/expand/index.html` | [Format des liens](/fr/docs/reference/link-format/) |

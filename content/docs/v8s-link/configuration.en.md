@@ -125,6 +125,6 @@ When your instance behaves differently, compare your `custom/` files to the demo
 - [Configuration files](/docs/reference/configuration-files/)
 - [Repository layout](/docs/reference/repository-layout/)
 - [Custom overrides](/docs/reference/custom-overrides/)
-- [Brand](/docs/customize/brand/)
+- [Brand](/docs/reference/brand/)
 - [Footer & pages](/docs/customize/footer-pages/)
 - [Jurisdiction](/docs/customize/jurisdiction/)

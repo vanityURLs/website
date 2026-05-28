@@ -126,6 +126,6 @@ Lorsque votre instance se comporte différemment, comparez vos fichiers `custom/
 - [Fichiers de configuration](/fr/docs/reference/configuration-files/)
 - [Structure du dépôt](/fr/docs/reference/repository-layout/)
 - [Surcharges custom](/fr/docs/reference/custom-overrides/)
-- [Marque](/fr/docs/customize/brand/)
+- [Marque](/fr/docs/reference/brand/)
 - [Pied de page et pages](/fr/docs/customize/footer-pages/)
 - [Juridiction](/fr/docs/customize/jurisdiction/)

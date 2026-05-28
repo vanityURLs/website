@@ -16,7 +16,7 @@ For the trust-and-safety rationale, read [Protecting the reputation of a short-l
 
 ### Decide whether you need local policy
 
-Start with the default policy unless you have a concrete reason to replace it. Common reasons include:
+In your instance repository, review `defaults/v8s-policies.json` before creating an override. Start with the default policy unless you have a concrete reason to replace it. Common reasons include:
 
 - allowing an owner-controlled domain that a generated feed blocks
 - blocking a risky destination family before a public campaign
@@ -26,7 +26,7 @@ Start with the default policy unless you have a concrete reason to replace it. C
 
 ### Create the custom policy file
 
-Create `custom/v8s-policies.json` when the instance needs its own rules:
+In your instance repository, create `custom/v8s-policies.json` when the instance needs its own rules:
 
 ```json
 {
@@ -52,13 +52,13 @@ Create `custom/v8s-policies.json` when the instance needs its own rules:
 
 ### Keep allow rules narrow
 
-Use `allow_domains` only for trusted owner-controlled domains. Prefer allowing a specific hostname over allowing an entire registrable domain when only one subdomain is needed.
+In `custom/v8s-policies.json`, use `allow_domains` only for trusted owner-controlled domains. Prefer allowing a specific hostname over allowing an entire registrable domain when only one subdomain is needed.
 
 Allow rules can override generated and local domain blocks. They do not override malformed URLs, disallowed protocols, or credentialed URLs.
 
 ### Validate before deployment
 
-Run validation after changing policy:
+In your terminal at the instance repository root, run validation after changing policy:
 
 ```bash
 npm run check
@@ -68,7 +68,7 @@ The validator checks configured links against the generated runtime blocklist. F
 
 ### Review after incidents
 
-Review policy after an abuse report, a high-volume destination change, a generated feed update, or a new public campaign.
+In your instance repository, review `custom/v8s-policies.json` after an abuse report, a high-volume destination change, a generated feed update, or a new public campaign.
 
 Run optional generated policy updates only when you are ready to review the results:
 

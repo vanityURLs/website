@@ -15,6 +15,7 @@ Start here when you already have an instance running and want to understand how 
 | Page | Use it for |
 | --- | --- |
 | [Analytics](/docs/reference/analytics/) | Server-side analytics events, provider payloads, IP modes, and blocked traffic |
+| [Brand](/docs/reference/brand/) | Wordmarks, slogans, badge assets, color tokens, and installer-managed public assets |
 | [Configuration files](/docs/reference/configuration-files/) | Source, custom, local, and generated configuration files |
 | [Custom overrides](/docs/reference/custom-overrides/) | Instance-owned file overlays, public override paths, and status-page placeholders |
 | [Glossary](/docs/reference/glossary/) | Common terms used across the documentation, blog, and public pages |
