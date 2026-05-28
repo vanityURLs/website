@@ -1,4 +1,4 @@
 ---
 title: "FAQ"
-description: "Frequently asked questions about running, securing, and updating a vanityURLs instance."
+description: "Evidence-grounded answers about running, securing, and updating a vanityURLs instance."
 ---

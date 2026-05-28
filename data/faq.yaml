@@ -1,0 +1,732 @@
+# Generated 2026-05-27 from vanityURLs/code@f1c997f and vanityURLs/website@79f31f6.
+# English-only FAQ inventory. French parity is deferred.
+
+- id: stateless-architecture
+  question: How does vanityURLs work without a database?
+  category: architecture
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: README.md
+      note: "Links, schedules, destination policies, localized pages, and operator configuration live in Git."
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Build writes build/v8s.json, build/v8s-blocklist.json, and build/v8s-site-config.json for the Worker."
+  answer: >
+    vanityURLs compiles link and policy source files into static runtime JSON that the Cloudflare Worker reads from the Static Assets binding. There is no account database or mutable click store in the default runtime; Git is the system of record.
+  related: [runtime-registry, what-to-commit, generated-files]
+  tags: [cloudflare-workers, stateless, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: hosted-service
+  question: Is vanityURLs a hosted URL shortener like Bitly, Short.io, or Dub?
+  category: architecture
+  audience: [operator, end-user]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: README.md
+      note: "Quickstart instructs operators to clone the code, configure their own domain, and deploy their own Worker."
+  answer: >
+    No. vanityURLs is open-source software for running your own branded short-link instance on your Cloudflare account and domain. The public docs site is not a shared link-shortening service.
+  related: [setup-prerequisites, who-operates-instance]
+  tags: [self-hosted, operator-owned, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: who-operates-instance
+  question: Who is responsible for a deployed vanityURLs instance?
+  category: terms-liability
+  audience: [operator, end-user, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Generated terms identify {{operator.legal_name}} as the operator of {{operator.short_domain}}."
+    - repo: vanityURLs/code
+      path: defaults/v8s-site-config.json
+      note: "operator fields include legal name, domain, jurisdiction, contact, privacy, abuse, and security contacts."
+  answer: >
+    The instance operator configured in `custom/v8s-site-config.json` is responsible for the domain, destinations, legal pages, abuse response, and operational choices for {{operator.short_domain}}. vanityURLs supplies code and defaults; it does not become the operator of each deployed instance.
+  related: [operator-placeholders, abuse-reports, destination-liability]
+  tags: [operator-choice, legal, trust-safety]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: setup-prerequisites
+  question: What do I need before starting setup?
+  category: getting-started
+  audience: [operator]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: README.md
+      note: "Quickstart lists a registered short domain, GitHub and Cloudflare accounts, Git, Node.js 20+, npm, and a text editor."
+    - repo: vanityURLs/code
+      path: package.json
+      note: "Project scripts include setup, local-install, check, and deploy workflows."
+  answer: >
+    You need a short domain using Cloudflare DNS, a GitHub account and repository, a Cloudflare account, Git, Node.js 20 or newer, npm, and a text editor. After cloning, the normal path is `npm run detach`, `npm install`, `npm run setup`, `npm run local-install`, and `npm run check`.
+  related: [hosted-service, worker-deployment]
+  tags: [quickstart, cloudflare, github]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: worker-deployment
+  question: How is a vanityURLs instance deployed?
+  category: deployment
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: wrangler.toml
+      note: "Worker uses src/worker.mjs with an ASSETS binding pointed at ./build and run_worker_first rules."
+    - repo: vanityURLs/code
+      path: package.json
+      note: "deploy runs wrangler deploy; build runs scripts/build.mjs."
+  answer: >
+    The build generates `build/` and `src/`, then Cloudflare deploys `src/worker.mjs` with a Static Assets binding for `build/`. You can deploy manually with `npx wrangler deploy --config wrangler.toml` or let Cloudflare Workers & Pages run the build and deploy from Git.
+  related: [static-assets-binding, generated-files, what-to-commit]
+  tags: [cloudflare-workers, wrangler, deployment]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: static-assets-binding
+  question: Does vanityURLs use Cloudflare Pages?
+  category: deployment
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: wrangler.toml
+      note: "The runtime is a Cloudflare Worker with an [assets] binding, not a Pages _redirects deploy."
+    - repo: vanityURLs/code
+      path: CHANGELOG.txt
+      note: "Version 2.0.0 shipped the Cloudflare redirect Worker."
+  answer: >
+    The current runtime is a Cloudflare Worker using Static Assets, not a Cloudflare Pages `_redirects` site. Some Cloudflare dashboards still mention Workers & Pages, but the deployed application is the Worker configured in `wrangler.toml`.
+  related: [worker-deployment, runtime-registry]
+  tags: [cloudflare-workers, static-assets, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: runtime-registry
+  question: What is `build/v8s.json`?
+  category: architecture
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "buildRedirectTargets writes build/v8s.json from custom/v8s-links.txt or defaults/v8s-links.txt."
+    - repo: vanityURLs/code
+      path: scripts/validate-runtime-registry.mjs
+      note: "Runtime registry schema 3.0 validates links, routing, states, and tree shape."
+  answer: >
+    `build/v8s.json` is the generated redirect registry consumed by the Worker. It is built from source files, validated before deployment, and should be treated as generated output rather than hand-edited source.
+  related: [stateless-architecture, link-source-of-truth, generated-files]
+  tags: [registry, generated, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: link-source-of-truth
+  question: Where should I edit short links?
+  category: cli
+  audience: [operator]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/lnk
+      note: "CLI writes links to custom/v8s-links.txt unless V8S_LINKS_FILE overrides the path."
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Build prefers custom/v8s-links.txt and falls back to defaults/v8s-links.txt."
+  answer: >
+    Edit `custom/v8s-links.txt`, preferably through `./scripts/lnk` for routine changes. `defaults/v8s-links.txt` is only the upstream starter fallback used when an instance has not created its own custom link file.
+  related: [lnk-cli, defaults-vs-custom, what-to-commit]
+  tags: [links, cli, custom]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: lnk-cli
+  question: What does the `lnk` CLI manage?
+  category: cli
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/lnk
+      note: "Usage covers links, schedules, tags, random slug settings, policy lists, blocked domains, blocked keywords, and allowed domains."
+    - repo: vanityURLs/website
+      path: content/docs/command-line-interface/lnk.en.md
+      note: "The docs describe local link-management workflows."
+  answer: >
+    `./scripts/lnk` manages local source files for links, schedules, random slug defaults, tags, and block policies. Successful write operations are designed to run checks and publish locally, so review its behavior before using it in a repository with custom Git-signing requirements.
+  related: [link-source-of-truth, local-publish, schedule-cli]
+  tags: [cli, links, policies]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: generated-files
+  question: Which files are generated and should not be edited directly?
+  category: deployment
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Build cleans and regenerates build/ and copies Worker source from scripts/workers/ to src/."
+    - repo: vanityURLs/website
+      path: content/docs/reference/repository-layout.en.md
+      note: "Repository layout docs classify build/ and src/ as generated output."
+  answer: >
+    Treat `build/` and generated `src/` as build output. Edit source files in `custom/`, product files in `defaults/` or `scripts/` only when contributing upstream, then rebuild with `npm run build` or `npm run check`.
+  related: [defaults-vs-custom, runtime-registry, what-to-commit]
+  tags: [generated, repository-layout]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: what-to-commit
+  question: What should an instance repository commit?
+  category: deployment
+  audience: [operator]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/clean.mjs
+      note: "Clean removes generated output."
+    - repo: vanityURLs/website
+      path: content/docs/reference/repository-layout.en.md
+      note: "Docs separate product-owned files, instance-owned files, and generated output."
+  answer: >
+    Commit instance source files such as `custom/`, `wrangler.toml`, and normal repository metadata. Do not commit regenerated `build/`, `src/`, or other transient output unless the project documentation changes to require it.
+  related: [generated-files, defaults-vs-custom, local-publish]
+  tags: [git, repository-layout, deployment]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: defaults-vs-custom
+  question: Why are there both `defaults/` and `custom/` directories?
+  category: operator-config
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: docs/adr/0002-keep-instance-changes-in-custom.md
+      note: "ADR establishes the split between upstream defaults and instance-owned changes."
+    - repo: vanityURLs/website
+      path: content/docs/reference/repository-layout.en.md
+      note: "Docs explain product-owned defaults and instance-owned custom files."
+  answer: >
+    `defaults/` is the upstream product baseline; `custom/` is the instance-owned overlay. Keeping local changes in `custom/` lets `npm run upgrade` refresh product files without trampling instance links, branding, policies, or legal choices.
+  related: [upgrade-scope, generated-files, link-source-of-truth]
+  tags: [custom, defaults, upgrade]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: upgrade-scope
+  question: What does `npm run update` or `npm run upgrade` replace?
+  category: deployment
+  audience: [operator]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/upgrade.mjs
+      note: "Default upgrade paths are defaults, scripts, package.json, package-lock.json, and LICENSE; protected paths include custom, wrangler.toml, .dev.vars, and README.md."
+    - repo: vanityURLs/code
+      path: package.json
+      note: "`update` is an alias for `npm run upgrade`."
+  answer: >
+    The upgrade workflow refreshes product-owned files such as `defaults/`, `scripts/`, package manifests, and `LICENSE`. It refuses protected local paths including `custom/`, `wrangler.toml`, `.dev.vars`, and `README.md`.
+  related: [defaults-vs-custom, generated-files, what-to-commit]
+  tags: [upgrade, protected-paths, operator-choice]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: operator-placeholders
+  question: Which operator fields must be real before launch?
+  category: operator-config
+  audience: [operator, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "validateOperatorConfig requires legal_name, short_domain, jurisdiction, governing_law, contact, privacy, abuse, security, last_updated, analytics disclosure, and abuse window fields."
+    - repo: vanityURLs/code
+      path: docs/schema-changelog.md
+      note: "Schema changelog lists expanded operator fields for privacy, terms, trust, security, and security.txt output."
+  answer: >
+    Generated legal and trust pages require real `operator` values for legal identity, short domain, jurisdiction, governing law, contact emails, last updated date, analytics disclosure, and abuse response window. Placeholder values are treated as configuration issues instead of launch-ready content.
+  related: [who-operates-instance, security-txt, legal-pages]
+  tags: [operator-config, placeholders, legal]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: legal-pages
+  question: Can I defer legal pages during setup?
+  category: operator-config
+  audience: [operator, trust-safety]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: docs/adr/0005-support-deferred-legal-pages.md
+      note: "ADR documents deferred legal-page mode through operator.legal_pages_enabled."
+    - repo: vanityURLs/code
+      path: CHANGELOG.txt
+      note: "Version 2.6.0 added deferred legal setup."
+  answer: >
+    Setup supports deferring full privacy, terms, and standalone security pages, but that is a setup convenience rather than legal clearance. Before public launch, operators should complete the generated pages or provide their own reviewed replacements.
+  related: [operator-placeholders, who-operates-instance, abuse-reports]
+  tags: [legal, setup, operator-choice]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: security-txt
+  question: How does `security.txt` work?
+  category: trust-safety
+  audience: [operator, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "`/security.txt` redirects to `/.well-known/security.txt`; the canonical path is served from assets."
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Generated security.txt uses operator.short_domain, operator.security_contact, and operator.last_updated."
+  answer: >
+    The Worker redirects `/security.txt` to `/.well-known/security.txt` with a permanent redirect. The generated file depends on {{operator.short_domain}}, {{operator.security_contact}}, and {{operator.last_updated}}.
+  related: [operator-placeholders, abuse-reports]
+  tags: [security-txt, rfc-9116, trust-safety]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: protected-operational-paths
+  question: Which paths should Cloudflare Access protect?
+  category: trust-safety
+  audience: [operator]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "`/_stats` and `/_tests` paths require Cloudflare Access JWT validation."
+    - repo: vanityURLs/website
+      path: content/docs/customize/access-control.en.md
+      note: "Access control docs describe protecting operational surfaces."
+  answer: >
+    The Worker treats `/_stats` and `/_tests` as protected operational paths. If `CF_ACCESS_TEAM_DOMAIN` or `CF_ACCESS_AUD` is missing, those paths fail closed with `503` instead of becoming public.
+  related: [cloudflare-access-jwt, runtime-security-layers]
+  tags: [cloudflare-access, protected-paths, trust-safety]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: cloudflare-access-jwt
+  question: What does vanityURLs verify for Cloudflare Access?
+  category: trust-safety
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "Access JWT verification checks RS256, issuer, audience, validity window, and JWKS signature."
+  answer: >
+    For protected paths, the Worker checks the `cf-access-jwt-assertion` token against the configured Cloudflare Access team domain and audience. It validates the token algorithm, issuer, audience, time window, and RS256 signature from the Access JWKS.
+  related: [protected-operational-paths]
+  tags: [cloudflare-access, jwt, security]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: redirect-methods
+  question: Which HTTP methods does the Worker accept?
+  category: architecture
+  audience: [operator, contributor, trust-safety]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "Worker accepts GET, HEAD, and OPTIONS; other methods return 405 except the expand analytics endpoint."
+    - repo: vanityURLs/website
+      path: content/docs/reference/runtime-security.en.md
+      note: "Runtime security docs list accepted public methods."
+  answer: >
+    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /_analytics/expand` reserved for the expand-page beacon.
+  related: [analytics-default, runtime-security-layers]
+  tags: [http, runtime-security, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: lifecycle-states
+  question: What link lifecycle states exist?
+  category: destination-policies
+  audience: [operator, end-user]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/lnk
+      note: "VALID_STATES are permanent, ephemeral, expired, disabled, maintenance, and deactivated."
+    - repo: vanityURLs/code
+      path: scripts/validate-runtime-registry.mjs
+      note: "The generated runtime registry must define routing for every required state."
+  answer: >
+    A link can be `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, or `deactivated`. The Worker resolves the effective state before redirecting, so state pages or error routes can replace a normal redirect.
+  related: [expires-at, state-page-statuses, runtime-registry]
+  tags: [lifecycle, links, routing]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: expires-at
+  question: What happens when a link has passed `expires_at`?
+  category: destination-policies
+  audience: [operator, end-user]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "getEffectiveState returns expired when expires_at is a valid past date."
+    - repo: vanityURLs/code
+      path: scripts/validate-runtime-registry.mjs
+      note: "expires_at must parse as a valid date when present."
+  answer: >
+    When `expires_at` is a valid date in the past, the Worker treats the link as `expired` even if the stored state is different. The default expired route serves the expired state page instead of the destination.
+  related: [lifecycle-states, state-page-statuses]
+  tags: [expiry, lifecycle, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: state-page-statuses
+  question: Which HTTP statuses do state pages return?
+  category: destination-policies
+  audience: [operator, end-user, trust-safety]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "disabled returns 403, expired returns 410, and maintenance returns 503."
+  answer: >
+    The built-in state pages return meaningful status codes: disabled links return `403`, expired links return `410`, and maintenance links return `503`. Deactivated links fall through to the not-found flow.
+  related: [lifecycle-states, expires-at]
+  tags: [http-status, lifecycle, status-pages]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: splat-links
+  question: Can one short link forward nested paths?
+  category: cli
+  audience: [operator]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/lnk
+      note: "`--splat` creates a splat link and stores SLUG/* in the links file."
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "resolveLink checks exact links first, then longest splat prefix, and encodes :splat into the target."
+  answer: >
+    Yes. A splat link maps nested paths under a slug into a target containing `:splat`; exact links win first, then the Worker chooses the longest matching splat prefix.
+  related: [link-source-of-truth, runtime-registry]
+  tags: [splat, links, cli]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: schedule-cli
+  question: How do scheduled links choose a destination?
+  category: scheduling
+  audience: [operator, end-user]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "resolveScheduledTarget checks schedule rules in order and uses timezone-aware weekday/time windows."
+    - repo: vanityURLs/website
+      path: content/docs/reference/schedules.en.md
+      note: "Schedule docs state that the first active rule wins and a normal or default target is used otherwise."
+  answer: >
+    Scheduled links evaluate rules in order using the configured timezone, weekdays, and `from`/`to` window. The first active rule wins; if none match, the link uses its normal target or schedule default when configured.
+  related: [schedule-timezones, link-source-of-truth]
+  tags: [schedules, timezone, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: schedule-timezones
+  question: Which timezone does a scheduled link use?
+  category: scheduling
+  audience: [operator]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "Schedule rules use rule.timezone or UTC and Intl.DateTimeFormat for evaluation."
+    - repo: vanityURLs/code
+      path: docs/schema-changelog.md
+      note: "v8s-schedules.json supports timezone at schedule and rule level."
+  answer: >
+    A schedule rule uses its own `timezone` when present; otherwise the Worker falls back to `UTC`. Use an IANA timezone such as `America/Toronto` to avoid guessing around daylight saving time.
+  related: [schedule-cli]
+  tags: [schedules, timezone, edge-case]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: analytics-default
+  question: Are clicks logged by default?
+  category: privacy
+  audience: [operator, end-user, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "Redirect events call logAnalyticsEvent with ctx.waitUntil, which is a no-op unless analytics provider variables are configured."
+    - repo: vanityURLs/website
+      path: content/docs/reference/analytics.en.md
+      note: "Docs state analytics runs server-side and is configured with Worker variables."
+  answer: >
+    The architecture has no built-in click database. Redirect, miss, pageview, and expand events are sent only when an optional analytics provider is configured for the Worker.
+  related: [analytics-providers, analytics-ip-handling, stateless-architecture]
+  tags: [privacy, analytics, operator-choice]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: analytics-providers
+  question: Which analytics providers does vanityURLs support?
+  category: analytics
+  audience: [operator]
+  priority: high
+  evidence:
+    - repo: vanityURLs/website
+      path: content/docs/reference/analytics.en.md
+      note: "Analytics reference documents Umami and Fathom variables and payloads."
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "Runtime sends pageview, redirect, miss, expand, and bot events through provider-specific analytics functions."
+  answer: >
+    The documented provider choices are Umami and Fathom, configured through Worker variables and secrets. Both are server-side integrations from the Worker rather than browser JavaScript trackers.
+  related: [analytics-default, analytics-ip-handling]
+  tags: [umami, fathom, analytics, operator-choice]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: analytics-ip-handling
+  question: How is visitor IP handled when Umami is enabled?
+  category: privacy
+  audience: [operator, end-user, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "deriveUmamiGeoIpMode uses UMAMI_GEO_IP_MODE and defaults to truncated for Umami."
+    - repo: vanityURLs/website
+      path: content/docs/reference/analytics.en.md
+      note: "Analytics reference documents full, truncated, and none modes for Umami IP handling."
+  answer: >
+    `UMAMI_GEO_IP_MODE` controls whether the Worker forwards full, truncated, or no visitor IP information to Umami. If Umami is configured and the mode is missing or invalid, the documented default is `truncated`.
+  related: [analytics-providers, analytics-default]
+  tags: [privacy, ip-address, umami, operator-choice]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: gdpr-article-11
+  question: Why does the privacy model mention GDPR Article 11?
+  category: privacy
+  audience: [operator, trust-safety]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/website
+      path: content/docs/reference/analytics.en.md
+      note: "Analytics docs distinguish architectural statelessness from optional provider collection."
+    - repo: vanityURLs/code
+      path: README.md
+      note: "The product stores links and operator configuration in Git rather than visitor accounts."
+  answer: >
+    The default architecture does not create visitor accounts or a per-click identity database, so operators can explain that the redirector is not designed to identify visitors. That architectural fact does not remove obligations created by optional analytics, Cloudflare logs, local law, or operator-added tooling.
+  related: [analytics-default, analytics-ip-handling, who-operates-instance]
+  tags: [gdpr, privacy, architectural]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: runtime-security-layers
+  question: Why does vanityURLs use both Worker checks and Cloudflare security settings?
+  category: trust-safety
+  audience: [operator, contributor, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "Worker blocks scanner probes, unsafe methods, private runtime files, and protected paths."
+    - repo: vanityURLs/website
+      path: content/blog/layering-cloudflare-protection-around-a-short-link-domain.en.md
+      note: "Blog explains why WAF, bot controls, Access, and analytics layers answer different operational questions."
+  answer: >
+    The Worker keeps application behavior deterministic, while Cloudflare edge controls should reject noisy traffic before it spends Worker CPU or analytics quota. Use both layers: Cloudflare for high-volume network protection, and Worker checks for application-specific redirect safety.
+  related: [scanner-probes, protected-operational-paths, destination-policy]
+  tags: [cloudflare, waf, runtime-security]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: scanner-probes
+  question: How are scanner probes handled?
+  category: trust-safety
+  audience: [operator, trust-safety]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "findScannerProbe loads v8s-blocklist.json and matches request-scoped scanner keywords before redirect lookup."
+    - repo: vanityURLs/code
+      path: defaults/v8s-policies.json
+      note: "Default policy includes scanner-probe keywords for common PHP, WordPress, repository, and admin paths."
+  answer: >
+    Known scanner paths are matched against the incoming request before short-link lookup. Matching probes receive a plain no-store `404` and should not become normal short-link misses.
+  related: [runtime-security-layers, destination-policy]
+  tags: [scanner-probes, blocklist, trust-safety]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: destination-policy
+  question: How does vanityURLs prevent unsafe redirect destinations?
+  category: destination-policies
+  audience: [operator, trust-safety, destination-owner]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: defaults/v8s-policies.json
+      note: "Default policy blocks private networks, localhost, auth-in-URL, unsafe protocols, and executable-style extensions."
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "sanitizeRedirectTarget only allows http(s), requires a hostname, and rejects username/password in redirect targets."
+  answer: >
+    Build-time policy and runtime sanitation focus on HTTP(S) destinations without embedded credentials, private-network targets, localhost targets, or known risky destination patterns. Operators can replace the source policy in `custom/v8s-policies.json`.
+  related: [policy-replacement, scanner-probes, destination-liability]
+  tags: [destination-policy, safety, blocklist]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: policy-replacement
+  question: Does `custom/v8s-policies.json` merge with the default policy?
+  category: destination-policies
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "copyRuntimeBlocklist chooses custom/v8s-policies.json when it exists; otherwise defaults/v8s-policies.json."
+    - repo: vanityURLs/code
+      path: docs/adr/0003-custom-policy-replaces-default-policy.md
+      note: "ADR records replacement semantics for custom policy."
+  answer: >
+    No. When `custom/v8s-policies.json` exists, it replaces the selected default policy source for the instance. This makes local policy ownership explicit and prevents removed local decisions from reappearing through an implicit merge.
+  related: [destination-policy, defaults-vs-custom]
+  tags: [policy, blocklist, custom]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: destination-liability
+  question: Does publishing a short link endorse the destination?
+  category: terms-liability
+  audience: [end-user, destination-owner, trust-safety, operator]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Generated terms say third-party destinations are not controlled, monitored, or endorsed by the operator."
+  answer: >
+    No. Generated terms state that short links may redirect to third-party websites and that publishing a short link does not endorse the destination or its operator. Abuse reports should target the short link and, when appropriate, the destination host or registrar too.
+  related: [abuse-reports, who-operates-instance]
+  tags: [terms, destinations, trust-safety]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: abuse-reports
+  question: How should someone report an abusive short link?
+  category: trust-safety
+  audience: [end-user, destination-owner, trust-safety]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Generated Trust & Safety page directs reports to {{operator.abuse_contact}} and references /abuse-report.md."
+    - repo: vanityURLs/code
+      path: defaults/public/abuse-report.md
+      note: "Default abuse report template is shipped as a public asset."
+  answer: >
+    Send a report to {{operator.abuse_contact}} and include the short URL, destination if known, why it is harmful, and any supporting evidence. The default instance also publishes `/abuse-report.md` as a structured template.
+  related: [destination-liability, security-txt, who-operates-instance]
+  tags: [abuse, reporting, trust-safety]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: localization-fallback
+  question: How does the Worker choose a localized page?
+  category: localization
+  audience: [operator, end-user]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "fetchLocalizedAsset checks Accept-Language against generated LOCALIZED_HTML_LANGUAGES and falls back to the root asset."
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Build patches LOCALIZED_HTML_LANGUAGES from supported languages in v8s-site-config.json."
+  answer: >
+    For localizable HTML assets, the Worker checks `Accept-Language` against the configured supported languages and serves the first available localized file. If no localized file is available, it falls back to the root asset, which is normally English.
+  related: [operator-placeholders, custom-public]
+  tags: [i18n, localization, html]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: custom-public
+  question: How do I customize public pages and assets?
+  category: localization
+  audience: [operator]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "copyPublic overlays custom/public/ on top of defaults/public/ when custom public files exist."
+    - repo: vanityURLs/website
+      path: content/docs/reference/custom-overrides.en.md
+      note: "Custom overrides docs explain instance-owned file overlays."
+  answer: >
+    Put instance-owned public assets and page replacements under `custom/public/`. During build, vanityURLs copies `defaults/public/` first and then overlays `custom/public/`, so custom files win without editing upstream defaults.
+  related: [defaults-vs-custom, localization-fallback]
+  tags: [custom-public, branding, localization]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: local-publish
+  question: What does `npm run local-publish` do?
+  category: cli
+  audience: [operator]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: README.md
+      note: "Local workflow says local-publish handles checks, commit selection, and push."
+    - repo: vanityURLs/code
+      path: docs/schema-changelog.md
+      note: "v8s-local-config.json includes local_publish paths and commit messages."
+  answer: >
+    `npm run local-publish` is a workstation convenience for validated instance changes: it runs checks, stages configured paths, chooses a commit message, commits, and pushes. Operators with required manual signing prompts should review this workflow before enabling it.
+  related: [lnk-cli, what-to-commit]
+  tags: [local-workflow, git, cli]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
+
+- id: comparison-fit
+  question: When is vanityURLs a better fit than a hosted shortener?
+  category: comparison
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: README.md
+      note: "Project emphasizes branded short-link domains as code on Cloudflare Workers."
+    - url: https://dub.co/pricing
+      note: "Hosted developer shortener pricing and feature tiers are organized around accounts and plans."
+    - url: https://bitly.com/pages/pricing
+      note: "Mainstream hosted shortener pricing is plan-based."
+  answer: >
+    vanityURLs is a strong fit when you want links as code, Git history, self-operated Cloudflare infrastructure, and no shared hosted-service account surface. Hosted shorteners usually win when you need a managed dashboard, team permissions, built-in billing support, or a public API without running your own deployment.
+  related: [hosted-service, stateless-architecture]
+  tags: [comparison, self-hosted, hosted-services]
+  last_reviewed: 2026-05-27
+  reviewed_against: {code: f1c997f, website: 79f31f6}
