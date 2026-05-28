@@ -18,7 +18,7 @@ Pour le raisonnement de securite par couches, lisez [Ajouter des couches de prot
 
 ### Confirmer le domaine custom du Worker
 
-Dans **DNS**, utilisez le record Worker Custom Domain que Cloudflare cree pour le domaine court. Il devrait apparaitre comme un record Worker proxifie pour le hostname, par exemple `v8s.link -> v8s-link`.
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **DNS** > **Records**. Utilisez le record Worker Custom Domain que Cloudflare cree pour le domaine court. Il devrait apparaitre comme un record Worker proxifie pour le hostname, par exemple `v8s.link -> v8s-link`.
 
 Supprimez les anciens records synthetiques `AAAA 100::` pour le meme hostname une fois le Custom Domain actif. Gardez les records mail, DKIM, DMARC, MTA-STS et verification de propriete en DNS-only sauf si le fournisseur exige explicitement le proxy.
 
@@ -26,7 +26,7 @@ Utilisez des records proxifies separes seulement pour de vrais sous-domaines web
 
 ### Etablir la base HTTPS
 
-Dans **SSL/TLS**, commencez avec ces reglages :
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **SSL/TLS** > **Overview** pour le mode de chiffrement, puis **SSL/TLS** > **Edge Certificates** pour les reglages de certificat, HTTPS, TLS, HSTS et Certificate Transparency. Commencez avec ces reglages :
 
 | Reglage | Recommandation |
 | --- | --- |
@@ -42,6 +42,8 @@ Dans **SSL/TLS**, commencez avec ces reglages :
 Activez HSTS seulement apres que chaque hostname et sous-domaine de production soit pret pour HTTPS. Un max age d'un mois est un bon premier reglage; incluez les sous-domaines et preload seulement quand toute la zone est volontairement HTTPS-only.
 
 ### Activer les controles de securite de base
+
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **Security** > **Settings** pour le tableau de bord, les bots, Browser Integrity Check, Challenge Passage, le remplacement de bibliotheques et `security.txt`. Utilisez **Security** > **Security rules** lorsqu'un controle necessite une regle plutot qu'un interrupteur.
 
 Les reglages de securite du plan gratuit doivent rester sobres et explicites. Activez les protections qui reduisent les abus courants, mais evitez les fonctionnalites qui modifient le contenu public ou exposent des donnees visiteur supplementaires sans besoin clair.
 
@@ -63,6 +65,8 @@ Les reglages de securite du plan gratuit doivent rester sobres et explicites. Ac
 N'activez pas les certificats client, regles mTLS, en-tetes de localisation visiteur ou en-tetes True-Client-IP pour le raccourcisseur public sauf si un service en aval en a explicitement besoin. Le Worker recoit deja les metadonnees pays et colo Cloudflare pour les analytics agreges.
 
 ### Ajouter les regles WAF
+
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **Security** > **Security rules** > **Security rules**, puis creez des regles custom avec l'editeur d'expression.
 
 Les regles de securite Cloudflare s'executent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais atteindre le code applicatif.
 
@@ -101,6 +105,8 @@ Utilisez l'editeur d'expression pour les regles imbriquees, collez et validez un
 
 ### Decider des controles de crawlers
 
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **AI Crawl Control** > **Signals** pour Managed `robots.txt`, puis **AI Crawl Control** > **Security** pour bloquer ou autoriser des crawlers precis.
+
 Si le depot fournit `robots.txt`, gardez Cloudflare Managed robots.txt desactive. Cela fait du depot la source de verite et evite que Cloudflare ecrase des directives intentionnelles.
 
 Reglages utiles :
@@ -114,6 +120,8 @@ Reglages utiles :
 Au minimum, laissez `/robots.txt` autorise pour que les crawlers puissent lire la politique publiee.
 
 ### Configurer Rules et URL normalization
+
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **Rules** > **Settings** > **Managed Transforms** pour les transformations d'en-tetes, puis **Rules** > **Settings** > **URL Normalization** pour la normalisation des URL.
 
 Reglages Rules recommandes :
 
@@ -131,6 +139,8 @@ La normalisation des URLs entrantes est particulierement importante parce que WA
 
 ### Configurer Network
 
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **Network**.
+
 Reglages Network recommandes :
 
 | Reglage | Recommandation |
@@ -146,6 +156,8 @@ Reglages Network recommandes :
 
 ### Garder le caching conservateur
 
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **Caching** > **Configuration** pour les reglages generaux de cache, et **Caching** > **Cache Rules** si vous avez besoin d'une regle precise.
+
 Gardez le caching sobre pour un redirecteur :
 
 - Laissez les decisions de redirection dynamiques au Worker
@@ -154,6 +166,8 @@ Gardez le caching sobre pour un redirecteur :
 - N'ajoutez pas de regles de cache qui mettent les reponses de redirection en cache sans tester les etats de cycle de vie, les horaires, les analytics et les misses
 
 ### Consulter la bonne surface analytics
+
+Dans Cloudflare, ouvrez **Websites** > **votre domaine court** > **Security** > **Analytics** pour les evenements WAF, bot et rate-limit, **Analytics** > **Workers** pour les metriques d'infrastructure Worker, et **DNS** > **Analytics** pour les diagnostics DNS.
 
 Utilisez les analytics Cloudflare et Security Events pour les decisions d'infrastructure :
 
