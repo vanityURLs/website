@@ -12,21 +12,25 @@ vanityURLs pose quelques questions sur l'operateur afin que les pages publiques 
 
 Cette page n'est pas un avis juridique. Elle explique ce que les champs controlent et propose des reponses de phase 1 assez pratiques pour mettre une instance en ligne. Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/) lorsque vous avez besoin des chemins generes, des liens de pied de page, des alias et des surcharges de pages custom.
 
+Pour la raison d'etre des adresses courriel generees, consultez [Courriels de contact publics pour les pages générées](/fr/blog/public-contact-emails-for-generated-pages/).
+
 {{% steps %}}
 
 ### Identifier l'operateur
 
 Dans `npm run setup`, repondez a **Operator legal name** avec la personne, l'equipe, l'entreprise ou l'organisation responsable de l'instance. Alignez le texte avec l'entite qui possede le domaine et le depot.
 
-### Choisir le domaine de contact
+### Reviser les courriels de contact publics
 
-Dans `npm run setup`, repondez a **Operator domain for contact emails** avec le domaine qui doit recevoir les adresses de contact par role. Laissez vide lorsque les contacts doivent utiliser le domaine court.
+Dans `npm run setup`, repondez a **Review public contact emails for generated pages?** avec `Y` lorsque vous voulez inspecter ou modifier les adresses courriel publiques affichees sur les pages generees et dans `/.well-known/security.txt`.
+
+Lorsque vous les revisez, setup demande **Operator domain for contact emails**. Utilisez le domaine qui doit recevoir les adresses de contact par role. Laissez vide lorsque les contacts doivent utiliser le domaine court.
 
 Si le domaine de contact operateur est vide, setup propose des adresses par role sur le domaine court, par exemple `abuse@example.link`. Si vous entrez un domaine operateur, par exemple `example.com`, setup propose plutot les adresses par role sur ce domaine, par exemple `abuse@example.com`.
 
 ### Definir les contacts de signalement
 
-Dans `npm run setup`, utilisez des adresses par role lorsque possible. Elles sont plus faciles a transferer lorsque la propriete change et plus faciles a reconnaitre pour les visiteurs, registraires et chercheurs.
+Si vous repondez `N`, setup conserve les valeurs publiques existantes ou derive des valeurs par defaut pratiques a partir du domaine court. Lorsque vous revisez les valeurs, utilisez des adresses par role lorsque possible. Elles sont plus faciles a transferer lorsque la propriete change et plus faciles a reconnaitre pour les visiteurs, registraires et chercheurs.
 
 | Question de setup | Recommandation phase 1 | Ce que cela controle |
 | --- | --- | --- |

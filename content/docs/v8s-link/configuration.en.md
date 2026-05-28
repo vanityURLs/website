@@ -31,6 +31,7 @@ When your instance behaves differently, compare your `custom/` files to the demo
 | Repository | [`vanityURLs/v8s.link`](https://github.com/vanityURLs/v8s.link) |
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` |
 | Operator legal name | `Benoît H. Dicaire` |
+| Review public contact emails for generated pages | Yes |
 | Operator domain for contact emails | `vanityurls.link` |
 | Trust & Safety contact | `abuse@vanityurls.link` |
 | Security contact | `security@vanityurls.link` |

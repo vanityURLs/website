@@ -12,21 +12,25 @@ vanityURLs asks a few operator questions so generated public pages have a real o
 
 This page is not legal advice. It explains what the fields control and gives phase-1 answers that are practical enough to get an instance online. Use [Footer & pages](/docs/customize/footer-pages/) when you need generated output paths, footer links, aliases, and custom page overrides.
 
+For the rationale behind the generated email addresses, see [Public contact emails for generated pages](/blog/public-contact-emails-for-generated-pages/).
+
 {{% steps %}}
 
 ### Identify the operator
 
 In `npm run setup`, answer **Operator legal name** with the person, team, company, or organization responsible for the instance. Align the wording with the entity that owns the domain and repository.
 
-### Choose the contact domain
+### Review public contact emails
 
-In `npm run setup`, answer **Operator domain for contact emails** with the domain that should receive role-based contact addresses. Leave it blank when contacts should use the short domain.
+In `npm run setup`, answer **Review public contact emails for generated pages?** with `Y` when you want to inspect or change the public email addresses printed on generated pages and `/.well-known/security.txt`.
+
+When you review them, setup asks for **Operator domain for contact emails**. Use the domain that should receive role-based contact addresses. Leave it blank when contacts should use the short domain.
 
 If the operator contact domain is blank, setup defaults role-based addresses to the short domain, such as `abuse@example.link`. If you enter an operator domain, such as `example.com`, setup defaults role-based addresses to that domain instead, such as `abuse@example.com`.
 
 ### Set reporting contacts
 
-In `npm run setup`, use role-based addresses when you can. They are easier to transfer when ownership changes and easier for visitors, registrars, and researchers to recognize.
+If you answer `N`, setup keeps existing public contact values or derives practical defaults from the short domain. When you do review the values, use role-based addresses when you can. They are easier to transfer when ownership changes and easier for visitors, registrars, and researchers to recognize.
 
 | Setup question | Phase 1 recommendation | What it controls |
 | --- | --- | --- |

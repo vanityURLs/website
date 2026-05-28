@@ -83,9 +83,7 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 | Langues supportées | `de,en,es,fr,it` | Codes ISO séparés par des virgules. L'anglais (`en`) est la langue principale et de fallback lorsqu'une page localisée n'est pas disponible. Voir [Langues](/fr/docs/reference/i18n/) |
 | Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N` | Restez désactivé pour la phase 1. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
 | Nom légal de l'opérateur | `Benoît H. Dicaire` | Nom simple de l'opérateur pour la phase 1. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
-| Domaine de l'opérateur pour les courriels de contact | `vanityurls.link` | Domaine utilisé pour les adresses de contact par défaut comme `abuse@vanityurls.link` et `security@vanityurls.link` |
-| Contact Trust & Safety | `abuse@vanityurls.link` | Courriel utilisé pour les rapports d'abus et de confiance |
-| Contact sécurité | `security@vanityurls.link` | Courriel publié pour les rapports de sécurité et `security.txt` |
+| Réviser les courriels de contact publics pour les pages générées ? | `Y` | Révisez les adresses publiques de signalement une fois. Utilisez `vanityurls.link` comme domaine de contact, puis `abuse@vanityurls.link` et `security@vanityurls.link` pour les contacts de signalement. Voir [Courriels de contact publics pour les pages générées](/fr/blog/public-contact-emails-for-generated-pages/) |
 | Configurer la marque maintenant ? | `N` | Restez désactivé pour la phase 1. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.

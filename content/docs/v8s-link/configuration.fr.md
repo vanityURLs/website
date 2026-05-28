@@ -32,6 +32,7 @@ Lorsque votre instance se comporte différemment, comparez vos fichiers `custom/
 | Dépôt | [`vanityURLs/v8s.link`](https://github.com/vanityURLs/v8s.link) |
 | Domaine d'équipe Cloudflare Access | `vanityurls.cloudflareaccess.com` |
 | Nom légal de l'opérateur | `Benoît H. Dicaire` |
+| Réviser les courriels de contact publics pour les pages générées | Oui |
 | Domaine de l'opérateur pour les courriels de contact | `vanityurls.link` |
 | Contact Trust & Safety | `abuse@vanityurls.link` |
 | Contact sécurité | `security@vanityurls.link` |

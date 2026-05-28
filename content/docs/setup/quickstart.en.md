@@ -83,9 +83,7 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the main and fallback language when a localized page is unavailable. See [Languages](/docs/reference/i18n/) |
 | Configure jurisdiction, privacy, terms, and security pages now? | `N` | Stay disabled for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
 | Operator legal name | `Benoît H. Dicaire` | Simple operator name for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
-| Operator domain for contact emails | `vanityurls.link` | Domain used for default contact addresses such as `abuse@vanityurls.link` and `security@vanityurls.link` |
-| Trust & Safety contact | `abuse@vanityurls.link` | Email used for abuse and trust reports |
-| Security contact | `security@vanityurls.link` | Email published for security reports and `security.txt` |
+| Review public contact emails for generated pages? | `Y` | Review the public reporting addresses once. Use `vanityurls.link` as the contact domain, then `abuse@vanityurls.link` and `security@vanityurls.link` for the reporting contacts. See [Public contact emails for generated pages](/blog/public-contact-emails-for-generated-pages/) |
 | Configure branding now? | `N` | Stay disabled for phase 1. Refer to [Brand](/docs/reference/brand/) during customization |
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
