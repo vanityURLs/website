@@ -256,12 +256,8 @@ Reglages Rules recommandes :
 | Managed Transforms | Add security headers transform | Off par defaut; vanityURLs controle ses en-tetes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre a la politique applicative |
 | Bulk Redirects | Bulk Redirect Lists | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages expand, les horaires, les splats et le workflow de publication locale |
 | URL Normalization | URL normalization type | Cloudflare |
-| URL Normalization | Normalize incoming URLs | On |
+| URL Normalization | Normalize incoming URLs | On, utilise par Access, les regles WAF et Workers |
 | URL Normalization | Normalize URLs to origin | Off |
-
-La normalisation des URLs entrantes est particulierement importante parce que WAF, Access et Workers evaluent l'URL normalisee. Gardez la normalisation vers l'origine inactive sauf si une autre origine derriere Cloudflare attend des chemins deja normalises.
-
-Bulk Redirects et Single Redirects meritent une note d'historique separee : le routage par regles de type vanityURLs v1 est utile pour des redirections statiques, tandis que le modele Worker est preferable quand les liens ont besoin de revue en depot, d'etats, d'analytics, de previews, de pages generees et de comportement programmable.
 
 ### Configurer Network
 
