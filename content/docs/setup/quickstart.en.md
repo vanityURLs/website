@@ -88,6 +88,13 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
+If you previously installed the workstation helper for another instance, your shell may already export `V8S_REPO`. The source command `./scripts/lnk` now prefers the repository it is running from, but older clones can still be affected by a stale environment value. If `./scripts/lnk list` shows links from another instance, run:
+
+```bash
+unset V8S_REPO
+./scripts/lnk list
+```
+
 ### Install local helpers
 
 ```bash

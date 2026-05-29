@@ -63,6 +63,8 @@ Reasonable examples:
 as soon as practical
 ```
 
+The generated pages localize the common built-in examples above. Other custom wording is reused verbatim in every generated language, so choose text that is acceptable on all localized Trust & Safety pages or replace the generated localized pages with custom copy.
+
 Avoid promises you cannot reliably keep. The purpose is to set a human expectation and show that abuse reports have a real handling path.
 
 ### Revisit when public commitments change

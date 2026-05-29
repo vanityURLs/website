@@ -63,6 +63,8 @@ Exemples raisonnables :
 as soon as practical
 ```
 
+Les pages generees localisent les exemples integres courants ci-dessus. Les autres formulations personnalisees sont reutilisees telles quelles dans chaque langue generee. Choisissez donc un texte acceptable sur toutes les pages Confiance et securite localisees, ou remplacez les pages localisees generees par une copie personnalisee.
+
 Evitez les promesses que vous ne pouvez pas tenir de maniere fiable. Le but est de definir une attente humaine et de montrer que les signalements d'abus ont un vrai chemin de traitement.
 
 ### Revoir lorsque les engagements publics changent

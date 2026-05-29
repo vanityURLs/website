@@ -88,6 +88,13 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
 
+Si vous avez déjà installé le helper local pour une autre instance, votre shell peut déjà exporter `V8S_REPO`. La commande source `./scripts/lnk` préfère maintenant le dépôt depuis lequel elle s'exécute, mais les clones plus anciens peuvent encore être touchés par une valeur d'environnement périmée. Si `./scripts/lnk list` affiche les liens d'une autre instance, lancez :
+
+```bash
+unset V8S_REPO
+./scripts/lnk list
+```
+
 ### Installer les helpers locaux
 
 ```bash
