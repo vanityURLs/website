@@ -160,15 +160,9 @@ CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 
 ### Configure network protection
 
-Configure the Cloudflare zone controls that protect the short domain before traffic reaches the Worker. Open [Network protection](/docs/customize/network-protection/) in another tab and follow the exact Cloudflare menu paths there. For Quickstart, complete the baseline activities:
+Traffic blocked by Cloudflare does not reach your vanityURLs instance, which reduces headaches and Worker noise. You may be surprised by the volume of unsolicited events. Review blocked requests in Cloudflare Security Events, not inside Workers, because those requests stop before the Worker runs.
 
-1. Confirm the short domain uses the proxied Worker Custom Domain record in **DNS**
-2. Set the HTTPS baseline in **SSL/TLS**, including Full strict, Always Use HTTPS, TLS 1.3, and a minimum TLS version of 1.2 or stricter
-3. Enable the boring security controls in **Security**, such as Bot Fight Mode, Browser Integrity Check, Cloudflare managed rules, and `security.txt`
-4. Add WAF rules for scanner probes, unexpected HTTP methods, suspicious clients, unwanted AI crawlers, and repeated short-link misses
-5. Keep caching conservative so redirect decisions stay in the Worker
-
-Return here when those settings are in place. Traffic blocked by Cloudflare does not reach vanityURLs analytics; review those events in Cloudflare Security Events.
+Open [Network protection](/docs/customize/network-protection/) in another tab and complete the activities there. Return here when those settings are in place.
 
 ### _Optional_: test locally
 

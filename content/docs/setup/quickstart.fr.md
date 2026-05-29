@@ -160,15 +160,9 @@ CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
 
 ### Configurer la protection réseau
 
-Configurez les contrôles de zone Cloudflare qui protègent le domaine court avant que le trafic atteigne le Worker. Ouvrez [Protection réseau](/fr/docs/customize/network-protection/) dans un autre onglet et suivez les chemins exacts des menus Cloudflare. Pour le démarrage rapide, complétez les activités de base :
+Le trafic bloque par Cloudflare n'atteint pas votre instance vanityURLs, ce qui reduit les tracas et le bruit dans le Worker. Le volume d'evenements non sollicites peut surprendre. Consultez les requetes bloquees dans Cloudflare Security Events, pas dans Workers, parce que ces requetes sont arretees avant l'execution du Worker.
 
-1. Confirmez que le domaine court utilise le record Worker Custom Domain proxifié dans **DNS**
-2. Établissez la base HTTPS dans **SSL/TLS**, incluant Full strict, Always Use HTTPS, TLS 1.3 et une version TLS minimale de 1.2 ou plus stricte
-3. Activez les contrôles de sécurité simples dans **Security**, comme Bot Fight Mode, Browser Integrity Check, les règles gérées Cloudflare et `security.txt`
-4. Ajoutez des règles WAF pour les probes de scanners, les méthodes HTTP inattendues, les clients suspects, les crawlers IA non désirés et les échecs répétés de liens courts
-5. Gardez la mise en cache conservatrice afin que les décisions de redirection restent dans le Worker
-
-Revenez ici lorsque ces réglages sont en place. Le trafic bloqué par Cloudflare n'atteint pas les analytics vanityURLs; consultez ces événements dans Cloudflare Security Events.
+Ouvrez [Protection reseau](/fr/docs/customize/network-protection/) dans un autre onglet et completez les activites de cette page. Revenez ici lorsque ces reglages sont en place.
 
 ### _Optionnel_ : tester localement
 
