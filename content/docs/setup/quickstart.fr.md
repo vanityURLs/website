@@ -201,7 +201,7 @@ Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-link
 | --- | --- |
 | `home` | `https://<short-domain>` |
 | `contact` | `https://www.youtube.com/watch?v=dQw4w9WgXcQ` |
-| `docs` | `https://vanityURLs.link/en/docs/` |
+| `docs` | `https://www.vanityurls.link/en/docs/` |
 
 Testez au moins un lien initial, comme `https://<short-domain>/docs`, et confirmez qu'il redirige vers le lien long indiqué dans le tableau. Testez `https://<short-domain>/contact` lorsque vous voulez voir l'horaire de départ remplacer cette cible pendant la fenêtre 9 à 5 configurée.
 
