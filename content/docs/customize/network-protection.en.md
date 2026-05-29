@@ -216,21 +216,31 @@ Paste and validate one complete expression at a time. Deploy rules disabled whil
 
 ### Decide crawler controls
 
-In Cloudflare, use **Security** > **Settings** > **Block AI bots** for edge blocking, and use **Security** > **Settings** > **Manage your robots.txt** or **AI Crawl Control** for `robots.txt` signals.
+In Cloudflare, use **Domains** > **your short domain** > **AI Crawl Control** for crawler-specific controls. This is separate from the broad **Security** > **Settings** > **Block AI bots** toggle covered earlier.
 
-Block AI bots is enforcement: Cloudflare blocks AI training crawlers before they reach the Worker. Managed `robots.txt` is a signal to crawlers: Cloudflare can publish a Content Signals Policy or AI-training disallow directives, but it changes the file visitors see at `/robots.txt`.
+Use **AI Crawl Control** > **Security** to block named crawlers and configure the blocked-crawler response. If you use this page, set the block response allowed paths to:
 
-If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repository the source of truth and avoids Cloudflare replacing intentional directives.
+- `/robots.txt`
+- `/llms.txt`
+- `/llms-full.txt`
+- `/.well-known/*`
 
-Useful defaults:
+Leave `/mcp` and `/ads.txt` disabled unless the instance intentionally publishes those files. Keeping `/.well-known/*` allowed matters because vanityURLs publishes the security disclosure contact at `/.well-known/security.txt`.
 
-- Allow `/robots.txt`
-- Allow `/llms.txt` and `/llms-full.txt` only if you intentionally publish machine-readable context
-- Block unwanted AI crawlers and AI assistants at Cloudflare
-- Keep verified search engine crawlers allowed unless your instance is intentionally private
-- Review Cloudflare Security Events after enabling the rule, because it will not appear in Worker analytics when blocked at the edge
+Use **AI Crawl Control** > **Signals** for crawler compliance monitoring. Leave **Managed robots.txt** off when the repository ships `robots.txt`; otherwise Cloudflare can replace the file seen at `/robots.txt`. The default vanityURLs file is:
 
-At minimum, leave `/robots.txt` allowed so crawlers can read the published policy.
+```text
+User-agent: *
+Disallow: /
+
+Allow: /robots.txt
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /_stats/
+Disallow: /expand/
+```
+
+The Signals page should show `/robots.txt` as reachable with `200 OK`. Use **Agent Readiness** and **Robots.txt violations** as monitoring surfaces, not as the source of truth for the file content.
 
 ### Configure Rules and URL normalization
 

@@ -91,7 +91,15 @@
           "available": true,
           "default_state": "not configured",
           "description": "Set the response code and message shown to blocked crawlers.",
-          "website_documentation": "Document as an optional customization only when operators choose to block crawlers at Cloudflare."
+          "captured_allowed_paths": {
+            "/robots.txt": true,
+            "/mcp": false,
+            "/llms.txt": true,
+            "/llms-full.txt": true,
+            "/ads.txt": false,
+            "/.well-known/*": true
+          },
+          "website_documentation": "Document the allowed paths when operators choose to block crawlers at Cloudflare. Keep robots.txt, llms.txt, llms-full.txt, and .well-known/* reachable; .well-known/* preserves access to security.txt."
         },
         "Filters": {
           "crawler": "Select crawler",
@@ -144,7 +152,13 @@
           "bytes_transferred": "0 B",
           "allowed_requests": 0,
           "unsuccessful_requests": 0
-        }
+        },
+        "Bulk block capture": {
+          "selected_crawlers": 15,
+          "total_crawlers": 31,
+          "confirmation": "This action will set 15 crawlers (including Search Engine Crawlers) to Block."
+        },
+        "website_documentation": "Document AI Crawl Control > Security as the crawler-specific blocking surface. Warn that blocking Search Engine Crawlers is intentionally aggressive and should match the operator's indexing posture."
       },
       "Signals": {
         "Managed robots.txt": {
@@ -167,7 +181,7 @@
           "hostname": "v8s",
           "url": "https://v8s.link/robots.txt",
           "requests": {
-            "successful": 0,
+            "successful": 3,
             "unsuccessful": 0
           },
           "status": "200 OK",

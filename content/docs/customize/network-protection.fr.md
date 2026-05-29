@@ -216,21 +216,31 @@ Collez et validez une expression complete a la fois. Deployer les regles desacti
 
 ### Decider des controles de crawlers
 
-Dans Cloudflare, utilisez **Security** > **Settings** > **Block AI bots** pour le blocage a l'edge, et **Security** > **Settings** > **Manage your robots.txt** ou **AI Crawl Control** pour les signaux `robots.txt`.
+Dans Cloudflare, utilisez **Domains** > **votre domaine court** > **AI Crawl Control** pour les controles specifiques aux crawlers. C'est separe du controle large **Security** > **Settings** > **Block AI bots** couvert plus haut.
 
-Block AI bots est un controle d'enforcement : Cloudflare bloque les crawlers d'entrainement IA avant qu'ils atteignent le Worker. Managed `robots.txt` est un signal aux crawlers : Cloudflare peut publier une Content Signals Policy ou des directives de refus pour l'entrainement IA, mais cela change le fichier visible a `/robots.txt`.
+Utilisez **AI Crawl Control** > **Security** pour bloquer des crawlers nommes et configurer la reponse aux crawlers bloques. Si vous utilisez cette page, reglez les chemins autorises de la reponse de blocage sur :
 
-Si le depot fournit `robots.txt`, gardez Cloudflare Managed robots.txt desactive. Cela fait du depot la source de verite et evite que Cloudflare remplace des directives intentionnelles.
+- `/robots.txt`
+- `/llms.txt`
+- `/llms-full.txt`
+- `/.well-known/*`
 
-Reglages utiles :
+Laissez `/mcp` et `/ads.txt` desactives sauf si l'instance publie volontairement ces fichiers. Garder `/.well-known/*` autorise est important parce que vanityURLs publie le contact de divulgation securite a `/.well-known/security.txt`.
 
-- Autoriser `/robots.txt`
-- Autoriser `/llms.txt` et `/llms-full.txt` seulement si vous publiez volontairement du contexte lisible par machine
-- Bloquer les crawlers et assistants IA non desires dans Cloudflare
-- Garder les crawlers de moteurs de recherche verifies autorises sauf si votre instance est volontairement privee
-- Revoir Cloudflare Security Events apres activation, car le trafic bloque n'apparait pas dans les analytics Worker
+Utilisez **AI Crawl Control** > **Signals** pour surveiller la conformite des crawlers. Gardez **Managed robots.txt** desactive lorsque le depot fournit `robots.txt`; sinon Cloudflare peut remplacer le fichier visible a `/robots.txt`. Le fichier vanityURLs par defaut est :
 
-Au minimum, laissez `/robots.txt` autorise pour que les crawlers puissent lire la politique publiee.
+```text
+User-agent: *
+Disallow: /
+
+Allow: /robots.txt
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /_stats/
+Disallow: /expand/
+```
+
+La page Signals devrait afficher `/robots.txt` comme accessible avec `200 OK`. Utilisez **Agent Readiness** et **Robots.txt violations** comme surfaces de suivi, pas comme source de verite du contenu du fichier.
 
 ### Configurer Rules et URL normalization
 
