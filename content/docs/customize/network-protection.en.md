@@ -28,20 +28,26 @@ Use separate proxied records only for real web subdomains, such as `mta-sts`, `w
 
 ### Set the HTTPS baseline
 
-In Cloudflare, open **Domains** > **your short domain** > **SSL/TLS** > **Overview** for the encryption mode, then **SSL/TLS** > **Edge Certificates** for the certificate, HTTPS, TLS, HSTS, and Certificate Transparency settings. Start with these settings:
+In Cloudflare, open **Domains** > **your short domain** > **SSL/TLS** > **Overview**. In **Configure encryption mode**, select **Custom SSL/TLS**, choose **Full (Strict)**, then save. Cloudflare may show **Automatic SSL/TLS (default)** with a current applied mode such as **Flexible** before you make this change; that is the state to replace for a production Worker custom domain.
 
-| Setting | Recommendation |
+Then open **SSL/TLS** > **Edge Certificates** and review the options in dashboard order:
+
+| Dashboard option | Recommendation |
 | --- | --- |
-| SSL/TLS mode | Full strict |
-| Universal SSL | On |
+| Manage Edge Certificates | Confirm an active Universal certificate covers the apex domain and wildcard, such as `v8s.link` and `*.v8s.link` |
+| Advanced Certificate Manager | No action unless the instance needs paid custom certificate controls |
+| Total TLS | No action on the Free baseline; it requires Advanced Certificate Manager |
+| Cipher suites | No action on the Free baseline; it requires Advanced Certificate Manager |
 | Always Use HTTPS | On |
+| HTTP Strict Transport Security (HSTS) | Start with no browser-enforced HSTS until every production hostname and subdomain is HTTPS-ready |
+| Minimum TLS Version | TLS 1.2 or stricter |
+| Opportunistic Encryption | On is fine; no vanityURLs-specific action required |
 | TLS 1.3 | On |
-| Minimum TLS | 1.2 or stricter |
 | Automatic HTTPS Rewrites | On |
-| HSTS | On after every production hostname and subdomain is ready for HTTPS |
 | Certificate Transparency Monitoring | Optional, useful for unexpected certificate alerts |
+| Disable Universal SSL | Do not click it; seeing this action means Universal SSL is currently enabled |
 
-Enable HSTS only after every production hostname and subdomain is ready for HTTPS. A one-month max age is a practical first setting; include subdomains and preload only when the whole zone is intentionally HTTPS-only.
+HSTS is the easy place to misread the UI. **Enable HSTS** with **Max Age Header (max-age)** set to **0 (Disable)** does not give browsers a durable HSTS policy; it is a non-enforcing or reset state. Use that while validating the zone. For production enforcement, choose a non-zero max age after every public hostname is HTTPS-ready. A one-month max age is a practical first setting; enable **includeSubDomains** and **Preload** only when the whole zone is intentionally HTTPS-only.
 
 ### Enable baseline security controls
 

@@ -28,20 +28,26 @@ Utilisez des records proxifies separes seulement pour de vrais sous-domaines web
 
 ### Etablir la base HTTPS
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **SSL/TLS** > **Overview** pour le mode de chiffrement, puis **SSL/TLS** > **Edge Certificates** pour les reglages de certificat, HTTPS, TLS, HSTS et Certificate Transparency. Commencez avec ces reglages :
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **SSL/TLS** > **Overview**. Dans **Configure encryption mode**, selectionnez **Custom SSL/TLS**, choisissez **Full (Strict)**, puis sauvegardez. Cloudflare peut afficher **Automatic SSL/TLS (default)** avec un mode courant comme **Flexible** avant ce changement; c'est l'etat a remplacer pour un domaine custom Worker en production.
 
-| Reglage | Recommandation |
+Ensuite, ouvrez **SSL/TLS** > **Edge Certificates** et parcourez les options dans l'ordre du tableau de bord :
+
+| Option du tableau de bord | Recommandation |
 | --- | --- |
-| SSL/TLS mode | Full strict |
-| Universal SSL | On |
+| Manage Edge Certificates | Confirmer qu'un certificat Universal actif couvre le domaine apex et le wildcard, comme `v8s.link` et `*.v8s.link` |
+| Advanced Certificate Manager | Aucune action sauf si l'instance a besoin des controles de certificats custom payants |
+| Total TLS | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager |
+| Cipher suites | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager |
 | Always Use HTTPS | On |
+| HTTP Strict Transport Security (HSTS) | Commencer sans HSTS enforce par les navigateurs tant que chaque hostname et sous-domaine de production n'est pas pret pour HTTPS |
+| Minimum TLS Version | TLS 1.2 ou plus strict |
+| Opportunistic Encryption | On convient; aucune action specifique a vanityURLs |
 | TLS 1.3 | On |
-| Minimum TLS | 1.2 ou plus strict |
 | Automatic HTTPS Rewrites | On |
-| HSTS | On apres que chaque hostname et sous-domaine de production soit pret pour HTTPS |
 | Certificate Transparency Monitoring | Optionnel, utile pour les alertes de certificats inattendus |
+| Disable Universal SSL | Ne cliquez pas dessus; voir cette action signifie que Universal SSL est actuellement active |
 
-Activez HSTS seulement apres que chaque hostname et sous-domaine de production soit pret pour HTTPS. Un max age d'un mois est un bon premier reglage; incluez les sous-domaines et preload seulement quand toute la zone est volontairement HTTPS-only.
+HSTS est l'endroit le plus facile a mal lire dans l'interface. **Enable HSTS** avec **Max Age Header (max-age)** a **0 (Disable)** ne donne pas aux navigateurs une politique HSTS durable; c'est un etat non enforce ou de remise a zero. Utilisez-le pendant la validation de la zone. Pour l'enforcement en production, choisissez un max age non nul apres que chaque hostname public soit pret pour HTTPS. Un max age d'un mois est un bon premier reglage; activez **includeSubDomains** et **Preload** seulement quand toute la zone est volontairement HTTPS-only.
 
 ### Activer les controles de securite de base
 

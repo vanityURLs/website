@@ -1,6 +1,6 @@
 {
   "source": {
-    "captured_at": "2026-05-27",
+    "captured_at": "2026-05-29",
     "captured_from_domain": "a6z.link",
     "documented_as_domain": "v8s.link",
     "cloudflare_plan": "Free",
@@ -370,8 +370,11 @@
         "SSL/TLS encryption": {
           "current_encryption_mode": "Flexible",
           "automatic_mode": "enabled",
+          "recommended_mode": "Full (Strict)",
+          "configuration_flow": ["Select Custom SSL/TLS", "Select Full (Strict)", "Save"],
+          "custom_mode_options_in_dashboard_order": ["Full (Strict)", "Full", "Flexible", "Off (not secure)"],
           "action": "Configure",
-          "website_documentation": "Document Full strict as the desired production setting for vanityURLs, not the captured Flexible state."
+          "website_documentation": "Document Custom SSL/TLS with Full (Strict) as the desired production setting for vanityURLs. Be explicit that Automatic SSL/TLS can show a current applied mode such as Flexible before the operator selects Custom SSL/TLS."
         },
         "Traffic Served Over TLS": {
           "time_range": "Last 24 hours",
@@ -382,11 +385,11 @@
       "Edge Certificates": {
         "Manage Edge Certificates": {
           "certificates": [
-            {"hosts": ["*.v8s.link", "v8s.link"], "type": "Advanced", "status": "Active", "expires_on": "2026-08-24", "managed": true},
-            {"hosts": ["*.v8s.link", "v8s.link"], "type": "Universal", "status": "Active", "expires_on": "2026-07-19", "managed": true},
-            {"hosts": ["*.v8s.link", "v8s.link"], "type": "Backup", "status": "Backup issued", "expires_on": "2026-09-28", "managed": true}
+            {"hosts": ["*.a6z.link", "a6z.link"], "type": "Advanced", "status": "Active", "expires_on": "2026-08-27", "managed": true},
+            {"hosts": ["*.a6z.link", "a6z.link"], "type": "Universal", "status": "Active", "expires_on": "2026-07-18", "managed": true},
+            {"hosts": ["*.a6z.link", "a6z.link"], "type": "Backup", "status": "Backup issued", "expires_on": "2026-06-26", "managed": true}
           ],
-          "website_documentation": "Document Universal SSL as required and Advanced Certificate Manager as optional."
+          "website_documentation": "Document that Universal SSL is enabled when an active Universal certificate appears here and the later action is Disable Universal SSL. Advanced Certificate Manager remains optional."
         },
         "Advanced Certificate Manager": {
           "default_state": "not active",
@@ -403,16 +406,23 @@
           "website_documentation": "Do not document as a default requirement."
         },
         "Always Use HTTPS": {
-          "default_state": "off",
+          "captured_state": "on",
           "website_documentation": "Document On as a recommended production setting."
         },
         "HTTP Strict Transport Security (HSTS)": {
-          "default_state": "off",
-          "action": "Enable HSTS",
-          "website_documentation": "Document as recommended after all production hostnames are HTTPS-ready."
+          "captured_state": "on",
+          "captured_settings": {
+            "enable_hsts": true,
+            "max_age_header": "0 (Disable)",
+            "include_subdomains": true,
+            "preload": true,
+            "no_sniff_header": false
+          },
+          "action": "Change HSTS Settings",
+          "website_documentation": "Document that Enable HSTS with max-age 0 is a non-enforcing or reset state, not production browser-enforced HSTS. Recommend a non-zero max age only after all public hostnames are HTTPS-ready, and includeSubDomains/preload only when the whole zone is intentionally HTTPS-only."
         },
         "Minimum TLS Version": {
-          "default_state": "TLS 1.0 (default)",
+          "captured_state": "TLS 1.2",
           "website_documentation": "Document TLS 1.2 or stricter as the desired production setting."
         },
         "Opportunistic Encryption": {
@@ -433,7 +443,7 @@
         },
         "Disable Universal SSL": {
           "available": true,
-          "website_documentation": "Do not document except as something to avoid for normal instances."
+          "website_documentation": "Document as an action to avoid. Its presence means Universal SSL is currently enabled; the operator should not click it during normal setup."
         }
       },
       "Client Certificates": {
