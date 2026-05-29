@@ -116,10 +116,8 @@ npm run check
 
 Après le déploiement, répétez le test de navigateur déconnecté contre le vrai domaine court.
 
-### Revoir les autres gardes de fichiers
+Pour information : Cloudflare Access n'est pas la seule couche qui limite l'acces aux fichiers operationnels. Pour le tableau complet des gardes, lisez [Securite runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Cloudflare Access n'est pas la seule couche qui limite l'acces aux fichiers operationnels. Pour le tableau complet des gardes, lisez [Securite runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
-
-Gardez l'acces controle sur `/_stats` et `/_tests`, les entrees de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actives, sauf si vous avez une **raison deliberee de divulgation publique**.
+Gardez l'acces controle sur `/_stats` et `/_tests`, les entrees de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actives, sauf si vous avez une **raison deliberee de divulgation publique**. C'est une note de conception, pas une activite de configuration separee.
 
 {{% /steps %}}

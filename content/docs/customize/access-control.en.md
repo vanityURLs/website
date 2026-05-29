@@ -116,10 +116,8 @@ npm run check
 
 After deployment, repeat the signed-out browser test against the real short domain.
 
-### Review the other file guards
+For your information: Cloudflare Access is not the only layer that limits operational file access. For the complete guard table, read [Runtime security](/docs/reference/runtime-security/). For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Cloudflare Access is not the only layer that limits operational file access. For the complete guard table, read [Runtime security](/docs/reference/runtime-security/). For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
-
-Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**.
+Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**. This is a design note, not a separate setup activity.
 
 {{% /steps %}}

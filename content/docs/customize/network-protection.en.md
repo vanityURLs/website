@@ -20,7 +20,7 @@ For the features intentionally left out of the default setup, read [Cloudflare f
 
 ### Confirm the Worker custom domain
 
-In Cloudflare, open **Websites** > **your short domain** > **DNS** > **Records**. Use the Worker Custom Domain record that Cloudflare creates for the short domain. It should appear as a proxied Worker record for the hostname, such as `v8s.link -> v8s-link`.
+In Cloudflare, open **Domains** > **your short domain** > **DNS** > **Records**. Use the Worker Custom Domain record that Cloudflare creates for the short domain. It should appear as a proxied Worker record for the hostname, such as `v8s.link -> v8s-link`.
 
 Remove legacy synthetic `AAAA 100::` records for the same hostname once the Custom Domain is active. Keep mail, DKIM, DMARC, MTA-STS, and ownership verification records DNS-only unless the provider explicitly requires proxying.
 
@@ -28,7 +28,7 @@ Use separate proxied records only for real web subdomains, such as `mta-sts`, `w
 
 ### Set the HTTPS baseline
 
-In Cloudflare, open **Websites** > **your short domain** > **SSL/TLS** > **Overview** for the encryption mode, then **SSL/TLS** > **Edge Certificates** for the certificate, HTTPS, TLS, HSTS, and Certificate Transparency settings. Start with these settings:
+In Cloudflare, open **Domains** > **your short domain** > **SSL/TLS** > **Overview** for the encryption mode, then **SSL/TLS** > **Edge Certificates** for the certificate, HTTPS, TLS, HSTS, and Certificate Transparency settings. Start with these settings:
 
 | Setting | Recommendation |
 | --- | --- |
@@ -45,7 +45,7 @@ Enable HSTS only after every production hostname and subdomain is ready for HTTP
 
 ### Enable baseline security controls
 
-In Cloudflare, open **Websites** > **your short domain** > **Security** > **Settings** for the dashboard, bot, browser integrity, challenge, library replacement, and `security.txt` controls. Use **Security** > **Security rules** when a control needs a rule instead of a toggle.
+In Cloudflare, open **Domains** > **your short domain** > **Security** > **Settings** for the dashboard, bot, browser integrity, challenge, library replacement, and `security.txt` controls. Use **Security** > **Security rules** when a control needs a rule instead of a toggle.
 
 The free-plan security settings should stay boring and explicit. Turn on protections that reduce commodity abuse, but avoid features that alter public content or expose extra visitor data unless there is a clear need.
 
@@ -68,7 +68,7 @@ Do not enable client certificates, mTLS rules, visitor location headers, or True
 
 ### Add WAF rules
 
-In Cloudflare, open **Websites** > **your short domain** > **Security** > **Security rules** > **Security rules**, then create custom rules with the expression editor.
+In Cloudflare, open **Domains** > **your short domain** > **Security** > **Security rules** > **Security rules**, then create custom rules with the expression editor.
 
 Cloudflare security rules run before the Worker. Use them for traffic that should never reach application code.
 
@@ -107,7 +107,7 @@ Use the expression editor for nested rules, paste and validate one complete expr
 
 ### Decide crawler controls
 
-In Cloudflare, open **Websites** > **your short domain** > **AI Crawl Control** > **Signals** for Managed `robots.txt`, then **AI Crawl Control** > **Security** to block or allow specific crawlers.
+In Cloudflare, open **Domains** > **your short domain** > **AI Crawl Control** > **Signals** for Managed `robots.txt`, then **AI Crawl Control** > **Security** to block or allow specific crawlers.
 
 If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repository the source of truth and avoids Cloudflare overwriting intentional directives.
 
@@ -123,7 +123,7 @@ At minimum, leave `/robots.txt` allowed so crawlers can read the published polic
 
 ### Configure Rules and URL normalization
 
-In Cloudflare, open **Websites** > **your short domain** > **Rules** > **Settings** > **Managed Transforms** for header transforms, then **Rules** > **Settings** > **URL Normalization** for URL normalization.
+In Cloudflare, open **Domains** > **your short domain** > **Rules** > **Settings** > **Managed Transforms** for header transforms, then **Rules** > **Settings** > **URL Normalization** for URL normalization.
 
 Recommended Rules settings:
 
@@ -141,7 +141,7 @@ Incoming URL normalization is especially important because WAF rules, Access, an
 
 ### Configure Network settings
 
-In Cloudflare, open **Websites** > **your short domain** > **Network**.
+In Cloudflare, open **Domains** > **your short domain** > **Network**.
 
 Recommended Network settings:
 
@@ -158,7 +158,7 @@ Recommended Network settings:
 
 ### Keep caching conservative
 
-In Cloudflare, open **Websites** > **your short domain** > **Caching** > **Configuration** for general cache settings, and **Caching** > **Cache Rules** if you need a specific rule.
+In Cloudflare, open **Domains** > **your short domain** > **Caching** > **Configuration** for general cache settings, and **Caching** > **Cache Rules** if you need a specific rule.
 
 Keep caching boring for a redirector:
 
@@ -169,7 +169,7 @@ Keep caching boring for a redirector:
 
 ### Review the right analytics surface
 
-In Cloudflare, open **Websites** > **your short domain** > **Security** > **Analytics** for WAF, bot, and rate-limit events, **Analytics** > **Workers** for Worker infrastructure metrics, and **DNS** > **Analytics** for DNS diagnostics.
+In Cloudflare, open **Domains** > **your short domain** > **Security** > **Analytics** for WAF, bot, and rate-limit events, **Analytics** > **Workers** for Worker infrastructure metrics, and **DNS** > **Analytics** for DNS diagnostics.
 
 Use Cloudflare analytics and Security Events for infrastructure decisions:
 
