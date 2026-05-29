@@ -109,7 +109,6 @@ Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname
   <thead>
     <tr>
       <th>Regle</th>
-      <th>Type de regle</th>
       <th>Action</th>
       <th>Expression</th>
       <th>Notes</th>
@@ -117,8 +116,28 @@ Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname
   </thead>
   <tbody>
     <tr>
-      <td>Bloquer les probes scanner</td>
-      <td>Custom rule</td>
+      <td>Rate limiter les candidats de liens courts<br><small>Rate limiting rule</small></td>
+      <td>Block pendant 10 secondes quand le taux depasse 20 requetes par 10 secondes</td>
+      <td>
+        <pre><code>http.host eq "v8s.link" and
+not cf.client.bot and
+not starts_with(http.request.uri.path, "/_stats") and
+not starts_with(http.request.uri.path, "/_tests") and
+not starts_with(http.request.uri.path, "/_analytics") and
+not http.request.uri.path in {"/" "/index" "/expand" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
+not lower(http.request.uri.path) contains ".css" and
+not lower(http.request.uri.path) contains ".js" and
+not lower(http.request.uri.path) contains ".png" and
+not lower(http.request.uri.path) contains ".svg" and
+not lower(http.request.uri.path) contains ".ico" and
+not lower(http.request.uri.path) contains ".txt" and
+not lower(http.request.uri.path) contains ".webmanifest" and
+not lower(http.request.uri.path) contains ".woff"</code></pre>
+      </td>
+      <td>Creez cette regle en premier. Elle compte les candidats probables de liens courts tout en excluant les chemins operateur, pages de politiques, fichiers well-known et assets statiques.</td>
+    </tr>
+    <tr>
+      <td>Bloquer les probes scanner<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and (
@@ -139,8 +158,7 @@ Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname
       <td>Bloque les probes courantes PHP, WordPress, fichiers d'environnement, dependances, Git et CGI.</td>
     </tr>
     <tr>
-      <td>Bloquer les methodes inattendues</td>
-      <td>Custom rule</td>
+      <td>Bloquer les methodes inattendues<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -149,8 +167,7 @@ not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
       <td>Autorise seulement les methodes attendues par le hostname public de redirection.</td>
     </tr>
     <tr>
-      <td>Challenger les clients suspects</td>
-      <td>Custom rule</td>
+      <td>Challenger les clients suspects<br><small>Custom rule</small></td>
       <td>Managed Challenge</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -168,8 +185,7 @@ not starts_with(http.request.uri.path, "/_tests") and
       <td>Challenge les user agents de scripts et clients HTTP courants sans challenger tous les navigateurs ordinaires non verifies.</td>
     </tr>
     <tr>
-      <td>Bloquer les crawlers IA non desires</td>
-      <td>Custom rule</td>
+      <td>Bloquer les crawlers IA non desires<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -192,19 +208,6 @@ http.request.uri.path ne "/robots.txt" and (
 )</code></pre>
       </td>
       <td>Blocklist de crawlers agressive. Retirez les crawlers de moteurs de recherche comme `googlebot` et `bingbot` si l'indexation publique est importante.</td>
-    </tr>
-    <tr>
-      <td>Rate limiter les candidats de liens courts</td>
-      <td>Rate limiting rule</td>
-      <td>Block ou challenge</td>
-      <td>
-        <pre><code>http.host eq "v8s.link" and
-not cf.client.bot and
-http.request.method in {"GET" "HEAD"} and
-not starts_with(http.request.uri.path, "/_") and
-http.request.uri.path ne "/robots.txt"</code></pre>
-      </td>
-      <td>Compte les misses repetes et les candidats de type scanner, pas les redirections reussies.</td>
     </tr>
   </tbody>
 </table>

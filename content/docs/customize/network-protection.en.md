@@ -109,7 +109,6 @@ The expressions below use `v8s.link` and scope to the apex hostname. If `www.v8s
   <thead>
     <tr>
       <th>Rule</th>
-      <th>Rule type</th>
       <th>Action</th>
       <th>Expression</th>
       <th>Notes</th>
@@ -117,8 +116,28 @@ The expressions below use `v8s.link` and scope to the apex hostname. If `www.v8s
   </thead>
   <tbody>
     <tr>
-      <td>Block scanner probes</td>
-      <td>Custom rule</td>
+      <td>Rate limit short-link candidates<br><small>Rate limiting rule</small></td>
+      <td>Block for 10 seconds when the rate exceeds 20 requests per 10 seconds</td>
+      <td>
+        <pre><code>http.host eq "v8s.link" and
+not cf.client.bot and
+not starts_with(http.request.uri.path, "/_stats") and
+not starts_with(http.request.uri.path, "/_tests") and
+not starts_with(http.request.uri.path, "/_analytics") and
+not http.request.uri.path in {"/" "/index" "/expand" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
+not lower(http.request.uri.path) contains ".css" and
+not lower(http.request.uri.path) contains ".js" and
+not lower(http.request.uri.path) contains ".png" and
+not lower(http.request.uri.path) contains ".svg" and
+not lower(http.request.uri.path) contains ".ico" and
+not lower(http.request.uri.path) contains ".txt" and
+not lower(http.request.uri.path) contains ".webmanifest" and
+not lower(http.request.uri.path) contains ".woff"</code></pre>
+      </td>
+      <td>Create this first. It counts likely short-link candidates while excluding operator paths, policy pages, well-known files, and static assets.</td>
+    </tr>
+    <tr>
+      <td>Block scanner probes<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and (
@@ -139,8 +158,7 @@ The expressions below use `v8s.link` and scope to the apex hostname. If `www.v8s
       <td>Blocks common PHP, WordPress, environment-file, dependency, Git, and CGI probes.</td>
     </tr>
     <tr>
-      <td>Block unexpected methods</td>
-      <td>Custom rule</td>
+      <td>Block unexpected methods<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -149,8 +167,7 @@ not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
       <td>Allows only methods expected by the public redirect hostname.</td>
     </tr>
     <tr>
-      <td>Challenge suspicious clients</td>
-      <td>Custom rule</td>
+      <td>Challenge suspicious clients<br><small>Custom rule</small></td>
       <td>Managed Challenge</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -168,8 +185,7 @@ not starts_with(http.request.uri.path, "/_tests") and
       <td>Challenges common script and HTTP-client user agents without challenging every ordinary non-verified browser.</td>
     </tr>
     <tr>
-      <td>Block unwanted AI crawlers</td>
-      <td>Custom rule</td>
+      <td>Block unwanted AI crawlers<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -192,19 +208,6 @@ http.request.uri.path ne "/robots.txt" and (
 )</code></pre>
       </td>
       <td>Aggressive crawler blocklist. Remove search-engine crawlers such as `googlebot` and `bingbot` if public indexing matters.</td>
-    </tr>
-    <tr>
-      <td>Rate limit short-link candidates</td>
-      <td>Rate limiting rule</td>
-      <td>Block or challenge</td>
-      <td>
-        <pre><code>http.host eq "v8s.link" and
-not cf.client.bot and
-http.request.method in {"GET" "HEAD"} and
-not starts_with(http.request.uri.path, "/_") and
-http.request.uri.path ne "/robots.txt"</code></pre>
-      </td>
-      <td>Count repeated misses and scanner-like candidates, not successful redirects.</td>
     </tr>
   </tbody>
 </table>
