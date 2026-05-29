@@ -141,22 +141,9 @@ In Cloudflare, open **Build** > **Compute** > **Workers & Pages** from the accou
 
 ### Configure Access control
 
-Protect `/_stats` and `/_tests` with Cloudflare Access before treating the instance as production. For phase 1, use one-time PIN with approved email addresses. You can switch to GitHub, Google, or another identity provider later.
+Access to the [Dashboard](https://v8s.link/_stats) and the [test matrix](https://v8s.link/_tests) must be protected by [Cloudflare Access](https://www.cloudflare.com/products/access/), a Zero Trust Network Access (ZTNA) solution.
 
-Open [Access control](/docs/customize/access-control/) in another tab and complete the activities there. Come back here after the Cloudflare Access application protects both `/_stats` and `/_tests`, and after you have copied the **Application Audience (AUD) Tag**.
-
-In your local terminal, store the Access audience as a Worker secret:
-
-```bash
-npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
-```
-
-The setup command already writes the Access team domain to `wrangler.toml`. Confirm that it matches the Team domain from Cloudflare Zero Trust:
-
-```toml
-[vars]
-CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
-```
+Open [Access control](../customize/access-control/) in another tab and complete the activities there. Make sure that you have copied the **Application Audience (AUD) Tag** to your password manager.
 
 ### Configure network protection
 
@@ -164,7 +151,7 @@ Traffic blocked by Cloudflare does not reach your vanityURLs instance, which red
 
 Open [Network protection](/docs/customize/network-protection/) in another tab and complete the activities there. Return here when those settings are in place.
 
-### _Optional_: test locally
+### _Optional:_ test locally
 
 Before validating the instance, you can run the Worker locally with `npm run dev`. Wrangler starts a local development server so you can check the homepage, generated pages, and basic redirects before Cloudflare deploys from GitHub.
 

@@ -141,22 +141,9 @@ Dans Cloudflare, ouvrez **Build** > **Compute** > **Workers & Pages** depuis le 
 
 ### Configurer le contrôle d'accès
 
-Protégez `/_stats` et `/_tests` avec Cloudflare Access avant de traiter l'instance comme production. Pour la phase 1, utilisez un code à usage unique avec des adresses courriel approuvées. Vous pourrez passer à GitHub, Google ou un autre fournisseur d'identité plus tard.
+L'acces au [Dashboard](https://v8s.link/_stats) et a la [matrice de test](https://v8s.link/_tests) doit etre protege par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
 
-Ouvrez [Contrôle d'accès](/fr/docs/customize/access-control/) dans un autre onglet et complétez les activités de cette page. Revenez ici lorsque l'application Cloudflare Access protège `/_stats` et `/_tests`, et après avoir copié le **Application Audience (AUD) Tag**.
-
-Dans votre terminal local, stockez l'audience Access comme secret Worker :
-
-```bash
-npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
-```
-
-La commande setup écrit déjà le domaine d'équipe Access dans `wrangler.toml`. Confirmez qu'il correspond au domaine Team de Cloudflare Zero Trust :
-
-```toml
-[vars]
-CF_ACCESS_TEAM_DOMAIN = "<team>.cloudflareaccess.com"
-```
+Ouvrez [Controle d'acces](../customize/access-control/) dans un autre onglet et completez les activites de cette page. Assurez-vous d'avoir copie le **Application Audience (AUD) Tag** dans votre gestionnaire de mots de passe.
 
 ### Configurer la protection réseau
 
@@ -164,7 +151,7 @@ Le trafic bloque par Cloudflare n'atteint pas votre instance vanityURLs, ce qui 
 
 Ouvrez [Protection reseau](/fr/docs/customize/network-protection/) dans un autre onglet et completez les activites de cette page. Revenez ici lorsque ces reglages sont en place.
 
-### _Optionnel_ : tester localement
+### _Optionnel:_ tester localement
 
 Avant de valider l'instance, vous pouvez lancer le Worker localement avec `npm run dev`. Wrangler démarre un serveur de développement local afin que vous puissiez vérifier la page d'accueil, les pages générées et les redirections de base avant que Cloudflare déploie depuis GitHub.
 
