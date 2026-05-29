@@ -914,12 +914,14 @@
         "Cache Rules": {
           "active": 0,
           "default_state": "No Cache Rules created",
-          "website_documentation": "Do not add cache rules for redirect responses unless lifecycle states, schedules, analytics and misses have been tested."
+          "baseline": "No Cache Rules should exist for the redirector baseline.",
+          "website_documentation": "Document that Cache Rules are not part of the baseline. If any exist, disable or delete them before go-live."
         },
         "Cache Response Rules": {
           "active": 0,
           "default_state": "No Cache Response Rules created",
-          "website_documentation": "Do not document as required."
+          "baseline": "No Cache Response Rules should exist for the redirector baseline.",
+          "website_documentation": "Document that Cache Response Rules are not part of the baseline. If any exist, disable or delete them before go-live."
         }
       },
       "Tiered Cache": {
@@ -1156,7 +1158,7 @@
       "Use Cloudflare Access for private vanityURLs paths such as admin, tests, or operator-only pages.",
       "Use Speed Observatory and synthetic tests as optional diagnostics, not required setup.",
       "Keep HTTP/2, HTTP/3, HTTP/2 to Origin and TLS 1.3 enabled when available.",
-      "Keep Cloudflare caching conservative: leave dynamic redirects to the Worker, keep Development Mode off except while debugging, and avoid cache rules for redirect responses until lifecycle states, schedules, analytics and misses are tested.",
+      "Keep Cloudflare caching conservative: leave dynamic redirects to the Worker, keep Development Mode off except while debugging, and keep Cache Rules and Cache Response Rules empty.",
       "Use the Worker custom domain for the apex short domain; zone-level Workers Routes are not required for the normal vanityURLs setup.",
       "Use modern Rules sparingly for edge controls, prefer Worker and repository behavior for redirects, status pages and link inventory, and document URL normalization.",
       "Keep Network settings simple: IPv6, IP Geolocation, Network Error Logging and Onion Routing on; gRPC and Pseudo IPv4 off; WebSockets off unless a custom page requires them.",

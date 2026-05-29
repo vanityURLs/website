@@ -278,14 +278,15 @@ Recommended Network settings:
 
 ### Keep caching conservative
 
-In Cloudflare, open **Domains** > **your short domain** > **Caching** > **Configuration** for general cache settings, and **Caching** > **Cache Rules** if you need a specific rule.
+In Cloudflare, open **Domains** > **your short domain** > **Caching** > **Configuration** for general cache settings, then **Caching** > **Cache Rules** to confirm there are no cache rules.
 
 Keep caching boring for a redirector:
 
 - Leave dynamic redirect decisions to the Worker
 - Let static assets under `build/` use the Worker and asset headers
 - Keep Development Mode off except while actively debugging
-- Do not add cache rules that cache redirect responses unless you have tested lifecycle states, schedules, analytics, and misses
+- Do not create Cache Rules or Cache Response Rules for the baseline
+- If any Cache Rules or Cache Response Rules exist, disable or delete them before go-live
 
 ### Review the right analytics surface
 

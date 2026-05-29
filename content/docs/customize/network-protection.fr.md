@@ -278,14 +278,15 @@ Reglages Network recommandes :
 
 ### Garder le caching conservateur
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Caching** > **Configuration** pour les reglages generaux de cache, et **Caching** > **Cache Rules** si vous avez besoin d'une regle precise.
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Caching** > **Configuration** pour les reglages generaux de cache, puis **Caching** > **Cache Rules** pour confirmer qu'aucune regle de cache n'existe.
 
 Gardez le caching sobre pour un redirecteur :
 
 - Laissez les decisions de redirection dynamiques au Worker
 - Laissez les assets statiques sous `build/` utiliser le Worker et les en-tetes d'assets
 - Gardez Development Mode desactive sauf pendant un debogage actif
-- N'ajoutez pas de regles de cache qui mettent les reponses de redirection en cache sans tester les etats de cycle de vie, les horaires, les analytics et les misses
+- Ne creez pas de Cache Rules ni de Cache Response Rules pour le baseline
+- Si des Cache Rules ou Cache Response Rules existent, desactivez-les ou supprimez-les avant la mise en production
 
 ### Consulter la bonne surface analytics
 
