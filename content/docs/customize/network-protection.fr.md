@@ -51,26 +51,51 @@ HSTS est l'endroit le plus facile a mal lire dans l'interface. **Enable HSTS** a
 
 ### Activer les controles de securite de base
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Settings** pour le tableau de bord, les bots, Browser Integrity Check, Challenge Passage, le remplacement de bibliotheques et `security.txt`. Utilisez **Security** > **Security rules** lorsqu'un controle necessite une regle plutot qu'un interrupteur.
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Settings** pour le tableau de bord, les bots, Browser Integrity Check, Challenge Passage, le remplacement de bibliotheques et `security.txt`. La page Settings est longue et inclut des filtres ainsi qu'un champ de recherche. Ils sont utiles pour retrouver un reglage connu, mais cette checklist suit l'ordre de la page parce que les filtres cachent le contexte et rendent l'audit plus difficile.
 
 Les reglages de securite du plan gratuit doivent rester sobres et explicites. Activez les protections qui reduisent les abus courants, mais evitez les fonctionnalites qui modifient le contenu public ou exposent des donnees visiteur supplementaires sans besoin clair.
 
-| Reglage | Recommandation | Pourquoi |
+| Reglage, dans l'ordre du tableau de bord | Recommandation | Pourquoi |
 | --- | --- | --- |
-| New application security dashboard | On | Utiliser la vue actuelle du tableau de bord pour les evenements de securite et actions |
-| Bot Fight Mode | On | Ajoute des challenges bot de base sur le plan gratuit |
-| Browser Integrity Check | On | Bloque les requetes navigateur malformees ou suspectes avant l'execution du Worker |
+| AI Labyrinth | Off | Modifie volontairement les pages pour les bots; gardez les pages publiques de redirection et de politiques deterministes |
+| Block AI bots | Block on all pages | Bloque les crawlers d'entrainement IA sur toute la zone sans maintenir une liste custom de user agents |
+| Bot Fight Mode | On, configuration par defaut | Le controle du plan gratuit est on/off; il n'y a pas d'options par regle a ajuster |
+| Browser Integrity Check | On, configuration par defaut | Bloque les requetes navigateur malformees ou suspectes avant l'execution du Worker |
 | Challenge Passage | 30 minutes | Garde les challenges manages utiles sans rendre les visites legitimes repetees trop bruyantes |
-| Cloudflare managed ruleset | On | Fournit une protection applicative de base maintenue par Cloudflare |
-| Email Address Obfuscation | On si des pages publiques affichent des adresses courriel | Protege les adresses visibles sans modifier le contenu lisible par humain |
-| Hotlink Protection | Off par defaut | Les assets du raccourcisseur sont petits; activez seulement si la reutilisation d'images hors site devient un vrai cout |
-| Leaked Credentials Detection | Off sauf si l'application a un login par mot de passe | vanityURLs n'authentifie pas les visiteurs avec des mots de passe |
+| Cloudflare Managed Free Ruleset | On | Cloudflare maintient et met a jour ce ruleset gratuit; c'est une couverture generique, pas une posture propre a vanityURLs |
+| Continuous script monitoring | Off pour l'instance par defaut | Les pages generees chargent un seul script local pour le confort de l'interface; activez seulement apres l'ajout de scripts tiers ou si vous voulez des alertes d'inventaire |
+| Custom fallthrough rules | Aucune regle par defaut | Necessaire seulement si vous voulez deliberement une regle fallback pour le trafic non matche |
+| Email Address Obfuscation | On | Sans regle correspondante, c'est inoffensif; utile si les pages publiques generees affichent des adresses de role |
+| HTTP DDoS attack protection | On, toujours actif | La protection HTTP DDoS geree par Cloudflare s'execute independamment du Worker |
+| Manage your robots.txt | Desactiver la configuration `robots.txt` geree par Cloudflare | Le depot fournit `defaults/public/robots.txt`; gardez le depot comme source de verite au lieu de laisser Cloudflare le remplacer par la sortie Content Signals Policy |
+| Network-layer DDoS attack protection | On, toujours actif | La mitigation DDoS reseau de base est geree a l'edge Cloudflare |
+| Replace insecure JavaScript libraries | On | Surtout utile pour les bibliotheques tierces connues comme `polyfill`; le risque est faible et cela peut attraper de futurs ajouts |
+| Security level | Laisser **I'm Under Attack Mode** desactive | A utiliser seulement pendant un incident actif; trop disruptif comme base normale de redirecteur |
 | Security.txt | Configurer avant release | Publie un chemin de contact pour les rapports de vulnerabilite |
-| Replace insecure JavaScript libraries | On | Permet a Cloudflare de remplacer les bibliotheques vulnerables lorsque supporte |
-| Schema Validation | Off sauf si des schemas API sont definis | Necessite des endpoints et schemas actifs pour etre utile |
-| Zone IP allowlist rules | Off sauf si les chemins admin ont besoin d'une allowlist IP | Cloudflare Access est le controle principal pour les chemins prives |
+| SSL/TLS DDoS attack protection | On, toujours actif | La mitigation DDoS de couche TLS est geree par Cloudflare |
+
+{{< details title="Reglages de securite sans action pour un redirecteur par defaut" >}}
+
+| Reglage | Decision de base |
+| --- | --- |
+| Client certificates | Ne pas configurer pour le redirecteur public sauf si une future origine/API exige mTLS |
+| Endpoint Labels | Aucune action; cela appartient a l'organisation des endpoints API Shield, et le redirecteur n'expose pas d'API operateur |
+| Hotlink Protection | Off; les assets du raccourcisseur sont petits, et la reutilisation d'images hors site n'est pas un comportement produit |
+| IP access rules | Aucune action; preferez des custom rules precises ou Cloudflare Access plutot que de larges regles IP |
+| IP lists | Aucune action sauf si des regles WAF custom ont besoin d'ensembles IP reutilisables |
+| Leaked Credentials Detection | Off sauf si l'application ajoute un login par mot de passe; vanityURLs n'authentifie pas les visiteurs avec des mots de passe |
+| mTLS rules | Aucune action pour un redirecteur public Worker-only |
+| Rate limit authentication requests | Aucune regle par defaut; les chemins prives sont proteges par Cloudflare Access SSO, pas par un endpoint de mot de passe dans le redirecteur |
+| Schema Validation | Aucune action sauf si des schemas API explicites sont ajoutes |
+| User agent blocking | Aucune regle par defaut; utilisez-le seulement pour un client agressif precis, et preferez d'abord les controles bot manages ou les regles WAF |
+| Web asset discovery | Aucune action; laisser la decouverte visible est correct, mais cela ne change pas le comportement de redirection |
+| Zone lockdown | Aucune action pour la base du plan gratuit; Cloudflare documente Zone Lockdown comme reserve aux plans payants et recommande les custom rules pour un comportement de type allowlist |
+
+{{< /details >}}
 
 N'activez pas les certificats client, regles mTLS, en-tetes de localisation visiteur ou en-tetes True-Client-IP pour le raccourcisseur public sauf si un service en aval en a explicitement besoin. Le Worker recoit deja les metadonnees pays et colo Cloudflare pour les analytics agreges.
+
+Cloudflare deplace regulierement les libelles du tableau de bord. Consultez le [changelog Cloudflare Docs](https://developers.cloudflare.com/changelog/) et les changelogs produit, surtout [Rules](https://developers.cloudflare.com/rules/changelog/) et les controles bot, lors de la mise a jour de cette page. Utilisez la capture brute dans [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json) pour comparer les libelles de menus dans le temps.
 
 ### Ajouter les regles WAF
 
@@ -113,9 +138,11 @@ Utilisez l'editeur d'expression pour les regles imbriquees, collez et validez un
 
 ### Decider des controles de crawlers
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **AI Crawl Control** > **Signals** pour Managed `robots.txt`, puis **AI Crawl Control** > **Security** pour bloquer ou autoriser des crawlers precis.
+Dans Cloudflare, utilisez **Security** > **Settings** > **Block AI bots** pour le blocage a l'edge, et **Security** > **Settings** > **Manage your robots.txt** ou **AI Crawl Control** pour les signaux `robots.txt`.
 
-Si le depot fournit `robots.txt`, gardez Cloudflare Managed robots.txt desactive. Cela fait du depot la source de verite et evite que Cloudflare ecrase des directives intentionnelles.
+Block AI bots est un controle d'enforcement : Cloudflare bloque les crawlers d'entrainement IA avant qu'ils atteignent le Worker. Managed `robots.txt` est un signal aux crawlers : Cloudflare peut publier une Content Signals Policy ou des directives de refus pour l'entrainement IA, mais cela change le fichier visible a `/robots.txt`.
+
+Si le depot fournit `robots.txt`, gardez Cloudflare Managed robots.txt desactive. Cela fait du depot la source de verite et evite que Cloudflare remplace des directives intentionnelles.
 
 Reglages utiles :
 

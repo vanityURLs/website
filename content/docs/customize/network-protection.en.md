@@ -51,26 +51,51 @@ HSTS is the easy place to misread the UI. **Enable HSTS** with **Max Age Header 
 
 ### Enable baseline security controls
 
-In Cloudflare, open **Domains** > **your short domain** > **Security** > **Settings** for the dashboard, bot, browser integrity, challenge, library replacement, and `security.txt` controls. Use **Security** > **Security rules** when a control needs a rule instead of a toggle.
+In Cloudflare, open **Domains** > **your short domain** > **Security** > **Settings** for the dashboard, bot, browser integrity, challenge, library replacement, and `security.txt` controls. The Settings page is long and includes filter chips and a search field. They are useful for finding a known setting, but this checklist follows the page order because the filters hide context and can make setup harder to audit.
 
 The free-plan security settings should stay boring and explicit. Turn on protections that reduce commodity abuse, but avoid features that alter public content or expose extra visitor data unless there is a clear need.
 
-| Setting | Recommendation | Why |
+| Setting, in dashboard order | Recommendation | Why |
 | --- | --- | --- |
-| New application security dashboard | On | Use the current dashboard view for security events and action items |
-| Bot Fight Mode | On | Adds baseline bot challenges on the free plan |
-| Browser Integrity Check | On | Blocks malformed or suspicious browser requests before Worker code runs |
+| AI Labyrinth | Off | It intentionally modifies pages for bots; keep public redirect and policy pages deterministic |
+| Block AI bots | Block on all pages | Blocks AI training crawlers across the zone without maintaining a custom user-agent rule list |
+| Bot Fight Mode | On, default configuration | The Free-plan control is on/off; there are no per-rule options to tune |
+| Browser Integrity Check | On, default configuration | Blocks malformed or suspicious browser requests before Worker code runs |
 | Challenge Passage | 30 minutes | Keeps managed challenges useful without making repeat legitimate visits too noisy |
-| Cloudflare managed ruleset | On | Provides Cloudflare-maintained baseline app protection |
-| Email Address Obfuscation | On if public pages show email addresses | Protects visible email addresses without changing human-readable content |
-| Hotlink Protection | Off by default | Shortener assets are small; enable only if off-site image reuse becomes a real cost |
-| Leaked Credentials Detection | Off unless the app has password login | vanityURLs does not authenticate visitors with passwords |
+| Cloudflare Managed Free Ruleset | On | Cloudflare maintains and updates this free managed ruleset; it is generic baseline coverage, not vanityURLs-specific posture |
+| Continuous script monitoring | Off for the default instance | The generated pages load one local script for UI niceness; enable this only after adding third-party scripts or if you want Cloudflare script inventory alerts |
+| Custom fallthrough rules | No rule by default | Only needed when you deliberately want a fallback rule for unmatched traffic |
+| Email Address Obfuscation | On | Harmless with no matching rule; useful if generated public pages show role addresses |
+| HTTP DDoS attack protection | On, always active | Cloudflare-managed HTTP DDoS protection runs independently of the Worker |
+| Manage your robots.txt | Disable Cloudflare-managed robots.txt configuration | The repository ships `defaults/public/robots.txt`; keep the repo as the source of truth instead of letting Cloudflare replace it with Content Signals Policy output |
+| Network-layer DDoS attack protection | On, always active | Baseline network DDoS mitigation is handled at Cloudflare's edge |
+| Replace insecure JavaScript libraries | On | Currently most useful for known third-party libraries such as `polyfill`; it is low risk and can catch future additions |
+| Security level | Leave **I'm Under Attack Mode** disabled | Use only for active incidents; it is too disruptive as a normal redirector baseline |
 | Security.txt | Configure before release | Publish a contact path for vulnerability reports |
-| Replace insecure JavaScript libraries | On | Lets Cloudflare replace known insecure libraries when supported |
-| Schema Validation | Off unless API schemas are defined | It needs explicit endpoints and active schemas to be useful |
-| Zone IP allowlist rules | Off unless admin paths need IP allowlisting | Cloudflare Access is the primary control for private paths |
+| SSL/TLS DDoS attack protection | On, always active | TLS-layer DDoS mitigation is handled by Cloudflare |
+
+{{< details title="No-action security settings for a default redirector" >}}
+
+| Setting | Baseline decision |
+| --- | --- |
+| Client certificates | Do not configure for the public redirector unless a future origin/API requires mTLS |
+| Endpoint Labels | No action; this belongs to API Shield endpoint organization, and the redirector does not expose an operator API |
+| Hotlink Protection | Off; shortener assets are small, and off-site image reuse is not product behavior |
+| IP access rules | No action; prefer precise custom rules or Cloudflare Access instead of broad IP rules |
+| IP lists | No action unless custom WAF rules need reusable IP sets |
+| Leaked Credentials Detection | Off unless the app later adds password login; vanityURLs does not authenticate visitors with passwords |
+| mTLS rules | No action for a Worker-only public redirector |
+| Rate limit authentication requests | No rule by default; private paths are protected by Cloudflare Access SSO, not a password endpoint on the redirector |
+| Schema Validation | No action unless explicit API schemas are added |
+| User agent blocking | No rules by default; use it only for a specific aggressive client, and prefer managed bot controls or WAF rules first |
+| Web asset discovery | No action; leaving discovery visible is fine, but it does not change redirect behavior |
+| Zone lockdown | No action on the Free baseline; Cloudflare documents Zone Lockdown as paid-plan only and recommends custom rules for allowlist-style behavior |
+
+{{< /details >}}
 
 Do not enable client certificates, mTLS rules, visitor location headers, or True-Client-IP headers for the public shortener unless a downstream service explicitly needs them. The Worker already receives Cloudflare country and colo metadata for aggregate analytics.
+
+Cloudflare moves dashboard labels regularly. Review the [Cloudflare Docs changelog](https://developers.cloudflare.com/changelog/) and product changelogs, especially [Rules](https://developers.cloudflare.com/rules/changelog/) and bot controls, when refreshing this page. Use the raw capture in [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json) to compare menu labels over time.
 
 ### Add WAF rules
 
@@ -113,9 +138,11 @@ Use the expression editor for nested rules, paste and validate one complete expr
 
 ### Decide crawler controls
 
-In Cloudflare, open **Domains** > **your short domain** > **AI Crawl Control** > **Signals** for Managed `robots.txt`, then **AI Crawl Control** > **Security** to block or allow specific crawlers.
+In Cloudflare, use **Security** > **Settings** > **Block AI bots** for edge blocking, and use **Security** > **Settings** > **Manage your robots.txt** or **AI Crawl Control** for `robots.txt` signals.
 
-If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repository the source of truth and avoids Cloudflare overwriting intentional directives.
+Block AI bots is enforcement: Cloudflare blocks AI training crawlers before they reach the Worker. Managed `robots.txt` is a signal to crawlers: Cloudflare can publish a Content Signals Policy or AI-training disallow directives, but it changes the file visitors see at `/robots.txt`.
+
+If the repository ships `robots.txt`, keep Cloudflare Managed robots.txt disabled. That makes the repository the source of truth and avoids Cloudflare replacing intentional directives.
 
 Useful defaults:
 
