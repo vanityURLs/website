@@ -4,7 +4,8 @@
     "captured_from_domain": "a6z.link",
     "documented_as_domain": "v8s.link",
     "cloudflare_plan": "Free",
-    "purpose": "Raw Cloudflare dashboard defaults and available surfaces for a newly added zone. Menu labels are preserved as nested JSON keys so future UI captures can be compared by menu path."
+    "purpose": "Raw Cloudflare dashboard defaults and available surfaces for a newly added zone. Menu labels are preserved as nested JSON keys so future UI captures can be compared by menu path.",
+    "maintenance": "Update this capture when Cloudflare dashboard guidance changes, when the docs add or remove a setup recommendation, or when screenshots reveal renamed settings. Keep non-baseline surfaces in this data file when they help future reassessment, even if the public checklist only links to reference material."
   },
   "Cloudflare dashboard": {
     "AI Crawl Control": {
