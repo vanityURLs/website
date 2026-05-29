@@ -7,6 +7,27 @@
     "purpose": "Raw Cloudflare dashboard defaults and available surfaces for a newly added zone. Menu labels are preserved as nested JSON keys so future UI captures can be compared by menu path.",
     "maintenance": "Update this capture when Cloudflare dashboard guidance changes, when the docs add or remove a setup recommendation, or when screenshots reveal renamed settings. Keep non-baseline surfaces in this data file when they help future reassessment, even if the public checklist only links to reference material."
   },
+  "Cloudflare product inventory": {
+    "website_reference": "/docs/reference/cloudflare-products/",
+    "required_baseline": ["Cloudflare DNS", "Cloudflare Workers", "Cloudflare Access", "Cloudflare SSL/TLS"],
+    "baseline_protection_surfaces": [
+      "Cloudflare WAF",
+      "Cloudflare Rate Limiting",
+      "Cloudflare DDoS Protection",
+      "Cloudflare Bot Management",
+      "Cloudflare AI Crawl Control",
+      "Cloudflare Rules",
+      "Cloudflare Security Events"
+    ],
+    "reference_only_or_not_baseline": [
+      "Cloudflare Web Analytics / RUM",
+      "Cloudflare Bulk Redirects",
+      "Cloudflare Cache Rules",
+      "Cloudflare Turnstile",
+      "Cloudflare Workers Analytics"
+    ],
+    "website_documentation": "Keep the product inventory in the reference section, not as a blog post. Update this list when the baseline starts using or deliberately excludes another Cloudflare product or dashboard surface."
+  },
   "Cloudflare dashboard": {
     "AI Crawl Control": {
       "Overview": {

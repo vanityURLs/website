@@ -16,6 +16,7 @@ Commencez ici lorsque votre instance fonctionne deja et que vous voulez comprend
 | --- | --- |
 | [Analytics](/fr/docs/reference/analytics/) | Événements analytics serveur, payloads fournisseur, modes IP et trafic bloqué |
 | [Marque](/fr/docs/reference/brand/) | Wordmarks, slogans, badges, couleurs et assets publics geres par l'installateur |
+| [Produits Cloudflare](/fr/docs/reference/cloudflare-products/) | Produits et surfaces du tableau de bord Cloudflare utilises par le baseline vanityURLs |
 | [Fichiers de configuration](/fr/docs/reference/configuration-files/) | Fichiers source, custom, locaux et generes |
 | [Surcharges custom](/fr/docs/reference/custom-overrides/) | Couches de fichiers propres a l'instance, chemins de surcharges publiques et placeholders des pages de statut |
 | [Glossaire](/fr/docs/reference/glossary/) | Termes courants utilises dans la documentation, le blog et les pages publiques |
