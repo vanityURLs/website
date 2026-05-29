@@ -103,7 +103,7 @@ In Cloudflare, open **Domains** > **your short domain** > **Security** > **Secur
 
 Cloudflare security rules run before the Worker. Use them for traffic that should never reach application code.
 
-The expressions below use `dicai.re`; replace both hostnames with your short domain and `www` hostname before deploying.
+The expressions below use `v8s.link` and scope to the apex hostname. If `www.v8s.link` is also proxied through Cloudflare before it redirects, include it too, such as `http.host in {"v8s.link" "www.v8s.link"}`. A DNS CNAME alone aliases a hostname; it does not create an HTTP redirect by itself.
 
 <table>
   <thead>
@@ -121,7 +121,7 @@ The expressions below use `dicai.re`; replace both hostnames with your short dom
       <td>Custom rule</td>
       <td>Block</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and (
+        <pre><code>http.host eq "v8s.link" and (
   ends_with(lower(http.request.uri.path), ".php") or
   lower(http.request.uri.path) contains "/wp-content/" or
   lower(http.request.uri.path) contains "/wp-includes/" or
@@ -143,7 +143,7 @@ The expressions below use `dicai.re`; replace both hostnames with your short dom
       <td>Custom rule</td>
       <td>Block</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
       </td>
       <td>Allows only methods expected by the public redirect hostname.</td>
@@ -153,36 +153,52 @@ not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
       <td>Custom rule</td>
       <td>Managed Challenge</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
 not starts_with(http.request.uri.path, "/_stats") and
 not starts_with(http.request.uri.path, "/_tests") and
-http.request.uri.path ne "/robots.txt"</code></pre>
+(
+  lower(http.user_agent) contains "curl" or
+  lower(http.user_agent) contains "wget" or
+  lower(http.user_agent) contains "python-requests" or
+  lower(http.user_agent) contains "go-http-client" or
+  lower(http.user_agent) contains "httpclient"
+)</code></pre>
       </td>
-      <td>Exclude verified bots, protected operator paths, and `robots.txt`.</td>
+      <td>Challenges common script and HTTP-client user agents without challenging every ordinary non-verified browser.</td>
     </tr>
     <tr>
       <td>Block unwanted AI crawlers</td>
       <td>Custom rule</td>
       <td>Block</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 http.request.uri.path ne "/robots.txt" and (
   lower(http.user_agent) contains "applebot" or
+  lower(http.user_agent) contains "archive.org_bot" or
+  lower(http.user_agent) contains "arquivo-web-crawler" or
+  lower(http.user_agent) contains "bingbot" or
   lower(http.user_agent) contains "chatgpt-user" or
-  lower(http.user_agent) contains "claudebot" or
-  lower(http.user_agent) contains "gptbot" or
-  lower(http.user_agent) contains "perplexitybot"
+  lower(http.user_agent) contains "duckassistbot" or
+  lower(http.user_agent) contains "googlebot" or
+  lower(http.user_agent) contains "manus-user" or
+  lower(http.user_agent) contains "meta-externalfetcher" or
+  lower(http.user_agent) contains "mistralai-user" or
+  lower(http.user_agent) contains "oai-searchbot" or
+  lower(http.user_agent) contains "perplexity-user" or
+  lower(http.user_agent) contains "perplexitybot" or
+  lower(http.user_agent) contains "proratainc" or
+  lower(http.user_agent) contains "terracotta"
 )</code></pre>
       </td>
-      <td>Use only for crawlers not covered by **Block AI bots**; keep `/robots.txt` reachable.</td>
+      <td>Aggressive crawler blocklist. Remove search-engine crawlers such as `googlebot` and `bingbot` if public indexing matters.</td>
     </tr>
     <tr>
       <td>Rate limit short-link candidates</td>
       <td>Rate limiting rule</td>
       <td>Block or challenge</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
 http.request.method in {"GET" "HEAD"} and
 not starts_with(http.request.uri.path, "/_") and

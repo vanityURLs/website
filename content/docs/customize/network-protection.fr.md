@@ -103,7 +103,7 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > *
 
 Les regles de securite Cloudflare s'executent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais atteindre le code applicatif.
 
-Les expressions ci-dessous utilisent `dicai.re`; remplacez les deux hostnames par votre domaine court et son hostname `www` avant de deployer.
+Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname apex. Si `www.v8s.link` passe aussi par Cloudflare avant sa redirection, incluez-le aussi, par exemple `http.host in {"v8s.link" "www.v8s.link"}`. Un CNAME DNS alias un hostname; il ne cree pas une redirection HTTP par lui-meme.
 
 <table>
   <thead>
@@ -121,7 +121,7 @@ Les expressions ci-dessous utilisent `dicai.re`; remplacez les deux hostnames pa
       <td>Custom rule</td>
       <td>Block</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and (
+        <pre><code>http.host eq "v8s.link" and (
   ends_with(lower(http.request.uri.path), ".php") or
   lower(http.request.uri.path) contains "/wp-content/" or
   lower(http.request.uri.path) contains "/wp-includes/" or
@@ -143,7 +143,7 @@ Les expressions ci-dessous utilisent `dicai.re`; remplacez les deux hostnames pa
       <td>Custom rule</td>
       <td>Block</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
       </td>
       <td>Autorise seulement les methodes attendues par le hostname public de redirection.</td>
@@ -153,36 +153,52 @@ not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
       <td>Custom rule</td>
       <td>Managed Challenge</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
 not starts_with(http.request.uri.path, "/_stats") and
 not starts_with(http.request.uri.path, "/_tests") and
-http.request.uri.path ne "/robots.txt"</code></pre>
+(
+  lower(http.user_agent) contains "curl" or
+  lower(http.user_agent) contains "wget" or
+  lower(http.user_agent) contains "python-requests" or
+  lower(http.user_agent) contains "go-http-client" or
+  lower(http.user_agent) contains "httpclient"
+)</code></pre>
       </td>
-      <td>Exclut les bots verifies, les chemins operateur proteges et `robots.txt`.</td>
+      <td>Challenge les user agents de scripts et clients HTTP courants sans challenger tous les navigateurs ordinaires non verifies.</td>
     </tr>
     <tr>
       <td>Bloquer les crawlers IA non desires</td>
       <td>Custom rule</td>
       <td>Block</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 http.request.uri.path ne "/robots.txt" and (
   lower(http.user_agent) contains "applebot" or
+  lower(http.user_agent) contains "archive.org_bot" or
+  lower(http.user_agent) contains "arquivo-web-crawler" or
+  lower(http.user_agent) contains "bingbot" or
   lower(http.user_agent) contains "chatgpt-user" or
-  lower(http.user_agent) contains "claudebot" or
-  lower(http.user_agent) contains "gptbot" or
-  lower(http.user_agent) contains "perplexitybot"
+  lower(http.user_agent) contains "duckassistbot" or
+  lower(http.user_agent) contains "googlebot" or
+  lower(http.user_agent) contains "manus-user" or
+  lower(http.user_agent) contains "meta-externalfetcher" or
+  lower(http.user_agent) contains "mistralai-user" or
+  lower(http.user_agent) contains "oai-searchbot" or
+  lower(http.user_agent) contains "perplexity-user" or
+  lower(http.user_agent) contains "perplexitybot" or
+  lower(http.user_agent) contains "proratainc" or
+  lower(http.user_agent) contains "terracotta"
 )</code></pre>
       </td>
-      <td>Utilisez seulement pour les crawlers non couverts par **Block AI bots**; gardez `/robots.txt` accessible.</td>
+      <td>Blocklist de crawlers agressive. Retirez les crawlers de moteurs de recherche comme `googlebot` et `bingbot` si l'indexation publique est importante.</td>
     </tr>
     <tr>
       <td>Rate limiter les candidats de liens courts</td>
       <td>Rate limiting rule</td>
       <td>Block ou challenge</td>
       <td>
-        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+        <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
 http.request.method in {"GET" "HEAD"} and
 not starts_with(http.request.uri.path, "/_") and
