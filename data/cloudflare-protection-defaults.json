@@ -1066,20 +1066,37 @@
         "Managed Transforms": {
           "HTTP request headers": [
             {"group": "Add TLS client auth headers", "default_state": "off"},
-            {"group": "Add visitor location headers", "default_state": "off"},
+            {
+              "group": "Add visitor location headers",
+              "default_state": "off",
+              "baseline": "Keep off; Umami and Fathom do not need Cloudflare city, longitude, latitude, postal-code, or timezone headers."
+            },
             {"group": "Remove visitor IP headers", "default_state": "off"},
             {"group": "Add True-Client-IP header", "default_state": "disabled"},
             {"group": "Add leaked credentials checks header", "default_state": "off"}
           ],
           "HTTP response headers": [
-            {"group": "Remove X-Powered-By headers", "default_state": "off"},
-            {"group": "Add security headers", "default_state": "off"}
+            {
+              "group": "Remove X-Powered-By headers",
+              "default_state": "off",
+              "baseline": "Turn on as defense-in-depth; vanityURLs does not intentionally emit X-Powered-By."
+            },
+            {
+              "group": "Add security headers",
+              "default_state": "off",
+              "baseline": "Keep off by default; vanityURLs owns security headers in the Worker and defaults/public/_headers."
+            }
           ],
-          "website_documentation": "Document only transforms that do not conflict with Worker-owned headers; prefer Worker-emitted security headers."
+          "website_documentation": "Document category rows for Managed Transforms. Recommend Remove X-Powered-By on as defense-in-depth. Keep visitor location headers off for privacy because analytics providers do not need precise Cloudflare location headers. Keep Add security headers off by default because the Worker and defaults/public/_headers own the app header policy."
         },
         "Bulk Redirects": {
           "available": true,
-          "website_documentation": "Do not document as required; vanityURLs link inventory belongs in the repository."
+          "captured_usage": {
+            "redirect_lists": "0/5",
+            "redirect_items": "0/25000",
+            "scope": "Lists are shared between all domains in the account."
+          },
+          "website_documentation": "Document as an alternative for large static redirect lists, not a default Worker-based vanityURLs setup. Consider a blog or history note comparing vanityURLs v1 Page/Single Redirects, Bulk Redirects, and Worker registry behavior."
         },
         "URL Normalization": {
           "available": true,

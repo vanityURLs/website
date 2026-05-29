@@ -244,21 +244,24 @@ The Signals page should show `/robots.txt` as reachable with `200 OK`. Use **Age
 
 ### Configure Rules and URL normalization
 
-In Cloudflare, open **Domains** > **your short domain** > **Rules** > **Settings** > **Managed Transforms** for header transforms, then **Rules** > **Settings** > **URL Normalization** for URL normalization.
+In Cloudflare, open **Domains** > **your short domain** > **Rules** > **Settings**. Review **Managed Transforms**, **Bulk Redirects**, and **URL Normalization**.
 
 Recommended Rules settings:
 
-| Setting | Recommendation |
-| --- | --- |
-| Remove `X-Powered-By` response headers | On |
-| Add visitor location headers | Off |
-| Remove visitor IP headers | Off unless an origin behind the Worker receives them |
-| Add security headers transform | Off if the Worker already emits the intended headers |
-| URL normalization type | Cloudflare |
-| Normalize incoming URLs | On |
-| Normalize URLs to origin | Off |
+| Category | Setting | Recommendation |
+| --- | --- | --- |
+| Managed Transforms | Remove `X-Powered-By` response headers | On as defense-in-depth; Cloudflare does not appear to enable this by default, and vanityURLs does not intentionally emit `X-Powered-By` |
+| Managed Transforms | Add visitor location headers | Off; Umami and Fathom do not need city/latitude/longitude request headers from Cloudflare, and adding them increases location data exposure |
+| Managed Transforms | Remove visitor IP headers | Off unless an origin behind the Worker receives them |
+| Managed Transforms | Add security headers transform | Off by default; vanityURLs owns headers in the Worker and `defaults/public/_headers`, and Cloudflare's broad transform adds a fixed header bundle that may not match the app policy |
+| Bulk Redirects | Bulk Redirect Lists | No action for Worker-based vanityURLs; useful for large static redirect lists, but they bypass the registry lifecycle, analytics, expand pages, schedules, splats, and local publishing workflow |
+| URL Normalization | URL normalization type | Cloudflare |
+| URL Normalization | Normalize incoming URLs | On |
+| URL Normalization | Normalize URLs to origin | Off |
 
 Incoming URL normalization is especially important because WAF rules, Access, and Workers evaluate the normalized URL. Keep origin normalization off unless another origin behind Cloudflare expects already-normalized paths.
+
+Bulk Redirects and Single Redirects are worth a separate migration-history note: vanityURLs v1-style rule forwarding is useful for static redirects, while the Worker model is better when links need repository review, states, analytics, previews, generated pages, and programmable behavior.
 
 ### Configure Network settings
 

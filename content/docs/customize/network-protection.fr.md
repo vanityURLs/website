@@ -244,21 +244,24 @@ La page Signals devrait afficher `/robots.txt` comme accessible avec `200 OK`. U
 
 ### Configurer Rules et URL normalization
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Rules** > **Settings** > **Managed Transforms** pour les transformations d'en-tetes, puis **Rules** > **Settings** > **URL Normalization** pour la normalisation des URL.
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Rules** > **Settings**. Revoyez **Managed Transforms**, **Bulk Redirects** et **URL Normalization**.
 
 Reglages Rules recommandes :
 
-| Reglage | Recommandation |
-| --- | --- |
-| Remove `X-Powered-By` response headers | On |
-| Add visitor location headers | Off |
-| Remove visitor IP headers | Off sauf si une origine derriere le Worker les recoit |
-| Add security headers transform | Off si le Worker emet deja les en-tetes voulus |
-| URL normalization type | Cloudflare |
-| Normalize incoming URLs | On |
-| Normalize URLs to origin | Off |
+| Categorie | Reglage | Recommandation |
+| --- | --- | --- |
+| Managed Transforms | Remove `X-Powered-By` response headers | On comme defense en profondeur; Cloudflare ne semble pas l'activer par defaut, et vanityURLs n'emet pas intentionnellement `X-Powered-By` |
+| Managed Transforms | Add visitor location headers | Off; Umami et Fathom n'ont pas besoin des en-tetes ville/latitude/longitude de Cloudflare, et les ajouter augmente l'exposition des donnees de localisation |
+| Managed Transforms | Remove visitor IP headers | Off sauf si une origine derriere le Worker les recoit |
+| Managed Transforms | Add security headers transform | Off par defaut; vanityURLs controle ses en-tetes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre a la politique applicative |
+| Bulk Redirects | Bulk Redirect Lists | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages expand, les horaires, les splats et le workflow de publication locale |
+| URL Normalization | URL normalization type | Cloudflare |
+| URL Normalization | Normalize incoming URLs | On |
+| URL Normalization | Normalize URLs to origin | Off |
 
 La normalisation des URLs entrantes est particulierement importante parce que WAF, Access et Workers evaluent l'URL normalisee. Gardez la normalisation vers l'origine inactive sauf si une autre origine derriere Cloudflare attend des chemins deja normalises.
+
+Bulk Redirects et Single Redirects meritent une note d'historique separee : le routage par regles de type vanityURLs v1 est utile pour des redirections statiques, tandis que le modele Worker est preferable quand les liens ont besoin de revue en depot, d'etats, d'analytics, de previews, de pages generees et de comportement programmable.
 
 ### Configurer Network
 
