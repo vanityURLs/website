@@ -51,7 +51,7 @@ HSTS est l'endroit le plus facile a mal lire dans l'interface. **Enable HSTS** a
 
 ### Activer les controles de securite de base
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Settings** pour le tableau de bord, les bots, Browser Integrity Check, Challenge Passage, le remplacement de bibliotheques et `security.txt`. La page Settings est longue et inclut des filtres ainsi qu'un champ de recherche. Ils sont utiles pour retrouver un reglage connu, mais cette checklist suit l'ordre de la page parce que les filtres cachent le contexte et rendent l'audit plus difficile.
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Settings** pour le tableau de bord, les bots, Browser Integrity Check, Challenge Passage, le remplacement de bibliotheques et `security.txt`. La page Settings est longue et inclut des filtres ainsi qu'un champ de recherche. Ils sont utiles pour retrouver un reglage connu, mais cette checklist suit l'ordre de la page parce que les filtres cachent le contexte et rendent l'audit plus difficile. Les expressions custom sont couvertes dans **Ajouter les regles WAF** ci-dessous.
 
 Les reglages de securite du plan gratuit doivent rester sobres et explicites. Activez les protections qui reduisent les abus courants, mais evitez les fonctionnalites qui modifient le contenu public ou exposent des donnees visiteur supplementaires sans besoin clair.
 
@@ -99,42 +99,101 @@ Cloudflare deplace regulierement les libelles du tableau de bord. Consultez le [
 
 ### Ajouter les regles WAF
 
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Security rules** > **Security rules**, puis creez des regles custom avec l'editeur d'expression.
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Security rules** > **Security rules**. Pour ajouter une custom rule, utilisez **Create rule** ou le menu **Show all rule types**, choisissez **Custom rules**, entrez le nom de la regle, cliquez **Edit expression**, collez une expression, choisissez l'action, puis deployez. Pour le rate limiting, utilisez plutot la rangee **Rate limiting rules**.
 
 Les regles de securite Cloudflare s'executent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais atteindre le code applicatif.
 
-| Regle | Action | Notes |
-| --- | --- | --- |
-| Bloquer les probes scanner | Block | Cible les chemins d'exploit courants comme `.php`, `/wp-`, `/.env` et probes admin |
-| Bloquer les methodes inattendues | Block | Autorise seulement `GET`, `HEAD` et `OPTIONS` pour le hostname public de redirection |
-| Challenger les clients suspects | Managed Challenge | Exclut les bots verifies, `/_stats`, `/_tests`, les assets statiques et `robots.txt` |
-| Bloquer les crawlers IA non desires | Block | Exclut `/robots.txt`; cible les user agents de crawlers que vous ne voulez pas servir |
-| Rate limiter les candidats de liens courts | Block ou challenge | Compte les misses repetes et candidats de type scanner, pas les redirections reussies |
+Les expressions ci-dessous utilisent `dicai.re`; remplacez les deux hostnames par votre domaine court et son hostname `www` avant de deployer.
 
-Exemples d'expressions pour une zone `v8s.link` :
-
-```text
-http.host in {"v8s.link" "www.v8s.link"} and (
+<table>
+  <thead>
+    <tr>
+      <th>Regle</th>
+      <th>Type de regle</th>
+      <th>Action</th>
+      <th>Expression</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bloquer les probes scanner</td>
+      <td>Custom rule</td>
+      <td>Block</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and (
   ends_with(lower(http.request.uri.path), ".php") or
-  contains(lower(http.request.uri.path), "/wp-") or
-  contains(lower(http.request.uri.path), "/.env")
-)
-```
-
-```text
-http.host eq "v8s.link" and
-not http.request.method in {"GET" "HEAD" "OPTIONS"}
-```
-
-```text
-http.host eq "v8s.link" and
+  lower(http.request.uri.path) contains "/wp-content/" or
+  lower(http.request.uri.path) contains "/wp-includes/" or
+  lower(http.request.uri.path) contains "/wp-admin/" or
+  lower(http.request.uri.path) contains "/wp-" or
+  lower(http.request.uri.path) contains "wp-login.php" or
+  lower(http.request.uri.path) contains "xmlrpc.php" or
+  lower(http.request.uri.path) contains ".env" or
+  lower(http.request.uri.path) contains "phpinfo" or
+  lower(http.request.uri.path) contains "/vendor/" or
+  lower(http.request.uri.path) contains "/.git" or
+  lower(http.request.uri.path) contains "/cgi-bin/"
+)</code></pre>
+      </td>
+      <td>Bloque les probes courantes PHP, WordPress, fichiers d'environnement, dependances, Git et CGI.</td>
+    </tr>
+    <tr>
+      <td>Bloquer les methodes inattendues</td>
+      <td>Custom rule</td>
+      <td>Block</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
+      </td>
+      <td>Autorise seulement les methodes attendues par le hostname public de redirection.</td>
+    </tr>
+    <tr>
+      <td>Challenger les clients suspects</td>
+      <td>Custom rule</td>
+      <td>Managed Challenge</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
 not cf.client.bot and
 not starts_with(http.request.uri.path, "/_stats") and
 not starts_with(http.request.uri.path, "/_tests") and
-http.request.uri.path ne "/robots.txt"
-```
+http.request.uri.path ne "/robots.txt"</code></pre>
+      </td>
+      <td>Exclut les bots verifies, les chemins operateur proteges et `robots.txt`.</td>
+    </tr>
+    <tr>
+      <td>Bloquer les crawlers IA non desires</td>
+      <td>Custom rule</td>
+      <td>Block</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+http.request.uri.path ne "/robots.txt" and (
+  lower(http.user_agent) contains "applebot" or
+  lower(http.user_agent) contains "chatgpt-user" or
+  lower(http.user_agent) contains "claudebot" or
+  lower(http.user_agent) contains "gptbot" or
+  lower(http.user_agent) contains "perplexitybot"
+)</code></pre>
+      </td>
+      <td>Utilisez seulement pour les crawlers non couverts par **Block AI bots**; gardez `/robots.txt` accessible.</td>
+    </tr>
+    <tr>
+      <td>Rate limiter les candidats de liens courts</td>
+      <td>Rate limiting rule</td>
+      <td>Block ou challenge</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+not cf.client.bot and
+http.request.method in {"GET" "HEAD"} and
+not starts_with(http.request.uri.path, "/_") and
+http.request.uri.path ne "/robots.txt"</code></pre>
+      </td>
+      <td>Compte les misses repetes et les candidats de type scanner, pas les redirections reussies.</td>
+    </tr>
+  </tbody>
+</table>
 
-Utilisez l'editeur d'expression pour les regles imbriquees, collez et validez une expression complete a la fois, sauvegardez les regles desactivees pendant le calibrage, puis activez-les apres verification dans Security Events.
+Collez et validez une expression complete a la fois. Deployer les regles desactivees pendant le calibrage si du trafic circule deja, puis activez-les apres verification dans Security Events.
 
 ### Decider des controles de crawlers
 

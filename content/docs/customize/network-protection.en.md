@@ -51,7 +51,7 @@ HSTS is the easy place to misread the UI. **Enable HSTS** with **Max Age Header 
 
 ### Enable baseline security controls
 
-In Cloudflare, open **Domains** > **your short domain** > **Security** > **Settings** for the dashboard, bot, browser integrity, challenge, library replacement, and `security.txt` controls. The Settings page is long and includes filter chips and a search field. They are useful for finding a known setting, but this checklist follows the page order because the filters hide context and can make setup harder to audit.
+In Cloudflare, open **Domains** > **your short domain** > **Security** > **Settings** for the dashboard, bot, browser integrity, challenge, library replacement, and `security.txt` controls. The Settings page is long and includes filter chips and a search field. They are useful for finding a known setting, but this checklist follows the page order because the filters hide context and can make setup harder to audit. Custom expressions are covered in **Add WAF rules** below.
 
 The free-plan security settings should stay boring and explicit. Turn on protections that reduce commodity abuse, but avoid features that alter public content or expose extra visitor data unless there is a clear need.
 
@@ -99,42 +99,101 @@ Cloudflare moves dashboard labels regularly. Review the [Cloudflare Docs changel
 
 ### Add WAF rules
 
-In Cloudflare, open **Domains** > **your short domain** > **Security** > **Security rules** > **Security rules**, then create custom rules with the expression editor.
+In Cloudflare, open **Domains** > **your short domain** > **Security** > **Security rules** > **Security rules**. To add a custom rule, use **Create rule** or the **Show all rule types** menu, choose **Custom rules**, enter the rule name, click **Edit expression**, paste one expression, choose the action, then deploy. For rate limiting, use the **Rate limiting rules** row instead.
 
 Cloudflare security rules run before the Worker. Use them for traffic that should never reach application code.
 
-| Rule | Action | Notes |
-| --- | --- | --- |
-| Block scanner probes | Block | Match common exploit paths such as `.php`, `/wp-`, `/.env`, and admin probes |
-| Block unexpected methods | Block | Allow only `GET`, `HEAD`, and `OPTIONS` for the public redirect hostname |
-| Challenge suspicious clients | Managed Challenge | Exclude verified bots, `/_stats`, `/_tests`, static assets, and `robots.txt` |
-| Block unwanted AI crawlers | Block | Exclude `/robots.txt`; match crawler user agents you do not want to serve |
-| Rate limit short-link candidates | Block or challenge | Count repeated misses and scanner-like candidates, not successful redirects |
+The expressions below use `dicai.re`; replace both hostnames with your short domain and `www` hostname before deploying.
 
-Example expressions for a `v8s.link` zone:
-
-```text
-http.host in {"v8s.link" "www.v8s.link"} and (
+<table>
+  <thead>
+    <tr>
+      <th>Rule</th>
+      <th>Rule type</th>
+      <th>Action</th>
+      <th>Expression</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Block scanner probes</td>
+      <td>Custom rule</td>
+      <td>Block</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and (
   ends_with(lower(http.request.uri.path), ".php") or
-  contains(lower(http.request.uri.path), "/wp-") or
-  contains(lower(http.request.uri.path), "/.env")
-)
-```
-
-```text
-http.host eq "v8s.link" and
-not http.request.method in {"GET" "HEAD" "OPTIONS"}
-```
-
-```text
-http.host eq "v8s.link" and
+  lower(http.request.uri.path) contains "/wp-content/" or
+  lower(http.request.uri.path) contains "/wp-includes/" or
+  lower(http.request.uri.path) contains "/wp-admin/" or
+  lower(http.request.uri.path) contains "/wp-" or
+  lower(http.request.uri.path) contains "wp-login.php" or
+  lower(http.request.uri.path) contains "xmlrpc.php" or
+  lower(http.request.uri.path) contains ".env" or
+  lower(http.request.uri.path) contains "phpinfo" or
+  lower(http.request.uri.path) contains "/vendor/" or
+  lower(http.request.uri.path) contains "/.git" or
+  lower(http.request.uri.path) contains "/cgi-bin/"
+)</code></pre>
+      </td>
+      <td>Blocks common PHP, WordPress, environment-file, dependency, Git, and CGI probes.</td>
+    </tr>
+    <tr>
+      <td>Block unexpected methods</td>
+      <td>Custom rule</td>
+      <td>Block</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
+      </td>
+      <td>Allows only methods expected by the public redirect hostname.</td>
+    </tr>
+    <tr>
+      <td>Challenge suspicious clients</td>
+      <td>Custom rule</td>
+      <td>Managed Challenge</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
 not cf.client.bot and
 not starts_with(http.request.uri.path, "/_stats") and
 not starts_with(http.request.uri.path, "/_tests") and
-http.request.uri.path ne "/robots.txt"
-```
+http.request.uri.path ne "/robots.txt"</code></pre>
+      </td>
+      <td>Exclude verified bots, protected operator paths, and `robots.txt`.</td>
+    </tr>
+    <tr>
+      <td>Block unwanted AI crawlers</td>
+      <td>Custom rule</td>
+      <td>Block</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+http.request.uri.path ne "/robots.txt" and (
+  lower(http.user_agent) contains "applebot" or
+  lower(http.user_agent) contains "chatgpt-user" or
+  lower(http.user_agent) contains "claudebot" or
+  lower(http.user_agent) contains "gptbot" or
+  lower(http.user_agent) contains "perplexitybot"
+)</code></pre>
+      </td>
+      <td>Use only for crawlers not covered by **Block AI bots**; keep `/robots.txt` reachable.</td>
+    </tr>
+    <tr>
+      <td>Rate limit short-link candidates</td>
+      <td>Rate limiting rule</td>
+      <td>Block or challenge</td>
+      <td>
+        <pre><code>http.host in {"dicai.re" "www.dicai.re"} and
+not cf.client.bot and
+http.request.method in {"GET" "HEAD"} and
+not starts_with(http.request.uri.path, "/_") and
+http.request.uri.path ne "/robots.txt"</code></pre>
+      </td>
+      <td>Count repeated misses and scanner-like candidates, not successful redirects.</td>
+    </tr>
+  </tbody>
+</table>
 
-Use the expression editor for nested rules, paste and validate one complete expression at a time, save rules disabled while tuning, then enable them after checking Security Events.
+Paste and validate one complete expression at a time. Deploy rules disabled while tuning if traffic is already flowing, then enable them after checking Security Events.
 
 ### Decide crawler controls
 
