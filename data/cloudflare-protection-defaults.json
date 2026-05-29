@@ -207,14 +207,14 @@
           {"name": "Security overview", "charts": 9},
           {"name": "Traffic overview", "charts": 17}
         ],
-        "website_documentation": "Do not document the default dashboard cards as required configuration. Mention Cloudflare dashboards as optional infrastructure review surfaces."
+        "website_documentation": "Do not document the default dashboard cards as required configuration. Mention Cloudflare dashboards only in the analytics reference as optional infrastructure review surfaces."
       },
       "Web analytics": {
         "Real User Measurements (RUM)": {
           "default_state": "disabled",
           "message": "No data available. Enable RUM for free to view the real user data.",
           "actions": ["Enable Globally", "Exclude EU"],
-          "website_documentation": "Document that vanityURLs does not require Cloudflare browser RUM. Prefer Worker server-side analytics for application events."
+          "website_documentation": "Document in the analytics reference that vanityURLs does not require Cloudflare browser RUM and the baseline keeps it disabled."
         }
       },
       "Performance": {
@@ -1162,9 +1162,7 @@
       "Use the Worker custom domain for the apex short domain; zone-level Workers Routes are not required for the normal vanityURLs setup.",
       "Use modern Rules sparingly for edge controls, prefer Worker and repository behavior for redirects, status pages and link inventory, and document URL normalization.",
       "Keep Network settings simple: IPv6, IP Geolocation, Network Error Logging and Onion Routing on; gRPC and Pseudo IPv4 off; WebSockets off unless a custom page requires them.",
-      "Use Cloudflare Security Events and Analytics for traffic blocked before the Worker.",
-      "Use Workers analytics for infrastructure request volume, errors, CPU time, wall time and duration.",
-      "Use vanityURLs server-side analytics for redirects, short-link misses, expand lookups and normalized bot events."
+      "Keep Cloudflare Web Analytics RUM disabled unless the operator intentionally wants browser-side performance telemetry outside the Worker event model."
     ],
     "do_not_document_as_required_setup": [
       "Zero request counts from the default capture.",

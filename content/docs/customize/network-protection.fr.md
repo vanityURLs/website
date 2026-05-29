@@ -288,19 +288,4 @@ Gardez le caching sobre pour un redirecteur :
 - Ne creez pas de Cache Rules ni de Cache Response Rules pour le baseline
 - Si des Cache Rules ou Cache Response Rules existent, desactivez-les ou supprimez-les avant la mise en production
 
-### Consulter la bonne surface analytics
-
-Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > **Analytics** pour les evenements WAF, bot et rate-limit, **Analytics** > **Workers** pour les metriques d'infrastructure Worker, et **DNS** > **Analytics** pour les diagnostics DNS.
-
-Utilisez les analytics Cloudflare et Security Events pour les decisions d'infrastructure :
-
-- Statut DNS, certificat et TLS
-- Requetes Worker, erreurs, temps CPU, wall time et duree des requetes
-- Evenements WAF, rate limiting, bot et crawler IA
-- Decisions de connexion Access pour les chemins proteges
-
-Utilisez les [Analytics](/fr/docs/customize/analytics/) serveur vanityURLs pour les evenements applicatifs comme pageviews, redirections, misses de liens courts, recherches expand et evenements bot normalises qui atteignent le Worker.
-
-Le trafic bloque par WAF, AI Crawl Control, Access ou rate limiting n'atteint pas le Worker et doit etre consulte dans Cloudflare Security Events.
-
 {{% /steps %}}

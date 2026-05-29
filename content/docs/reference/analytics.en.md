@@ -10,6 +10,8 @@ aliases:
 
 vanityURLs analytics runs inside the Cloudflare Worker. It does not require browser tracking JavaScript, cookies, or a visitor account.
 
+Cloudflare Web Analytics and Real User Measurement (RUM) are not part of the vanityURLs baseline. Leave Cloudflare RUM disabled unless an operator intentionally wants browser-side performance telemetry outside the redirector's server-side event model.
+
 The Worker sends analytics with `ctx.waitUntil()`.[^wait-until] Redirects and pages should continue responding even when the analytics provider is slow or unavailable.
 
 Provider limits are account- and product-specific. Verify the current vendor documentation and the plan attached to the instance before enabling high-volume collection.
@@ -47,6 +49,13 @@ Configure analytics with Worker variables in `wrangler.toml` and Worker secrets 
 Scanner probes matched by the runtime blocklist return a plain `404` before analytics. Common PHP and WordPress probes should not pollute miss metrics.
 
 Requests blocked by Cloudflare before the Worker do not emit vanityURLs analytics events. Use Cloudflare Security Events and Cloudflare analytics for traffic blocked by Access, WAF, rate limiting, bot controls, crawler controls, DNS, or TLS policy.
+
+Cloudflare analytics surfaces are reference tools, not setup requirements:
+
+- **Security Events**: traffic blocked before the Worker by WAF, rate limiting, Access, bot controls, or AI Crawl Control
+- **Workers analytics**: infrastructure request volume, errors, CPU time, wall time, and duration
+- **DNS Analytics**: DNS diagnostics when investigating routing or delegation issues
+- **Web Analytics / RUM**: disabled by default and not planned for the baseline
 
 ## Umami Payload
 

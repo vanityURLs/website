@@ -288,19 +288,4 @@ Keep caching boring for a redirector:
 - Do not create Cache Rules or Cache Response Rules for the baseline
 - If any Cache Rules or Cache Response Rules exist, disable or delete them before go-live
 
-### Review the right analytics surface
-
-In Cloudflare, open **Domains** > **your short domain** > **Security** > **Analytics** for WAF, bot, and rate-limit events, **Analytics** > **Workers** for Worker infrastructure metrics, and **DNS** > **Analytics** for DNS diagnostics.
-
-Use Cloudflare analytics and Security Events for infrastructure decisions:
-
-- DNS, certificate, and TLS status
-- Worker requests, errors, CPU time, wall time, and request duration
-- WAF, rate limiting, bot, and AI crawler events
-- Access login decisions for protected paths
-
-Use vanityURLs server-side [Analytics](/docs/customize/analytics/) for application events such as pageviews, redirects, short-link misses, expand lookups, and normalized bot events that reach the Worker.
-
-Traffic blocked by WAF, AI Crawl Control, Access, or rate limiting does not reach the Worker and should be reviewed in Cloudflare Security Events.
-
 {{% /steps %}}
