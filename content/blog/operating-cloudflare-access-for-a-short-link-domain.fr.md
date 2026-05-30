@@ -1,53 +1,59 @@
 ---
-title: "Exploiter Cloudflare Access pour un domaine de liens courts"
+title: "Cloudflare Access n'est pas une case a cocher"
 date: 2026-05-26
-description: "Quand revoir les réglages Cloudflare Access et où regarder lorsque les chemins privés vanityURLs sont bloqués"
+description: "Quand revoir les reglages Cloudflare Access et ou regarder lorsque les chemins prives vanityURLs sont bloques"
 tags: ["cloudflare", "access", "operations"]
 ---
 
-Cloudflare Access est facile à traiter comme une case à cocher : protéger `/_stats`, protéger `/_tests`, passer à autre chose. Cela fonctionne le premier jour, mais le contrôle d'accès devient opérationnel dès qu'une autre personne peut se connecter, qu'un domaine change de compte, ou qu'une capture d'écran expose des valeurs sensibles.
+Le mode d'echec est ordinaire. Quelqu'un ouvre `/_stats` dans une fenetre de navigation privee et voit le tableau de bord au lieu de la page de connexion Cloudflare Access.
 
-Pour vanityURLs, Access a un rôle étroit. Les redirections publiques restent publiques. Les chemins opérationnels restent privés. Le travail important consiste à garder cette frontière évidente.
+C'est tout le probleme. Les redirections publiques doivent rester publiques. Les pages operationnelles ne devraient pas l'etre.
 
-### Revoir Access quand quelque chose change
+Pour vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) a un travail etroit : garder `/_stats`, `/_tests` et les surfaces operateur similaires privees avant que le Worker les serve. Traitez-le comme une frontiere d'acces, pas comme un souvenir de setup.
 
-Révisez votre application Access quand :
+## Revoir Quand La Propriete Change
+
+Revisez l'application Access quand :
 
 - un mainteneur arrive ou quitte
-- le domaine court passe à un nouveau compte Cloudflare
-- le domaine d'équipe Access change
-- vous passez du code à usage unique à GitHub, Google ou un autre fournisseur d'identité
-- une capture d'écran, un journal, une issue ou un dépôt expose accidentellement des valeurs de configuration Access
+- le domaine court passe a un nouveau compte Cloudflare
+- le domaine d'equipe Access change
+- le fournisseur d'identite passe du code a usage unique a GitHub, Google ou un IdP corporatif
+- une capture d'ecran, un journal, une issue ou un depot expose des valeurs de configuration Access
 
-Pour une instance personnelle, cela peut être une revue trimestrielle rapide. Pour une instance d'équipe, cela devrait suivre le même rythme que les autres outils opérationnels.
+Pour une instance personnelle, ce peut etre une revue trimestrielle. Pour une instance d'equipe, mettez-la au meme rythme que les autres revues d'acces des outils operationnels.
 
-### Savoir où va le trafic bloqué
+## Diagnostiquer A La Bonne Couche
 
-Le trafic bloqué par Cloudflare Access n'atteint jamais le Worker. Cela signifie que :
+Le trafic bloque par Access n'atteint jamais le Worker.
 
-- Umami et Fathom ne montreront pas ces requêtes bloquées
-- les logs Worker vanityURLs n'expliqueront pas les échecs de connexion Access
-- les logs Cloudflare Access et les Security Events sont le bon endroit pour investiguer
+Cela signifie qu'Umami et Fathom ne montreront pas ces requetes bloquees. Les logs Worker n'expliqueront pas les echecs de connexion Access. Les bonnes preuves vivent dans les logs Cloudflare Access et les [Security Events](https://developers.cloudflare.com/waf/analytics/security-events/).
 
-C'est une protection, pas une métrique manquante. Le Worker ne devrait jamais avoir à décider si une personne non authentifiée peut lire votre inventaire de liens.
+Ce n'est pas une metrique manquante. C'est le controle qui fonctionne a la bonne couche. Le Worker ne devrait pas decider si une personne non authentifiee peut lire l'inventaire de liens.
 
-### Garder les secrets hors de Git
+## Garder Les Valeurs Sensibles Hors De Git
 
-Le domaine d'équipe Access dans `wrangler.toml` n'est pas un secret. Le Application Audience (AUD) Tag est sensible opérationnellement et devrait être stocké comme secret Worker :
+Le domaine d'equipe Access dans `wrangler.toml` n'est pas un secret.
+
+Le tag Application Audience (AUD) est sensible operationnellement. Stockez-le comme secret Worker :
 
 ```bash
 npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Ne commitez pas les audiences Access, secrets client OAuth, jetons de service ou captures d'écran qui contiennent ces valeurs. Gardez-les dans Cloudflare et dans votre gestionnaire de mots de passe.
+Ne commitez pas les audiences Access, secrets client OAuth, jetons de service ou captures d'ecran qui contiennent ces valeurs. Gardez-les dans Cloudflare et dans un gestionnaire de mots de passe.
 
-### Commencer petit, puis resserrer
+## Le Petit Depart Est Correct
 
-Le chemin pratique est simple :
+Commencez avec le code a usage unique et des adresses courriel nommees.
 
-1. Commencez avec le code à usage unique et des adresses courriel nommées
-2. Confirmez que les utilisateurs déconnectés voient Cloudflare Access avant `/_stats` et `/_tests`
-3. Passez à GitHub, Google ou un IdP corporatif lorsque l'équipe ou le workflow le justifie
-4. Remplacez les longues listes individuelles par des groupes maintenus lorsque l'offboarding devient un vrai enjeu
+Ensuite, testez ce qui compte :
 
-Les étapes de configuration vivent dans [Contrôle d'accès](/fr/docs/customize/access-control/). Les compromis entre fournisseurs vivent dans [Choisir un fournisseur d'identité](/fr/blog/choosing-identity-provider/).
+1. Ouvrez un profil de navigateur deconnecte ou prive.
+2. Visitez `https://<short-domain>/_stats`.
+3. Confirmez que Cloudflare Access apparait avant le tableau de bord.
+4. Repetez pour `/_tests`.
+
+Passez a GitHub, Google ou un IdP corporatif lorsque l'equipe ou le workflow le justifie. Remplacez les longues listes individuelles par des groupes maintenus lorsque l'offboarding devient un vrai enjeu.
+
+Les etapes de configuration vivent dans [Controle d'acces](/fr/docs/customize/access-control/). Les compromis entre fournisseurs vivent dans [Choisir un fournisseur d'identite](/fr/blog/choosing-identity-provider/).

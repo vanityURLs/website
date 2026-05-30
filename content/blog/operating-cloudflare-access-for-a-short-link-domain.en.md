@@ -1,53 +1,59 @@
 ---
-title: "Operating Cloudflare Access for a Short-Link Domain"
+title: "Cloudflare Access is not a checkbox"
 date: 2026-05-26
 description: "When to review Cloudflare Access settings and where to look when private vanityURLs paths are blocked"
 tags: ["cloudflare", "access", "operations"]
 ---
 
-Cloudflare Access is easy to treat as a one-time checkbox: protect `/_stats`, protect `/_tests`, move on. That works for day one, but access control becomes operational the moment another person can sign in, a domain moves between accounts, or someone posts a screenshot with sensitive values in it.
+The failure mode is ordinary. Someone opens `/_stats` from a private browser window and sees the dashboard instead of the Cloudflare Access login page.
 
-For vanityURLs, Access has a narrow job. Public redirects stay public. Operational paths stay private. The important work is keeping that boundary obvious.
+That is the whole problem. Public redirects should stay public. Operational pages should not.
 
-### Review Access When Something Changes
+For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) has one narrow job: keep `/_stats`, `/_tests`, and similar operator surfaces private before the Worker serves them. Treat it as an access boundary, not a setup souvenir.
 
-Review your Access application when:
+## Review It When Ownership Changes
 
-- A maintainer joins or leaves
-- The short domain moves to a new Cloudflare account
-- The Access Team domain changes
-- You switch from one-time PIN to GitHub, Google, or another identity provider
-- A screenshot, log, issue, or repository accidentally exposes Access configuration values
+Review the Access application when:
 
-For a personal instance, this may be a quick quarterly look. For a team instance, it should follow the same access review rhythm as the rest of your operational tooling.
+- a maintainer joins or leaves
+- the short domain moves to a new Cloudflare account
+- the Access team domain changes
+- the identity provider changes from one-time PIN to GitHub, Google, or a corporate IdP
+- a screenshot, log, issue, or repository exposes Access configuration values
 
-### Know Where Blocked Traffic Goes
+For a personal instance, that may be a quarterly look. For a team instance, put it on the same access-review rhythm as the rest of the operational tooling.
 
-Traffic blocked by Cloudflare Access never reaches the Worker. That means:
+## Debug At The Right Layer
 
-- Umami and Fathom will not show those blocked requests
-- vanityURLs Worker logs will not explain Access login failures
-- Cloudflare Access logs and Security Events are the right place to investigate
+Traffic blocked by Access never reaches the Worker.
 
-This is a feature, not a missing metric. The Worker should never need to decide whether an unauthenticated person can read your link inventory.
+That means Umami and Fathom will not show those blocked requests. Worker logs will not explain failed Access logins. The right evidence lives in Cloudflare Access logs and [Security Events](https://developers.cloudflare.com/waf/analytics/security-events/).
 
-### Keep Secrets Out of Git
+This is not a missing metric. It is the control working at the correct layer. The Worker should not decide whether an unauthenticated person can read the link inventory.
 
-The Access Team domain in `wrangler.toml` is not a secret. The Application Audience (AUD) Tag is operationally sensitive and should be stored as a Worker secret:
+## Keep The Sensitive Values Out Of Git
+
+The Access team domain in `wrangler.toml` is not a secret.
+
+The Application Audience (AUD) tag is operationally sensitive. Store it as a Worker secret:
 
 ```bash
 npx wrangler secret put CF_ACCESS_AUD --config wrangler.toml
 ```
 
-Do not commit Access audiences, OAuth client secrets, service tokens, or screenshots that contain those values. Keep them in Cloudflare and in your password manager.
+Do not commit Access audiences, OAuth client secrets, service tokens, or screenshots that contain those values. Keep them in Cloudflare and in a password manager.
 
-### Start Small, Then Tighten
+## The Small Start Is Fine
 
-The practical path is simple:
+Start with one-time PIN and named email addresses.
 
-1. Start with one-time PIN and named email addresses
-2. Confirm signed-out users hit Cloudflare Access before `/_stats` and `/_tests`
-3. Move to GitHub, Google, or a corporate IdP when the team or workflow justifies it
-4. Replace long individual allowlists with maintained groups when offboarding becomes a real concern
+Then test the thing that matters:
+
+1. Open a signed-out or private browser profile.
+2. Visit `https://<short-domain>/_stats`.
+3. Confirm Cloudflare Access appears before the dashboard.
+4. Repeat for `/_tests`.
+
+Move to GitHub, Google, or a corporate IdP when the team or workflow justifies it. Replace long individual allowlists with maintained groups when offboarding becomes a real concern.
 
 The setup steps live in [Access control](/docs/customize/access-control/). The provider tradeoffs live in [Choosing an Identity Provider](/blog/choosing-identity-provider/).
