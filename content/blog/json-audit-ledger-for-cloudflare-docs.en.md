@@ -9,11 +9,11 @@ featured: false
 
 The problem showed up in the usual small way: a Cloudflare dashboard label moved, a setup page still named the old path, and the next maintainer had to decide whether the documentation was stale or the product guidance had changed.
 
-vanityURLs stands on Cloudflare's shoulders. That is the point. A short-link redirector should not need a fleet of servers, a database, or a private control plane. It can run on [Cloudflare Workers](https://developers.cloudflare.com/workers/), publish static operational pages with [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/), and let Cloudflare stop noisy traffic before the Worker executes.
+vanityURLs stands on Cloudflare's shoulders. That is the point. A short-link redirector should not need a fleet of servers, a database, or a private control plane. It can run on Cloudflare's serverless architecture and let Cloudflare stop noisy traffic before the Worker executes.
 
-The thesis is simple: when an external platform is part of the operating model, prose is not enough. vanityURLs needs a small, structured audit ledger beside its docs so maintainers can tell the difference between platform drift, product decisions, and old instructions.
+When an external platform is part of the operating model, how can you tell the difference between platform drift, product decisions, and old instructions?
 
-As of 2026-05-29, that ledger is [`data/cloudflare-protection-defaults.json`](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). `Last verified: 2026-05-29`
+vanityURLs' dev team was looking for a small, structured audit ledger to keep track. As of 2026-05-29, that ledger is [`data/cloudflare-protection-defaults.json`](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). `Last verified: 2026-05-29`
 
 ## What The Ledger Is
 

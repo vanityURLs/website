@@ -1,60 +1,45 @@
 ---
-title: "Cloudflare products outside the vanityURLs baseline"
+title: "Cloudflare products vanityURLs leaves out"
 date: 2026-05-29
 author: "Benoît H. Dicaire"
-description: "Why some visible Cloudflare products are useful to know about but are not part of the default vanityURLs setup."
+description: "The Cloudflare products vanityURLs documents as non-baseline, and why they stay outside the default setup."
 tags: ["cloudflare", "operations", "baseline"]
 featured: false
 ---
 
-Cloudflare exposes a broad set of useful products in its dashboard. vanityURLs deliberately uses only a narrow subset by default.
+Cloudflare has more useful products than a short-link redirector should use.
 
-That does not make the other products wrong for every deployment. It means a short-link redirector benefits from a small, predictable operating model: DNS, TLS, a Worker, Access for protected operational surfaces, and edge protection before traffic reaches the Worker.
+That is not a criticism of Cloudflare. It is an operating boundary. vanityURLs uses [Cloudflare DNS](https://www.cloudflare.com/products/dns/), [Cloudflare Workers](https://www.cloudflare.com/products/workers/), [Cloudflare Access](https://www.cloudflare.com/products/access/), SSL/TLS, and selected edge protections. The baseline product list lives in [Cloudflare products](/docs/reference/cloudflare-products/). The detailed setup lives in [Network protection](/docs/customize/network-protection/).
 
-Some Cloudflare products are worth understanding, but they should not become setup steps unless an operator makes a deliberate choice.
+This page records the other side of that decision: products that are visible, useful in the right deployment, and still not part of the default vanityURLs setup.
 
-## Cloudflare Web Analytics and RUM
+## The Exclusion Test
 
-[Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) and Real User Measurement can collect browser-side performance and visitor data.
+A Cloudflare product belongs in the baseline only if it protects or serves one of four surfaces:
 
-That is outside the vanityURLs baseline. The redirector can send server-side events from the Worker to Umami or Fathom when analytics are enabled. That model avoids adding a browser-side telemetry script to public pages and fits the product questions vanityURLs cares about: redirects, misses, expand lookups, public pageviews, and normalized bot events that reached the Worker.
+- DNS and TLS for the short domain
+- the Worker runtime
+- protected operational pages such as `/_stats` and `/_tests`
+- edge controls that reject traffic before the Worker runs
 
-Leave Cloudflare RUM disabled unless the operator explicitly wants browser-side performance telemetry in addition to the Worker event model.
+Everything else needs a specific local reason.
 
-## Cloudflare Bulk Redirects
+## Non-Baseline Products
 
-[Cloudflare Bulk Redirects](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/) are useful for large static redirect lists.
+| Product | Why it stays out of the baseline |
+| --- | --- |
+| [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/) and [Real User Monitoring](https://developers.cloudflare.com/speed/observatory/rum/) | They add browser-side telemetry. vanityURLs uses server-side events from the Worker when analytics are enabled. |
+| [Bulk Redirects](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/) | They create a second redirect system beside the Git-managed link registry and Worker resolver. |
+| [Cache Rules](https://developers.cloudflare.com/cache/how-to/cache-rules/) and Cache Response Rules | They can preserve stale redirect decisions, lifecycle states, or analytics gaps. Static assets already carry their own headers. |
+| [Cloudflare Turnstile](https://www.cloudflare.com/application-services/products/turnstile/) | It protects forms and interactive flows. The stock redirector has no public submission form, visitor login, checkout, or comment box. |
+| [Workers Analytics](https://developers.cloudflare.com/workers/observability/metrics-and-analytics/) | It is an observability surface, not a setup step. Use it after deployment for Worker health, not application event counts. |
 
-They are not the Worker-based vanityURLs source of truth. vanityURLs stores links in the repository, builds a runtime registry, and resolves exact links, splats, schedules, lifecycle states, expand previews, and analytics behavior inside the Worker.
+As of the 2026-05-29 dashboard capture, these exclusions are also tracked in [`data/cloudflare-protection-defaults.json`](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). `Last verified: 2026-05-29`
 
-Using Bulk Redirects for normal vanityURLs links would create a second redirect system. That makes troubleshooting harder because the operator must determine whether a redirect came from Git, a Worker rule, a legacy Page Rule, or a Bulk Redirect list.
+## The Tradeoff
 
-## Cloudflare Cache Rules
+Leaving a product out can feel wasteful. The dashboard is right there.
 
-[Cloudflare Cache Rules](https://developers.cloudflare.com/cache/how-to/cache-rules/) are powerful, but they are not part of the vanityURLs baseline.
+But every extra product can add a second source of truth, a paid-plan dependency, browser-side code, or another place to debug a redirect that should have been boring.
 
-Redirect decisions belong in the Worker. The Worker and static asset headers decide what should be `no-store`, `no-index`, or cacheable. Adding Cache Rules or Cache Response Rules risks stale redirects, stale lifecycle states, hidden analytics gaps, and confusing misses.
-
-For the baseline, keep Cache Rules and Cache Response Rules empty.
-
-## Cloudflare Turnstile
-
-[Cloudflare Turnstile](https://www.cloudflare.com/application-services/products/turnstile/) protects forms and interactive application flows from automated abuse.
-
-The default vanityURLs instance does not expose a public form, link creation API, comment box, login form, or checkout flow. Protected operational surfaces are handled by Cloudflare Access instead.
-
-Turnstile can become relevant if an operator builds a custom public submission flow around vanityURLs, but it is not part of the stock redirector.
-
-## Cloudflare Workers Analytics
-
-[Cloudflare Workers Analytics](https://developers.cloudflare.com/workers/observability/metrics-and-analytics/) is useful for infrastructure review. It can help operators understand Worker request volume, errors, CPU time, wall time, and duration.
-
-It is not a separate product to configure during Quickstart. It is an observability surface to consult after deployment.
-
-For application events, use vanityURLs server-side analytics if enabled. For traffic blocked before the Worker, use Cloudflare Security Events. For Worker infrastructure health, use Workers Analytics.
-
-## The rule
-
-If a Cloudflare product does not protect the DNS/TLS layer, the Worker path, the short domain, or protected operational surfaces, it is probably not part of the baseline.
-
-Write down the reason before enabling it. That keeps the redirector small, the documentation honest, and future troubleshooting less surprising.
+Use the excluded products when the deployment actually needs them. Write down the reason when you do. Otherwise, leave the redirector small.

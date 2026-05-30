@@ -1,5 +1,5 @@
 ---
-title: "Cloudflare features not to enable by default"
+title: "Do not turn every Cloudflare knob"
 date: 2026-05-28
 author: "Benoît H. Dicaire"
 description: "Which Cloudflare dashboard features a vanityURLs instance should leave alone unless there is a specific operational reason."
@@ -7,71 +7,52 @@ tags: ["cloudflare", "security", "operations"]
 featured: false
 ---
 
-Cloudflare gives a short-link operator a very large dashboard. That does not mean every feature belongs in the default vanityURLs setup.
+The Cloudflare dashboard is not a checklist.
 
-A vanityURLs instance already has a narrow shape: a Cloudflare Worker, Worker Static Assets, a Git-managed link registry, optional server-side analytics, and a few Cloudflare controls in front of the Worker. The safest default is to configure the controls that protect that shape, then leave unrelated products alone until a real requirement appears.
+That is the rule. A vanityURLs instance has a narrow job: serve short links from a Worker, keep operational pages behind Access, and let Cloudflare reject obvious noise before application code runs. The baseline controls are documented in [Network protection](/docs/customize/network-protection/). The product inventory is documented in [Cloudflare products](/docs/reference/cloudflare-products/).
 
-## Start with the layer that exists
+This post is the negative space. It names the knobs that should stay off unless an operator has a reason that survives writing down.
 
-Use Cloudflare for DNS, TLS, WAF rules, bot controls, AI crawler controls, Access, URL normalization, conservative cache behavior, Worker analytics, and Security Events. Those features protect the actual redirector path before traffic reaches application code.
+## Keep One Redirect System
 
-Do not add features because they are visible in the dashboard. Each extra product can change traffic, inject scripts, create another source of truth, add paid-plan dependencies, or make debugging harder.
+Do not configure legacy Page Rules, Bulk Redirects, redirect templates, or zone-level Workers Routes as the default link-management path.
 
-## Leave product-unrelated surfaces alone
+vanityURLs already has a [link registry](/docs/reference/glossary/#link-registry), generated runtime data, lifecycle states, schedules, splats, expand pages, and Worker-side analytics. Another redirect surface turns troubleshooting into archaeology.
 
-Argo Smart Routing, Email Routing, DMARC Management, Email Security, Cache Reserve, Smart Shield, Web3 Gateways, and most Error Pages features solve problems outside the normal vanityURLs runtime.
+Use a second redirect system only when it has a documented boundary. For example: a one-time migration rule, a hostname outside the vanityURLs Worker, or a static list that is intentionally not part of the repository-managed registry.
 
-For a default short-link instance:
+## Keep The Browser Out Of Analytics
 
-- there is no origin server for Argo, Cache Reserve, or Smart Shield to optimize
-- email security products do not protect redirects
-- Web3 Gateways are interesting only if operators later ask for decentralized content workflows
-- custom Cloudflare error pages are optional polish, not part of redirect correctness
+Do not enable Cloudflare Web Analytics or RUM by default.
 
-This does not make those products bad. It means they should not become setup steps for every operator.
+Both can be useful. Both make the visitor's browser participate. The default vanityURLs posture is server-side analytics from the Worker to Umami or Fathom, if analytics are enabled at all.
 
-## Avoid competing redirect systems
+Use Cloudflare infrastructure views for Worker health and edge decisions. Use vanityURLs application analytics for redirects, misses, expand lookups, pageviews, and normalized bot events that reached the Worker.
 
-Do not configure legacy Page Rules, Bulk Redirects, or Cloudflare redirect templates as the default way to manage links. vanityURLs already treats links as source-controlled data in Git, builds a runtime registry, and lets the Worker resolve exact, dynamic, scheduled, and lifecycle-aware links.
+## Avoid API Inventory Without An API
 
-Adding another redirect system creates two sources of truth. The next person debugging a wrong destination has to ask whether the redirect came from `custom/v8s-links.txt`, a Worker rule, a Page Rule, a Bulk Redirect list, or a dashboard template. That is not a feature; that is fog.
+Leave Web Assets, API Discovery, Endpoint Management, and Schema Validation out of the default setup.
 
-Zone-level Workers Routes are similar. A normal vanityURLs instance should use the Worker custom domain for the apex short domain. Add zone-level routes only when you have a deliberate, documented routing pattern that the custom domain cannot express.
+They make sense for an application with a real public API and a schema to enforce. The public vanityURLs surface is mostly `GET` and `HEAD` requests to slugs. Blocking redirect traffic against an API inventory would add more machinery than protection.
 
-## Do not inject browser analytics by default
+## Keep Edge Code In The Worker
 
-Cloudflare Web Analytics and RUM rely on a JavaScript beacon that runs in the visitor's browser. Cloudflare documents both manual snippets and automatic injection for proxied sites and Pages projects.
+Do not add Cloudflare Snippets or Cloud Connector for the stock instance.
 
-That is not the default vanityURLs privacy posture. The redirector can emit server-side events from the Worker to Umami or Fathom without adding client-side tracking JavaScript, browser identifiers, or another script in public pages. Those events also map better to the product questions vanityURLs cares about: redirects, misses, expand lookups, pageviews, and normalized bot events that reached the Worker.
+The Worker is already the edge code boundary. Workers Static Assets already serves the shipped public files. A second edge-code path makes behavior harder to review and harder to test.
 
-Use Cloudflare analytics for infrastructure questions. Use Umami or Fathom for application events. Avoid making the browser participate unless an operator explicitly chooses that tradeoff.
+Use Snippets only for an extension that can be explained in one sentence and tested independently.
 
-## Treat API and app-security inventory as optional
+## Keep Certificates Boring
 
-Cloudflare Web Assets, API Discovery, Endpoint Management, and Schema Validation are built for API and application inventories. They can discover endpoints, manage API paths, and validate requests against OpenAPI schemas.
+Start with Universal SSL, Full strict mode, HTTPS enforcement, TLS 1.3, and HSTS only after the zone is ready.
 
-That is useful for a JSON API. It is not the default model for a short-link redirector whose public interface is mostly `GET` and `HEAD` requests to slugs. vanityURLs does not ship an OpenAPI-controlled public API for visitors, and blocking redirect traffic against an API schema would be more complexity than protection.
+Advanced Certificate Manager, custom cipher controls, and similar certificate work belong to deployments with a real certificate requirement. They are not prerequisites for a working short domain.
 
-Consider these tools only if your instance grows a real API or custom application surface beyond vanityURLs redirects and public pages.
+## The Short Version
 
-## Keep edge code in one place
+If a feature does not protect DNS/TLS, the Worker path, the short domain, or protected operational pages, it is not part of the default setup.
 
-Cloudflare Snippets run small pieces of JavaScript from Rules. Cloud Connector can route traffic to storage providers such as R2, Amazon S3, Google Cloud Storage, or Azure Storage.
+As of the 2026-05-29 dashboard capture, the raw list of visible baseline and non-baseline Cloudflare surfaces lives in [`data/cloudflare-protection-defaults.json`](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). `Last verified: 2026-05-29`
 
-For vanityURLs, the Worker is already the edge code boundary, and Worker Static Assets already serves the shipped public files. Snippets would duplicate logic that belongs in the Worker or in the repository. Cloud Connector would introduce another routing path for files the Worker asset binding already handles.
-
-Use them only for an intentional extension that you can explain in one sentence and test independently.
-
-## Certificates: use the simple path first
-
-Universal SSL, Full strict mode, TLS 1.3, HTTPS enforcement, and HSTS after readiness are enough for the normal setup. Advanced Certificate Manager is useful when an operator needs custom certificate behavior, additional certificate controls, or a requirement that Universal SSL does not satisfy.
-
-Do not turn certificate management into an advanced project before the short domain is even redirecting correctly.
-
-## The rule of thumb
-
-If a Cloudflare feature does not protect the Worker path, the short domain, the DNS/TLS layer, or the private operational pages, it is probably not part of the default setup.
-
-Write down the reason before enabling anything else. Future-you will be kinder to present-you than the Cloudflare dashboard is.
-
-Use [Network protection](/docs/customize/network-protection/) for the baseline settings that should be configured by default.
+The tradeoff is deliberate. vanityURLs gives up some dashboard convenience so the redirector has one runtime, one registry, and fewer places for stale state to hide.
