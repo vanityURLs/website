@@ -2,7 +2,7 @@
 aside: false
 title: "Marque"
 description: "Decider les valeurs de marque publiques utilisees par les pages vanityURLs gerees par l'installateur."
-weight: 20
+weight: 12
 aliases:
   - /docs/brand/
   - /fr/docs/brand/
