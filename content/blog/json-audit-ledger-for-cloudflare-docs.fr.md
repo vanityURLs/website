@@ -66,15 +66,15 @@ cloudflare_surface:
 
 Au 2026-05-29, voici les sources Cloudflare a surveiller pour vanityURLs :
 
-| Surface | Source primaire |
+| Surface | Changelog produit |
 | --- | --- |
-| Changements larges de produit et de tableau de bord | [Changelog Cloudflare](https://developers.cloudflare.com/changelog/) |
-| Runtime Worker, Wrangler, Workers Builds et comportement du tableau de bord Workers | [Changelog Workers platform](https://developers.cloudflare.com/workers/platform/changelog/) et [changelog produit Workers](https://developers.cloudflare.com/changelog/product/workers/) |
-| Regles WAF gerees et posture de securite applicative | [Changelog WAF](https://developers.cloudflare.com/waf/change-log/) et [changelog Application Security](https://developers.cloudflare.com/changelog/product-group/application-security/) |
-| Rules, transforms, redirects et normalisation d'URL | [Changelog Rules](https://developers.cloudflare.com/rules/changelog/) et [changelog produit Rules](https://developers.cloudflare.com/changelog/product/rules/) |
-| UI DNS, DNSSEC, enregistrements proxifies et routage de domaine | [Changelog DNS](https://developers.cloudflare.com/dns/changelog/) |
-| SSL/TLS, certificats, controles proches de HSTS et comportement des certificats edge | [Changelog SSL/TLS](https://developers.cloudflare.com/ssl/changelog/) |
-| Access, navigation Zero Trust et comportement des politiques | [Changelog Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/) et [changelog produit Cloudflare One](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
+| Changements larges de produit et de tableau de bord | - [Cloudflare](https://developers.cloudflare.com/changelog/) |
+| Runtime Worker, Wrangler, Workers Builds et comportement du tableau de bord Workers | - [Workers platform](https://developers.cloudflare.com/workers/platform/changelog/)<br>- [Workers product](https://developers.cloudflare.com/changelog/product/workers/) |
+| Regles WAF gerees et posture de securite applicative | - [WAF](https://developers.cloudflare.com/waf/change-log/)<br>- [Application Security](https://developers.cloudflare.com/changelog/product-group/application-security/) |
+| Rules, transforms, redirects et normalisation d'URL | - [Rules](https://developers.cloudflare.com/rules/changelog/)<br>- [Rules product](https://developers.cloudflare.com/changelog/product/rules/) |
+| UI DNS, DNSSEC, enregistrements proxifies et routage de domaine | - [DNS](https://developers.cloudflare.com/dns/changelog/) |
+| SSL/TLS, certificats, controles proches de HSTS et comportement des certificats edge | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/) |
+| Access, navigation Zero Trust et comportement des politiques | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
 
 Ces flux ne repondent pas aux memes questions.
 

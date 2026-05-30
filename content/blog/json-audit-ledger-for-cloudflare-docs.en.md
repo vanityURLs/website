@@ -66,15 +66,15 @@ cloudflare_surface:
 
 As of 2026-05-29, these are the Cloudflare sources worth watching for vanityURLs:
 
-| Area | Primary source |
+| Area | Product changelog |
 | --- | --- |
-| Broad product and dashboard changes | [Cloudflare changelog](https://developers.cloudflare.com/changelog/) |
-| Worker runtime, Wrangler, Workers Builds, and Workers dashboard behavior | [Workers platform changelog](https://developers.cloudflare.com/workers/platform/changelog/) and [Workers product changelog](https://developers.cloudflare.com/changelog/product/workers/) |
-| WAF managed rules and application security posture | [WAF changelog](https://developers.cloudflare.com/waf/change-log/) and [Application Security changelog](https://developers.cloudflare.com/changelog/product-group/application-security/) |
-| Rules, transforms, redirects, and URL normalization behavior | [Rules changelog](https://developers.cloudflare.com/rules/changelog/) and [Rules product changelog](https://developers.cloudflare.com/changelog/product/rules/) |
-| DNS zone UI, DNSSEC, proxied records, and domain routing | [DNS changelog](https://developers.cloudflare.com/dns/changelog/) |
-| SSL/TLS, certificates, HSTS-adjacent controls, and edge certificate behavior | [SSL/TLS changelog](https://developers.cloudflare.com/ssl/changelog/) |
-| Access, Zero Trust dashboard navigation, and policy behavior | [Cloudflare One changelog](https://developers.cloudflare.com/cloudflare-one/changelog/) and [Cloudflare One product changelog](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
+| Broad product and dashboard changes | - [Cloudflare](https://developers.cloudflare.com/changelog/) |
+| Worker runtime, Wrangler, Workers Builds, and Workers dashboard behavior | - [Workers platform](https://developers.cloudflare.com/workers/platform/changelog/)<br>- [Workers product](https://developers.cloudflare.com/changelog/product/workers/) |
+| WAF managed rules and application security posture | - [WAF](https://developers.cloudflare.com/waf/change-log/)<br>- [Application Security](https://developers.cloudflare.com/changelog/product-group/application-security/) |
+| Rules, transforms, redirects, and URL normalization behavior | - [Rules](https://developers.cloudflare.com/rules/changelog/)<br>- [Rules product](https://developers.cloudflare.com/changelog/product/rules/) |
+| DNS zone UI, DNSSEC, proxied records, and domain routing | - [DNS](https://developers.cloudflare.com/dns/changelog/) |
+| SSL/TLS, certificates, HSTS-adjacent controls, and edge certificate behavior | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/) |
+| Access, Zero Trust dashboard navigation, and policy behavior | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
 
 These feeds answer different questions.
 
