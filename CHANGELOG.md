@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.15.3](https://github.com/vanityURLs/website/compare/v2.15.2...v2.15.3) (2026-05-30)
+
+
+### Bug Fixes
+
+* missing french accents ([2e29dd4](https://github.com/vanityURLs/website/commit/2e29dd45675d3337c8dfb43dc26e1ab4768986ac))
+* missing french accents v2 ([c847ae8](https://github.com/vanityURLs/website/commit/c847ae8d1dac2134ca25872582a387f1cc49d63d))
+
 ## [2.15.2](https://github.com/vanityURLs/website/compare/v2.15.1...v2.15.2) (2026-05-27)
 
 
