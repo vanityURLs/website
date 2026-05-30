@@ -78,22 +78,15 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 | Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
 | Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
 | Random slug length | `3` | Default character count when `lnk` generates a slug. You can override it per command or per tag later. See [Choosing readable random slugs](/blog/choosing-readable-random-slugs/) |
-| Analytics provider | `disabled` | Stay disabled for phase 1. Refer to [Analytics](/docs/customize/analytics/) during customization |
+| Analytics provider | `disabled` | Stay disabled for now. Refer to [Analytics](/docs/customize/analytics/) during customization |
 | Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
-| Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the main and fallback language when a localized page is unavailable. See [Languages](/docs/reference/i18n/) |
-| Configure jurisdiction, privacy, terms, and security pages now? | `N` | Stay disabled for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
-| Operator legal name | `Benoît H. Dicaire` | Simple operator name for phase 1. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
-| Review public contact emails for generated pages? | `Y` | Review the public reporting addresses once. Use `vanityurls.link` as the contact domain, then `abuse@vanityurls.link` and `security@vanityurls.link` for the reporting contacts. See [Public contact emails for generated pages](/blog/public-contact-emails-for-generated-pages/) |
-| Configure branding now? | `N` | Stay disabled for phase 1. Refer to [Brand](/docs/reference/brand/) during customization |
+| Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the [main and fallback language](/docs/reference/i18n/) when a localized page is unavailable |
+| Configure jurisdiction, privacy, terms, and security pages now? | `N` | Stay disabled for now. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
+| Operator legal name | `Benoît H. Dicaire` | Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
+| Review public contact emails for generated pages? | `Y` | Review the [public reporting addresses](https://www.vanityurls.link/en/blog/public-contact-emails-for-generated-pages/) once and then manually update `/custom/v8s-site-config.json` |
+| Configure branding now? | `N` | Stay disabled for now. Refer to [Brand](/docs/reference/brand/) during customization |
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
-
-If you previously installed the workstation helper for another instance, your shell may already export `V8S_REPO`. The source command `./scripts/lnk` now prefers the repository it is running from, but older clones can still be affected by a stale environment value. If `./scripts/lnk list` shows links from another instance, run:
-
-```bash
-unset V8S_REPO
-./scripts/lnk list
-```
 
 ### Install local helpers
 
@@ -102,6 +95,13 @@ npm run local-install
 ```
 
 This installs the optional workstation shortcuts. Use [Local helper](/docs/command-line-interface/local-helper/) for the read-only `v8s` shortcut, and [LNK](/docs/command-line-interface/lnk/) when you are ready to manage links and schedules from the terminal.
+
+If you previously installed the workstation helper for another instance, your shell may already export `V8S_REPO`. The source command `./scripts/lnk` now prefers the repository it is running from, but older clones can still be affected by a stale environment value. If `./scripts/lnk list` shows links from another instance, run:
+
+```bash
+unset V8S_REPO
+./scripts/lnk list
+```
 
 ### Create your first commit
 

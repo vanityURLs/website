@@ -78,22 +78,15 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 | Nom du Worker | `v8s-link` | Nom du projet Cloudflare Worker. Les lettres minuscules, chiffres et traits d'union fonctionnent le mieux |
 | Étiquette propriétaire | `team` | Étiquette qui identifie la personne ou l'équipe qui a fait le changement. Consultez [Étiquettes de propriétaire pour l'historique des liens courts](/en/blog/owner-labels-for-short-link-change-history/) |
 | Longueur des slugs aléatoires | `3` | Nombre de caractères par défaut lorsque `lnk` génère un slug. Vous pouvez le remplacer par commande ou par tag plus tard. Voir [Choisir des slugs aléatoires lisibles](/fr/blog/choosing-readable-random-slugs/) |
-| Fournisseur d'analytics | `disabled` | Restez désactivé pour la phase 1. Consultez [Analytics](/fr/docs/customize/analytics/) pendant la personnalisation |
+| Fournisseur d'analytics | `disabled` | Restez desactive pour l'instant. Consultez [Analytics](/fr/docs/customize/analytics/) pendant la personnalisation |
 | Domaine d'équipe Cloudflare Access | `vanityurls.cloudflareaccess.com` | Valeur de `CF_ACCESS_TEAM_DOMAIN`; trouvez-la dans **Zero Trust** > **Settings** sous **Team domain** |
-| Langues supportées | `de,en,es,fr,it` | Codes ISO séparés par des virgules. L'anglais (`en`) est la langue principale et de fallback lorsqu'une page localisée n'est pas disponible. Voir [Langues](/fr/docs/reference/i18n/) |
-| Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N` | Restez désactivé pour la phase 1. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
-| Nom légal de l'opérateur | `Benoît H. Dicaire` | Nom simple de l'opérateur pour la phase 1. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
-| Réviser les courriels de contact publics pour les pages générées ? | `Y` | Révisez les adresses publiques de signalement une fois. Utilisez `vanityurls.link` comme domaine de contact, puis `abuse@vanityurls.link` et `security@vanityurls.link` pour les contacts de signalement. Voir [Courriels de contact publics pour les pages générées](/fr/blog/public-contact-emails-for-generated-pages/) |
-| Configurer la marque maintenant ? | `N` | Restez désactivé pour la phase 1. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
+| Langues supportées | `de,en,es,fr,it` | Codes ISO séparés par des virgules. L'anglais (`en`) est la [langue principale et de fallback](/fr/docs/reference/i18n/) lorsqu'une page localisée n'est pas disponible |
+| Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N` | Restez desactive pour l'instant. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
+| Nom légal de l'opérateur | `Benoît H. Dicaire` | Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
+| Réviser les courriels de contact publics pour les pages générées ? | `Y` | Revisez les [adresses publiques de signalement](https://www.vanityurls.link/en/blog/public-contact-emails-for-generated-pages/) une fois, puis mettez a jour manuellement `/custom/v8s-site-config.json` |
+| Configurer la marque maintenant ? | `N` | Restez desactive pour l'instant. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
-
-Si vous avez déjà installé le helper local pour une autre instance, votre shell peut déjà exporter `V8S_REPO`. La commande source `./scripts/lnk` préfère maintenant le dépôt depuis lequel elle s'exécute, mais les clones plus anciens peuvent encore être touchés par une valeur d'environnement périmée. Si `./scripts/lnk list` affiche les liens d'une autre instance, lancez :
-
-```bash
-unset V8S_REPO
-./scripts/lnk list
-```
 
 ### Installer les helpers locaux
 
@@ -102,6 +95,13 @@ npm run local-install
 ```
 
 Cette commande installe les raccourcis optionnels du poste. Utilisez [Helper local](/fr/docs/command-line-interface/local-helper/) pour le raccourci en lecture seule `v8s`, et [LNK](/fr/docs/command-line-interface/lnk/) lorsque vous voulez gérer les liens et horaires depuis le terminal.
+
+Si vous avez deja installe le helper local pour une autre instance, votre shell peut deja exporter `V8S_REPO`. La commande source `./scripts/lnk` prefere maintenant le depot depuis lequel elle s'execute, mais les clones plus anciens peuvent encore etre touches par une valeur d'environnement perimee. Si `./scripts/lnk list` affiche les liens d'une autre instance, lancez :
+
+```bash
+unset V8S_REPO
+./scripts/lnk list
+```
 
 ### Créer votre premier commit
 
