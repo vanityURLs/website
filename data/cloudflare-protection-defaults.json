@@ -26,7 +26,8 @@
       "Cloudflare Turnstile",
       "Cloudflare Workers Analytics"
     ],
-    "website_documentation": "Keep the product inventory in the reference section, not as a blog post. Update this list when the baseline starts using or deliberately excludes another Cloudflare product or dashboard surface."
+    "reference_only_blog": "/blog/cloudflare-products-outside-the-vanityurls-baseline/",
+    "website_documentation": "Keep the baseline product inventory in the reference section. Explain reference-only or non-baseline products in the blog post so the reference page stays focused on products vanityURLs actively uses. Update this list when the baseline starts using or deliberately excludes another Cloudflare product or dashboard surface."
   },
   "Cloudflare dashboard": {
     "AI Crawl Control": {
