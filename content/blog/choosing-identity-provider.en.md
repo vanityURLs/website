@@ -1,42 +1,53 @@
 ---
-title: "Choosing an Identity Provider"
+title: "Start with one-time PIN, then earn the IdP"
 date: 2026-05-22
 description: "How to choose between One-Time PIN, GitHub, Google, and other identity providers to secure your vanityURLs operational pages"
 tags: ["cloudflare", "access", "identity"]
 ---
 
-Choosing an identity provider (IdP) to manage digital identities for a URL shortener can initially feel like buying a vault for a garden shed. However, it quickly makes sense when you realize that certain URLs can reveal your entire link inventory and expose critical runtime details. Your short-link domain essentially becomes public infrastructure the moment it appears in an email signature.
+The first identity decision for a short-link domain should be boring.
 
-To prevent unauthorized exposure, even during your initial deployment, vanityURLs uses [Cloudflare Access](https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/security/secure-with-access/) to protect your dashboard.
+Protect `/_stats` and `/_tests` before the instance goes public. Do not spend the first deploy designing an enterprise identity architecture unless the enterprise already exists.
 
-### The Quickstart Option: One-Time PIN
+For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) protects the operational pages before the Worker serves them. The question is not "which IdP is best?" The question is "which access path can the operator review and revoke without ceremony?"
 
-For a fast setup, the simplest path is Cloudflare's [One-Time PIN (OTP)](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/). This feature allows Cloudflare to send a login code (or "magic link") directly to approved email addresses, completely bypassing the need to configure an external identity provider like Google or Okta.
+## The Day-One Default
 
-While this is highly effective for low-frequency applications, I generally recommend setting up a dedicated IdP for tools you use daily to avoid "email fatigue." It takes about 20 minutes to configure your first IdP on Cloudflare, and only about 5 minutes for subsequent ones. It is well worth the time.
+Use Cloudflare [One-Time PIN](https://developers.cloudflare.com/cloudflare-one/identity/one-time-pin/) for a personal instance or a small team that only needs occasional access.
 
-### Selecting the Right IdP
+It has one useful property: no external identity provider has to be configured before the dashboard is private. Cloudflare sends a login code to approved email addresses. That is enough to get the instance online without exposing the link inventory.
 
-When deciding on an identity provider, ask yourself: *Who needs access today? Who will need access once the instance scales? How difficult will it be to offboard someone later?*
+The tradeoff is friction. If people sign in every day, email codes become noise. That is the point where an IdP starts earning its keep.
 
-- **[GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/):** A perfect fit if your entire team already has accounts. Cloudflare allows you to write Access policies based on specific users, email addresses, or GitHub organization membership
-- **[Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/):** A no-brainer if your team utilizes standard Gmail or Google Workspace accounts
-- **Corporate IdPs, such as [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/entra-id/):** Cloudflare One supports most major enterprise solutions. Integrating your corporate IdP allows you to inherit existing security policies and streamline user offboarding
+## When To Use A Real IdP
 
-The policy selector matters as much as the provider. A personal instance can start with named email addresses. A team instance should eventually move toward a maintained group, GitHub organization, or identity-provider selector so access review follows the same joiner and leaver process as the rest of the team.
+Choose the provider that already owns the joiner and leaver process.
 
-### Flexibility by Design
+| Provider | Use it when |
+| --- | --- |
+| [GitHub](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/github/) | maintainers already belong to the same GitHub organization or team |
+| [Google](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/google/) | the operator already uses Gmail or Google Workspace identities |
+| [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/entra-id/) or another corporate IdP | access should follow existing HR, device, MFA, and offboarding controls |
 
-You can easily start with a One-Time PIN and configure identity providers for the same application later; your first choice doesn't have to define your permanent architecture.
+The selector matters as much as the provider. A personal instance can allow named email addresses. A team instance should move toward maintained groups, GitHub organization membership, or IdP-backed selectors. Otherwise offboarding becomes a scavenger hunt.
 
-Furthermore, if a user shares the same email address across multiple identity providers, Cloudflare handles it seamlessly with no technical conflicts:
+## Multiple Providers Are Fine
 
-1. The user selects their preferred identity provider on the login screen
-2. Cloudflare validates the identity returned by that specific provider
-3. If an Access policy allows `user@example.com`, the login succeeds as long as the chosen provider verifies that email address
+The first choice does not freeze the architecture.
 
-### Secure Today, Scale Tomorrow
+You can start with One-Time PIN and add GitHub, Google, or a corporate IdP later for the same Access application. If a person uses the same email address across providers, Cloudflare evaluates the identity returned by the provider they selected and then applies the Access policy.
 
-Don't let analysis paralysis stall your deployment. If you are just getting vanityURLs off the ground, start with the **One-Time PIN** setup to lock down your dashboard immediately. As your team grows or your workflow changes, you can layer on GitHub or Google authentication in minutes without breaking a thing.
+That flexibility is useful. It is also a trap if nobody owns review. Adding providers should make access easier to govern, not harder to explain.
 
-Ready to lock down your setup? Head over to your Cloudflare Zero Trust dashboard and follow the [Access control](/docs/customize/access-control/) documentation to get started. After it is live, use [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/) as the review checklist.
+## The Test
+
+After configuring the provider, test the boundary:
+
+1. Open a signed-out or private browser profile.
+2. Visit `https://<short-domain>/_stats`.
+3. Confirm Cloudflare Access appears before the dashboard.
+4. Confirm an unauthorized identity fails.
+
+Then write down who owns the Access policy. Future-you will not remember why `friend@example.com` was allowed.
+
+Use [Access control](/docs/customize/access-control/) for setup steps. Use [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/) for the review checklist.

@@ -1,5 +1,5 @@
 ---
-title: "Layering Cloudflare protection around a short-link domain"
+title: "Keep scanner traffic out of the Worker"
 date: 2026-05-22
 author: "Benoît H. Dicaire"
 description: "Why a vanityURLs instance should use Cloudflare edge controls before traffic reaches the Worker."
@@ -7,42 +7,48 @@ tags: ["cloudflare", "security", "network"]
 featured: false
 ---
 
-A short-link redirector looks simple from the outside: receive a slug, look up a destination, redirect. The internet does not treat it that gently. Even a quiet short domain can receive scanner probes, odd methods, bot traffic, crawler traffic, and repeated misses before anyone has announced it.
+A short-link redirector looks simple: receive a slug, look up a destination, redirect.
 
-That is why vanityURLs uses layers. The Worker should stay small and deterministic, while Cloudflare handles the noisy edge traffic that should never spend Worker CPU or analytics quota.
+The internet supplies the rest. PHP probes. WordPress paths. Odd methods. Bot traffic. Crawlers. Repeated misses for slugs nobody created.
 
-## Block noise before the Worker
+The Worker should not be the first place that noise gets expensive. vanityURLs keeps the Worker small and deterministic, then uses Cloudflare edge controls for traffic that should never spend Worker CPU or analytics quota.
 
-The Worker can reject unsafe destinations and known scanner probes, but high-volume junk is better handled earlier. Cloudflare WAF rules, rate limiting, Bot Fight Mode, Browser Integrity Check, and managed rules can reject commodity abuse before it reaches application code.
+## Block Before Runtime
 
-That separation makes operations easier to understand:
+The Worker still validates destinations and runtime policy. That is the last line of defense, not the first.
 
-- Cloudflare Security Events show WAF, bot, crawler, Access, and rate-limit decisions
-- Worker analytics shows requests that reached the application runtime
-- Umami or Fathom shows application events sent by vanityURLs after runtime filtering
+Use Cloudflare WAF rules, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules, and Access where they match the layer. Commodity abuse should stop before application code runs.
 
-If a request is blocked at the edge, it should not appear as a short-link miss or consume analytics provider quota.
+That separation keeps the evidence clean:
 
-## Keep crawler policy enforceable
+- [Security Events](https://developers.cloudflare.com/waf/analytics/security-events/) show WAF, bot, crawler, Access, and rate-limit decisions
+- Worker analytics shows requests that reached the runtime
+- Umami or Fathom shows application events emitted after vanityURLs filtering
 
-`robots.txt`, `llms.txt`, and `llms-full.txt` are useful for transparency. They describe what the site owner intends. They are not enforcement.
+If a request is blocked at the edge, it should not look like product behavior or consume analytics provider quota.
 
-For a private, family, team, or internal short-link domain, it can be reasonable to block all crawler families except the ones you explicitly want. Mirror the policy in public files for transparency, but enforce it with Cloudflare AI Crawl Control or WAF user-agent rules.
+## Make Crawler Policy Enforceable
 
-Keep the exact crawler list in Cloudflare rather than in public docs. Crawler names, product behavior, and your own policy choices can change quickly.
+`robots.txt`, `llms.txt`, and `llms-full.txt` are useful for transparency. They are not enforcement.
 
-## Treat redirects as dynamic
+For a private, family, team, or internal short-link domain, blocking most crawler families can be reasonable. Mirror the policy in public files so the intent is visible. Enforce it with Cloudflare AI Crawl Control or WAF user-agent rules.
 
-Redirect decisions can depend on lifecycle state, schedules, misses, analytics, and runtime policy. Cache static assets, but be very cautious about caching redirect responses. A stale redirect can preserve the wrong destination after a link has expired, changed schedule, or been disabled.
+Keep the exact crawler list in Cloudflare. Crawler names, product behavior, and local policy can change faster than public docs should.
 
-For most instances, the safest caching strategy is simple: let the Worker make redirect decisions and let asset headers handle static files.
+## Treat Redirects As Dynamic
 
-## Use the dashboard that matches the layer
+Redirect decisions can depend on lifecycle state, schedules, misses, analytics, and runtime policy.
 
-Cloudflare analytics and Security Events are for infrastructure questions: DNS, TLS, WAF, rate limiting, bots, AI crawler blocks, Access logins, Worker CPU, and Worker errors.
+Cache static assets. Be careful with redirect responses. A stale redirect can preserve the wrong destination after a link has expired, changed schedule, or been disabled.
 
-vanityURLs analytics is for application questions: redirects, misses, expand lookups, pageviews, and normalized bot events that reached the Worker.
+For most instances, the safe default is simple: let the Worker decide redirects and let asset headers handle static files.
 
-Both views matter, but they answer different questions. Mixing them makes scanner traffic look like product behavior and can hide the fact that Cloudflare is already doing useful work before the Worker runs.
+## Use The Right Dashboard
 
-Use [Network protection](/docs/customize/network-protection/) for the Cloudflare settings checklist and [Runtime security](/docs/reference/runtime-security/) for the Worker-side controls.
+Cloudflare analytics and Security Events answer infrastructure questions: DNS, TLS, WAF, rate limiting, bots, AI crawler blocks, Access logins, Worker CPU, and Worker errors.
+
+vanityURLs analytics answers application questions: redirects, misses, expand lookups, pageviews, and normalized bot events that reached the Worker.
+
+Both views matter. Mixing them makes scanner traffic look like user behavior and hides useful edge protection.
+
+Use [Network protection](/docs/customize/network-protection/) for the Cloudflare checklist and [Runtime security](/docs/reference/runtime-security/) for Worker-side controls.

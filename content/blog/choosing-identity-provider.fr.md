@@ -1,42 +1,53 @@
 ---
-title: "Choisir un fournisseur d'identité"
+title: "Commencez par le code a usage unique, puis meritez l'IdP"
 date: 2026-05-22
-description: "Comment choisir entre code à usage unique, GitHub, Google et d'autres fournisseurs d'identité pour sécuriser les pages opérationnelles vanityURLs"
+description: "Comment choisir entre code a usage unique, GitHub, Google et d'autres fournisseurs d'identite pour securiser les pages operationnelles vanityURLs"
 tags: ["cloudflare", "access", "identity"]
 ---
 
-Choisir un fournisseur d'identité (IdP) pour un raccourcisseur d'URL peut sembler trop lourd au départ. Cela devient plus naturel lorsqu'on réalise que certaines URL peuvent révéler tout l'inventaire de liens et des détails runtime importants. Un domaine de liens courts devient de l'infrastructure publique dès qu'il apparaît dans une signature courriel.
+La premiere decision d'identite pour un domaine court devrait etre ennuyeuse.
 
-Pour éviter une exposition non autorisée, même pendant le premier déploiement, vanityURLs utilise [Cloudflare Access](https://developers.cloudflare.com/cloudflare-for-platforms/cloudflare-for-saas/security/secure-with-access/) pour protéger le tableau de bord.
+Protegez `/_stats` et `/_tests` avant que l'instance soit publique. Ne passez pas le premier deploiement a concevoir une architecture d'identite enterprise si l'enterprise n'existe pas encore.
 
-### L'option Quickstart : code à usage unique
+Pour vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) protege les pages operationnelles avant que le Worker les serve. La question n'est pas "quel IdP est le meilleur?" La question est "quel chemin d'acces l'operateur peut-il reviser et retirer sans ceremonie?"
 
-Pour une configuration rapide, le chemin le plus simple est le [code à usage unique](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) de Cloudflare. Cloudflare envoie un code de connexion directement aux adresses courriel approuvées, sans devoir configurer un fournisseur externe comme Google ou Okta.
+## Le Defaut Du Premier Jour
 
-Ce modèle est très efficace pour les applications peu fréquentes. Pour un outil utilisé tous les jours, je préfère habituellement configurer un IdP dédié afin d'éviter la fatigue des courriels. Le premier fournisseur prend plus de temps; les suivants deviennent beaucoup plus rapides.
+Utilisez le [code a usage unique](https://developers.cloudflare.com/cloudflare-one/identity/one-time-pin/) de Cloudflare pour une instance personnelle ou une petite equipe qui accede rarement aux pages operationnelles.
 
-### Sélectionner le bon IdP
+Il a une propriete utile : aucun fournisseur d'identite externe n'a besoin d'etre configure avant que le tableau de bord soit prive. Cloudflare envoie un code de connexion aux adresses courriel approuvees. C'est assez pour mettre l'instance en ligne sans exposer l'inventaire de liens.
 
-Avant de choisir, posez-vous trois questions : *Qui doit accéder aujourd'hui ? Qui devra accéder lorsque l'instance grandira ? Est-ce facile de retirer l'accès plus tard ?*
+Le compromis est la friction. Si les gens se connectent chaque jour, les codes par courriel deviennent du bruit. C'est le moment ou un IdP commence a meriter sa place.
 
-- **[GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/)** convient bien lorsque toute l'équipe utilise déjà GitHub. Les politiques Access peuvent viser des utilisateurs précis, des adresses courriel ou l'appartenance à une organisation GitHub
-- **[Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/)** est naturel si les mainteneurs utilisent Gmail ou Google Workspace
-- **IdP corporatif, comme [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/entra-id/)** convient lorsque l'organisation gère déjà les identités et l'offboarding
+## Quand Utiliser Un Vrai IdP
 
-Le sélecteur de politique compte autant que le fournisseur. Une instance personnelle peut commencer avec des adresses courriel nommées. Une instance d'équipe devrait éventuellement utiliser un groupe maintenu, une organisation GitHub ou un sélecteur IdP afin que la revue d'accès suive le même processus d'arrivée et de départ que le reste de l'équipe.
+Choisissez le fournisseur qui possede deja le processus d'arrivee et de depart.
 
-### Flexible par design
+| Fournisseur | Utilisez-le quand |
+| --- | --- |
+| [GitHub](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/github/) | les mainteneurs appartiennent deja a la meme organisation ou equipe GitHub |
+| [Google](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/google/) | l'operateur utilise deja Gmail ou Google Workspace |
+| [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/entra-id/) ou un autre IdP corporatif | l'acces devrait suivre les controles RH, appareil, MFA et offboarding existants |
 
-Vous pouvez commencer avec le code à usage unique et ajouter des fournisseurs d'identité plus tard pour la même application. Le premier choix ne doit pas figer l'architecture.
+Le selecteur compte autant que le fournisseur. Une instance personnelle peut autoriser des adresses nommees. Une instance d'equipe devrait aller vers des groupes maintenus, l'appartenance a une organisation GitHub ou des selecteurs venant de l'IdP. Sinon, l'offboarding devient une chasse au tresor.
 
-Si une personne utilise la même adresse courriel dans plusieurs fournisseurs, il n'y a pas de conflit technique :
+## Plusieurs Fournisseurs Ne Posent Pas Probleme
 
-1. La personne choisit son fournisseur sur la page de connexion
-2. Cloudflare valide l'identité retournée par ce fournisseur
-3. Si une politique autorise `user@example.com`, la connexion réussit tant que le fournisseur choisi vérifie cette adresse
+Le premier choix ne fige pas l'architecture.
 
-### Sécuriser aujourd'hui, grandir demain
+Vous pouvez commencer avec le code a usage unique et ajouter GitHub, Google ou un IdP corporatif plus tard pour la meme application Access. Si une personne utilise la meme adresse courriel chez plusieurs fournisseurs, Cloudflare evalue l'identite retournee par le fournisseur choisi puis applique la politique Access.
 
-Ne laissez pas la décision bloquer le déploiement. Si vous démarrez vanityURLs, commencez avec le **code à usage unique** pour protéger le tableau de bord immédiatement. Lorsque l'équipe ou le workflow évolue, ajoutez GitHub, Google ou un IdP corporatif.
+Cette flexibilite est utile. C'est aussi un piege si personne ne possede la revue. Ajouter des fournisseurs devrait rendre l'acces plus facile a gouverner, pas plus difficile a expliquer.
 
-Pour configurer l'application, suivez [Contrôle d'accès](/fr/docs/customize/access-control/). Une fois en production, utilisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/) comme checklist de revue.
+## Le Test
+
+Apres avoir configure le fournisseur, testez la frontiere :
+
+1. Ouvrez un profil de navigateur deconnecte ou prive.
+2. Visitez `https://<short-domain>/_stats`.
+3. Confirmez que Cloudflare Access apparait avant le tableau de bord.
+4. Confirmez qu'une identite non autorisee echoue.
+
+Puis notez qui possede la politique Access. Votre futur vous ne se souviendra pas pourquoi `friend@example.com` etait autorise.
+
+Utilisez [Controle d'acces](/fr/docs/customize/access-control/) pour les etapes de setup. Utilisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/) pour la checklist de revue.

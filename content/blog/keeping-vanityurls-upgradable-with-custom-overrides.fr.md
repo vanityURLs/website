@@ -1,5 +1,5 @@
 ---
-title: "Garder vanityURLs facile a mettre a jour avec custom"
+title: "Editez custom, laissez defaults ennuyeux"
 date: 2026-05-22
 author: "Benoît H. Dicaire"
 description: "Pourquoi vanityURLs separe les defaults produit des liens, de la marque, des politiques et des pages publiques propres a une instance."
@@ -7,21 +7,31 @@ tags: ["personnalisation", "mises-a-jour", "git"]
 featured: false
 ---
 
-La facon la plus simple de rendre un petit outil auto-heberge penible est de tout modifier en place. Cela semble rapide le premier jour, puis chaque mise a jour devient une enquete : quels fichiers viennent d'upstream, quels fichiers appartiennent a l'instance, et quels fichiers generes peuvent etre remplaces sans danger?
+La facon la plus rapide de ruiner un petit outil autoheberge est de modifier les fichiers upstream en place.
 
-vanityURLs evite cela avec une frontiere simple. Les fichiers produit vivent dans `defaults/` et `scripts/`. Les fichiers propres a l'instance vivent dans `custom/`. La sortie generee vit dans `build/` et `src/`.
+Cela fonctionne une fois. Puis la prochaine mise a jour pose une question ennuyeuse aux consequences couteuses : quels fichiers sont des defaults produit, quels fichiers sont des decisions locales, et quels fichiers sont une sortie generee?
 
-Cette frontiere n'est pas de la bureaucratie. C'est ce qui garde un redirecteur auto-heberge calme apres le premier deploiement.
+vanityURLs evite cela avec trois couches :
 
-## Defaults est la base produit
+| Couche | Proprietaire | Regle |
+| --- | --- | --- |
+| `defaults/` et `scripts/` | produit | rafraichir depuis upstream |
+| `custom/` | instance | reviser et conserver |
+| `build/` et `src/` genere | build | remplacer librement |
+
+Cette frontiere n'est pas de la bureaucratie. C'est ce qui empeche les mises a jour de devenir de l'archeologie.
+
+## Defaults Est Le Baseline Produit
 
 `defaults/` contient les fichiers livres avec vanityURLs : pages publiques, pages d'etat localisees, badges de redirection, liens exemples, politique par defaut, shell de tableau protege, page de tests et configuration de site.
 
-Ces fichiers devraient etre faciles a rafraichir depuis upstream. Quand vanityURLs ameliore les pages par defaut, durcit la politique, corrige les assets generes ou change des hypotheses Worker, le proprietaire de l'instance devrait pouvoir recevoir ces changements sans chercher dans ses edits de marque locaux.
+Ne les personnalisez pas.
 
-## Custom est la couche de l'instance
+Quand vanityURLs ameliore les pages par defaut, durcit la politique, corrige les assets ou change des hypotheses Worker, une instance devrait pouvoir accepter ces changements sans les trier parmi des edits de marque locaux.
 
-`custom/` contient les choix qui rendent l'instance a vous :
+## Custom Est La Couche Instance
+
+`custom/` contient les decisions qui rendent l'instance a vous :
 
 - inventaire de redirection
 - comportement des liens planifies
@@ -31,23 +41,18 @@ Ces fichiers devraient etre faciles a rafraichir depuis upstream. Quand vanityUR
 - logos, icones, badges et fichiers de politique lisibles par machine
 - configuration des helpers locaux
 
-Quand ces choix vivent sous `custom/`, les mises a jour deviennent une revue Git normale plutot qu'une fouille archeologique.
+Quand ces choix vivent sous `custom/`, une mise a jour est une revue Git. Quand ils sont disperses dans les fichiers upstream, c'est un test de memoire.
 
-## La sortie generee est jetable
+## La Sortie Generee Est Jetable
 
-`build/` et le `src/` genere sont des sorties de deploiement. Ils sont importants au runtime, mais ce n'est pas la ou un operateur devrait faire des changements durables.
+`build/` et `src/` genere sont des sorties de deploiement.
 
-Modifiez la couche source, puis reconstruisez. Le Worker deploye, le registre runtime, la blocklist runtime et la configuration de site restent ainsi reproductibles depuis des fichiers revises.
+Ils comptent au runtime. Ils restent le mauvais endroit pour des edits durables. Changez la couche source, puis reconstruisez. Le Worker, le registre runtime, la blocklist runtime et la configuration de site devraient etre reproductibles depuis des fichiers revises.
 
-## L'histoire de mise a jour
+## Le Compromis
 
-Le but de `custom/` est de rendre les mises a jour predecibles. Upstream peut rafraichir `defaults/`, `scripts/`, la logique de validation, les dependances et le comportement runtime genere pendant que l'instance garde ses liens, horaires, politiques, marque, pages publiques, reglages locaux et configuration de site.
+La frontiere peut sembler tatillonne lorsqu'on veut changer une ligne.
 
-Cela veut dire que la plupart des personnalisations devraient eviter les edits directs dans :
-
-- `defaults/`, parce qu'upstream possede la base
-- `scripts/workers/`, sauf si vous maintenez un fork du Worker
-- `src/`, parce qu'il est genere pour Wrangler
-- `build/`, parce que c'est une sortie de deploiement generee
+Acceptez la friction. Forkez `scripts/workers/` seulement si vous comptez maintenir un fork du Worker. Editez `defaults/` seulement si vous changez le baseline produit. Mettez le comportement d'instance dans `custom/`.
 
 Utilisez [Surcharges custom](/fr/docs/reference/custom-overrides/) pour les chemins exacts et [Mettre a jour une instance](/fr/docs/reference/upgrading/) pour le workflow de mise a jour.
