@@ -54,15 +54,15 @@ The ledger is not a replacement for Cloudflare's own changelogs. It is the local
 
 These are the official places worth watching:
 
-| Area we care about | Cloudflare source |
+| Area we care about | Product change log |
 | --- | --- |
-| Broad product and dashboard changes | [Cloudflare changelog](https://developers.cloudflare.com/changelog/) |
-| Worker runtime, Wrangler, Workers Builds, and Workers dashboard changes | [Workers changelog](https://developers.cloudflare.com/workers/platform/changelog/) and [Workers product changelog](https://developers.cloudflare.com/changelog/product/workers/) |
-| WAF managed rules and application security posture | [WAF changelog](https://developers.cloudflare.com/waf/change-log/) and [Application Security changelog](https://developers.cloudflare.com/changelog/product-group/application-security/) |
-| Rules, transforms, redirects, and URL normalization behavior | [Rules changelog](https://developers.cloudflare.com/rules/changelog/) and [Rules product changelog](https://developers.cloudflare.com/changelog/product/rules/) |
-| DNS zone UI, DNSSEC, proxied records, and domain routing details | [DNS changelog](https://developers.cloudflare.com/dns/changelog/) |
-| SSL/TLS, certificates, HSTS-adjacent controls, and edge certificate behavior | [SSL/TLS changelog](https://developers.cloudflare.com/ssl/changelog/) |
-| Cloudflare Access, Zero Trust dashboard navigation, and Access policy behavior | [Cloudflare One changelog](https://developers.cloudflare.com/cloudflare-one/changelog/) and [Cloudflare One product changelog](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
+| Broad product and dashboard changes | - [Cloudflare](https://developers.cloudflare.com/changelog/) |
+| Worker runtime, Wrangler, Workers Builds, and Workers dashboard changes | - [Workers platform](https://developers.cloudflare.com/workers/platform/changelog/)<br>- [Workers product](https://developers.cloudflare.com/changelog/product/workers/) |
+| WAF managed rules and application security posture | - [WAF](https://developers.cloudflare.com/waf/change-log/)<br>- [Application Security](https://developers.cloudflare.com/changelog/product-group/application-security/) |
+| Rules, transforms, redirects, and URL normalization behavior | - [Rules](https://developers.cloudflare.com/rules/changelog/)<br>- [Rules product](https://developers.cloudflare.com/changelog/product/rules/) |
+| DNS zone UI, DNSSEC, proxied records, and domain routing details | - [DNS](https://developers.cloudflare.com/dns/changelog/) |
+| SSL/TLS, certificates, HSTS-adjacent controls, and edge certificate behavior | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/) |
+| Cloudflare Access, Zero Trust dashboard navigation, and Access policy behavior | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
 
 Those feeds do not all answer the same question. The Workers changelog can tell us about runtime and deployment behavior. The WAF changelog can explain new managed detections that suddenly increase Security Events. The Cloudflare One changelog is where Access and Zero Trust navigation can move under our feet. The DNS changelog is where UI changes can affect quickstart screenshots and menu paths.
 
