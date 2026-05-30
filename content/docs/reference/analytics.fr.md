@@ -4,13 +4,13 @@ title: "Analytics"
 description: "Événements analytics serveur, payloads fournisseur, modes IP et comportement du trafic bloqué dans vanityURLs."
 weight: 10
 aliases:
-  - /docs/reference/server-side-analytics/
+  - /docs/référence/server-side-analytics/
 
 ---
 
 Les analytics vanityURLs s'exécutent dans le Cloudflare Worker. Elles ne demandent pas de JavaScript de tracking navigateur, de cookies ou de compte visiteur.
 
-Cloudflare Web Analytics et Real User Measurement (RUM) ne font pas partie du baseline vanityURLs. Gardez Cloudflare RUM desactive sauf si un operateur veut explicitement de la telemetrie navigateur en dehors du modele d'evenements serveur du redirecteur.
+Cloudflare Web Analytics et Real User Measurement (RUM) ne font pas partie du baseline vanityURLs. Gardez Cloudflare RUM désactive sauf si un opérateur veut explicitement de la telémetrie navigateur en dehors du modèle d'événements serveur du redirecteur.
 
 Le Worker envoie les analytics avec `ctx.waitUntil()`.[^wait-until] Les redirections et les pages devraient continuer à répondre même si le fournisseur analytics est lent ou indisponible.
 
@@ -50,12 +50,12 @@ Les probes reconnues par la blocklist runtime retournent un `404` simple avant l
 
 Les requêtes bloquées par Cloudflare avant le Worker n'émettent pas d'événements analytics vanityURLs. Utilisez Cloudflare Security Events et Cloudflare analytics pour le trafic bloqué par Access, WAF, rate limiting, contrôles bot, contrôles crawler, DNS ou politique TLS.
 
-Les surfaces analytics Cloudflare sont des outils de reference, pas des prerequis de configuration :
+Les surfaces analytics Cloudflare sont des outils de référence, pas des prérequis de configuration :
 
-- **Security Events** : trafic bloque avant le Worker par WAF, rate limiting, Access, controles bot ou AI Crawl Control
-- **Workers analytics** : volume de requetes d'infrastructure, erreurs, temps CPU, wall time et duree
-- **DNS Analytics** : diagnostics DNS pendant une enquete de routage ou de delegation
-- **Web Analytics / RUM** : desactive par defaut et non prevu dans le baseline
+- **Security Events** : trafic bloque avant le Worker par WAF, rate limiting, Access, contrôles bot ou AI Crawl Control
+- **Workers analytics** : volume de requêtes d'infrastructure, erreurs, temps CPU, wall time et duree
+- **DNS Analytics** : diagnostics DNS pendant une enquété de routage ou de delegation
+- **Web Analytics / RUM** : désactive par défaut et non prevu dans le baseline
 
 ## Payload Umami
 

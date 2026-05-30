@@ -2,7 +2,7 @@
 title: "Mentions légales (Impressum)"
 description: "Mentions légales et informations sur l'opérateur du site vanityURLs.link, conformément aux obligations des utilisateurs en Allemagne, Autriche et Suisse."
 aliases:
-  - mentions-legales
+  - mentions-légales
   - imprint
 ---
 
@@ -87,4 +87,4 @@ Les informations sur le traitement des données personnelles et vos droits en ta
 
 ---
 
-*Ces mentions légales ont été révisées pour la dernière fois en avril 2026. Pour toute question, utilisez les coordonnées ci-dessus ou [GitHub Discussions](https://github.com/orgs/vanityURLs/discussions).*
+*Ces mentions légales ont été révisées pour la dernière fois en avril 2026. Pour toute question, utilisez les coordonnées ci-dessus ou [GitHub Discussions](/fr/privacy/).*

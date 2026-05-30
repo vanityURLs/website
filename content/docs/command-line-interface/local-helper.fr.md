@@ -20,7 +20,7 @@ Le helper est séparé de la [CLI](/fr/docs/command-line-interface/lnk/). Utilis
 - Node.js 20 ou plus récent
 - npm
 - Git
-- [`jq`](https://jqlang.org/)
+- [`jq`](/fr/docs/command-line-interface/lnk/)
 - Un shell compatible POSIX capable de sourcer `scripts/v8s.sh`, comme `sh`, Bash ou Zsh
 
 Les shells avec des modèles de script différents, comme Fish ou PowerShell, peuvent quand même lancer les commandes du projet, mais ils ne peuvent pas sourcer `scripts/v8s.sh` directement sans couche de compatibilité.

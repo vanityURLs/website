@@ -1,14 +1,14 @@
 ---
 aside: false
 title: "Format des liens"
-description: "Le format v8s-links.txt pour liens exacts, splat, etats, metadonnees, expiration et v8s.json genere."
+description: "Le format v8s-links.txt pour liens exacts, splat, états, metadonnées, expiration et v8s.json génère."
 weight: 70
 aliases:
   - /docs/link-format/
 
 ---
 
-`v8s-links.txt` est la source de verite humaine pour les liens. Chaque ligne non vide et non commentee est separee par des pipes :
+`v8s-links.txt` est la source de vérité humaine pour les liens. Chaque ligne non vide et non commentee est séparée par des pipes :
 
 ```text
 slug|target|state|title|description|tags|owner|expires_at|notes
@@ -21,8 +21,8 @@ slug|target|state|title|description|tags|owner|expires_at|notes
 | `state` | non | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |
 | `title` | non | Titre pour le dashboard |
 | `description` | non | Usage humain du lien |
-| `tags` | non | Tags separes par virgules |
-| `owner` | recommande | Etiquette de responsabilite |
+| `tags` | non | Tags séparés par virgules |
+| `owner` | recommande | Étiquette de responsabilité |
 | `expires_at` | non | Date ou timestamp ISO |
 | `notes` | non | Notes internes |
 
@@ -44,9 +44,9 @@ github/*|https://github.com/vanityURLs/:splat|permanent|GitHub|Namespace|git|v8s
 
 `/github/website` redirige vers `https://github.com/vanityURLs/website`.
 
-## Etats
+## États
 
-| Etat | Comportement runtime |
+| État | Comportement runtime |
 |---|---|
 | `permanent` | 301 vers la cible |
 | `ephemeral` | 302 vers la cible |
@@ -55,7 +55,7 @@ github/*|https://github.com/vanityURLs/:splat|permanent|GitHub|Namespace|git|v8s
 | `maintenance` | 302 vers `/maintenance` |
 | `deactivated` | vrai 404 |
 
-Si `expires_at` est passe, l'etat effectif devient `expired`.
+Si `expires_at` est passe, l'état effectif devient `expired`.
 
 ## Regles de slug
 
@@ -65,4 +65,4 @@ Si `expires_at` est passe, l'etat effectif devient `expired`.
 - Chaque segment commence par une lettre ou un chiffre
 - Les segments peuvent contenir lettres, chiffres, `.`, `_`, `~`, et `-`
 
-Les slugs reserves incluent `admin`, `404`, `expired`, `disabled`, `maintenance`, `deactivated`, `assets`, et `v8s.json`.
+Les slugs réserves incluent `admin`, `404`, `expired`, `disabled`, `maintenance`, `deactivated`, `assets`, et `v8s.json`.

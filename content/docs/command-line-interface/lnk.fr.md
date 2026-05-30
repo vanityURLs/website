@@ -8,49 +8,49 @@ aliases:
 
 ---
 
-`lnk` est l'interface en ligne de commande du depot pour modifier une instance vanityURLs. Elle modifie les fichiers source dans `custom/`, lance `npm run check`, puis stage, commit et pousse les operations d'ecriture reussies.
+`lnk` est l'interface en ligne de commande du dépôt pour modifier une instance vanityURLs. Elle modifie les fichiers source dans `custom/`, lance `npm run check`, puis stage, commit et pousse les opérations d'écriture reussies.
 
-Utilisez-la lorsque le changement doit entrer dans l'historique Git et se deployer par le workflow Worker normal. Utilisez [Helper local](/fr/docs/command-line-interface/local-helper/) lorsque vous voulez seulement ouvrir une redirection existante depuis le terminal.
+Utilisez-la lorsque le changement doit entrer dans l'historique Git et se déployer par le workflow Worker normal. Utilisez [Helper local](/fr/docs/command-line-interface/local-helper/) lorsque vous voulez seulement ouvrir une redirection existante depuis le terminal.
 
 ## Prerequis
 
-- Un depot vanityURLs configure disponible localement
+- Un dépôt vanityURLs configure disponible localement
 - Node.js 20 ou plus recent
 - npm
 - Git
 
-Lancez la commande locale au depot :
+Lancez la commande locale au dépôt :
 
 ```bash
 ./scripts/lnk --help
 ```
 
-Si vous avez installe les outils poste avec `npm run local-install`, vous pouvez habituellement lancer `lnk` depuis n'importe quel repertoire. Definissez `V8S_REPO` lorsqu'une commande installee doit pointer vers un depot local precis.
+Si vous avez installé les outils poste avec `npm run local-install`, vous pouvez habituellement lancer `lnk` depuis n'importe quel répertoire. Définissez `V8S_REPO` lorsqu'une commande installée doit pointer vers un dépôt local précis.
 
 ## Commandes principales
 
 | Commande | Effet |
 | --- | --- |
 | `./scripts/lnk LONG_URL [SLUG]` | Ajoute un lien dans `custom/v8s-links.txt` |
-| `./scripts/lnk LONG_URL --random-slug-length N` | Ajoute un lien avec un slug genere de `N` caracteres |
+| `./scripts/lnk LONG_URL --random-slug-length N` | Ajoute un lien avec un slug génère de `N` caracteres |
 | `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Ajoute un lien splat stocke comme `SLUG/*` |
-| `./scripts/lnk list [SLUG]` | Liste les entrees du registre genere depuis `build/v8s.json` |
-| `./scripts/lnk tag list` | Liste les longueurs de slugs aleatoires propres aux tags |
-| `./scripts/lnk tag set TAG --random-slug-length N` | Definit une longueur de slug aleatoire pour un tag |
-| `./scripts/lnk tag unset TAG` | Supprime une longueur de slug propre a un tag |
-| `./scripts/lnk schedule add SLUG TARGET ...` | Ajoute ou remplace une regle de cible planifiee |
+| `./scripts/lnk list [SLUG]` | Liste les entrées du registre génère depuis `build/v8s.json` |
+| `./scripts/lnk tag list` | Liste les longueurs de slugs aléatoires propres aux tags |
+| `./scripts/lnk tag set TAG --random-slug-length N` | Definit une longueur de slug aléatoire pour un tag |
+| `./scripts/lnk tag unset TAG` | Supprime une longueur de slug propre à un tag |
+| `./scripts/lnk schedule add SLUG TARGET ...` | Ajoute ou remplace une règle de cible planifiée |
 | `./scripts/lnk schedule default SLUG TARGET` | Definit la cible fallback d'un horaire existant |
-| `./scripts/lnk schedule list [SLUG]` | Liste les regles d'horaire |
-| `./scripts/lnk block add DOMAIN ...` | Ajoute ou met a jour un domaine bloque |
-| `./scripts/lnk block keyword KEYWORD ...` | Ajoute ou met a jour un mot-cle bloque |
-| `./scripts/lnk block allow DOMAIN ...` | Ajoute ou met a jour un domaine autorise |
+| `./scripts/lnk schedule list [SLUG]` | Liste les règles d'horaire |
+| `./scripts/lnk block add DOMAIN ...` | Ajoute ou met à jour un domaine bloque |
+| `./scripts/lnk block keyword KEYWORD ...` | Ajoute ou met à jour un mot-cle bloque |
+| `./scripts/lnk block allow DOMAIN ...` | Ajoute ou met à jour un domaine autorise |
 | `./scripts/lnk list policy` | Resume la politique source active |
-| `./scripts/lnk list categories` | Liste les categories et severites de politique |
+| `./scripts/lnk list categories` | Liste les categories et sevérités de politique |
 | `./scripts/lnk list domain [block\|allow]` | Liste les domaines bloques et autorises |
 | `./scripts/lnk list keyword` | Liste les mots-cles bloques |
 | `./scripts/lnk version` | Affiche la version du paquet |
 
-Les commandes de liste acceptent `--format table` ou `--format json`. Table est le format par defaut.
+Les commandes de liste acceptent `--format table` ou `--format json`. Table est le format par défaut.
 
 ## Details des commandes
 
@@ -63,7 +63,7 @@ Les commandes de liste acceptent `--format table` ou `--format json`. Table est 
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-Si vous omettez le slug, `lnk` en genere un avec la longueur par defaut configuree dans `custom/v8s-site-config.json`. `npm run setup` propose `3`. Les slugs generes utilisent l'alphabet lisible configure. La valeur produit par defaut est `34789abcdefghjkmnpqrstvwxy`.
+Si vous omettez le slug, `lnk` en génère un avec la longueur par défaut configuree dans `custom/v8s-site-config.json`. `npm run setup` propose `3`. Les slugs génères utilisent l'alphabet lisible configure. La valeur produit par défaut est `34789abcdefghjkmnpqrstvwxy`.
 
 Remplacez la longueur pour une seule commande avec :
 
@@ -71,7 +71,7 @@ Remplacez la longueur pour une seule commande avec :
 ./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
 ```
 
-Vous pouvez aussi configurer des valeurs par defaut propres aux tags :
+Vous pouvez aussi configurer des valeurs par défaut propres aux tags :
 
 ```bash
 ./scripts/lnk tag set social --random-slug-length 5
@@ -79,26 +79,26 @@ Vous pouvez aussi configurer des valeurs par defaut propres aux tags :
 ./scripts/lnk tag unset social
 ```
 
-Lorsqu'un lien genere possede plusieurs tags avec des longueurs configurees, `lnk` utilise la longueur la plus courte parmi les tags applicables. Un `--random-slug-length` ou `--slug-length` explicite dans la commande gagne sur les valeurs par tag et sur la valeur globale.
+Lorsqu'un lien génère possède plusieurs tags avec des longueurs configurées, `lnk` utilise la longueur la plus courte parmi les tags applicables. Un `--random-slug-length` ou `--slug-length` explicite dans la commande gagne sur les valeurs par tag et sur la valeur globale.
 
-Les valeurs produit par defaut configurent les liens `training` a 4 caracteres et les liens `debug` a 2 caracteres.
+Les valeurs produit par défaut configurent les liens `training` a 4 caracteres et les liens `debug` a 2 caracteres.
 
-Si le slug existe deja, `lnk` affiche l'entree actuelle et le remplacement propose, puis demande si vous voulez remplacer l'entree. Utilisez `--replace` pour remplacer sans question, ou `--no-replace` pour conserver l'entree existante.
+Si le slug existe déjà, `lnk` affiche l'entree actuelle et le remplacement propose, puis demande si vous voulez remplacer l'entree. Utilisez `--replace` pour remplacer sans question, ou `--no-replace` pour conserver l'entree existante.
 
-Les etats valides sont `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance` et `deactivated`.
+Les états valides sont `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance` et `deactivated`.
 
 Options utiles pour les liens :
 
 | Option | Role |
 | --- | --- |
-| `--state STATE` | Definit l'etat de cycle de vie |
+| `--state STATE` | Definit l'état de cycle de vie |
 | `--title TEXT` | Ajoute un titre lisible |
 | `--description TEXT` | Ajoute une description lisible |
-| `--tags TAGS` | Ajoute des tags separes par des virgules |
-| `--owner OWNER` | Definit le libelle de responsabilite |
+| `--tags TAGS` | Ajoute des tags séparés par des virgules |
+| `--owner OWNER` | Definit le libellé de responsabilité |
 | `--expires-at DATE` | Definit une date ISO ou un timestamp |
 | `--notes TEXT` | Ajoute des notes internes |
-| `--random-slug-length N` | Definit la longueur du slug genere pour cette commande |
+| `--random-slug-length N` | Definit la longueur du slug génère pour cette commande |
 | `--slug-length N` | Alias de `--random-slug-length` |
 | `--replace` | Remplace un slug existant sans question |
 | `--no-replace` | Conserve un slug existant |
@@ -112,7 +112,7 @@ Options utiles pour les liens :
 ./scripts/lnk list --format json
 ```
 
-`lnk list` lit le registre genere. Si `build/v8s.json` n'existe pas, la commande lance d'abord `npm run build`.
+`lnk list` lit le registre génère. Si `build/v8s.json` n'existe pas, la commande lance d'abord `npm run build`.
 
 ### Gerer les horaires
 
@@ -122,9 +122,9 @@ Options utiles pour les liens :
 ./scripts/lnk schedule list hangout
 ```
 
-Les regles d'horaire sont ecrites dans `custom/v8s-schedules.json`. `schedule add` exige `--label`, `--days`, `--from` et `--to`. Les heures utilisent `HH:MM`; les jours utilisent `mon`, `tue`, `wed`, `thu`, `fri`, `sat` et `sun`.
+Les règles d'horaire sont écrites dans `custom/v8s-schedules.json`. `schedule add` exige `--label`, `--days`, `--from` et `--to`. Les heures utilisent `HH:MM`; les jours utilisent `mon`, `tue`, `wed`, `thu`, `fri`, `sat` et `sun`.
 
-Utilisez `--dry-run` sur les commandes d'horaire pour afficher le JSON mis a jour sans ecrire, verifier, commit ou pousser.
+Utilisez `--dry-run` sur les commandes d'horaire pour afficher le JSON mis à jour sans écrire, verifier, commit ou pousser.
 
 ### Gerer la politique source
 
@@ -138,17 +138,17 @@ Utilisez `--dry-run` sur les commandes d'horaire pour afficher le JSON mis a jou
 ./scripts/lnk block allow example.com --reason "Domaine controle par le proprietaire"
 ```
 
-Les commandes de politique ecrivent `custom/v8s-policies.json`. Le build transforme la politique source en `build/v8s-blocklist.json`. Les categories et severites sont validees avec `defaults/v8s-blocklist-categories.json`.
+Les commandes de politique ecrivent `custom/v8s-policies.json`. Le build transforme la politique source en `build/v8s-blocklist.json`. Les categories et sevérités sont validees avec `defaults/v8s-blocklist-categories.json`.
 
-Utilisez `--dry-run` sur les commandes de politique pour afficher le JSON mis a jour sans ecrire, verifier, commit ou pousser.
+Utilisez `--dry-run` sur les commandes de politique pour afficher le JSON mis à jour sans écrire, verifier, commit ou pousser.
 
 ## Variables d'environnement
 
 | Variable | Role |
 | --- | --- |
-| `DRY_RUN=true` | Affiche le changement prevu sans ecrire, verifier, commit ou pousser |
-| `V8S_REPO=PATH` | Pointe une commande `lnk` installee vers un depot vanityURLs local |
-| `V8S_LINKS_OWNER=OWNER` | Definit la valeur owner par defaut pour les nouveaux liens |
+| `DRY_RUN=true` | Affiche le changement prevu sans écrire, verifier, commit ou pousser |
+| `V8S_REPO=PATH` | Pointe une commande `lnk` installee vers un dépôt vanityURLs local |
+| `V8S_LINKS_OWNER=OWNER` | Definit la valeur owner par défaut pour les nouveaux liens |
 | `V8S_LINKS_FILE=FILE` | Remplace le fichier de liens |
 | `V8S_SCHEDULES_FILE=FILE` | Remplace le fichier des horaires |
 | `V8S_POLICY_FILE=FILE` | Remplace le fichier de politique |
@@ -161,9 +161,9 @@ $env:V8S_LINKS_OWNER="team"
 node ./scripts/lnk https://example.com example
 ```
 
-## Comportement d'ecriture
+## Comportement d'écriture
 
-Les operations d'ecriture reussies pour les liens, horaires et politiques lancent :
+Les opérations d'écriture reussies pour les liens, horaires et politiques lancent :
 
 ```text
 npm run check
@@ -172,9 +172,9 @@ git commit -m OPERATION_MESSAGE
 git push
 ```
 
-Les commandes d'ecriture directes de `lnk` utilisent des commits conventionnels propres a l'operation, comme `feat(links): add SLUG`, `feat(schedules): update SLUG`, `feat(policies): block DOMAIN`, et `feat(policies): allow DOMAIN`.
+Les commandes d'écriture directes de `lnk` utilisent des commits conventionnels propres à l'opération, comme `feat(links): add SLUG`, `feat(schedules): update SLUG`, `feat(policies): block DOMAIN`, et `feat(policies): allow DOMAIN`.
 
-Pour une publication locale plus large, `npm run local-publish` selectionne les messages depuis `local_publish.commit_messages` dans `defaults/v8s-local-config.json`, fusionne avec `custom/v8s-local-config.json`. Les cles par defaut sont :
+Pour une publication locale plus large, `npm run local-publish` selectionne les messages depuis `local_publish.commit_messages` dans `defaults/v8s-local-config.json`, fusionne avec `custom/v8s-local-config.json`. Les cles par défaut sont :
 
 | Cle | Utilisee quand |
 | --- | --- |
@@ -189,4 +189,4 @@ Remplacez le message local-publish selectionne avec :
 npm run local-publish -- --message "chore: update short-link configuration"
 ```
 
-Cela rend `lnk` volontairement opinionated : la commande sert aux changements que vous etes pret a valider et publier. Utilisez `DRY_RUN=true` ou le `--dry-run` propre a la commande lorsque vous voulez previsualiser d'abord.
+Cela rend `lnk` volontairement opinionated : la commande sert aux changements que vous êtes prêt a valider et publier. Utilisez `DRY_RUN=true` ou le `--dry-run` propre à la commande lorsque vous voulez previsualiser d'abord.

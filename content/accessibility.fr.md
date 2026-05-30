@@ -80,11 +80,11 @@ Les outils automatisés détectent une partie significative des problèmes WCAG 
 
 | Outil | Accès | Ce qu'il vérifie |
 |-------|-------|------------------|
-| axe DevTools | [Extension Chrome](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) → DevTools → onglet axe | WCAG 2.1 A et AA |
-| WAVE | [wave.webaim.org](https://wave.webaim.org) ou [extension navigateur](https://wave.webaim.org/extension/) | Structure, contraste, ARIA |
+| axe DevTools | [Extension Chrome](#signaler-des-probl%C3%A8mes-daccessibilit%C3%A9) → DevTools → onglet axe | WCAG 2.1 A et AA |
+| WAVE | [wave.webaim.org](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) ou [extension navigateur](https://wave.webaim.org) | Structure, contraste, ARIA |
 | Lighthouse | Chrome DevTools → onglet Lighthouse → Accessibility | Score et liste de problèmes |
-| PageSpeed Insights | [pagespeed.web.dev](https://pagespeed.web.dev) | Audit Lighthouse + Core Web Vitals |
-| IBM Equal Access Checker | [Extension Chrome](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp) | WCAG 2.1 et directives IBM |
+| PageSpeed Insights | [pagespeed.web.dev](https://wave.webaim.org/extension/) | Audit Lighthouse + Core Web Vitals |
+| IBM Equal Access Checker | [Extension Chrome](https://pagespeed.web.dev) | WCAG 2.1 et directives IBM |
 
 ### Test au clavier
 
@@ -103,8 +103,8 @@ Chaque élément interactif doit être atteignable, avoir un indicateur de mise 
 
 Outils utiles pour vérifier le contraste manuellement :
 
-- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
-- [TPGi Color Contrast Analyser](https://www.tpgi.com/color-contrast-checker/) (application bureau)
+- [WebAIM Contrast Checker](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp)
+- [TPGi Color Contrast Analyser](https://webaim.org/resources/contrastchecker/) (application bureau)
 - Chrome DevTools → panneau Elements → Computed → indicateur de contraste
 
 Cibles : **4,5:1** pour le texte normal, **3:1** pour le grand texte (18pt ou 14pt gras) et les composants d'interface.
@@ -130,16 +130,16 @@ Cibles : **4,5:1** pour le texte normal, **3:1** pour le grand texte (18pt ou 14
 
 Le site est open source. Vous pouvez inspecter chaque décision d'accessibilité directement :
 
-- Modèles et ARIA : [github.com/vanityURLs/website/tree/main/layouts](https://github.com/vanityURLs/website/tree/main/layouts)
-- CSS, y compris les styles de mise au point : [github.com/vanityURLs/website/blob/main/assets/css/main.css](https://github.com/vanityURLs/website/blob/main/assets/css/main.css)
-- JavaScript, y compris les gestionnaires de clavier : [github.com/vanityURLs/website/blob/main/assets/js/app.js](https://github.com/vanityURLs/website/blob/main/assets/js/app.js)
+- Modèles et ARIA : [github.com/vanityURLs/website/tree/main/layouts](https://www.tpgi.com/color-contrast-checker/)
+- CSS, y compris les styles de mise au point : [github.com/vanityURLs/website/blob/main/assets/css/main.css](https://github.com/vanityURLs/website/tree/main/layouts)
+- JavaScript, y compris les gestionnaires de clavier : [github.com/vanityURLs/website/blob/main/assets/js/app.js](https://github.com/vanityURLs/website/blob/main/assets/css/main.css)
 
 ## Signaler des problèmes d'accessibilité
 
 Si vous rencontrez une barrière sur ce site, dites-le-nous :
 
-- [GitHub Issues](https://github.com/vanityURLs/website/issues) — préféré, car cela permet un suivi public
-- [GitHub Discussions](https://github.com/orgs/vanityURLs/discussions)
+- [GitHub Issues](https://github.com/vanityURLs/website/blob/main/assets/js/app.js) — préféré, car cela permet un suivi public
+- [GitHub Discussions](https://github.com/vanityURLs/website/issues)
 
 Veuillez inclure : l'URL de la page, une description de la barrière, la technologie d'assistance et le navigateur que vous utilisiez, et les étapes pour reproduire.
 

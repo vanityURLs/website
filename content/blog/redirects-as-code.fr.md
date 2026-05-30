@@ -7,7 +7,7 @@ tags: ["guide", "tutorial"]
 featured: false
 ---
 
-La plupart des raccourcisseurs d'URL sont des boîtes noires. Vous vous connectez via une interface web, créez un lien, et espérez que le service continue de fonctionner. Quand quelque chose tourne mal, il n'y a pas de trace d'audit, pas de retour arrière, aucun moyen de savoir qui a modifié quoi et quand.
+La plupart des raccourcisseurs d'URL sont des boîtes noires. Vous vous connectez vià une interface web, créez un lien, et espérez que le service continue de fonctionner. Quand quelque chose tourne mal, il n'y a pas de trace d'audit, pas de retour arrière, aucun moyen de savoir qui a modifié quoi et quand.
 
 vanityURLs adopte une approche différente : vos redirections vivent dans un fichier texte, dans un dépôt Git, déployé via Cloudflare Pages. C'est le GitOps appliqué à la gestion d'URL.
 
@@ -83,4 +83,4 @@ Validation de dynamic.lnk...
 
 C'est le même principe que `terraform plan` avant `terraform apply`.
 
-[Lire la reference actuelle du format des liens ->](/fr/docs/reference/link-format/)
+[Lire la référence actuelle du format des liens ->](/fr/docs/reference/link-format/)

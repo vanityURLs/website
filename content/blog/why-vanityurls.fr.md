@@ -15,7 +15,7 @@ Le problème n'est pas que ces services se sont dégradés. C'est qu'ils ont tou
 
 ## Vous ne possédez pas vos liens
 
-Quand vous raccourcissez une URL via un service tiers, vous ne créez pas un lien. Vous créez une **dépendance**. Le lien fonctionne tant que l'entreprise reste en activité, maintient votre niveau de service gratuit, et ne décomissionne pas votre format de lien.
+Quand vous raccourcissez une URL vià un service tiers, vous ne créez pas un lien. Vous créez une **dépendance**. Le lien fonctionne tant que l'entreprise reste en activité, maintient votre niveau de service gratuit, et ne décomissionne pas votre format de lien.
 
 Rien de tout cela n'est sous votre contrôle. Tout cela a échoué pour de vrais utilisateurs ces cinq dernières années.
 

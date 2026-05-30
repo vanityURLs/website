@@ -6,8 +6,8 @@ weight: 80
 aliases:
   - /docs/blocklist-policy/
   - /fr/docs/blocklist-policy/
-  - /docs/reference/blocklist/
-  - /fr/docs/reference/blocklist/
+  - /docs/référence/blocklist/
+  - /fr/docs/référence/blocklist/
 
 ---
 

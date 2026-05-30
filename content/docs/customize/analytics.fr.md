@@ -78,7 +78,7 @@ Avant de déployer, lancez :
 npm run smoke:analytics
 ```
 
-Le smoke test bâtit l'instance et intercepte les appels analytics localement. Il vérifie le chemin d'événement sans envoyer de données au fournisseur.
+Le smoke test bâtit l'instance et intercepte les appels analytics localement. Il vérifie le chemin d'événement sans envoyér de données au fournisseur.
 
 ### Vérifier après déploiement
 

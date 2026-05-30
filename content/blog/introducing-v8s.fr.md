@@ -21,9 +21,9 @@ Ces changements mettent en lumière un problème fondamental : nous avons fait c
 
 Voici **VanityURLs** — aussi connu sous le nom de **v8s** — un raccourcisseur d'URL open source qui vous donne le contrôle. Avec v8s, vous ne dépendez d'aucun fournisseur tiers. Vos liens vous appartiennent, hébergés sur votre propre domaine.
 
-1. **Achetez un domaine** — n'importe quel domaine court que vous souhaitez
+1. **Achétéz un domaine** — n'importe quel domaine court que vous souhaitez
 2. **Hébergez un fichier de redirection** — un fichier texte dans un dépôt GitHub
-3. **Connectez via Cloudflare Pages** — une plateforme serverless gratuite
+3. **Connectez via Cloudflare Pages** — une plateforme sans serveur gratuite
 
 v8s n'est *pas* un nouveau vendeur qui hébergera vos liens. C'est un ensemble d'instructions pour combiner votre propre domaine, une liste de redirections, et Cloudflare Pages. **Vos liens vous appartiennent toujours.**
 

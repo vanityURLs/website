@@ -7,7 +7,7 @@ vanityURLs.link est un site de documentation statique pour un projet open source
 
 ## Hébergement : Cloudflare Pages
 
-Ce site est servi exclusivement par [Cloudflare Pages](https://pages.cloudflare.com/), une plateforme serverless distribuée à l'échelle mondiale. Cloudflare fournit :
+Ce site est servi exclusivement par [Cloudflare Pages](https://pages.cloudflare.com/), une plateforme sans serveur distribuée à l'échelle mondiale. Cloudflare fournit :
 
 - **TLS 1.3** — toutes les connexions sont chiffrées avec TLS 1.3 (TLS 1.2 minimum). Les versions de protocole plus anciennes sont rejetées.
 - **HSTS** — HTTP Strict Transport Security est appliqué, empêchant les attaques de rétrogradation de protocole
@@ -51,7 +51,7 @@ vanityURLs.link n'envoie pas d'email. Le domaine est verrouillé contre l'usurpa
 
 | Enregistrement | Valeur | Effet |
 |----------------|--------|-------|
-| `DMARC _dmarc` | `p=reject; sp=reject; adkim=s; aspf=s` | Les serveurs de messagerie destinataires doivent rejeter tout email prétendant provenir de ce domaine |
+| `DMARC _dmarc` | `p=reject; sp=reject; adkim=s; aspf=s` | Les serveurs de messagerie destinataires doivent rejétér tout email prétendant provenir de ce domaine |
 | `DKIM *.domainkey` | `v=DKIM1; p=` | Clé publique vide — aucune signature DKIM ne peut être valide pour ce domaine |
 | `MTA-STS _mta-sts` | `v=STSv1` | Les serveurs de messagerie contactant ce domaine doivent utiliser TLS |
 
@@ -70,23 +70,23 @@ Cela inclut :
 - Le flux de travail CI/CD GitHub Actions
 - La configuration Tailwind CSS et tout le JavaScript
 
-Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce côté client, et pas de pixels de suivi. Les pages vues sont comptées côté serveur depuis le Worker de périphérie — voir la [politique de confidentialité](/privacy/). Si vous trouvez quelque chose d'inattendu, veuillez ouvrir un ticket ou [signaler via les GitHub Security Advisories](https://github.com/vanityURLs/vanityURLs/security/advisories/new).
+Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce côté client, et pas de pixels de suivi. Les pages vues sont comptées côté serveur depuis le Worker de périphérie — voir la [politique de confidentialité](/privacy/). Si vous trouvez quelque chose d'inattendu, veuillez ouvrir un ticket ou [signaler via les GitHub Security Advisories](/privacy/).
 
 ## Ce que vanityURLs ne fait PAS
 
 - **Aucun cookie** — le site ne définit aucun cookie
-- **Aucune analytique côté client** — aucun pixel de suivi, enregistrement de session ou script analytique JavaScript ne s'exécute dans votre navigateur. Le comptage des pages vues est émis côté serveur par le Worker de périphérie Cloudflare et envoyé à [Umami](https://umami.is/) sans définir d'identifiant dans votre navigateur. Consultez la [politique de confidentialité](/privacy/) pour les champs exacts transmis.
+- **Aucune analytique côté client** — aucun pixel de suivi, enregistrement de session ou script analytique JavaScript ne s'exécute dans votre navigateur. Le comptage des pages vues est émis côté serveur par le Worker de périphérie Cloudflare et envoyé à [Umami](https://github.com/vanityURLs/vanityURLs/security/advisories/new) sans définir d'identifiant dans votre navigateur. Consultez la [politique de confidentialité](/privacy/) pour les champs exacts transmis.
 - **Aucune collecte de données personnelles** — pas de formulaires, pas de comptes, pas de journaux de données visiteurs au-delà des journaux d'accès standard de Cloudflare
 - **Aucune publicité tierce** — pas de réseaux publicitaires
 - **Aucun script injecté par CDN** — Zaraz et Rocket Loader de Cloudflare ne sont pas activés
 
-Aucune requête réseau externe n'est effectuée par le navigateur du visiteur. Les diagrammes Mermaid (lorsqu'ils sont présents sur les pages de documentation) sont chargés depuis un bundle auto-hébergé à `/js/mermaid.min.<hash>.js` avec intégrité SRI. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://pagefind.app/) — les requêtes ne quittent jamais votre navigateur.
+Aucune requête réseau externe n'est effectuée par le navigateur du visiteur. Les diagrammes Mermaid (lorsqu'ils sont présents sur les pages de documentation) sont chargés depuis un bundle auto-hébergé à `/js/mermaid.min.<hash>.js` avec intégrité SRI. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://umami.is/) — les requêtes ne quittent jamais votre navigateur.
 
 ## Signalement de vulnérabilités
 
 Si vous découvrez un problème de sécurité dans ce site ou le logiciel vanityURLs, veuillez le signaler en privé :
 
-- **GitHub Security Advisories** : [Signaler une vulnérabilité](https://github.com/vanityURLs/vanityURLs/security/advisories/new)
+- **GitHub Security Advisories** : [Signaler une vulnérabilité](/privacy/)
 - Ne pas ouvrir un ticket public pour les vulnérabilités de sécurité
 
 Nous visons à accuser réception des signalements dans les **72 heures** et à les résoudre dans les **7 jours**.

@@ -10,4 +10,4 @@ featured: true
 
 felx.cc est le domaine personnel de [Félix Léger](https://github.com/felleg), l'un des créateurs de vanityURLs. C'est l'un des premiers déploiements en production du projet.
 
-Tous les liens sur felx.cc sont gérés via un fichier `_redirects` en texte brut hébergé sur GitHub et déployé automatiquement sur Cloudflare Pages à chaque push.
+Tous les liens sur felx.cc sont gérés vià un fichier `_redirects` en texte brut hébergé sur GitHub et déployé automatiquement sur Cloudflare Pages à chaque push.

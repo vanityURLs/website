@@ -33,13 +33,13 @@ Cette valeur n'est pas un secret, mais elle doit correspondre au compte Cloudfla
 
 ### Choisir le fournisseur d'identité
 
-Pour la phase 1, utilisez le [code à usage unique](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) sauf si un fournisseur est déjà prêt. Pour la stratégie de fournisseur, lisez [Choisir un fournisseur d'identité](/fr/blog/choosing-identity-provider/).
+Pour la phase 1, utilisez le [code à usage unique](#stocker-laudience-access) sauf si un fournisseur est déjà prêt. Pour la stratégie de fournisseur, lisez [Choisir un fournisseur d'identité](/fr/blog/choosing-identity-provider/).
 
 | Option | Utilisez-le quand |
 |---|---|
-| [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Les mainteneurs utilisent déjà GitHub et vous voulez des sélecteurs d'utilisateur ou d'organisation |
-| [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Les mainteneurs utilisent déjà Gmail ou Google Workspace |
-| [IdP corporatif](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/) | Votre organisation gère déjà les identités de travail et le départ des employés |
+| [GitHub](../cf-access-not-configured.fr.png) | Les mainteneurs utilisent déjà GitHub et vous voulez des sélecteurs d'utilisateur ou d'organisation |
+| [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) | Les mainteneurs utilisent déjà Gmail ou Google Workspace |
+| [IdP corporatif](/fr/blog/choosing-identity-provider/) | Votre organisation gère déjà les identités de travail et le départ des employés |
 
 Si vous activez plusieurs fournisseurs, les utilisateurs en choisissent un sur la page de connexion Cloudflare Access. La politique réussit lorsque le fournisseur choisi retourne une identité qui correspond à la politique.
 
@@ -116,8 +116,8 @@ npm run check
 
 Après le déploiement, répétez le test de navigateur déconnecté contre le vrai domaine court.
 
-Pour information : Cloudflare Access n'est pas la seule couche qui limite l'acces aux fichiers operationnels. Pour le tableau complet des gardes, lisez [Securite runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
+Pour information : Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Pour le tableau complet des gardes, lisez [Sécurité runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Gardez l'acces controle sur `/_stats` et `/_tests`, les entrees de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actives, sauf si vous avez une **raison deliberee de divulgation publique**. C'est une note de conception, pas une activite de configuration separee.
+Gardez l'accès contrôle sur `/_stats` et `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une **raison délibérée de divulgation publique**. C'est une note de conception, pas une activité de configuration séparée.
 
 {{% /steps %}}

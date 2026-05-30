@@ -6,7 +6,7 @@ weight: 15
 show_section_pages: false
 ---
 
-vanityURLs fournit deux outils locaux en ligne de commande, avec des roles differents.
+vanityURLs fournit deux outils locaux en ligne de commande, avec des rôles différents.
 
 | Outil | Utilisez-le quand |
 | --- | --- |

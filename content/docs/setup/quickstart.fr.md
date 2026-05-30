@@ -1,6 +1,6 @@
 ---
 title: "Démarrage rapide"
-description: "Lancer un redirecteur vanityURLs simple sur votre propre domaine court, puis le personnaliser une fois le premier déploiement fonctionnel."
+description: "Lancer un redirecteur vanityURLs simple sur votre propre domaine court, puis le personnalisér une fois le premier déploiement fonctionnel."
 weight: 20
 aside: false
 aliases:
@@ -27,7 +27,7 @@ Utilisez la structure locale qui fonctionne déjà pour vous. L'important est qu
 
 ### Confirmer l'authentification GitHub
 
-Assurez-vous que votre compte GitHub est configuré pour [SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) ou [HTTPS](https://docs.github.com/get-started/getting-started-with-git/caching-your-github-credentials-in-git) avant de pousser votre propre dépôt.
+Assurez-vous que votre compte GitHub est configuré pour [SSH](/fr/docs/setup/) ou [HTTPS](/fr/docs/reference/glossary/#idempotent) avant de pousser votre propre dépôt.
 
 Créez un nouveau dépôt GitHub public ou privé pour votre redirecteur avant l'étape finale de push. Ne l'initialisez pas avec un README, une licence ou un `.gitignore`; l'instance locale fournira le contenu initial.
 
@@ -78,13 +78,13 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 | Nom du Worker | `v8s-link` | Nom du projet Cloudflare Worker. Les lettres minuscules, chiffres et traits d'union fonctionnent le mieux |
 | Étiquette propriétaire | `team` | Étiquette qui identifie la personne ou l'équipe qui a fait le changement. Consultez [Étiquettes de propriétaire pour l'historique des liens courts](/en/blog/owner-labels-for-short-link-change-history/) |
 | Longueur des slugs aléatoires | `3` | Nombre de caractères par défaut lorsque `lnk` génère un slug. Vous pouvez le remplacer par commande ou par tag plus tard. Voir [Choisir des slugs aléatoires lisibles](/fr/blog/choosing-readable-random-slugs/) |
-| Fournisseur d'analytics | `disabled` | Restez desactive pour l'instant. Consultez [Analytics](/fr/docs/customize/analytics/) pendant la personnalisation |
+| Fournisseur d'analytics | `disabled` | Restez désactive pour l'instant. Consultez [Analytics](/fr/docs/customize/analytics/) pendant la personnalisation |
 | Domaine d'équipe Cloudflare Access | `vanityurls.cloudflareaccess.com` | Valeur de `CF_ACCESS_TEAM_DOMAIN`; trouvez-la dans **Zero Trust** > **Settings** sous **Team domain** |
 | Langues supportées | `de,en,es,fr,it` | Codes ISO séparés par des virgules. L'anglais (`en`) est la [langue principale et de fallback](/fr/docs/reference/i18n/) lorsqu'une page localisée n'est pas disponible |
-| Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N` | Restez desactive pour l'instant. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
+| Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N` | Restez désactive pour l'instant. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
 | Nom légal de l'opérateur | `Benoît H. Dicaire` | Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
-| Réviser les courriels de contact publics pour les pages générées ? | `Y` | Revisez les [adresses publiques de signalement](https://www.vanityurls.link/en/blog/public-contact-emails-for-generated-pages/) une fois, puis mettez a jour manuellement `/custom/v8s-site-config.json` |
-| Configurer la marque maintenant ? | `N` | Restez desactive pour l'instant. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
+| Réviser les courriels de contact publics pour les pages générées ? | `Y` | Révisez les [adresses publiques de signalement](/fr/docs/v8s-link/) une fois, puis mettez à jour manuellement `/custom/v8s-site-config.json` |
+| Configurer la marque maintenant ? | `N` | Restez désactive pour l'instant. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
 
@@ -96,7 +96,7 @@ npm run local-install
 
 Cette commande installe les raccourcis optionnels du poste. Utilisez [Helper local](/fr/docs/command-line-interface/local-helper/) pour le raccourci en lecture seule `v8s`, et [LNK](/fr/docs/command-line-interface/lnk/) lorsque vous voulez gérer les liens et horaires depuis le terminal.
 
-Si vous avez deja installe le helper local pour une autre instance, votre shell peut deja exporter `V8S_REPO`. La commande source `./scripts/lnk` prefere maintenant le depot depuis lequel elle s'execute, mais les clones plus anciens peuvent encore etre touches par une valeur d'environnement perimee. Si `./scripts/lnk list` affiche les liens d'une autre instance, lancez :
+Si vous avez déjà installe le helper local pour une autre instance, votre shell peut déjà exporter `V8S_REPO`. La commande source `./scripts/lnk` préfère maintenant le dépôt depuis lequel elle s'execute, mais les clones plus anciens peuvent encore être touches par une valeur d'environnement perimee. Si `./scripts/lnk list` affiche les liens d'une autre instance, lancez :
 
 ```bash
 unset V8S_REPO
@@ -141,15 +141,15 @@ Dans Cloudflare, ouvrez **Build** > **Compute** > **Workers & Pages** depuis le 
 
 ### Configurer le contrôle d'accès
 
-L'acces au [Dashboard](https://v8s.link/_stats) et a la [matrice de test](https://v8s.link/_tests) doit etre protege par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
+L'accès au [Dashboard](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) et à la [matrice de test](https://docs.github.com/get-started/getting-started-with-git/caching-your-github-credentials-in-git) doit être protège par [Cloudflare Access](/fr/docs/command-line-interface/local-helper/), une solution Zero Trust Network Access (ZTNA).
 
-Ouvrez [Controle d'acces](../customize/access-control/) dans un autre onglet et completez les activites de cette page. Assurez-vous d'avoir copie le **Application Audience (AUD) Tag** dans votre gestionnaire de mots de passe.
+Ouvrez [Contrôle d'accès](../customize/access-control/) dans un autre onglet et complétéz les activités de cette page. Assurez-vous d'avoir copie le **Application Audience (AUD) Tag** dans votre gestionnaire de mots de passe.
 
 ### Configurer la protection réseau
 
-Le trafic bloque par Cloudflare n'atteint pas votre instance vanityURLs, ce qui reduit les tracas et le bruit dans le Worker. Le volume d'evenements non sollicites peut surprendre. Consultez les requetes bloquees dans Cloudflare Security Events, pas dans Workers, parce que ces requetes sont arretees avant l'execution du Worker.
+Le trafic bloque par Cloudflare n'atteint pas votre instance vanityURLs, ce qui réduit les tracas et le bruit dans le Worker. Le volume d'événements non sollicites peut surprendre. Consultez les requêtes bloquées dans Cloudflare Security Events, pas dans Workers, parce que ces requêtes sont arrétées avant l'execution du Worker.
 
-Ouvrez [Protection reseau](/fr/docs/customize/network-protection/) dans un autre onglet et completez les activites de cette page. Revenez ici lorsque ces reglages sont en place.
+Ouvrez [Protection réseau](/fr/docs/customize/network-protection/) dans un autre onglet et complétéz les activités de cette page. Revenez ici lorsque ces réglages sont en place.
 
 ### _Optionnel:_ tester localement
 

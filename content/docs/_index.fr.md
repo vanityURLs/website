@@ -1,12 +1,12 @@
 ---
 aside: false
 title: "Documentation"
-description: "Trouver les pages de setup, personnalisation, ligne de commande, demo et reference vanityURLs."
+description: "Trouver les pages de setup, personnalisation, ligne de commande, demo et référence vanityURLs."
 ---
 
-- [Setup](/fr/docs/setup/) liste les prerequis et les decisions a prendre avant l'installation.
-- [Demarrage rapide](/fr/docs/setup/quickstart/) suit le chemin simple depuis la creation du depot jusqu'a la premiere redirection deployee.
-- [v8s.link](/fr/docs/v8s-link/) est l'instance demo officielle a comparer lorsque des valeurs de setup ou des comportements runtime different.
+- [Setup](/fr/docs/setup/) liste les prérequis et les décisions à prendre avant l'installation.
+- [Demarrage rapide](/fr/docs/setup/quickstart/) suit le chemin simple depuis la création du dépôt jusqu'à la première redirection déployée.
+- [v8s.link](/fr/docs/v8s-link/) est l'instance demo officielle a comparer lorsque des valeurs de setup ou des comportements runtime différent.
 
 ## Utiliser la ligne de commande
 
@@ -16,15 +16,15 @@ description: "Trouver les pages de setup, personnalisation, ligne de commande, d
 
 ## Personnaliser une instance
 
-- [Personnaliser](/fr/docs/customize/) organise le travail apres le premier deploiement.
+- [Personnaliser](/fr/docs/customize/) organise le travail après le premier déploiement.
 - [Marque](/fr/docs/reference/brand/) couvre les wordmarks, slogans, badges et assets publics geres par l'installateur.
-- [Pied de page et pages](/fr/docs/customize/footer-pages/) couvre les pages publiques legales et de confiance.
-- [Controle d'acces](/fr/docs/customize/access-control/) protege les chemins operationnels avec Cloudflare Access.
-- [Analytics](/fr/docs/customize/analytics/), [Politique et blocklist](/fr/docs/customize/blocklist/) et [Protection reseau](/fr/docs/customize/network-protection/) couvrent la visibilite du trafic et les controles anti-abus.
+- [Pied de page et pages](/fr/docs/customize/footer-pages/) couvre les pages publiques légales et de confiance.
+- [Contrôle d'accès](/fr/docs/customize/access-control/) protège les chemins opérationnels avec Cloudflare Access.
+- [Analytics](/fr/docs/customize/analytics/), [Politique et blocklist](/fr/docs/customize/blocklist/) et [Protection réseau](/fr/docs/customize/network-protection/) couvrent la visibilité du trafic et les contrôles anti-abus.
 
 ## Verifier le comportement exact
 
-- [Reference](/fr/docs/reference/) documente les fichiers, artefacts runtime, comportements securite, formats de liens, horaires et mises a jour.
-- [Structure du depot](/fr/docs/reference/repository-layout/) montre ou vivent les fichiers source, custom, generes et Worker.
-- [Surcharges custom](/fr/docs/reference/custom-overrides/) associe les fichiers propres a l'instance aux surfaces qu'ils remplacent.
-- [Mettre a jour une instance](/fr/docs/reference/upgrading/) garde une instance existante a jour.
+- [Reference](/fr/docs/reference/) documente les fichiers, artefacts runtime, comportements sécurité, formats de liens, horaires et mises à jour.
+- [Structure du dépôt](/fr/docs/reference/repository-layout/) montre ou vivent les fichiers source, custom, génères et Worker.
+- [Surcharges custom](/fr/docs/reference/custom-overrides/) associe les fichiers propres à l'instance aux surfaces qu'ils remplacent.
+- [Mettre à jour une instance](/fr/docs/reference/upgrading/) garde une instance existante à jour.
