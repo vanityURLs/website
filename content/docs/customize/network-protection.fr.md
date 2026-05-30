@@ -105,7 +105,7 @@ Les règles de sécurité Cloudflare s'executent avant le Worker. Utilisez-les p
 
 Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname apex. Si `www.v8s.link` passe aussi par Cloudflare avant sa redirection, incluez-le aussi, par exemple `http.host in {"v8s.link" "www.v8s.link"}`. Un CNAME DNS alias un hostname; il ne crée pas une redirection HTTP par lui-même.
 
-<table>
+<table class="waf-rules-table">
   <thead>
     <tr>
       <th>Regle</th>

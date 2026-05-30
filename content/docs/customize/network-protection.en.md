@@ -105,7 +105,7 @@ Cloudflare security rules run before the Worker. Use them for traffic that shoul
 
 The expressions below use `v8s.link` and scope to the apex hostname. If `www.v8s.link` is also proxied through Cloudflare before it redirects, include it too, such as `http.host in {"v8s.link" "www.v8s.link"}`. A DNS CNAME alone aliases a hostname; it does not create an HTTP redirect by itself.
 
-<table>
+<table class="waf-rules-table">
   <thead>
     <tr>
       <th>Rule</th>

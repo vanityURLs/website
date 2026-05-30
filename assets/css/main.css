@@ -794,6 +794,37 @@
   .prose .brand-code {
     padding: var(--brand-space-s);
   }
+  .prose table.waf-rules-table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .prose table.waf-rules-table th,
+  .prose table.waf-rules-table td {
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .prose table.waf-rules-table th:nth-child(1),
+  .prose table.waf-rules-table td:nth-child(1) {
+    width: 20%;
+  }
+  .prose table.waf-rules-table th:nth-child(2),
+  .prose table.waf-rules-table td:nth-child(2) {
+    width: 18%;
+  }
+  .prose table.waf-rules-table th:nth-child(3),
+  .prose table.waf-rules-table td:nth-child(3) {
+    width: 42%;
+  }
+  .prose table.waf-rules-table th:nth-child(4),
+  .prose table.waf-rules-table td:nth-child(4) {
+    width: 20%;
+  }
+  .prose table.waf-rules-table pre {
+    margin: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: pre;
+  }
   .prose a code {
     color: #075985;
     text-decoration-line: underline;
