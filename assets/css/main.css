@@ -794,6 +794,22 @@
   .prose .brand-code {
     padding: var(--brand-space-s);
   }
+  .prose table.cloudflare-product-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .prose table.cloudflare-product-table th:first-child,
+  .prose table.cloudflare-product-table td:first-child {
+    width: 34%;
+  }
+  .prose table.cloudflare-product-table th:nth-child(2),
+  .prose table.cloudflare-product-table td:nth-child(2) {
+    width: 66%;
+  }
+  .prose table.cloudflare-product-table th,
+  .prose table.cloudflare-product-table td {
+    vertical-align: top;
+  }
   .prose a code {
     color: #075985;
     text-decoration-line: underline;
