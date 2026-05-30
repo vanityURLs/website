@@ -21,7 +21,7 @@ Rien de tout cela n'est sous votre contrôle. Tout cela a échoué pour de vrais
 
 ## L'alternative est plus simple qu'il n'y paraît
 
-vanityURLs adopte une approche différente : vos redirections vivent dans un fichier texte dans un dépôt Git. Cloudflare Pages traite le tableau de redirections. C'est tout. Pas de base de données. Pas de vendor lock-in. Pas de facture mensuelle.
+vanityURLs adopte une approche différente : vos redirections vivent dans un fichier texte dans un dépôt Git. Cloudflare Pages traite le tableau de redirections. C'est tout. Pas de base de données. Pas d'engagement fournisseur. Pas de facture mensuelle.
 
 ## Les liens comme code offrent de vrais avantages
 

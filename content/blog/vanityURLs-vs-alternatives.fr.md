@@ -19,7 +19,7 @@ vanityURLs s'adresse aux operateurs qui veulent un domaine de liens courts de ma
 | Compte requis | Aucun compte visiteur; l'operateur utilise Cloudflare et GitHub | Compte heberge | Compte heberge | Compte heberge | Compte admin sur l'installation | Acces admin/API sur l'installation |
 | Residence des donnees | Depend des choix Cloudflare, Git et analytics de l'operateur | Controlee par le fournisseur | Controlee par le fournisseur | Controlee par le fournisseur | Vos choix d'hebergement/base de donnees | Vos choix d'hebergement/base de donnees |
 | Surface ToS | Conditions de l'instance generees depuis la config | Conditions fournisseur plus votre usage des liens | Conditions fournisseur plus votre usage des liens | Conditions fournisseur plus votre usage des liens | Vos conditions | Vos conditions |
-| Modele de deploiement | Cloudflare Worker plus Static Assets depuis Git | SaaS heberge | SaaS heberge, coeur open source | SaaS heberge | Application PHP et base de donnees | Service PHP et base de donnees |
+| Modele de deploiement | Cloudflare Worker plus Static Assets depuis Git | Logiciel-service hébergé | Logiciel-service hébergé, cœur open source | Logiciel-service hébergé | Application PHP et base de donnees | Service PHP et base de donnees |
 | Cout a l'echelle | Usage Cloudflare plus fournisseur analytics optionnel | Par plan | Par plan | Par plan | Hebergement et maintenance | Hebergement et maintenance |
 | Visibilite du code | Code MIT open source et config d'instance dans Git | Service heberge ferme | Produit open source avec service heberge | Service heberge ferme | Open source | Open source |
 | Planification des liens | Configuree dans Git et evaluee par le Worker | Depend du plan/produit | Depend du produit | Depend du produit | Depend des plugins/code custom | Depend des fonctions integrees |
@@ -39,7 +39,7 @@ Choisissez Bitly quand le raccourcisseur est un outil marketing ou collaboratif.
 
 Face a vanityURLs, Dub est plus large et plus produit. vanityURLs est volontairement plus etroit : un Worker Cloudflare stateless, une configuration dans Git, des analytics optionnelles et des pages operateur generees.
 
-Choisissez Dub quand vous voulez une plateforme developpeur pour les liens avec l'ergonomie hebergee. Choisissez vanityURLs quand l'exigence principale est un petit redirecteur possede par l'operateur plutot qu'un compte SaaS de gestion de liens.
+Choisissez Dub quand vous voulez une plateforme developpeur pour les liens avec l'ergonomie hebergee. Choisissez vanityURLs quand l'exigence principale est un petit redirecteur possede par l'operateur plutot qu'un compte de logiciel-service de gestion de liens.
 
 ## Short.io
 
@@ -67,7 +67,7 @@ Choisissez Shlink quand vous avez besoin d'un raccourcisseur d'URL open source a
 
 ## Kutt
 
-[Kutt](https://github.com/thedevs-network/kutt) est un raccourcisseur open source avec comptes, domaines custom, API et statistiques. Il est plus proche d'une application style SaaS autohebergee que d'un redirecteur statique.
+[Kutt](https://github.com/thedevs-network/kutt) est un raccourcisseur open source avec comptes, domaines custom, API et statistiques. Il est plus proche d'une application style logiciel-service autohebergee que d'un redirecteur statique.
 
 Face a vanityURLs, Kutt convient mieux a la gestion multi-utilisateur de liens. vanityURLs convient mieux a un operateur seul ou une petite equipe qui prefere les pull requests, commandes locales et fichiers runtime generes.
 
