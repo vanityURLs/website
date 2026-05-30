@@ -7,11 +7,11 @@ weight: 20
 
 vanityURLs est un raccourcisseur d'URL qui fonctionne sur le reseau edge de Cloudflare avec votre _propre_ domaine.
 
-<table class="cloudflare-product-table">
+<table class="w-full table-fixed">
   <thead>
     <tr>
-      <th>Produit</th>
-      <th>Role dans vanityURLs</th>
+      <th class="w-1/3 align-top">Produit</th>
+      <th class="w-2/3 align-top">Role dans vanityURLs</th>
     </tr>
   </thead>
   <tbody>
@@ -36,11 +36,11 @@ vanityURLs est un raccourcisseur d'URL qui fonctionne sur le reseau edge de Clou
 
 ## Protection reseau avant que le trafic atteigne l'instance vanityURLs
 
-<table class="cloudflare-product-table">
+<table class="w-full table-fixed">
   <thead>
     <tr>
-      <th>Produit ou surface</th>
-      <th>Role dans vanityURLs</th>
+      <th class="w-1/3 align-top">Produit ou surface</th>
+      <th class="w-2/3 align-top">Role dans vanityURLs</th>
     </tr>
   </thead>
   <tbody>

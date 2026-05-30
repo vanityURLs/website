@@ -7,11 +7,11 @@ weight: 20
 
 vanityURLs is a URL shortener that runs on Cloudflare's edge network with your _own_ domain.
 
-<table class="cloudflare-product-table">
+<table class="w-full table-fixed">
   <thead>
     <tr>
-      <th>Product</th>
-      <th>Role in vanityURLs</th>
+      <th class="w-1/3 align-top">Product</th>
+      <th class="w-2/3 align-top">Role in vanityURLs</th>
     </tr>
   </thead>
   <tbody>
@@ -36,11 +36,11 @@ vanityURLs is a URL shortener that runs on Cloudflare's edge network with your _
 
 ## Network protection before traffic reaches the vanityURLs instance
 
-<table class="cloudflare-product-table">
+<table class="w-full table-fixed">
   <thead>
     <tr>
-      <th>Product or surface</th>
-      <th>Role in vanityURLs</th>
+      <th class="w-1/3 align-top">Product or surface</th>
+      <th class="w-2/3 align-top">Role in vanityURLs</th>
     </tr>
   </thead>
   <tbody>
