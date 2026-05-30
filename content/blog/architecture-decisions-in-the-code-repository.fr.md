@@ -7,36 +7,40 @@ tags: ["architecture", "adr", "maintenance"]
 featured: false
 ---
 
-La documentation utilisateur doit aider quelqu'un a exploiter un domaine de liens courts. Elle ne devrait pas forcer chaque page de setup a porter toute l'histoire du Worker, de l'installateur, des schemas et du processus de release.
+Une page de setup devrait dire a l'operateur quoi faire.
 
-Cette histoire reste importante. Quand une personne maintient le produit et change un champ de schema, reecrit le setup ou decide qu'une politique custom remplace un default produit, la prochaine personne doit trouver la raison pres du code.
+Elle ne devrait pas porter toute l'histoire du Worker, de l'installateur, du schema, de l'automatisation de release et des regles de securite runtime. Cette histoire reste importante. Elle appartient pres de l'implementation.
 
-C'est le role des Architecture Decision Records, ou ADR, dans vanityURLs.
+vanityURLs garde les decisions produit dans des architecture decision records dans le depot code. Les docs publiques restent operationnelles. Le depot code garde le raisonnement dont les futurs mainteneurs auront besoin lorsque le prochain changement semble evident, mais ne l'est pas.
 
-## Ce qui va dans un ADR
+## Ce Qui Merite Un ADR
 
-Un ADR documente une decision produit qui serait couteuse a redecouvrir plus tard.
+Un ADR documente une decision qui serait couteuse a redecouvrir.
 
-De bons candidats sont :
+De bons candidats :
 
-- l'automatisation release-please et le versionnement semantique
+- l'automatisation avec [release-please](https://github.com/googleapis/release-please) et le [versionnement semantique](https://semver.org/)
 - la frontiere de propriete entre `defaults/` et `custom/`
-- les regles de versionnement de schema
-- la facon dont setup cree les fichiers de depart
-- pourquoi une regle de securite runtime a une portee precise
+- quand `schema_version` change et quand un champ additif va seulement dans le changelog de schema
+- comment setup cree les fichiers de depart
+- pourquoi une regle de securite runtime a une portee etroite
 
-L'ADR ne remplace pas la documentation, les tests ou les commentaires. Il repond a une autre question : pourquoi avons-nous choisi cette forme?
+Les ADR n'ont pas de standard canonique unique. vanityURLs suit la convention pratique : fichiers numerotes courts, decision, contexte qui l'a forcee, et consequence acceptee par le projet.[^adr]
 
-## Pourquoi le depot code
+## Pourquoi Le Depot Code
 
-La decision appartient la ou l'implementation change. Si un commit modifie `scripts/install.mjs`, `defaults/v8s-site-config.json` et une regle de schema, l'ADR peut voyager dans le meme commit.
+La decision appartient la ou l'implementation change.
 
-Cela garde le site public plus court. Le site peut dire quoi faire. L'ADR peut garder pourquoi le produit fonctionne ainsi.
+Si un commit modifie `scripts/install.mjs`, `defaults/v8s-site-config.json` et une regle de schema, l'ADR peut voyager avec ce commit. Les reviewers voient le code et la raison ensemble.
 
-## Ou regarder
+Cela garde le site public plus court. Le site peut dire quoi faire. L'ADR peut conserver pourquoi le produit fonctionne ainsi.
+
+## Ou Regarder
 
 Les ADR vivent dans le depot code sous [`docs/adr/`](https://github.com/vanityURLs/code/tree/main/docs/adr).
 
-Les ajouts de champs de schema sont suivis dans [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/docs/schema-changelog.md), surtout quand le changement est additif et ne change pas `schema_version`.
+Les ajouts de champs de schema sont suivis dans [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/docs/schema-changelog.md), surtout lorsque le changement est additif et ne change pas `schema_version`.
 
-Quand une page de documentation pointe vers un ADR, ce devrait etre parce que la raison d'implementation compte. La plupart des utilisateurs n'ont pas besoin de l'historique ADR; les mainteneurs et les operateurs curieux, parfois oui.
+Le compromis est l'indirection. Un utilisateur peut devoir suivre un lien vers GitHub pour lire tout le raisonnement. C'est mieux que transformer chaque page de setup en couche archeologique.
+
+[^adr]: L'organisation publique [ADR GitHub](https://adr.github.io/) est un point d'entree utile, mais les ADR du depot sont l'autorite locale.

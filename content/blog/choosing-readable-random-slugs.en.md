@@ -1,20 +1,20 @@
 ---
-title: "Choosing readable random slugs"
+title: "Random slugs still have human readers"
 date: 2026-05-26
 description: "How vanityURLs balances short random slugs, readability, and tag-specific defaults."
 tags: ["links", "operations", "configuration"]
 featured: false
 ---
 
-In vanityURLs, a <dfn>slug</dfn> is the path after your short domain. In `https://v8s.link/docs`, the slug is `docs`. In `https://v8s.link/ab3`, the slug is `ab3`.
+Random slugs are for the moments when the keyword does not matter.
 
-Random slugs are convenient when the exact keyword does not matter. You paste a long URL, let `lnk` pick the slug, and keep moving. The trick is that a random slug is still a thing a human may need to read, type, say out loud, paste into a ticket, or compare in a screenshot.
+You paste a long URL. `lnk` chooses the slug. You keep moving. The catch is that a random slug may still be read from a slide, typed from a badge, dictated over a call, pasted into a ticket, or compared in a screenshot.
 
-This functionality requires vanityURLs 2.7.0 or newer. Existing instances can get it by following the [upgrading an instance](/docs/reference/upgrading/) workflow, including `npm run upgrade`.
+As of vanityURLs `2.7.0`, random slug generation is configurable. Existing instances can get it by following the [upgrade workflow](/docs/reference/upgrading/), including `npm run upgrade`.
 
-That is why vanityURLs uses a readable alphabet instead of the full set of possible URL-safe characters.
+The default optimizes for the human in that loop.
 
-## Readability beats theoretical compactness
+## Use A Readable Alphabet
 
 The default alphabet is:
 
@@ -22,13 +22,13 @@ The default alphabet is:
 34789abcdefghjkmnpqrstvwxy
 ```
 
-It intentionally avoids characters that are easy to confuse in common fonts or spoken instructions. There is no `0`, `1`, `2`, `5`, `6`, `i`, `l`, or `o`. It also stays lowercase so `abc` and `ABC` cannot become two different links by accident.
+It avoids characters that are easy to confuse in common fonts or spoken instructions. There is no `0`, `1`, `2`, `5`, `6`, `i`, `l`, or `o`. It also stays lowercase so `abc` and `ABC` cannot become two different links by accident.
 
-Mixed-case alphabets create more combinations in fewer characters. That can be useful at scale, but URL paths are case-sensitive. A mixed-case slug is harder to dictate, easier to mistype, and less forgiving when someone copies it from a printed badge or slide.
+Mixed-case alphabets create more combinations in fewer characters. That can be useful at high volume, but URL paths are case-sensitive in practice and handled as path data under [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). A mixed-case slug is harder to dictate and easier to mistype.
 
-## Keep the alphabet configurable
+The tradeoff is density. A readable alphabet needs more characters than a dense alphabet for the same collision space. vanityURLs chooses readability by default and leaves density configurable.
 
-The alphabet belongs in configuration because different teams have different tolerance for compactness, entropy, and human typing. The product default should be boring and readable, while an individual instance can still choose something denser.
+## Keep The Choice In Git
 
 The relevant `custom/v8s-site-config.json` section is:
 
@@ -51,23 +51,23 @@ The global `random_slug_length` is what `lnk` uses when you omit the slug:
 ./scripts/lnk https://github.com/houba/styleGuide
 ```
 
-You can override it for one command:
+Override it for one command when the link needs more room:
 
 ```bash
 ./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
 ```
 
-Or generate a short bug link using the `debug` tag default:
+Or let a tag choose the length:
 
 ```bash
 ./scripts/lnk https://github.com/vanityURLs/code/issues/4 --tags debug
 ```
 
-## Use tags when intent changes the slug shape
+## Let Purpose Set Length
 
-Tag-specific lengths let the link purpose decide how much room the random slug should have.
+Tag-specific lengths let the link purpose choose the slug shape.
 
-In the example above, `training` links get 4 characters because they may be shared with real people and live a little longer. `debug` links get 2 characters because they are intentionally short-lived and usually local to an investigation.
+`training` links may live longer and be read by real people, so 4 characters is reasonable. `debug` links are short-lived and local to an investigation, so 2 characters can be acceptable.
 
 Configure those defaults with:
 
@@ -76,6 +76,6 @@ Configure those defaults with:
 ./scripts/lnk tag set debug --random-slug-length 2
 ```
 
-When a link has multiple tags with configured lengths, `lnk` uses the shortest matching tag length. That keeps the most restrictive tag in control. If you need a different length for one link, the explicit command-line value wins.
+When a link has multiple tags with configured lengths, `lnk` uses the shortest matching tag length. The most restrictive tag wins. If one link needs different behavior, the explicit command-line value wins.
 
-The important thing is not that every instance uses the same alphabet or lengths. The important thing is that the defaults are deliberate, visible in Git, and easy to explain later.
+The goal is not one universal alphabet. The goal is a visible decision: short enough to use, readable enough to survive humans, and stored where reviewers can see it.

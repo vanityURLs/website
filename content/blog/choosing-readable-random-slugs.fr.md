@@ -1,20 +1,20 @@
 ---
-title: "Choisir des slugs aleatoires lisibles"
+title: "Les slugs aleatoires ont encore des lecteurs humains"
 date: 2026-05-26
 description: "Comment vanityURLs equilibre les slugs aleatoires courts, la lisibilite et les valeurs par defaut propres aux tags."
 tags: ["links", "operations", "configuration"]
 featured: false
 ---
 
-Dans vanityURLs, un <dfn>slug</dfn> est le chemin apres votre domaine court. Dans `https://v8s.link/docs`, le slug est `docs`. Dans `https://v8s.link/ab3`, le slug est `ab3`.
+Les slugs aleatoires servent aux moments ou le mot-cle n'a pas d'importance.
 
-Les slugs aleatoires sont pratiques lorsque le mot-cle exact n'a pas d'importance. Vous collez une longue URL, laissez `lnk` choisir le slug, puis vous continuez. Le detail important, c'est qu'un slug aleatoire reste parfois lu, tape, dicte, colle dans un ticket ou compare dans une capture d'ecran par un humain.
+Vous collez une longue URL. `lnk` choisit le slug. Vous continuez. Le piege : un slug aleatoire peut quand meme etre lu depuis une diapositive, tape depuis un badge, dicte en appel, colle dans un ticket ou compare dans une capture d'ecran.
 
-Cette fonctionnalite exige vanityURLs 2.7.0 ou plus recent. Les instances existantes peuvent l'obtenir avec le workflow [mise a niveau d'une instance](/fr/docs/reference/upgrading/), incluant `npm run upgrade`.
+Depuis vanityURLs `2.7.0`, la generation de slugs aleatoires est configurable. Les instances existantes peuvent l'obtenir avec le [workflow de mise a niveau](/fr/docs/reference/upgrading/), incluant `npm run upgrade`.
 
-C'est pourquoi vanityURLs utilise un alphabet lisible plutot que tous les caracteres URL-safe possibles.
+Le defaut optimise pour l'humain dans cette boucle.
 
-## La lisibilite avant la compacite theorique
+## Utiliser Un Alphabet Lisible
 
 L'alphabet par defaut est :
 
@@ -22,13 +22,13 @@ L'alphabet par defaut est :
 34789abcdefghjkmnpqrstvwxy
 ```
 
-Il evite volontairement les caracteres faciles a confondre dans certaines polices ou a l'oral. Il n'y a pas de `0`, `1`, `2`, `5`, `6`, `i`, `l` ou `o`. Il reste aussi en minuscules pour eviter que `abc` et `ABC` deviennent deux liens differents par accident.
+Il evite les caracteres faciles a confondre dans les polices courantes ou les instructions orales. Il n'y a pas de `0`, `1`, `2`, `5`, `6`, `i`, `l` ou `o`. Il reste aussi en minuscules pour eviter que `abc` et `ABC` deviennent deux liens differents par accident.
 
-Les alphabets mixtes majuscules/minuscules creent plus de combinaisons dans moins de caracteres. Cela peut etre utile a grande echelle, mais les chemins d'URL sont sensibles a la casse. Un slug mixte est plus difficile a dicter, plus facile a mal taper et moins indulgent lorsqu'une personne le copie depuis un badge imprime ou une diapositive.
+Les alphabets mixtes majuscules/minuscules creent plus de combinaisons dans moins de caracteres. Cela peut etre utile a grand volume, mais les chemins d'URL sont sensibles a la casse en pratique et traites comme donnees de chemin sous [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986). Un slug mixte est plus difficile a dicter et plus facile a mal taper.
 
-## Garder l'alphabet configurable
+Le compromis est la densite. Un alphabet lisible exige plus de caracteres qu'un alphabet dense pour le meme espace de collision. vanityURLs choisit la lisibilite par defaut et laisse la densite configurable.
 
-L'alphabet appartient a la configuration parce que les equipes n'ont pas toutes la meme tolerance entre compacite, entropie et saisie humaine. La valeur produit par defaut devrait etre calme et lisible, pendant qu'une instance precise peut choisir un alphabet plus dense.
+## Garder Le Choix Dans Git
 
 La section pertinente de `custom/v8s-site-config.json` est :
 
@@ -51,23 +51,23 @@ La valeur globale `random_slug_length` est utilisee par `lnk` lorsque vous omett
 ./scripts/lnk https://github.com/houba/styleGuide
 ```
 
-Vous pouvez la remplacer pour une seule commande :
+Remplacez-la pour une commande lorsque le lien a besoin de plus de place :
 
 ```bash
 ./scripts/lnk https://github.com/houba/styleGuide --random-slug-length 5
 ```
 
-Ou generer un lien court pour un bug avec la valeur par defaut du tag `debug` :
+Ou laissez un tag choisir la longueur :
 
 ```bash
 ./scripts/lnk https://github.com/vanityURLs/code/issues/4 --tags debug
 ```
 
-## Utiliser les tags lorsque l'intention change la forme du slug
+## Laisser L'Usage Fixer La Longueur
 
-Les longueurs propres aux tags permettent au type de lien de choisir l'espace necessaire au slug aleatoire.
+Les longueurs propres aux tags permettent au type de lien de choisir la forme du slug.
 
-Dans l'exemple ci-dessus, les liens `training` ont 4 caracteres parce qu'ils peuvent etre partages avec de vraies personnes et vivre un peu plus longtemps. Les liens `debug` ont 2 caracteres parce qu'ils sont volontairement temporaires et souvent limites a une investigation.
+Les liens `training` peuvent vivre plus longtemps et etre lus par de vraies personnes, donc 4 caracteres est raisonnable. Les liens `debug` sont temporaires et locaux a une investigation, donc 2 caracteres peuvent suffire.
 
 Configurez ces valeurs avec :
 
@@ -76,6 +76,6 @@ Configurez ces valeurs avec :
 ./scripts/lnk tag set debug --random-slug-length 2
 ```
 
-Lorsqu'un lien possede plusieurs tags avec des longueurs configurees, `lnk` utilise la longueur la plus courte parmi les tags applicables. Le tag le plus restrictif garde donc le controle. Si vous avez besoin d'une autre longueur pour un lien precis, la valeur explicite sur la ligne de commande gagne.
+Lorsqu'un lien a plusieurs tags avec des longueurs configurees, `lnk` utilise la longueur la plus courte parmi les tags applicables. Le tag le plus restrictif gagne. Si un lien a besoin d'un comportement different, la valeur explicite en ligne de commande gagne.
 
-L'important n'est pas que chaque instance utilise exactement le meme alphabet ou les memes longueurs. L'important est que les valeurs par defaut soient deliberees, visibles dans Git et faciles a expliquer plus tard.
+Le but n'est pas un alphabet universel. Le but est une decision visible : assez court pour servir, assez lisible pour survivre aux humains, et stocke la ou les reviewers peuvent la voir.
