@@ -122,7 +122,7 @@ Options utiles pour les liens :
 ./scripts/lnk schedule list hangout
 ```
 
-Les règles d'horaire sont écrites dans `custom/v8s-schedules.json`. `schedule add` exige `--label`, `--days`, `--from` et `--to`. Les heures utilisent `HH:MM`; les jours utilisent `mon`, `tue`, `wed`, `thu`, `fri`, `sat` et `sun`.
+Les règles d'horaire de cette commande sont écrites dans le fichier hérité `custom/v8s-schedules.json` pendant la période de compatibilité 3.x. Les nouveaux horaires écrits à la main devraient utiliser des blocs `@schedule` inline dans `custom/v8s-links.txt`. `schedule add` exige `--label`, `--days`, `--from` et `--to`. Les heures utilisent `HH:MM`; les jours utilisent `mon`, `tue`, `wed`, `thu`, `fri`, `sat` et `sun`.
 
 Utilisez `--dry-run` sur les commandes d'horaire pour afficher le JSON mis à jour sans écrire, verifier, commit ou pousser.
 

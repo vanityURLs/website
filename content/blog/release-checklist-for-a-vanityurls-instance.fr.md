@@ -11,6 +11,8 @@ aliases:
 
 Utilisez cette checklist avant de lancer une nouvelle instance ou de promouvoir une mise à jour majeure. Une instance vanityURLs est robuste, mais tout ce qui brille sur internet attire scanners, bots, et tentatives d'abus.
 
+Le dépôt de code garde la liste d'activités exécutable dans [`RELEASE_CHECKLIST.md`](https://github.com/vanityURLs/code/blob/main/RELEASE_CHECKLIST.md). Ce billet explique pourquoi ces contrôles comptent et ajoute le contexte opérationnel pour Cloudflare et les propriétaires d'instance.
+
 La meilleure posture de release est sobre : petit Worker, fichiers génères relus, exposition Cloudflare etroite, pages opérationnelles protégées, et propriété claire de chaque destination.
 
 ## Depot et build
@@ -20,10 +22,12 @@ La meilleure posture de release est sobre : petit Worker, fichiers génères rel
 - Gardez les fichiers propres à l'instance dans `custom/`
 - Gardez les changements runtime Worker dans `scripts/workers/`; traitez `src/` comme génère
 - Lancez `npm run check`
+- Lancez `npm run validate:targets` lorsque vous voulez inclure la joignabilité des cibles dans la gate de release
+- Confirmez que `build/v8s-release-manifest.json` existe et relisez ses hashes
 - Relisez les changements de registre génère, politique runtime, configuration de site, et assets publics
 - Commitez et déployéz depuis un working tree propre
 
-La CI devrait lancer `npm run check` avant le déploiement. Gardez les identifiants de déploiement hors du dépôt et configurez-les comme secrets GitHub ou Cloudflare.
+La CI devrait lancer `npm run check` avant le déploiement. Utilisez les commandes groupées pour une confiance ciblée : `npm run test`, `npm run validate`, et `npm run smoke` lancent tout leur groupe, tandis que `test:worker`, `validate:targets`, et `smoke:analytics` lancent une seule couche. Gardez les identifiants de déploiement hors du dépôt et configurez-les comme secrets GitHub ou Cloudflare.
 
 ## Worker et surfaces privées
 
@@ -83,3 +87,7 @@ Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/), [Internation
 - Confirmez que `/_stats` et `/_tests` sont protégés
 - Confirmez que les analytics serveur recoivent un événement test si les analytics sont actifs
 - Confirmez que Cloudflare bloque le trafic scanner banal avant qu'il atteigne le Worker
+
+## Rollback versus migration
+
+Les instructions de migration expliquent comment avancer. Une note de rollback explique comment reculer proprement lorsque le trafic de production révèle un problème après déploiement. Pour vanityURLs, le rollback devrait rester sobre : revenir au commit Git ou au déploiement Cloudflare précédent, confirmer que le Worker lit encore l'ancien registre `links[]`, puis relancer les smoke checks.

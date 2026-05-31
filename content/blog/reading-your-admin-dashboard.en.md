@@ -25,6 +25,7 @@ Use the dashboard to answer operational questions:
 - which links are expired, disabled, ephemeral, or permanent
 - which entries are missing title, description, tags, owner, or notes
 - which links are expiring soon and need a human decision
+- whether the deployed registry timestamp matches the change you just pushed
 
 It is the routing and lifecycle plane. Analytics still belong in Umami, Fathom, or Cloudflare Analytics.
 
@@ -38,7 +39,7 @@ The read-only design keeps the workflow boring in the best way:
 2. run validation
 3. commit the change
 4. push to deploy
-5. use `/_stats` to confirm the deployed result
+5. use `/_stats` to confirm the deployed registry timestamp and result
 
 ## Protect it
 

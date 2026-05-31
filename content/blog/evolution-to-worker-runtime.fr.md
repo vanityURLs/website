@@ -25,7 +25,7 @@ Le projet est passe par des essais avec fichiers génères, pages HTML, idees c�
 
 ## Pourquoi le Worker est devenu le centre
 
-La release majeure actuelle déplace le runtime dans un Cloudflare Worker, soutenu par des assets statiques et un registre génère schéma `2.2`.
+La release majeure actuelle déplace le runtime dans un Cloudflare Worker, soutenu par des assets statiques et un registre génère schéma `3.0`.
 
 Ce changement ne vise pas a grossir le système. Il rend la version simple plus solide :
 

@@ -20,7 +20,7 @@ That split is the upgrade story. If instance owners keep their work in `custom/`
 
 ## The runtime
 
-At build time, v8s generates a schema `2.2` registry from the link file, schedules, blocklist, and static assets. The Cloudflare Worker uses that generated registry to resolve requests.
+At build time, v8s generates a schema `3.0` registry from the link file, schedules, blocklist, and static assets. The Cloudflare Worker uses that generated registry to resolve requests.
 
 The Worker does very little by design:
 

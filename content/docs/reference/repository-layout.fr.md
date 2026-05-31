@@ -23,10 +23,13 @@ Le dépôt public [v8s.link](https://github.com/vanityURLs/v8s.link) suit cette 
     {{< filetree/file name="style.css" >}}
     {{< filetree/file name="script.js" >}}
   {{< /filetree/folder >}}
-  {{< filetree/file name="v8s-links.txt" annotation="inventaire de liens de départ" >}}
-  {{< filetree/file name="v8s-schedules.json" annotation="règles de planification de départ" >}}
+  {{< filetree/file name="v8s-links.txt" annotation="inventaire de liens et horaires inline de départ" >}}
   {{< filetree/file name="v8s-policies.json" annotation="politique trust-and-safety par défaut" >}}
   {{< filetree/file name="v8s-blocklist-categories.json" annotation="libellés de catégories de politique" >}}
+  {{< filetree/file name="v8s-language-metadata.json" annotation="libellés de pages générées localisées" >}}
+  {{< filetree/folder name="legal" annotation="contenu légal et confiance généré par défaut" >}}
+    {{< filetree/file name="v8s-legal-content.json" >}}
+  {{< /filetree/folder >}}
   {{< filetree/file name="v8s-site-config.json" annotation="langues, marque et valeurs opérateur par défaut" >}}
   {{< filetree/file name="v8s-local-config.json" annotation="réglages par défaut du helper local" >}}
 {{< /filetree/folder >}}
@@ -79,7 +82,7 @@ Le dépôt public [v8s.link](https://github.com/vanityURLs/v8s.link) suit cette 
 
 ## Defaults produit
 
-`defaults/` est la base produit. Il contient les pages publiques, pages d'état localisées, badges de redirection, pages de politique, icônes, shell stats protégé, liens de départ, politique par défaut, horaires optionnels, configuration de site et defaults du helper local.
+`defaults/` est la base produit. Il contient les pages publiques, pages d'état localisées, badges de redirection, pages de politique, icônes, shell stats protégé, liens de départ, horaires inline de départ, politique par défaut, configuration de site et defaults du helper local.
 
 `scripts/` est l'outillage produit. Modifiez-le seulement lorsque vous changez vanityURLs lui-même. Les opérateurs d'instance reçoivent normalement les mises à jour de ce répertoire avec `npm run upgrade`.
 
@@ -97,10 +100,12 @@ Le build préfère `custom/v8s-links.txt` lorsqu'il existe. Sinon, il utilise `d
 
 `build/` et `src/` sont générés. Ne les modifiez pas à la main.
 
-`build/v8s.json` est le registre runtime de redirection. Il contient les cibles normalisées, règles de routage, états de cycle de vie, métadonnées, timestamps générés et blocs de planification optionnels.
+`build/v8s.json` est le registre runtime de redirection. Il contient les cibles normalisées, le `tree` schéma 3.0, les règles de routage, états de cycle de vie, métadonnées, timestamps générés et blocs de planification optionnels.
 
 `build/v8s-blocklist.json` est l'artefact de politique runtime consommé par le Worker. Il est généré depuis la source de politique sélectionnée et les données optionnelles de flux générés.
 
 `build/v8s-site-config.json` garde la configuration de site utilisée pour le build, incluant les langues supportées, la marque, l'information opérateur et les réglages de contact.
 
-`src/worker.mjs` est généré pendant `npm run build` pour que Wrangler puisse déployer le Worker. La source de vérité est `scripts/workers/worker.mjs`. `npm run clean` retire `build/`, `src/` et les anciennes sorties de compatibilité.
+`build/v8s-release-manifest.json` consigne la version du package de release, le commit Git, les versions de schéma, la date de compatibilité Cloudflare et les hashs SHA-256 des entrées et sorties de release.
+
+`src/worker.mjs` et `src/lib/analytics-policy.mjs` sont générés pendant `npm run build` pour que Wrangler puisse déployer le Worker et ses modules de support. La source de vérité est `scripts/workers/`. `npm run clean` retire `build/`, `src/` et les anciennes sorties de compatibilité.

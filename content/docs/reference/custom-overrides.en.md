@@ -24,7 +24,7 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 | File or path | Use it for | Details |
 | --- | --- | --- |
 | `custom/v8s-links.txt` | Redirect inventory | [Link format](/docs/reference/link-format/) and [LNK](/docs/command-line-interface/lnk/) |
-| `custom/v8s-schedules.json` | Scheduled link state changes | [Scheduled links](/docs/reference/schedules/) |
+| `custom/v8s-schedules.json` | Legacy scheduled link rules for 3.x compatibility | [Scheduled links](/docs/reference/schedules/) |
 | `custom/v8s-policies.json` | Instance allow and block policy | [Policy and blocklist](/docs/customize/blocklist/) |
 | `custom/v8s-site-config.json` | Site settings written by setup | [Configuration files](/docs/reference/configuration-files/) |
 | `custom/v8s-local-config.json` | Workstation helper paths | [Local helper](/docs/command-line-interface/local-helper/) |

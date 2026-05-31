@@ -440,9 +440,9 @@
       note: "resolveScheduledTarget checks schedule rules in order and uses timezone-aware weekday/time windows."
     - repo: vanityURLs/website
       path: content/docs/reference/schedules.en.md
-      note: "Schedule docs state that the first active rule wins and a normal or default target is used otherwise."
+      note: "Schedule docs state that the first active rule wins and the normal link target is used otherwise."
   answer: >
-    Scheduled links evaluate rules in order using the configured timezone, weekdays, and `from`/`to` window. The first active rule wins; if none match, the link uses its normal target or schedule default when configured.
+    Scheduled links evaluate rules in order using the configured timezone, weekdays, and `from`/`to` window. The first active rule wins; if none match, the link uses its normal target.
   related: [schedule-timezones, link-source-of-truth]
   tags: [schedules, timezone, architectural]
   last_reviewed: 2026-05-27
@@ -459,7 +459,7 @@
       note: "Schedule rules use rule.timezone or UTC and Intl.DateTimeFormat for evaluation."
     - repo: vanityURLs/code
       path: docs/schema-changelog.md
-      note: "v8s-schedules.json supports timezone at schedule and rule level."
+      note: "Inline @schedule rules support timezone at schedule and rule level."
   answer: >
     A schedule rule uses its own `timezone` when present; otherwise the Worker falls back to `UTC`. Use an IANA timezone such as `America/Toronto` to avoid guessing around daylight saving time.
   related: [schedule-cli]

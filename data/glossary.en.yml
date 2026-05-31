@@ -22,7 +22,7 @@ terms:
     definition: The long URL a short link redirects to. In the link format, it is stored in the `target` column.
   - id: generated-registry
     term: Generated registry
-    definition: The runtime redirect registry written to `build/v8s.json` during build from links, schedules, policies, and configuration.
+    definition: The runtime redirect registry written to `build/v8s.json` during build from links, inline schedules, policies, and configuration.
   - id: identity-provider
     term: Identity provider
     definition: A login source used by Cloudflare Access, such as GitHub, Google, or one-time PIN, to confirm who is trying to reach a protected page.
@@ -49,7 +49,7 @@ terms:
     definition: The Cloudflare Worker and static assets that serve redirects and pages after build and deployment.
   - id: scheduled-link
     term: Scheduled link
-    definition: A short link whose destination can change by day, time window, and timezone using `custom/v8s-schedules.json`.
+    definition: A short link whose destination can change by day, time window, and timezone using inline `@schedule` rules in `v8s-links.txt`.
   - id: short-domain
     term: Short domain
     definition: The domain used for redirects, such as `v8s.link` or `go.example.com`.

@@ -24,12 +24,12 @@ Dans chaque cas, la memoire humaine reste stable. La route change dessous.
 
 ## Garder l'inventaire lisible
 
-Le slug appartient encore a `v8s-links.txt`. La planification ajoute les fenêtres dans `v8s-schedules.json`. Si aucune règle n'est active, le Worker peut retomber sur la cible normale ou sur une cible par défaut propre à la planification.
+Le slug et la cible normale de repli appartiennent à `v8s-links.txt`. La planification ajoute des lignes `@schedule` indentées directement sous cette ligne de lien. Si aucune règle n'est active, le Worker retombe sur la cible normale.
 
-Cela garde la revue saine. L'inventaire de liens répond a "est-ce que ce slug existe?", tandis que l'horaire répond a "quand est-ce que la destination change?"
+Cela garde la revue saine. Un petit bloc répond à la fois à "est-ce que ce slug existe?" et à "quand est-ce que la destination change?"
 
 ## Preferer la CLI
 
-Pour les edits normaux, utilisez `lnk schedule` au lieu de modifier le JSON à la main. Cela garde la forme du fichier coherente et rend les changements simples plus faciles a réviser.
+Pour la compatibilité 3.x, `lnk schedule` écrit encore le fichier JSON d'horaire hérité. Pour les nouveaux changements écrits à la main, préférez les lignes `@schedule` inline dans `v8s-links.txt`.
 
-Utilisez [Liens planifiés](/fr/docs/reference/schedules/) pour les exemples de commandes et les formes JSON exactes, et comparez l'horaire de départ `contact` dans `defaults/v8s-schedules.json` lorsque vous voulez une référence concrété.
+Utilisez [Liens planifiés](/fr/docs/reference/schedules/) pour les exemples exacts, et comparez le bloc de départ `contact` dans `defaults/v8s-links.txt` lorsque vous voulez une référence concrète.

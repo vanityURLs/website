@@ -26,7 +26,7 @@ Gardez les changements produit dans `defaults/` seulement lorsque vous contribue
 | Fichier ou chemin | Utilisation | Détails |
 | --- | --- | --- |
 | `custom/v8s-links.txt` | Inventaire de redirection | [Format des liens](/fr/docs/reference/link-format/) et [LNK](/fr/docs/command-line-interface/lnk/) |
-| `custom/v8s-schedules.json` | Changements d'état planifiés | [Liens planifiés](/fr/docs/reference/schedules/) |
+| `custom/v8s-schedules.json` | Règles d'horaire héritées pour compatibilité 3.x | [Liens planifiés](/fr/docs/reference/schedules/) |
 | `custom/v8s-policies.json` | Politique allow/block de l'instance | [Politique et blocklist](/fr/docs/customize/blocklist/) |
 | `custom/v8s-site-config.json` | Réglages de site écrits par setup | [Fichiers de configuration](/fr/docs/reference/configuration-files/) |
 | `custom/v8s-local-config.json` | Chemins de helper propres au poste | [Helper local](/fr/docs/command-line-interface/local-helper/) |

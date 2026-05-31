@@ -24,12 +24,12 @@ In each case, the human memory stays stable. The route changes underneath it.
 
 ## Keep the link inventory readable
 
-The slug still belongs in `v8s-links.txt`. The schedule adds time windows in `v8s-schedules.json`. If no schedule rule is active, the Worker can fall back to the normal target or to a schedule-specific default.
+The slug and the normal fallback target belong in `v8s-links.txt`. The schedule adds indented `@schedule` lines directly below that link row. If no schedule rule is active, the Worker falls back to the normal target.
 
-That keeps review sane. The link inventory answers "does this slug exist?", while the schedule answers "when does the destination change?"
+That keeps review sane. One small block answers both "does this slug exist?" and "when does the destination change?"
 
 ## Prefer the CLI
 
-For normal edits, use `lnk schedule` instead of hand-editing JSON. It keeps the file shape consistent and makes simple changes easier to review.
+For 3.x compatibility, `lnk schedule` still writes the legacy JSON schedule file. For new hand-authored changes, prefer inline `@schedule` lines in `v8s-links.txt`.
 
-Use [Scheduled links](/docs/reference/schedules/) for the exact command examples and JSON forms, and compare the starter `contact` schedule in `defaults/v8s-schedules.json` when you want a concrete reference.
+Use [Scheduled links](/docs/reference/schedules/) for exact examples, and compare the starter `contact` block in `defaults/v8s-links.txt` when you want a concrete reference.

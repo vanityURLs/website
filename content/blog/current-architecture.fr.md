@@ -20,7 +20,7 @@ Cette séparation est l'histoire de mise à jour. Si les propriétaires gardent 
 
 ## Le runtime
 
-Au build, v8s génère un registre schéma `2.2` à partir du fichier de liens, des planifications, de la blocklist, et des assets statiques. Le Cloudflare Worker utilise ce registre génère pour resoudre les requêtes.
+Au build, v8s génère un registre schéma `3.0` à partir du fichier de liens, des planifications, de la blocklist, et des assets statiques. Le Cloudflare Worker utilise ce registre génère pour resoudre les requêtes.
 
 Le Worker fait tres peu, volontairement :
 

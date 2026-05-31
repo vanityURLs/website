@@ -49,7 +49,7 @@ terms:
     definition: Le Worker Cloudflare et les assets statiques qui servent les redirections et les pages après le build et le déploiement.
   - id: scheduled-link
     term: Lien planifié
-    definition: Un lien court dont la destination peut changer selon le jour, la fenêtre horaire et le fuseau horaire avec `custom/v8s-schedules.json`.
+    definition: Un lien court dont la destination peut changer selon le jour, la fenêtre horaire et le fuseau horaire avec des règles `@schedule` inline dans `v8s-links.txt`.
   - id: short-domain
     term: Domaine court
     definition: Le domaine utilise pour les redirections, comme `v8s.link` ou `go.example.com`.

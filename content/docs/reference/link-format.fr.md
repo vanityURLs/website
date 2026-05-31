@@ -34,6 +34,18 @@ social/x|https://x.com/vanityURLs|permanent|X / Twitter|Profil social|social,x|v
 
 Le lien resout seulement `/social/x`.
 
+## Horaires inline
+
+Les liens exacts peuvent inclure des directives `@schedule` indentées directement sous la ligne du lien :
+
+```text
+office|https://example.com/closed|permanent|Office|Business hours|ops|team||
+  @schedule timezone=America/Toronto
+  @schedule rule=workdays days=mon,tue,wed,thu,fri from=09:00 to=17:00 target=https://example.com/open
+```
+
+La cible de la ligne reste la cible de repli. Les règles d'horaire choisissent seulement une autre cible pendant les fenêtres correspondantes.
+
 ## Liens splat
 
 Ajoutez `/*` au slug et incluez `:splat` dans la cible :

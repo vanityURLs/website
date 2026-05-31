@@ -25,6 +25,7 @@ Utilisez le tableau pour répondre aux questions opérationnelles :
 - quels liens sont expires, désactifs, ephemeres ou permanents
 - quelles entrées manquent de titre, description, tags, owner ou notes
 - quels liens expirent bientôt et demandent une décision humaine
+- si l'horodatage du registre déployé correspond au changement que vous venez de pousser
 
 C'est le plan routage et cycle de vie. Les analytics restent dans Umami, Fathom ou Cloudflare Analytics.
 
@@ -38,7 +39,7 @@ Le design en lecture seule garde le workflow simple :
 2. lancer la validation
 3. commiter le changement
 4. pousser pour déployer
-5. utiliser `/_stats` pour confirmer le résultat déployé
+5. utiliser `/_stats` pour confirmer l'horodatage du registre déployé et le résultat
 
 ## Le protéger
 

@@ -34,6 +34,18 @@ social/x|https://x.com/vanityURLs|permanent|X / Twitter|Social profile|social,x|
 
 The link resolves only `/social/x`.
 
+## Inline schedules
+
+Exact links can include indented `@schedule` directives directly below the link row:
+
+```text
+office|https://example.com/closed|permanent|Office|Business hours|ops|team||
+  @schedule timezone=America/Toronto
+  @schedule rule=workdays days=mon,tue,wed,thu,fri from=09:00 to=17:00 target=https://example.com/open
+```
+
+The link target remains the fallback target. Schedule rules only choose another target during matching windows.
+
 ## Splat links
 
 Append `/*` to the slug and include `:splat` in the target:

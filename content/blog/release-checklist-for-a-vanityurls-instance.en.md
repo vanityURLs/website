@@ -12,6 +12,8 @@ aliases:
 
 Use this checklist before launching a new instance or promoting a major upgrade. A vanityURLs instance is robust, but anything shiny on the internet attracts scanners, bots, and abuse attempts.
 
+The code repository keeps the executable activity list in [`RELEASE_CHECKLIST.md`](https://github.com/vanityURLs/code/blob/main/RELEASE_CHECKLIST.md). This post explains why those checks matter and adds operational context for Cloudflare and instance owners.
+
 The strongest release posture is boring: a small Worker, reviewed generated files, narrow Cloudflare exposure, protected operational pages, and clear ownership of every destination.
 
 ## Repository and build
@@ -21,10 +23,12 @@ The strongest release posture is boring: a small Worker, reviewed generated file
 - Keep instance-owned files in `custom/`
 - Keep Worker runtime edits in `scripts/workers/`; treat `src/` as generated
 - Run `npm run check`
+- Run `npm run validate:targets` when you want target reachability in the release gate
+- Confirm `build/v8s-release-manifest.json` exists and review its hashes
 - Review generated registry, runtime policy, site config, and public asset changes
 - Commit and deploy from a clean working tree
 
-CI should run `npm run check` before deployment. Keep deployment credentials out of the repo and configure them as GitHub or Cloudflare secrets.
+CI should run `npm run check` before deployment. Use grouped commands for focused confidence: `npm run test`, `npm run validate`, and `npm run smoke` run the whole group, while commands such as `test:worker`, `validate:targets`, and `smoke:analytics` run one layer. Keep deployment credentials out of the repo and configure them as GitHub or Cloudflare secrets.
 
 ## Worker and private surfaces
 
@@ -84,3 +88,7 @@ Use [Footer & pages](/docs/customize/footer-pages/), [Internationalization](/doc
 - Confirm `/_stats` and `/_tests` are protected
 - Confirm server-side analytics receive one test event when analytics are enabled
 - Confirm Cloudflare blocks commodity scanner traffic before it reaches the Worker
+
+## Rollback versus migration
+
+Migration instructions explain how to move forward. A rollback note explains how to retreat safely when production traffic reveals a problem after deployment. For vanityURLs, rollback should stay boring: return to the previous Git commit or Cloudflare deployment, confirm the Worker still reads the previous `links[]` registry shape, and rerun the smoke checks.

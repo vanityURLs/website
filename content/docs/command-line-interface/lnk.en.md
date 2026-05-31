@@ -122,7 +122,7 @@ Useful link options:
 ./scripts/lnk schedule list hangout
 ```
 
-Schedule rules are written to `custom/v8s-schedules.json`. `schedule add` requires `--label`, `--days`, `--from`, and `--to`. Times use `HH:MM`; days use `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, and `sun`.
+Schedule rules from this command are written to legacy `custom/v8s-schedules.json` during the 3.x compatibility period. New hand-authored schedules should use inline `@schedule` blocks in `custom/v8s-links.txt`. `schedule add` requires `--label`, `--days`, `--from`, and `--to`. Times use `HH:MM`; days use `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, and `sun`.
 
 Use `--dry-run` on schedule commands to print the updated JSON without writing, checking, committing, or pushing.
 
@@ -150,7 +150,7 @@ Use `--dry-run` on policy commands to print the updated JSON without writing, ch
 | `V8S_REPO=PATH` | Point an installed `lnk` command at a local vanityURLs repository |
 | `V8S_LINKS_OWNER=OWNER` | Set the default owner value for new links |
 | `V8S_LINKS_FILE=FILE` | Override the links file |
-| `V8S_SCHEDULES_FILE=FILE` | Override the schedules file |
+| `V8S_SCHEDULES_FILE=FILE` | Override the legacy schedules file |
 | `V8S_POLICY_FILE=FILE` | Override the policy file |
 
 On Windows PowerShell:
