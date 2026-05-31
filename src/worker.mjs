@@ -1,3 +1,5 @@
+import { detectBot } from "./lib/analytics-policy.mjs";
+
 /**
  * vanityurls.link edge worker — server-side analytics.
  *
@@ -69,7 +71,8 @@ export default {
 
     const contentType = response.headers.get("content-type") || "";
     const isHtml = contentType.toLowerCase().startsWith("text/html");
-    const isTrackableStatus = response.status === 200 || response.status === 404;
+    const isTrackableStatus =
+      response.status === 200 || response.status === 404;
 
     if (isHtml && isTrackableStatus && method === "GET") {
       // Background task — never blocks or delays the response.
@@ -79,77 +82,6 @@ export default {
     return response;
   },
 };
-
-/**
- * @param {Request} request
- * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_ENDPOINT?: string }} env
- * @param {number} status
- */
-// ── Bot detection ─────────────────────────────────────────────
-// Server-side bot detection via User-Agent regex. Catches the bulk of
-// declared crawlers: search engines, AI scrapers, link-preview fetchers,
-// uptime monitors, headless browsers. Detected bots are still recorded
-// to Umami — but as named events (`name: "bot"`) with the bot family in
-// `data`, which keeps them OUT of pageview charts while preserving the
-// signal for inspection. To filter further: in Umami, exclude events
-// where `name = "bot"` from your dashboard view.
-//
-// Limitations:
-//   - Bots that lie about their UA are not caught (puppeteer with a real
-//     UA, scraping APIs, etc). Cloudflare Bot Management would catch
-//     these but requires a paid plan.
-//   - Umami already runs `isbot` server-side; this gives us an extra
-//     layer plus the ability to TAG instead of DROP.
-//
-// Patterns are lowercased for case-insensitive matching.
-const BOT_PATTERNS = [
-  // Search engines
-  { re: /googlebot/i,                         name: "Googlebot" },
-  { re: /bingbot/i,                           name: "Bingbot" },
-  { re: /duckduckbot|duckduckgo-favicons-bot/i, name: "DuckDuckBot" },
-  { re: /yandexbot/i,                         name: "YandexBot" },
-  { re: /baiduspider/i,                       name: "Baiduspider" },
-  { re: /applebot/i,                          name: "Applebot" },
-  // SEO / link-graph crawlers
-  { re: /ahrefsbot/i,                         name: "AhrefsBot" },
-  { re: /semrushbot/i,                        name: "SemrushBot" },
-  { re: /mj12bot/i,                           name: "MJ12bot" },
-  { re: /dotbot/i,                            name: "DotBot" },
-  // AI scrapers
-  { re: /gptbot/i,                            name: "GPTBot" },
-  { re: /claudebot|claude-web/i,              name: "ClaudeBot" },
-  { re: /perplexitybot/i,                     name: "PerplexityBot" },
-  { re: /ccbot/i,                             name: "CCBot" },
-  { re: /bytespider/i,                        name: "Bytespider" },
-  // Social link-preview fetchers (these are GENUINELY useful but not visitors)
-  { re: /facebookexternalhit/i,               name: "FacebookExternalHit" },
-  { re: /twitterbot/i,                        name: "Twitterbot" },
-  { re: /linkedinbot/i,                       name: "LinkedInBot" },
-  { re: /slackbot/i,                          name: "Slackbot" },
-  { re: /discordbot/i,                        name: "Discordbot" },
-  { re: /telegrambot/i,                       name: "TelegramBot" },
-  { re: /whatsapp/i,                          name: "WhatsApp" },
-  // Generic catch-alls — last so specific names above match first.
-  // /bot[\/\s\-\d]/i catches "Googlebot/", "SomeUnknownBot/", "bot-1.0", "bot 2",
-  // without matching "robotic" or "abbot".
-  { re: /bot[\/\s\-\d]|crawler|spider|scraper/i, name: "Other" },
-  { re: /headlesschrome|phantomjs|httrack/i,  name: "Headless" },
-  { re: /uptimerobot|pingdom|monitis|statuscake/i, name: "Monitor" },
-  { re: /curl|wget|python-requests|libwww/i,  name: "CLI" },
-];
-
-/**
- * @param {string | null} ua
- * @returns {string | null} The bot family name, or null if not a known bot.
- */
-function detectBot(ua) {
-  if (!ua) return null;
-  for (const { re, name } of BOT_PATTERNS) {
-    if (re.test(ua)) return name;
-  }
-  return null;
-}
-
 
 /**
  * Fire a single Umami event for the request.
@@ -261,7 +193,7 @@ async function trackPageview(request, env, status) {
     // The bot tagging from our own detector is already in payload.name, which
     // Umami stores AFTER the isbot check — so bot events still show up
     // correctly tagged in the Events tab.
-    const outgoingUA = (botName || !visitorUA) ? WORKER_UA_FALLBACK : visitorUA;
+    const outgoingUA = botName || !visitorUA ? WORKER_UA_FALLBACK : visitorUA;
 
     await fetch(env.UMAMI_ENDPOINT, {
       method: "POST",
@@ -301,7 +233,13 @@ function firstLanguage(header) {
  * @returns {{ cleanedSearch: string, utmData: Record<string, string> }}
  */
 function extractUtm(sp) {
-  const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+  const UTM_KEYS = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ];
   const utmData = {};
   // Clone so we don't mutate the original URL's params.
   const cleaned = new URLSearchParams(sp);
@@ -362,7 +300,7 @@ function truncateIP(ip) {
     // If "::" was at the start (ip began with ":") or in the middle, parts
     // may contain empty strings. We only need the first 3 non-empty-or-zero
     // groups; pad with "0" if fewer.
-    const firstThree = parts.slice(0, 3).map(p => p || "0");
+    const firstThree = parts.slice(0, 3).map((p) => p || "0");
     while (firstThree.length < 3) firstThree.push("0");
     return firstThree.join(":") + "::";
   }
@@ -370,4 +308,3 @@ function truncateIP(ip) {
   // Unknown format — return null rather than risk forwarding it.
   return null;
 }
-
