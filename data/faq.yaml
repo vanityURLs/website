@@ -131,6 +131,69 @@
   last_reviewed: 2026-05-27
   reviewed_against: { code: f1c997f, website: 79f31f6 }
 
+- id: node-runtime
+  question: Why does vanityURLs use Node.js if it runs on Cloudflare Workers?
+  category: architecture
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: package.json
+      note: "Project scripts run setup, build, tests, local helper install, and maintenance commands with Node."
+    - repo: vanityURLs/code
+      path: wrangler.toml
+      note: "The deployed runtime is a Cloudflare Worker generated from source under scripts/workers/."
+  answer: >
+    Node.js is used for local tooling: setup prompts, builds, validation, tests, and helper commands. The deployed redirector runs on the Cloudflare Workers serverless platform, which executes JavaScript at the edge. The same language family lets the project share validation and build conventions across Linux, macOS, Windows, and Cloudflare Workers without shipping a native server process.
+  related: [worker-deployment, generated-files, script-binaries]
+  tags: [nodejs, cloudflare-workers, tooling]
+  last_reviewed: 2026-06-01
+  reviewed_against: { code: "1824968", website: "c081c0a" }
+
+- id: script-binaries
+  question: Are commands like `lnk` and `v8s-fix` real CPU-specific binaries?
+  category: architecture
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/lnk
+      note: "The command starts with `#!/usr/bin/env node`."
+    - repo: vanityURLs/code
+      path: scripts/v8s-fix
+      note: "The command is an executable Node wrapper for the maintenance implementation."
+    - repo: vanityURLs/code
+      path: scripts/local-install.mjs
+      note: "Local install copies executable scripts into the configured user bin directory."
+  answer: >
+    They are executable scripts, not compiled CPU-specific binaries. The shebang asks the operating system to launch `node`, then Node runs the text file. You do not need separate Apple Silicon, Intel, Linux, or Windows builds; you need a compatible Node.js runtime and the script file copied with executable permissions on Unix-like systems.
+  related: [node-runtime, lnk-cli, setup-prerequisites]
+  tags: [cli, nodejs, portability]
+  last_reviewed: 2026-06-01
+  reviewed_against: { code: "1824968", website: "c081c0a" }
+
+- id: mjs-extension
+  question: What does the `.mjs` file extension mean?
+  category: architecture
+  audience: [operator, contributor]
+  priority: medium
+  evidence:
+    - repo: vanityURLs/code
+      path: package.json
+      note: "The package declares `type: module`, and most project scripts use ES module syntax."
+    - repo: vanityURLs/code
+      path: scripts/build.mjs
+      note: "Build tooling imports Node modules and project helpers with ES module `import` syntax."
+    - repo: vanityURLs/code
+      path: scripts/workers/worker.mjs
+      note: "The Worker source is also an ES module."
+  answer: >
+    `.mjs` marks a JavaScript file as an ES module. ES modules use `import` and `export` syntax and match the module style used by modern Node.js tooling and Cloudflare Workers. In vanityURLs, `.mjs` files are still JavaScript; the extension mainly makes the module format explicit.
+  related: [node-runtime, worker-deployment, generated-files]
+  tags: [javascript, nodejs, modules]
+  last_reviewed: 2026-06-01
+  reviewed_against: { code: "1824968", website: "c081c0a" }
+
 - id: link-source-of-truth
   question: Where should I edit short links?
   category: cli
