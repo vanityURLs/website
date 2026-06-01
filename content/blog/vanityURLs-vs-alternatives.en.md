@@ -2,10 +2,9 @@
 title: "vanityURLs compared with hosted and self-hosted shorteners"
 date: 2026-05-27
 author: "Benoît H. Dicaire"
-description: "Preliminary comparison of vanityURLs, hosted URL shorteners, and self-hosted alternatives for operators who want branded short links as code."
+description: "Comparison of vanityURLs, hosted URL shorteners, and self-hosted alternatives for operators who want branded short links as code."
 tags: ["comparison", "short-links", "cloudflare"]
 featured: false
-draft: true
 ---
 
 vanityURLs is for operators who want a branded short-link domain, operated from Git on Cloudflare Workers, without a shared hosted account, without a click database by default, and with configuration reviewed as code. It does not try to replace every hosted dashboard. It tries to make a small auditable redirector easy to own.

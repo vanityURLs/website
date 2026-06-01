@@ -2,9 +2,8 @@
 title: "What comes next for v8s.link"
 date: 2026-05-15
 author: "Benoit H. Dicaire"
-description: "A draft roadmap for making v8s easier to install, update, and operate without making the runtime heavier."
+description: "A roadmap for making v8s easier to install, update, and operate without making the runtime heavier."
 tags: ["roadmap", "operations"]
-draft: true
 ---
 
 The next challenge is not the first install. A new v8s instance can already be created quickly.

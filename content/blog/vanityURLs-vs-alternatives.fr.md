@@ -2,10 +2,9 @@
 title: "vanityURLs face aux raccourcisseurs hébergés et autohébergés"
 date: 2026-05-27
 author: "Benoît H. Dicaire"
-description: "Comparaison preliminaire de vanityURLs, des raccourcisseurs d'URL hébergés et des alternatives autohébergées pour les opérateurs qui veulent des liens courts de marque comme code."
+description: "Comparaison de vanityURLs, des raccourcisseurs d'URL hébergés et des alternatives autohébergées pour les opérateurs qui veulent des liens courts de marque comme code."
 tags: ["comparison", "short-links", "cloudflare"]
 featured: false
-draft: true
 ---
 
 vanityURLs s'adresse aux opérateurs qui veulent un domaine de liens courts de marque, exploite depuis Git sur Cloudflare Workers, sans compte hébergé partage, sans base de données de clics par défaut, et avec une configuration revue comme du code. Il ne tente pas de remplacer tous les tableaux de bord hébergés. Il tente de rendre un petit redirecteur auditable facile a possèder.

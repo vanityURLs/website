@@ -2,9 +2,8 @@
 title: "The current v8s architecture"
 date: 2026-05-15
 author: "Benoit H. Dicaire"
-description: "A draft explanation of the current Worker, defaults, custom overrides, analytics, and Cloudflare security model."
+description: "How the current Worker, defaults, custom overrides, analytics, and Cloudflare security model fit together."
 tags: ["architecture", "cloudflare", "security"]
-draft: true
 ---
 
 The current v8s release is built around a small contract: keep the runtime simple, keep the source of truth in Git, and push abuse filtering as close to the edge as possible.

@@ -2,9 +2,8 @@
 title: "La suite pour v8s.link"
 date: 2026-05-15
 author: "Benoit H. Dicaire"
-description: "Roadmap brouillon pour rendre v8s plus facile à installer, mettre à jour, et opérer sans alourdir le runtime."
+description: "Roadmap pour rendre v8s plus facile à installer, mettre à jour et opérer sans alourdir le runtime."
 tags: ["roadmap", "opérations"]
-draft: true
 ---
 
 Le prochain defi n'est pas la première installation. Une nouvelle instance v8s peut déjà être creee rapidement.

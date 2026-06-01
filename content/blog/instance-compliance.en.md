@@ -2,9 +2,8 @@
 title: "Instance compliance"
 date: 2026-05-15
 author: "Benoit H. Dicaire"
-description: ""
+description: "Good-faith public pages and disclosures for a vanityURLs instance without over-promising legal compliance."
 tags: ["roadmap", "operations"]
-draft: true
 ---
 
 > I built an open-source URL shortener, available at https://www.VanityURLS.link, https://github.com/vanityURLs/code, and https://github.com/vanityURLs/website.

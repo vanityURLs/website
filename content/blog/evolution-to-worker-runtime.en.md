@@ -2,9 +2,8 @@
 title: "From redirect file to Worker runtime"
 date: 2026-05-15
 author: "Benoit H. Dicaire"
-description: "A draft history of how vanityURLs evolved from a simple redirect list into a Cloudflare Worker runtime."
+description: "How vanityURLs evolved from a simple redirect list into a Cloudflare Worker runtime."
 tags: ["history", "architecture"]
-draft: true
 ---
 
 vanityURLs started with a deliberately small idea: a short domain, a text file, and redirects that could be reviewed in Git.

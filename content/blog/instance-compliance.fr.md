@@ -2,9 +2,8 @@
 title: Conformite d'une instance
 date: 2026-05-15
 author: "Benoit H. Dicaire"
-description: ""
+description: "Pages publiques et divulgations de bonne foi pour une instance vanityURLs, sans promettre une conformité juridique excessive."
 tags: ["roadmap", "opérations"]
-draft: true
 ---
 
 > J'ai construit un raccourcisseur d'URL open source, disponible sur https://www.VanityURLS.link, https://github.com/vanityURLs/code et https://github.com/vanityURLs/website.
