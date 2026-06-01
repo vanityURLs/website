@@ -6,7 +6,7 @@ compatibility_date = '2026-05-01'
 command = 'chmod a+x build.sh && ./build.sh'
 
 [vars]
-UMAMI_ENDPOINT = "https://cloud.umami.is/api/send"
+CF_ACCESS_TEAM_DOMAIN = 'vanityurls.cloudflareaccess.com'
 
 [assets]
 directory = './public'
