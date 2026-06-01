@@ -13,7 +13,7 @@ vanityURLs uses timezone names in places where a numeric offset is too brittle: 
 
 ## Use a place, not an offset
 
-Enter an IANA timezone such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Do not enter `-4`, `-5`, or `GMT-0400`.
+Enter an [IANA timezone](/docs/reference/timezones/) such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Do not enter `-4`, `-5`, or `GMT-0400`.
 
 An offset only describes one moment. It does not describe daylight saving time, historical transitions, or the operator's normal working context. A place-based timezone lets the JavaScript runtime handle EST/EDT or other local transitions without the instance owner updating config twice a year.
 

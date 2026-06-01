@@ -29,6 +29,9 @@ terms:
   - id: idempotent
     term: Idempotent
     definition: Une commande ou opération qui peut être relancee avec les mêmes entrées sans créer d'état en double ni exiger une nouvelle installation. Dans vanityURLs, `npm run setup` relit les réponses existantes et met à jour les mêmes fichiers génères.
+  - id: idna
+    term: IDNA
+    definition: Internationalized Domain Names in Applications, le standard qui permet aux logiciels de représenter les noms de domaine non ASCII dans une forme ASCII compatible avec DNS.
   - id: link-registry
     term: Registre de liens
     definition: L'ensemble des enregistrements de liens courts utilisés par vanityURLs. Les humains modifient `custom/v8s-links.txt`; le build produit le registre génère consomme par le Worker.
@@ -38,6 +41,9 @@ terms:
   - id: owner-label
     term: Libelle owner
     definition: Une courte valeur interne dans `v8s-links.txt` qui identifie la personne ou l'équipe responsable d'un lien.
+  - id: punycode
+    term: Punycode
+    definition: L'encodage ASCII utilisé par IDNA pour les libellés de domaine internationalisés, généralement visible avec le préfixe `xn--`.
   - id: random-slug
     term: Slug aléatoire
     definition: Un slug génère par `lnk` lorsque vous fournissez une destination sans choisir vous-même le chemin court.

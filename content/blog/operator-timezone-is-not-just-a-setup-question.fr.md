@@ -13,7 +13,7 @@ vanityURLs utilise les noms de fuseaux horaires là où un décalage numérique 
 
 ## Utiliser un lieu, pas un décalage
 
-Entrez un fuseau IANA comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. N'entrez pas `-4`, `-5` ou `GMT-0400`.
+Entrez un [fuseau IANA](/fr/docs/reference/timezones/) comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. N'entrez pas `-4`, `-5` ou `GMT-0400`.
 
 Un décalage décrit seulement un moment. Il ne décrit pas l'heure avancée, les transitions historiques ni le contexte de travail normal de l'opérateur. Un fuseau basé sur un lieu laisse le runtime JavaScript gérer EST/EDT ou les autres transitions locales sans demander au propriétaire de l'instance de modifier la configuration deux fois par année.
 
