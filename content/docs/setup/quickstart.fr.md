@@ -5,8 +5,8 @@ weight: 20
 aside: false
 aliases:
   - /docs/quickstart/
-
 ---
+
 Allons-y. Avez-vous les prérequis de [Configuration](/fr/docs/setup/) ? Pas de stress; cette page peut attendre avec une patience presque suspecte.
 
 Un installateur {{< dfn id="idempotent" text="idempotent" >}} peut être relancé sans exiger un nouveau clone. Utilisez des réponses simples pendant le démarrage rapide; `npm run setup` lit votre configuration existante, affiche vos réponses précédentes comme valeurs par défaut et met à jour les mêmes fichiers générés. Consultez la [définition du glossaire](/fr/docs/reference/glossary/#idempotent).
@@ -72,21 +72,24 @@ npm run setup
 
 Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi des questions sur l'opérateur, la confiance et le contexte légal; utilisez des valeurs simples et consultez [Juridiction](/fr/docs/customize/jurisdiction/) pour le tableau de décision complet.
 
-| Question | Réponse exemple | Comment répondre |
-| --- | --- | --- |
-| Domaine court | `v8s.link` | Le domaine qui servira vos liens courts |
-| Nom du Worker | `v8s-link` | Nom du projet Cloudflare Worker. Les lettres minuscules, chiffres et traits d'union fonctionnent le mieux |
-| Étiquette propriétaire | `team` | Étiquette qui identifie la personne ou l'équipe qui a fait le changement. Consultez [Étiquettes de propriétaire pour l'historique des liens courts](/en/blog/owner-labels-for-short-link-change-history/) |
-| Longueur des slugs aléatoires | `3` | Nombre de caractères par défaut lorsque `lnk` génère un slug. Vous pouvez le remplacer par commande ou par tag plus tard. Voir [Choisir des slugs aléatoires lisibles](/fr/blog/choosing-readable-random-slugs/) |
-| Fournisseur d'analytics | `disabled` | Restez désactive pour l'instant. Consultez [Analytics](/fr/docs/customize/analytics/) pendant la personnalisation |
-| Domaine d'équipe Cloudflare Access | `vanityurls.cloudflareaccess.com` | Valeur de `CF_ACCESS_TEAM_DOMAIN`; trouvez-la dans **Zero Trust** > **Settings** sous **Team domain** |
-| Langues supportées | `de,en,es,fr,it` | Codes ISO séparés par des virgules. L'anglais (`en`) est la [langue principale et de fallback](/fr/docs/reference/i18n/) lorsqu'une page localisée n'est pas disponible |
-| Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N` | Restez désactive pour l'instant. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
-| Nom légal de l'opérateur | `Benoît H. Dicaire` | Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation |
-| Réviser les courriels de contact publics pour les pages générées ? | `Y` | Révisez les [adresses publiques de signalement](/fr/docs/v8s-link/) une fois, puis mettez à jour manuellement `/custom/v8s-site-config.json` |
-| Configurer la marque maintenant ? | `N` | Restez désactive pour l'instant. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation |
+| Question                                                                               | Réponse exemple                   | Comment répondre                                                                                                                                                                                                 |
+| -------------------------------------------------------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Domaine court                                                                          | `v8s.link`                        | Le domaine qui servira vos liens courts                                                                                                                                                                          |
+| Nom du Worker                                                                          | `v8s-link`                        | Nom du projet Cloudflare Worker. Les lettres minuscules, chiffres et traits d'union fonctionnent le mieux                                                                                                        |
+| Étiquette propriétaire                                                                 | `team`                            | Étiquette qui identifie la personne ou l'équipe qui a fait le changement. Consultez [Étiquettes de propriétaire pour l'historique des liens courts](/en/blog/owner-labels-for-short-link-change-history/)        |
+| Longueur des slugs aléatoires                                                          | `3`                               | Nombre de caractères par défaut lorsque `lnk` génère un slug. Vous pouvez le remplacer par commande ou par tag plus tard. Voir [Choisir des slugs aléatoires lisibles](/fr/blog/choosing-readable-random-slugs/) |
+| Fournisseur d'analytics                                                                | `disabled`                        | Restez désactive pour l'instant. Consultez [Analytics](/fr/docs/customize/analytics/) pendant la personnalisation                                                                                                |
+| Domaine d'équipe Cloudflare Access                                                     | `vanityurls.cloudflareaccess.com` | Valeur de `CF_ACCESS_TEAM_DOMAIN`; trouvez-la dans **Zero Trust** > **Settings** sous **Team domain**                                                                                                            |
+| Langues supportées                                                                     | `en,de,es,fr,it`                  | Codes ISO séparés par des virgules. L'anglais (`en`) est la [langue principale et de fallback](/fr/docs/reference/i18n/) et setup demande d'abord le texte de marque anglais                                     |
+| Fuseau horaire de l'opérateur                                                          | `America/Toronto`                 | Utilisez un nom de fuseau IANA, pas un décalage numérique. Les noms IANA gèrent automatiquement l'heure avancée; l'heure de l'Est devrait donc être `America/Toronto` ou `America/New_York`, pas `-4` ou `-5`    |
+| Configurer maintenant les pages juridiction, confidentialité, conditions et sécurité ? | `N`                               | Restez désactive pour l'instant. Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation                                                                                           |
+| Nom légal de l'opérateur                                                               | `Benoît H. Dicaire`               | Consultez [Juridiction](/fr/docs/customize/jurisdiction/) pendant la personnalisation                                                                                                                            |
+| Réviser les courriels de contact publics pour les pages générées ?                     | `Y`                               | Révisez les [adresses publiques de signalement](/fr/docs/v8s-link/) une fois, puis mettez à jour manuellement `/custom/v8s-site-config.json`                                                                     |
+| Configurer la marque maintenant ?                                                      | `N`                               | Restez désactive pour l'instant. Consultez [Marque](/fr/docs/reference/brand/) pendant la personnalisation                                                                                                       |
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
+
+Pour le fuseau horaire de l'opérateur, entrez un nom comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. Utilisez le lieu qui représente le fuseau normal de l'opérateur, pas le décalage actuel. Par exemple, l'heure de l'Est est `America/Toronto` ou `America/New_York`; setup et le Worker gèrent automatiquement EST/EDT. Pour plus de choix, consultez [Fuseaux horaires](/fr/docs/reference/timezones/).
 
 ### Installer les helpers locaux
 
@@ -178,11 +181,11 @@ Ouvrez la page d'accueil, `/expand/`, `/404.html`, `/expired.html`, `/disabled.h
 
 Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-links.txt`, puis adapte les liens de départ `home`, `contact` et `docs` à votre domaine court et à votre étiquette propriétaire.
 
-| Slug | Lien long |
-| --- | --- |
-| `home` | `https://<short-domain>` |
+| Slug      | Lien long                                     |
+| --------- | --------------------------------------------- |
+| `home`    | `https://<short-domain>`                      |
 | `contact` | `https://www.youtube.com/watch?v=dQw4w9WgXcQ` |
-| `docs` | `https://www.vanityurls.link/en/docs/` |
+| `docs`    | `https://www.vanityurls.link/en/docs/`        |
 
 Testez au moins un lien initial, comme `https://<short-domain>/docs`, et confirmez qu'il redirige vers le lien long indiqué dans le tableau. Testez `https://<short-domain>/contact` lorsque vous voulez voir l'horaire de départ remplacer cette cible pendant la fenêtre 9 à 5 configurée.
 

@@ -4,10 +4,11 @@ description: "Legal notice and site operator information for vanityURLs.link, as
 aliases:
   - imprint
 ---
+
 {{< callout type="note" title="Last reviewed: April 2026" >}}
 {{< /callout >}}
 
-*This notice is provided in accordance with § 5 DDG (Digitale-Dienste-Gesetz, Germany), § 5 ECG (E-Commerce-Gesetz, Austria), and equivalent transparency obligations for users in German-speaking countries.*
+_This notice is provided in accordance with § 5 DDG (Digitale-Dienste-Gesetz, Germany), § 5 ECG (E-Commerce-Gesetz, Austria), and equivalent transparency obligations for users in German-speaking countries._
 
 ## Site Operator
 
@@ -28,12 +29,12 @@ The vanityURLs software is published under the [MIT License](https://github.com/
 
 Benoît H. Dicaire operates this website as a private individual resident in Canada.
 
-|| The following fields are **not applicable**|
-|--|--|
-|**Trade register**|not registered in a German, Austrian, or Swiss commercial register|
-|**VAT identification number (USt-ID)**|not VAT-registered in the European Union or Switzerland|
-|**Supervisory authority**|no regulated profession requiring oversight applies to this website|
-|**Chamber membership**|not applicable|
+|                                        | The following fields are **not applicable**                         |
+| -------------------------------------- | ------------------------------------------------------------------- |
+| **Trade register**                     | not registered in a German, Austrian, or Swiss commercial register  |
+| **VAT identification number (USt-ID)** | not VAT-registered in the European Union or Switzerland             |
+| **Supervisory authority**              | no regulated profession requiring oversight applies to this website |
+| **Chamber membership**                 | not applicable                                                      |
 
 ---
 

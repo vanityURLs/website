@@ -6,7 +6,7 @@ aliases:
   - imprint
 ---
 
-*Ces mentions légales (Impressum) sont fournies conformément au § 5 DDG (Digitale-Dienste-Gesetz, Allemagne), au § 5 ECG (E-Commerce-Gesetz, Autriche) et aux obligations de transparence équivalentes pour les utilisateurs des pays germanophones.*
+_Ces mentions légales (Impressum) sont fournies conformément au § 5 DDG (Digitale-Dienste-Gesetz, Allemagne), au § 5 ECG (E-Commerce-Gesetz, Autriche) et aux obligations de transparence équivalentes pour les utilisateurs des pays germanophones._
 
 ---
 
@@ -20,7 +20,7 @@ Canada
 
 **Courriel :** [votre-contact@email.com]
 
-*(Un numéro de téléphone n'est pas obligatoire en vertu du § 5 DDG lorsqu'un contact électronique rapide alternatif est disponible.)*
+_(Un numéro de téléphone n'est pas obligatoire en vertu du § 5 DDG lorsqu'un contact électronique rapide alternatif est disponible.)_
 
 ---
 
@@ -87,4 +87,4 @@ Les informations sur le traitement des données personnelles et vos droits en ta
 
 ---
 
-*Ces mentions légales ont été révisées pour la dernière fois en avril 2026. Pour toute question, utilisez les coordonnées ci-dessus ou [GitHub Discussions](/fr/privacy/).*
+_Ces mentions légales ont été révisées pour la dernière fois en avril 2026. Pour toute question, utilisez les coordonnées ci-dessus ou [GitHub Discussions](/fr/privacy/)._

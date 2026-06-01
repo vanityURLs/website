@@ -23,10 +23,10 @@ The tradeoff is friction. If people sign in every day, email codes become noise.
 
 Choose the provider that already owns the joiner and leaver process.
 
-| Provider | Use it when |
-| --- | --- |
-| [GitHub](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/github/) | maintainers already belong to the same GitHub organization or team |
-| [Google](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/google/) | the operator already uses Gmail or Google Workspace identities |
+| Provider                                                                                                                           | Use it when                                                             |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [GitHub](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/github/)                                        | maintainers already belong to the same GitHub organization or team      |
+| [Google](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/google/)                                        | the operator already uses Gmail or Google Workspace identities          |
 | [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/entra-id/) or another corporate IdP | access should follow existing HR, device, MFA, and offboarding controls |
 
 The selector matters as much as the provider. A personal instance can allow named email addresses. A team instance should move toward maintained groups, GitHub organization membership, or IdP-backed selectors. Otherwise offboarding becomes a scavenger hunt.

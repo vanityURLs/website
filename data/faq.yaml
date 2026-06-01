@@ -18,7 +18,7 @@
   related: [runtime-registry, what-to-commit, generated-files]
   tags: [cloudflare-workers, stateless, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: hosted-service
   question: Is vanityURLs a hosted URL shortener like Bitly, Short.io, or Dub?
@@ -34,7 +34,7 @@
   related: [setup-prerequisites, who-operates-instance]
   tags: [self-hosted, operator-owned, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: who-operates-instance
   question: Who is responsible for a deployed vanityURLs instance?
@@ -53,7 +53,7 @@
   related: [operator-placeholders, abuse-reports, destination-liability]
   tags: [operator-choice, legal, trust-safety]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: setup-prerequisites
   question: What do I need before starting setup?
@@ -72,7 +72,7 @@
   related: [hosted-service, worker-deployment]
   tags: [quickstart, cloudflare, github]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: worker-deployment
   question: How is a vanityURLs instance deployed?
@@ -91,7 +91,7 @@
   related: [static-assets-binding, generated-files, what-to-commit]
   tags: [cloudflare-workers, wrangler, deployment]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: static-assets-binding
   question: Does vanityURLs use Cloudflare Pages?
@@ -110,7 +110,7 @@
   related: [worker-deployment, runtime-registry]
   tags: [cloudflare-workers, static-assets, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: runtime-registry
   question: What is `build/v8s.json`?
@@ -129,7 +129,7 @@
   related: [stateless-architecture, link-source-of-truth, generated-files]
   tags: [registry, generated, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: link-source-of-truth
   question: Where should I edit short links?
@@ -148,7 +148,7 @@
   related: [lnk-cli, defaults-vs-custom, what-to-commit]
   tags: [links, cli, custom]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: lnk-cli
   question: What does the `lnk` CLI manage?
@@ -167,7 +167,7 @@
   related: [link-source-of-truth, local-publish, schedule-cli]
   tags: [cli, links, policies]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: generated-files
   question: Which files are generated and should not be edited directly?
@@ -186,7 +186,7 @@
   related: [defaults-vs-custom, runtime-registry, what-to-commit]
   tags: [generated, repository-layout]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: what-to-commit
   question: What should an instance repository commit?
@@ -205,7 +205,7 @@
   related: [generated-files, defaults-vs-custom, local-publish]
   tags: [git, repository-layout, deployment]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: defaults-vs-custom
   question: Why are there both `defaults/` and `custom/` directories?
@@ -224,7 +224,7 @@
   related: [upgrade-scope, generated-files, link-source-of-truth]
   tags: [custom, defaults, upgrade]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: upgrade-scope
   question: What does `npm run update` or `npm run upgrade` replace?
@@ -243,7 +243,7 @@
   related: [defaults-vs-custom, generated-files, what-to-commit]
   tags: [upgrade, protected-paths, operator-choice]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: operator-placeholders
   question: Which operator fields must be real before launch?
@@ -262,7 +262,7 @@
   related: [who-operates-instance, security-txt, legal-pages]
   tags: [operator-config, placeholders, legal]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: legal-pages
   question: Can I defer legal pages during setup?
@@ -281,7 +281,7 @@
   related: [operator-placeholders, who-operates-instance, abuse-reports]
   tags: [legal, setup, operator-choice]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: security-txt
   question: How does `security.txt` work?
@@ -300,7 +300,7 @@
   related: [operator-placeholders, abuse-reports]
   tags: [security-txt, rfc-9116, trust-safety]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: protected-operational-paths
   question: Which paths should Cloudflare Access protect?
@@ -319,7 +319,7 @@
   related: [cloudflare-access-jwt, runtime-security-layers]
   tags: [cloudflare-access, protected-paths, trust-safety]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: cloudflare-access-jwt
   question: What does vanityURLs verify for Cloudflare Access?
@@ -335,7 +335,7 @@
   related: [protected-operational-paths]
   tags: [cloudflare-access, jwt, security]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: redirect-methods
   question: Which HTTP methods does the Worker accept?
@@ -354,7 +354,7 @@
   related: [analytics-default, runtime-security-layers]
   tags: [http, runtime-security, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: lifecycle-states
   question: What link lifecycle states exist?
@@ -373,7 +373,7 @@
   related: [expires-at, state-page-statuses, runtime-registry]
   tags: [lifecycle, links, routing]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: expires-at
   question: What happens when a link has passed `expires_at`?
@@ -392,7 +392,7 @@
   related: [lifecycle-states, state-page-statuses]
   tags: [expiry, lifecycle, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: state-page-statuses
   question: Which HTTP statuses do state pages return?
@@ -408,7 +408,7 @@
   related: [lifecycle-states, expires-at]
   tags: [http-status, lifecycle, status-pages]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: splat-links
   question: Can one short link forward nested paths?
@@ -427,7 +427,7 @@
   related: [link-source-of-truth, runtime-registry]
   tags: [splat, links, cli]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: schedule-cli
   question: How do scheduled links choose a destination?
@@ -446,7 +446,7 @@
   related: [schedule-timezones, link-source-of-truth]
   tags: [schedules, timezone, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: schedule-timezones
   question: Which timezone does a scheduled link use?
@@ -465,7 +465,7 @@
   related: [schedule-cli]
   tags: [schedules, timezone, edge-case]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: analytics-default
   question: Are clicks logged by default?
@@ -484,7 +484,7 @@
   related: [analytics-providers, analytics-ip-handling, stateless-architecture]
   tags: [privacy, analytics, operator-choice]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: analytics-providers
   question: Which analytics providers does vanityURLs support?
@@ -503,7 +503,7 @@
   related: [analytics-default, analytics-ip-handling]
   tags: [umami, fathom, analytics, operator-choice]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: analytics-ip-handling
   question: How is visitor IP handled when Umami is enabled?
@@ -522,7 +522,7 @@
   related: [analytics-providers, analytics-default]
   tags: [privacy, ip-address, umami, operator-choice]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: gdpr-article-11
   question: Why does the privacy model mention GDPR Article 11?
@@ -541,7 +541,7 @@
   related: [analytics-default, analytics-ip-handling, who-operates-instance]
   tags: [gdpr, privacy, architectural]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: runtime-security-layers
   question: Why does vanityURLs use both Worker checks and Cloudflare security settings?
@@ -560,7 +560,7 @@
   related: [scanner-probes, protected-operational-paths, destination-policy]
   tags: [cloudflare, waf, runtime-security]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: scanner-probes
   question: How are scanner probes handled?
@@ -579,7 +579,7 @@
   related: [runtime-security-layers, destination-policy]
   tags: [scanner-probes, blocklist, trust-safety]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: destination-policy
   question: How does vanityURLs prevent unsafe redirect destinations?
@@ -598,7 +598,7 @@
   related: [policy-replacement, scanner-probes, destination-liability]
   tags: [destination-policy, safety, blocklist]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: policy-replacement
   question: Does `custom/v8s-policies.json` merge with the default policy?
@@ -617,7 +617,7 @@
   related: [destination-policy, defaults-vs-custom]
   tags: [policy, blocklist, custom]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: destination-liability
   question: Does publishing a short link endorse the destination?
@@ -633,7 +633,7 @@
   related: [abuse-reports, who-operates-instance]
   tags: [terms, destinations, trust-safety]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: abuse-reports
   question: How should someone report an abusive short link?
@@ -652,7 +652,7 @@
   related: [destination-liability, security-txt, who-operates-instance]
   tags: [abuse, reporting, trust-safety]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: localization-fallback
   question: How does the Worker choose a localized page?
@@ -671,7 +671,7 @@
   related: [operator-placeholders, custom-public]
   tags: [i18n, localization, html]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: custom-public
   question: How do I customize public pages and assets?
@@ -690,7 +690,7 @@
   related: [defaults-vs-custom, localization-fallback]
   tags: [custom-public, branding, localization]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: local-publish
   question: What does `npm run local-publish` do?
@@ -709,7 +709,7 @@
   related: [lnk-cli, what-to-commit]
   tags: [local-workflow, git, cli]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }
 
 - id: comparison-fit
   question: When is vanityURLs a better fit than a hosted shortener?
@@ -729,4 +729,4 @@
   related: [hosted-service, stateless-architecture]
   tags: [comparison, self-hosted, hosted-services]
   last_reviewed: 2026-05-27
-  reviewed_against: {code: f1c997f, website: 79f31f6}
+  reviewed_against: { code: f1c997f, website: 79f31f6 }

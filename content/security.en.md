@@ -2,6 +2,7 @@
 title: "Security Statement"
 description: "How vanityURLs.link is secured — encryption, hosting, headers, email protection, and open-source auditability."
 ---
+
 {{< callout type="note" title="Last reviewed: April 2026" >}}
 This statement applies to vanityURLs.link. It does not apply to self-hosted instances of vanityURLs, which are the sole responsibility of their operators.
 {{< /callout >}}
@@ -43,15 +44,15 @@ Cloudflare's infrastructure security practices are documented at [cloudflare.com
 
 Every response from vanityURLs.link includes the following headers, defined in `build/_headers` and enforced by Cloudflare Pages:
 
-| Header | Value | Purpose |
-|--------|-------|---------|
-| `X-Frame-Options` | `DENY` | Prevents the site from being embedded in iframes — blocks clickjacking |
-| `X-Content-Type-Options` | `nosniff` | Prevents MIME-type sniffing attacks |
-| `X-XSS-Protection` | `1; mode=block` | Legacy XSS filter for older browsers |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` | Limits referrer information sent to third parties |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` | Explicitly disables access to device APIs |
-| `Content-Security-Policy` | (see below) | Restricts which resources the browser may load |
-| `frame-ancestors` | `none` | Modern replacement for X-Frame-Options |
+| Header                    | Value                                      | Purpose                                                                |
+| ------------------------- | ------------------------------------------ | ---------------------------------------------------------------------- |
+| `X-Frame-Options`         | `DENY`                                     | Prevents the site from being embedded in iframes — blocks clickjacking |
+| `X-Content-Type-Options`  | `nosniff`                                  | Prevents MIME-type sniffing attacks                                    |
+| `X-XSS-Protection`        | `1; mode=block`                            | Legacy XSS filter for older browsers                                   |
+| `Referrer-Policy`         | `strict-origin-when-cross-origin`          | Limits referrer information sent to third parties                      |
+| `Permissions-Policy`      | `camera=(), microphone=(), geolocation=()` | Explicitly disables access to device APIs                              |
+| `Content-Security-Policy` | (see below)                                | Restricts which resources the browser may load                         |
+| `frame-ancestors`         | `none`                                     | Modern replacement for X-Frame-Options                                 |
 
 ### Content Security Policy
 
@@ -71,11 +72,11 @@ frame-ancestors 'none'
 
 vanityURLs.link does not send email. The domain is locked against spoofing with:
 
-| Record | Value | Effect |
-|--------|-------|--------|
-| `DMARC _dmarc` | `p=reject; sp=reject; adkim=s; aspf=s` | Receiving mail servers must reject any email claiming to come from this domain |
-| `DKIM *.domainkey` | `v=DKIM1; p=` | Empty public key — no DKIM signature can be valid for this domain |
-| `MTA-STS _mta-sts` | `v=STSv1` | Mail servers contacting this domain must use TLS |
+| Record             | Value                                  | Effect                                                                         |
+| ------------------ | -------------------------------------- | ------------------------------------------------------------------------------ |
+| `DMARC _dmarc`     | `p=reject; sp=reject; adkim=s; aspf=s` | Receiving mail servers must reject any email claiming to come from this domain |
+| `DKIM *.domainkey` | `v=DKIM1; p=`                          | Empty public key — no DKIM signature can be valid for this domain              |
+| `MTA-STS _mta-sts` | `v=STSv1`                              | Mail servers contacting this domain must use TLS                               |
 
 This configuration makes it technically impossible to forge a valid email from `@vanityurls.link`.
 

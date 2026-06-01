@@ -5,7 +5,6 @@ description: "Configure time-aware exact links with inline v8s-links.txt schedul
 weight: 110
 aliases:
   - /docs/schedules/
-
 ---
 
 Scheduled links let a stable slug point somewhere different during configured time windows. Keep the normal target on the link row in `v8s-links.txt`, then add indented `@schedule` directives below that row.

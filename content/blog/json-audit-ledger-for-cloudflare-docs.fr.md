@@ -66,15 +66,15 @@ cloudflare_surface:
 
 Au 2026-05-29, voici les sources Cloudflare a surveiller pour vanityURLs :
 
-| Surface | Changelog produit |
-| --- | --- |
-| Changements larges de produit et de tableau de bord | - [Cloudflare](https://developers.cloudflare.com/changelog/) |
-| Runtime Worker, Wrangler, Workers Builds et comportement du tableau de bord Workers | - [Workers platform](https://developers.cloudflare.com/workers/platform/changelog/)<br>- [Workers product](https://developers.cloudflare.com/changelog/product/workers/) |
-| Regles WAF gerees et posture de sécurité applicative | - [WAF](https://developers.cloudflare.com/waf/change-log/)<br>- [Application Security](https://developers.cloudflare.com/changelog/product-group/application-security/) |
-| Rules, transforms, redirects et normalisation d'URL | - [Rules](https://developers.cloudflare.com/rules/changelog/)<br>- [Rules product](https://developers.cloudflare.com/changelog/product/rules/) |
-| UI DNS, DNSSEC, enregistrements proxifies et routage de domaine | - [DNS](https://developers.cloudflare.com/dns/changelog/) |
-| SSL/TLS, certificats, contrôles proches de HSTS et comportement des certificats edge | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/) |
-| Access, navigation Zero Trust et comportement des politiques | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
+| Surface                                                                              | Changelog produit                                                                                                                                                                  |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Changements larges de produit et de tableau de bord                                  | - [Cloudflare](https://developers.cloudflare.com/changelog/)                                                                                                                       |
+| Runtime Worker, Wrangler, Workers Builds et comportement du tableau de bord Workers  | - [Workers platform](https://developers.cloudflare.com/workers/platform/changelog/)<br>- [Workers product](https://developers.cloudflare.com/changelog/product/workers/)           |
+| Regles WAF gerees et posture de sécurité applicative                                 | - [WAF](https://developers.cloudflare.com/waf/change-log/)<br>- [Application Security](https://developers.cloudflare.com/changelog/product-group/application-security/)            |
+| Rules, transforms, redirects et normalisation d'URL                                  | - [Rules](https://developers.cloudflare.com/rules/changelog/)<br>- [Rules product](https://developers.cloudflare.com/changelog/product/rules/)                                     |
+| UI DNS, DNSSEC, enregistrements proxifies et routage de domaine                      | - [DNS](https://developers.cloudflare.com/dns/changelog/)                                                                                                                          |
+| SSL/TLS, certificats, contrôles proches de HSTS et comportement des certificats edge | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/)                                                                                                                      |
+| Access, navigation Zero Trust et comportement des politiques                         | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
 
 Ces flux ne répondent pas aux mêmes questions.
 
@@ -110,4 +110,5 @@ C'est pourquoi chaque affirmation d'implementation ci-dessus est datee, et pourq
 Le compromis accepte est petit mais reel : vanityURLs porte un fichier de plus pour que les docs n'absorbent pas silencieusement chaque nouveaute du tableau de bord. C'est une assurance bon marche pour un projet dont le biais opérationnel est de rester petit tout en dependant d'une grande plateforme.
 
 [^adr]: Le format ADR a plusieurs lignees plutot qu'un standard canonique unique. L'organisation publique [ADR GitHub](https://adr.github.io/) est un bon point d'entree; utilisez le template ADR du dépôt comme autorite locale.
+
 [^adr0012]: ADR 0012 vit dans le dépôt code de vanityURLs : [Maintain Cloudflare dashboard capture](https://github.com/vanityURLs/code/blob/main/docs/adr/0012-maintain-cloudflare-dashboard-capture.md).

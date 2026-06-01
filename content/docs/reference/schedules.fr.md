@@ -5,7 +5,6 @@ description: "Configurer des liens exacts sensibles au temps avec des horaires i
 weight: 110
 aliases:
   - /docs/schedules/
-
 ---
 
 Les liens planifiés permettent à un slug stable de pointer ailleurs pendant certaines plages horaires. Gardez la cible normale sur la ligne du lien dans `v8s-links.txt`, puis ajoutez des directives `@schedule` indentées sous cette ligne.

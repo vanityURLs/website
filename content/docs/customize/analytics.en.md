@@ -6,7 +6,6 @@ aliases:
   - /docs/analytics/
   - /docs/server-side-analytics/
 weight: 20
-
 ---
 
 Use server-side analytics when you want redirect and page activity without adding browser tracking JavaScript. vanityURLs sends analytics from the Worker with `ctx.waitUntil()`, so provider failures should not delay redirects.
@@ -25,11 +24,11 @@ Enable analytics when you need to measure campaign links, printed QR codes, laun
 
 Set `ANALYTICS_PROVIDER` in `wrangler.toml`.
 
-| Value | Use when |
-|---|---|
-| `disabled` | You do not want vanityURLs to send analytics events |
-| `umami` | You want structured event properties in Umami |
-| `fathom` | You want Fathom pageviews and named events |
+| Value          | Use when                                                  |
+| -------------- | --------------------------------------------------------- |
+| `disabled`     | You do not want vanityURLs to send analytics events       |
+| `umami`        | You want structured event properties in Umami             |
+| `fathom`       | You want Fathom pageviews and named events                |
 | `umami,fathom` | You are migrating providers or comparing both temporarily |
 
 Do not leave dual-provider collection enabled longer than needed; it doubles collection traffic.

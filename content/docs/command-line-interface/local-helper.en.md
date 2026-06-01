@@ -5,7 +5,6 @@ description: "Use the read-only v8s shell helper to open known redirects from yo
 weight: 10
 aliases:
   - /docs/local-helper/
-
 ---
 
 The local helper is the `v8s` terminal command. It lets you open a known short link directly from your terminal instead of switching to a browser first, typing the short domain, and waiting for the redirect. For day-to-day work, that makes repeat links faster to reach.
@@ -50,9 +49,9 @@ source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 
 ## Use helper
 
-| Command | Behavior |
-| --- | --- |
-| `v8s --list` | Lists active `permanent` and `ephemeral` slugs from the registry |
-| `v8s slug` | Opens the target for the exact `slug` value |
-| `v8s --print slug` | Prints the target without opening it |
-| `v8s --path` | Prints the registry path currently in use |
+| Command            | Behavior                                                         |
+| ------------------ | ---------------------------------------------------------------- |
+| `v8s --list`       | Lists active `permanent` and `ephemeral` slugs from the registry |
+| `v8s slug`         | Opens the target for the exact `slug` value                      |
+| `v8s --print slug` | Prints the target without opening it                             |
+| `v8s --path`       | Prints the registry path currently in use                        |

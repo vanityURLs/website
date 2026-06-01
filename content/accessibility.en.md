@@ -5,7 +5,7 @@ aliases:
   - a11y
 ---
 
-*Last reviewed: April 2026. This statement applies only to vanityURLs.link, not to self-hosted vanityURLs deployments.*
+_Last reviewed: April 2026. This statement applies only to vanityURLs.link, not to self-hosted vanityURLs deployments._
 
 We're committed to making this site usable by as many people as possible, regardless of ability or assistive technology. This statement explains what we've implemented, what we know is imperfect, and how to test or report accessibility issues.
 
@@ -77,13 +77,13 @@ These are real shortcomings we've identified and not yet addressed. We list them
 
 Automated tools catch a meaningful portion of WCAG failures and are the fastest starting point. None of them detect everything — pair them with the manual checks below.
 
-| Tool | Access | What it checks |
-|------|--------|----------------|
-| axe DevTools | [Chrome extension](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) → DevTools → axe tab | WCAG 2.1 A and AA |
-| WAVE | [wave.webaim.org](https://wave.webaim.org) or [browser extension](https://wave.webaim.org/extension/) | Structure, contrast, ARIA |
-| Lighthouse | Chrome DevTools → Lighthouse tab → Accessibility | Score plus issues list |
-| PageSpeed Insights | [pagespeed.web.dev](https://pagespeed.web.dev) | Lighthouse audit + Core Web Vitals |
-| IBM Equal Access Checker | [Chrome extension](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp) | WCAG 2.1 plus IBM guidelines |
+| Tool                     | Access                                                                                                                          | What it checks                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| axe DevTools             | [Chrome extension](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) → DevTools → axe tab | WCAG 2.1 A and AA                  |
+| WAVE                     | [wave.webaim.org](https://wave.webaim.org) or [browser extension](https://wave.webaim.org/extension/)                           | Structure, contrast, ARIA          |
+| Lighthouse               | Chrome DevTools → Lighthouse tab → Accessibility                                                                                | Score plus issues list             |
+| PageSpeed Insights       | [pagespeed.web.dev](https://pagespeed.web.dev)                                                                                  | Lighthouse audit + Core Web Vitals |
+| IBM Equal Access Checker | [Chrome extension](https://chromewebstore.google.com/detail/ibm-equal-access-accessib/lkcagbfjnkomcinoddgooolagloogehp)         | WCAG 2.1 plus IBM guidelines       |
 
 ### Keyboard testing
 
@@ -110,12 +110,12 @@ Targets: **4.5:1** for normal text, **3:1** for large text (18pt or 14pt bold) a
 
 ### Screen reader testing
 
-| Screen reader | OS | Browser |
-|---------------|-----|---------|
-| VoiceOver | macOS (`Cmd+F5`) | Safari |
-| NVDA | Windows (free) | Firefox |
-| TalkBack | Android | Chrome |
-| Narrator | Windows | Edge |
+| Screen reader | OS               | Browser |
+| ------------- | ---------------- | ------- |
+| VoiceOver     | macOS (`Cmd+F5`) | Safari  |
+| NVDA          | Windows (free)   | Firefox |
+| TalkBack      | Android          | Chrome  |
+| Narrator      | Windows          | Edge    |
 
 Things worth checking: the page title is announced, headings are navigable using the `H` key, link text is descriptive (avoid "click here"), the language switcher announces the active language, and the search modal announces itself when opened.
 

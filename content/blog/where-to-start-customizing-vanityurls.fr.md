@@ -11,18 +11,18 @@ Quand le demarrage rapide fonctionne, le redirecteur est déjà utile. La person
 
 Vous n'avez pas besoin de tout personnalisér en même temps. Commencez par la zone qui fait le plus mal.
 
-| Objectif | Commencer ici |
-| --- | --- |
-| Changer l'apparence publique et les pages statiques | [Surcharges custom](/fr/docs/reference/custom-overrides/) |
-| Configurer le wordmark bicolore et les assets de marque | [Marque](/fr/docs/reference/brand/) |
-| Ajouter, inspecter ou mettre à jour les liens courts | [LNK](/fr/docs/command-line-interface/lnk/) et [Format des liens](/fr/docs/reference/link-format/) |
-| Ajouter des destinations selon le temps | [Liens planifiés](/fr/docs/reference/schedules/) |
-| Decider quelles langues publier | [Internationalisation](/fr/docs/reference/i18n/) |
-| Configurer la juridiction et les contacts publics de confiance | [Juridiction](/fr/docs/customize/jurisdiction/) |
-| Proteger les chemins opérationnels privés | [Contrôle d'accès](/fr/docs/customize/access-control/) |
-| Proteger le domaine avant que le trafic atteigne le Worker | [Protection réseau](/fr/docs/customize/network-protection/) |
-| Configurer les analytics de redirection | [Analytics](/fr/docs/customize/analytics/) |
-| Ajuster la politique allow/block | [Politique et blocklist](/fr/docs/customize/blocklist/) |
+| Objectif                                                       | Commencer ici                                                                                      |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Changer l'apparence publique et les pages statiques            | [Surcharges custom](/fr/docs/reference/custom-overrides/)                                          |
+| Configurer le wordmark bicolore et les assets de marque        | [Marque](/fr/docs/reference/brand/)                                                                |
+| Ajouter, inspecter ou mettre à jour les liens courts           | [LNK](/fr/docs/command-line-interface/lnk/) et [Format des liens](/fr/docs/reference/link-format/) |
+| Ajouter des destinations selon le temps                        | [Liens planifiés](/fr/docs/reference/schedules/)                                                   |
+| Decider quelles langues publier                                | [Internationalisation](/fr/docs/reference/i18n/)                                                   |
+| Configurer la juridiction et les contacts publics de confiance | [Juridiction](/fr/docs/customize/jurisdiction/)                                                    |
+| Proteger les chemins opérationnels privés                      | [Contrôle d'accès](/fr/docs/customize/access-control/)                                             |
+| Proteger le domaine avant que le trafic atteigne le Worker     | [Protection réseau](/fr/docs/customize/network-protection/)                                        |
+| Configurer les analytics de redirection                        | [Analytics](/fr/docs/customize/analytics/)                                                         |
+| Ajuster la politique allow/block                               | [Politique et blocklist](/fr/docs/customize/blocklist/)                                            |
 
 Le meilleur chemin n'est habituellement pas lineaire. Une instance personnelle peut commencer par les liens et la marque. Une instance d'équipe peut commencer par le contrôle d'accès et les labels owner. Un domaine marketing public peut commencer par les pages légales, les analytics et la protection réseau.
 

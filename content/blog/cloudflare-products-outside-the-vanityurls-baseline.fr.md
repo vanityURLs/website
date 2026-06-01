@@ -26,13 +26,13 @@ Le reste exige une raison locale précise.
 
 ## Produits Hors Baseline
 
-| Produit | Pourquoi il reste hors baseline |
-| --- | --- |
-| [Cloudflare Web Analytics](/fr/docs/reference/cloudflare-products/) et [Real User Monitoring](/fr/docs/customize/network-protection/) | Ils ajoutent de la telémetrie navigateur. vanityURLs utilise des événements côté serveur depuis le Worker lorsque les analytics sont activées. |
-| [Bulk Redirects](https://developers.cloudflare.com/web-analytics/) | Ils creent un deuxieme système de redirection a côté du registre de liens gere dans Git et du resolver Worker. |
-| [Cache Rules](https://developers.cloudflare.com/speed/observatory/rum/) et Cache Response Rules | Ils peuvent conserver des décisions de redirection, des états de cycle de vie ou des trous analytics perimes. Les ressources statiques ont déjà leurs propres en-têtes. |
-| [Cloudflare Turnstile](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/) | Il protège les formulaires et les flux interactifs. Le redirecteur standard n'a pas de formulaire public, login visiteur, checkout ou zone de commentaires. |
-| [Workers Analytics](https://developers.cloudflare.com/cache/how-to/cache-rules/) | C'est une surface d'observabilite, pas une etape de setup. Utilisez-la après déploiement pour la sante Worker, pas pour les événements applicatifs. |
+| Produit                                                                                                                               | Pourquoi il reste hors baseline                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Cloudflare Web Analytics](/fr/docs/reference/cloudflare-products/) et [Real User Monitoring](/fr/docs/customize/network-protection/) | Ils ajoutent de la telémetrie navigateur. vanityURLs utilise des événements côté serveur depuis le Worker lorsque les analytics sont activées.                          |
+| [Bulk Redirects](https://developers.cloudflare.com/web-analytics/)                                                                    | Ils creent un deuxieme système de redirection a côté du registre de liens gere dans Git et du resolver Worker.                                                          |
+| [Cache Rules](https://developers.cloudflare.com/speed/observatory/rum/) et Cache Response Rules                                       | Ils peuvent conserver des décisions de redirection, des états de cycle de vie ou des trous analytics perimes. Les ressources statiques ont déjà leurs propres en-têtes. |
+| [Cloudflare Turnstile](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/)                                        | Il protège les formulaires et les flux interactifs. Le redirecteur standard n'a pas de formulaire public, login visiteur, checkout ou zone de commentaires.             |
+| [Workers Analytics](https://developers.cloudflare.com/cache/how-to/cache-rules/)                                                      | C'est une surface d'observabilite, pas une etape de setup. Utilisez-la après déploiement pour la sante Worker, pas pour les événements applicatifs.                     |
 
 Dans la capture du tableau de bord du 2026-05-29, ces exclusions sont aussi suivies dans [`data/cloudflare-protection-defaults.json`](https://www.cloudflare.com/application-services/products/turnstile/). `Last verified: 2026-05-29`
 

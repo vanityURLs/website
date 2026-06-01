@@ -5,7 +5,6 @@ description: "Plan the phase-2 customization work after the first vanityURLs dep
 weight: 20
 aliases:
   - /docs/customize-overview/
-
 ---
 
 After the Quickstart works, customization is where the instance becomes yours. Use this section when you are ready to refine links, branding, public pages, policy, access control, analytics, and operational settings.

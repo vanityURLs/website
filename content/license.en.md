@@ -29,4 +29,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-The full license text is also available in the  <a href="https://github.com/vanityURLs/vanityURLs/blob/main/LICENSE" target="_blank" rel="noopener">GitHub repository</a>
+The full license text is also available in the <a href="https://github.com/vanityURLs/vanityURLs/blob/main/LICENSE" target="_blank" rel="noopener">GitHub repository</a>

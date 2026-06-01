@@ -5,7 +5,6 @@ description: "Le format v8s-links.txt pour liens exacts, splat, états, metadonn
 weight: 70
 aliases:
   - /docs/link-format/
-
 ---
 
 `v8s-links.txt` est la source de vérité humaine pour les liens. Chaque ligne non vide et non commentee est séparée par des pipes :
@@ -14,17 +13,17 @@ aliases:
 slug|target|state|title|description|tags|owner|expires_at|notes
 ```
 
-| Champ | Requis | Description |
-|---|---|---|
-| `slug` | oui | Chemin sans `/` initial |
-| `target` | oui | URL `http` ou `https`, ou hostname normalise vers `https://` |
-| `state` | non | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |
-| `title` | non | Titre pour le dashboard |
-| `description` | non | Usage humain du lien |
-| `tags` | non | Tags séparés par virgules |
-| `owner` | recommande | Étiquette de responsabilité |
-| `expires_at` | non | Date ou timestamp ISO |
-| `notes` | non | Notes internes |
+| Champ         | Requis     | Description                                                                   |
+| ------------- | ---------- | ----------------------------------------------------------------------------- |
+| `slug`        | oui        | Chemin sans `/` initial                                                       |
+| `target`      | oui        | URL `http` ou `https`, ou hostname normalise vers `https://`                  |
+| `state`       | non        | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |
+| `title`       | non        | Titre pour le dashboard                                                       |
+| `description` | non        | Usage humain du lien                                                          |
+| `tags`        | non        | Tags séparés par virgules                                                     |
+| `owner`       | recommande | Étiquette de responsabilité                                                   |
+| `expires_at`  | non        | Date ou timestamp ISO                                                         |
+| `notes`       | non        | Notes internes                                                                |
 
 ## Liens exacts
 
@@ -58,14 +57,14 @@ github/*|https://github.com/vanityURLs/:splat|permanent|GitHub|Namespace|git|v8s
 
 ## États
 
-| État | Comportement runtime |
-|---|---|
-| `permanent` | 301 vers la cible |
-| `ephemeral` | 302 vers la cible |
-| `expired` | 302 vers `/expired` |
-| `disabled` | 302 vers `/disabled` |
+| État          | Comportement runtime    |
+| ------------- | ----------------------- |
+| `permanent`   | 301 vers la cible       |
+| `ephemeral`   | 302 vers la cible       |
+| `expired`     | 302 vers `/expired`     |
+| `disabled`    | 302 vers `/disabled`    |
 | `maintenance` | 302 vers `/maintenance` |
-| `deactivated` | vrai 404 |
+| `deactivated` | vrai 404                |
 
 Si `expires_at` est passe, l'état effectif devient `expired`.
 

@@ -8,7 +8,7 @@ show_section_pages: false
 
 vanityURLs fournit deux outils locaux en ligne de commande, avec des rôles différents.
 
-| Outil | Utilisez-le quand |
-| --- | --- |
-| [Helper local](/fr/docs/command-line-interface/local-helper/) | Vous voulez ouvrir un lien court existant depuis le terminal |
-| [LNK](/fr/docs/command-line-interface/lnk/) | Vous voulez modifier les liens, horaires ou politiques source dans `custom/` |
+| Outil                                                         | Utilisez-le quand                                                            |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| [Helper local](/fr/docs/command-line-interface/local-helper/) | Vous voulez ouvrir un lien court existant depuis le terminal                 |
+| [LNK](/fr/docs/command-line-interface/lnk/)                   | Vous voulez modifier les liens, horaires ou politiques source dans `custom/` |

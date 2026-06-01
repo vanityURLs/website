@@ -5,7 +5,6 @@ description: "Decide the operator, jurisdiction, governing law, and trust contac
 weight: 50
 aliases:
   - /docs/jurisdiction/
-
 ---
 
 vanityURLs asks a few operator questions so generated public pages have a real owner, a reporting path, and a legal context. Use this page before or during `npm run setup` when you are deciding what to enter.
@@ -32,22 +31,22 @@ If the operator contact domain is blank, setup defaults role-based addresses to 
 
 If you answer `N`, setup keeps existing public contact values or derives practical defaults from the short domain. When you do review the values, use role-based addresses when you can. They are easier to transfer when ownership changes and easier for visitors, registrars, and researchers to recognize.
 
-| Setup question | Phase 1 recommendation | What it controls |
-| --- | --- | --- |
-| Trust & Safety contact | `abuse@<short-domain>` | Public address for abuse, phishing, malware, impersonation, and harmful-link reports |
-| Security contact | `security@<short-domain>` | Address for vulnerability reports and `/.well-known/security.txt` |
-| Operator contact email | `hello@<short-domain>` | General contact address when full legal pages are enabled |
-| Privacy contact | `privacy@<short-domain>` | Privacy and data-protection contact when full legal pages are enabled |
+| Setup question         | Phase 1 recommendation    | What it controls                                                                     |
+| ---------------------- | ------------------------- | ------------------------------------------------------------------------------------ |
+| Trust & Safety contact | `abuse@<short-domain>`    | Public address for abuse, phishing, malware, impersonation, and harmful-link reports |
+| Security contact       | `security@<short-domain>` | Address for vulnerability reports and `/.well-known/security.txt`                    |
+| Operator contact email | `hello@<short-domain>`    | General contact address when full legal pages are enabled                            |
+| Privacy contact        | `privacy@<short-domain>`  | Privacy and data-protection contact when full legal pages are enabled                |
 
 ### Decide the legal context
 
 In `npm run setup`, enable full legal pages when you are ready to publish privacy, terms, and standalone security pages. These questions appear only when full legal pages are enabled:
 
-| Setup question | Phase 1 recommendation | What it controls |
-| --- | --- | --- |
-| Operator jurisdiction | Country, province/state, or operating location | Place whose laws govern the operator or instance |
-| Governing law | Usually the same as jurisdiction | Legal frame used by the generated terms page |
-| Legal pages last updated date | Current review date in `YYYY-MM-DD` format | Date printed on generated privacy, terms, and security pages |
+| Setup question                | Phase 1 recommendation                         | What it controls                                             |
+| ----------------------------- | ---------------------------------------------- | ------------------------------------------------------------ |
+| Operator jurisdiction         | Country, province/state, or operating location | Place whose laws govern the operator or instance             |
+| Governing law                 | Usually the same as jurisdiction               | Legal frame used by the generated terms page                 |
+| Legal pages last updated date | Current review date in `YYYY-MM-DD` format     | Date printed on generated privacy, terms, and security pages |
 
 For a personal redirector, jurisdiction is usually where you live. For an organization, it is usually where the operating organization is established. Use a narrower governing law value, such as `Quebec, Canada`, only when that is the right legal context for the operator.
 

@@ -6,7 +6,6 @@ weight: 80
 aliases:
   - /docs/blocklist-policy/
   - /docs/reference/blocklist/
-
 ---
 
 vanityURLs edits source policy as `v8s-policies.json` and deploys runtime policy as `build/v8s-blocklist.json`.
@@ -19,10 +18,10 @@ Built-in runtime protections are documented in [Runtime security](/docs/referenc
 
 The source policy file is selected before build:[^legacy-policy]
 
-| File | Role |
-|---|---|
-| `defaults/v8s-policies.json` | Upstream trust-and-safety source policy |
-| `custom/v8s-policies.json` | Instance-owned replacement source policy |
+| File                         | Role                                     |
+| ---------------------------- | ---------------------------------------- |
+| `defaults/v8s-policies.json` | Upstream trust-and-safety source policy  |
+| `custom/v8s-policies.json`   | Instance-owned replacement source policy |
 
 `custom/v8s-policies.json` is not merged over the default source policy. If an instance owns policy, it owns the replacement. This prevents removed custom policy decisions from reappearing through an upstream merge.
 
@@ -32,13 +31,13 @@ The source policy file is selected before build:[^legacy-policy]
 
 The current defaults include:
 
-| Category | Used for |
-|---|---|
-| `phishing` | Credential theft, fake login pages, wallet-draining lures, and brand impersonation |
-| `malware` | Malware distribution, exploit delivery, payload hosting, and command-and-control infrastructure |
-| `shortener-loop` | Public shorteners that can hide the final destination or create redirect chains |
-| `scanner-probe` | Automated vulnerability scanner paths that should never resolve as short links |
-| `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Instance-owned policy categories for elevated-risk or owner-selected blocks |
+| Category                                                                     | Used for                                                                                        |
+| ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `phishing`                                                                   | Credential theft, fake login pages, wallet-draining lures, and brand impersonation              |
+| `malware`                                                                    | Malware distribution, exploit delivery, payload hosting, and command-and-control infrastructure |
+| `shortener-loop`                                                             | Public shorteners that can hide the final destination or create redirect chains                 |
+| `scanner-probe`                                                              | Automated vulnerability scanner paths that should never resolve as short links                  |
+| `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Instance-owned policy categories for elevated-risk or owner-selected blocks                     |
 
 Generated feeds reduce obvious abuse risk, but they can still have false positives. Review source changes before promoting them into a release.
 
@@ -46,12 +45,12 @@ Every enabled generated source should have a category, severity, URL, and clear 
 
 ## Field Behavior
 
-| Field | Behavior |
-|---|---|
-| `allow_domains` | Allows trusted owner-controlled domains and can override generated or local domain blocks |
-| `block_domains` | Blocks destination hostnames that match the configured domain or a subdomain |
-| `block_keywords` | Blocks destination hostname, path, and query matches after lowercasing |
-| `block_extensions` | Blocks risky destination file extensions |
+| Field              | Behavior                                                                                  |
+| ------------------ | ----------------------------------------------------------------------------------------- |
+| `allow_domains`    | Allows trusted owner-controlled domains and can override generated or local domain blocks |
+| `block_domains`    | Blocks destination hostnames that match the configured domain or a subdomain              |
+| `block_keywords`   | Blocks destination hostname, path, and query matches after lowercasing                    |
+| `block_extensions` | Blocks risky destination file extensions                                                  |
 
 `allow_domains` does not override malformed URLs, disallowed protocols, or credentialed URLs.
 

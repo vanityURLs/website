@@ -11,15 +11,15 @@ aside: false
 
 Schema `3.0` is tree-first:
 
-| Field | Purpose |
-| --- | --- |
-| `schema_version` | Runtime registry contract version, currently `3.0` |
-| `generated_at` | Build timestamp |
+| Field                | Purpose                                                                   |
+| -------------------- | ------------------------------------------------------------------------- |
+| `schema_version`     | Runtime registry contract version, currently `3.0`                        |
+| `generated_at`       | Build timestamp                                                           |
 | `generated_timezone` | Operator timezone used by protected dashboards when displaying build time |
-| `default_state` | Fallback lifecycle state, normally `permanent` |
-| `routing` | State-to-outcome map used by the Worker |
-| `tree` | Canonical nested lookup structure for runtime resolution |
-| `links[]` | Compatibility array for dashboards, local helpers, and review workflows |
+| `default_state`      | Fallback lifecycle state, normally `permanent`                            |
+| `routing`            | State-to-outcome map used by the Worker                                   |
+| `tree`               | Canonical nested lookup structure for runtime resolution                  |
+| `links[]`            | Compatibility array for dashboards, local helpers, and review workflows   |
 
 Each tree node has a `children` object and may have a `link`. Each `link` keeps the same fields exposed in `links[]`, including `slug`, `match`, `target`, `state`, metadata, and optional `schedule`.
 

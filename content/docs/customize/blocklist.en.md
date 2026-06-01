@@ -5,7 +5,6 @@ description: "Configure instance allow and block policy for target URLs, shorten
 weight: 70
 aliases:
   - /docs/blocklist/
-
 ---
 
 Use policy and blocklist customization when your instance needs local trust-and-safety decisions beyond the product defaults.
@@ -30,21 +29,10 @@ In your instance repository, create `custom/v8s-policies.json` when the instance
 
 ```json
 {
-  "allow_domains": [
-    "example.com",
-    "docs.example.com"
-  ],
-  "block_domains": [
-    "untrusted-example.test"
-  ],
-  "block_keywords": [
-    "credential-harvest",
-    "wallet-drain"
-  ],
-  "block_extensions": [
-    ".exe",
-    ".scr"
-  ]
+  "allow_domains": ["example.com", "docs.example.com"],
+  "block_domains": ["untrusted-example.test"],
+  "block_keywords": ["credential-harvest", "wallet-drain"],
+  "block_extensions": [".exe", ".scr"]
 }
 ```
 

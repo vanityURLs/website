@@ -7,7 +7,6 @@ aliases:
   - /docs/server-side-analytics/
   - /fr/docs/server-side-analytics/
 weight: 10
-
 ---
 
 Utilisez les analytics serveur lorsque vous voulez mesurer les redirections et les pages sans ajouter de JavaScript de tracking dans le navigateur. vanityURLs envoie les événements depuis le Worker avec `ctx.waitUntil()`, donc une panne fournisseur ne devrait pas ralentir les redirections.
@@ -26,12 +25,12 @@ Activez les analytics lorsque vous devez mesurer des liens de campagne, codes QR
 
 Définissez `ANALYTICS_PROVIDER` dans `wrangler.toml`.
 
-| Valeur | Utilisation |
-|---|---|
-| `disabled` | Vous ne voulez pas que vanityURLs envoie des événements analytics |
-| `umami` | Vous voulez des propriétés d'événements structurées dans Umami |
-| `fathom` | Vous voulez des pageviews et événements nommés Fathom |
-| `umami,fathom` | Vous migrez de fournisseur ou comparez temporairement les deux |
+| Valeur         | Utilisation                                                       |
+| -------------- | ----------------------------------------------------------------- |
+| `disabled`     | Vous ne voulez pas que vanityURLs envoie des événements analytics |
+| `umami`        | Vous voulez des propriétés d'événements structurées dans Umami    |
+| `fathom`       | Vous voulez des pageviews et événements nommés Fathom             |
+| `umami,fathom` | Vous migrez de fournisseur ou comparez temporairement les deux    |
 
 Ne gardez pas une collecte double plus longtemps que nécessaire; elle double le trafic de collecte.
 

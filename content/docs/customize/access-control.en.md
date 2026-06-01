@@ -5,7 +5,6 @@ description: "Configure Cloudflare Access for private vanityURLs operational pat
 weight: 10
 aliases:
   - /docs/access-control/
-
 ---
 
 Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure `/_stats` and `/_tests`.
@@ -35,11 +34,11 @@ This value is not a secret, but it must match the Cloudflare account that owns t
 
 For phase 1, use [one-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/) unless you already have a provider ready. For provider strategy, read [Choosing an Identity Provider](/blog/choosing-identity-provider/).
 
-| Option | Use when |
-|---|---|
+| Option                                                                                             | Use when                                                                   |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | [GitHub](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/github/) | Maintainers already use GitHub and you want user or organization selectors |
-| [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Maintainers already use Gmail or Google Workspace |
-| [Corporate IdP](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/) | Your organization already manages workforce identities and offboarding |
+| [Google](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/google/) | Maintainers already use Gmail or Google Workspace                          |
+| [Corporate IdP](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/) | Your organization already manages workforce identities and offboarding     |
 
 If you enable multiple providers, users choose one on the Cloudflare Access login page. The policy succeeds when the selected provider returns an identity that matches the policy.
 
@@ -50,38 +49,38 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 1. Create an application
 2. Select **Self-hosted and private**
 3. Continue with **Self-hosted and private**
-4. Configure the destinations with *your* short domain ← replace `v8s.link` with *your* short domain everywhere
+4. Configure the destinations with _your_ short domain ← replace `v8s.link` with _your_ short domain everywhere
 
-| Subdomain | Domain | Path |
-|---|---|---|
-| | `v8s.link` | `_stats` |
-| | `v8s.link` | `_stats/*` |
-| | `v8s.link` | `_tests` |
-| | `v8s.link` | `_tests/*` |
+| Subdomain | Domain     | Path       |
+| --------- | ---------- | ---------- |
+|           | `v8s.link` | `_stats`   |
+|           | `v8s.link` | `_stats/*` |
+|           | `v8s.link` | `_tests`   |
+|           | `v8s.link` | `_tests/*` |
 
 Use one Access application for the private vanityURLs operations. Public redirect paths should stay outside Access so visitors can follow short links without logging in.
 
 Recommended settings:
 
-| Setting | Value |
-|---|---|
-| Application type | Self-hosted |
-| Application name | Your Worker name, such as `v8s-link` |
-| Session duration | `24 hours` |
+| Setting            | Value                                                     |
+| ------------------ | --------------------------------------------------------- |
+| Application type   | Self-hosted                                               |
+| Application name   | Your Worker name, such as `v8s-link`                      |
+| Session duration   | `24 hours`                                                |
 | Identity providers | One-time PIN for phase 1, or the providers you configured |
-| Browser rendering | Off |
+| Browser rendering  | Off                                                       |
 
 ### Create the Access policy
 
 Start with a simple allow policy:
 
-| Field | Value |
-|---|---|
-| Policy name | `Allow maintainers` |
-| Action | `Allow` |
-| Include selector | `Emails` |
-| Include value | Your maintainer email addresses |
-| Session duration | `24 hours` |
+| Field            | Value                           |
+| ---------------- | ------------------------------- |
+| Policy name      | `Allow maintainers`             |
+| Action           | `Allow`                         |
+| Include selector | `Emails`                        |
+| Include value    | Your maintainer email addresses |
+| Session duration | `24 hours`                      |
 
 Use the policy tester before saving. Test one allowed email address and one address that should be denied.
 

@@ -6,7 +6,6 @@ weight: 50
 aliases:
   - /docs/footer-pages/
   - /docs/légal-trust-pages/
-
 ---
 
 vanityURLs peut publier des liens de pied de page et des pages publiques depuis les valeurs opérateur stockées dans `custom/v8s-site-config.json`. Ces pages font partie de la posture publique d'un domaine de liens courts : elles indiquent aux visiteurs, signalants, registraires et chercheurs en sécurité qui exploite le redirecteur et comment joindre le bon contact.
@@ -31,13 +30,13 @@ Choisissez `Y` lorsque vous êtes prêt a publier le texte de confidentialité, 
 
 Dans le dépôt de votre instance, vérifiez les fichiers publics génères sous `custom/public/` ou `build/` après l'execution du setup.
 
-| Sortie | Role |
-| --- | --- |
-| `/privacy` | Avis de confidentialité pour les données traitees par le redirecteur |
-| `/terms` | Conditions d'utilisation du domaine court |
-| `/trust-safety` | Signalement d'abus et divulgation coordonnée des vulnérabilités |
-| `/security` | Page de divulgation sécurité lorsque les pages légales complêtes sont activées |
-| `/.well-known/security.txt` | Contact de divulgation de vulnérabilités lisible par machine |
+| Sortie                      | Role                                                                           |
+| --------------------------- | ------------------------------------------------------------------------------ |
+| `/privacy`                  | Avis de confidentialité pour les données traitees par le redirecteur           |
+| `/terms`                    | Conditions d'utilisation du domaine court                                      |
+| `/trust-safety`             | Signalement d'abus et divulgation coordonnée des vulnérabilités                |
+| `/security`                 | Page de divulgation sécurité lorsque les pages légales complêtes sont activées |
+| `/.well-known/security.txt` | Contact de divulgation de vulnérabilités lisible par machine                   |
 
 Si vous remplacez plus tard les pages générées par du HTML custom sous `custom/public/`, gardez les mêmes contacts et chemins publics de signalement exacts.
 
@@ -57,12 +56,12 @@ Si vanityURLs ajoute ce comportement génère, le texte devrait seulement s'affi
 
 Dans le dépôt de votre instance, remplacez les pages générées seulement lorsque vous avez besoin de HTML complètement custom. Utilisez ces chemins :
 
-| Page | Fichier custom |
-| --- | --- |
-| Confidentialite | `custom/public/privacy.html` |
-| Conditions | `custom/public/terms.html` |
-| Trust & Safety | `custom/public/abuse.html` |
-| Sécurité | `custom/public/security.html` |
+| Page            | Fichier custom                |
+| --------------- | ----------------------------- |
+| Confidentialite | `custom/public/privacy.html`  |
+| Conditions      | `custom/public/terms.html`    |
+| Trust & Safety  | `custom/public/abuse.html`    |
+| Sécurité        | `custom/public/security.html` |
 
 Les pages anglaises ont aussi des alias sans extension comme `/privacy`, `/terms`, `/trust-safety`, et `/security`. Les pages localisées utilisent le répertoire de langue, par exemple `custom/public/fr/privacy.html`.
 

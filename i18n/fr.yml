@@ -5,7 +5,7 @@ toggle_menu: Ouvrir le menu
 
 # ── Header / recherche ──────────────────────────────────
 search_placeholder: Rechercher dans la doc
-search_no_results: 'Aucun résultat pour « %s »'
+search_no_results: "Aucun résultat pour « %s »"
 search_error: Erreur de recherche. Essayez de reconstruire l'index.
 search_unavailable: Exécutez « npm run index » pour activer la recherche.
 

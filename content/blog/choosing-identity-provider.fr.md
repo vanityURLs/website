@@ -23,10 +23,10 @@ Le compromis est la friction. Si les gens se connectent chaque jour, les codes p
 
 Choisissez le fournisseur qui possède déjà le processus d'arrivee et de départ.
 
-| Fournisseur | Utilisez-le quand |
-| --- | --- |
-| [GitHub](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/github/) | les mainteneurs appartiennent déjà à la même organisation ou équipe GitHub |
-| [Google](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/google/) | l'opérateur utilise déjà Gmail ou Google Workspace |
+| Fournisseur                                                                                                                          | Utilisez-le quand                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| [GitHub](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/github/)                                          | les mainteneurs appartiennent déjà à la même organisation ou équipe GitHub      |
+| [Google](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/google/)                                          | l'opérateur utilise déjà Gmail ou Google Workspace                              |
 | [Microsoft Entra ID](https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/entra-id/) ou un autre IdP corporatif | l'accès devrait suivre les contrôles RH, appareil, MFA et offboarding existants |
 
 Le selecteur compte autant que le fournisseur. Une instance personnelle peut autoriser des adresses nommees. Une instance d'équipe devrait aller vers des groupes maintenus, l'appartenance à une organisation GitHub ou des selecteurs venant de l'IdP. Sinon, l'offboarding devient une chasse au tresor.

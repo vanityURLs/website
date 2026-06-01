@@ -49,11 +49,11 @@ npm run convert:lnk -- .lnk custom/v8s-links.txt --owner v8s --force
 
 Les codes HTTP deviennent des états :
 
-| Ancien statut | Nouvel état |
-| --- | --- |
-| `301`, `308` | `permanent` |
-| `302`, `303`, `307` | `ephemeral` |
-| omis | `ephemeral` par défaut |
+| Ancien statut       | Nouvel état            |
+| ------------------- | ---------------------- |
+| `301`, `308`        | `permanent`            |
+| `302`, `303`, `307` | `ephemeral`            |
+| omis                | `ephemeral` par défaut |
 
 Utilisez `--default-state permanent` si les statuts omis doivent devenir permanents.
 

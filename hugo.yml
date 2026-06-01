@@ -17,8 +17,8 @@ disableKinds:
 
 languages:
   en:
-    languageCode: en-CA
-    languageName: English
+    locale: en-CA
+    label: English
     weight: 1
     params:
       description: "Manage short links as code"
@@ -66,8 +66,8 @@ languages:
           pageRef: /showcase
           weight: 4
   fr:
-    languageCode: fr-CA
-    languageName: Français
+    locale: fr-CA
+    label: Français
     weight: 2
     params:
       description: "Gérez vos liens en code"
@@ -117,10 +117,10 @@ languages:
 
 params:
   # Version removed — vanityURLs has no version badge
-  github:      "https://github.com/vanityURLs/vanityURLs"
+  github: "https://github.com/vanityURLs/vanityURLs"
   discussions: "https://github.com/orgs/vanityURLs/discussions"
   website_repo: "https://github.com/vanityURLs/website"
-  editBaseURL:  "https://github.com/vanityURLs/website/edit/main/content"
+  editBaseURL: "https://github.com/vanityURLs/website/edit/main/content"
 
 sitemap:
   changefreq: weekly

@@ -5,7 +5,6 @@ description: "Decider l'opérateur, la juridiction, le droit applicable et les c
 weight: 30
 aliases:
   - /docs/jurisdiction/
-
 ---
 
 vanityURLs pose quelques questions sur l'opérateur afin que les pages publiques générées aient un vrai responsable, un chemin de signalement et un contexte légal. Utilisez cette page avant ou pendant `npm run setup` lorsque vous decidez quoi saisir.
@@ -32,22 +31,22 @@ Si le domaine de contact opérateur est vide, setup propose des adresses par rô
 
 Si vous répondez `N`, setup conserve les valeurs publiques existantes ou derive des valeurs par défaut pratiques à partir du domaine court. Lorsque vous révisez les valeurs, utilisez des adresses par rôle lorsque possible. Elles sont plus faciles a transferer lorsque la propriété change et plus faciles a reconnaitre pour les visiteurs, registraires et chercheurs.
 
-| Question de setup | Recommandation phase 1 | Ce que cela contrôle |
-| --- | --- | --- |
-| Trust & Safety contact | `abuse@<short-domain>` | Adresse publique pour les signalements d'abus, phishing, malware, usurpation et liens dangereux |
-| Security contact | `security@<short-domain>` | Adresse pour les signalements de vulnérabilités et `/.well-known/security.txt` |
-| Operator contact email | `hello@<short-domain>` | Adresse de contact generale lorsque les pages légales complêtes sont activées |
-| Privacy contact | `privacy@<short-domain>` | Contact confidentialité et protection des données lorsque les pages légales complêtes sont activées |
+| Question de setup      | Recommandation phase 1    | Ce que cela contrôle                                                                                |
+| ---------------------- | ------------------------- | --------------------------------------------------------------------------------------------------- |
+| Trust & Safety contact | `abuse@<short-domain>`    | Adresse publique pour les signalements d'abus, phishing, malware, usurpation et liens dangereux     |
+| Security contact       | `security@<short-domain>` | Adresse pour les signalements de vulnérabilités et `/.well-known/security.txt`                      |
+| Operator contact email | `hello@<short-domain>`    | Adresse de contact generale lorsque les pages légales complêtes sont activées                       |
+| Privacy contact        | `privacy@<short-domain>`  | Contact confidentialité et protection des données lorsque les pages légales complêtes sont activées |
 
 ### Decider le contexte légal
 
 Dans `npm run setup`, activez les pages légales complêtes lorsque vous êtes prêt a publier les pages confidentialité, conditions et sécurité autonome. Ces questions apparaissent seulement lorsque les pages légales complêtes sont activées :
 
-| Question de setup | Recommandation phase 1 | Ce que cela contrôle |
-| --- | --- | --- |
-| Operator jurisdiction | Pays, province/état ou lieu d'exploitation | Lieu dont les lois gouvernent l'opérateur ou l'instance |
-| Governing law | Habituellement la même valeur que la juridiction | Cadre juridique utilisé par la page des conditions générée |
-| Legal pages last updated date | Date de revue courante au format `YYYY-MM-DD` | Date affichee sur les pages confidentialité, conditions et sécurité générées |
+| Question de setup             | Recommandation phase 1                           | Ce que cela contrôle                                                         |
+| ----------------------------- | ------------------------------------------------ | ---------------------------------------------------------------------------- |
+| Operator jurisdiction         | Pays, province/état ou lieu d'exploitation       | Lieu dont les lois gouvernent l'opérateur ou l'instance                      |
+| Governing law                 | Habituellement la même valeur que la juridiction | Cadre juridique utilisé par la page des conditions générée                   |
+| Legal pages last updated date | Date de revue courante au format `YYYY-MM-DD`    | Date affichee sur les pages confidentialité, conditions et sécurité générées |
 
 Pour un redirecteur personnel, la juridiction est generalement l'endroit ou vous vivez. Pour une organisation, c'est generalement l'endroit ou l'organisation exploitante est etablie. Utilisez une valeur de droit applicable plus précise, comme `Quebec, Canada`, seulement lorsque c'est le bon contexte légal pour l'opérateur.
 

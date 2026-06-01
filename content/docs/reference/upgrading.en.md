@@ -5,7 +5,6 @@ description: "Refresh vanityURLs product files with npm run upgrade while preser
 weight: 120
 aliases:
   - /docs/upgrading/
-
 ---
 
 Use `npm run upgrade` to refresh an existing vanityURLs instance. The command updates the product-owned files and leaves your instance-owned files alone.

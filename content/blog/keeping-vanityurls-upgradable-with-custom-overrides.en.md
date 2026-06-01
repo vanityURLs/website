@@ -13,11 +13,11 @@ It works once. Then the next upgrade asks a dull question with expensive consequ
 
 vanityURLs avoids that by keeping three layers:
 
-| Layer | Owner | Rule |
-| --- | --- | --- |
-| `defaults/` and `scripts/` | product | refresh from upstream |
-| `custom/` | instance | review and preserve |
-| `build/` and generated `src/` | build | replace freely |
+| Layer                         | Owner    | Rule                  |
+| ----------------------------- | -------- | --------------------- |
+| `defaults/` and `scripts/`    | product  | refresh from upstream |
+| `custom/`                     | instance | review and preserve   |
+| `build/` and generated `src/` | build    | replace freely        |
 
 That boundary is not bureaucracy. It is what keeps upgrades from becoming archaeology.
 

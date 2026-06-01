@@ -5,7 +5,6 @@ description: "The v8s-links.txt source format for exact links, splat links, stat
 weight: 70
 aliases:
   - /docs/link-format/
-
 ---
 
 `v8s-links.txt` is the human-authored source of truth for links. Each non-empty, non-comment row is pipe-delimited:
@@ -14,17 +13,17 @@ aliases:
 slug|target|state|title|description|tags|owner|expires_at|notes
 ```
 
-| Field | Required | Description |
-|---|---|---|
-| `slug` | yes | Slash-delimited alias path, without leading `/` |
-| `target` | yes | Absolute `http` or `https` URL, or a hostname normalized to `https://` |
-| `state` | no | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |
-| `title` | no | Dashboard title |
-| `description` | no | Human-readable purpose |
-| `tags` | no | Comma-separated tags |
-| `owner` | recommended | Accountability label |
-| `expires_at` | no | ISO date or timestamp |
-| `notes` | no | Internal notes |
+| Field         | Required    | Description                                                                   |
+| ------------- | ----------- | ----------------------------------------------------------------------------- |
+| `slug`        | yes         | Slash-delimited alias path, without leading `/`                               |
+| `target`      | yes         | Absolute `http` or `https` URL, or a hostname normalized to `https://`        |
+| `state`       | no          | `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`, `deactivated` |
+| `title`       | no          | Dashboard title                                                               |
+| `description` | no          | Human-readable purpose                                                        |
+| `tags`        | no          | Comma-separated tags                                                          |
+| `owner`       | recommended | Accountability label                                                          |
+| `expires_at`  | no          | ISO date or timestamp                                                         |
+| `notes`       | no          | Internal notes                                                                |
 
 ## Exact links
 
@@ -58,14 +57,14 @@ github/*|https://github.com/vanityURLs/:splat|permanent|GitHub|Repo namespace|gi
 
 ## States
 
-| State | Runtime behavior |
-|---|---|
-| `permanent` | 301 to the link target |
-| `ephemeral` | 302 to the link target |
-| `expired` | 302 to `/expired` |
-| `disabled` | 302 to `/disabled` |
-| `maintenance` | 302 to `/maintenance` |
-| `deactivated` | true 404 |
+| State         | Runtime behavior       |
+| ------------- | ---------------------- |
+| `permanent`   | 301 to the link target |
+| `ephemeral`   | 302 to the link target |
+| `expired`     | 302 to `/expired`      |
+| `disabled`    | 302 to `/disabled`     |
+| `maintenance` | 302 to `/maintenance`  |
+| `deactivated` | true 404               |
 
 If `expires_at` is earlier than the current time, the effective state becomes `expired`.
 

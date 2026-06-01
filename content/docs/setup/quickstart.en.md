@@ -5,8 +5,8 @@ weight: 20
 aside: false
 aliases:
   - /docs/quickstart/
-
 ---
+
 Let's get things done. Do you have the prerequisites from [Setup](/docs/setup/)? No rush; this page can wait with unusual patience.
 
 An {{< dfn id="idempotent" text="idempotent" >}} installer can be run repeatedly without requiring a fresh clone. Use simple answers during the Quickstart; `npm run setup` reads your existing configuration, shows previous answers as defaults, and updates the same generated files. See the [glossary definition](/docs/reference/glossary/#idempotent).
@@ -72,21 +72,24 @@ npm run setup
 
 For phase 1, focus on these installer answers. The installer also asks operator, trust, and legal-context questions; use simple values and refer to [Jurisdiction](/docs/customize/jurisdiction/) for the full decision table.
 
-| Question | Sample answer | How to answer |
-| --- | --- | --- |
-| Short domain | `v8s.link` | The domain that will serve your short links |
-| Worker name | `v8s-link` | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best |
-| Owner label | `team` | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/) |
-| Random slug length | `3` | Default character count when `lnk` generates a slug. You can override it per command or per tag later. See [Choosing readable random slugs](/blog/choosing-readable-random-slugs/) |
-| Analytics provider | `disabled` | Stay disabled for now. Refer to [Analytics](/docs/customize/analytics/) during customization |
-| Cloudflare Access team domain | `vanityurls.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain** |
-| Supported languages | `de,en,es,fr,it` | Comma-separated ISO language codes. English (`en`) is the [main and fallback language](/docs/reference/i18n/) when a localized page is unavailable |
-| Configure jurisdiction, privacy, terms, and security pages now? | `N` | Stay disabled for now. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
-| Operator legal name | `Benoît H. Dicaire` | Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization |
-| Review public contact emails for generated pages? | `Y` | Review the [public reporting addresses](https://www.vanityurls.link/en/blog/public-contact-emails-for-generated-pages/) once and then manually update `/custom/v8s-site-config.json` |
-| Configure branding now? | `N` | Stay disabled for now. Refer to [Brand](/docs/reference/brand/) during customization |
+| Question                                                        | Sample answer                     | How to answer                                                                                                                                                                                     |
+| --------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Short domain                                                    | `v8s.link`                        | The domain that will serve your short links                                                                                                                                                       |
+| Worker name                                                     | `v8s-link`                        | Cloudflare Worker project name. Lowercase letters, numbers, and hyphens work best                                                                                                                 |
+| Owner label                                                     | `team`                            | Label to identify the person or team that made the change. Refer to [Owner labels for short-link change history](/blog/owner-labels-for-short-link-change-history/)                               |
+| Random slug length                                              | `3`                               | Default character count when `lnk` generates a slug. You can override it per command or per tag later. See [Choosing readable random slugs](/blog/choosing-readable-random-slugs/)                |
+| Analytics provider                                              | `disabled`                        | Stay disabled for now. Refer to [Analytics](/docs/customize/analytics/) during customization                                                                                                      |
+| Cloudflare Access team domain                                   | `vanityurls.cloudflareaccess.com` | The value for `CF_ACCESS_TEAM_DOMAIN`; find it in **Zero Trust** > **Settings** as the **Team domain**                                                                                            |
+| Supported languages                                             | `en,de,es,fr,it`                  | Comma-separated ISO language codes. English (`en`) is the [main and fallback language](/docs/reference/i18n/) and setup asks for English branding text first                                      |
+| Operator timezone                                               | `America/Toronto`                 | Use an IANA timezone name, not a numeric offset. IANA names automatically handle daylight saving time, so Eastern Time should be `America/Toronto` or `America/New_York` rather than `-4` or `-5` |
+| Configure jurisdiction, privacy, terms, and security pages now? | `N`                               | Stay disabled for now. Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization                                                                                                |
+| Operator legal name                                             | `Benoît H. Dicaire`               | Refer to [Jurisdiction](/docs/customize/jurisdiction/) during customization                                                                                                                       |
+| Review public contact emails for generated pages?               | `Y`                               | Review the [public reporting addresses](https://www.vanityurls.link/en/blog/public-contact-emails-for-generated-pages/) once and then manually update `/custom/v8s-site-config.json`              |
+| Configure branding now?                                         | `N`                               | Stay disabled for now. Refer to [Brand](/docs/reference/brand/) during customization                                                                                                              |
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
+
+For the operator timezone question, enter a timezone name such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Use the place that represents the operator's normal working timezone, not the current offset. For example, Eastern Time is `America/Toronto` or `America/New_York`; setup and the Worker handle EST/EDT automatically. For more choices, see [Timezones](/docs/reference/timezones/).
 
 ### Install local helpers
 
@@ -178,11 +181,11 @@ Open the home page, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, 
 
 If `custom/v8s-links.txt` does not exist, setup creates it from `defaults/v8s-links.txt`, then adapts the starter `home`, `contact`, and `docs` links for your short domain and owner label.
 
-| Slug | Long link |
-| --- | --- |
-| `home` | `https://<short-domain>` |
+| Slug      | Long link                                     |
+| --------- | --------------------------------------------- |
+| `home`    | `https://<short-domain>`                      |
 | `contact` | `https://www.youtube.com/watch?v=dQw4w9WgXcQ` |
-| `docs` | `https://www.vanityurls.link/en/docs/` |
+| `docs`    | `https://www.vanityurls.link/en/docs/`        |
 
 Test at least one initial custom link, such as `https://<short-domain>/docs`, and confirm that it redirects to the long link shown in the table. Test `https://<short-domain>/contact` when you want to see the starter schedule override that default during the configured 9-to-5 window.
 

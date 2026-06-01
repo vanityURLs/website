@@ -5,7 +5,6 @@ description: "Comment une instance vanityURLs actuelle est organisée autour des
 weight: 90
 aliases:
   - /docs/repository-layout/
-
 ---
 
 Une instance vanityURLs garde les fichiers détenus par le produit séparés des fichiers détenus par l'instance. C'est ce qui rend `npm run upgrade` pratique : upstream peut rafraîchir `defaults/` et `scripts/`, tandis que vos liens, votre marque, vos choix de politique et vos réglages Cloudflare restent sous votre contrôle.
@@ -17,66 +16,66 @@ Le dépôt public [v8s.link](https://github.com/vanityURLs/v8s.link) suit cette 
 {{< filetree/file name="package-lock.json" annotation="graphe de dépendances verrouillé" >}}
 {{< filetree/file name="wrangler.toml" annotation="réglages de déploiement Cloudflare Worker" >}}
 {{< filetree/folder name="defaults" annotation="base produit rafraîchie par upgrade" >}}
-  {{< filetree/folder name="public" annotation="pages, assets, badges, pages d'état et headers par défaut" >}}
-    {{< filetree/file name="_headers" annotation="headers cache et no-index des assets statiques" >}}
-    {{< filetree/file name="robots.txt" >}}
-    {{< filetree/file name="style.css" >}}
-    {{< filetree/file name="script.js" >}}
-  {{< /filetree/folder >}}
-  {{< filetree/file name="v8s-links.txt" annotation="inventaire de liens et horaires inline de départ" >}}
-  {{< filetree/file name="v8s-policies.json" annotation="politique trust-and-safety par défaut" >}}
-  {{< filetree/file name="v8s-blocklist-categories.json" annotation="libellés de catégories de politique" >}}
-  {{< filetree/file name="v8s-language-metadata.json" annotation="libellés de pages générées localisées" >}}
-  {{< filetree/folder name="legal" annotation="contenu légal et confiance généré par défaut" >}}
-    {{< filetree/file name="v8s-legal-content.json" >}}
-  {{< /filetree/folder >}}
-  {{< filetree/file name="v8s-site-config.json" annotation="langues, marque et valeurs opérateur par défaut" >}}
-  {{< filetree/file name="v8s-local-config.json" annotation="réglages par défaut du helper local" >}}
+{{< filetree/folder name="public" annotation="pages, assets, badges, pages d'état et headers par défaut" >}}
+{{< filetree/file name="_headers" annotation="headers cache et no-index des assets statiques" >}}
+{{< filetree/file name="robots.txt" >}}
+{{< filetree/file name="style.css" >}}
+{{< filetree/file name="script.js" >}}
+{{< /filetree/folder >}}
+{{< filetree/file name="v8s-links.txt" annotation="inventaire de liens et horaires inline de départ" >}}
+{{< filetree/file name="v8s-policies.json" annotation="politique trust-and-safety par défaut" >}}
+{{< filetree/file name="v8s-blocklist-categories.json" annotation="libellés de catégories de politique" >}}
+{{< filetree/file name="v8s-language-metadata.json" annotation="libellés de pages générées localisées" >}}
+{{< filetree/folder name="legal" annotation="contenu légal et confiance généré par défaut" >}}
+{{< filetree/file name="v8s-legal-content.json" >}}
+{{< /filetree/folder >}}
+{{< filetree/file name="v8s-site-config.json" annotation="langues, marque et valeurs opérateur par défaut" >}}
+{{< filetree/file name="v8s-local-config.json" annotation="réglages par défaut du helper local" >}}
 {{< /filetree/folder >}}
 {{< filetree/folder name="custom" annotation="surcharges propres à l'instance" >}}
-  {{< filetree/folder name="public" annotation="marque, pages, assets et headers de l'instance" >}}
-    {{< filetree/file name="_headers" >}}
-    {{< filetree/file name="robots.txt" >}}
-    {{< filetree/file name="style.css" >}}
-    {{< filetree/file name="script.js" >}}
-  {{< /filetree/folder >}}
-  {{< filetree/file name="v8s-links.txt" annotation="source de vérité humaine des liens" >}}
-  {{< filetree/file name="v8s-site-config.json" annotation="langues, marque, valeurs opérateur et contacts" >}}
+{{< filetree/folder name="public" annotation="marque, pages, assets et headers de l'instance" >}}
+{{< filetree/file name="_headers" >}}
+{{< filetree/file name="robots.txt" >}}
+{{< filetree/file name="style.css" >}}
+{{< filetree/file name="script.js" >}}
+{{< /filetree/folder >}}
+{{< filetree/file name="v8s-links.txt" annotation="source de vérité humaine des liens" >}}
+{{< filetree/file name="v8s-site-config.json" annotation="langues, marque, valeurs opérateur et contacts" >}}
 {{< /filetree/folder >}}
 {{< filetree/folder name="scripts" annotation="outillage produit" >}}
-  {{< filetree/folder name="workers" annotation="source canonique du Worker et tests" >}}
-    {{< filetree/file name="worker.mjs" >}}
-    {{< filetree/file name="worker.test.mjs" >}}
-  {{< /filetree/folder >}}
-  {{< filetree/file name="lnk" annotation="CLI pour liens, horaires et politique" >}}
-  {{< filetree/file name="build.mjs" annotation="build defaults plus custom vers la sortie de déploiement" >}}
-  {{< filetree/file name="install.mjs" annotation="npm run setup" >}}
-  {{< filetree/file name="upgrade.mjs" annotation="npm run upgrade" >}}
-  {{< filetree/file name="local-install.mjs" annotation="setup du helper local" >}}
-  {{< filetree/file name="v8s.sh" annotation="helper local en lecture seule" >}}
+{{< filetree/folder name="workers" annotation="source canonique du Worker et tests" >}}
+{{< filetree/file name="worker.mjs" >}}
+{{< filetree/file name="worker.test.mjs" >}}
+{{< /filetree/folder >}}
+{{< filetree/file name="lnk" annotation="CLI pour liens, horaires et politique" >}}
+{{< filetree/file name="build.mjs" annotation="build defaults plus custom vers la sortie de déploiement" >}}
+{{< filetree/file name="install.mjs" annotation="npm run setup" >}}
+{{< filetree/file name="upgrade.mjs" annotation="npm run upgrade" >}}
+{{< filetree/file name="local-install.mjs" annotation="setup du helper local" >}}
+{{< filetree/file name="v8s.sh" annotation="helper local en lecture seule" >}}
 {{< /filetree/folder >}}
 {{< filetree/folder name="src" annotation="entrée Worker générée depuis scripts/workers" >}}
-  {{< filetree/file name="worker.mjs" >}}
+{{< filetree/file name="worker.mjs" >}}
 {{< /filetree/folder >}}
 {{< filetree/folder name="build" annotation="sortie de déploiement générée" >}}
-  {{< filetree/file name="v8s.json" annotation="registre runtime de redirection" >}}
-  {{< filetree/file name="v8s-blocklist.json" annotation="artefact runtime de politique" >}}
-  {{< filetree/file name="v8s-site-config.json" annotation="configuration runtime du site" >}}
-  {{< filetree/file name="_headers" >}}
-  {{< filetree/file name="index.html" >}}
-  {{< filetree/folder name="_stats" annotation="shell stats protégé" >}}
-    {{< filetree/file name="index.html" >}}
-  {{< /filetree/folder >}}
-  {{< filetree/folder name="_tests" annotation="page de test runtime protégée" >}}
-    {{< filetree/file name="index.html" >}}
-  {{< /filetree/folder >}}
-  {{< filetree/folder name="en" annotation="pages publiques et assets localisés" >}}
-    {{< filetree/file name="index.html" >}}
-    {{< filetree/file name="404.html" >}}
-    {{< filetree/file name="expired.html" >}}
-    {{< filetree/file name="disabled.html" >}}
-    {{< filetree/file name="maintenance.html" >}}
-  {{< /filetree/folder >}}
+{{< filetree/file name="v8s.json" annotation="registre runtime de redirection" >}}
+{{< filetree/file name="v8s-blocklist.json" annotation="artefact runtime de politique" >}}
+{{< filetree/file name="v8s-site-config.json" annotation="configuration runtime du site" >}}
+{{< filetree/file name="_headers" >}}
+{{< filetree/file name="index.html" >}}
+{{< filetree/folder name="_stats" annotation="shell stats protégé" >}}
+{{< filetree/file name="index.html" >}}
+{{< /filetree/folder >}}
+{{< filetree/folder name="_tests" annotation="page de test runtime protégée" >}}
+{{< filetree/file name="index.html" >}}
+{{< /filetree/folder >}}
+{{< filetree/folder name="en" annotation="pages publiques et assets localisés" >}}
+{{< filetree/file name="index.html" >}}
+{{< filetree/file name="404.html" >}}
+{{< filetree/file name="expired.html" >}}
+{{< filetree/file name="disabled.html" >}}
+{{< filetree/file name="maintenance.html" >}}
+{{< /filetree/folder >}}
 {{< /filetree/folder >}}
 {{< /filetree/container >}}
 

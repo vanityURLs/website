@@ -4,19 +4,18 @@ How to run, modify, and contribute to this site locally.
 
 ## Prerequisites
 
-| Tool | Version | Why |
-|---|---|---|
-| **Hugo (Extended)** | `0.158.0+` (production currently pinned to 0.160.1) | The site uses `css.PostCSS` and `css.Build` APIs introduced in 0.158. Earlier versions will fail to build. |
-| **Node.js** | `20+` (production currently pinned to 24.14.1) | For PostCSS, Pagefind search index, Tailwind CSS, Wrangler CLI. |
-| **Go** | optional, `1.20+` | Only needed if you build Hugo from source. The pinned binary doesn't need it. |
-| **Git** | any modern version | The site uses `enableGitInfo: true` in `hugo.yml`, which reads commit metadata for "last modified" timestamps. |
+| Tool                | Version                                             | Why                                                                                                            |
+| ------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **Hugo (Extended)** | `0.158.0+` (production currently pinned to 0.160.1) | The site uses `css.PostCSS` and `css.Build` APIs introduced in 0.158. Earlier versions will fail to build.     |
+| **Node.js**         | `20+` (production currently pinned to 24.14.1)      | For PostCSS, Pagefind search index, Tailwind CSS, Wrangler CLI.                                                |
+| **Go**              | optional, `1.20+`                                   | Only needed if you build Hugo from source. The pinned binary doesn't need it.                                  |
+| **Git**             | any modern version                                  | The site uses `enableGitInfo: true` in `hugo.yml`, which reads commit metadata for "last modified" timestamps. |
 
 You don't need Wrangler installed unless you want to deploy to Cloudflarefrom your laptop. The default deploy flow (git push → Cloudflare auto-deploy) handles deployment server-side. Refer to [hosting documentation](./HOSTING.md)
 
 ### Installing Hugo
 
 The official binaries on `github.com/gohugoio/hugo/releases` always have the latest version, refer to [Hugo documentation](https://gohugo.io/installation/) for `BSD`, `Linux`, and `Windows`. You can install on macOS via Homebrew: `brew install hugo`.
-
 
 No matter the installation process, verify the version is `>= 0.158.0` AND that you have the **extended** edition:
 
@@ -157,6 +156,7 @@ Two different folders for static-looking content. The distinction matters:
 - **`static/`** — files served verbatim, no processing, original filename preserved. Use for files that need a stable URL (`/favicon.ico`, `/social.png`, `/humans.txt`) or where the contents are already optimized (the Mermaid bundle, fonts).
 
 If you're adding a new asset:
+
 - New CSS or JS that should be bundled/fingerprinted → `assets/`
 - A favicon, OG image, or anything that needs `https://yoursite/foo.ext` to work as a fixed URL → `static/`
 
@@ -176,9 +176,8 @@ title: "My New Post"
 description: "Short description for SEO and social cards"
 date: 2026-05-01
 tags: [hugo, cloudflare]
-draft: true   # remove or set to false to publish
+draft: true # remove or set to false to publish
 ---
-
 Body content goes here. Markdown.
 ```
 
@@ -195,7 +194,7 @@ Then edit `data/docs_nav.en.yml` to add the page to the sidebar:
 ```yaml
 - title: "My topic"
   url: /en/docs/my-topic/
-  weight: 50   # controls sort order
+  weight: 50 # controls sort order
 ```
 
 Repeat for French (`docs/my-topic.fr.md` and `data/docs_nav.fr.yml`).
@@ -243,7 +242,7 @@ Edit `static/_redirects`. Format:
 /marketing/*  /docs/:splat  301
 ```
 
-Trailing slashes matter — Cloudflare matches literally. To handle both `/foo` and `/foo/`, list both. The `*` wildcard captures path suffixes; `:splat` interpolates them. See `HOSTING.md` for the full Cloudflare _redirects spec.
+Trailing slashes matter — Cloudflare matches literally. To handle both `/foo` and `/foo/`, list both. The `*` wildcard captures path suffixes; `:splat` interpolates them. See `HOSTING.md` for the full Cloudflare \_redirects spec.
 
 ### Add a security or HTTP header
 
@@ -278,23 +277,28 @@ npx wrangler dev
 This runs the Worker locally with a hot-reload dev server, mocking the Static Assets binding. You can hit `http://localhost:8787/` and the Worker code will execute against local assets.
 
 Caveats:
+
 - Secrets aren't auto-loaded. Either: (a) `npx wrangler secret put UMAMI_WEBSITE_ID --env dev` to set them locally, or (b) accept that analytics calls will silently skip (the Worker's env-check will catch missing secrets).
 - The Static Assets binding behavior may differ slightly from production. Confirm the actual deploy if you change anything about asset routing.
 
 ### Run the full lint suite
 
 ```bash
-npm run lint           # markdown + YAML + spelling + secrets
+npm run lint           # Prettier + Markdown + YAML + spelling
+npm run lint:all       # lint + broken links
 npm run lint:md        # markdownlint on content/**/*.md
 npm run lint:md:fix    # auto-fix markdownlint issues
 npm run lint:spell     # cspell on content/**/*.md
 npm run lint:spell:fix # add new words to cspell-words.txt
 npm run lint:yaml      # validate YAML config files
-npm run lint:links     # check for broken links (uses lychee)
-npm run lint:secrets   # gitleaks scan
+npm run lint:links     # build, then check generated internal links with lychee
+npm run lint:links:external # build, then check external links with lychee
 ```
 
 Run `npm run lint` before committing — the CI does the same checks and you'll catch issues earlier.
+Run `npm run lint:all` before releases when you want the generated-site link check too.
+The link checks require the local external `lychee` binary.
+External link checks are intentionally separate because network checks can be slow or rate-limited. GitHub links are excluded from that run because unauthenticated checks can spend minutes in rate-limit backoff.
 
 ### Run the worker tests
 
@@ -332,20 +336,21 @@ Required fields on every content page:
 ```yaml
 title: "Page title"
 description: "Short description (used for OG/Twitter Card and meta description)"
-date: 2026-04-30  # YYYY-MM-DD; used for sort order, not displayed unless explicit
+date: 2026-04-30 # YYYY-MM-DD; used for sort order, not displayed unless explicit
 ```
 
 Optional but recommended:
 
 ```yaml
-tags: [hugo, cloudflare]   # for blog posts
-draft: true                # exclude from production builds
-weight: 10                 # for ordering in section lists
+tags: [hugo, cloudflare] # for blog posts
+draft: true # exclude from production builds
+weight: 10 # for ordering in section lists
 ```
 
 ### Tailwind classes
 
 Use Tailwind utility classes directly in templates. Avoid creating custom CSS unless:
+
 - It's genuinely something Tailwind can't express (e.g., a complex animation)
 - You're styling syntax highlighting (`chroma.css` / `chroma-dark.css`)
 

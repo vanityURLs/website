@@ -13,11 +13,11 @@ Cela fonctionne une fois. Puis la prochaine mise à jour pose une question ennuy
 
 vanityURLs évite cela avec trois couches :
 
-| Couche | Proprietaire | Regle |
-| --- | --- | --- |
-| `defaults/` et `scripts/` | produit | rafraichir depuis upstream |
-| `custom/` | instance | réviser et conserver |
-| `build/` et `src/` génère | build | remplacer librement |
+| Couche                    | Proprietaire | Regle                      |
+| ------------------------- | ------------ | -------------------------- |
+| `defaults/` et `scripts/` | produit      | rafraichir depuis upstream |
+| `custom/`                 | instance     | réviser et conserver       |
+| `build/` et `src/` génère | build        | remplacer librement        |
 
 Cette frontiere n'est pas de la bureaucratie. C'est ce qui empeche les mises à jour de devenir de l'archeologie.
 

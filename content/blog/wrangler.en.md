@@ -6,6 +6,7 @@ description: "How to keep wrangler.toml boring, align Worker names with GitHub a
 tags: ["cloudflare", "wrangler", "configuration"]
 featured: false
 ---
+
 [Wrangler](https://developers.cloudflare.com/workers/wrangler/) is Cloudflare's command-line tool for Workers. `wrangler.toml` is the configuration file that tells Cloudflare exactly what Worker you are deploying, where your code lives, which static assets to publish, and which runtime values are part of the deployment.
 
 It might be tempting to use this file to build a beautiful platform abstraction layer. **Resist that urge.** For a vanityURLs instance, `wrangler.toml` should be boring enough that your future self can open it in six months and immediately understand exactly what is deployed.
@@ -25,7 +26,7 @@ Because the Cloudflare dashboard doesn't currently allow you to rename an existi
 
 > ⚠️ **Important:** Never delete an old Worker until you are 100% sure which routes or custom domains it owns. The painful part of this process isn't redeploying the script itself—it's losing track of which hostname was attached to which dashboard object.
 >
-> *Of course, you could just rename the Worker inside `wrangler.toml` to match the dashboard, but where is the fun in that?*
+> _Of course, you could just rename the Worker inside `wrangler.toml` to match the dashboard, but where is the fun in that?_
 
 ## Pick One Name and Reuse It
 
@@ -38,7 +39,7 @@ Cloudflare Worker name:                         v8s-link
 Zero Trust Access Policy --> Application name:  v8s-link
 ```
 
-While these names don't technically *have* to match, matching them will save your sanity when you are exhausted, debugging a failed CI/CD deployment, or cross-referencing an old note in your password manager.
+While these names don't technically _have_ to match, matching them will save your sanity when you are exhausted, debugging a failed CI/CD deployment, or cross-referencing an old note in your password manager.
 
 Avoid overly clever or temporary names like `redirector-prod-final-v2`. They feel precise the moment you create them, but quickly devolve into mental fog later. Instead, turning your short domain into a filesystem-safe string is usually the cleanest approach:
 
@@ -78,7 +79,7 @@ This is vital because your vanityURLs repository might be public. Even if it's c
 
 ## Do Not Over-Engineer the First Deployment
 
-The primary goal of your first deployment is to answer a single question: *Can Cloudflare build and serve your redirector on the short domain?*
+The primary goal of your first deployment is to answer a single question: _Can Cloudflare build and serve your redirector on the short domain?_
 
 For that initial pass, lean heavily into simplicity:
 
@@ -89,6 +90,6 @@ For that initial pass, lean heavily into simplicity:
 - **One** plain, boring `wrangler.toml`
 - **One** small set of starter links
 
-Once that baseline successfully handles traffic, you can customize deliberately. Layer on your analytics, legal-page refinements, localized content, strict Cloudflare Access policies, and advanced lifecycle workflows *after* the core redirector is safely online.
+Once that baseline successfully handles traffic, you can customize deliberately. Layer on your analytics, legal-page refinements, localized content, strict Cloudflare Access policies, and advanced lifecycle workflows _after_ the core redirector is safely online.
 
 A boring setup isn't a lack of ambition. It's how you keep your operational surface small enough to actually troubleshoot when something goes wrong.

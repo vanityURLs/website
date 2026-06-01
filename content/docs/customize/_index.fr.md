@@ -5,7 +5,6 @@ description: "Planifier la personnalisation de phase 2 après la mise en ligne d
 weight: 20
 aliases:
   - /docs/customize-overview/
-
 ---
 
 Quand le demarrage rapide fonctionne, la personnalisation est le moment ou l'instance devient la votre. Utilisez cette section quand vous êtes prêt a raffiner les liens, la marque, les pages publiques, la politique, le contrôle d'accès, les analytics et les réglages opérationnels.

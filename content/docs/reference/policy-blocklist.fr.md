@@ -8,7 +8,6 @@ aliases:
   - /fr/docs/blocklist-policy/
   - /docs/référence/blocklist/
   - /fr/docs/référence/blocklist/
-
 ---
 
 vanityURLs édite la politique source comme `v8s-policies.json` et déploie la politique runtime comme `build/v8s-blocklist.json`.
@@ -21,10 +20,10 @@ Les protections runtime intégrées sont documentées dans [Sécurité runtime](
 
 La politique source est choisie avant le build :[^legacy-policy]
 
-| Fichier | Rôle |
-|---|---|
-| `defaults/v8s-policies.json` | Politique source upstream de confiance et sécurité |
-| `custom/v8s-policies.json` | Politique source de remplacement propre à l'instance |
+| Fichier                      | Rôle                                                 |
+| ---------------------------- | ---------------------------------------------------- |
+| `defaults/v8s-policies.json` | Politique source upstream de confiance et sécurité   |
+| `custom/v8s-policies.json`   | Politique source de remplacement propre à l'instance |
 
 `custom/v8s-policies.json` ne fusionne pas par-dessus la politique source par défaut. Quand une instance possède sa politique, elle possède le remplacement. Cela évite que des décisions de politique retirées localement réapparaissent par une fusion upstream.
 
@@ -34,13 +33,13 @@ La politique source est choisie avant le build :[^legacy-policy]
 
 Les valeurs par défaut actuelles incluent :
 
-| Catégorie | Utilisation |
-|---|---|
-| `phishing` | Vol d'identifiants, fausses pages de connexion, pièges de portefeuille et usurpation de marque |
-| `malware` | Distribution de malware, livraison d'exploit, hébergement de payload et infrastructure de commande et contrôle |
-| `shortener-loop` | Raccourcisseurs publics qui peuvent cacher la destination finale ou créer des chaînes de redirection |
-| `scanner-probe` | Chemins de scanners automatisés qui ne devraient jamais résoudre comme liens courts |
-| `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Catégories propres à l'instance pour risques élevés ou blocages choisis par l'opérateur |
+| Catégorie                                                                    | Utilisation                                                                                                    |
+| ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `phishing`                                                                   | Vol d'identifiants, fausses pages de connexion, pièges de portefeuille et usurpation de marque                 |
+| `malware`                                                                    | Distribution de malware, livraison d'exploit, hébergement de payload et infrastructure de commande et contrôle |
+| `shortener-loop`                                                             | Raccourcisseurs publics qui peuvent cacher la destination finale ou créer des chaînes de redirection           |
+| `scanner-probe`                                                              | Chemins de scanners automatisés qui ne devraient jamais résoudre comme liens courts                            |
+| `temporary-file-host`, `disposable`, `adult`, `gambling`, `social`, `custom` | Catégories propres à l'instance pour risques élevés ou blocages choisis par l'opérateur                        |
 
 Les feeds générés réduisent les risques évidents, mais peuvent avoir des faux positifs. Relisez les changements source avant de les promouvoir dans une release.
 
@@ -48,12 +47,12 @@ Chaque source générée active devrait avoir une catégorie, une sévérité, u
 
 ## Comportement des champs
 
-| Champ | Comportement |
-|---|---|
-| `allow_domains` | Autorise des domaines de confiance contrôlés par l'opérateur et peut surcharger des blocages de domaines générés ou locaux |
-| `block_domains` | Bloque les hostnames de destination qui correspondent au domaine configuré ou à un sous-domaine |
-| `block_keywords` | Bloque les correspondances dans le hostname, le chemin et la query après mise en minuscules |
-| `block_extensions` | Bloque les extensions de fichiers de destination risquées |
+| Champ              | Comportement                                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `allow_domains`    | Autorise des domaines de confiance contrôlés par l'opérateur et peut surcharger des blocages de domaines générés ou locaux |
+| `block_domains`    | Bloque les hostnames de destination qui correspondent au domaine configuré ou à un sous-domaine                            |
+| `block_keywords`   | Bloque les correspondances dans le hostname, le chemin et la query après mise en minuscules                                |
+| `block_extensions` | Bloque les extensions de fichiers de destination risquées                                                                  |
 
 `allow_domains` ne surcharge pas les URLs mal formées, protocoles refusés ou URLs avec identifiants.
 

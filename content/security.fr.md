@@ -21,15 +21,15 @@ Les pratiques de sécurité de l'infrastructure Cloudflare sont documentées sur
 
 Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans `build/_headers` et appliqués par Cloudflare Pages :
 
-| En-tête | Valeur | Objectif |
-|---------|--------|----------|
-| `X-Frame-Options` | `DENY` | Empêche le site d'être intégré dans des iframes — bloque le clickjacking |
-| `X-Content-Type-Options` | `nosniff` | Prévient les attaques de reniflage de type MIME |
-| `X-XSS-Protection` | `1; mode=block` | Filtre XSS hérité pour les navigateurs anciens |
-| `Referrer-Policy` | `strict-origin-when-cross-origin` | Limite les informations de référent envoyées aux tiers |
-| `Permissions-Policy` | `camera=(), microphone=(), geolocation=()` | Désactive explicitement l'accès aux API du périphérique |
-| `Content-Security-Policy` | (voir ci-dessous) | Restreint les ressources que le navigateur peut charger |
-| `frame-ancestors` | `none` | Remplacement moderne de X-Frame-Options |
+| En-tête                   | Valeur                                     | Objectif                                                                 |
+| ------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
+| `X-Frame-Options`         | `DENY`                                     | Empêche le site d'être intégré dans des iframes — bloque le clickjacking |
+| `X-Content-Type-Options`  | `nosniff`                                  | Prévient les attaques de reniflage de type MIME                          |
+| `X-XSS-Protection`        | `1; mode=block`                            | Filtre XSS hérité pour les navigateurs anciens                           |
+| `Referrer-Policy`         | `strict-origin-when-cross-origin`          | Limite les informations de référent envoyées aux tiers                   |
+| `Permissions-Policy`      | `camera=(), microphone=(), geolocation=()` | Désactive explicitement l'accès aux API du périphérique                  |
+| `Content-Security-Policy` | (voir ci-dessous)                          | Restreint les ressources que le navigateur peut charger                  |
+| `frame-ancestors`         | `none`                                     | Remplacement moderne de X-Frame-Options                                  |
 
 ### Politique de sécurité du contenu
 
@@ -49,11 +49,11 @@ frame-ancestors 'none'
 
 vanityURLs.link n'envoie pas d'email. Le domaine est verrouillé contre l'usurpation avec :
 
-| Enregistrement | Valeur | Effet |
-|----------------|--------|-------|
-| `DMARC _dmarc` | `p=reject; sp=reject; adkim=s; aspf=s` | Les serveurs de messagerie destinataires doivent rejétér tout email prétendant provenir de ce domaine |
-| `DKIM *.domainkey` | `v=DKIM1; p=` | Clé publique vide — aucune signature DKIM ne peut être valide pour ce domaine |
-| `MTA-STS _mta-sts` | `v=STSv1` | Les serveurs de messagerie contactant ce domaine doivent utiliser TLS |
+| Enregistrement     | Valeur                                 | Effet                                                                                                 |
+| ------------------ | -------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| `DMARC _dmarc`     | `p=reject; sp=reject; adkim=s; aspf=s` | Les serveurs de messagerie destinataires doivent rejétér tout email prétendant provenir de ce domaine |
+| `DKIM *.domainkey` | `v=DKIM1; p=`                          | Clé publique vide — aucune signature DKIM ne peut être valide pour ce domaine                         |
+| `MTA-STS _mta-sts` | `v=STSv1`                              | Les serveurs de messagerie contactant ce domaine doivent utiliser TLS                                 |
 
 Cette configuration rend techniquement impossible la création d'un email valide prétendant provenir de `@vanityurls.link`.
 
@@ -93,4 +93,4 @@ Nous visons à accuser réception des signalements dans les **72 heures** et à 
 
 ---
 
-*Cette déclaration s'applique à vanityURLs.link. Elle ne s'applique pas aux instances auto-hébergées de vanityURLs, qui relèvent de la seule responsabilité de leurs opérateurs.*
+_Cette déclaration s'applique à vanityURLs.link. Elle ne s'applique pas aux instances auto-hébergées de vanityURLs, qui relèvent de la seule responsabilité de leurs opérateurs._

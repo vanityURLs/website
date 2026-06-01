@@ -26,22 +26,23 @@ We considered dropping the IP entirely (sending no IP at all, just relying on Cl
 
 Most analytics tools work by injecting a `<script>` tag into the page that runs in the visitor's browser. This is convenient, every page reload fires an event automatically but has trade-offs.
 
-| Concern | Client-side | Server-side (this site) |
-|---|---|---|
-| Visible in DevTools | Yes — anyone can see the script and the request | No — the visitor's browser never knows analytics are running |
-| Third-party script | Yes (loads `umami.js`) | No — the Worker is first-party |
-| Cookies | Sometimes | Never, no client storage at all |
-| Ad blockers | Block aggressively | Don't see anything to block |
-| CSP impact | Requires `script-src` allowlist for the analytics domain | None, all asset CSP rules can stay strict |
-| Bot filtering | Bots that don't run JS aren't counted (often desired, but inconsistent) | Bots are counted but TAGGED, so you can filter intentionally |
+| Concern             | Client-side                                                             | Server-side (this site)                                      |
+| ------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Visible in DevTools | Yes — anyone can see the script and the request                         | No — the visitor's browser never knows analytics are running |
+| Third-party script  | Yes (loads `umami.js`)                                                  | No — the Worker is first-party                               |
+| Cookies             | Sometimes                                                               | Never, no client storage at all                              |
+| Ad blockers         | Block aggressively                                                      | Don't see anything to block                                  |
+| CSP impact          | Requires `script-src` allowlist for the analytics domain                | None, all asset CSP rules can stay strict                    |
+| Bot filtering       | Bots that don't run JS aren't counted (often desired, but inconsistent) | Bots are counted but TAGGED, so you can filter intentionally |
 
 VanityURLs's audience cares about privacy and minimalism, server-side fits better. The trade-off is that the Worker has to handle the analytics call itself, which is what the rest of this doc explains.
 
 ## How it works
 
-`src/worker.mjs` runs for every HTML request, assets bypass the Worker by configuration in `wrangler.toml`. 
+`src/worker.mjs` runs for every HTML request, assets bypass the Worker by configuration in `wrangler.toml`.
 
 The flow:
+
 1. Visitor requests a page such as `https://www.vanityURLs.link/en/docs/getting-started/`
 2. Cloudflare routes the request through the Worker
 3. Worker fetches the asset (`/en/docs/getting-started/index.html`) from the static assets binding
@@ -64,12 +65,12 @@ Every HTML request fires one event. The event payload includes:
 
 Some events get a `name` attribute set, which makes them appear in the **Events** tab in addition to **Pages**:
 
-| Event name | When it fires |
-|---|---|
-| (none, plain pageview) | Default for normal HTML requests |
-| `404` | When the response status is 404 (page not found) |
-| `bot` | When the user-agent matches one of 24 known bot patterns (Googlebot, Bingbot, AhrefsBot, etc.). The actual bot identity is in `data.bot_name`. |
-| `campaign` | When the URL has any `utm_*` query parameter. The UTM values are stripped from the URL and surfaced as `data.utm_*` event fields. |
+| Event name             | When it fires                                                                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| (none, plain pageview) | Default for normal HTML requests                                                                                                               |
+| `404`                  | When the response status is 404 (page not found)                                                                                               |
+| `bot`                  | When the user-agent matches one of 24 known bot patterns (Googlebot, Bingbot, AhrefsBot, etc.). The actual bot identity is in `data.bot_name`. |
+| `campaign`             | When the URL has any `utm_*` query parameter. The UTM values are stripped from the URL and surfaced as `data.utm_*` event fields.              |
 
 Plain pageviews are pageviews. The other three are also pageviews under the hood — they still update the Pages chart — but they get tagged so you can find them quickly in the Events tab.
 
@@ -143,14 +144,14 @@ This block is currently **removed** from production. To re-add it for debugging:
 
 What the output tells you:
 
-| Diag output | What it means |
-|---|---|
-| `UMAMI_WEBSITE_ID present: false` | Secret isn't reaching the Worker. Check Variables and Secrets at runtime level (NOT Build level). See `HOSTING.md`. |
-| `UMAMI_ENDPOINT value: undefined` | Same as above. |
-| `Umami response status: 200` and body has `cache` and `sessionId` | Pipeline working. Event recorded. |
-| `Umami response body: {"beep":"boop"}` | Umami's `isbot` filter rejected the request. The outgoing UA isn't passing as a real browser. Check `WORKER_UA_FALLBACK` in `worker.mjs`. |
-| `Umami response status: 401` or `403` | The website ID is wrong, or the endpoint is wrong. Verify both in the Umami dashboard. |
-| `Umami response status: 4xx` other | Look at the body for an error message. Usually means the payload structure broke. |
+| Diag output                                                       | What it means                                                                                                                             |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `UMAMI_WEBSITE_ID present: false`                                 | Secret isn't reaching the Worker. Check Variables and Secrets at runtime level (NOT Build level). See `HOSTING.md`.                       |
+| `UMAMI_ENDPOINT value: undefined`                                 | Same as above.                                                                                                                            |
+| `Umami response status: 200` and body has `cache` and `sessionId` | Pipeline working. Event recorded.                                                                                                         |
+| `Umami response body: {"beep":"boop"}`                            | Umami's `isbot` filter rejected the request. The outgoing UA isn't passing as a real browser. Check `WORKER_UA_FALLBACK` in `worker.mjs`. |
+| `Umami response status: 401` or `403`                             | The website ID is wrong, or the endpoint is wrong. Verify both in the Umami dashboard.                                                    |
+| `Umami response status: 4xx` other                                | Look at the body for an error message. Usually means the payload structure broke.                                                         |
 
 After confirming what's wrong, **remove the diagnostic block again before deploying to production**. Leaving it in is harmless but adds 8+ log lines per `?diag-umami` request, which clutters the Observability tab.
 
@@ -167,6 +168,7 @@ The **Pages** card shows the top URL paths. Note: query strings are stripped fro
 ### Events tab
 
 Lists every named event (anything with a `name` attribute set). For this site, that means:
+
 - `campaign` events with their UTM breakdown
 - `bot` events with their bot name
 - `404` events showing which non-existent URLs are being requested

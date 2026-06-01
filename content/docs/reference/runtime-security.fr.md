@@ -5,7 +5,6 @@ description: "Comment le Worker vanityURLs reste petit, détérministe et defens
 weight: 100
 aliases:
   - /docs/runtime-security/
-
 ---
 
 Le runtime vanityURLs est volontairement petit : valider le registre génère, servir les assets statiques, lire `v8s.json`, puis retourner un petit nombre de résultats possibles.
@@ -64,12 +63,12 @@ Les headers par défaut incluent `X-Generated-By: vanityURLs.link`. Si vous surc
 
 Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Gardez l'accès contrôle sur `/_stats` et `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une raison délibérée de divulgation publique.
 
-| Contrôle | Chemins | Ce qu'il fait |
-|---|---|---|
-| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Retourne `404` pour les requêtes publiques directes |
-| Fallback statique `_headers` | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
-| API stats protégée | `/_stats/api/v8s.json` | Expose le registre génère seulement a travers la surface stats protégée |
-| Validation des slugs réserves | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empeche la création de liens courts sous les chemins opérationnels réserves |
+| Contrôle                               | Chemins                                                                                    | Ce qu'il fait                                                                            |
+| -------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                                | Retourne `404` pour les requêtes publiques directes                                      |
+| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*`      | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
+| API stats protégée                     | `/_stats/api/v8s.json`                                                                     | Expose le registre génère seulement a travers la surface stats protégée                  |
+| Validation des slugs réserves          | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empeche la création de liens courts sous les chemins opérationnels réserves              |
 
 ## Contrôles edge Cloudflare
 

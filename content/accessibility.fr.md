@@ -6,7 +6,7 @@ aliases:
   - a11y
 ---
 
-*Dernière révision : avril 2026. Cette déclaration s'applique uniquement à vanityURLs.link, et non aux déploiements auto-hébergés de vanityURLs.*
+_Dernière révision : avril 2026. Cette déclaration s'applique uniquement à vanityURLs.link, et non aux déploiements auto-hébergés de vanityURLs._
 
 Nous nous engageons à rendre ce site utilisable par le plus grand nombre, quelle que soit la capacité ou la technologie d'assistance. Cette déclaration explique ce que nous avons mis en œuvre, ce que nous savons être imparfait, et comment tester ou signaler des problèmes d'accessibilité.
 
@@ -78,13 +78,13 @@ Voici les véritables lacunes que nous avons identifiées et n'avons pas encore 
 
 Les outils automatisés détectent une partie significative des problèmes WCAG et sont le point de départ le plus rapide. Aucun ne détecte tout — combinez-les avec les vérifications manuelles ci-dessous.
 
-| Outil | Accès | Ce qu'il vérifie |
-|-------|-------|------------------|
-| axe DevTools | [Extension Chrome](#signaler-des-probl%C3%A8mes-daccessibilit%C3%A9) → DevTools → onglet axe | WCAG 2.1 A et AA |
-| WAVE | [wave.webaim.org](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) ou [extension navigateur](https://wave.webaim.org) | Structure, contraste, ARIA |
-| Lighthouse | Chrome DevTools → onglet Lighthouse → Accessibility | Score et liste de problèmes |
-| PageSpeed Insights | [pagespeed.web.dev](https://wave.webaim.org/extension/) | Audit Lighthouse + Core Web Vitals |
-| IBM Equal Access Checker | [Extension Chrome](https://pagespeed.web.dev) | WCAG 2.1 et directives IBM |
+| Outil                    | Accès                                                                                                                                                        | Ce qu'il vérifie                   |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------- |
+| axe DevTools             | [Extension Chrome](#signaler-des-probl%C3%A8mes-daccessibilit%C3%A9) → DevTools → onglet axe                                                                 | WCAG 2.1 A et AA                   |
+| WAVE                     | [wave.webaim.org](https://chromewebstore.google.com/detail/axe-devtools/lhdoppojpmngadmnindnejefpokejbdd) ou [extension navigateur](https://wave.webaim.org) | Structure, contraste, ARIA         |
+| Lighthouse               | Chrome DevTools → onglet Lighthouse → Accessibility                                                                                                          | Score et liste de problèmes        |
+| PageSpeed Insights       | [pagespeed.web.dev](https://wave.webaim.org/extension/)                                                                                                      | Audit Lighthouse + Core Web Vitals |
+| IBM Equal Access Checker | [Extension Chrome](https://pagespeed.web.dev)                                                                                                                | WCAG 2.1 et directives IBM         |
 
 ### Test au clavier
 
@@ -111,12 +111,12 @@ Cibles : **4,5:1** pour le texte normal, **3:1** pour le grand texte (18pt ou 14
 
 ### Test avec lecteur d'écran
 
-| Lecteur d'écran | OS | Navigateur |
-|-----------------|-----|------------|
-| VoiceOver | macOS (`Cmd+F5`) | Safari |
-| NVDA | Windows (gratuit) | Firefox |
-| TalkBack | Android | Chrome |
-| Narrator | Windows | Edge |
+| Lecteur d'écran | OS                | Navigateur |
+| --------------- | ----------------- | ---------- |
+| VoiceOver       | macOS (`Cmd+F5`)  | Safari     |
+| NVDA            | Windows (gratuit) | Firefox    |
+| TalkBack        | Android           | Chrome     |
+| Narrator        | Windows           | Edge       |
 
 À vérifier : le titre de la page est annoncé, les titres sont navigables avec la touche `H`, le texte des liens est descriptif (éviter « cliquez ici »), le sélecteur de langue annonce la langue active, et le modal de recherche s'annonce à l'ouverture.
 
@@ -130,16 +130,16 @@ Cibles : **4,5:1** pour le texte normal, **3:1** pour le grand texte (18pt ou 14
 
 Le site est open source. Vous pouvez inspecter chaque décision d'accessibilité directement :
 
-- Modèles et ARIA : [github.com/vanityURLs/website/tree/main/layouts](https://www.tpgi.com/color-contrast-checker/)
-- CSS, y compris les styles de mise au point : [github.com/vanityURLs/website/blob/main/assets/css/main.css](https://github.com/vanityURLs/website/tree/main/layouts)
-- JavaScript, y compris les gestionnaires de clavier : [github.com/vanityURLs/website/blob/main/assets/js/app.js](https://github.com/vanityURLs/website/blob/main/assets/css/main.css)
+- Modèles et ARIA : [github.com/vanityURLs/website/tree/main/layouts](https://github.com/vanityURLs/website/tree/main/layouts)
+- CSS, y compris les styles de mise au point : [github.com/vanityURLs/website/blob/main/assets/css/main.css](https://github.com/vanityURLs/website/blob/main/assets/css/main.css)
+- JavaScript, y compris les gestionnaires de clavier : [github.com/vanityURLs/website/blob/main/assets/js/app.js](https://github.com/vanityURLs/website/blob/main/assets/js/app.js)
 
 ## Signaler des problèmes d'accessibilité
 
 Si vous rencontrez une barrière sur ce site, dites-le-nous :
 
-- [GitHub Issues](https://github.com/vanityURLs/website/blob/main/assets/js/app.js) — préféré, car cela permet un suivi public
-- [GitHub Discussions](https://github.com/vanityURLs/website/issues)
+- [GitHub Issues](https://github.com/vanityURLs/website/issues) — préféré, car cela permet un suivi public
+- [GitHub Discussions](https://github.com/orgs/vanityURLs/discussions)
 
 Veuillez inclure : l'URL de la page, une description de la barrière, la technologie d'assistance et le navigateur que vous utilisiez, et les étapes pour reproduire.
 

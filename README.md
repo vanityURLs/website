@@ -11,22 +11,27 @@ vanityURLs is a simple solution to deploy a budget-friendly Url Shortener. It ru
 This repository contains the source code for the [vanityURLs.link website](https://www.vanityurls.link), built using the [Hugo](gohugo.io) static site generator.
 
 ## 🚀 Quick Start
+
 To preview the site locally, ensure you have Hugo installed and run:
+
 ```bash
 hugo server --buildDrafts
 ```
+
 Then, visit `http://localhost:1313` in your browser.
 
 ## 📚 Documentation Hub
+
 We maintain separate guides for specific workflows:
 
-1.  🛠️  **[Development Guide](./DEVELOPMENT.md)**: Local environment setup, coding patterns, and testing
-2.  🚀  **[Hosting & Deployment](./HOSTING.md)**: Production infrastructure and deployment pipelines
-3.  📊  **[Analytics & Metrics](./ANALYTICS.md)**: Tracking configuration and data privacy
+1.  🛠️ **[Development Guide](./DEVELOPMENT.md)**: Local environment setup, coding patterns, and testing
+2.  🚀 **[Hosting & Deployment](./HOSTING.md)**: Production infrastructure and deployment pipelines
+3.  📊 **[Analytics & Metrics](./ANALYTICS.md)**: Tracking configuration and data privacy
 
 ## Key features
 
 **i18n**
+
 - Bilingual content: `page.en.md` / `page.fr.md` side-by-side
 - UI strings in `i18n/en.yaml` and `i18n/fr.yaml` (45+ keys with pluralization)
 - Localized dates via `date_format_long` i18n key
@@ -34,20 +39,24 @@ We maintain separate guides for specific workflows:
 - Language switcher preserves current page when translation exists
 
 **Documentation**
+
 - Multi-level sidebar driven by `data/{en,fr}/docs_nav.yaml` — paths are language-neutral
 - Table of contents, breadcrumbs, Edit-on-GitHub, prev/next, mobile `<select>` dropdown
 
 **Blog**
+
 - Featured post via `featured: true` front matter (one per language)
 - Reading progress bar, social share (X, LinkedIn, copy-link), related posts, tags, RSS
 
 **UX / Accessibility**
+
 - Dark mode with no-flash-on-load
 - Copy-to-clipboard on every `<pre>`
 - ⌘K search via Pagefind
 - Skip-to-content link, arrow-key sidebar nav, anchor hover
 
 **SEO / Performance**
+
 - hreflang, Open Graph, JSON-LD (SoftwareApplication, TechArticle, BreadcrumbList)
 - Favicon + apple-touch-icon from `/logo.svg`
 - Language-scoped PWA manifest
@@ -75,11 +84,12 @@ Get up and running in minutes.
 {{< /cards >}}
 
 {{< filetree/container >}}
-  {{< filetree/folder name="config" >}}
-    {{< filetree/file name="deploy.yml" annotation="// edit this" >}}
-  {{< /filetree/folder >}}
+{{< filetree/folder name="config" >}}
+{{< filetree/file name="deploy.yml" annotation="// edit this" >}}
+{{< /filetree/folder >}}
 {{< /filetree/container >}}
 ```
+
 ## Contributions
 
 [Contributions](.github/CONTRIBUTING.md) are welcome! We recognize [all types](https://allcontributors.org/docs/en/emoji-key) based on the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Please note that this project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
@@ -103,7 +113,9 @@ Get up and running in minutes.
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Related
- * [dnsConfiguration](https://github.com/bhdicaire/dnsConfiguration) – Automated DNS configuration with StackOverflow's DNSControl and Git
+
+- [dnsConfiguration](https://github.com/bhdicaire/dnsConfiguration) – Automated DNS configuration with StackOverflow's DNSControl and Git
 
 ## Licence
+
 **vanityURLs** is Copyright 2023 Benoît H. Dicaire and [licensed under the MIT licence](https://github.com/vanityURLs/vanityURLs/blob/main/LICENSE).

@@ -5,7 +5,6 @@ description: "Configurer la politique allow/block de l'instance pour URLs cibles
 weight: 60
 aliases:
   - /docs/blocklist/
-
 ---
 
 Utilisez la personnalisation de politique et blocklist lorsque votre instance a besoin de décisions locales de confiance et sécurité au-delà des defaults produit.
@@ -30,21 +29,10 @@ Dans le dépôt de votre instance, créez `custom/v8s-policies.json` lorsque l'i
 
 ```json
 {
-  "allow_domains": [
-    "example.com",
-    "docs.example.com"
-  ],
-  "block_domains": [
-    "untrusted-example.test"
-  ],
-  "block_keywords": [
-    "credential-harvest",
-    "wallet-drain"
-  ],
-  "block_extensions": [
-    ".exe",
-    ".scr"
-  ]
+  "allow_domains": ["example.com", "docs.example.com"],
+  "block_domains": ["untrusted-example.test"],
+  "block_keywords": ["credential-harvest", "wallet-drain"],
+  "block_extensions": [".exe", ".scr"]
 }
 ```
 

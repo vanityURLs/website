@@ -6,7 +6,6 @@ weight: 12
 aliases:
   - /docs/brand/
   - /docs/customize/brand/
-
 ---
 
 Branding controls the public wordmark, the short line under generated legal and trust pages, and the default public assets copied into `custom/public/` at build time.
@@ -17,18 +16,18 @@ If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated
 
 ## Setup questions
 
-| Setup question | When it appears | Phase 1 recommendation | Later customization | What it controls |
-| --- | --- | --- | --- | --- |
-| Configure branding now? | Always | Use `Y` when you want installer-managed public pages | Use `N` when you already maintain `custom/public/` by hand | Whether setup asks the branding questions now |
-| Add a slogan line under the domain name on your pages...? | When branding is enabled | Use `Y` when you want a short line under the domain wordmark | Use `N` when the domain wordmark should stand alone | Whether generated pages include a short slogan below the split-color domain wordmark |
-| Brand slogan `[language]` | When the slogan line is enabled | Use the generated localized defaults when they fit | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages | Localized text shown below the split-color domain wordmark on generated public pages |
-| Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled | Use `Y` for a first instance | Use `N` when custom pages already exist and should not be overwritten | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
-| Black wordmark portion | When copied public pages are enabled | Domain prefix, such as `v8s.` | Use the portion that should render in the dark brand color | First part of the homepage and public-page wordmark |
-| Green wordmark portion | When copied public pages are enabled | Domain suffix, such as `link` | Use the portion that should render in vanityURLs teal | Second part of the homepage and public-page wordmark |
+| Setup question                                                              | When it appears                      | Phase 1 recommendation                                                  | Later customization                                                                    | What it controls                                                                                |
+| --------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Configure branding now?                                                     | Always                               | Use `Y` when you want installer-managed public pages                    | Use `N` when you already maintain `custom/public/` by hand                             | Whether setup asks the branding questions now                                                   |
+| Add a slogan line under the domain name on your pages...?                   | When branding is enabled             | Use `Y` when you want a short line under the domain wordmark            | Use `N` when the domain wordmark should stand alone                                    | Whether generated pages include a short slogan below the split-color domain wordmark            |
+| Brand slogan `[language]`                                                   | When the slogan line is enabled      | Enter the English slogan first, then each additional supported language | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages | Localized text shown below the split-color domain wordmark on generated public pages            |
+| Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled             | Use `Y` for a first instance                                            | Use `N` when custom pages already exist and should not be overwritten                  | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
+| Black wordmark portion                                                      | When copied public pages are enabled | Domain prefix, such as `v8s.`                                           | Use the portion that should render in the dark brand color                             | First part of the homepage and public-page wordmark                                             |
+| Green wordmark portion                                                      | When copied public pages are enabled | Domain suffix, such as `link`                                           | Use the portion that should render in vanityURLs teal                                  | Second part of the homepage and public-page wordmark                                            |
 
 You can run `npm run setup` again later. The installer reads existing branding values and offers them as defaults, so it is fine to start with the generated split and refine the assets later.
 
-Localized slogans are stored in `custom/v8s-site-config.json` under `branding.slogan`. Existing instances that still have a single slogan string continue to work; setup writes the localized map for new branding runs.
+Localized slogans are stored in `custom/v8s-site-config.json` under `branding.slogan`. Existing instances that still have a single slogan string continue to work; setup writes the localized map for new branding runs. English is always collected first because it is the fallback language for generated pages.
 
 ## Instance asset overrides
 
@@ -36,18 +35,18 @@ Put instance-owned brand assets under `custom/public/` so they overlay the defau
 
 {{< filetree/container >}}
 {{< filetree/folder name="custom" >}}
-  {{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
-    {{< filetree/file name="v8s-logo.svg" >}}
-    {{< filetree/file name="favicon.svg" >}}
-    {{< filetree/file name="site.webmanifest" >}}
-    {{< filetree/file name="apple-touch-icon.png" >}}
-    {{< filetree/file name="icon-192.png" >}}
-    {{< filetree/file name="icon-512.png" >}}
-    {{< filetree/folder name="en" annotation="localized badge overrides" >}}
-      {{< filetree/file name="v8s-redirected.svg" >}}
-      {{< filetree/file name="v8s-redirected-dark.svg" >}}
-    {{< /filetree/folder >}}
-  {{< /filetree/folder >}}
+{{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
+{{< filetree/file name="v8s-logo.svg" >}}
+{{< filetree/file name="favicon.svg" >}}
+{{< filetree/file name="site.webmanifest" >}}
+{{< filetree/file name="apple-touch-icon.png" >}}
+{{< filetree/file name="icon-192.png" >}}
+{{< filetree/file name="icon-512.png" >}}
+{{< filetree/folder name="en" annotation="localized badge overrides" >}}
+{{< filetree/file name="v8s-redirected.svg" >}}
+{{< filetree/file name="v8s-redirected-dark.svg" >}}
+{{< /filetree/folder >}}
+{{< /filetree/folder >}}
 {{< /filetree/folder >}}
 {{< /filetree/container >}}
 

@@ -79,7 +79,7 @@ C'est vital parce que votre dépôt vanityURLs peut être public. Meme s'il est 
 
 ## Ne Pas Suringenierer Le Premier Deploiement
 
-Le but principal du premier déploiement est de répondre à une seule question : *Cloudflare peut-il construire et servir le redirecteur sur le domaine court?*
+Le but principal du premier déploiement est de répondre à une seule question : _Cloudflare peut-il construire et servir le redirecteur sur le domaine court?_
 
 Pour cette première passe, favorisez la simplicité :
 
@@ -90,6 +90,6 @@ Pour cette première passe, favorisez la simplicité :
 - **un** `wrangler.toml` simple et ennuyeux
 - **un** petit ensemble de liens de départ
 
-Quand ce baseline sert bien le trafic, vous pouvez personnalisér délibérément. Ajoutez les analytics, raffinements de pages légales, contenu localisé, politiques Cloudflare Access strictes et workflows avances de cycle de vie *après* que le coeur du redirecteur soit en ligne.
+Quand ce baseline sert bien le trafic, vous pouvez personnalisér délibérément. Ajoutez les analytics, raffinements de pages légales, contenu localisé, politiques Cloudflare Access strictes et workflows avances de cycle de vie _après_ que le coeur du redirecteur soit en ligne.
 
 Un setup ennuyeux n'est pas un manque d'ambition. C'est comme cela que vous gardez une surface opérationnelle assez petite pour être diagnostiquee quand quelque chose casse.

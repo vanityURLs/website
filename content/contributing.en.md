@@ -2,6 +2,7 @@
 title: "Contribution Guide"
 description: "How to contribute to vanityURLs — code, documentation, bug reports, and more."
 ---
+
 Contributions are welcome! vanityURLs recognizes [all types of contributions](https://allcontributors.org/docs/en/emoji-key) based on the all-contributors specification.
 
 ## Ways to contribute

@@ -37,15 +37,15 @@ The Worker is configured to fire **only on HTML requests** via the `run_worker_f
 
 The full layout is documented in `DEVELOPMENT.md`. The hosting-relevant parts:
 
-| Path | Role |
-|---|---|
-| `wrangler.toml` | Worker configuration. Source of truth — Cloudflare dashboard build settings should be left empty. |
-| `build.sh` | Build script run by Cloudflare. Pins Hugo, Node, Go, Dart Sass versions. |
-| `src/worker.mjs` | The Worker code (analytics tracking). |
-| `src/worker.test.mjs` | Test suite (25 tests, runs via `npm test`). |
-| `public/` | Hugo build output. Served as static assets. Gitignored. |
-| `static/_redirects` | URL redirects (e.g., `/` → `/en/`). Hugo copies this to `public/_redirects`. |
-| `static/_headers` | HTTP response headers (CSP, security, caching). |
+| Path                  | Role                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------- |
+| `wrangler.toml`       | Worker configuration. Source of truth — Cloudflare dashboard build settings should be left empty. |
+| `build.sh`            | Build script run by Cloudflare. Pins Hugo, Node, Go, Dart Sass versions.                          |
+| `src/worker.mjs`      | The Worker code (analytics tracking).                                                             |
+| `src/worker.test.mjs` | Test suite (25 tests, runs via `npm test`).                                                       |
+| `public/`             | Hugo build output. Served as static assets. Gitignored.                                           |
+| `static/_redirects`   | URL redirects (e.g., `/` → `/en/`). Hugo copies this to `public/_redirects`.                      |
+| `static/_headers`     | HTTP response headers (CSP, security, caching).                                                   |
 
 ## Cloudflare account setup
 
@@ -57,7 +57,7 @@ Log into the Cloudflare dashboard → **Workers & Pages** → **Create applicati
 
 Set the build configuration to:
 
-- **Build command:** *None* (the build is handled by `build.sh` which is invoked by `wrangler.toml`'s `[build] command`)
+- **Build command:** _None_ (the build is handled by `build.sh` which is invoked by `wrangler.toml`'s `[build] command`)
 - **Deploy command:** `npx wrangler deploy`
 - **Root directory:** `/`
 - **Production branch:** `main`
@@ -70,10 +70,10 @@ Workers & Pages → `vanityurls-website` → **Settings** → **Domains & Routes
 
 Cloudflare's dashboard exposes "Variables and Secrets" in two places that look identical but have different scopes:
 
-| Path | Scope | Where the Worker sees them |
-|---|---|---|
-| Settings → **Variables and Secrets** | Runtime | `env.UMAMI_*` ← **use this one** |
-| Settings → **Build** → Variables and secrets | Build-time only | NOT in `env` at runtime |
+| Path                                         | Scope           | Where the Worker sees them       |
+| -------------------------------------------- | --------------- | -------------------------------- |
+| Settings → **Variables and Secrets**         | Runtime         | `env.UMAMI_*` ← **use this one** |
+| Settings → **Build** → Variables and secrets | Build-time only | NOT in `env` at runtime          |
 
 The Worker reads `env.UMAMI_WEBSITE_ID` and `env.UMAMI_ENDPOINT` at runtime. If `UMAMI_WEBSITE_ID` is configured in the Build section instead of the runtime section, the Worker silently sees it as `undefined` and skips analytics — no error, no warning, just zero data in Umami.
 
@@ -86,7 +86,7 @@ The Worker auto-restarts whenever Variables and Secrets are added/changed. No de
 
 ### 4. Enable observability (logs)
 
->It's already defined in the `wrangler.toml`
+> It's already defined in the `wrangler.toml`
 
 Settings → **Observability** → **Workers Logs** → **Enable**. This is required for the `[diag]` debugging mode (see `ANALYTICS.md`) and generally useful for any future debugging. Workers Traces can stay disabled — it's a separate, more expensive feature.
 
@@ -144,11 +144,13 @@ The site emits everything search engines need without per-page configuration:
 - **`humans.txt`** — courtesy file in `static/`
 
 What you don't need to do:
+
 - Submit to Google Search Console manually (the sitemap link in robots.txt handles discovery)
 - Add per-page meta tags (head.html builds them from frontmatter)
 - Worry about JS-blocking — Hugo emits server-rendered HTML
 
 What you might want to do:
+
 - Periodically check **Google Search Console** for crawl errors, indexing status, and Core Web Vitals
 - Verify ownership for **Bing Webmaster Tools** if Bing traffic matters to you
 - Run **PageSpeed Insights** quarterly (`https://pagespeed.web.dev/?url=https://www.vanityurls.link/en/`)

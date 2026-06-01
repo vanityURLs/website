@@ -36,4 +36,4 @@ La fonction de recherche du site utilise [Pagefind](https://pagefind.app/), une 
 
 ---
 
-*Dernière mise à jour : avril 2026. Cette politique s'applique uniquement à vanityURLs.link.*
+_Dernière mise à jour : avril 2026. Cette politique s'applique uniquement à vanityURLs.link._

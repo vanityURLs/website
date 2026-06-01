@@ -27,7 +27,7 @@ Enter **VanityURLs** — also known as **v8s** — an open-source URL shortener 
 
 That's it. You now have a fully functional URL shortening service that you control. No more worrying about policy changes, deprecation, or broken links.
 
-v8s is *not* a new vendor that will host your links. It is a set of instructions for combining a list of redirects, your existing domain, and Cloudflare Pages. **Your links are always yours.** You can even migrate them to a new domain if you want.
+v8s is _not_ a new vendor that will host your links. It is a set of instructions for combining a list of redirects, your existing domain, and Cloudflare Pages. **Your links are always yours.** You can even migrate them to a new domain if you want.
 
 ## Why VanityURLs?
 

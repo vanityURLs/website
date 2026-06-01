@@ -5,7 +5,6 @@ description: "Rafraîchir les fichiers produit vanityURLs avec npm run upgrade t
 weight: 120
 aliases:
   - /docs/upgrading/
-
 ---
 
 Utilisez `npm run upgrade` pour rafraîchir une instance vanityURLs existante. La commande met à jour les fichiers détenus par le produit et laisse vos fichiers propres à l'instance tranquilles.

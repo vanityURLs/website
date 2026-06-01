@@ -5,7 +5,6 @@ description: "Server-side analytics events, provider payloads, IP modes, and blo
 weight: 10
 aliases:
   - /docs/reference/server-side-analytics/
-
 ---
 
 vanityURLs analytics runs inside the Cloudflare Worker. It does not require browser tracking JavaScript, cookies, or a visitor account.
@@ -24,27 +23,27 @@ References: [Fathom API documentation](https://usefathom.com/docs/api-reference)
 
 Configure analytics with Worker variables in `wrangler.toml` and Worker secrets when a helper script needs an API token.
 
-| Field | Scope | Purpose |
-|---|---|---|
-| `ANALYTICS_PROVIDER` | Worker variable | `disabled`, `umami`, `fathom`, or `umami,fathom` |
-| `UMAMI_ENDPOINT` | Worker variable | Umami collection endpoint, usually `https://cloud.umami.is/api/send` |
-| `UMAMI_WEBSITE_ID` | Worker variable or secret | Umami website ID used for collection |
-| `UMAMI_GEO_IP_MODE` | Worker variable | Controls whether the Worker forwards visitor IP information to Umami |
-| `UMAMI_BOT_MODE` | Worker variable | Use `original` to keep original event names for known bots instead of normalizing them to `bot` |
-| `FATHOM_SITE_ID` | Worker variable or secret | Fathom site ID used for collection |
-| `FATHOM_ENDPOINT` | Worker variable | Fathom collection endpoint, usually `https://cdn.usefathom.com/` |
-| `FATHOM_BOT_MODE` | Worker variable | Use `original` to keep original event names for known bots instead of normalizing them to `bot` |
-| `FATHOM_API_TOKEN` | Local secret | Optional management API token for local helper scripts; not needed by the Worker for collection |
+| Field                | Scope                     | Purpose                                                                                         |
+| -------------------- | ------------------------- | ----------------------------------------------------------------------------------------------- |
+| `ANALYTICS_PROVIDER` | Worker variable           | `disabled`, `umami`, `fathom`, or `umami,fathom`                                                |
+| `UMAMI_ENDPOINT`     | Worker variable           | Umami collection endpoint, usually `https://cloud.umami.is/api/send`                            |
+| `UMAMI_WEBSITE_ID`   | Worker variable or secret | Umami website ID used for collection                                                            |
+| `UMAMI_GEO_IP_MODE`  | Worker variable           | Controls whether the Worker forwards visitor IP information to Umami                            |
+| `UMAMI_BOT_MODE`     | Worker variable           | Use `original` to keep original event names for known bots instead of normalizing them to `bot` |
+| `FATHOM_SITE_ID`     | Worker variable or secret | Fathom site ID used for collection                                                              |
+| `FATHOM_ENDPOINT`    | Worker variable           | Fathom collection endpoint, usually `https://cdn.usefathom.com/`                                |
+| `FATHOM_BOT_MODE`    | Worker variable           | Use `original` to keep original event names for known bots instead of normalizing them to `bot` |
+| `FATHOM_API_TOKEN`   | Local secret              | Optional management API token for local helper scripts; not needed by the Worker for collection |
 
 ## Events
 
-| Event | When it is sent |
-|---|---|
-| `pageview` | A static or status HTML page returns successfully |
-| `redirect` | A short link resolves to a target |
-| `short-link-miss` | A request looks like a short-link candidate but no slug matches |
-| `expand` | The `/expand` page asks the Worker to inspect a slug through `POST /_analytics/expand` |
-| `bot` | A known bot triggers an event and bot normalization is enabled |
+| Event             | When it is sent                                                                        |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| `pageview`        | A static or status HTML page returns successfully                                      |
+| `redirect`        | A short link resolves to a target                                                      |
+| `short-link-miss` | A request looks like a short-link candidate but no slug matches                        |
+| `expand`          | The `/expand` page asks the Worker to inspect a slug through `POST /_analytics/expand` |
+| `bot`             | A known bot triggers an event and bot normalization is enabled                         |
 
 Scanner probes matched by the runtime blocklist return a plain `404` before analytics. Common PHP and WordPress probes should not pollute miss metrics.
 
@@ -116,11 +115,11 @@ Fathom event payloads can include:
 
 `UMAMI_GEO_IP_MODE` controls whether the Worker forwards `CF-Connecting-IP` to Umami.
 
-| Value | Behavior |
-|---|---|
-| `full` | Sends the full visitor IP for more accurate geo reports |
-| `truncated` or unset | Sends an anonymized IP |
-| `none` | Omits IP override entirely |
+| Value                | Behavior                                                |
+| -------------------- | ------------------------------------------------------- |
+| `full`               | Sends the full visitor IP for more accurate geo reports |
+| `truncated` or unset | Sends an anonymized IP                                  |
+| `none`               | Omits IP override entirely                              |
 
 Fathom collection does not require forwarding `CF-Connecting-IP` from the Worker. The Worker sends provider-native Fathom requests with the visitor user agent when safe, and falls back to a generic Worker user agent for known bot traffic.
 

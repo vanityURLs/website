@@ -5,7 +5,6 @@ description: "Use the Node-based lnk command to manage links, schedules, and sou
 weight: 20
 aliases:
   - /docs/cli/
-
 ---
 
 `lnk` is the repository command-line interface for changing a vanityURLs instance. It edits source files in `custom/`, runs `npm run check`, then stages, commits, and pushes successful write operations.
@@ -29,26 +28,26 @@ If you installed the workstation tools with `npm run local-install`, you can usu
 
 ## Core commands
 
-| Command | What it does |
-| --- | --- |
-| `./scripts/lnk LONG_URL [SLUG]` | Add a link to `custom/v8s-links.txt` |
-| `./scripts/lnk LONG_URL --random-slug-length N` | Add a link with a generated slug of `N` characters |
-| `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG` | Add a splat link stored as `SLUG/*` |
-| `./scripts/lnk list [SLUG]` | List generated registry entries from `build/v8s.json` |
-| `./scripts/lnk tag list` | List tag-specific random slug defaults |
-| `./scripts/lnk tag set TAG --random-slug-length N` | Set a random slug length for a tag |
-| `./scripts/lnk tag unset TAG` | Remove a tag-specific random slug length |
-| `./scripts/lnk schedule add SLUG TARGET ...` | Add or replace a scheduled target rule |
-| `./scripts/lnk schedule default SLUG TARGET` | Set the fallback target for an existing schedule |
-| `./scripts/lnk schedule list [SLUG]` | List schedule rules |
-| `./scripts/lnk block add DOMAIN ...` | Add or update a blocked domain |
-| `./scripts/lnk block keyword KEYWORD ...` | Add or update a blocked keyword |
-| `./scripts/lnk block allow DOMAIN ...` | Add or update an allowed domain |
-| `./scripts/lnk list policy` | Summarize the active source policy |
-| `./scripts/lnk list categories` | List policy categories and severities |
-| `./scripts/lnk list domain [block\|allow]` | List blocked and allowed domains |
-| `./scripts/lnk list keyword` | List blocked keywords |
-| `./scripts/lnk version` | Print the package version |
+| Command                                            | What it does                                          |
+| -------------------------------------------------- | ----------------------------------------------------- |
+| `./scripts/lnk LONG_URL [SLUG]`                    | Add a link to `custom/v8s-links.txt`                  |
+| `./scripts/lnk LONG_URL --random-slug-length N`    | Add a link with a generated slug of `N` characters    |
+| `./scripts/lnk --splat LONG_URL_WITH_:splat SLUG`  | Add a splat link stored as `SLUG/*`                   |
+| `./scripts/lnk list [SLUG]`                        | List generated registry entries from `build/v8s.json` |
+| `./scripts/lnk tag list`                           | List tag-specific random slug defaults                |
+| `./scripts/lnk tag set TAG --random-slug-length N` | Set a random slug length for a tag                    |
+| `./scripts/lnk tag unset TAG`                      | Remove a tag-specific random slug length              |
+| `./scripts/lnk schedule add SLUG TARGET ...`       | Add or replace a scheduled target rule                |
+| `./scripts/lnk schedule default SLUG TARGET`       | Set the fallback target for an existing schedule      |
+| `./scripts/lnk schedule list [SLUG]`               | List schedule rules                                   |
+| `./scripts/lnk block add DOMAIN ...`               | Add or update a blocked domain                        |
+| `./scripts/lnk block keyword KEYWORD ...`          | Add or update a blocked keyword                       |
+| `./scripts/lnk block allow DOMAIN ...`             | Add or update an allowed domain                       |
+| `./scripts/lnk list policy`                        | Summarize the active source policy                    |
+| `./scripts/lnk list categories`                    | List policy categories and severities                 |
+| `./scripts/lnk list domain [block\|allow]`         | List blocked and allowed domains                      |
+| `./scripts/lnk list keyword`                       | List blocked keywords                                 |
+| `./scripts/lnk version`                            | Print the package version                             |
 
 List commands accept `--format table` or `--format json`. Table is the default.
 
@@ -89,20 +88,20 @@ Valid states are `permanent`, `ephemeral`, `expired`, `disabled`, `maintenance`,
 
 Useful link options:
 
-| Option | Purpose |
-| --- | --- |
-| `--state STATE` | Set the lifecycle state |
-| `--title TEXT` | Add a human-readable title |
-| `--description TEXT` | Add a human-readable description |
-| `--tags TAGS` | Add comma-separated tags |
-| `--owner OWNER` | Set the accountability label |
-| `--expires-at DATE` | Set an ISO date or timestamp |
-| `--notes TEXT` | Add internal notes |
-| `--random-slug-length N` | Set the generated slug length for this command |
-| `--slug-length N` | Alias for `--random-slug-length` |
-| `--replace` | Replace an existing slug without prompting |
-| `--no-replace` | Leave an existing slug unchanged |
-| `--splat` | Store the slug as `SLUG/*` and require `:splat` in the target |
+| Option                   | Purpose                                                       |
+| ------------------------ | ------------------------------------------------------------- |
+| `--state STATE`          | Set the lifecycle state                                       |
+| `--title TEXT`           | Add a human-readable title                                    |
+| `--description TEXT`     | Add a human-readable description                              |
+| `--tags TAGS`            | Add comma-separated tags                                      |
+| `--owner OWNER`          | Set the accountability label                                  |
+| `--expires-at DATE`      | Set an ISO date or timestamp                                  |
+| `--notes TEXT`           | Add internal notes                                            |
+| `--random-slug-length N` | Set the generated slug length for this command                |
+| `--slug-length N`        | Alias for `--random-slug-length`                              |
+| `--replace`              | Replace an existing slug without prompting                    |
+| `--no-replace`           | Leave an existing slug unchanged                              |
+| `--splat`                | Store the slug as `SLUG/*` and require `:splat` in the target |
 
 ### List links
 
@@ -144,14 +143,14 @@ Use `--dry-run` on policy commands to print the updated JSON without writing, ch
 
 ## Environment overrides
 
-| Variable | Purpose |
-| --- | --- |
-| `DRY_RUN=true` | Print the planned change without writing, checking, committing, or pushing |
-| `V8S_REPO=PATH` | Point an installed `lnk` command at a local vanityURLs repository |
-| `V8S_LINKS_OWNER=OWNER` | Set the default owner value for new links |
-| `V8S_LINKS_FILE=FILE` | Override the links file |
-| `V8S_SCHEDULES_FILE=FILE` | Override the legacy schedules file |
-| `V8S_POLICY_FILE=FILE` | Override the policy file |
+| Variable                  | Purpose                                                                    |
+| ------------------------- | -------------------------------------------------------------------------- |
+| `DRY_RUN=true`            | Print the planned change without writing, checking, committing, or pushing |
+| `V8S_REPO=PATH`           | Point an installed `lnk` command at a local vanityURLs repository          |
+| `V8S_LINKS_OWNER=OWNER`   | Set the default owner value for new links                                  |
+| `V8S_LINKS_FILE=FILE`     | Override the links file                                                    |
+| `V8S_SCHEDULES_FILE=FILE` | Override the legacy schedules file                                         |
+| `V8S_POLICY_FILE=FILE`    | Override the policy file                                                   |
 
 On Windows PowerShell:
 
@@ -176,12 +175,12 @@ Direct `lnk` write commands use operation-specific conventional commits, such as
 
 For broader local publishing, `npm run local-publish` selects commit messages from `local_publish.commit_messages` in `defaults/v8s-local-config.json`, merged with `custom/v8s-local-config.json`. The default keys are:
 
-| Key | Used when |
-| --- | --- |
-| `links` | Only `custom/v8s-links.txt` is staged |
-| `policies` | Only `custom/v8s-policies.json` or `custom/v8s-blocklist.json` is staged |
-| `site_config` | Only `custom/v8s-site-config.json` is staged |
-| `mixed` | Multiple files or configured publish paths are staged |
+| Key           | Used when                                                                |
+| ------------- | ------------------------------------------------------------------------ |
+| `links`       | Only `custom/v8s-links.txt` is staged                                    |
+| `policies`    | Only `custom/v8s-policies.json` or `custom/v8s-blocklist.json` is staged |
+| `site_config` | Only `custom/v8s-site-config.json` is staged                             |
+| `mixed`       | Multiple files or configured publish paths are staged                    |
 
 Override the selected local-publish message with:
 

@@ -7,7 +7,6 @@ aliases:
   - /docs/network-protection/
   - /docs/référence/network-protection/
   - /docs/référence/cloudflare-network-protection/
-
 ---
 
 Utilisez cette page lorsque vous êtes prêt a configurér les contrôles Cloudflare devant le Worker. La protection réseau garde les abus courants, les methodes inattendues, les probes de scanners, les crawlers non désirés et le bruit d'infrastructure loin du code applicatif.
@@ -32,20 +31,20 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **SSL/TLS** > **
 
 Ensuite, ouvrez **SSL/TLS** > **Edge Certificates** et parcourez les options dans l'ordre du tableau de bord :
 
-| Option du tableau de bord | Recommandation |
-| --- | --- |
-| Manage Edge Certificates | Confirmer qu'un certificat Universal actif couvre le domaine apex et le wildcard, comme `v8s.link` et `*.v8s.link` |
-| Advanced Certificate Manager | Aucune action sauf si l'instance a besoin des contrôles de certificats custom payants |
-| Total TLS | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager |
-| Cipher suites | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager |
-| Always Use HTTPS | On |
+| Option du tableau de bord             | Recommandation                                                                                                                   |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Manage Edge Certificates              | Confirmer qu'un certificat Universal actif couvre le domaine apex et le wildcard, comme `v8s.link` et `*.v8s.link`               |
+| Advanced Certificate Manager          | Aucune action sauf si l'instance a besoin des contrôles de certificats custom payants                                            |
+| Total TLS                             | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager                                                |
+| Cipher suites                         | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager                                                |
+| Always Use HTTPS                      | On                                                                                                                               |
 | HTTP Strict Transport Security (HSTS) | Commencer sans HSTS enforce par les navigateurs tant que chaque hostname et sous-domaine de production n'est pas prêt pour HTTPS |
-| Minimum TLS Version | TLS 1.2 ou plus strict |
-| Opportunistic Encryption | On convient; aucune action spécifique a vanityURLs |
-| TLS 1.3 | On |
-| Automatic HTTPS Rewrites | On |
-| Certificate Transparency Monitoring | Optionnel, utile pour les alertes de certificats inattendus |
-| Disable Universal SSL | Ne cliquez pas dessus; voir cette action signifie que Universal SSL est actuellement active |
+| Minimum TLS Version                   | TLS 1.2 ou plus strict                                                                                                           |
+| Opportunistic Encryption              | On convient; aucune action spécifique a vanityURLs                                                                               |
+| TLS 1.3                               | On                                                                                                                               |
+| Automatic HTTPS Rewrites              | On                                                                                                                               |
+| Certificate Transparency Monitoring   | Optionnel, utile pour les alertes de certificats inattendus                                                                      |
+| Disable Universal SSL                 | Ne cliquez pas dessus; voir cette action signifie que Universal SSL est actuellement active                                      |
 
 HSTS est l'endroit le plus facile a mal lire dans l'interface. **Enable HSTS** avec **Max Age Header (max-age)** a **0 (Disable)** ne donne pas aux navigateurs une politique HSTS durable; c'est un état non enforce ou de rémise a zero. Utilisez-le pendant la validation de la zone. Pour l'enforcement en production, choisissez un max age non nul après que chaque hostname public soit prêt pour HTTPS. Un max age d'un mois est un bon premier réglage; activez **includeSubDomains** et **Preload** seulement quand toute la zone est volontairement HTTPS-only.
 
@@ -55,41 +54,41 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > *
 
 Les réglages de sécurité du plan gratuit doivent rester sobres et explicites. Activez les protections qui réduisent les abus courants, mais évitez les fonctionnalites qui modifient le contenu public ou exposent des données visiteur supplémentaires sans besoin clair.
 
-| Reglage, dans l'ordre du tableau de bord | Recommandation | Pourquoi |
-| --- | --- | --- |
-| AI Labyrinth | Off | Modifie volontairement les pages pour les bots; gardez les pages publiques de redirection et de politiques détérministes |
-| Block AI bots | Block on all pages | Bloque les crawlers d'entrainement IA sur toute la zone sans maintenir une liste custom de user agents |
-| Bot Fight Mode | On, configuration par défaut | Le contrôle du plan gratuit est on/off; il n'y a pas d'options par règle a ajuster |
-| Browser Integrity Check | On, configuration par défaut | Bloque les requêtes navigateur malformees ou suspectes avant l'execution du Worker |
-| Challenge Passage | 30 minutes | Garde les challenges manages utiles sans rendre les visites legitimes repétées trop bruyantes |
-| Cloudflare Managed Free Ruleset | On | Cloudflare maintient et met à jour ce ruleset gratuit; c'est une couverture générique, pas une posture propre a vanityURLs |
-| Continuous script monitoring | Off pour l'instance par défaut | Les pages générées chargent un seul script local pour le confort de l'interface; activez seulement après l'ajout de scripts tiers ou si vous voulez des alertes d'inventaire |
-| Custom fallthrough rules | Aucune règle par défaut | Necessaire seulement si vous voulez délibérément une règle fallback pour le trafic non matche |
-| Email Address Obfuscation | On | Sans règle correspondante, c'est inoffensif; utile si les pages publiques générées affichent des adresses de rôle |
-| HTTP DDoS attack protection | On, toujours actif | La protection HTTP DDoS geree par Cloudflare s'execute independamment du Worker |
-| Manage your robots.txt | Désactiver la configuration `robots.txt` geree par Cloudflare | Le dépôt fournit `defaults/public/robots.txt`; gardez le dépôt comme source de vérité au lieu de laisser Cloudflare le remplacer par la sortie Content Signals Policy |
-| Network-layer DDoS attack protection | On, toujours actif | La mitigation DDoS réseau de base est geree à l'edge Cloudflare |
-| Replace insecure JavaScript libraries | On | Surtout utile pour les bibliotheques tierces connues comme `polyfill`; le risque est faible et cela peut attraper de futurs ajouts |
-| Security level | Laisser **I'm Under Attack Mode** désactive | A utiliser seulement pendant un incident actif; trop disruptif comme base normale de redirecteur |
-| Security.txt | Configurer avant release | Publie un chemin de contact pour les rapports de vulnérabilité |
-| SSL/TLS DDoS attack protection | On, toujours actif | La mitigation DDoS de couche TLS est geree par Cloudflare |
+| Reglage, dans l'ordre du tableau de bord | Recommandation                                                | Pourquoi                                                                                                                                                                     |
+| ---------------------------------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AI Labyrinth                             | Off                                                           | Modifie volontairement les pages pour les bots; gardez les pages publiques de redirection et de politiques détérministes                                                     |
+| Block AI bots                            | Block on all pages                                            | Bloque les crawlers d'entrainement IA sur toute la zone sans maintenir une liste custom de user agents                                                                       |
+| Bot Fight Mode                           | On, configuration par défaut                                  | Le contrôle du plan gratuit est on/off; il n'y a pas d'options par règle a ajuster                                                                                           |
+| Browser Integrity Check                  | On, configuration par défaut                                  | Bloque les requêtes navigateur malformees ou suspectes avant l'execution du Worker                                                                                           |
+| Challenge Passage                        | 30 minutes                                                    | Garde les challenges manages utiles sans rendre les visites legitimes repétées trop bruyantes                                                                                |
+| Cloudflare Managed Free Ruleset          | On                                                            | Cloudflare maintient et met à jour ce ruleset gratuit; c'est une couverture générique, pas une posture propre a vanityURLs                                                   |
+| Continuous script monitoring             | Off pour l'instance par défaut                                | Les pages générées chargent un seul script local pour le confort de l'interface; activez seulement après l'ajout de scripts tiers ou si vous voulez des alertes d'inventaire |
+| Custom fallthrough rules                 | Aucune règle par défaut                                       | Necessaire seulement si vous voulez délibérément une règle fallback pour le trafic non matche                                                                                |
+| Email Address Obfuscation                | On                                                            | Sans règle correspondante, c'est inoffensif; utile si les pages publiques générées affichent des adresses de rôle                                                            |
+| HTTP DDoS attack protection              | On, toujours actif                                            | La protection HTTP DDoS geree par Cloudflare s'execute independamment du Worker                                                                                              |
+| Manage your robots.txt                   | Désactiver la configuration `robots.txt` geree par Cloudflare | Le dépôt fournit `defaults/public/robots.txt`; gardez le dépôt comme source de vérité au lieu de laisser Cloudflare le remplacer par la sortie Content Signals Policy        |
+| Network-layer DDoS attack protection     | On, toujours actif                                            | La mitigation DDoS réseau de base est geree à l'edge Cloudflare                                                                                                              |
+| Replace insecure JavaScript libraries    | On                                                            | Surtout utile pour les bibliotheques tierces connues comme `polyfill`; le risque est faible et cela peut attraper de futurs ajouts                                           |
+| Security level                           | Laisser **I'm Under Attack Mode** désactive                   | A utiliser seulement pendant un incident actif; trop disruptif comme base normale de redirecteur                                                                             |
+| Security.txt                             | Configurer avant release                                      | Publie un chemin de contact pour les rapports de vulnérabilité                                                                                                               |
+| SSL/TLS DDoS attack protection           | On, toujours actif                                            | La mitigation DDoS de couche TLS est geree par Cloudflare                                                                                                                    |
 
 {{< details title="Reglages de sécurité sans action pour un redirecteur par défaut" >}}
 
-| Reglage | Decision de base |
-| --- | --- |
-| Client certificates | Ne pas configurer pour le redirecteur public sauf si une future origine/API exige mTLS |
-| Endpoint Labels | Aucune action; cela appartient à l'organisation des endpoints API Shield, et le redirecteur n'expose pas d'API opérateur |
-| Hotlink Protection | Off; les assets du raccourcisseur sont petits, et la réutilisation d'images hors site n'est pas un comportement produit |
-| IP access rules | Aucune action; préférez des custom rules précises ou Cloudflare Access plutôt que de larges règles IP |
-| IP lists | Aucune action sauf si des règles WAF custom ont besoin d'ensembles IP réutilisables |
-| Leaked Credentials Détéction | Off sauf si l'application ajoute un login par mot de passe; vanityURLs n'authentifie pas les visiteurs avec des mots de passe |
-| mTLS rules | Aucune action pour un redirecteur public Worker-only |
-| Rate limit authentication requests | Aucune règle par défaut; les chemins privés sont protégés par Cloudflare Access SSO, pas par un endpoint de mot de passe dans le redirecteur |
-| Schema Validation | Aucune action sauf si des schémas API explicites sont ajoutes |
-| User agent blocking | Aucune règle par défaut; utilisez-le seulement pour un client agressif précis, et préférez d'abord les contrôles bot manages ou les règles WAF |
-| Web asset discovery | Aucune action; laisser la decouverte visible est correct, mais cela ne change pas le comportement de redirection |
-| Zone lockdown | Aucune action pour la base du plan gratuit; Cloudflare documente Zone Lockdown comme réserve aux plans payants et recommande les custom rules pour un comportement de type allowlist |
+| Reglage                            | Decision de base                                                                                                                                                                     |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Client certificates                | Ne pas configurer pour le redirecteur public sauf si une future origine/API exige mTLS                                                                                               |
+| Endpoint Labels                    | Aucune action; cela appartient à l'organisation des endpoints API Shield, et le redirecteur n'expose pas d'API opérateur                                                             |
+| Hotlink Protection                 | Off; les assets du raccourcisseur sont petits, et la réutilisation d'images hors site n'est pas un comportement produit                                                              |
+| IP access rules                    | Aucune action; préférez des custom rules précises ou Cloudflare Access plutôt que de larges règles IP                                                                                |
+| IP lists                           | Aucune action sauf si des règles WAF custom ont besoin d'ensembles IP réutilisables                                                                                                  |
+| Leaked Credentials Détéction       | Off sauf si l'application ajoute un login par mot de passe; vanityURLs n'authentifie pas les visiteurs avec des mots de passe                                                        |
+| mTLS rules                         | Aucune action pour un redirecteur public Worker-only                                                                                                                                 |
+| Rate limit authentication requests | Aucune règle par défaut; les chemins privés sont protégés par Cloudflare Access SSO, pas par un endpoint de mot de passe dans le redirecteur                                         |
+| Schema Validation                  | Aucune action sauf si des schémas API explicites sont ajoutes                                                                                                                        |
+| User agent blocking                | Aucune règle par défaut; utilisez-le seulement pour un client agressif précis, et préférez d'abord les contrôles bot manages ou les règles WAF                                       |
+| Web asset discovery                | Aucune action; laisser la decouverte visible est correct, mais cela ne change pas le comportement de redirection                                                                     |
+| Zone lockdown                      | Aucune action pour la base du plan gratuit; Cloudflare documente Zone Lockdown comme réserve aux plans payants et recommande les custom rules pour un comportement de type allowlist |
 
 {{< /details >}}
 
@@ -248,16 +247,16 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Rules** > **Se
 
 Reglages Rules recommandes :
 
-| Categorie | Reglage | Recommandation |
-| --- | --- | --- |
-| Managed Transforms | Remove `X-Powered-By` response headers | On comme defense en profondeur; Cloudflare ne semble pas l'activer par défaut, et vanityURLs n'émet pas intentionnellement `X-Powered-By` |
-| Managed Transforms | Add visitor location headers | Off; Umami et Fathom n'ont pas besoin des en-têtes ville/latitude/longitude de Cloudflare, et les ajouter augmente l'exposition des données de localisation |
-| Managed Transforms | Remove visitor IP headers | Off sauf si une origine derrière le Worker les recoit |
-| Managed Transforms | Add security headers transform | Off par défaut; vanityURLs contrôle ses en-têtes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre à la politique applicative |
-| Bulk Redirects | Bulk Redirect Lists | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages expand, les horaires, les splats et le workflow de publication locale |
-| URL Normalization | URL normalization type | Cloudflare |
-| URL Normalization | Normalize incoming URLs | On, utilisé par Access, les règles WAF et Workers |
-| URL Normalization | Normalize URLs to origin | Off |
+| Categorie          | Reglage                                | Recommandation                                                                                                                                                                                                                    |
+| ------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Managed Transforms | Remove `X-Powered-By` response headers | On comme defense en profondeur; Cloudflare ne semble pas l'activer par défaut, et vanityURLs n'émet pas intentionnellement `X-Powered-By`                                                                                         |
+| Managed Transforms | Add visitor location headers           | Off; Umami et Fathom n'ont pas besoin des en-têtes ville/latitude/longitude de Cloudflare, et les ajouter augmente l'exposition des données de localisation                                                                       |
+| Managed Transforms | Remove visitor IP headers              | Off sauf si une origine derrière le Worker les recoit                                                                                                                                                                             |
+| Managed Transforms | Add security headers transform         | Off par défaut; vanityURLs contrôle ses en-têtes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre à la politique applicative                         |
+| Bulk Redirects     | Bulk Redirect Lists                    | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages expand, les horaires, les splats et le workflow de publication locale |
+| URL Normalization  | URL normalization type                 | Cloudflare                                                                                                                                                                                                                        |
+| URL Normalization  | Normalize incoming URLs                | On, utilisé par Access, les règles WAF et Workers                                                                                                                                                                                 |
+| URL Normalization  | Normalize URLs to origin               | Off                                                                                                                                                                                                                               |
 
 ### Configurer Network
 
@@ -265,16 +264,16 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Network**.
 
 Reglages Network recommandes :
 
-| Reglage | Recommandation |
-| --- | --- |
-| IPv6 Compatibility | On |
-| gRPC | Off |
-| WebSockets | Off sauf si une page custom en a besoin |
-| Pseudo IPv4 | Off |
-| IP Geolocation | On |
-| Maximum Upload Size | Plus bas défaut pratique du plan |
-| Network Error Logging | On |
-| Onion Routing | On |
+| Reglage               | Recommandation                          |
+| --------------------- | --------------------------------------- |
+| IPv6 Compatibility    | On                                      |
+| gRPC                  | Off                                     |
+| WebSockets            | Off sauf si une page custom en a besoin |
+| Pseudo IPv4           | Off                                     |
+| IP Geolocation        | On                                      |
+| Maximum Upload Size   | Plus bas défaut pratique du plan        |
+| Network Error Logging | On                                      |
+| Onion Routing         | On                                      |
 
 ### Garder le caching conservateur
 

@@ -5,7 +5,6 @@ description: "Référence des fichiers de configuration source, custom, locaux e
 weight: 30
 aliases:
   - /docs/configuration-files/
-
 ---
 
 vanityURLs garde les valeurs par défaut du produit, les choix propres à l'instance, les réglages locaux du poste et les artefacts runtime générés dans des fichiers séparés.
@@ -14,25 +13,25 @@ Utilisez cette page pour identifier les fichiers de configuration actuels et la 
 
 ## Configuration source
 
-| Fichier | Format | Forme de schéma | Proprietaire |
-| --- | --- | --- | --- |
-| [`wrangler.toml`](https://github.com/vanityURLs/code/blob/main/wrangler.toml) | TOML, selon la [configuration Cloudflare Wrangler](https://developers.cloudflare.com/workers/wrangler/configuration/) | `name`, `main`, `compatibility_date`, `workers_dev`, `preview_urls`, `[build]`, `[assets]`, `[vars]`, `[[routes]]`, `[observability]` | Instance |
-| [`package.json`](https://github.com/vanityURLs/code/blob/main/package.json) | Manifeste npm JSON | `scripts`, `devDependencies`, metadonnées du paquet | Produit |
-| `package-lock.json` | Lockfile npm JSON | Graphe de dependances verrouille génère par npm | Produit |
-| [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) | Configuration de site vanityURLs JSON, `schema_version: "1.0"` | Base produit pour `i18n`, `links`, et `operator` | Produit |
-| `custom/v8s-site-config.json` | Configuration de site vanityURLs JSON, `schema_version: "1.0"` | Surcharges d'instance pour `i18n`, `links`, `operator`, et `branding`; `operator.operator_domain` peut piloter le domaine par défaut des contacts | Instance |
-| [`defaults/v8s-links.txt`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-links.txt) | Texte delimite par pipes avec blocs `@schedule` inline optionnels | `slug\|target\|state\|title\|description\|tags\|owner\|expires_at\|notes`, suivi de directives d'horaire indentées au besoin | Liens de départ produit |
-| `custom/v8s-links.txt` | Texte delimite par pipes avec blocs `@schedule` inline optionnels | Meme format que `defaults/v8s-links.txt`; c'est la [source de vérité rédigée par un humain pour les liens](/fr/docs/reference/link-format/) | Instance |
-| `custom/v8s-schedules.json` | Horaire vanityURLs JSON hérité | Source de compatibilité 3.x dépréciée lue par le build et la commande actuelle `lnk schedule`; les blocs `@schedule` inline ont priorité | Instance |
-| [`defaults/v8s-policies.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-policies.json) | Politique vanityURLs JSON, `schema_version: "1.0"` | `defaults`, `allow_domains`, `blocked_keywords`, `block_domains`, `generated_sources` optionnel | Produit |
-| `custom/v8s-policies.json` | Politique vanityURLs JSON, `schema_version: "1.0"` | Meme format que `defaults/v8s-policies.json`; la politique custom remplace la politique source par défaut avant la fusion des feeds génères | Instance |
-| [`defaults/v8s-blocklist-categories.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-policies.json) | Taxonomie de politique vanityURLs JSON, `schema_version: "1.0"` | `categories`, `severities`, `sources` | Produit |
-| `custom/v8s-blocklist-categories.json` | Taxonomie de politique vanityURLs JSON, `schema_version: "1.0"` | Extension ou surcharge optionnelle des categories, sevérités et sources de blocklist générée | Instance |
-| [`defaults/v8s-language-metadata.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-language-metadata.json) | Métadonnées de langue vanityURLs JSON | Libellés produit pour les listes de pages localisées générées et la navigation des pages d'état | Produit |
-| [`defaults/legal/v8s-legal-content.json`](https://github.com/vanityURLs/code/blob/main/defaults/legal/v8s-legal-content.json) | Contenu légal vanityURLs JSON | Contenu par défaut des pages légales, Confiance et sécurité, sécurité et délais de réponse rendus par le build | Produit |
-| [`defaults/v8s-local-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-blocklist-categories.json) | Configuration locale vanityURLs JSON, `schema_version: "1.0"` | `shell_helper`, `lnk_cli`, `local_publish`, `registry`, `repository` | Produit |
-| `custom/v8s-local-config.json` | Configuration locale vanityURLs JSON, `schema_version: "1.0"` | Chemins du helper propres au poste et réglages de publication locale écrits par `npm run local-install` | Poste |
-| [`defaults/public/_headers`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-local-config.json) | Regles d'en-têtes pour assets statiques Cloudflare | Motif de chemin suivi de lignes d'en-têtes indentees | Produit ou surcharge d'instance |
+| Fichier                                                                                                                       | Format                                                                                                                | Forme de schéma                                                                                                                                   | Proprietaire                    |
+| ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| [`wrangler.toml`](https://github.com/vanityURLs/code/blob/main/wrangler.toml)                                                 | TOML, selon la [configuration Cloudflare Wrangler](https://developers.cloudflare.com/workers/wrangler/configuration/) | `name`, `main`, `compatibility_date`, `workers_dev`, `preview_urls`, `[build]`, `[assets]`, `[vars]`, `[[routes]]`, `[observability]`             | Instance                        |
+| [`package.json`](https://github.com/vanityURLs/code/blob/main/package.json)                                                   | Manifeste npm JSON                                                                                                    | `scripts`, `devDependencies`, metadonnées du paquet                                                                                               | Produit                         |
+| `package-lock.json`                                                                                                           | Lockfile npm JSON                                                                                                     | Graphe de dependances verrouille génère par npm                                                                                                   | Produit                         |
+| [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json)                 | Configuration de site vanityURLs JSON, `schema_version: "1.0"`                                                        | Base produit pour `i18n`, `links`, et `operator`                                                                                                  | Produit                         |
+| `custom/v8s-site-config.json`                                                                                                 | Configuration de site vanityURLs JSON, `schema_version: "1.0"`                                                        | Surcharges d'instance pour `i18n`, `links`, `operator`, et `branding`; `operator.operator_domain` peut piloter le domaine par défaut des contacts | Instance                        |
+| [`defaults/v8s-links.txt`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-links.txt)                               | Texte delimite par pipes avec blocs `@schedule` inline optionnels                                                     | `slug\|target\|state\|title\|description\|tags\|owner\|expires_at\|notes`, suivi de directives d'horaire indentées au besoin                      | Liens de départ produit         |
+| `custom/v8s-links.txt`                                                                                                        | Texte delimite par pipes avec blocs `@schedule` inline optionnels                                                     | Meme format que `defaults/v8s-links.txt`; c'est la [source de vérité rédigée par un humain pour les liens](/fr/docs/reference/link-format/)       | Instance                        |
+| `custom/v8s-schedules.json`                                                                                                   | Horaire vanityURLs JSON hérité                                                                                        | Source de compatibilité 3.x dépréciée lue par le build et la commande actuelle `lnk schedule`; les blocs `@schedule` inline ont priorité          | Instance                        |
+| [`defaults/v8s-policies.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-policies.json)                       | Politique vanityURLs JSON, `schema_version: "1.0"`                                                                    | `defaults`, `allow_domains`, `blocked_keywords`, `block_domains`, `generated_sources` optionnel                                                   | Produit                         |
+| `custom/v8s-policies.json`                                                                                                    | Politique vanityURLs JSON, `schema_version: "1.0"`                                                                    | Meme format que `defaults/v8s-policies.json`; la politique custom remplace la politique source par défaut avant la fusion des feeds génères       | Instance                        |
+| [`defaults/v8s-blocklist-categories.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-policies.json)           | Taxonomie de politique vanityURLs JSON, `schema_version: "1.0"`                                                       | `categories`, `severities`, `sources`                                                                                                             | Produit                         |
+| `custom/v8s-blocklist-categories.json`                                                                                        | Taxonomie de politique vanityURLs JSON, `schema_version: "1.0"`                                                       | Extension ou surcharge optionnelle des categories, sevérités et sources de blocklist générée                                                      | Instance                        |
+| [`defaults/v8s-language-metadata.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-language-metadata.json)     | Métadonnées de langue vanityURLs JSON                                                                                 | Libellés produit pour les listes de pages localisées générées et la navigation des pages d'état                                                   | Produit                         |
+| [`defaults/legal/v8s-legal-content.json`](https://github.com/vanityURLs/code/blob/main/defaults/legal/v8s-legal-content.json) | Contenu légal vanityURLs JSON                                                                                         | Contenu par défaut des pages légales, Confiance et sécurité, sécurité et délais de réponse rendus par le build                                    | Produit                         |
+| [`defaults/v8s-local-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-blocklist-categories.json)       | Configuration locale vanityURLs JSON, `schema_version: "1.0"`                                                         | `shell_helper`, `lnk_cli`, `local_publish`, `registry`, `repository`                                                                              | Produit                         |
+| `custom/v8s-local-config.json`                                                                                                | Configuration locale vanityURLs JSON, `schema_version: "1.0"`                                                         | Chemins du helper propres au poste et réglages de publication locale écrits par `npm run local-install`                                           | Poste                           |
+| [`defaults/public/_headers`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-local-config.json)                     | Regles d'en-têtes pour assets statiques Cloudflare                                                                    | Motif de chemin suivi de lignes d'en-têtes indentees                                                                                              | Produit ou surcharge d'instance |
 
 Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent encore être reconnus pour compatibilite de migration, mais les nouvelles instances devraient utiliser `v8s-policies.json`.
 
@@ -40,13 +39,13 @@ Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent
 
 `custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. La liste exacte des champs est définie par [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/public/_headers) et l'installateur. Les sections principales importantes sont :
 
-| Section | Rôle |
-| --- | --- |
-| `schema_version` | Version du contrat de configuration stocké. Elle change seulement lorsqu'un fichier custom existant doit migrer |
-| `i18n` | Langue par défaut et langues supportées |
-| `links` | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk` |
-| `operator` | Identité opérateur, contacts, fuseau horaire, mode des pages légales, divulgation analytics et fenêtre de réponse |
-| `branding` | Domaine court, slogan public, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs |
+| Section          | Rôle                                                                                                              |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `schema_version` | Version du contrat de configuration stocké. Elle change seulement lorsqu'un fichier custom existant doit migrer   |
+| `i18n`           | Langue par défaut et langues supportées                                                                           |
+| `links`          | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk`                           |
+| `operator`       | Identité opérateur, contacts, fuseau horaire, mode des pages légales, divulgation analytics et fenêtre de réponse |
+| `branding`       | Domaine court, slogan public, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs  |
 
 Exemple :
 
@@ -96,15 +95,15 @@ Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis 
 
 ## Configuration générée
 
-| Fichier | Format | Forme de schéma | Genere par |
-| --- | --- | --- | --- |
-| `build/v8s.json` | Registre runtime JSON, `schema_version: "3.0"` | `generated_at`, `generated_timezone`, `default_state`, `routing`, `tree`, `links[]`; chaque lien contient `slug`, `match`, `target`, `state`, les metadonnées et un `schedule` optionnel | `scripts/build-redirect-targets.mjs` |
-| `build/v8s-blocklist.json` | Politique runtime JSON, `schema_version: "1.0"` | `defaults` normalises, `allow_domains`, `blocked_keywords`, `block_domains` fusionnes | `scripts/build.mjs` |
-| `build/v8s-site-config.json` | Configuration de site runtime JSON, `schema_version: "1.0"` | Configuration de site effective après fusion des valeurs par défaut et custom | `scripts/build.mjs` |
-| `build/blocklist.generated.json` | Feed de politique génère JSON, `schema_version: "1.0"` | `generated_at`, `sources[]`, `block_domains[]` génères | `npm run generate:blocklist` |
-| `build/v8s-release-manifest.json` | Manifeste de release JSON, `schema_version: "1.0"` | Version du package, commit Git, date de compatibilité Cloudflare, versions de schéma et hashs SHA-256 des entrées et sorties de release | `scripts/generate-release-manifest.mjs` |
-| `src/worker.mjs` | Module Worker génère | Source Worker copiee depuis `scripts/workers/worker.mjs` avec constantes de langues générées | `scripts/build.mjs` |
-| `src/lib/analytics-policy.mjs` | Module de support Worker génère | Politique de détection des bots analytics copiee depuis `scripts/workers/lib/analytics-policy.mjs` | `scripts/build.mjs` |
+| Fichier                           | Format                                                      | Forme de schéma                                                                                                                                                                          | Genere par                              |
+| --------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `build/v8s.json`                  | Registre runtime JSON, `schema_version: "3.0"`              | `generated_at`, `generated_timezone`, `default_state`, `routing`, `tree`, `links[]`; chaque lien contient `slug`, `match`, `target`, `state`, les metadonnées et un `schedule` optionnel | `scripts/build-redirect-targets.mjs`    |
+| `build/v8s-blocklist.json`        | Politique runtime JSON, `schema_version: "1.0"`             | `defaults` normalises, `allow_domains`, `blocked_keywords`, `block_domains` fusionnes                                                                                                    | `scripts/build.mjs`                     |
+| `build/v8s-site-config.json`      | Configuration de site runtime JSON, `schema_version: "1.0"` | Configuration de site effective après fusion des valeurs par défaut et custom                                                                                                            | `scripts/build.mjs`                     |
+| `build/blocklist.generated.json`  | Feed de politique génère JSON, `schema_version: "1.0"`      | `generated_at`, `sources[]`, `block_domains[]` génères                                                                                                                                   | `npm run generate:blocklist`            |
+| `build/v8s-release-manifest.json` | Manifeste de release JSON, `schema_version: "1.0"`          | Version du package, commit Git, date de compatibilité Cloudflare, versions de schéma et hashs SHA-256 des entrées et sorties de release                                                  | `scripts/generate-release-manifest.mjs` |
+| `src/worker.mjs`                  | Module Worker génère                                        | Source Worker copiee depuis `scripts/workers/worker.mjs` avec constantes de langues générées                                                                                             | `scripts/build.mjs`                     |
+| `src/lib/analytics-policy.mjs`    | Module de support Worker génère                             | Politique de détection des bots analytics copiee depuis `scripts/workers/lib/analytics-policy.mjs`                                                                                       | `scripts/build.mjs`                     |
 
 Les fichiers génères sont des sorties de build. Ne les modifiez pas directement.
 
@@ -135,11 +134,11 @@ Les entrées de build incluent :
 
 Le build écrit :
 
-| Artefact | Role |
-| --- | --- |
-| `build/v8s.json` | Registre de redirection consomme par le Worker |
-| `build/v8s-blocklist.json` | Artefact de politique runtime consomme par le Worker |
-| `build/v8s-site-config.json` | Configuration de site utilisee par le build |
-| `src/worker.mjs` | Entree Worker générée depuis `scripts/workers/` pour Wrangler |
+| Artefact                     | Role                                                          |
+| ---------------------------- | ------------------------------------------------------------- |
+| `build/v8s.json`             | Registre de redirection consomme par le Worker                |
+| `build/v8s-blocklist.json`   | Artefact de politique runtime consomme par le Worker          |
+| `build/v8s-site-config.json` | Configuration de site utilisee par le build                   |
+| `src/worker.mjs`             | Entree Worker générée depuis `scripts/workers/` pour Wrangler |
 
 `scripts/workers/` est la source de vérité du Worker. `src/` est une sortie générée. Les requêtes publiques directes vers les fichiers runtime bruts comme `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` devraient retourner 404.

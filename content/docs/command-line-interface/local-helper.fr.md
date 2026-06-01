@@ -5,7 +5,6 @@ description: "Utiliser le helper shell v8s en lecture seule pour ouvrir des redi
 weight: 10
 aliases:
   - /docs/local-helper/
-
 ---
 
 Le helper local est la commande terminal `v8s`. Il vous permet d'ouvrir un lien court connu directement depuis votre terminal au lieu de passer d'abord au navigateur, taper le domaine court et attendre la redirection. Pour le travail quotidien, cela rend les liens répétés plus rapides à atteindre.
@@ -50,9 +49,9 @@ source /path/to/YOUR-SHORT-DOMAIN/scripts/v8s.sh
 
 ## Utiliser le helper
 
-| Commande | Comportement |
-| --- | --- |
-| `v8s --list` | Liste les slugs actifs `permanent` et `ephemeral` depuis le registre |
-| `v8s slug` | Ouvre la cible pour la valeur exacte `slug` |
-| `v8s --print slug` | Affiche la cible sans l'ouvrir |
-| `v8s --path` | Affiche le chemin du registre actuellement utilisé |
+| Commande           | Comportement                                                         |
+| ------------------ | -------------------------------------------------------------------- |
+| `v8s --list`       | Liste les slugs actifs `permanent` et `ephemeral` depuis le registre |
+| `v8s slug`         | Ouvre la cible pour la valeur exacte `slug`                          |
+| `v8s --print slug` | Affiche la cible sans l'ouvrir                                       |
+| `v8s --path`       | Affiche le chemin du registre actuellement utilisé                   |
