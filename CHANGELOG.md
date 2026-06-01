@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.0](https://github.com/vanityURLs/website/compare/v2.15.4...v2.16.0) (2026-06-01)
+
+
+### Features
+
+* move website from www to apex ([1903a64](https://github.com/vanityURLs/website/commit/1903a6434ce7fcf771564042285a845b701bd3d6))
+
+
+### Bug Fixes
+
+* render data text as inline markdown ([2df722f](https://github.com/vanityURLs/website/commit/2df722f4b1058fb01ef78c03557ae1fb3bd439a9))
+
 ## [2.15.4](https://github.com/vanityURLs/website/compare/v2.15.3...v2.15.4) (2026-06-01)
 
 
