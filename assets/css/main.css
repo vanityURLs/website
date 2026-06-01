@@ -825,6 +825,118 @@
     overflow-x: auto;
     white-space: pre;
   }
+  .cheatsheet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 0.9rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .cheatsheet-card {
+    break-inside: avoid;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    overflow: hidden;
+  }
+  .dark .cheatsheet-card {
+    border-color: #1f2937;
+    background: #0f172a;
+  }
+  .prose .cheatsheet-card h2 {
+    margin: 0;
+    padding: 0.7rem 0.85rem;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f8fafc;
+    color: #111827;
+    font-size: 0.95rem;
+    line-height: 1.25;
+  }
+  .dark .prose .cheatsheet-card h2 {
+    border-bottom-color: #1f2937;
+    background: #111827;
+    color: #f9fafb;
+  }
+  .prose .cheatsheet-card table,
+  .prose table.cheatsheet-compare {
+    display: table;
+    width: 100%;
+    margin: 0;
+    table-layout: fixed;
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+  .prose table.cheatsheet-compare {
+    margin: 1rem 0 2rem;
+  }
+  .prose .cheatsheet-card th,
+  .prose .cheatsheet-card td,
+  .prose table.cheatsheet-compare th,
+  .prose table.cheatsheet-compare td {
+    padding: 0.55rem 0.65rem;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .prose .cheatsheet-card th,
+  .prose table.cheatsheet-compare th {
+    font-size: 0.68rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: #64748b;
+    background: #f8fafc;
+  }
+  .dark .prose .cheatsheet-card th,
+  .dark .prose table.cheatsheet-compare th {
+    color: #94a3b8;
+    background: #111827;
+  }
+  .prose .cheatsheet-card td:first-child,
+  .prose table.cheatsheet-compare td:first-child {
+    font-weight: 650;
+    color: #111827;
+  }
+  .dark .prose .cheatsheet-card td:first-child,
+  .dark .prose table.cheatsheet-compare td:first-child {
+    color: #f3f4f6;
+  }
+  .prose .cheatsheet-card code,
+  .prose table.cheatsheet-compare code {
+    white-space: normal;
+  }
+  @media (min-width: 64rem) {
+    .cheatsheet-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 90rem) {
+    .cheatsheet-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media print {
+    .cheatsheet-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.45rem;
+    }
+    .cheatsheet-card {
+      border-color: #d1d5db;
+      box-shadow: none;
+    }
+    .prose .cheatsheet-card h2 {
+      padding: 0.35rem 0.45rem;
+      font-size: 0.78rem;
+    }
+    .prose .cheatsheet-card table,
+    .prose table.cheatsheet-compare {
+      font-size: 0.62rem;
+      line-height: 1.25;
+    }
+    .prose .cheatsheet-card th,
+    .prose .cheatsheet-card td,
+    .prose table.cheatsheet-compare th,
+    .prose table.cheatsheet-compare td {
+      padding: 0.28rem 0.35rem;
+    }
+  }
   .prose a code {
     color: #075985;
     text-decoration-line: underline;

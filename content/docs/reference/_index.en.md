@@ -16,6 +16,7 @@ Start here when you already have an instance running and want to understand how 
 | ----------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Analytics](/docs/reference/analytics/)                     | Server-side analytics events, provider payloads, IP modes, and blocked traffic      |
 | [Brand](/docs/reference/brand/)                             | Wordmarks, slogans, badge assets, color tokens, and installer-managed public assets |
+| [Cheatsheet](/docs/reference/cheatsheet/)                   | Compact operator reference for files, workflows, behaviors, and troubleshooting     |
 | [Cloudflare products](/docs/reference/cloudflare-products/) | Cloudflare products and dashboard surfaces used by the vanityURLs baseline          |
 | [Configuration files](/docs/reference/configuration-files/) | Source, custom, local, and generated configuration files                            |
 | [Custom overrides](/docs/reference/custom-overrides/)       | Instance-owned file overlays, public override paths, and status-page placeholders   |
