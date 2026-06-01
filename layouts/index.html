@@ -22,12 +22,12 @@
 
       <!-- Headline -->
       <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4 leading-tight">
-        {{ $data.hero_title }}<br class="hidden sm:block">
-        <span class="text-brand-400">{{ $data.hero_title2 }}</span>
+        {{ partial "inline-markdown.html" $data.hero_title }}<br class="hidden sm:block">
+        <span class="text-brand-400">{{ partial "inline-markdown.html" $data.hero_title2 }}</span>
       </h1>
 
       <p class="text-xl text-gray-300 mb-10 max-w-2xl">
-        {{ $data.hero_subtitle }}
+        {{ partial "inline-markdown.html" $data.hero_subtitle }}
       </p>
 
       <!-- CTAs -->
@@ -39,7 +39,7 @@
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
           </svg>
-          {{ $data.cta_get_started }}
+          {{ partial "inline-markdown.html" $data.cta_get_started }}
         </a>
         <a href="{{ .Site.Params.github }}" target="_blank" rel="noopener"
            class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg
@@ -63,10 +63,10 @@
 
     <div class="text-center mb-10">
       <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-        {{ $data.features_title }}
+        {{ partial "inline-markdown.html" $data.features_title }}
       </h2>
       <p class="text-gray-500 dark:text-gray-400">
-        {{ $data.features_subtitle }}
+        {{ partial "inline-markdown.html" $data.features_subtitle }}
       </p>
     </div>
 
@@ -85,8 +85,8 @@
           </svg>
         </div>
         <div class="min-w-0">
-          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ .title }}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ .desc }}</p>
+          <h3 class="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">{{ partial "inline-markdown.html" .title }}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ partial "inline-markdown.html" .desc }}</p>
         </div>
       </div>
       {{ end }}
@@ -98,10 +98,10 @@
 <section class="py-16 bg-gray-50 dark:bg-gray-800/30 border-y border-gray-200 dark:border-gray-700">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2 text-center">
-      {{ $data.how_it_works_title }}
+      {{ partial "inline-markdown.html" $data.how_it_works_title }}
     </h2>
     <p class="text-gray-500 dark:text-gray-400 text-center mb-10">
-      {{ $data.how_it_works_subtitle }}
+      {{ partial "inline-markdown.html" $data.how_it_works_subtitle }}
     </p>
 
     <div class="space-y-6">
@@ -110,8 +110,8 @@
         <div class="w-8 h-8 rounded-full bg-brand-500 dark:bg-brand-600 text-white font-bold text-sm
                     flex items-center justify-center shrink-0 mt-0.5 shadow-sm">{{ .n }}</div>
         <div>
-          <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">{{ .title }}</h3>
-          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ .desc }}</p>
+          <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">{{ partial "inline-markdown.html" .title }}</h3>
+          <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">{{ partial "inline-markdown.html" .desc }}</p>
         </div>
       </div>
       {{ end }}

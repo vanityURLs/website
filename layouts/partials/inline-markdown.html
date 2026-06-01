@@ -1,0 +1,5 @@
+{{- $value := printf "%s" . -}}
+{{- if $value -}}
+  {{- $rendered := $value | markdownify -}}
+  {{- replaceRE "(?s)^<p>(.*)</p>\\n?$" "$1" $rendered | safeHTML -}}
+{{- end -}}
