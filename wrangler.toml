@@ -1,4 +1,4 @@
-name = 'vanityurls-website'
+name = 'vanityurls'
 main = 'src/worker.mjs'
 compatibility_date = '2026-05-01'
 
@@ -36,7 +36,7 @@ run_worker_first = [
 ]
 
 [[routes]]
-pattern = "www.vanityurls.link"
+pattern = "vanityurls.link"
 custom_domain = true
 
 [observability]
