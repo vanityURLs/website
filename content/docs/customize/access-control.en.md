@@ -7,7 +7,7 @@ aliases:
   - /docs/access-control/
 ---
 
-Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure `/_stats` and `/_tests`.
+Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure `/_stats`, localized stats pages such as `/fr/_stats/`, and `/_tests`.
 
 The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths; refer to [Store the Access audience](#store-the-access-audience) below. If the secret is missing or invalid, the protected path fails closed.
 
@@ -51,12 +51,16 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 3. Continue with **Self-hosted and private**
 4. Configure the destinations with _your_ short domain ← replace `v8s.link` with _your_ short domain everywhere
 
-| Subdomain | Domain     | Path       |
-| --------- | ---------- | ---------- |
-|           | `v8s.link` | `_stats`   |
-|           | `v8s.link` | `_stats/*` |
-|           | `v8s.link` | `_tests`   |
-|           | `v8s.link` | `_tests/*` |
+| Subdomain | Domain     | Path         |
+| --------- | ---------- | ------------ |
+|           | `v8s.link` | `_stats`     |
+|           | `v8s.link` | `_stats/*`   |
+|           | `v8s.link` | `*/_stats`   |
+|           | `v8s.link` | `*/_stats/*` |
+|           | `v8s.link` | `_tests`     |
+|           | `v8s.link` | `_tests/*`   |
+
+Cloudflare Access supports wildcards in the path field. The `*/_stats` entries cover localized dashboard paths such as `/fr/_stats/` while leaving ordinary public short links outside Access.
 
 Use one Access application for the private vanityURLs operations. Public redirect paths should stay outside Access so visitors can follow short links without logging in.
 
@@ -103,9 +107,10 @@ Before release:
 1. Use the Cloudflare policy tester to confirm an allowed identity succeeds
 2. Use the policy tester to confirm a denied identity fails
 3. Visit `/_stats` from a signed-out or private browser profile
-4. Visit `/_tests` from a signed-out or private browser profile
-5. Confirm Cloudflare Access appears before the dashboard or test page
-6. Sign in with an allowed identity and confirm the page loads
+4. Visit one localized stats path, for example `/fr/_stats/`
+5. Visit `/_tests` from a signed-out or private browser profile
+6. Confirm Cloudflare Access appears before the dashboard or test page
+7. Sign in with an allowed identity and confirm the page loads
 
 Run the local checks before pushing configuration changes:
 
@@ -117,6 +122,6 @@ After deployment, repeat the signed-out browser test against the real short doma
 
 For your information: Cloudflare Access is not the only layer that limits operational file access. For the complete guard table, read [Runtime security](/docs/reference/runtime-security/). For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**. This is a design note, not a separate setup activity.
+Keep controlled access on `/_stats`, localized stats paths such as `/fr/_stats/`, and `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**. This is a design note, not a separate setup activity.
 
 {{% /steps %}}

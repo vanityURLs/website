@@ -373,12 +373,12 @@
   evidence:
     - repo: vanityURLs/code
       path: scripts/workers/worker.mjs
-      note: "`/_stats` and `/_tests` paths require Cloudflare Access JWT validation."
+      note: "`/_stats`, localized stats paths, and `/_tests` require Cloudflare Access JWT validation."
     - repo: vanityURLs/website
       path: content/docs/customize/access-control.en.md
       note: "Access control docs describe protecting operational surfaces."
   answer: >
-    The Worker treats `/_stats` and `/_tests` as protected operational paths. If `CF_ACCESS_TEAM_DOMAIN` or `CF_ACCESS_AUD` is missing, those paths fail closed with `503` instead of becoming public.
+    The Worker treats `/_stats`, localized stats paths such as `/fr/_stats/`, and `/_tests` as protected operational paths. Configure the Cloudflare Access application for `/_stats`, `*/_stats`, and `/_tests` path patterns. If `CF_ACCESS_TEAM_DOMAIN` or `CF_ACCESS_AUD` is missing, those paths fail closed with `503` instead of becoming public.
   related: [cloudflare-access-jwt, runtime-security-layers]
   tags: [cloudflare-access, protected-paths, trust-safety]
   last_reviewed: 2026-05-27
