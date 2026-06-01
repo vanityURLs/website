@@ -74,6 +74,6 @@ Si `expires_at` est passe, l'état effectif devient `expired`.
 - Pas de segment vide
 - Pas de query string ou fragment
 - Chaque segment commence par une lettre ou un chiffre
-- Les segments peuvent contenir lettres, chiffres, `.`, `_`, `~`, et `-`
+- Les caractères de segment sont en ASCII seulement : lettres, chiffres, `.`, `_`, `~` et `-`
 
 Les slugs réserves incluent `admin`, `404`, `expired`, `disabled`, `maintenance`, `deactivated`, `assets`, et `v8s.json`.

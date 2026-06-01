@@ -8,7 +8,7 @@ aliases:
   - /docs/customize/brand/
 ---
 
-Branding controls the public wordmark, the short line under generated legal and trust pages, and the default public assets copied into `custom/public/` at build time.
+Branding controls the public wordmark and the short line under generated public pages. These values live in `custom/v8s-site-config.json` and are applied at build time, so a normal branded instance does not need to copy default pages into `custom/public/`.
 
 You can customize during `npm run setup` or by manually updating files in `custom/`.
 
@@ -16,14 +16,14 @@ If `operator.operator_domain` is set in `custom/v8s-site-config.json`, generated
 
 ## Setup questions
 
-| Setup question                                                              | When it appears                      | Phase 1 recommendation                                                  | Later customization                                                                    | What it controls                                                                                |
-| --------------------------------------------------------------------------- | ------------------------------------ | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Configure branding now?                                                     | Always                               | Use `Y` when you want installer-managed public pages                    | Use `N` when you already maintain `custom/public/` by hand                             | Whether setup asks the branding questions now                                                   |
-| Add a slogan line under the domain name on your pages...?                   | When branding is enabled             | Use `Y` when you want a short line under the domain wordmark            | Use `N` when the domain wordmark should stand alone                                    | Whether generated pages include a short slogan below the split-color domain wordmark            |
-| Brand slogan `[language]`                                                   | When the slogan line is enabled      | Enter the English slogan first, then each additional supported language | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages | Localized text shown below the split-color domain wordmark on generated public pages            |
-| Copy default web pages to custom/public with a split-color domain wordmark? | When branding is enabled             | Use `Y` for a first instance                                            | Use `N` when custom pages already exist and should not be overwritten                  | Whether setup copies editable public pages into `custom/public/` and applies the wordmark split |
-| Black wordmark portion                                                      | When copied public pages are enabled | Domain prefix, such as `v8s.`                                           | Use the portion that should render in the dark brand color                             | First part of the homepage and public-page wordmark                                             |
-| Green wordmark portion                                                      | When copied public pages are enabled | Domain suffix, such as `link`                                           | Use the portion that should render in vanityURLs teal                                  | Second part of the homepage and public-page wordmark                                            |
+| Setup question                                                            | When it appears                 | Phase 1 recommendation                                                  | Later customization                                                                    | What it controls                                                                     |
+| ------------------------------------------------------------------------- | ------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Configure branding now?                                                   | Always                          | Use `Y` when you want setup-managed wordmark and slogan values          | Use `N` when you already maintain branding config by hand                              | Whether setup asks the branding questions now                                        |
+| Add a slogan line under the domain name on your pages...?                 | When branding is enabled        | Use `Y` when you want a short line under the domain wordmark            | Use `N` when the domain wordmark should stand alone                                    | Whether generated pages include a short slogan below the split-color domain wordmark |
+| Brand slogan `[language]`                                                 | When the slogan line is enabled | Enter the English slogan first, then each additional supported language | Keep each slogan durable enough to appear on trust, privacy, terms, and security pages | Localized text shown below the split-color domain wordmark on generated public pages |
+| Copy full default web pages to custom/public for manual template editing? | When branding is enabled        | Use `N` unless you plan to edit default HTML templates                  | Use `Y` only when you intentionally want full page overrides under `custom/public/`    | Whether setup copies editable public pages into `custom/public/`                     |
+| Black wordmark portion                                                    | When branding is enabled        | Domain prefix, such as `v8s.`                                           | Use the portion that should render in the dark brand color                             | First part of the homepage and public-page wordmark                                  |
+| Green wordmark portion                                                    | When branding is enabled        | Domain suffix, such as `link`                                           | Use the portion that should render in vanityURLs teal                                  | Second part of the homepage and public-page wordmark                                 |
 
 You can run `npm run setup` again later. The installer reads existing branding values and offers them as defaults, so it is fine to start with the generated split and refine the assets later.
 
@@ -50,9 +50,11 @@ Put instance-owned brand assets under `custom/public/` so they overlay the defau
 {{< /filetree/folder >}}
 {{< /filetree/container >}}
 
-## Installer-managed public pages
+## Build-time branding and copied pages
 
-`npm run setup` can copy `defaults/public/` into `custom/public/`, rewrite the default `Vanity` + `URLs` wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.
+By default, setup records the wordmark, localized slogans, and brand domain in `custom/v8s-site-config.json`. During `npm run build`, vanityURLs copies `defaults/public/` into `build/` and applies those branding values there. This keeps unmodified pages in `defaults/`, where upstream updates can refresh them.
+
+Only copy full pages into `custom/public/` when you intend to manually edit HTML templates. In that mode, `npm run setup` can copy `defaults/public/` into `custom/public/`, rewrite the default `Vanity` + `URLs` wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.
 
 The installer records those choices in `custom/v8s-site-config.json` so repeated setup runs are predictable. If `custom/public/` already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass `--force`.
 
@@ -151,7 +153,7 @@ The vanityURLs visual system currently covers badge colors, localized badge file
   <section class="brand-section">
     <h3>Instance wordmark configuration</h3>
     <p>Installer-managed instances can store a split-color wordmark in <code>custom/v8s-site-config.json</code>. The green portion should use the vanityURLs brand teal unless the instance has a deliberate local brand system.</p>
-    <p>When branding is enabled, the installer can copy editable public pages into <code>custom/public</code>, optionally set a localized slogan below generated public-page wordmarks, and split the homepage domain wordmark into a dark prefix and a green suffix.</p>
+    <p>When branding is enabled, the installer stores localized slogans and the split-color wordmark in <code>custom/v8s-site-config.json</code>. The build applies those values to generated public pages without requiring copied templates in <code>custom/public</code>.</p>
     <pre class="brand-code"><code>{
   "branding": {
     "domain": "example.link",

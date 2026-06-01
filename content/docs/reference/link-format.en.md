@@ -74,6 +74,6 @@ If `expires_at` is earlier than the current time, the effective state becomes `e
 - No empty segment
 - No query string or fragment
 - Each segment starts with a letter or digit
-- Segment characters can include letters, digits, `.`, `_`, `~`, and `-`
+- Segment characters are ASCII only: letters, digits, `.`, `_`, `~`, and `-`
 
 Reserved top-level slugs include `admin`, `404`, `expired`, `disabled`, `maintenance`, `deactivated`, `assets`, and `v8s.json`.

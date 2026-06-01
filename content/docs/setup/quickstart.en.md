@@ -89,7 +89,7 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
-For the operator timezone question, enter a timezone name such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Use the place that represents the operator's normal working timezone, not the current offset. For example, Eastern Time is `America/Toronto` or `America/New_York`; setup and the Worker handle EST/EDT automatically. For more choices, see [Timezones](/docs/reference/timezones/).
+For the operator timezone question, enter a timezone name such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Use the place that represents the operator's normal working timezone, not the current offset. For example, Eastern Time is `America/Toronto` or `America/New_York`; setup and the Worker handle EST/EDT automatically. This value helps scheduled links and operator-facing timestamps in `/_stats`. For more context, read [Operator timezone is not just a setup question](/blog/operator-timezone-is-not-just-a-setup-question/), then use [Timezones](/docs/reference/timezones/) for accepted values.
 
 ### Install local helpers
 

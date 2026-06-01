@@ -33,6 +33,8 @@ Gardez les changements produit dans `defaults/` seulement lorsque vous contribue
 
 ## Carte des surcharges publiques
 
+Les pages publiques par défaut partagent des assets produit comme `/style.css` et `/script.js`. Si vous ajoutez du JavaScript ou du CSS pour des pages custom, utilisez des noms propres à l'instance, comme `/custom-home.css`, `/brand-pages.css` ou `/operator-tools.js`, au lieu de remplacer `style.css` ou `script.js` trop facilement. Remplacer ces fichiers partagés affecte toutes les pages par défaut que vous n'avez pas encore surchargées.
+
 | Surcharge                            | Chemin                                                                                                              | Détails                                                                                                                              |
 | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Assets de marque et badges redirigés | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg`            | [Marque](/fr/docs/reference/brand/)                                                                                                  |

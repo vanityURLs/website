@@ -30,3 +30,5 @@ node -e 'console.log(["UTC", ...Intl.supportedValuesOf("timeZone")].join("\n"))'
 ```
 
 Si setup refuse un fuseau horaire, choisissez une valeur dans la sortie de cette commande. Gardez `UTC` seulement lorsque vous voulez intentionnellement que les horodatages générés et les horaires par défaut utilisent le temps universel coordonné.
+
+Pour le raisonnement opérationnel derrière la question de setup, lisez [Le fuseau horaire de l'opérateur n'est pas seulement une question de setup](/fr/blog/operator-timezone-is-not-just-a-setup-question/).

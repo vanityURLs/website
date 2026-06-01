@@ -31,6 +31,8 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 
 ## Public override map
 
+Default public pages share product-level assets such as `/style.css` and `/script.js`. If you add JavaScript or CSS for custom pages, use instance-specific filenames such as `/custom-home.css`, `/brand-pages.css`, or `/operator-tools.js` instead of replacing `style.css` or `script.js` casually. Replacing those shared files affects every default page you have not overridden yet.
+
 | Override                           | Path                                                                                                                | Details                                                                                                                              |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Brand assets and redirected badges | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg`            | [Brand](/docs/reference/brand/)                                                                                                      |

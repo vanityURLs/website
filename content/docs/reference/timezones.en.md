@@ -30,3 +30,5 @@ node -e 'console.log(["UTC", ...Intl.supportedValuesOf("timeZone")].join("\n"))'
 ```
 
 If setup rejects a timezone, choose one from that command's output. Keep `UTC` only when you intentionally want generated timestamps and default schedule behavior to use Coordinated Universal Time.
+
+For the operational rationale behind the setup question, read [Operator timezone is not just a setup question](/blog/operator-timezone-is-not-just-a-setup-question/).

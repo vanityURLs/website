@@ -89,7 +89,7 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
 
-Pour le fuseau horaire de l'opérateur, entrez un nom comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. Utilisez le lieu qui représente le fuseau normal de l'opérateur, pas le décalage actuel. Par exemple, l'heure de l'Est est `America/Toronto` ou `America/New_York`; setup et le Worker gèrent automatiquement EST/EDT. Pour plus de choix, consultez [Fuseaux horaires](/fr/docs/reference/timezones/).
+Pour le fuseau horaire de l'opérateur, entrez un nom comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. Utilisez le lieu qui représente le fuseau normal de l'opérateur, pas le décalage actuel. Par exemple, l'heure de l'Est est `America/Toronto` ou `America/New_York`; setup et le Worker gèrent automatiquement EST/EDT. Cette valeur aide les liens planifiés et les horodatages opérateur dans `/_stats`. Pour plus de contexte, lisez [Le fuseau horaire de l'opérateur n'est pas seulement une question de setup](/fr/blog/operator-timezone-is-not-just-a-setup-question/), puis consultez [Fuseaux horaires](/fr/docs/reference/timezones/) pour les valeurs acceptées.
 
 ### Installer les helpers locaux
 
