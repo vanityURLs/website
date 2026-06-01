@@ -7,7 +7,7 @@ tags: ["cloudflare", "access", "identity"]
 
 La première décision d'identité pour un domaine court devrait être ennuyeuse.
 
-Protegez `/_stats` et `/_tests` avant que l'instance soit publique. Ne passez pas le premier déploiement a concevoir une architecture d'identité enterprise si l'enterprise n'existe pas encore.
+Protegez `/en/_stats/`, les autres chemins stats localisés et `/_tests` avant que l'instance soit publique. Ne passez pas le premier déploiement a concevoir une architecture d'identité enterprise si l'enterprise n'existe pas encore.
 
 Pour vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) protège les pages opérationnelles avant que le Worker les serve. La question n'est pas "quel IdP est le meilleur?" La question est "quel chemin d'accès l'opérateur peut-il réviser et retirer sans ceremonie?"
 
@@ -44,7 +44,7 @@ Cette flexibilité est utile. C'est aussi un piege si personne ne possède la re
 Apres avoir configure le fournisseur, testez la frontiere :
 
 1. Ouvrez un profil de navigateur deconnecte ou privé.
-2. Visitez `https://<short-domain>/_stats`.
+2. Visitez `https://<short-domain>/en/_stats/`.
 3. Confirmez que Cloudflare Access apparait avant le tableau de bord.
 4. Confirmez qu'une identité non autorisee échoue.
 

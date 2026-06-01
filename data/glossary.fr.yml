@@ -1,7 +1,7 @@
 terms:
   - id: access-application
     term: Application Access
-    definition: Une application Cloudflare Zero Trust qui protège certains chemins, comme `/_stats/*`, les chemins stats localisés comme `/fr/_stats/` et `/_tests/*`, avant que le Worker serve ces pages.
+    definition: Une application Cloudflare Zero Trust qui protège certains chemins, comme les chemins stats localisés `/en/_stats/` et `/fr/_stats/`, ainsi que `/_tests/*`, avant que le Worker serve ces pages.
   - id: access-policy
     term: Politique Access
     definition: Une règle Cloudflare Zero Trust qui decide quelles identités peuvent atteindre une application Access protégée.

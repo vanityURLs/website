@@ -10,7 +10,7 @@ aliases:
   - /docs/référence/admin-dashboard/
 ---
 
-Le tableau `/_stats` est volontairement modeste. Il ne modifie pas les liens, ne publie pas de changements et ne remplace pas la revue Git. Il donne à l'opérateur une vue protégée en lecture seule de ce que le Worker fera avec le registre génère.
+Le tableau `/en/_stats/` est volontairement modeste. Il ne modifie pas les liens, ne publie pas de changements et ne remplace pas la revue Git. Il donne à l'opérateur une vue protégée en lecture seule de ce que le Worker fera avec le registre génère. Les autres langues prises en charge utilisent le même modèle localisé, comme `/fr/_stats/`.
 
 C'est utile dans les moments ou un fichier texte est un peu trop silencieux : après un déploiement, avant un nettoyage, quand un lien expire, ou quand quelqu'un demande si un slug est exact, splat, permanent, désactive, ou incomplet.
 
@@ -33,7 +33,7 @@ C'est le plan routage et cycle de vie. Les analytics restent dans Umami, Fathom 
 
 ## Pourquoi lecture seule
 
-vanityURLs traite Git comme la source de vérité. Le tableau lit `/_stats/api/v8s.json`, qui derive du registre runtime génère. Modifier depuis le tableau créerait une deuxieme source de vérité, exactement la ou les petits outils deviennent surprenants.
+vanityURLs traite Git comme la source de vérité. Le tableau lit `/en/_stats/api/v8s.json` ou l'API stats localisée correspondante, qui derive du registre runtime génère. Modifier depuis le tableau créerait une deuxieme source de vérité, exactement la ou les petits outils deviennent surprenants.
 
 Le design en lecture seule garde le workflow simple :
 
@@ -41,10 +41,10 @@ Le design en lecture seule garde le workflow simple :
 2. lancer la validation
 3. commiter le changement
 4. pousser pour déployer
-5. utiliser `/_stats` pour confirmer l'horodatage du registre déployé et le résultat
+5. utiliser `/en/_stats/` pour confirmer l'horodatage du registre déployé et le résultat
 
 ## Le protéger
 
-Le tableau devrait être derrière Cloudflare Access. Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*`, puis utilisez [Contrôle d'accès](/fr/docs/customize/access-control/) comme configuration attendue.
+Le tableau devrait être derrière Cloudflare Access. Protegez `*/_stats`, `*/_stats/*`, `/_tests`, et `/_tests/*`, puis utilisez [Contrôle d'accès](/fr/docs/customize/access-control/) comme configuration attendue. Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`.
 
-Pour les details de configuration autour de la protection de `/_stats`, utilisez [Contrôle d'accès](/fr/docs/customize/access-control/).
+Pour les details de configuration autour de la protection des chemins stats localisés, utilisez [Contrôle d'accès](/fr/docs/customize/access-control/).

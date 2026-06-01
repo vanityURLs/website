@@ -30,7 +30,7 @@ Ce changement ne vise pas a grossir le système. Il rend la version simple plus 
 
 - le registre de liens est génère et valide avant déploiement
 - le Worker accepte seulement la surface de requête nécessaire
-- les pages opérationnelles comme `/_stats` et `/_tests` peuvent être protégées par Cloudflare Access
+- les pages opérationnelles comme `/en/_stats/`, les autres chemins stats localisés et `/_tests` peuvent être protégées par Cloudflare Access
 - les analytics serveur peuvent être émis sans JavaScript navigateur
 - la blocklist, les états de cycle de vie, et les planifications tournent de facon coherente à l'edge
 - le même code peut soutenir une instance privée aujourd'hui et une instance publique plus tard

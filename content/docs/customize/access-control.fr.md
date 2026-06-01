@@ -7,7 +7,7 @@ aliases:
   - /docs/access-control/
 ---
 
-Utilisez Cloudflare Access pour protéger les chemins opérationnels de vanityURLs tout en gardant les redirections publiques ouvertes. Suivez cette page lorsque vous êtes prêt à sécuriser `/_stats`, les pages stats localisées comme `/fr/_stats/` et `/_tests`.
+Utilisez Cloudflare Access pour protéger les chemins opérationnels de vanityURLs tout en gardant les redirections publiques ouvertes. Suivez cette page lorsque vous êtes prêt à sécuriser les pages stats localisées comme `/en/_stats/` et `/fr/_stats/`, ainsi que `/_tests`.
 
 Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins; consultez [Stocker l'audience Access](#stocker-laudience-access) ci-dessous. Si le secret est absent ou invalide, le chemin protégé échoue fermé.
 
@@ -53,14 +53,12 @@ Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**,
 
 | Sous-domaine | Domaine    | Chemin       |
 | ------------ | ---------- | ------------ |
-|              | `v8s.link` | `_stats`     |
-|              | `v8s.link` | `_stats/*`   |
 |              | `v8s.link` | `*/_stats`   |
 |              | `v8s.link` | `*/_stats/*` |
 |              | `v8s.link` | `_tests`     |
 |              | `v8s.link` | `_tests/*`   |
 
-Cloudflare Access accepte les wildcards dans le champ chemin. Les entrées `*/_stats` couvrent les chemins de tableau de bord localisés comme `/fr/_stats/` tout en laissant les liens courts publics hors Access.
+Cloudflare Access accepte les wildcards dans le champ chemin. Les entrées `*/_stats` couvrent les chemins de tableau de bord localisés comme `/en/_stats/` et `/fr/_stats/` tout en laissant les liens courts publics hors Access. Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`; elles n'ont pas besoin de destinations Access séparées.
 
 Utilisez une seule application Access pour les opérations privées vanityURLs. Les chemins de redirection publics doivent rester hors Access pour que les visiteurs puissent suivre les liens courts sans connexion.
 
@@ -106,8 +104,8 @@ Avant la release :
 
 1. Utilisez le testeur de politique Cloudflare pour confirmer qu'une identité autorisée réussit
 2. Utilisez le testeur de politique pour confirmer qu'une identité refusée échoue
-3. Visitez `/_stats` depuis un profil de navigateur déconnecté ou privé
-4. Visitez un chemin stats localisé, par exemple `/fr/_stats/`
+3. Visitez `/en/_stats/` depuis un profil de navigateur déconnecté ou privé
+4. Visitez un autre chemin stats localisé, par exemple `/fr/_stats/`
 5. Visitez `/_tests` depuis un profil de navigateur déconnecté ou privé
 6. Confirmez que Cloudflare Access apparaît avant le tableau de bord ou la page de test
 7. Connectez-vous avec une identité autorisée et confirmez que la page charge
@@ -122,6 +120,6 @@ Après le déploiement, répétez le test de navigateur déconnecté contre le v
 
 Pour information : Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Pour le tableau complet des gardes, lisez [Sécurité runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Gardez l'accès contrôle sur `/_stats`, les chemins stats localisés comme `/fr/_stats/` et `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une **raison délibérée de divulgation publique**. C'est une note de conception, pas une activité de configuration séparée.
+Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, ainsi que `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une **raison délibérée de divulgation publique**. C'est une note de conception, pas une activité de configuration séparée.
 
 {{% /steps %}}

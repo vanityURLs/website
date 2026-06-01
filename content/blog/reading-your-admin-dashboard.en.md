@@ -10,7 +10,7 @@ aliases:
   - /docs/reference/admin-dashboard/
 ---
 
-The `/_stats` dashboard is intentionally modest. It does not edit links, publish changes, or replace Git review. It gives the operator a protected read-only view of what the Worker will do with the generated registry.
+The `/en/_stats/` dashboard is intentionally modest. It does not edit links, publish changes, or replace Git review. It gives the operator a protected read-only view of what the Worker will do with the generated registry. Other supported languages use the same localized pattern, such as `/fr/_stats/`.
 
 That makes it useful in exactly the moments where a text file is a little too quiet: after a deployment, before a cleanup, when a link expires, or when someone asks whether a slug is exact, splat, permanent, disabled, or missing metadata.
 
@@ -33,7 +33,7 @@ It is the routing and lifecycle plane. Analytics still belong in Umami, Fathom, 
 
 ## Why it is read-only
 
-vanityURLs treats Git as the source of truth. The dashboard reads `/_stats/api/v8s.json`, which is derived from the generated runtime registry. Editing from the dashboard would create a second source of truth, and that is exactly where small tools become surprising.
+vanityURLs treats Git as the source of truth. The dashboard reads `/en/_stats/api/v8s.json` or the matching localized stats API, which is derived from the generated runtime registry. Editing from the dashboard would create a second source of truth, and that is exactly where small tools become surprising.
 
 The read-only design keeps the workflow boring in the best way:
 
@@ -41,10 +41,10 @@ The read-only design keeps the workflow boring in the best way:
 2. run validation
 3. commit the change
 4. push to deploy
-5. use `/_stats` to confirm the deployed registry timestamp and result
+5. use `/en/_stats/` to confirm the deployed registry timestamp and result
 
 ## Protect it
 
-The dashboard should sit behind Cloudflare Access. Protect `/_stats`, `/_stats/*`, `/_tests`, and `/_tests/*`, then use [Access control](/docs/customize/access-control/) as the expected configuration.
+The dashboard should sit behind Cloudflare Access. Protect `*/_stats`, `*/_stats/*`, `/_tests`, and `/_tests/*`, then use [Access control](/docs/customize/access-control/) as the expected configuration. Legacy `/_stats` requests redirect to `/en/_stats/`.
 
-For the configuration details around protecting `/_stats`, use [Access control](/docs/customize/access-control/).
+For the configuration details around protecting localized stats paths, use [Access control](/docs/customize/access-control/).

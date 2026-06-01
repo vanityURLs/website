@@ -9,7 +9,7 @@ featured: false
 
 The operator timezone question in `npm run setup` looks like a small preference. It is more useful than that.
 
-vanityURLs uses timezone names in places where a numeric offset is too brittle: scheduled links, generated registry metadata, and operator-facing views such as `/_stats`.
+vanityURLs uses timezone names in places where a numeric offset is too brittle: scheduled links, generated registry metadata, and operator-facing views such as `/en/_stats/`.
 
 ## Use a place, not an offset
 
@@ -27,7 +27,7 @@ Inline `@schedule` rules can define their own timezone. When they do not, the re
 
 ## \_stats needs a human clock
 
-The protected `/_stats` dashboard is an operator tool. It helps confirm what registry is deployed, when it was generated, which links are scheduled, and what metadata is present.
+The protected `/en/_stats/` dashboard is an operator tool. It helps confirm what registry is deployed, when it was generated, which links are scheduled, and what metadata is present.
 
 Those timestamps and schedule labels are more useful when they line up with the operator's normal working day. UTC is excellent for systems. A local operator timezone is better for answering "did the build I just deployed include my change?"
 

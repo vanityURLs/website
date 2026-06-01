@@ -34,7 +34,7 @@ La CI devrait lancer `npm run check` avant le déploiement. Utilisez les command
 - Confirmez que le Worker à un binding `ASSETS`
 - Confirmez que le domaine custom pointe vers le Worker
 - Desactivez les URL publiques `workers.dev` et preview si elles ne font pas partie du service
-- Protegez `/_stats`, `/_stats/*`, `/_tests`, et `/_tests/*` avec [Contrôle d'accès](/fr/docs/customize/access-control/)
+- Protegez `*/_stats`, `*/_stats/*`, `/_tests`, et `/_tests/*` avec [Contrôle d'accès](/fr/docs/customize/access-control/)
 - Confirmez que le Worker accepte seulement `GET`, `HEAD`, et `OPTIONS` sur les routes publiques
 - Confirmez que les fichiers runtime bruts retournent 404 : `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json`
 - Confirmez que les headers incluent `X-Generated-By: vanityURLs.link` sauf surcharge intentionnelle
@@ -84,7 +84,7 @@ Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/), [Internation
 - Confirmez qu'un lien court actif connu retourne la redirection attendue
 - Confirmez qu'un slug cache ou absent retourne 404
 - Confirmez qu'une cible bloquee échoue la validation
-- Confirmez que `/_stats` et `/_tests` sont protégés
+- Confirmez que `/en/_stats/`, un autre chemin stats localisé et `/_tests` sont protégés
 - Confirmez que les analytics serveur recoivent un événement test si les analytics sont actifs
 - Confirmez que Cloudflare bloque le trafic scanner banal avant qu'il atteigne le Worker
 

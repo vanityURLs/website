@@ -5,11 +5,11 @@ description: "When to review Cloudflare Access settings and where to look when p
 tags: ["cloudflare", "access", "operations"]
 ---
 
-The failure mode is ordinary. Someone opens `/_stats` from a private browser window and sees the dashboard instead of the Cloudflare Access login page.
+The failure mode is ordinary. Someone opens `/en/_stats/` from a private browser window and sees the dashboard instead of the Cloudflare Access login page.
 
 That is the whole problem. Public redirects should stay public. Operational pages should not.
 
-For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) has one narrow job: keep `/_stats`, `/_tests`, and similar operator surfaces private before the Worker serves them. Treat it as an access boundary, not a setup souvenir.
+For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) has one narrow job: keep localized stats paths such as `/en/_stats/`, `/_tests`, and similar operator surfaces private before the Worker serves them. Treat it as an access boundary, not a setup souvenir.
 
 ## Review It When Ownership Changes
 
@@ -50,7 +50,7 @@ Start with one-time PIN and named email addresses.
 Then test the thing that matters:
 
 1. Open a signed-out or private browser profile.
-2. Visit `https://<short-domain>/_stats`.
+2. Visit `https://<short-domain>/en/_stats/`.
 3. Confirm Cloudflare Access appears before the dashboard.
 4. Repeat for `/_tests`.
 

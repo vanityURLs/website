@@ -89,7 +89,7 @@ For phase 1, focus on these installer answers. The installer also asks operator,
 
 Some defaults are derived from your previous answers so the installer does not ask for the same idea twice. Setup also skips related questions when you disable a section, such as analytics or full legal pages.
 
-For the operator timezone question, enter a timezone name such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Use the place that represents the operator's normal working timezone, not the current offset. For example, Eastern Time is `America/Toronto` or `America/New_York`; setup and the Worker handle EST/EDT automatically. This value helps scheduled links and operator-facing timestamps in `/_stats`. For more context, read [Operator timezone is not just a setup question](/blog/operator-timezone-is-not-just-a-setup-question/), then use [Timezones](/docs/reference/timezones/) for accepted values.
+For the operator timezone question, enter a timezone name such as `America/Toronto`, `America/New_York`, `Europe/Paris`, or `UTC`. Use the place that represents the operator's normal working timezone, not the current offset. For example, Eastern Time is `America/Toronto` or `America/New_York`; setup and the Worker handle EST/EDT automatically. This value helps scheduled links and operator-facing timestamps in `/en/_stats/`. For more context, read [Operator timezone is not just a setup question](/blog/operator-timezone-is-not-just-a-setup-question/), then use [Timezones](/docs/reference/timezones/) for accepted values.
 
 ### Install local helpers
 
@@ -144,7 +144,7 @@ In Cloudflare, open **Build** > **Compute** > **Workers & Pages** from the accou
 
 ### Configure Access control
 
-Access to the [Dashboard](https://v8s.link/_stats) and the [test matrix](https://v8s.link/_tests) must be protected by [Cloudflare Access](https://www.cloudflare.com/products/access/), a Zero Trust Network Access (ZTNA) solution.
+Access to the [Dashboard](https://v8s.link/en/_stats/) and the [test matrix](https://v8s.link/_tests) must be protected by [Cloudflare Access](https://www.cloudflare.com/products/access/), a Zero Trust Network Access (ZTNA) solution.
 
 Open [Access control](../customize/access-control/) in another tab and complete the activities there. Make sure that you have copied the **Application Audience (AUD) Tag** to your password manager.
 
@@ -189,6 +189,6 @@ If `custom/v8s-links.txt` does not exist, setup creates it from `defaults/v8s-li
 
 Test at least one initial custom link, such as `https://<short-domain>/docs`, and confirm that it redirects to the long link shown in the table. Test `https://<short-domain>/contact` when you want to see the starter schedule override that default during the configured 9-to-5 window.
 
-Then test `/_stats` and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page.
+Then test `/en/_stats/`, one other localized stats path such as `/fr/_stats/`, and `/_tests` from a signed-out or private browser profile. You should see Cloudflare Access before the protected dashboard or test page. The legacy `/_stats` path redirects to `/en/_stats/`.
 
 {{% /steps %}}

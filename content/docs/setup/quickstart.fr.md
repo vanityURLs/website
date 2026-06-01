@@ -89,7 +89,7 @@ Pour la phase 1, concentrez-vous sur ces réponses. L'installateur pose aussi de
 
 Certains défauts sont dérivés de vos réponses précédentes afin que l'installateur ne repose pas la même idée deux fois. Setup ignore aussi les questions liées lorsque vous désactivez une section, comme les analytics ou les pages légales complètes.
 
-Pour le fuseau horaire de l'opérateur, entrez un nom comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. Utilisez le lieu qui représente le fuseau normal de l'opérateur, pas le décalage actuel. Par exemple, l'heure de l'Est est `America/Toronto` ou `America/New_York`; setup et le Worker gèrent automatiquement EST/EDT. Cette valeur aide les liens planifiés et les horodatages opérateur dans `/_stats`. Pour plus de contexte, lisez [Le fuseau horaire de l'opérateur n'est pas seulement une question de setup](/fr/blog/operator-timezone-is-not-just-a-setup-question/), puis consultez [Fuseaux horaires](/fr/docs/reference/timezones/) pour les valeurs acceptées.
+Pour le fuseau horaire de l'opérateur, entrez un nom comme `America/Toronto`, `America/New_York`, `Europe/Paris` ou `UTC`. Utilisez le lieu qui représente le fuseau normal de l'opérateur, pas le décalage actuel. Par exemple, l'heure de l'Est est `America/Toronto` ou `America/New_York`; setup et le Worker gèrent automatiquement EST/EDT. Cette valeur aide les liens planifiés et les horodatages opérateur dans `/en/_stats/`. Pour plus de contexte, lisez [Le fuseau horaire de l'opérateur n'est pas seulement une question de setup](/fr/blog/operator-timezone-is-not-just-a-setup-question/), puis consultez [Fuseaux horaires](/fr/docs/reference/timezones/) pour les valeurs acceptées.
 
 ### Installer les helpers locaux
 
@@ -144,7 +144,7 @@ Dans Cloudflare, ouvrez **Build** > **Compute** > **Workers & Pages** depuis le 
 
 ### Configurer le contrôle d'accès
 
-L'accès au [Dashboard](https://v8s.link/_stats) et à la [matrice de test](https://v8s.link/_tests) doit être protégé par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
+L'accès au [Dashboard](https://v8s.link/en/_stats/) et à la [matrice de test](https://v8s.link/_tests) doit être protégé par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
 
 Ouvrez [Contrôle d'accès](../customize/access-control/) dans un autre onglet et complétéz les activités de cette page. Assurez-vous d'avoir copie le **Application Audience (AUD) Tag** dans votre gestionnaire de mots de passe.
 
@@ -189,6 +189,6 @@ Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-link
 
 Testez au moins un lien initial, comme `https://<short-domain>/docs`, et confirmez qu'il redirige vers le lien long indiqué dans le tableau. Testez `https://<short-domain>/contact` lorsque vous voulez voir l'horaire de départ remplacer cette cible pendant la fenêtre 9 à 5 configurée.
 
-Testez ensuite `/_stats` et `/_tests` depuis un profil de navigateur déconnecté ou privé. Vous devriez voir Cloudflare Access avant le tableau de bord protégé ou la page de test.
+Testez ensuite `/en/_stats/`, un autre chemin stats localisé comme `/fr/_stats/`, et `/_tests` depuis un profil de navigateur déconnecté ou privé. Vous devriez voir Cloudflare Access avant le tableau de bord protégé ou la page de test. L'ancien chemin `/_stats` redirige vers `/en/_stats/`.
 
 {{% /steps %}}

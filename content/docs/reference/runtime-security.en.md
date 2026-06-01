@@ -61,14 +61,14 @@ Default response headers include `X-Generated-By: vanityURLs.link`. If you overr
 
 ## Operational file guards
 
-Cloudflare Access is not the only layer that limits operational file access. Keep controlled access on `/_stats` and `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a deliberate public-disclosure reason.
+Cloudflare Access is not the only layer that limits operational file access. Keep controlled access on localized stats paths such as `/en/_stats/` and `/fr/_stats/`, plus `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a deliberate public-disclosure reason.
 
-| Control                            | Paths                                                                                      | What it does                                                             |
-| ---------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                                | Returns `404` for direct public requests                                 |
-| Static `_headers` fallback         | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*`      | Adds no-cache and no-index headers if static assets are served directly  |
-| Protected stats API                | `/_stats/api/v8s.json`                                                                     | Exposes the generated registry only through the protected stats surface  |
-| Reserved slug validation           | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Prevents short links from being created under reserved operational paths |
+| Control                            | Paths                                                                                   | What it does                                                             |
+| ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                             | Returns `404` for direct public requests                                 |
+| Static `_headers` fallback         | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/expand/*` | Adds no-cache and no-index headers if static assets are served directly  |
+| Protected stats API                | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                | Exposes the generated registry only through the protected stats surface  |
+| Reserved slug validation           | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`     | Prevents short links from being created under reserved operational paths |
 
 ## Cloudflare edge controls
 

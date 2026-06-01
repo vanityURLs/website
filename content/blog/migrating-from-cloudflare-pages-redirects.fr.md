@@ -22,7 +22,7 @@ Cette migration ne reinvente pas votre domaine court. Elle déplace proprement u
 - Le build copie `defaults/`, applique `custom/`, et génère `build/v8s.json`, `build/v8s-blocklist.json`, et `build/v8s-site-config.json`
 - `custom/v8s-links.txt` est préfère quand il existe; sinon le build utilise `defaults/v8s-links.txt`
 - la politique source éditable est `v8s-policies.json`; `build/v8s-blocklist.json` est une sortie runtime générée
-- `/_stats` et `/_tests` sont protégés par [Cloudflare Access](/fr/docs/customize/access-control/)
+- `/en/_stats/`, les autres chemins stats localisés et `/_tests` sont protégés par [Cloudflare Access](/fr/docs/customize/access-control/)
 - les analytics serveur sont émis par le Worker
 - les probes et destinations risquées sont bloquées par la politique runtime générée
 
@@ -64,7 +64,7 @@ Utilisez `--default-state permanent` si les statuts omis doivent devenir permane
 3. Visitez un lien court valide et confirmez la redirection
 4. Visitez un slug manquant et confirmez le 404 localisé
 5. Visitez `/expand/`
-6. Visitez `/_stats` dans une fenêtre privée et confirmez la connexion Cloudflare Access avec [Access control](/fr/docs/customize/access-control/) comme configuration attendue
+6. Visitez `/en/_stats/` dans une fenêtre privée et confirmez la connexion Cloudflare Access avec [Access control](/fr/docs/customize/access-control/) comme configuration attendue
 7. Visitez `/file.php` et confirmez que les probes sont bloquées ou retournent un 404 simple
 8. Confirmez que Umami ou Fathom recoit les événements si les analytics sont configures
 

@@ -9,7 +9,7 @@ featured: false
 
 La question du fuseau horaire de l'opérateur dans `npm run setup` ressemble à une petite préférence. Elle est plus utile que ça.
 
-vanityURLs utilise les noms de fuseaux horaires là où un décalage numérique est trop fragile : liens planifiés, métadonnées du registre généré et vues opérateur comme `/_stats`.
+vanityURLs utilise les noms de fuseaux horaires là où un décalage numérique est trop fragile : liens planifiés, métadonnées du registre généré et vues opérateur comme `/en/_stats/`.
 
 ## Utiliser un lieu, pas un décalage
 
@@ -27,7 +27,7 @@ Les règles `@schedule` inline peuvent définir leur propre fuseau horaire. Quan
 
 ## \_stats a besoin d'une horloge humaine
 
-Le tableau protégé `/_stats` est un outil opérateur. Il aide à confirmer quel registre est déployé, quand il a été généré, quels liens sont planifiés et quelles métadonnées sont présentes.
+Le tableau protégé `/en/_stats/` est un outil opérateur. Il aide à confirmer quel registre est déployé, quand il a été généré, quels liens sont planifiés et quelles métadonnées sont présentes.
 
 Ces horodatages et libellés d'horaire sont plus utiles lorsqu'ils s'alignent avec la journée de travail normale de l'opérateur. UTC est excellent pour les systèmes. Un fuseau opérateur local est meilleur pour répondre à "est-ce que le build que je viens de déployer inclut mon changement?"
 

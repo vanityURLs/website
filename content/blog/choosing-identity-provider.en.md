@@ -7,7 +7,7 @@ tags: ["cloudflare", "access", "identity"]
 
 The first identity decision for a short-link domain should be boring.
 
-Protect `/_stats` and `/_tests` before the instance goes public. Do not spend the first deploy designing an enterprise identity architecture unless the enterprise already exists.
+Protect `/en/_stats/`, other localized stats paths, and `/_tests` before the instance goes public. Do not spend the first deploy designing an enterprise identity architecture unless the enterprise already exists.
 
 For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) protects the operational pages before the Worker serves them. The question is not "which IdP is best?" The question is "which access path can the operator review and revoke without ceremony?"
 
@@ -44,7 +44,7 @@ That flexibility is useful. It is also a trap if nobody owns review. Adding prov
 After configuring the provider, test the boundary:
 
 1. Open a signed-out or private browser profile.
-2. Visit `https://<short-domain>/_stats`.
+2. Visit `https://<short-domain>/en/_stats/`.
 3. Confirm Cloudflare Access appears before the dashboard.
 4. Confirm an unauthorized identity fails.
 

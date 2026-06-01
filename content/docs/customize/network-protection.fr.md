@@ -235,7 +235,8 @@ Disallow: /
 Allow: /robots.txt
 Allow: /llms.txt
 Allow: /llms-full.txt
-Disallow: /_stats/
+Disallow: /en/_stats/
+Disallow: /*/_stats/
 Disallow: /expand/
 ```
 

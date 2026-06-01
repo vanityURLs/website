@@ -61,14 +61,14 @@ Les headers par défaut incluent `X-Generated-By: vanityURLs.link`. Si vous surc
 
 ## Gardes des fichiers opérationnels
 
-Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Gardez l'accès contrôle sur `/_stats` et `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une raison délibérée de divulgation publique.
+Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, ainsi que `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une raison délibérée de divulgation publique.
 
-| Contrôle                               | Chemins                                                                                    | Ce qu'il fait                                                                            |
-| -------------------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                                | Retourne `404` pour les requêtes publiques directes                                      |
-| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/_stats/*`, `/expand/*`      | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
-| API stats protégée                     | `/_stats/api/v8s.json`                                                                     | Expose le registre génère seulement a travers la surface stats protégée                  |
-| Validation des slugs réserves          | `/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json` | Empeche la création de liens courts sous les chemins opérationnels réserves              |
+| Contrôle                               | Chemins                                                                                 | Ce qu'il fait                                                                            |
+| -------------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                             | Retourne `404` pour les requêtes publiques directes                                      |
+| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/expand/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
+| API stats protégée                     | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                | Expose le registre génère seulement a travers la surface stats protégée                  |
+| Validation des slugs réserves          | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`     | Empeche la création de liens courts sous les chemins opérationnels réserves              |
 
 ## Contrôles edge Cloudflare
 
