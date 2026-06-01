@@ -45,7 +45,7 @@ Legacy `custom/v8s-blocklist.json` and `defaults/v8s-blocklist.json` may still b
 | `i18n`           | Default language and supported languages                                                            |
 | `links`          | Default generated slug length, readable alphabet, and tag-specific generated slug lengths for `lnk` |
 | `operator`       | Operator identity, contacts, timezone, legal-page mode, analytics disclosure, and response window   |
-| `branding`       | Short domain, public slogan, installer-managed public-page flag, and split-color wordmark           |
+| `branding`       | Short domain, public slogan, public-page copy flag, and split-color wordmark                        |
 
 Use IANA timezone names for `operator.timezone`, such as `America/Toronto` or `Europe/Berlin`. Avoid numeric offsets such as `-4` or `-5`; they do not describe daylight saving time transitions and setup rejects them.
 

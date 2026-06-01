@@ -27,6 +27,8 @@ Use the dashboard to answer operational questions:
 - which links are expiring soon and need a human decision
 - whether the deployed registry timestamp matches the change you just pushed
 
+The first-row metric cards are quick filters. Click a lifecycle state such as Permanent or Ephemeral to focus the table, click more states to show any of those states, and use the search box at the same time when you need a narrower state plus text view. Click Total to clear the dashboard filters.
+
 It is the routing and lifecycle plane. Analytics still belong in Umami, Fathom, or Cloudflare Analytics.
 
 ## Why it is read-only

@@ -144,7 +144,7 @@ Dans Cloudflare, ouvrez **Build** > **Compute** > **Workers & Pages** depuis le 
 
 ### Configurer le contrôle d'accès
 
-L'accès au [Dashboard](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) et à la [matrice de test](https://docs.github.com/get-started/getting-started-with-git/caching-your-github-credentials-in-git) doit être protège par [Cloudflare Access](/fr/docs/command-line-interface/local-helper/), une solution Zero Trust Network Access (ZTNA).
+L'accès au [Dashboard](https://v8s.link/_stats) et à la [matrice de test](https://v8s.link/_tests) doit être protégé par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
 
 Ouvrez [Contrôle d'accès](../customize/access-control/) dans un autre onglet et complétéz les activités de cette page. Assurez-vous d'avoir copie le **Application Audience (AUD) Tag** dans votre gestionnaire de mots de passe.
 

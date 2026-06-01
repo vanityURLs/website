@@ -16,7 +16,7 @@ Commencez ici lorsque votre instance fonctionne déjà et que vous voulez compre
 | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | [Analytics](/fr/docs/reference/analytics/)                           | Événements analytics serveur, payloads fournisseur, modes IP et trafic bloqué                                 |
 | [Aide-mémoire](/fr/docs/reference/cheatsheet/)                       | Référence compacte pour fichiers, workflows, comportements et dépannage                                       |
-| [Marque](/fr/docs/reference/brand/)                                  | Wordmarks, slogans, badges, couleurs et assets publics geres par l'installateur                               |
+| [Marque](/fr/docs/reference/brand/)                                  | Wordmarks, slogans, badges, couleurs, marque appliquée au build et surcharges d'assets publics                |
 | [Produits Cloudflare](/fr/docs/reference/cloudflare-products/)       | Produits et surfaces du tableau de bord Cloudflare utilisés par le baseline vanityURLs                        |
 | [Fichiers de configuration](/fr/docs/reference/configuration-files/) | Fichiers source, custom, locaux et génères                                                                    |
 | [Surcharges custom](/fr/docs/reference/custom-overrides/)            | Couches de fichiers propres à l'instance, chemins de surcharges publiques et placeholders des pages de statut |

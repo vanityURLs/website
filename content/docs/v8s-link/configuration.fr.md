@@ -11,12 +11,12 @@ Le dépôt source est [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.li
 
 Quickstart utilise les valeurs de la démo pour garder les commandes concrètes. Naturellement, remplacez-les par les vôtres pendant le setup.
 
-| Fichier                                                                                                | Ce qu'il faut inspecter                                                                  |
-| ------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
-| [`custom/public/en/index.html`](https://v8s.link)                                                      | Page d'accueil copiée avec le wordmark de domaine bicolore                               |
-| [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Source de vérité humaine pour les liens courts                                           |
-| [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt) | Réglages d'instance créés par `npm run setup`                                            |
-| [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json)        | Nom du Worker, commande de build, domaine d'équipe Access, route et domaine personnalisé |
+| Fichier                                                                                                       | Ce qu'il faut inspecter                                                                  |
+| ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| [`custom/public/en/index.html`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Page d'accueil de démonstration avec le wordmark de domaine bicolore                     |
+| [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt)               | Source de vérité humaine pour les liens courts                                           |
+| [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json) | Réglages d'instance créés par `npm run setup`                                            |
+| [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/wrangler.toml)                             | Nom du Worker, commande de build, domaine d'équipe Access, route et domaine personnalisé |
 
 Lorsque votre instance se comporte différemment, comparez vos fichiers `custom/` avec la démo avant de creuser dans `defaults/`.
 

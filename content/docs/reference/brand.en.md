@@ -1,7 +1,7 @@
 ---
 aside: false
 title: "Brand"
-description: "Decide the public branding values used by installer-managed vanityURLs pages."
+description: "Decide the public branding values applied to vanityURLs pages at build time."
 weight: 12
 aliases:
   - /docs/brand/
@@ -56,7 +56,7 @@ By default, setup records the wordmark, localized slogans, and brand domain in `
 
 Only copy full pages into `custom/public/` when you intend to manually edit HTML templates. In that mode, `npm run setup` can copy `defaults/public/` into `custom/public/`, rewrite the default `Vanity` + `URLs` wordmark into the configured black and green wordmark portions, update brand labels and links, and prune unsupported language directories.
 
-The installer records those choices in `custom/v8s-site-config.json` so repeated setup runs are predictable. If `custom/public/` already contains files and was not marked as installer-managed, setup refuses to replace it unless you pass `--force`.
+The installer records those choices in `custom/v8s-site-config.json` so repeated setup runs are predictable. If `custom/public/` already contains files and was not marked as setup-managed, setup refuses to replace it unless you pass `--force`.
 
 When you use `custom/public/`, keep `i18n.supported_languages` aligned with the localized pages you actually support. See [Internationalization](/docs/reference/i18n/) for the language directory rules.
 

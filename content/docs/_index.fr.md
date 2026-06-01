@@ -17,7 +17,7 @@ description: "Trouver les pages de setup, personnalisation, ligne de commande, d
 ## Personnaliser une instance
 
 - [Personnaliser](/fr/docs/customize/) organise le travail après le premier déploiement.
-- [Marque](/fr/docs/reference/brand/) couvre les wordmarks, slogans, badges et assets publics geres par l'installateur.
+- [Marque](/fr/docs/reference/brand/) couvre les wordmarks, slogans, badges, la marque appliquée au build et les surcharges d'assets publics.
 - [Pied de page et pages](/fr/docs/customize/footer-pages/) couvre les pages publiques légales et de confiance.
 - [Contrôle d'accès](/fr/docs/customize/access-control/) protège les chemins opérationnels avec Cloudflare Access.
 - [Analytics](/fr/docs/customize/analytics/), [Politique et blocklist](/fr/docs/customize/blocklist/) et [Protection réseau](/fr/docs/customize/network-protection/) couvrent la visibilité du trafic et les contrôles anti-abus.

@@ -37,7 +37,7 @@ Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent
 
 ## Configuration du site
 
-`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. La liste exacte des champs est définie par [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/public/_headers) et l'installateur. Les sections principales importantes sont :
+`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. La liste exacte des champs est définie par [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) et l'installateur. Les sections principales importantes sont :
 
 | Section          | Rôle                                                                                                              |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------- |
@@ -45,7 +45,7 @@ Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent
 | `i18n`           | Langue par défaut et langues supportées                                                                           |
 | `links`          | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk`                           |
 | `operator`       | Identité opérateur, contacts, fuseau horaire, mode des pages légales, divulgation analytics et fenêtre de réponse |
-| `branding`       | Domaine court, slogan public, drapeau des pages publiques gérées par l'installateur et wordmark en deux couleurs  |
+| `branding`       | Domaine court, slogan public, drapeau de copie des pages publiques et wordmark en deux couleurs                   |
 
 Exemple :
 
@@ -89,7 +89,7 @@ Exemple :
 }
 ```
 
-Des champs additifs peuvent apparaitre sans changer `schema_version`. Les changements de version de schéma sont réserves aux changements incompatibles de configuration stockee qui demandent une migration; la décision est consignée dans les ADR du dépôt de code. Les champs additifs sont suivis dans [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) du dépôt de code.
+Des champs additifs peuvent apparaitre sans changer `schema_version`. Les changements de version de schéma sont réserves aux changements incompatibles de configuration stockee qui demandent une migration; la décision est consignée dans les ADR du dépôt de code. Les champs additifs sont suivis dans [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/docs/schema-changelog.md) du dépôt de code.
 
 Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.
 

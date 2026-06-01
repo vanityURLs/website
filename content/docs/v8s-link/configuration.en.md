@@ -13,7 +13,7 @@ Quickstart uses the demo values to ensure that commands stay concrete. Needless 
 
 | File                                                                                                          | What to inspect                                                          |
 | ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [`custom/public/en/index.html`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Copied homepage with the split-color domain wordmark                     |
+| [`custom/public/en/index.html`](https://github.com/vanityURLs/v8s.link/blob/main/custom/public/en/index.html) | Demo homepage with the split-color domain wordmark                       |
 | [`custom/v8s-links.txt`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-links.txt)               | Human-authored source of truth for short links                           |
 | [`custom/v8s-site-config.json`](https://github.com/vanityURLs/v8s.link/blob/main/custom/v8s-site-config.json) | Instance settings created by `npm run setup`                             |
 | [`wrangler.toml`](https://github.com/vanityURLs/v8s.link/blob/main/wrangler.toml)                             | Worker name, build command, Access team domain, route, and custom domain |

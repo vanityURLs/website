@@ -27,6 +27,8 @@ Utilisez le tableau pour répondre aux questions opérationnelles :
 - quels liens expirent bientôt et demandent une décision humaine
 - si l'horodatage du registre déployé correspond au changement que vous venez de pousser
 
+Les cartes de métriques de la première rangée sont des filtres rapides. Cliquez un état de cycle de vie comme Permanent ou Éphémère pour filtrer le tableau, cliquez plusieurs états pour afficher l'un ou l'autre de ces états, et utilisez la recherche en même temps pour une vue plus étroite état plus texte. Cliquez Total pour effacer les filtres du tableau.
+
 C'est le plan routage et cycle de vie. Les analytics restent dans Umami, Fathom ou Cloudflare Analytics.
 
 ## Pourquoi lecture seule

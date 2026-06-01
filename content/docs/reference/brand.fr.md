@@ -1,7 +1,7 @@
 ---
 aside: false
 title: "Marque"
-description: "Decider les valeurs de marque publiques utilisees par les pages vanityURLs gerees par l'installateur."
+description: "Decider les valeurs de marque publiques appliquees aux pages vanityURLs pendant le build."
 weight: 12
 aliases:
   - /docs/brand/
@@ -58,7 +58,7 @@ Par défaut, setup enregistre le wordmark, les slogans localisés et le domaine 
 
 Copiez les pages complètes dans `custom/public/` seulement lorsque vous voulez modifier les templates HTML à la main. Dans ce mode, `npm run setup` peut copier `defaults/public/` vers `custom/public/`, remplacer le wordmark `Vanity` + `URLs` par les portions noire et verte configurées, mettre à jour les libellés et liens de marque, puis retirer les langues non supportées.
 
-L'installateur enregistre ces choix dans `custom/v8s-site-config.json` pour que les executions repétées restent prévisibles. Si `custom/public/` contient dejà des fichiers et n'est pas marque comme gere par l'installateur, setup refuse de le remplacer sauf avec `--force`.
+L'installateur enregistre ces choix dans `custom/v8s-site-config.json` pour que les executions repétées restent prévisibles. Si `custom/public/` contient dejà des fichiers et n'est pas marque comme gere par setup, setup refuse de le remplacer sauf avec `--force`.
 
 Lorsque vous utilisez `custom/public/`, gardez `i18n.supported_languages` aligné avec les pages localisées que vous supportez vraiment. Voir [Internationalisation](/fr/docs/reference/i18n/) pour les règles de répertoires de langue.
 
