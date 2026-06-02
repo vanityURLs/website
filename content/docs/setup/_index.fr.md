@@ -46,6 +46,6 @@ Utilisez Linux, macOS ou Windows avec Git, Node.js 20 ou plus recent, npm, jq et
 
 ### Preparer un gestionnaire de mots de passe
 
-Stockez les informations sensibles comme les identifiants de compte Cloudflare, jetons API, secrets Worker, identifiants analytics et informations de récupération.
+Stockez les informations sensibles comme les identifiants de compte Cloudflare, les jetons API, les secrets Worker, les identifiants analytics, les audiences Access, les secrets client IdP, les jetons de service, les secrets client OAuth et les informations de récupération. Ne commitez pas ces valeurs, ni les captures d'écran qui les contiennent, dans le dépôt.
 
 {{% /steps %}}

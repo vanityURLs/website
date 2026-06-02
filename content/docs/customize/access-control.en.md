@@ -7,19 +7,27 @@ aliases:
   - /docs/access-control/
 ---
 
-Use Cloudflare Access to protect the vanityURLs operational paths while keeping public redirects open. Follow this page when you are ready to secure localized stats pages such as `/en/_stats/` and `/fr/_stats/`, plus `/_tests`.
-
-The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths; refer to [Store the Access audience](#store-the-access-audience) below. If the secret is missing or invalid, the protected path fails closed.
+The vanityURLs Worker blocks access to the private dashboard and tests until Cloudflare Access is configured. Anyone who tries to open those pages sees the Cloudflare Access not-configured response[^access-not-configured] shown below, so public redirects stay open while operational pages fail closed.
 
 ![protected path fails closed](../cf-access-not-configured.png)
 
-Do not commit sensitive information such as Access audiences, IdP client secrets, service tokens, OAuth client secrets, or screenshots that contain those values.
+[^access-not-configured]: The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths; refer to [Store the Access audience](#store-the-access-audience) below. If the secret is missing or invalid, the protected path fails closed.
 
 {{% steps %}}
 
 ### Find the Team domain
 
-In Cloudflare, open **Zero Trust** > **Settings**, then copy the **Team domain**.
+If this Cloudflare account has never used Zero Trust, Cloudflare shows a short first-time setup before the normal Access screens:
+
+1. On the **Welcome to Cloudflare Zero Trust** page, select **Get started**
+2. On **Choose a plan**, select **Zero Trust Free** unless you deliberately need a paid plan
+3. On **Activate Zero Trust Free**, review the order summary, authorize the plan terms, then select **Activate**
+
+Cloudflare may ask for or confirm a payment method even when the plan is free; keep the plan on **Zero Trust Free** unless your organization requires otherwise. You only see this first-time setup once.
+
+After activation, open **Zero Trust** > **Settings**, then:
+
+Copy the **Team domain**.
 
 The installer stores it in `wrangler.toml` during `npm run setup`:
 
@@ -49,16 +57,6 @@ In Cloudflare, open **Zero Trust** > **Access Controls** > **Applications**, the
 1. Create an application
 2. Select **Self-hosted and private**
 3. Continue with **Self-hosted and private**
-4. Configure the destinations with _your_ short domain ← replace `v8s.link` with _your_ short domain everywhere
-
-| Subdomain | Domain     | Path         |
-| --------- | ---------- | ------------ |
-|           | `v8s.link` | `*/_stats`   |
-|           | `v8s.link` | `*/_stats/*` |
-|           | `v8s.link` | `_tests`     |
-|           | `v8s.link` | `_tests/*`   |
-
-Cloudflare Access supports wildcards in the path field. The `*/_stats` entries cover localized dashboard paths such as `/en/_stats/` and `/fr/_stats/` while leaving ordinary public short links outside Access. Legacy `/_stats` requests redirect to `/en/_stats/`; they do not need separate Access destinations.
 
 Use one Access application for the private vanityURLs operations. Public redirect paths should stay outside Access so visitors can follow short links without logging in.
 
@@ -71,6 +69,25 @@ Recommended settings:
 | Session duration   | `24 hours`                                                |
 | Identity providers | One-time PIN for phase 1, or the providers you configured |
 | Browser rendering  | Off                                                       |
+
+Configure these destinations with _your_ short domain:
+
+{{< callout type="tip" title="Use your short domain" >}}
+Replace `v8s.link` with _your_ short domain everywhere.
+{{< /callout >}}
+
+| Subdomain | Domain     | Path         |
+| --------- | ---------- | ------------ |
+|           | `v8s.link` | `*/_stats`   |
+|           | `v8s.link` | `*/_stats/*` |
+|           | `v8s.link` | `_tests`     |
+|           | `v8s.link` | `_tests/*`   |
+
+Cloudflare Access supports wildcards in the path field. The `*/_stats` entries cover localized dashboard paths such as `/en/_stats/` and `/fr/_stats/` while leaving ordinary public short links outside Access.
+
+{{< callout type="note" title="Legacy path behavior" changed="3.0.0" >}}
+Legacy `/_stats` requests redirect to `/en/_stats/`; they do not need separate Access destinations.
+{{< /callout >}}
 
 ### Create the Access policy
 

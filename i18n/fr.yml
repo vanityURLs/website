@@ -40,6 +40,9 @@ previous: Précédent
 next: Suivant
 docs_label: Documentation
 mobile_nav_label: Navigation docs
+version_added: "Nouveau en {{ .Version }}"
+version_changed: "Modifié en {{ .Version }}"
+version_deprecated: "Déprécié en {{ .Version }}"
 
 # ── Étiquettes / taxonomie ──────────────────────────────
 tags_title: Étiquettes

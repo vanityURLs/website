@@ -66,7 +66,7 @@ We maintain separate guides for specific workflows:
 
 ```markdown
 {{< callout type="warning" title="Breaking change" >}}
-This option was removed in v2.
+This option was removed in v3.
 {{< /callout >}}
 
 {{< code file="config/deploy.yml" lang="yaml" >}}

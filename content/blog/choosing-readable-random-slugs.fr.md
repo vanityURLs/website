@@ -10,7 +10,7 @@ Les slugs aléatoires servent aux moments ou le mot-cle n'a pas d'importance.
 
 Vous collez une longue URL. `lnk` choisit le slug. Vous continuez. Le piege : un slug aléatoire peut quand même être lu depuis une diapositive, tape depuis un badge, dicte en appel, colle dans un ticket ou compare dans une capture d'ecran.
 
-Depuis vanityURLs `2.7.0`, la génération de slugs aléatoires est configurable. Les instances existantes peuvent l'obtenir avec le [workflow de mise a niveau](/fr/docs/reference/upgrading/), incluant `npm run upgrade`.
+Dans vanityURLs 3.x, la génération de slugs aléatoires est configurable. Les instances existantes peuvent l'obtenir avec le [workflow de mise a niveau](/fr/docs/reference/upgrading/), incluant `npm run upgrade`.
 
 Le défaut optimise pour l'humain dans cette boucle.
 

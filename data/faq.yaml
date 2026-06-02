@@ -103,8 +103,8 @@
       path: wrangler.toml
       note: "The runtime is a Cloudflare Worker with an [assets] binding, not a Pages _redirects deploy."
     - repo: vanityURLs/code
-      path: CHANGELOG.txt
-      note: "Version 2.0.0 shipped the Cloudflare redirect Worker."
+      path: package.json
+      note: "The 3.0.0 release keeps the Cloudflare Worker as the current runtime."
   answer: >
     The current runtime is a Cloudflare Worker using Static Assets, not a Cloudflare Pages `_redirects` site. Some Cloudflare dashboards still mention Workers & Pages, but the deployed application is the Worker configured in `wrangler.toml`.
   related: [worker-deployment, runtime-registry]
@@ -337,8 +337,8 @@
       path: docs/adr/0005-support-deferred-legal-pages.md
       note: "ADR documents deferred legal-page mode through operator.legal_pages_enabled."
     - repo: vanityURLs/code
-      path: CHANGELOG.txt
-      note: "Version 2.6.0 added deferred legal setup."
+      path: package.json
+      note: "The 3.0.0 release keeps deferred legal setup available during installation."
   answer: >
     Setup supports deferring full privacy, terms, and standalone security pages, but that is a setup convenience rather than legal clearance. Before public launch, operators should complete the generated pages or provide their own reviewed replacements.
   related: [operator-placeholders, who-operates-instance, abuse-reports]

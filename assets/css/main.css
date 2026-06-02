@@ -43,6 +43,19 @@
 @import "chroma-dark.css";
 
 @layer base {
+  :root {
+    --docs-step--1: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);
+    --docs-step-0: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+    --docs-step-1: clamp(1.125rem, 1.0815rem + 0.2174vw, 1.25rem);
+    --docs-space-2xs: clamp(0.5rem, 0.4565rem + 0.2174vw, 0.625rem);
+    --docs-space-xs: clamp(0.75rem, 0.7065rem + 0.2174vw, 0.875rem);
+    --docs-space-s: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+    --docs-space-m: clamp(1.5rem, 1.413rem + 0.4348vw, 1.75rem);
+    --docs-space-l: clamp(2rem, 1.8261rem + 0.8696vw, 2.5rem);
+    --docs-line-body: 1.7;
+    --docs-line-tight: 1.3;
+  }
+
   html { scroll-behavior: smooth; }
   body { -webkit-font-smoothing: antialiased; }
 }
@@ -196,6 +209,19 @@
     @apply text-brand-700 dark:text-brand-400 border-brand-500 dark:border-brand-500 font-medium;
   }
   .toc nav ul ul { @apply pl-3; }
+
+}
+
+@layer utilities {
+  /* ── Docs content flow ── */
+  .docs-flow {
+    font-size: var(--docs-step-0);
+    line-height: var(--docs-line-body);
+  }
+
+  .docs-flow :where(p, ul, ol) {
+    line-height: var(--docs-line-body);
+  }
 }
 
   /* ════════════════════════════════════════
@@ -351,10 +377,12 @@
 
   .steps {
     margin-left: 0.875rem;   /* half the circle width, so line is centered */
-    padding-left: 1.5rem;    /* pl-6: content indented from border */
+    padding-left: var(--docs-space-m);
     border-left: 2px solid;
     @apply border-gray-200 dark:border-gray-700 mb-8;
     counter-reset: step;
+    font-size: var(--docs-step-0);
+    line-height: var(--docs-line-body);
   }
 
   /* Each h3 inside .steps becomes a numbered step */
@@ -362,14 +390,14 @@
     counter-increment: step;
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
-    margin-top: 2.5rem;
-    margin-bottom: 0.75rem;
-    /* Pull the h3 left so the circle sits centred on the border line.
-       Formula: -(padding-left) + (circle-width / 2) = -(1.5rem) + (0.875rem) = -0.625rem
-       But we also need to clear the border, so use -(1.5rem + 0.125rem border/2) */
-    margin-left: calc(-1.5rem - 0.0625rem);
-    @apply text-lg font-bold text-gray-900 dark:text-gray-100;
+    gap: var(--docs-space-xs);
+    margin-top: var(--docs-space-l);
+    margin-bottom: var(--docs-space-xs);
+    /* Pull the h3 left so the circle sits centred on the border line. */
+    margin-left: calc(-1 * var(--docs-space-m) - 0.0625rem);
+    font-size: var(--docs-step-1);
+    line-height: var(--docs-line-tight);
+    @apply font-bold text-gray-900 dark:text-gray-100;
   }
   .steps > h3:first-child { margin-top: 0; }
 
@@ -392,16 +420,21 @@
 
   /* Prose content inside steps */
   .steps > p {
-    @apply text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3;
+    margin-bottom: var(--docs-space-s);
+    @apply text-gray-700 dark:text-gray-300;
   }
   .steps > ul, .steps > ol {
-    @apply text-sm text-gray-700 dark:text-gray-300 mb-3 pl-4;
+    margin-bottom: var(--docs-space-s);
+    @apply text-gray-700 dark:text-gray-300 pl-5;
   }
-  .steps > ul li, .steps > ol li { @apply mb-1; }
+  .steps > ul li, .steps > ol li { margin-bottom: var(--docs-space-2xs); }
   .steps > ul { @apply list-disc; }
   .steps > ol { @apply list-decimal; }
   .steps > table {
-    @apply w-full table-auto text-sm text-left text-gray-700 dark:text-gray-300 mb-4 border-collapse;
+    margin-bottom: var(--docs-space-m);
+    font-size: 0.875em;
+    line-height: 1.55;
+    @apply w-full table-auto text-left text-gray-700 dark:text-gray-300 border-collapse;
   }
   .steps > table th {
     @apply text-left align-top font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 px-3 py-2;
@@ -413,10 +446,11 @@
     @apply font-medium text-brand-700 underline decoration-brand-500/40 underline-offset-2 hover:text-brand-800 hover:decoration-brand-700 dark:text-brand-400 dark:decoration-brand-400/40 dark:hover:text-brand-300 dark:hover:decoration-brand-300;
   }
   .steps > pre, .steps > div.highlight {
-    @apply mb-4 rounded-lg overflow-hidden;
+    margin-bottom: var(--docs-space-m);
+    @apply rounded-lg overflow-hidden;
   }
   /* Callout / code / other shortcodes inside steps */
-  .steps > .not-prose { @apply mb-4; }
+  .steps > .not-prose { margin-bottom: var(--docs-space-m); }
 
   /* ════════════════════════════════════════
      FILETREE SHORTCODE

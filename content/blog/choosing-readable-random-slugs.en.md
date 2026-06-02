@@ -10,7 +10,7 @@ Random slugs are for the moments when the keyword does not matter.
 
 You paste a long URL. `lnk` chooses the slug. You keep moving. The catch is that a random slug may still be read from a slide, typed from a badge, dictated over a call, pasted into a ticket, or compared in a screenshot.
 
-As of vanityURLs `2.7.0`, random slug generation is configurable. Existing instances can get it by following the [upgrade workflow](/docs/reference/upgrading/), including `npm run upgrade`.
+In vanityURLs 3.x, random slug generation is configurable. Existing instances can get it by following the [upgrade workflow](/docs/reference/upgrading/), including `npm run upgrade`.
 
 The default optimizes for the human in that loop.
 

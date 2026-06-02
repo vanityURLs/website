@@ -46,6 +46,6 @@ Use Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, jq, and your pr
 
 ### Use a password manager
 
-Store sensitive information such as the Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, and recovery information.
+Store sensitive information such as Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, Access audiences, IdP client secrets, service tokens, OAuth client secrets, and recovery information. Do not commit those values, or screenshots that contain them, to the repository.
 
 {{% /steps %}}

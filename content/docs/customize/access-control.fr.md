@@ -7,19 +7,27 @@ aliases:
   - /docs/access-control/
 ---
 
-Utilisez Cloudflare Access pour protéger les chemins opérationnels de vanityURLs tout en gardant les redirections publiques ouvertes. Suivez cette page lorsque vous êtes prêt à sécuriser les pages stats localisées comme `/en/_stats/` et `/fr/_stats/`, ainsi que `/_tests`.
-
-Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins; consultez [Stocker l'audience Access](#stocker-laudience-access) ci-dessous. Si le secret est absent ou invalide, le chemin protégé échoue fermé.
+Le Worker vanityURLs bloque l'accès au tableau de bord privé et aux tests tant que Cloudflare Access n'est pas configuré. Toute personne qui essaie d'ouvrir ces pages voit la réponse Cloudflare Access non configuré[^access-not-configured] affichée ci-dessous; les redirections publiques restent donc ouvertes pendant que les pages opérationnelles échouent fermées.
 
 ![le chemin protégé échoue fermé](../cf-access-not-configured.fr.png)
 
-Ne commitez pas d'information sensible comme les audiences Access, les secrets client IdP, les jetons de service, les secrets client OAuth ou les captures d'écran qui contiennent ces valeurs.
+[^access-not-configured]: Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins; consultez [Stocker l'audience Access](#stocker-laudience-access) ci-dessous. Si le secret est absent ou invalide, le chemin protégé échoue fermé.
 
 {{% steps %}}
 
 ### Trouver le domaine Team
 
-Dans Cloudflare, ouvrez **Zero Trust** > **Settings**, puis copiez le **Team domain**.
+Si ce compte Cloudflare n'a jamais utilisé Zero Trust, Cloudflare affiche une courte configuration initiale avant les écrans Access habituels :
+
+1. Sur la page **Welcome to Cloudflare Zero Trust**, sélectionnez **Get started**
+2. Sur **Choose a plan**, sélectionnez **Zero Trust Free** sauf si vous avez volontairement besoin d'un forfait payant
+3. Sur **Activate Zero Trust Free**, vérifiez le résumé de commande, autorisez les conditions du forfait, puis sélectionnez **Activate**
+
+Cloudflare peut demander ou confirmer une méthode de paiement même si le forfait est gratuit; gardez le forfait sur **Zero Trust Free** sauf si votre organisation exige autre chose. Vous ne voyez cette configuration initiale qu'une seule fois.
+
+Après l'activation, ouvrez **Zero Trust** > **Settings**, puis :
+
+Copiez le **Team domain**.
 
 L'installateur le conserve dans `wrangler.toml` pendant `npm run setup` :
 
@@ -49,16 +57,6 @@ Dans Cloudflare, ouvrez **Zero Trust** > **Access Controls** > **Applications**,
 1. Créez une application
 2. Sélectionnez **Self-hosted and private**
 3. Continuez avec **Self-hosted and private**
-4. Configurez les destinations avec _votre_ domaine court ← remplacez `v8s.link` par _votre_ domaine court partout
-
-| Sous-domaine | Domaine    | Chemin       |
-| ------------ | ---------- | ------------ |
-|              | `v8s.link` | `*/_stats`   |
-|              | `v8s.link` | `*/_stats/*` |
-|              | `v8s.link` | `_tests`     |
-|              | `v8s.link` | `_tests/*`   |
-
-Cloudflare Access accepte les wildcards dans le champ chemin. Les entrées `*/_stats` couvrent les chemins de tableau de bord localisés comme `/en/_stats/` et `/fr/_stats/` tout en laissant les liens courts publics hors Access. Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`; elles n'ont pas besoin de destinations Access séparées.
 
 Utilisez une seule application Access pour les opérations privées vanityURLs. Les chemins de redirection publics doivent rester hors Access pour que les visiteurs puissent suivre les liens courts sans connexion.
 
@@ -71,6 +69,25 @@ Réglages recommandés :
 | Durée de session        | `24 hours`                                                                        |
 | Fournisseurs d'identité | Code à usage unique pour la phase 1, ou les fournisseurs que vous avez configurés |
 | Browser rendering       | Off                                                                               |
+
+Configurez ces destinations avec _votre_ domaine court :
+
+{{< callout type="tip" title="Utiliser votre domaine court" >}}
+Remplacez `v8s.link` par _votre_ domaine court partout.
+{{< /callout >}}
+
+| Sous-domaine | Domaine    | Chemin       |
+| ------------ | ---------- | ------------ |
+|              | `v8s.link` | `*/_stats`   |
+|              | `v8s.link` | `*/_stats/*` |
+|              | `v8s.link` | `_tests`     |
+|              | `v8s.link` | `_tests/*`   |
+
+Cloudflare Access accepte les wildcards dans le champ chemin. Les entrées `*/_stats` couvrent les chemins de tableau de bord localisés comme `/en/_stats/` et `/fr/_stats/` tout en laissant les liens courts publics hors Access.
+
+{{< callout type="note" title="Comportement des anciens chemins" changed="3.0.0" >}}
+Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`; elles n'ont pas besoin de destinations Access séparées.
+{{< /callout >}}
 
 ### Créer la politique Access
 
