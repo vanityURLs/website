@@ -18,9 +18,6 @@
     <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
       {{ i18n "showcase_title" }}
     </h1>
-    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
-      {{ i18n "showcase_subtitle" }}
-    </p>
     <a href="{{ i18n "showcase_submit_url" }}" target="_blank" rel="noopener"
        class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700
               text-sm font-medium text-gray-600 dark:text-gray-400
@@ -67,11 +64,9 @@
     {{ range $tags }}{{ $tagStr = printf "%s %s" $tagStr (. | urlize) }}{{ end }}
     {{ $tagStr = strings.TrimLeft " " $tagStr }}
     <div class="showcase-card" data-tags="{{ $tagStr }}">
+      <a href="{{ .RelPermalink }}" class="showcase-card-link" aria-label="Details for {{ .Title }}"></a>
       <div class="flex items-start justify-between mb-3">
-        <!-- Logo avatar -->
-        <div class="showcase-logo" data-slug="{{ .File.ContentBaseName }}">
-          {{ with .Params.logo_char }}{{ . }}{{ else }}{{ substr .Title 0 1 | upper }}{{ end }}
-        </div>
+        <h2 class="showcase-name">{{ .Title }}</h2>
         <!-- Featured badge -->
         {{ if .Params.featured }}
         <span class="text-[0.65rem] font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-brand-900/30 px-1.5 py-0.5 rounded">
@@ -80,23 +75,38 @@
         {{ end }}
       </div>
 
-      <h2 class="showcase-name">{{ .Title }}</h2>
       <p class="showcase-desc">{{ .Description }}</p>
 
-      <!-- Tags -->
-      <div class="flex flex-wrap gap-1.5 mb-4">
-        {{ range $tags }}<span class="tag-pill text-[0.7rem]">{{ . }}</span>{{ end }}
-      </div>
+      {{ $stats := slice }}
+      {{ with .Params.status }}
+        {{ $stats = $stats | append (dict "label" (i18n "showcase_stat_status") "value" (i18n (printf "showcase_stat_status_%s" .))) }}
+      {{ end }}
+      {{ with .Params.live_since }}
+        {{ $stats = $stats | append (dict "label" (i18n "showcase_stat_live_since") "value" .) }}
+      {{ end }}
+      {{ $stats = $stats | append (dict "label" (i18n "showcase_stat_deploy_time") "value" (i18n "showcase_stat_deploy_time_value")) }}
+      {{ with .Params.visibility }}
+        {{ $stats = $stats | append (dict "label" (i18n "showcase_stat_visibility") "value" (i18n (printf "showcase_stat_visibility_%s" .))) }}
+      {{ else }}
+        {{ $stats = $stats | append (dict "label" (i18n "showcase_stat_cost") "value" (i18n "showcase_stat_cost_value")) }}
+      {{ end }}
+      <dl class="showcase-card-metrics">
+        {{ range $stats }}
+        <div>
+          <dt>{{ .label }}</dt>
+          <dd>{{ .value }}</dd>
+        </div>
+        {{ end }}
+      </dl>
 
       <!-- Actions -->
-      <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
-        <a href="{{ .RelPermalink }}"
-           class="text-xs text-gray-600 dark:text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-          Details →
-        </a>
+      <div class="relative z-20 pointer-events-none flex items-center justify-between mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
+        <div class="flex flex-wrap gap-1.5">
+          {{ range $tags }}<span class="tag-pill text-[0.7rem]">{{ . }}</span>{{ end }}
+        </div>
         {{ with .Params.site_url }}
         <a href="{{ . }}" target="_blank" rel="noopener"
-           class="inline-flex items-center gap-1 text-xs font-medium text-brand-600 dark:text-brand-400
+           class="pointer-events-auto inline-flex items-center gap-1 text-xs font-medium text-brand-600 dark:text-brand-400
                   hover:text-brand-800 dark:hover:text-brand-300 transition-colors">
           {{ i18n "showcase_visit" }}
         </a>

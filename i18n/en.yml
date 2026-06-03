@@ -64,7 +64,6 @@ blog_related: More articles
 
 # ── Showcase ─────────────────────────────────────────────
 showcase_title: Showcase
-showcase_subtitle: Sites and projects built with vanityURLs.
 showcase_submit: Share your project
 showcase_submit_url: https://github.com/orgs/vanityURLs/discussions
 showcase_built_with: "Built with vanityURLs"
@@ -78,8 +77,17 @@ not_found_docs: Read the docs
 # ── Showcase extra ────────────────────────────────────────
 showcase_filter_all: All projects
 showcase_no_results: No projects found for this filter.
-showcase_visit: Visit site
+showcase_visit: Visit instance
 showcase_back: Back to showcase
+showcase_stat_status: Status
+showcase_stat_status_pre_launch: Pre-launch
+showcase_stat_live_since: Live since
+showcase_stat_deploy_time: Deploy time
+showcase_stat_deploy_time_value: "~15 sec"
+showcase_stat_visibility: Visibility
+showcase_stat_visibility_private: Private
+showcase_stat_cost: Cost
+showcase_stat_cost_value: Free
 
 # ── Docs index ────────────────────────────────────────────
 docs_new_title: New to vanityURLs?

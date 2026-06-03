@@ -14,41 +14,67 @@
     {{ i18n "showcase_back" }}
   </a>
 
-  <!-- Header card -->
-  <div class="bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
-    <div class="flex items-start gap-5">
-      <div class="showcase-logo text-2xl" data-slug="{{ .File.ContentBaseName }}">
-        {{ with .Params.logo_char }}{{ . }}{{ else }}{{ substr .Title 0 1 | upper }}{{ end }}
-      </div>
-      <div class="flex-1 min-w-0">
-        <div class="flex items-start justify-between gap-4 flex-wrap">
-          <div>
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{{ .Title }}</h1>
-            {{ with .Params.site_url }}
-            <a href="{{ . }}" target="_blank" rel="noopener"
-               class="text-sm text-gray-400 dark:text-gray-500 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
-              {{ . | strings.TrimPrefix "https://" | strings.TrimPrefix "www." }}
-            </a>
-            {{ end }}
-          </div>
-          {{ with .Params.site_url }}
-          <a href="{{ . }}" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-700 dark:bg-brand-800
-                    text-white text-sm font-medium hover:bg-brand-800 dark:hover:bg-brand-700 transition-colors shrink-0">
-            {{ i18n "showcase_visit" }}
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-            </svg>
-          </a>
-          {{ end }}
-        </div>
-        <div class="flex flex-wrap gap-1.5 mt-3">
-          {{ range .Params.tags }}<span class="tag-pill">{{ . }}</span>{{ end }}
-        </div>
+  <!-- Header -->
+  <header class="mb-8 border-b border-gray-100 dark:border-gray-800 pb-6">
+    <div class="flex items-start justify-between gap-4 flex-wrap mb-4">
+      <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+        {{ with .Params.site_url }}
+        <a href="{{ . }}" target="_blank" rel="noopener"
+           class="hover:text-brand-700 dark:hover:text-brand-300 transition-colors">
+          {{ $.Title }}
+        </a>
+        {{ else }}
+        {{ $.Title }}
+        {{ end }}
+      </h1>
+      <div class="flex flex-wrap gap-1.5 pt-1">
+        {{ range .Params.tags }}<span class="tag-pill">{{ . }}</span>{{ end }}
       </div>
     </div>
-  </div>
+    <div class="flex items-center justify-between gap-4 flex-wrap">
+      <p class="text-sm text-gray-500 dark:text-gray-400">{{ .Description }}</p>
+      {{ with .Params.links }}
+      <div class="flex flex-wrap gap-2">
+      {{ range . }}
+      <a href="{{ .url }}" target="_blank" rel="noopener"
+         class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700
+                text-gray-600 dark:text-gray-300
+                hover:border-brand-300 hover:text-brand-700 dark:hover:border-brand-600 dark:hover:text-brand-300
+                transition-colors"
+         aria-label="{{ .label }}: {{ .url | strings.TrimPrefix "https://" | strings.TrimPrefix "www." }}"
+         title="{{ .label }}">
+        {{ $icon := default "website" (index . "icon") }}
+        {{ if eq $icon "github" }}
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 .5C5.65.5.75 5.65.75 12.05c0 5.1 3.3 9.43 7.88 10.96.58.1.78-.25.78-.56v-2.16c-3.2.7-3.88-1.38-3.88-1.38-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.76.4-1.27.74-1.56-2.56-.3-5.25-1.28-5.25-5.7 0-1.26.45-2.3 1.2-3.1-.12-.3-.52-1.48.12-3.07 0 0 .97-.31 3.18 1.18a11.06 11.06 0 0 1 5.8 0c2.2-1.5 3.17-1.18 3.17-1.18.64 1.59.24 2.77.12 3.07.75.8 1.2 1.84 1.2 3.1 0 4.43-2.7 5.4-5.27 5.69.42.36.8 1.08.8 2.17v3.22c0 .31.2.67.8.56A11.56 11.56 0 0 0 23.25 12.05C23.25 5.65 18.1.5 12 .5Z"/>
+        </svg>
+        {{ else if eq $icon "gitlab" }}
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M22.65 14.39 20.5 7.77a.75.75 0 0 0-1.43 0l-1.45 4.46H6.38L4.93 7.77a.75.75 0 0 0-1.43 0L1.35 14.4a1.5 1.5 0 0 0 .55 1.67L12 23l10.1-6.93a1.5 1.5 0 0 0 .55-1.68ZM12 20.05 7.1 13.73h9.8L12 20.05Z"/>
+        </svg>
+        {{ else if eq $icon "linkedin" }}
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4v12H3v-12Zm7 0h3.8v1.65h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v6.3h-4v-5.58c0-1.33-.03-3.05-1.85-3.05-1.87 0-2.15 1.45-2.15 2.95v5.68h-4v-12Z"/>
+        </svg>
+        {{ else if eq $icon "book" }}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5Zm17 0A2.5 2.5 0 0 0 18.5 3H13v17h5.5A2.5 2.5 0 0 1 21 22V5.5Z"/>
+        </svg>
+        {{ else if eq $icon "blog" }}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm3 5h8M8 13h8M8 17h5"/>
+        </svg>
+        {{ else }}
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0c2.5-2.5 4-5.5 4-9s-1.5-6.5-4-9m0 18c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9M3.6 9h16.8M3.6 15h16.8"/>
+        </svg>
+        {{ end }}
+      </a>
+      {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </header>
 
   <!-- Body -->
   {{ with .Content }}
@@ -57,18 +83,6 @@
   </div>
   {{ else }}
   <p class="text-gray-500 dark:text-gray-400">{{ .Description }}</p>
-  {{ end }}
-
-  <!-- Stats / meta -->
-  {{ with .Params.stats }}
-  <dl class="mt-8 grid grid-cols-2 sm:grid-cols-{{ len . }} gap-4">
-    {{ range . }}
-    <div class="bg-gray-50 dark:bg-gray-800/60 rounded-lg p-4 text-center">
-      <dt class="text-xs text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-1">{{ .label }}</dt>
-      <dd class="text-2xl font-bold text-gray-900 dark:text-gray-100">{{ .value }}</dd>
-    </div>
-    {{ end }}
-  </dl>
   {{ end }}
 
 </div>

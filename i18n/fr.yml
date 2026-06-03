@@ -64,7 +64,6 @@ blog_related: Plus d'articles
 
 # ── Vitrine ──────────────────────────────────────────────
 showcase_title: Vitrine
-showcase_subtitle: Sites et projets construits avec vanityURLs.
 showcase_submit: Partager votre projet
 showcase_submit_url: https://github.com/orgs/vanityURLs/discussions
 showcase_built_with: "Construit avec vanityURLs"
@@ -78,8 +77,17 @@ not_found_docs: Lire la documentation
 # ── Vitrine extra ─────────────────────────────────────────
 showcase_filter_all: Tous les projets
 showcase_no_results: Aucun projet trouvé pour ce filtre.
-showcase_visit: Visiter le site
+showcase_visit: Visiter l'instance
 showcase_back: Retour à la vitrine
+showcase_stat_status: Statut
+showcase_stat_status_pre_launch: Pré-lancement
+showcase_stat_live_since: En ligne depuis
+showcase_stat_deploy_time: Durée de déploiement
+showcase_stat_deploy_time_value: "~15 sec"
+showcase_stat_visibility: Visibilité
+showcase_stat_visibility_private: Privée
+showcase_stat_cost: Coût
+showcase_stat_cost_value: Gratuit
 
 # ── Index des docs ────────────────────────────────────────
 docs_new_title: Nouveau sur vanityURLs ?
