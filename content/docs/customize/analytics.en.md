@@ -31,7 +31,9 @@ Set `ANALYTICS_PROVIDER` in `wrangler.toml`.
 | `fathom`       | You want Fathom pageviews and named events                |
 | `umami,fathom` | You are migrating providers or comparing both temporarily |
 
+{{< callout type="warning" title="Keep dual collection temporary" >}}
 Do not leave dual-provider collection enabled longer than needed; it doubles collection traffic.
+{{< /callout >}}
 
 ### Configure analytics solution
 
@@ -47,7 +49,9 @@ UMAMI_WEBSITE_ID = "<umami website id>"
 UMAMI_GEO_IP_MODE = "truncated"
 ```
 
+{{< callout type="tip" title="Prefer less location detail" >}}
 For a public privacy-first deployment, use `truncated` or `none` for `UMAMI_GEO_IP_MODE` unless you have a specific operational need for full geo reporting.
+{{< /callout >}}
 
 OR
 

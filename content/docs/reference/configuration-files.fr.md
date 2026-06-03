@@ -33,7 +33,9 @@ Utilisez cette page pour identifier les fichiers de configuration actuels et la 
 | `custom/v8s-local-config.json`                                                                                                | Configuration locale vanityURLs JSON, `schema_version: "1.0"`                                                         | Chemins du helper propres au poste et réglages de publication locale écrits par `npm run local-install`                                           | Poste                           |
 | [`defaults/public/_headers`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-local-config.json)                     | Regles d'en-têtes pour assets statiques Cloudflare                                                                    | Motif de chemin suivi de lignes d'en-têtes indentees                                                                                              | Produit ou surcharge d'instance |
 
+{{< callout type="note" title="Anciens noms de fichiers blocklist" changed="3.0.0" >}}
 Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent encore être reconnus pour compatibilite de migration, mais les nouvelles instances devraient utiliser `v8s-policies.json`.
+{{< /callout >}}
 
 ## Configuration du site
 
@@ -91,7 +93,9 @@ Exemple :
 
 Des champs additifs peuvent apparaitre sans changer `schema_version`. Les changements de version de schéma sont réserves aux changements incompatibles de configuration stockee qui demandent une migration; la décision est consignée dans les ADR du dépôt de code. Les champs additifs sont suivis dans [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/docs/schema-changelog.md) du dépôt de code.
 
+{{< callout type="warning" title="Ne modifiez pas les fichiers générés" >}}
 Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis reconstruisez avec `npm run check`.
+{{< /callout >}}
 
 ## Configuration générée
 
@@ -105,7 +109,9 @@ Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis 
 | `src/worker.mjs`                  | Module Worker génère                                        | Source Worker copiee depuis `scripts/workers/worker.mjs` avec constantes de langues générées                                                                                             | `scripts/build.mjs`                     |
 | `src/lib/analytics-policy.mjs`    | Module de support Worker génère                             | Politique de détection des bots analytics copiee depuis `scripts/workers/lib/analytics-policy.mjs`                                                                                       | `scripts/build.mjs`                     |
 
+{{< callout type="warning" title="Les fichiers générés sont des sorties de build" >}}
 Les fichiers génères sont des sorties de build. Ne les modifiez pas directement.
+{{< /callout >}}
 
 ## Ordre de surcharge publique
 

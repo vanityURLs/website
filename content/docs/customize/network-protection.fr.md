@@ -46,7 +46,9 @@ Ensuite, ouvrez **SSL/TLS** > **Edge Certificates** et parcourez les options dan
 | Certificate Transparency Monitoring   | Optionnel, utile pour les alertes de certificats inattendus                                                                      |
 | Disable Universal SSL                 | Ne cliquez pas dessus; voir cette action signifie que Universal SSL est actuellement active                                      |
 
+{{< callout type="warning" title="HSTS peut sembler actif sans l'être" >}}
 HSTS est l'endroit le plus facile a mal lire dans l'interface. **Enable HSTS** avec **Max Age Header (max-age)** a **0 (Disable)** ne donne pas aux navigateurs une politique HSTS durable; c'est un état non enforce ou de rémise a zero. Utilisez-le pendant la validation de la zone. Pour l'enforcement en production, choisissez un max age non nul après que chaque hostname public soit prêt pour HTTPS. Un max age d'un mois est un bon premier réglage; activez **includeSubDomains** et **Preload** seulement quand toute la zone est volontairement HTTPS-only.
+{{< /callout >}}
 
 ### Activer les contrôles de sécurité de base
 
@@ -92,7 +94,9 @@ Les réglages de sécurité du plan gratuit doivent rester sobres et explicites.
 
 {{< /details >}}
 
+{{< callout type="warning" title="Éviter les données visiteur et la complexité mTLS inutiles" >}}
 N'activez pas les certificats client, règles mTLS, en-têtes de localisation visiteur ou en-têtes True-Client-IP pour le raccourcisseur public sauf si un service en aval en a explicitement besoin. Le Worker recoit déjà les metadonnées pays et colo Cloudflare pour les analytics agreges.
+{{< /callout >}}
 
 Cloudflare déplace regulierement les libellés du tableau de bord. Consultez le [changelog Cloudflare Docs](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json) et les changelogs produit, surtout [Rules](/fr/blog/cloudflare-features-not-to-enable-by-default/) et les contrôles bot, lors de la mise à jour de cette page. Utilisez la capture brute dans [data/cloudflare-protection-defaults.json](https://developers.cloudflare.com/changelog/) pour comparer les libellés de menus dans le temps.
 
@@ -226,7 +230,9 @@ Utilisez **AI Crawl Control** > **Security** pour bloquer des crawlers nommes et
 
 Laissez `/mcp` et `/ads.txt` désactifs sauf si l'instance publie volontairement ces fichiers. Garder `/.well-known/*` autorise est important parce que vanityURLs publie le contact de divulgation sécurité a `/.well-known/security.txt`.
 
+{{< callout type="warning" title="Gardez le robots.txt du dépôt comme autorité" >}}
 Utilisez **AI Crawl Control** > **Signals** pour surveiller la conformité des crawlers. Gardez **Managed robots.txt** désactive lorsque le dépôt fournit `robots.txt`; sinon Cloudflare peut remplacer le fichier visible a `/robots.txt`. Le fichier vanityURLs par défaut est :
+{{< /callout >}}
 
 ```text
 User-agent: *

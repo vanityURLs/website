@@ -144,7 +144,9 @@ In Cloudflare, open **Build** > **Compute** > **Workers & Pages** from the accou
 
 ### Configure Access control
 
+{{< callout type="warning" title="Protect private operational pages" >}}
 Access to the [Dashboard](https://v8s.link/en/_stats/) and the [test matrix](https://v8s.link/_tests) must be protected by [Cloudflare Access](https://www.cloudflare.com/products/access/), a Zero Trust Network Access (ZTNA) solution.
+{{< /callout >}}
 
 Open [Access control](../customize/access-control/) in another tab and complete the activities there. Make sure that you have copied the **Application Audience (AUD) Tag** to your password manager.
 

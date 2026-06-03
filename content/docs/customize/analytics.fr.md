@@ -32,7 +32,9 @@ Définissez `ANALYTICS_PROVIDER` dans `wrangler.toml`.
 | `fathom`       | Vous voulez des pageviews et événements nommés Fathom             |
 | `umami,fathom` | Vous migrez de fournisseur ou comparez temporairement les deux    |
 
+{{< callout type="warning" title="Gardez la collecte double temporaire" >}}
 Ne gardez pas une collecte double plus longtemps que nécessaire; elle double le trafic de collecte.
+{{< /callout >}}
 
 ### Configurer la solution analytics
 
@@ -48,7 +50,9 @@ UMAMI_WEBSITE_ID = "<umami website id>"
 UMAMI_GEO_IP_MODE = "truncated"
 ```
 
+{{< callout type="tip" title="Préférez moins de détail de localisation" >}}
 Pour un déploiement public orienté confidentialité, utilisez `truncated` ou `none` pour `UMAMI_GEO_IP_MODE` sauf besoin opérationnel précis pour une géolocalisation complète.
+{{< /callout >}}
 
 OU
 

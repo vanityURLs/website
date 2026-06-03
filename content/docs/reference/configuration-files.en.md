@@ -33,7 +33,9 @@ Use this page to identify the current configuration files and the schema shape e
 | `custom/v8s-local-config.json`                                                                                                  | vanityURLs local helper JSON, `schema_version: "1.0"`                                                                  | Workstation-specific helper paths and local publish settings written by `npm run local-install`                                        | Workstation                 |
 | [`defaults/public/_headers`](https://github.com/vanityURLs/code/blob/main/defaults/public/_headers)                             | Cloudflare static asset header rules                                                                                   | Path pattern followed by indented header lines                                                                                         | Product or instance overlay |
 
+{{< callout type="note" title="Legacy blocklist filenames" changed="3.0.0" >}}
 Legacy `custom/v8s-blocklist.json` and `defaults/v8s-blocklist.json` may still be recognized for migration compatibility, but new instances should use `v8s-policies.json`.
+{{< /callout >}}
 
 ## Site Config
 
@@ -93,7 +95,9 @@ Example:
 
 Additive fields can appear without changing `schema_version`. Schema version changes are reserved for incompatible stored-config changes that need migration; the decision is recorded in the code repository ADRs. Additive field changes are tracked in the code repository [`docs/schema-changelog.md`](https://github.com/vanityURLs/code/blob/main/docs/schema-changelog.md).
 
+{{< callout type="warning" title="Do not edit generated files" >}}
 Do not edit generated files in `build/`. Edit `custom/`, then rebuild with `npm run check`.
+{{< /callout >}}
 
 ## Generated configuration
 
@@ -107,7 +111,9 @@ Do not edit generated files in `build/`. Edit `custom/`, then rebuild with `npm 
 | `src/worker.mjs`                  | Generated Worker module                             | Worker source copied from `scripts/workers/worker.mjs` with generated language constants                                                                                 | `scripts/build.mjs`                     |
 | `src/lib/analytics-policy.mjs`    | Generated Worker support module                     | Analytics bot-detection policy copied from `scripts/workers/lib/analytics-policy.mjs`                                                                                    | `scripts/build.mjs`                     |
 
+{{< callout type="warning" title="Generated files are build outputs" >}}
 Generated files are build outputs. Do not edit them directly.
+{{< /callout >}}
 
 ## Public overlay order
 

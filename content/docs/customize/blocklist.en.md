@@ -42,7 +42,9 @@ In your instance repository, create `custom/v8s-policies.json` when the instance
 
 In `custom/v8s-policies.json`, use `allow_domains` only for trusted owner-controlled domains. Prefer allowing a specific hostname over allowing an entire registrable domain when only one subdomain is needed.
 
+{{< callout type="note" title="Allow rules still have safety limits" >}}
 Allow rules can override generated and local domain blocks. They do not override malformed URLs, disallowed protocols, or credentialed URLs.
+{{< /callout >}}
 
 ### Validate before deployment
 

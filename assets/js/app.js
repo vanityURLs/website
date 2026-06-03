@@ -387,7 +387,7 @@
 
     var allLinks = function () {
       return Array.from(sidebar.querySelectorAll(
-        'a.sidebar-link, a.sidebar-parent, a.sidebar-child-link'
+        'summary.sidebar-section-summary, a.sidebar-link, a.sidebar-parent, a.sidebar-child-link'
       )).filter(function (el) { return el.offsetParent !== null; });
     };
 

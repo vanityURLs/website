@@ -46,6 +46,8 @@ Use Linux, macOS, or Windows with Git, Node.js 20 or newer, npm, jq, and your pr
 
 ### Use a password manager
 
+{{< callout type="warning" title="Keep operational secrets out of Git" >}}
 Store sensitive information such as Cloudflare account IDs, API tokens, Worker secrets, analytics IDs, Access audiences, IdP client secrets, service tokens, OAuth client secrets, and recovery information. Do not commit those values, or screenshots that contain them, to the repository.
+{{< /callout >}}
 
 {{% /steps %}}

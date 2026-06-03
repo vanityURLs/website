@@ -42,7 +42,9 @@ Dans le dépôt de votre instance, créez `custom/v8s-policies.json` lorsque l'i
 
 Dans `custom/v8s-policies.json`, utilisez `allow_domains` seulement pour des domaines de confiance contrôlés par l'opérateur. Préférez autoriser un hostname précis plutôt qu'un domaine enregistrable entier lorsqu'un seul sous-domaine est nécessaire.
 
+{{< callout type="note" title="Les règles allow gardent des limites de sécurité" >}}
 Les règles allow peuvent surcharger les blocages de domaines générés et locaux. Elles ne surchargent pas les URLs mal formées, protocoles refusés ou URLs avec identifiants.
+{{< /callout >}}
 
 ### Valider avant le déploiement
 

@@ -83,6 +83,36 @@
   }
 
   /* ── Left sidebar ── */
+  .sidebar-section {
+    @apply mb-1 rounded-lg;
+  }
+  .sidebar-section[open] {
+    @apply bg-gray-50/70 dark:bg-gray-800/35;
+  }
+  .sidebar-section-summary {
+    @apply flex cursor-pointer list-none items-center justify-between gap-2 rounded-lg
+           px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500
+           hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400
+           dark:hover:bg-gray-800 dark:hover:text-gray-100 transition-colors duration-150;
+  }
+  .sidebar-section-summary::-webkit-details-marker { display: none; }
+  .sidebar-section-summary::marker { display: none; }
+  .sidebar-section-summary.active {
+    @apply text-brand-700 dark:text-brand-300;
+  }
+  .sidebar-section-chevron {
+    @apply h-3.5 w-3.5 shrink-0 text-gray-400 transition-transform duration-150
+           dark:text-gray-500;
+  }
+  .sidebar-section[open] .sidebar-section-chevron {
+    @apply rotate-90;
+  }
+  .sidebar-section-panel {
+    @apply pb-2;
+  }
+  .sidebar-section-link {
+    @apply text-xs;
+  }
   .sidebar-section-title {
     @apply block px-3 py-1 text-xs font-semibold text-gray-400
            dark:text-gray-500 uppercase tracking-wider mt-4 mb-1;
@@ -1141,6 +1171,7 @@
   }
 
   /* Sidebar links — visible focus ring in the sidebar nav */
+  .sidebar-section-summary:focus-visible,
   .sidebar-section-title:focus-visible,
   .sidebar-link:focus-visible,
   .sidebar-parent:focus-visible,

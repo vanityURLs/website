@@ -40,6 +40,7 @@ previous: Previous
 next: Next
 docs_label: Documentation
 mobile_nav_label: Navigate docs
+docs_section_overview: Overview
 version_added: "New in {{ .Version }}"
 version_changed: "Changed in {{ .Version }}"
 version_deprecated: "Deprecated in {{ .Version }}"
