@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.2](https://github.com/vanityURLs/website/compare/v2.16.1...v2.16.2) (2026-06-03)
+
+
+### 📚 Documentation
+
+* document lookup routes and diagrams ([7fcc4f3](https://github.com/vanityURLs/website/commit/7fcc4f363575d41a192f6edaa09fd5af0193c3a5))
+* improve website contributor documentation ([ef273b0](https://github.com/vanityURLs/website/commit/ef273b08021de161cef78f53332e38613cc904be))
+* reorganize website documentation ([c47774e](https://github.com/vanityURLs/website/commit/c47774e4283fdc9dfae8dc1b5efa27778d4b7ebc))
+
+
+### 🎨 Styles/Formatting
+
+* enhance glossary items ([5bb0eca](https://github.com/vanityURLs/website/commit/5bb0ecacb9721d1e45484ee21b968587c3d24de3))
+
 ## [2.16.1](https://github.com/vanityURLs/website/compare/v2.16.0...v2.16.1) (2026-06-02)
 
 
