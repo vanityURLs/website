@@ -62,7 +62,7 @@ Les commandes de liste acceptent `--format table` ou `--format json`. Table est 
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-Si vous omettez le slug, `lnk` en génère un avec la longueur par défaut configuree dans `custom/v8s-site-config.json`. `npm run setup` écrit `3` lorsque la valeur est absente. Les slugs génères utilisent l'alphabet lisible configure. La valeur produit par défaut est `34789abcdefghjkmnpqrstvwxy`.
+Si vous omettez le slug, `lnk` en génère un avec la longueur effective depuis la configuration de site fusionnée. `custom/v8s-site-config.json` peut remplacer la valeur, et les valeurs absentes héritent de `defaults/v8s-site-config.json`. `npm run setup` écrit `3` lorsque la valeur est absente. Les slugs génères utilisent l'alphabet lisible configure. La valeur produit par défaut est `34789abcdefghjkmnpqrstvwxy`.
 
 Remplacez la longueur pour une seule commande avec :
 

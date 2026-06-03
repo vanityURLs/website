@@ -39,15 +39,15 @@ Legacy `custom/v8s-blocklist.json` and `defaults/v8s-blocklist.json` may still b
 
 ## Site Config
 
-`custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, legal-page mode, and link CLI defaults. The exact field list is defined by [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) and the installer. The important top-level sections are:
+`custom/v8s-site-config.json` is the main setup file written by `npm run setup`. It stores instance-owned site settings, including languages, branding, operator contacts, legal-page mode, and link CLI overrides. The exact field list is defined by [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) and the installer. The build deep-merges the default and custom site config, so additive defaults can arrive through `defaults/` without rewriting your custom file. The important top-level sections are:
 
-| Section          | Purpose                                                                                             |
-| ---------------- | --------------------------------------------------------------------------------------------------- |
-| `schema_version` | Stored configuration contract version. It changes only when an existing custom file needs migration |
-| `i18n`           | Default language and supported languages                                                            |
-| `links`          | Default generated slug length, readable alphabet, and tag-specific generated slug lengths for `lnk` |
-| `operator`       | Operator identity, contacts, timezone, legal-page mode, analytics disclosure, and response window   |
-| `branding`       | Short domain, public slogan, public-page copy flag, and split-color wordmark                        |
+| Section          | Purpose                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `schema_version` | Stored configuration contract version. It changes only when an existing custom file needs migration                |
+| `i18n`           | Default language and supported languages                                                                           |
+| `links`          | Optional overrides for generated slug length, readable alphabet, and tag-specific generated slug lengths for `lnk` |
+| `operator`       | Operator identity, contacts, timezone, legal-page mode, analytics disclosure, and response window                  |
+| `branding`       | Short domain, public slogan, public-page copy flag, and split-color wordmark                                       |
 
 Use IANA timezone names for `operator.timezone`, such as `America/Toronto` or `Europe/Berlin`. Avoid numeric offsets such as `-4` or `-5`; they do not describe daylight saving time transitions and setup rejects them.
 

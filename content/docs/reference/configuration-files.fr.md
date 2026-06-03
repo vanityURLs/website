@@ -39,15 +39,15 @@ Les anciens `custom/v8s-blocklist.json` et `defaults/v8s-blocklist.json` peuvent
 
 ## Configuration du site
 
-`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les valeurs par défaut de la CLI de liens. La liste exacte des champs est définie par [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) et l'installateur. Les sections principales importantes sont :
+`custom/v8s-site-config.json` est le principal fichier de setup écrit par `npm run setup`. Il stocke les réglages de site propres à l'instance, dont les langues, la marque, les contacts opérateur, le mode des pages légales et les surcharges de la CLI de liens. La liste exacte des champs est définie par [`defaults/v8s-site-config.json`](https://github.com/vanityURLs/code/blob/main/defaults/v8s-site-config.json) et l'installateur. Le build fusionne en profondeur la configuration de site par défaut et custom, donc les valeurs par défaut additives peuvent arriver par `defaults/` sans réécrire votre fichier custom. Les sections principales importantes sont :
 
-| Section          | Rôle                                                                                                              |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `schema_version` | Version du contrat de configuration stocké. Elle change seulement lorsqu'un fichier custom existant doit migrer   |
-| `i18n`           | Langue par défaut et langues supportées                                                                           |
-| `links`          | Longueur par défaut des slugs générés, alphabet lisible et longueurs par tag pour `lnk`                           |
-| `operator`       | Identité opérateur, contacts, fuseau horaire, mode des pages légales, divulgation analytics et fenêtre de réponse |
-| `branding`       | Domaine court, slogan public, drapeau de copie des pages publiques et wordmark en deux couleurs                   |
+| Section          | Rôle                                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `schema_version` | Version du contrat de configuration stocké. Elle change seulement lorsqu'un fichier custom existant doit migrer    |
+| `i18n`           | Langue par défaut et langues supportées                                                                            |
+| `links`          | Surcharges optionnelles pour la longueur des slugs générés, l'alphabet lisible et les longueurs par tag pour `lnk` |
+| `operator`       | Identité opérateur, contacts, fuseau horaire, mode des pages légales, divulgation analytics et fenêtre de réponse  |
+| `branding`       | Domaine court, slogan public, drapeau de copie des pages publiques et wordmark en deux couleurs                    |
 
 Exemple :
 

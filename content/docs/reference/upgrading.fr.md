@@ -15,7 +15,11 @@ Lancez-la depuis un worktree propre :
 npm run upgrade
 ```
 
-La commande récupère la source upstream configurée, rafraîchit les fichiers produit comme `defaults/` et `scripts/`, lance les vérifications du projet et laisse un diff Git normal à réviser.
+La commande récupère la source upstream configurée, rafraîchit les fichiers produit comme `defaults/` et `scripts/`, lance les vérifications du projet et laisse un diff Git normal à réviser. Si les définitions de dépendances changent pendant le rafraîchissement, l'upgrade lance `npm install` avant la validation afin que l'outillage local corresponde aux fichiers produit mis à jour.
+
+{{< callout type="note" title="Les valeurs par défaut sont héritées" >}}
+Vous n'avez pas besoin de relancer setup seulement pour recevoir de nouvelles valeurs par défaut produit. Le build fusionne `defaults/v8s-site-config.json` avec `custom/v8s-site-config.json`, donc les champs additifs absents héritent de la base produit. Relancez `npm run setup` seulement lorsque vous voulez changer des réponses propres à l'instance.
+{{< /callout >}}
 
 ## Ce qui reste à vous
 
@@ -37,7 +41,7 @@ Quand la commande se termine :
 git status --short
 git diff
 npm run check
-git add defaults scripts
+git add defaults scripts package.json package-lock.json .npmrc .prettierignore
 git commit -m "chore: upgrade vanityurls runtime"
 git push
 ```
