@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.16.1](https://github.com/vanityURLs/website/compare/v2.16.0...v2.16.1) (2026-06-02)
+
+
+### 📚 Documentation
+
+* **access:** cover localized stats paths ([844cbff](https://github.com/vanityURLs/website/commit/844cbffaf19f88bdb17fbe9ba5709e8b4fe302ef))
+* **access:** document localized stats paths ([c0ad0bf](https://github.com/vanityURLs/website/commit/c0ad0bf1b729f3fd1446f2831e6ce0a838d09705))
+* refine access control guidance ([3978a91](https://github.com/vanityURLs/website/commit/3978a91b1b36bf7dfe8dc26acfc8a808bfd328c4))
+
+
+### 💚 Continuous Integration
+
+* updated release-please workflow ([44e9bd7](https://github.com/vanityURLs/website/commit/44e9bd780af851d6c28df8c7c014322e7f5f6951))
+
 ## [2.16.0](https://github.com/vanityURLs/website/compare/v2.15.4...v2.16.0) (2026-06-01)
 
 
