@@ -19,6 +19,8 @@ Let's manage redirected short links with _your_ vanityURLs engine. An instance c
 5. Let Cloudflare deploy the Worker
 6. Test your first short links
 
+Use [Setup flowcharts](/docs/setup/flowcharts/) when you want to understand how the installer groups questions and which branches stay on the happy path.
+
 ## What you need
 
 Before starting, make sure you have these pieces ready:

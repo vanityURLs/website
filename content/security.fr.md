@@ -5,21 +5,21 @@ description: "Comment vanityURLs.link est sécurisé — chiffrement, hébergeme
 
 vanityURLs.link est un site de documentation statique pour un projet open source. Il n'y a pas d'authentification, de base de données, de traitement côté serveur, ni de collecte de données personnelles. Cette page explique les contrôles de sécurité en place.
 
-## Hébergement : Cloudflare Pages
+## Hébergement : Workers Static Assets
 
-Ce site est servi exclusivement par [Cloudflare Pages](https://pages.cloudflare.com/), une plateforme sans serveur distribuée à l'échelle mondiale. Cloudflare fournit :
+Ce site est servi avec [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/) et un Cloudflare Worker, un runtime sans serveur distribué à l'échelle mondiale. Cloudflare fournit :
 
 - **TLS 1.3** — toutes les connexions sont chiffrées avec TLS 1.3 (TLS 1.2 minimum). Les versions de protocole plus anciennes sont rejetées.
 - **HSTS** — HTTP Strict Transport Security est appliqué, empêchant les attaques de rétrogradation de protocole
 - **HTTP/2 et HTTP/3** — les protocoles de transport modernes sont activés automatiquement
 - **Protection DDoS** — le réseau Cloudflare absorbe les attaques volumétriques à la périphérie avant qu'elles n'atteignent l'origine
-- **Zéro serveur d'origine** — il n'y a pas de serveur d'origine à attaquer. Le site est entièrement servi depuis le cache de périphérie de Cloudflare.
+- **Zéro serveur d'origine** — il n'y a pas de serveur d'origine à attaquer. Les assets statiques et les requêtes HTML sont servis depuis la périphérie de Cloudflare.
 
 Les pratiques de sécurité de l'infrastructure Cloudflare sont documentées sur [cloudflare.com/trust-hub](https://www.cloudflare.com/trust-hub/).
 
 ## En-têtes de sécurité HTTP
 
-Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans `build/_headers` et appliqués par Cloudflare Pages :
+Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans `static/_headers` et appliqués par le déploiement Cloudflare Worker :
 
 | En-tête                   | Valeur                                     | Objectif                                                                 |
 | ------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
@@ -75,7 +75,7 @@ Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce côté c
 ## Ce que vanityURLs ne fait PAS
 
 - **Aucun cookie** — le site ne définit aucun cookie
-- **Aucune analytique côté client** — aucun pixel de suivi, enregistrement de session ou script analytique JavaScript ne s'exécute dans votre navigateur. Le comptage des pages vues est émis côté serveur par le Worker de périphérie Cloudflare et envoyé à [Umami](https://github.com/vanityURLs/vanityURLs/security/advisories/new) sans définir d'identifiant dans votre navigateur. Consultez la [politique de confidentialité](/privacy/) pour les champs exacts transmis.
+- **Aucune analytique côté client** — aucun pixel de suivi, enregistrement de session ou script analytique JavaScript ne s'exécute dans votre navigateur. Le comptage des pages vues est émis côté serveur par le Worker de périphérie Cloudflare et envoyé à [Umami](https://umami.is/) sans définir d'identifiant dans votre navigateur. Consultez la [politique de confidentialité](/fr/privacy/) pour les champs exacts transmis.
 - **Aucune collecte de données personnelles** — pas de formulaires, pas de comptes, pas de journaux de données visiteurs au-delà des journaux d'accès standard de Cloudflare
 - **Aucune publicité tierce** — pas de réseaux publicitaires
 - **Aucun script injecté par CDN** — Zaraz et Rocket Loader de Cloudflare ne sont pas activés
@@ -86,7 +86,7 @@ Aucune requête réseau externe n'est effectuée par le navigateur du visiteur. 
 
 Si vous découvrez un problème de sécurité dans ce site ou le logiciel vanityURLs, veuillez le signaler en privé :
 
-- **GitHub Security Advisories** : [Signaler une vulnérabilité](/privacy/)
+- **GitHub Security Advisories** : [Signaler une vulnérabilité](https://github.com/vanityURLs/website/security/advisories/new)
 - Ne pas ouvrir un ticket public pour les vulnérabilités de sécurité
 
 Nous visons à accuser réception des signalements dans les **72 heures** et à les résoudre dans les **7 jours**.

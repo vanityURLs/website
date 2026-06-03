@@ -39,7 +39,7 @@ languages:
               url: https://github.com/orgs/vanityURLs/discussions
               external: true
             - name: Source Code
-              url: https://github.com/vanityURLs/vanityURLs
+              url: https://github.com/vanityURLs/code
               external: true
         col4:
           title: Security & Privacy
@@ -83,7 +83,7 @@ languages:
           title: Communauté
           links:
             - name: Code source
-              url: https://github.com/vanityURLs/vanityURLs
+              url: https://github.com/vanityURLs/code
               external: true
             - name: Guide de contribution
               url: /contributing/
@@ -117,7 +117,7 @@ languages:
 
 params:
   # Version removed — vanityURLs has no version badge
-  github: "https://github.com/vanityURLs/vanityURLs"
+  github: "https://github.com/vanityURLs/code"
   discussions: "https://github.com/orgs/vanityURLs/discussions"
   website_repo: "https://github.com/vanityURLs/website"
   editBaseURL: "https://github.com/vanityURLs/website/edit/main/content"

@@ -26,23 +26,23 @@ This includes:
 - The GitHub Actions CI/CD workflow
 - The Tailwind CSS configuration and all JavaScript
 
-If you find something unexpected, please [report it](vulnerability).
+If you find something unexpected, please [report it](https://github.com/vanityURLs/website/security/advisories/new).
 
-## Cloudflare Pages (hosting)
+## Workers Static Assets (hosting)
 
-This website is served exclusively by [Cloudflare Pages](https://pages.cloudflare.com/), a globally distributed serverless platform. Cloudflare provides:
+This website is served by [Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/) with a Cloudflare Worker, a globally distributed serverless runtime. Cloudflare provides:
 
 - **TLS 1.3** — all connections are encrypted using TLS 1.3 (TLS 1.2 minimum). Older protocol versions are rejected.
 - **HSTS** — HTTP Strict Transport Security is enforced, preventing protocol downgrade attacks
 - **HTTP/2 and HTTP/3** — modern transport protocols are enabled automatically
 - **DDoS protection** — Cloudflare's network absorbs volumetric attacks at the edge before they reach the origin
-- **Zero origin servers** — there is no origin server to attack. The site is served entirely from Cloudflare's edge cache.
+- **Zero origin servers** — there is no origin server to attack. Static assets and HTML requests are served from Cloudflare's edge.
 
 Cloudflare's infrastructure security practices are documented at [cloudflare.com/trust-hub](https://www.cloudflare.com/trust-hub/).
 
 ### HTTP Security Headers
 
-Every response from vanityURLs.link includes the following headers, defined in `build/_headers` and enforced by Cloudflare Pages:
+Every response from vanityURLs.link includes the following headers, defined in `static/_headers` and enforced by the Cloudflare Worker deployment:
 
 | Header                    | Value                                      | Purpose                                                                |
 | ------------------------- | ------------------------------------------ | ---------------------------------------------------------------------- |
@@ -82,4 +82,4 @@ This configuration makes it technically impossible to forge a valid email from `
 
 ## Vulnerability Reporting
 
-If you discover a security issue in this website or the vanityURLs software, [report it](vulnerability).
+If you discover a security issue in this website or the vanityURLs software, [report it privately](https://github.com/vanityURLs/website/security/advisories/new).

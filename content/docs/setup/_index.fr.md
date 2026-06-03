@@ -19,6 +19,8 @@ Gerons les liens courts redirigés avec _votre_ moteur vanityURLs. Une instance 
 5. Laisser Cloudflare déployer le Worker
 6. Tester vos premiers liens courts
 
+Utilisez [Flux de configuration](/fr/docs/setup/flowcharts/) pour comprendre comment l'installateur groupe les questions et quelles branches restent sur le chemin heureux.
+
 ## Ce qu'il faut
 
 Avant de commencer, assurez-vous d'avoir ces éléments prêts :

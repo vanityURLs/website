@@ -62,7 +62,7 @@ List commands accept `--format table` or `--format json`. Table is the default.
 ./scripts/lnk --state ephemeral --title "Launch" https://example.com campaign/launch
 ```
 
-If you omit the slug, `lnk` generates one with the default random slug length from `custom/v8s-site-config.json`. `npm run setup` proposes `3`. Generated slugs use the configured readable alphabet. The product default is `34789abcdefghjkmnpqrstvwxy`.
+If you omit the slug, `lnk` generates one with the default random slug length from `custom/v8s-site-config.json`. `npm run setup` writes `3` when the value is missing. Generated slugs use the configured readable alphabet. The product default is `34789abcdefghjkmnpqrstvwxy`.
 
 Override the length for one command with:
 
