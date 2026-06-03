@@ -64,7 +64,7 @@ Use `--default-state permanent` if omitted statuses should become permanent link
 2. Visit `/`
 3. Visit a valid short link and confirm the redirect
 4. Visit a missing slug and confirm the localized 404
-5. Visit `/expand/`
+5. Visit `/lookup/`
 6. Visit `/en/_stats/` from a private browser and confirm Cloudflare Access login using [Access control](/docs/customize/access-control/) as the expected configuration
 7. Visit `/file.php` and confirm scanner probes are blocked or return a plain 404
 8. Confirm Umami or Fathom receives redirect events if analytics are configured

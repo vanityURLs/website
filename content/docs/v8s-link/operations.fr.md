@@ -12,17 +12,17 @@ Le dépôt source est [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.li
 
 ## Pages principales
 
-L'anglais (`en`) est la langue principale et de fallback lorsqu'une page localisée n'est pas actuellement [supportée](https://v8s.link) ou installée pendant le setup.
+L'anglais (`en`) est la langue principale et de fallback lorsqu'une page localisée n'est pas actuellement [supportée](/fr/docs/reference/i18n/) ou installée pendant le setup.
 
 | Chemin                                                                 | Ce que cela prouve                                                 |
 | ---------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| [v8s.link](https://www.vanityurls.link/fr/docs/reference/i18n/)        | Page d'accueil par défaut pour chercher ou ouvrir les liens courts |
-| [v8s.link/expand/](https://v8s.link)                                   | Prévisualiser la destination d'un lien court sans l'ouvrir         |
-| [v8s.link/404.html](https://v8s.link/expand/)                          | Page de lien manquant localisée                                    |
-| [v8s.link/expired.html](https://v8s.link/404.html)                     | Page de cycle de vie expiré                                        |
-| [v8s.link/disabled.html](https://v8s.link/expired.html)                | Page de cycle de vie désactivé                                     |
-| [v8s.link/maintenance.html](https://v8s.link/disabled.html)            | Page de cycle de vie maintenance                                   |
-| [v8s.link/.well-known/security.txt](https://v8s.link/maintenance.html) | Contact machine-readable pour la divulgation de vulnérabilités.    |
+| [v8s.link](https://v8s.link)                                                   | Page d'accueil par défaut pour chercher ou ouvrir les liens courts |
+| [v8s.link/lookup/](https://v8s.link/lookup/)                                   | Consulter la destination d'un lien court sans l'ouvrir             |
+| [v8s.link/404.html](https://v8s.link/404.html)                                 | Page de lien manquant localisée                                    |
+| [v8s.link/expired.html](https://v8s.link/expired.html)                         | Page de cycle de vie expiré                                        |
+| [v8s.link/disabled.html](https://v8s.link/disabled.html)                       | Page de cycle de vie désactivé                                     |
+| [v8s.link/maintenance.html](https://v8s.link/maintenance.html)                 | Page de cycle de vie maintenance                                   |
+| [v8s.link/.well-known/security.txt](https://v8s.link/.well-known/security.txt) | Contact machine-readable pour la divulgation de vulnérabilités.    |
 
 ## Liens
 

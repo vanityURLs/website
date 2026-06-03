@@ -17,7 +17,7 @@ Ce billet documente l'espace negatif. Il nomme les boutons qui devraient rester 
 
 Ne configurez pas les Page Rules legacy, Bulk Redirects, modèles de redirection ou Workers Routes de zone comme chemin par défaut pour gerer les liens.
 
-vanityURLs a dejà un [registre de liens](/fr/docs/reference/glossary/#link-registry), des données runtime générées, des états de cycle de vie, des horaires, des splats, des pages expand et des analytics côté Worker. Une autre surface de redirection transforme le diagnostic en archeologie.
+vanityURLs a dejà un [registre de liens](/fr/docs/reference/glossary/#link-registry), des données runtime générées, des états de cycle de vie, des horaires, des splats, des pages de consultation et des analytics côté Worker. Une autre surface de redirection transforme le diagnostic en archeologie.
 
 Utilisez un deuxieme système de redirection seulement lorsqu'il à une limite documentee. Par exemple : une règle de migration temporaire, un hostname hors du Worker vanityURLs ou une liste statique volontairement séparée du registre gere dans le dépôt.
 
@@ -27,7 +27,7 @@ N'activez pas Cloudflare Web Analytics ou RUM par défaut.
 
 Les deux peuvent être utiles. Les deux font participer le navigateur du visiteur. La posture vanityURLs par défaut est l'analytics côté serveur depuis le Worker vers Umami ou Fathom, si les analytics sont activées.
 
-Utilisez les vues d'infrastructure Cloudflare pour la sante Worker et les décisions edge. Utilisez les analytics applicatives vanityURLs pour les redirections, misses, recherches expand, pageviews et événements bot normalises qui ont atteint le Worker.
+Utilisez les vues d'infrastructure Cloudflare pour la sante Worker et les décisions edge. Utilisez les analytics applicatives vanityURLs pour les redirections, misses, consultations, pageviews et événements bot normalises qui ont atteint le Worker.
 
 ## Eviter L'Inventaire API Sans API
 

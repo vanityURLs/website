@@ -38,22 +38,13 @@ The tradeoff is that analytics behavior lives in Worker code and needs tests.
 ## Request flow
 
 {{< mermaid >}}
-flowchart TD
-  A[Visitor requests<br/>HTML page]
-  B[Request reaches Worker]
-  C[Worker fetches HTML]
-  D[HTML response returns]
-  E[Analytics runs<br/>in background]
-  F[Umami records event]
-  G[Static asset request]
-  H[No analytics event]
-
-  A --> B
-  B --> C
-  C --> D
-  C --> E
-  E --> F
-  G --> H
+flowchart LR
+  A["Visitor<br/>request"] --> B{"Request kind"}
+  B -->|"HTML page<br/>request"| C["Worker<br/>fetches HTML"]
+  C --> D["HTML response<br/>and file returns"]
+  C --> E["Analytics<br/>module"]
+  E --> F["Umami records<br/>event"]
+  B -->|"Static asset<br/>request"| G["No analytics<br/>event"]
 {{< /mermaid >}}
 
 HTML requests pass through `src/worker.mjs`, which uses `ctx.waitUntil(...)` to send analytics without delaying the visitor response. Static asset requests should not produce analytics events.

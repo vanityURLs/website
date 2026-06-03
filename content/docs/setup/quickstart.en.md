@@ -177,7 +177,7 @@ If this is not your first push and `git status --short` is empty, there is nothi
 
 ### Test the deployment
 
-Open the home page, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
+Open the home page, `/lookup/`, `/404.html`, `/expired.html`, `/disabled.html`, and `/maintenance.html`.
 
 If `custom/v8s-links.txt` does not exist, setup creates it from `defaults/v8s-links.txt`, then adapts the starter `home`, `contact`, and `docs` links for your short domain and owner label.
 

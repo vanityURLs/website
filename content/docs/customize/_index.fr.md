@@ -12,3 +12,12 @@ Quand le demarrage rapide fonctionne, la personnalisation est le moment ou l'ins
 Pour une carte pratique des premières zones a personnalisér, lisez [Par ou commencer la personnalisation de vanityURLs](/fr/blog/where-to-start-customizing-vanityurls/).
 
 La règle importante est simple : modifiez `custom/`, pas les fichiers génères dans `build/`. Les defaults produit vivent dans `defaults/`; vos choix propres à l'instance vivent dans `custom/`; le build combine les deux dans les assets Worker et les JSON runtime déployés par Cloudflare.
+
+{{< mermaid >}}
+flowchart LR
+  A["defaults/<br/>Base produit"] --> C["npm run build"]
+  B["custom/<br/>Choix de l'instance"] --> C
+  C --> D["build/<br/>Sortie générée"]
+  D --> E["Assets Worker<br/>et JSON runtime"]
+  E --> F["Déploiement<br/>Cloudflare"]
+{{< /mermaid >}}

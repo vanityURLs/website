@@ -15,6 +15,19 @@ Pour le raisonnement de sécurité par couches, lisez [Ajouter des couches de pr
 
 Pour les fonctionnalites volontairement exclues du setup par défaut, lisez [Fonctionnalités Cloudflare à ne pas activer par défaut](/fr/blog/cloudflare-features-not-to-enable-by-default/).
 
+{{< mermaid >}}
+flowchart LR
+  A["Requête visiteur"] --> B["Edge Cloudflare"]
+  B --> C["TLS, DDoS,<br/>règles managées"]
+  C --> D["WAF, rate limit,<br/>contrôles bot"]
+  D --> E{"Autorisé à<br/>atteindre le Worker ?"}
+  E -->|"non"| F["Réponse bloquée,<br/>challenge ou rate limit"]
+  E -->|"oui"| G["Worker vanityURLs"]
+  G --> H["Rediriger un lien court"]
+  G --> I["Page locale publique"]
+  G --> J["Chemin protégé<br/>vers le tableau"]
+{{< /mermaid >}}
+
 {{% steps %}}
 
 ### Confirmer le domaine custom du Worker
@@ -127,7 +140,7 @@ not cf.client.bot and
 not starts_with(http.request.uri.path, "/_stats") and
 not starts_with(http.request.uri.path, "/_tests") and
 not starts_with(http.request.uri.path, "/_analytics") and
-not http.request.uri.path in {"/" "/index" "/expand" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
+not http.request.uri.path in {"/" "/index" "/lookup" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
 not lower(http.request.uri.path) contains ".css" and
 not lower(http.request.uri.path) contains ".js" and
 not lower(http.request.uri.path) contains ".png" and
@@ -243,7 +256,7 @@ Allow: /llms.txt
 Allow: /llms-full.txt
 Disallow: /en/_stats/
 Disallow: /*/_stats/
-Disallow: /expand/
+Disallow: /lookup/
 ```
 
 La page Signals devrait afficher `/robots.txt` comme accessible avec `200 OK`. Utilisez **Agent Readiness** et **Robots.txt violations** comme surfaces de suivi, pas comme source de vérité du contenu du fichier.
@@ -260,7 +273,7 @@ Reglages Rules recommandes :
 | Managed Transforms | Add visitor location headers           | Off; Umami et Fathom n'ont pas besoin des en-têtes ville/latitude/longitude de Cloudflare, et les ajouter augmente l'exposition des données de localisation                                                                       |
 | Managed Transforms | Remove visitor IP headers              | Off sauf si une origine derrière le Worker les recoit                                                                                                                                                                             |
 | Managed Transforms | Add security headers transform         | Off par défaut; vanityURLs contrôle ses en-têtes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre à la politique applicative                         |
-| Bulk Redirects     | Bulk Redirect Lists                    | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages expand, les horaires, les splats et le workflow de publication locale |
+| Bulk Redirects     | Bulk Redirect Lists                    | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages de consultation, les horaires, les splats et le workflow de publication locale |
 | URL Normalization  | URL normalization type                 | Cloudflare                                                                                                                                                                                                                        |
 | URL Normalization  | Normalize incoming URLs                | On, utilisé par Access, les règles WAF et Workers                                                                                                                                                                                 |
 | URL Normalization  | Normalize URLs to origin               | Off                                                                                                                                                                                                                               |

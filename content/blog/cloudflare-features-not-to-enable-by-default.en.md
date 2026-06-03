@@ -17,7 +17,7 @@ This post is the negative space. It names the knobs that should stay off unless 
 
 Do not configure legacy Page Rules, Bulk Redirects, redirect templates, or zone-level Workers Routes as the default link-management path.
 
-vanityURLs already has a [link registry](/docs/reference/glossary/#link-registry), generated runtime data, lifecycle states, schedules, splats, expand pages, and Worker-side analytics. Another redirect surface turns troubleshooting into archaeology.
+vanityURLs already has a [link registry](/docs/reference/glossary/#link-registry), generated runtime data, lifecycle states, schedules, splats, lookup pages, and Worker-side analytics. Another redirect surface turns troubleshooting into archaeology.
 
 Use a second redirect system only when it has a documented boundary. For example: a one-time migration rule, a hostname outside the vanityURLs Worker, or a static list that is intentionally not part of the repository-managed registry.
 
@@ -27,7 +27,7 @@ Do not enable Cloudflare Web Analytics or RUM by default.
 
 Both can be useful. Both make the visitor's browser participate. The default vanityURLs posture is server-side analytics from the Worker to Umami or Fathom, if analytics are enabled at all.
 
-Use Cloudflare infrastructure views for Worker health and edge decisions. Use vanityURLs application analytics for redirects, misses, expand lookups, pageviews, and normalized bot events that reached the Worker.
+Use Cloudflare infrastructure views for Worker health and edge decisions. Use vanityURLs application analytics for redirects, misses, lookup requests, pageviews, and normalized bot events that reached the Worker.
 
 ## Avoid API Inventory Without An API
 

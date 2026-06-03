@@ -59,11 +59,11 @@ Cons:
 
 ## What vanityURLs sends
 
-vanityURLs can send server-side events from the Worker. That means no browser tracking script is required on redirect pages. Events can cover redirect traffic, public page views, misses, and expand-page activity that reaches the Worker.
+vanityURLs can send server-side events from the Worker. That means no browser tracking script is required on redirect pages. Events can cover redirect traffic, public page views, misses, and lookup-page activity that reaches the Worker.
 
 Traffic stopped before the Worker, such as requests blocked by [Cloudflare Access](/docs/customize/access-control/), WAF rules, rate limiting, or bot controls, will not appear in analytics because vanityURLs never receives it.
 
-That split is deliberate. Cloudflare analytics and Security Events answer infrastructure questions: DNS, TLS, WAF, Access, rate limits, crawler controls, and blocked traffic. vanityURLs analytics answers application questions: which short link redirected, which slug missed, which expand lookup ran, and which public page was viewed after the request reached the Worker.
+That split is deliberate. Cloudflare analytics and Security Events answer infrastructure questions: DNS, TLS, WAF, Access, rate limits, crawler controls, and blocked traffic. vanityURLs analytics answers application questions: which short link redirected, which slug missed, which lookup request ran, and which public page was viewed after the request reached the Worker.
 
 For the exact event names, provider payloads, and IP modes, use the [Analytics reference](/docs/reference/analytics/). For the setup steps, use [Analytics](/docs/customize/analytics/).
 

@@ -23,7 +23,7 @@ For a short-link service, the safest domain posture is simple: use an operator-o
 
 ## Paths are different
 
-The path after the domain is not DNS. A path like `/déplier` can be encoded, decoded, copied, normalized, and displayed differently by different tools:
+The path after the domain is not DNS. A path like `/résumé` can be encoded, decoded, copied, normalized, and displayed differently by different tools:
 
 - Unicode can be represented in composed or decomposed forms.
 - Browsers may show readable characters while logs show percent encoding.
@@ -41,7 +41,7 @@ vanityURLs keeps short-link slugs ASCII-only:
 - dot, underscore, tilde, and hyphen inside a segment
 - slash only as a path separator
 
-Localized pages may still use language-specific aliases, but those aliases should be ASCII too. For example, French can use `/fr/deplier` instead of `/fr/déplier`.
+Localized pages may still use language-specific aliases, but those aliases should be ASCII too. For example, French can use `/fr/consultation` instead of an accented slug.
 
 This keeps manual typing reliable, makes Git diffs and review clearer, avoids Unicode normalization surprises, and reduces the risk of confusingly similar slugs.
 

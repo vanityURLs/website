@@ -15,7 +15,7 @@ For the design rationale, read [Runtime security for a small redirector](/blog/r
 
 The Worker keeps the runtime path narrow:
 
-- only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus the dedicated `POST /_analytics/expand` beacon
+- only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus the dedicated `POST /_analytics/lookup` beacon
 - direct access to `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` returns 404
 - redirects allow only `http:` and `https:` targets
 - redirect targets with credentials, missing hostnames, control characters, or unsupported protocols fail closed
@@ -66,7 +66,7 @@ Cloudflare Access is not the only layer that limits operational file access. Kee
 | Control                            | Paths                                                                                   | What it does                                                             |
 | ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                             | Returns `404` for direct public requests                                 |
-| Static `_headers` fallback         | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/expand/*` | Adds no-cache and no-index headers if static assets are served directly  |
+| Static `_headers` fallback         | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/lookup/*` | Adds no-cache and no-index headers if static assets are served directly  |
 | Protected stats API                | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                | Exposes the generated registry only through the protected stats surface  |
 | Reserved slug validation           | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`     | Prevents short links from being created under reserved operational paths |
 

@@ -11,6 +11,18 @@ Use policy and blocklist customization when your instance needs local trust-and-
 
 For the trust-and-safety rationale, read [Protecting the reputation of a short-link domain](/blog/protecting-the-reputation-of-a-short-link-domain/). For source file selection, categories, generated feeds, runtime artifacts, and field behavior, read [Policy and blocklist](/docs/reference/policy-blocklist/).
 
+{{< mermaid >}}
+flowchart LR
+  A["defaults/<br/>source policy"] --> C["generate:blocklist"]
+  B["custom/<br/>local policy"] --> D["link validation"]
+  C --> E["runtime blocklist<br/>artifacts"]
+  E --> D
+  F["configured<br/>short links"] --> D
+  D --> G{"Validation<br/>passes?"}
+  G -->|"yes"| H["Build and deploy"]
+  G -->|"no"| I["Fix link<br/>or policy"]
+{{< /mermaid >}}
+
 {{% steps %}}
 
 ### Decide whether you need local policy

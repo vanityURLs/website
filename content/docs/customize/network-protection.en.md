@@ -15,6 +15,19 @@ For the layered security rationale, read [Layering Cloudflare protection around 
 
 For the features intentionally left out of the default setup, read [Cloudflare features not to enable by default](/blog/cloudflare-features-not-to-enable-by-default/).
 
+{{< mermaid >}}
+flowchart LR
+  A["Visitor request"] --> B["Cloudflare edge"]
+  B --> C["TLS, DDoS,<br/>managed rules"]
+  C --> D["WAF, rate limit,<br/>bot controls"]
+  D --> E{"Allowed to<br/>reach Worker?"}
+  E -->|"no"| F["Block, challenge,<br/>or rate-limit response"]
+  E -->|"yes"| G["vanityURLs Worker"]
+  G --> H["Redirect short link"]
+  G --> I["Public local page"]
+  G --> J["Protected path<br/>to the dashboard"]
+{{< /mermaid >}}
+
 {{% steps %}}
 
 ### Confirm the Worker custom domain
@@ -127,7 +140,7 @@ not cf.client.bot and
 not starts_with(http.request.uri.path, "/_stats") and
 not starts_with(http.request.uri.path, "/_tests") and
 not starts_with(http.request.uri.path, "/_analytics") and
-not http.request.uri.path in {"/" "/index" "/expand" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
+not http.request.uri.path in {"/" "/index" "/lookup" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
 not lower(http.request.uri.path) contains ".css" and
 not lower(http.request.uri.path) contains ".js" and
 not lower(http.request.uri.path) contains ".png" and
@@ -243,7 +256,7 @@ Allow: /llms.txt
 Allow: /llms-full.txt
 Disallow: /en/_stats/
 Disallow: /*/_stats/
-Disallow: /expand/
+Disallow: /lookup/
 ```
 
 The Signals page should show `/robots.txt` as reachable with `200 OK`. Use **Agent Readiness** and **Robots.txt violations** as monitoring surfaces, not as the source of truth for the file content.
@@ -260,7 +273,7 @@ Recommended Rules settings:
 | Managed Transforms | Add visitor location headers           | Off; Umami and Fathom do not need city/latitude/longitude request headers from Cloudflare, and adding them increases location data exposure                                                      |
 | Managed Transforms | Remove visitor IP headers              | Off unless an origin behind the Worker receives them                                                                                                                                             |
 | Managed Transforms | Add security headers transform         | Off by default; vanityURLs owns headers in the Worker and `defaults/public/_headers`, and Cloudflare's broad transform adds a fixed header bundle that may not match the app policy              |
-| Bulk Redirects     | Bulk Redirect Lists                    | No action for Worker-based vanityURLs; useful for large static redirect lists, but they bypass the registry lifecycle, analytics, expand pages, schedules, splats, and local publishing workflow |
+| Bulk Redirects     | Bulk Redirect Lists                    | No action for Worker-based vanityURLs; useful for large static redirect lists, but they bypass the registry lifecycle, analytics, lookup pages, schedules, splats, and local publishing workflow |
 | URL Normalization  | URL normalization type                 | Cloudflare                                                                                                                                                                                       |
 | URL Normalization  | Normalize incoming URLs                | On, used by Access, WAF rules, and Workers                                                                                                                                                       |
 | URL Normalization  | Normalize URLs to origin               | Off                                                                                                                                                                                              |

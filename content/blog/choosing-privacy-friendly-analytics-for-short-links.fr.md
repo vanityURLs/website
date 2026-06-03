@@ -59,11 +59,11 @@ Limites :
 
 ## Ce que vanityURLs envoie
 
-vanityURLs peut envoyér des événements serveur depuis le Worker. Aucun script de tracking navigateur n'est requis sur les pages de redirection. Les événements peuvent couvrir les redirections, pageviews publiques, misses et activité de la page expand qui atteignent le Worker.
+vanityURLs peut envoyér des événements serveur depuis le Worker. Aucun script de tracking navigateur n'est requis sur les pages de redirection. Les événements peuvent couvrir les redirections, pageviews publiques, misses et activité de consultation qui atteignent le Worker.
 
 Le trafic arrété avant le Worker, par exemple par [Contrôle d'accès](/fr/docs/customize/access-control/), WAF, rate limiting ou contrôles bot, n'apparaitra pas dans les analytics parce que vanityURLs ne le recoit jamais.
 
-Cette séparation est volontaire. Cloudflare analytics et Security Events répondent aux questions d'infrastructure : DNS, TLS, WAF, Access, rate limits, contrôles crawler et trafic bloqué. Les analytics vanityURLs répondent aux questions applicatives : quel lien court a redirigé, quel slug a manqué, quelle recherche expand a été exécutée et quelle page publique a été vue après que la requête a atteint le Worker.
+Cette séparation est volontaire. Cloudflare analytics et Security Events répondent aux questions d'infrastructure : DNS, TLS, WAF, Access, rate limits, contrôles crawler et trafic bloqué. Les analytics vanityURLs répondent aux questions applicatives : quel lien court a redirigé, quel slug a manqué, quelle consultation a été exécutée et quelle page publique a été vue après que la requête a atteint le Worker.
 
 Pour les noms d'événements, payloads fournisseur et modes IP exacts, utilisez la [référence Analytics](/fr/docs/reference/analytics/). Pour les étapes de configuration, utilisez [Analytics](/fr/docs/customize/analytics/).
 

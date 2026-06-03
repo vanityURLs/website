@@ -47,7 +47,7 @@ Pour la plupart des instances, le défaut sur est simple : laissez le Worker dec
 
 Cloudflare analytics et Security Events répondent aux questions d'infrastructure : DNS, TLS, WAF, rate limiting, bots, blocages crawler IA, connexions Access, CPU Worker et erreurs Worker.
 
-Les analytics vanityURLs répondent aux questions applicatives : redirections, misses, recherches expand, pageviews et événements bot normalises qui ont atteint le Worker.
+Les analytics vanityURLs répondent aux questions applicatives : redirections, misses, consultations, pageviews et événements bot normalises qui ont atteint le Worker.
 
 Les deux vues comptent. Les melanger transforme le trafic scanner en comportement utilisateur et cache une protection edge utile.
 

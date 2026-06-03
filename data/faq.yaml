@@ -408,12 +408,12 @@
   evidence:
     - repo: vanityURLs/code
       path: scripts/workers/worker.mjs
-      note: "Worker accepts GET, HEAD, and OPTIONS; other methods return 405 except the expand analytics endpoint."
+      note: "Worker accepts GET, HEAD, and OPTIONS; other methods return 405 except the lookup analytics endpoint."
     - repo: vanityURLs/website
       path: content/docs/reference/runtime-security.en.md
       note: "Runtime security docs list accepted public methods."
   answer: >
-    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /_analytics/expand` reserved for the expand-page beacon.
+    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /_analytics/lookup` reserved for the lookup-page beacon.
   related: [analytics-default, runtime-security-layers]
   tags: [http, runtime-security, architectural]
   last_reviewed: 2026-05-27
@@ -543,7 +543,7 @@
       path: content/docs/reference/analytics.en.md
       note: "Docs state analytics runs server-side and is configured with Worker variables."
   answer: >
-    The architecture has no built-in click database. Redirect, miss, pageview, and expand events are sent only when an optional analytics provider is configured for the Worker.
+    The architecture has no built-in click database. Redirect, miss, pageview, and lookup events are sent only when an optional analytics provider is configured for the Worker.
   related: [analytics-providers, analytics-ip-handling, stateless-architecture]
   tags: [privacy, analytics, operator-choice]
   last_reviewed: 2026-05-27
@@ -560,7 +560,7 @@
       note: "Analytics reference documents Umami and Fathom variables and payloads."
     - repo: vanityURLs/code
       path: scripts/workers/worker.mjs
-      note: "Runtime sends pageview, redirect, miss, expand, and bot events through provider-specific analytics functions."
+      note: "Runtime sends pageview, redirect, miss, lookup, and bot events through provider-specific analytics functions."
   answer: >
     The documented provider choices are Umami and Fathom, configured through Worker variables and secrets. Both are server-side integrations from the Worker rather than browser JavaScript trackers.
   related: [analytics-default, analytics-ip-handling]

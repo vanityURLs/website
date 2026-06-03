@@ -47,7 +47,7 @@ For most instances, the safe default is simple: let the Worker decide redirects 
 
 Cloudflare analytics and Security Events answer infrastructure questions: DNS, TLS, WAF, rate limiting, bots, AI crawler blocks, Access logins, Worker CPU, and Worker errors.
 
-vanityURLs analytics answers application questions: redirects, misses, expand lookups, pageviews, and normalized bot events that reached the Worker.
+vanityURLs analytics answers application questions: redirects, misses, lookup requests, pageviews, and normalized bot events that reached the Worker.
 
 Both views matter. Mixing them makes scanner traffic look like user behavior and hides useful edge protection.
 

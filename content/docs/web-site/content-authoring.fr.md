@@ -158,8 +158,8 @@ flowchart LR
   C[Utiliser assets]
   D{Chemin public<br/>stable requis?}
   E[Utiliser static]
-  F{Page de contenu<br/>déplacée?}
-  G[Utiliser aliases<br/>en front matter]
+  F{Page de<br/>contenu<br/>déplacée?}
+  G[Utiliser front<br/>matter aliases]
   H[Garder avec<br/>le page bundle]
 
   A --> B

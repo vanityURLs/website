@@ -63,7 +63,7 @@ Utilisez `--default-state permanent` si les statuts omis doivent devenir permane
 2. Visitez `/`
 3. Visitez un lien court valide et confirmez la redirection
 4. Visitez un slug manquant et confirmez le 404 localisé
-5. Visitez `/expand/`
+5. Visitez `/lookup/`
 6. Visitez `/en/_stats/` dans une fenêtre privée et confirmez la connexion Cloudflare Access avec [Access control](/fr/docs/customize/access-control/) comme configuration attendue
 7. Visitez `/file.php` et confirmez que les probes sont bloquées ou retournent un 404 simple
 8. Confirmez que Umami ou Fathom recoit les événements si les analytics sont configures

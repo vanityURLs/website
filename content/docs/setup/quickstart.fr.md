@@ -177,7 +177,7 @@ Si ce n'est pas votre premier push et que `git status --short` est vide, il n'y 
 
 ### Tester le déploiement
 
-Ouvrez la page d'accueil, `/expand/`, `/404.html`, `/expired.html`, `/disabled.html` et `/maintenance.html`.
+Ouvrez la page d'accueil, `/lookup/`, `/404.html`, `/expired.html`, `/disabled.html` et `/maintenance.html`.
 
 Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-links.txt`, puis adapte les liens de départ `home`, `contact` et `docs` à votre domaine court et à votre étiquette propriétaire.
 

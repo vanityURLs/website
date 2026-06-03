@@ -42,8 +42,18 @@ Configure analytics with Worker variables in `wrangler.toml` and Worker secrets 
 | `pageview`        | A static or status HTML page returns successfully                                      |
 | `redirect`        | A short link resolves to a target                                                      |
 | `short-link-miss` | A request looks like a short-link candidate but no slug matches                        |
-| `expand`          | The `/expand` page asks the Worker to inspect a slug through `POST /_analytics/expand` |
+| `lookup`          | The `/lookup` page asks the Worker to inspect a slug through `POST /_analytics/lookup` |
 | `bot`             | A known bot triggers an event and bot normalization is enabled                         |
+
+Localized lookup pages use these public paths:
+
+| Language | Path               |
+| -------- | ------------------ |
+| English  | `/lookup`          |
+| French   | `/fr/consultation` |
+| Spanish  | `/es/consulta`     |
+| Italian  | `/it/consulta`     |
+| German   | `/de/abfrage`      |
 
 Scanner probes matched by the runtime blocklist return a plain `404` before analytics. Common PHP and WordPress probes should not pollute miss metrics.
 
@@ -58,7 +68,7 @@ Cloudflare analytics surfaces are reference tools, not setup requirements:
 
 ## Umami Payload
 
-Umami receives pageviews as native pageviews. Redirect, miss, expand, and normalized bot activity are sent as named events with structured event data.
+Umami receives pageviews as native pageviews. Redirect, miss, lookup, and normalized bot activity are sent as named events with structured event data.
 
 Umami payloads include:
 
@@ -77,7 +87,7 @@ Non-pageview event data can include:
 - effective lifecycle state
 - schedule label
 - redirect status
-- redirect error or expand result, when present
+- redirect error or lookup result, when present
 - country and colo from Cloudflare request metadata
 - correlation ID
 - requested path and query
@@ -85,7 +95,7 @@ Non-pageview event data can include:
 
 ## Fathom Payload
 
-Fathom receives provider-native collection requests from the Worker. Pageviews are sent as pageviews; redirect, miss, expand, and bot activity are sent as named Fathom events.
+Fathom receives provider-native collection requests from the Worker. Pageviews are sent as pageviews; redirect, miss, lookup, and bot activity are sent as named Fathom events.
 
 Fathom request fields include:
 
@@ -106,7 +116,7 @@ Fathom event payloads can include:
 - effective lifecycle state
 - schedule label
 - redirect status
-- redirect error or expand result, when present
+- redirect error or lookup result, when present
 - country and colo from Cloudflare request metadata
 - correlation ID
 - requested path and query

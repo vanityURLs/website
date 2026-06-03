@@ -44,7 +44,7 @@ Cloudflare doit documenter ce que chaque produit peut faire. vanityURLs doit doc
 
 Ce ne sont pas les mêmes choses.
 
-[Bulk Redirects](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/) est un produit Cloudflare utile. C'est aussi une alternative plausible pour de grandes listes de redirections statiques. Ce n'est pas le baseline vanityURLs parce qu'il contourne le registre gere dans le dépôt, les états de cycle de vie, horaires, pages expand, splats et analytics côté Worker.
+[Bulk Redirects](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/) est un produit Cloudflare utile. C'est aussi une alternative plausible pour de grandes listes de redirections statiques. Ce n'est pas le baseline vanityURLs parce qu'il contourne le registre gere dans le dépôt, les états de cycle de vie, horaires, pages de consultation, splats et analytics côté Worker.
 
 RUM est similaire. Il peut aider les sites qui ont besoin de telémetrie de performance côté navigateur. vanityURLs ne l'utilise pas dans le baseline. Le redirecteur a dejà un modèle d'événements côté serveur, et le trafic bloque par Access, WAF, rate limiting ou contrôles bot n'atteint souvent jamais le Worker.
 

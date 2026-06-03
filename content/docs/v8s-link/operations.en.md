@@ -17,7 +17,7 @@ English (`en`) is the main and fallback language when a localized page is unavai
 | Path                                                                           | What it proves                                         |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------ |
 | [v8s.link](https://v8s.link)                                                   | Default home page for searching or opening short links |
-| [v8s.link/expand/](https://v8s.link/expand/)                                   | Preview a short-link destination without opening it    |
+| [v8s.link/lookup/](https://v8s.link/lookup/)                                   | Preview a short-link destination without opening it    |
 | [v8s.link/404.html](https://v8s.link/404.html)                                 | Localized missing-link page                            |
 | [v8s.link/expired.html](https://v8s.link/expired.html)                         | Expired lifecycle page                                 |
 | [v8s.link/disabled.html](https://v8s.link/disabled.html)                       | Disabled lifecycle page                                |

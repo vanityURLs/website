@@ -42,8 +42,18 @@ Configurez les analytics avec des variables Worker dans `wrangler.toml` et des s
 | `pageview`        | Une page HTML statique ou d'état est servie avec succès                               |
 | `redirect`        | Un lien court résout vers une cible                                                   |
 | `short-link-miss` | Une requête ressemble à un slug de lien court, mais rien ne correspond                |
-| `expand`          | La page `/expand` demande au Worker d'inspecter un slug via `POST /_analytics/expand` |
+| `lookup`          | La page `/lookup` demande au Worker d'inspecter un slug via `POST /_analytics/lookup` |
 | `bot`             | Un bot connu déclenche un événement et la normalisation bot est activée               |
+
+Les pages de consultation localisées utilisent ces chemins publics :
+
+| Langue   | Chemin             |
+| -------- | ------------------ |
+| Anglais  | `/lookup`          |
+| Français | `/fr/consultation` |
+| Espagnol | `/es/consulta`     |
+| Italien  | `/it/consulta`     |
+| Allemand | `/de/abfrage`      |
 
 Les probes reconnues par la blocklist runtime retournent un `404` simple avant les analytics. Les probes PHP et WordPress courantes ne devraient pas polluer les métriques de miss.
 
@@ -58,7 +68,7 @@ Les surfaces analytics Cloudflare sont des outils de référence, pas des prére
 
 ## Payload Umami
 
-Umami reçoit les pageviews comme pageviews natives. Les redirections, misses, recherches expand et bots normalisés sont envoyés comme événements nommés avec des données structurées.
+Umami reçoit les pageviews comme pageviews natives. Les redirections, misses, consultations et bots normalisés sont envoyés comme événements nommés avec des données structurées.
 
 Les payloads Umami incluent :
 
@@ -77,7 +87,7 @@ Les données d'événements non-pageview peuvent inclure :
 - état de cycle de vie effectif
 - libellé de planification
 - statut de redirection
-- erreur de redirection ou résultat expand, lorsque présent
+- erreur de redirection ou résultat de consultation, lorsque présent
 - pays et colo depuis les métadonnées Cloudflare
 - correlation ID
 - chemin et query demandés
@@ -85,7 +95,7 @@ Les données d'événements non-pageview peuvent inclure :
 
 ## Payload Fathom
 
-Fathom reçoit des requêtes de collecte natives depuis le Worker. Les pageviews sont envoyées comme pageviews; les redirections, misses, recherches expand et bots sont envoyés comme événements Fathom nommés.
+Fathom reçoit des requêtes de collecte natives depuis le Worker. Les pageviews sont envoyées comme pageviews; les redirections, misses, consultations et bots sont envoyés comme événements Fathom nommés.
 
 Les champs de requête Fathom incluent :
 
@@ -106,7 +116,7 @@ Les payloads d'événement Fathom peuvent inclure :
 - état de cycle de vie effectif
 - libellé de planification
 - statut de redirection
-- erreur de redirection ou résultat expand, lorsque présent
+- erreur de redirection ou résultat de consultation, lorsque présent
 - pays et colo depuis les métadonnées Cloudflare
 - correlation ID
 - chemin et query demandés

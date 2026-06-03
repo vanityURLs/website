@@ -38,22 +38,13 @@ Le compromis est que le comportement analytics vit dans le code Worker et doit �
 ## Flux de requête
 
 {{< mermaid >}}
-flowchart TD
-  A[Visiteur demande<br/>page HTML]
-  B[Requête atteint Worker]
-  C[Worker récupère HTML]
-  D[Réponse HTML retourne]
-  E[Analytics<br/>en arrière-plan]
-  F[Umami enregistre événement]
-  G[Requête asset statique]
-  H[Aucun événement analytics]
-
-  A --> B
-  B --> C
-  C --> D
-  C --> E
-  E --> F
-  G --> H
+flowchart LR
+  A["Requête<br/>visiteur"] --> B{"Type de requête"}
+  B -->|"Requête page<br/>HTML"| C["Worker<br/>récupère HTML"]
+  C --> D["Réponse HTML<br/>et fichier retournés"]
+  C --> E["Module<br/>analytics"]
+  E --> F["Umami enregistre<br/>l'événement"]
+  B -->|"Requête asset<br/>statique"| G["Aucun événement<br/>analytics"]
 {{< /mermaid >}}
 
 Les requêtes HTML passent par `src/worker.mjs`, qui utilise `ctx.waitUntil(...)` pour envoyer les analytics sans retarder la réponse visiteur. Les requêtes d'assets statiques ne devraient pas produire d'événements analytics.

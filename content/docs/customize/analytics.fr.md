@@ -1,7 +1,7 @@
 ---
 aside: false
 title: "Analytics"
-description: "Configurer des analytics serveur pour redirections, misses, bots, previews expand et pageviews vanityURLs."
+description: "Configurer des analytics serveur pour redirections, misses, bots, consultations et pageviews vanityURLs."
 aliases:
   - /docs/analytics/
   - /docs/server-side-analytics/
@@ -13,13 +13,31 @@ Utilisez les analytics serveur lorsque vous voulez mesurer les redirections et l
 
 Pour le choix du fournisseur et les compromis de confidentialité, lisez [Choisir des analytics respectueux de la vie privée pour les liens courts](/fr/blog/choosing-privacy-friendly-analytics-for-short-links/). Pour les noms d'événements, payloads fournisseur, traitement IP et comportement du trafic bloqué, lisez la [référence Analytics](/fr/docs/reference/analytics/).
 
+{{< mermaid >}}
+flowchart LR
+  A["Requête<br/>atteint<br/>le Worker"] --> B{"Type de requête"}
+  B -->|"lien court valide"| C["Réponse de<br/>redirection"]
+  C --> D["Événement<br/>redirect"]
+  B -->|"page locale valide"| E["Réponse page<br/>publique"]
+  E --> F["Événement<br/>pageview"]
+  B -->|"slug manquant"| G["Page 404"]
+  G --> H["Événement<br/>short-link-miss"]
+  B -->|"consultation"| I["Réponse consultation"]
+  I --> J["Événement<br/>pageview"]
+  D --> K["Envoi analytics<br/>ctx.waitUntil"]
+  F --> K
+  H --> K
+  J --> K
+  K --> L["Umami ou Fathom"]
+{{< /mermaid >}}
+
 {{% steps %}}
 
 ### Décider si les analytics sont nécessaires
 
 Laissez les analytics désactivées pendant la première installation sauf si vous savez déjà à quelle question les rapports doivent répondre. Un redirecteur fonctionnel sans analytics est un choix de production valide.
 
-Activez les analytics lorsque vous devez mesurer des liens de campagne, codes QR imprimés, lancements, anciens liens, recherches expand ou misses réalistes.
+Activez les analytics lorsque vous devez mesurer des liens de campagne, codes QR imprimés, lancements, anciens liens, consultations ou misses réalistes.
 
 ### Choisir un fournisseur
 
@@ -85,7 +103,7 @@ Le smoke test bâtit l'instance et intercepte les appels analytics localement. I
 
 ### Vérifier après déploiement
 
-1. Visitez `https://v8s.link/expand` et confirmez les pageviews dans le dashboard analytics
+1. Visitez `https://v8s.link/consultation` et confirmez les pageviews dans le dashboard analytics
 2. Visitez un lien court valide; confirmez un événement `redirect`
 3. Visitez un slug manquant réaliste; confirmez un événement `short-link-miss`
 4. Visitez `/file.php`; confirmez le blocage sans événement miss

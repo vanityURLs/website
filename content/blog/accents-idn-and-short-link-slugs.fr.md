@@ -23,7 +23,7 @@ Pour un service de liens courts, la posture la plus sûre est simple : utiliser 
 
 ## Les chemins sont différents
 
-Le chemin après le domaine n'est pas DNS. Un chemin comme `/déplier` peut être encodé, décodé, copié, normalisé et affiché différemment selon les outils :
+Le chemin après le domaine n'est pas DNS. Un chemin comme `/résumé` peut être encodé, décodé, copié, normalisé et affiché différemment selon les outils :
 
 - Unicode peut être représenté en forme composée ou décomposée.
 - Les navigateurs peuvent afficher des caractères lisibles pendant que les journaux montrent de l'encodage pour cent.
@@ -41,7 +41,7 @@ vanityURLs garde les slugs de liens courts en ASCII :
 - point, soulignement, tilde et trait d'union à l'intérieur d'un segment
 - barre oblique seulement comme séparateur de chemin
 
-Les pages localisées peuvent quand même utiliser des alias propres à chaque langue, mais ces alias devraient aussi rester en ASCII. Par exemple, le français peut utiliser `/fr/deplier` plutôt que `/fr/déplier`.
+Les pages localisées peuvent quand même utiliser des alias propres à chaque langue, mais ces alias devraient aussi rester en ASCII. Par exemple, le français peut utiliser `/fr/consultation` plutôt qu'un slug accentué.
 
 Cette règle rend la saisie manuelle fiable, clarifie les diffs Git et la revue, évite les surprises de normalisation Unicode et réduit le risque de slugs visuellement ambigus.
 

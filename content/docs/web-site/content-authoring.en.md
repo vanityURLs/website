@@ -158,8 +158,8 @@ flowchart LR
   C[Use assets]
   D{Needs a stable<br/>public path?}
   E[Use static]
-  F{Moved<br/>content page?}
-  G[Use front matter<br/>aliases]
+  F{Moved<br/>content<br/>page?}
+  G[Use front<br/>matter aliases]
   H[Keep beside<br/>the page bundle]
 
   A --> B

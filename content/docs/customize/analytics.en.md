@@ -1,7 +1,7 @@
 ---
 aside: false
 title: "Analytics"
-description: "Configure server-side analytics for vanityURLs redirects, misses, bots, expand previews, and pageviews."
+description: "Configure server-side analytics for vanityURLs redirects, misses, bots, lookups, and pageviews."
 aliases:
   - /docs/analytics/
   - /docs/server-side-analytics/
@@ -12,13 +12,31 @@ Use server-side analytics when you want redirect and page activity without addin
 
 For provider selection and privacy tradeoffs, read [Choosing privacy-friendly analytics for short links](/blog/choosing-privacy-friendly-analytics-for-short-links/). For event names, provider payloads, IP handling, and blocked-traffic behavior, read [Analytics](/docs/reference/analytics/).
 
+{{< mermaid >}}
+flowchart LR
+  A["Request<br/>reaches<br/>Worker"] --> B{"Request type"}
+  B -->|"valid short link"| C["Redirect<br/>response"]
+  C --> D["redirect event"]
+  B -->|"valid local page"| E["Public page<br/>response"]
+  E --> F["pageview event"]
+  B -->|"unknown slug"| G["404 page"]
+  G --> H["short-link-miss<br/>event"]
+  B -->|"lookup"| I["Lookup response"]
+  I --> J["pageview event"]
+  D --> K["ctx.waitUntil<br/>analytics send"]
+  F --> K
+  H --> K
+  J --> K
+  K --> L["Umami or Fathom"]
+{{< /mermaid >}}
+
 {{% steps %}}
 
 ### Decide whether to enable analytics
 
 Leave analytics disabled during the first setup unless you already know what question the reports need to answer. A working redirector with no analytics is a valid production choice.
 
-Enable analytics when you need to measure campaign links, printed QR codes, launch traffic, old-link usage, expand lookups, or realistic missing-link activity.
+Enable analytics when you need to measure campaign links, printed QR codes, launch traffic, old-link usage, lookups, or realistic missing-link activity.
 
 ### Choose a provider
 
@@ -84,7 +102,7 @@ The smoke test builds the instance and intercepts analytics calls locally. It ve
 
 ### Verify after deployment
 
-1. Visit `https://v8s.link/expand` and confirm pageviews with the analytics dashboard
+1. Visit `https://v8s.link/lookup` and confirm pageviews with the analytics dashboard
 2. Visit a valid short link; confirm a `redirect` event
 3. Visit a realistic missing slug; confirm a `short-link-miss` event
 4. Visit `/file.php`; confirm it is blocked without a miss event

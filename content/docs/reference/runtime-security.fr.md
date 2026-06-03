@@ -15,7 +15,7 @@ Pour le raisonnement de design, lisez [Sécurité runtime pour un petit redirect
 
 Le Worker garde un chemin runtime etroit :
 
-- seules les requêtes publiques `GET`, `HEAD`, et `OPTIONS` silencieuses sont acceptees, plus le beacon dedie `POST /_analytics/expand`
+- seules les requêtes publiques `GET`, `HEAD`, et `OPTIONS` silencieuses sont acceptees, plus le beacon dedie `POST /_analytics/lookup`
 - l'accès direct a `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` retourne 404
 - les redirections acceptent seulement les cibles `http:` et `https:`
 - les cibles avec identifiants, hostname manquant, caracteres de contrôle, ou protocoles non supportes échouent ferme
@@ -66,7 +66,7 @@ Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers op�
 | Contrôle                               | Chemins                                                                                 | Ce qu'il fait                                                                            |
 | -------------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                             | Retourne `404` pour les requêtes publiques directes                                      |
-| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/expand/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
+| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/lookup/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
 | API stats protégée                     | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                | Expose le registre génère seulement a travers la surface stats protégée                  |
 | Validation des slugs réserves          | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`     | Empeche la création de liens courts sous les chemins opérationnels réserves              |
 
