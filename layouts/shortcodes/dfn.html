@@ -1,5 +1,12 @@
-{{- $id := .Get "id" | default (.Get 0) -}}
-{{- $text := .Get "text" | default "" -}}
+{{- $id := "" -}}
+{{- $text := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $id = .Get "id" | default (.Get "term") -}}
+  {{- $text = .Get "text" | default (.Get "label") -}}
+{{- else -}}
+  {{- $id = .Get 0 -}}
+  {{- $text = .Get 1 -}}
+{{- end -}}
 {{- $lang := cond (hasPrefix .Page.Language.Lang "fr") "fr" "en" -}}
 {{- $data := dict -}}
 {{- with index hugo.Data (printf "glossary.%s" $lang) -}}
@@ -30,6 +37,6 @@
 {{- with $entry -}}
   {{- $definition = .definition | markdownify | plainify -}}
 {{- else -}}
-  {{- warnf "dfn shortcode could not find glossary entry %q on %s" $id .Page.File.Path -}}
+  {{- warnf "dfn shortcode could not find glossary entry %q on %s" $id .Page.Path -}}
 {{- end -}}
-<dfn id="{{ $id }}"{{ with $definition }} data-definition="{{ . }}" aria-label="{{ $text }}: {{ . }}"{{ end }}>{{ $text }}</dfn>
+<dfn class="glossary-dfn" tabindex="0" data-glossary-id="{{ $id }}"{{ with $definition }} data-definition="{{ . }}" aria-label="{{ $text }}: {{ . }}"{{ end }}>{{ $text }}</dfn>

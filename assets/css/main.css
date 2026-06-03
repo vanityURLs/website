@@ -172,6 +172,35 @@
   h3:hover .anchor-link,
   h4:hover .anchor-link { opacity: 1; }
 
+  /* ── Inline glossary definitions ── */
+  .glossary-dfn {
+    @apply relative inline-flex cursor-help not-italic font-medium
+           decoration-brand-500 underline decoration-dotted underline-offset-4;
+  }
+
+  .glossary-dfn[data-definition]::before {
+    @apply pointer-events-none invisible absolute bottom-full left-1/2 z-50 mb-2
+           w-max max-w-[min(20rem,calc(100vw-2rem))] -translate-x-1/2 rounded-md
+           border border-gray-200 bg-white px-3 py-2 text-left font-sans text-sm
+           font-normal leading-snug text-gray-800 opacity-0 shadow-lg
+           transition dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100;
+    content: attr(data-definition);
+  }
+
+  .glossary-dfn[data-definition]::after {
+    @apply pointer-events-none invisible absolute bottom-full left-1/2 z-50 mb-1
+           size-2 -translate-x-1/2 rotate-45 border-b border-r border-gray-200
+           bg-white opacity-0 transition dark:border-gray-700 dark:bg-gray-900;
+    content: "";
+  }
+
+  .glossary-dfn[data-definition]:hover::before,
+  .glossary-dfn[data-definition]:hover::after,
+  .glossary-dfn[data-definition]:focus-visible::before,
+  .glossary-dfn[data-definition]:focus-visible::after {
+    @apply visible opacity-100;
+  }
+
   /* ── Pagefind UI overrides ── */
   .pagefind-ui {
     --pagefind-ui-scale: 0.9;
