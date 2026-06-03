@@ -28,7 +28,7 @@ Contributor documentation now lives in the website itself:
 - **[Web site docs](https://www.vanityurls.link/en/docs/web-site/)**: contributor guide for this Hugo repository
 - **[Local development](https://www.vanityurls.link/en/docs/web-site/local-development/)**: local tools, builds, tests, and common failures
 - **[Content authoring](https://www.vanityurls.link/en/docs/web-site/content-authoring/)**: docs pages, translations, shortcodes, assets, and i18n strings
-- **[Hosting and deployment](https://www.vanityurls.link/en/docs/web-site/hosting-deployment/)**: Cloudflare Workers hosting and deploy flow
+- **[Hosting and deployment](https://www.vanityurls.link/en/docs/web-site/hosting-deployment/)**: Workers Static Assets with Cloudflare Workers hosting and deploy flow
 - **[Website analytics](https://www.vanityurls.link/en/docs/web-site/analytics/)**: server-side Umami analytics
 - **[Releases](https://www.vanityurls.link/en/docs/web-site/releases/)**: release-please, changelog, and versioning workflow
 

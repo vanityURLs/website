@@ -31,7 +31,7 @@ Use a domain that you will use only for redirects, such as `ex.am`. If you have 
 
 ### Prepare a GitHub account
 
-Use GitHub for the repository that stores your links and deployment history. The repository can be public, or private if you do not want to show all your short links. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it.
+Use GitHub for the repository that stores your links and deployment history. The repository can be public, or private if you do not want to show all your short links to the world. GitHub's guide to [creating an account](https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github) is the best starting point if you are new to it.
 
 ### Prepare Cloudflare
 

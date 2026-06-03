@@ -2,12 +2,15 @@
 {{ $sections := .Sections }}
 {{ $cur := $page.RelPermalink }}
 {{ $norm := strings.TrimSuffix "/" $cur }}
+{{ $docsHomeURL := relLangURL "docs/" }}
+{{ $setupURL := relLangURL "docs/setup/" }}
 
 {{ range $sections }}
 {{ $sectionURL := .RelPermalink }}
 {{ $sectionNorm := strings.TrimSuffix "/" $sectionURL }}
 {{ $sectionActive := or (eq $cur $sectionURL) (eq $norm $sectionNorm) (and $page.Parent (eq $page.Parent.RelPermalink $sectionURL)) }}
-<details class="sidebar-section"{{ if $sectionActive }} open{{ end }}>
+{{ $sectionOpen := or $sectionActive (and (eq $cur $docsHomeURL) (eq $sectionURL $setupURL)) }}
+<details class="sidebar-section"{{ if $sectionOpen }} open{{ end }}>
   <summary class="sidebar-section-summary{{ if $sectionActive }} active{{ end }}">
     <span>{{ .Title }}</span>
     <svg class="sidebar-section-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

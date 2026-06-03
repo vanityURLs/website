@@ -80,7 +80,7 @@ Il n'y a pas de scripts minifiés ou obscurcis, pas d'analytique tierce côté c
 - **Aucune publicité tierce** — pas de réseaux publicitaires
 - **Aucun script injecté par CDN** — Zaraz et Rocket Loader de Cloudflare ne sont pas activés
 
-Aucune requête réseau externe n'est effectuée par le navigateur du visiteur. Les diagrammes Mermaid (lorsqu'ils sont présents sur les pages de documentation) sont chargés depuis un bundle auto-hébergé à `/js/mermaid.min.<hash>.js` avec intégrité SRI. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://umami.is/) — les requêtes ne quittent jamais votre navigateur.
+Aucune requête réseau externe n'est effectuée par le navigateur du visiteur. Les diagrammes Mermaid (lorsqu'ils sont présents sur les pages de documentation) sont chargés depuis du JavaScript auto-hébergé et fingerprinté sous `/js/` avec intégrité SRI. Les polices sont servies directement depuis vanityurls.link. La recherche est gérée côté client par [Pagefind](https://pagefind.app/) — les requêtes ne quittent jamais votre navigateur.
 
 ## Signalement de vulnérabilités
 

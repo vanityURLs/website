@@ -5,7 +5,38 @@ description: "How website releases, changelogs, package versions, and release-pl
 weight: 50
 ---
 
-The website repository uses release-please through GitHub Actions. Releases are driven by commit history and release-please metadata, not by hand-editing package versions.
+The website repository uses [release-please](https://github.com/googleapis/release-please) through [GitHub Actions](https://github.com/vanityURLs/website/actions). Releases are driven by commit history and release-please metadata, not by hand-editing package versions.
+
+{{< mermaid >}}
+flowchart LR
+  A[Conventional<br/>commits]
+  B[GitHub<br/>Actions]
+  C[release-please]
+  D[Release PR]
+  E[CHANGELOG.md]
+  F[package<br/>versions]
+  G[release<br/>manifest]
+  H[GitHub<br/>release]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  D --> F
+  D --> G
+  D --> H
+{{< /mermaid >}}
+
+Before merging a release-facing website change:
+
+1. Run `npm run build`.
+2. Run `npm run lint` or the relevant narrower check.
+3. Confirm `.release-please-manifest.json` still matches the intended current release.
+4. Avoid manual edits to generated release notes unless you are correcting release metadata.
+
+{{< callout type="note" title="Changelog handling" >}}
+`CHANGELOG.md` stays at the repository root because release-please expects it there. The public docs should explain release process and link to GitHub releases when needed; they should not duplicate the generated changelog body.
+{{< /callout >}}
 
 ## What release-please owns
 
@@ -23,7 +54,7 @@ When the website version drifts from `.release-please-manifest.json`, release-pl
 
 ## Commit messages
 
-Use conventional commits:
+Use conventional commits. For the contributor workflow around local checks and commits, see [Commit style](/docs/web-site/local-development/#commit-style).
 
 ```text
 docs: update access-control setup flow
@@ -61,16 +92,3 @@ Only do this when release metadata is already wrong.
    ```text
    chore: sync release metadata
    ```
-
-## Changelog handling
-
-`CHANGELOG.md` stays at the repository root because release-please expects it there. The public docs should explain release process and link to GitHub releases when needed; they should not duplicate the generated changelog body.
-
-## Release checklist
-
-Before merging a release-facing website change:
-
-1. Run `npm run build`.
-2. Run `npm run lint` or the relevant narrower check.
-3. Confirm `.release-please-manifest.json` still matches the intended current release.
-4. Avoid manual edits to generated release notes unless you are correcting release metadata.

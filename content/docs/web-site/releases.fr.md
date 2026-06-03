@@ -5,7 +5,38 @@ description: "Comment les releases, changelogs, versions package et release-plea
 weight: 50
 ---
 
-Le dépôt website utilise release-please avec GitHub Actions. Les releases sont pilotées par l'historique de commits et les métadonnées release-please, pas par des changements manuels de version package.
+Le dépôt website utilise [release-please](https://github.com/googleapis/release-please) avec [GitHub Actions](https://github.com/vanityURLs/website/actions). Les releases sont pilotées par l'historique de commits et les métadonnées release-please, pas par des changements manuels de version package.
+
+{{< mermaid >}}
+flowchart LR
+  A[Conventional<br/>commits]
+  B[GitHub<br/>Actions]
+  C[release-please]
+  D[PR de release]
+  E[CHANGELOG.md]
+  F[Versions<br/>package]
+  G[Manifest<br/>release]
+  H[Release<br/>GitHub]
+
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  D --> F
+  D --> G
+  D --> H
+{{< /mermaid >}}
+
+Avant de merger un changement website orienté release :
+
+1. Lancez `npm run build`.
+2. Lancez `npm run lint` ou la vérification plus ciblée pertinente.
+3. Confirmez que `.release-please-manifest.json` correspond toujours à la release actuelle prévue.
+4. Évitez les modifications manuelles aux notes de release générées sauf si vous corrigez les métadonnées de release.
+
+{{< callout type="note" title="Gestion du changelog" >}}
+`CHANGELOG.md` reste à la racine du dépôt parce que release-please s'attend à le trouver là. Les docs publiques devraient expliquer le processus de release et pointer vers les releases GitHub au besoin; elles ne devraient pas dupliquer le corps du changelog généré.
+{{< /callout >}}
 
 ## Ce que release-please possède
 
@@ -23,7 +54,7 @@ Lorsque la version du site diverge de `.release-please-manifest.json`, release-p
 
 ## Messages de commit
 
-Utilisez les conventional commits :
+Utilisez les conventional commits. Pour le flux contributeur autour des vérifications locales et des commits, consultez [Style des commits](/fr/docs/web-site/local-development/#style-des-commits).
 
 ```text
 docs: update access-control setup flow
@@ -61,16 +92,3 @@ Faites ceci seulement lorsque les métadonnées de release sont déjà incorrect
    ```text
    chore: sync release metadata
    ```
-
-## Gestion du changelog
-
-`CHANGELOG.md` reste à la racine du dépôt parce que release-please s'attend à le trouver là. Les docs publiques devraient expliquer le processus de release et pointer vers les releases GitHub au besoin; elles ne devraient pas dupliquer le corps du changelog généré.
-
-## Checklist de release
-
-Avant de merger un changement website orienté release :
-
-1. Lancez `npm run build`.
-2. Lancez `npm run lint` ou la vérification plus ciblée pertinente.
-3. Confirmez que `.release-please-manifest.json` correspond toujours à la release actuelle prévue.
-4. Évitez les modifications manuelles aux notes de release générées sauf si vous corrigez les métadonnées de release.

@@ -31,7 +31,7 @@ Utilisez un domaine que vous réserverez seulement aux redirections, comme `ex.a
 
 ### Preparer un compte GitHub
 
-Utilisez GitHub pour le dépôt qui stocke vos liens et l'historique de déploiement. Le dépôt peut être public, ou privé si vous ne voulez pas montrer tous vos liens courts. Le guide GitHub pour [créer un compte](/fr/docs/setup/quickstart/) est le meilleur point de départ si GitHub est nouveau pour vous.
+Utilisez GitHub pour le dépôt qui stocke vos liens et l'historique de déploiement. Le dépôt peut être public, ou privé si vous ne voulez pas montrer tous vos liens courts au monde. Le guide GitHub pour [créer un compte](/fr/docs/setup/quickstart/) est le meilleur point de départ si GitHub est nouveau pour vous.
 
 ### Preparer Cloudflare
 

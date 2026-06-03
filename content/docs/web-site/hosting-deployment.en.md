@@ -1,26 +1,35 @@
 ---
 aside: false
 title: "Hosting and deployment"
-description: "How vanityURLs.link is hosted, deployed, and operated on Cloudflare Workers."
+description: "How vanityURLs.link is hosted, deployed, and operated on Workers Static Assets with Cloudflare Workers."
 weight: 30
 ---
 
-The documentation site runs on Cloudflare Workers with Workers Static Assets. It is not a Cloudflare Pages project. One Worker serves the Hugo-generated static site and handles server-side analytics for HTML page views.
+The documentation site runs on Workers Static Assets with Cloudflare Workers. It is not a Cloudflare Pages project. One Worker serves the Hugo-generated static site and handles server-side analytics for HTML page views.
 
 ## Architecture
 
-```text
-GitHub: vanityURLs/website (main)
-  -> Cloudflare GitHub integration
-  -> build.sh
-  -> Hugo build and Pagefind index
-  -> wrangler deploy
-  -> Worker: vanityurls-website
-  -> Static Assets binding: ./public
-  -> Custom domain: vanityurls.link
-```
+{{< mermaid >}}
+flowchart LR
+  A[GitHub<br/>main branch]
+  B[Cloudflare GitHub<br/>integration]
+  C[build.sh]
+  D[Hugo build<br/>and Pagefind index]
+  E[wrangler deploy]
+  F[Worker<br/>vanityurls-website]
+  G[Static Assets binding<br/>./public]
+  H[Custom domain<br/>vanityurls.link]
 
-The Worker is configured so static assets bypass Worker code where possible. HTML requests pass through `src/worker.mjs`; CSS, fonts, JavaScript bundles, images, Pagefind files, and sitemaps should remain cheap static asset traffic.
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> G
+  F --> H
+{{< /mermaid >}}
+
+The Worker is configured so HTML requests pass through `src/worker.mjs`; and everything else is cheap static asset traffic such as CSS, fonts, JavaScript bundles, images, Pagefind files, and sitemaps that bypass Worker code.
 
 ## Hosting-relevant files
 
@@ -33,6 +42,8 @@ The Worker is configured so static assets bypass Worker code where possible. HTM
 | `public/` | Hugo build output served as static assets; regenerated and not committed |
 | `static/_headers` | Response headers copied into the generated site |
 | `static/_redirects` | Redirect rules copied into the generated site |
+
+`static/_redirects` is not the only redirect source. Hugo can also generate redirects from `aliases` in content front matter, which is useful when a content page moves but should keep an old public URL working.
 
 {{< callout type="warning" title="wrangler.toml is the source of truth" >}}
 Do not duplicate build or deploy settings in the Cloudflare dashboard unless the setting cannot live in Git, such as encrypted secrets.
@@ -48,7 +59,6 @@ To recreate the production project:
 4. Confirm the project name matches `wrangler.toml`
 5. Leave build settings controlled by the repository
 6. Deselect builds for non-production branches unless you intentionally want every branch deployed
-7. Add the custom domain for the public site
 
 Runtime variables and secrets belong in **Settings** > **Variables and Secrets**, not in **Settings** > **Build** > **Variables and secrets**.
 
@@ -67,18 +77,7 @@ git push origin main
 
 Cloudflare picks up the push, runs the repository build, then deploys with Wrangler. Watch deployments in **Workers & Pages** > `vanityurls-website` > **Deployments**.
 
-## Manual deploy
-
-Use this only when the GitHub integration is unavailable or you intentionally need to test a local deployment:
-
-```bash
-npm install
-npm run build
-npx wrangler login
-npx wrangler deploy
-```
-
-Manual deploys use the same `wrangler.toml` and runtime secrets. Cloudflare marks them as manually deployed instead of Git-backed.
+Use the [Commit style](/docs/web-site/local-development/#commit-style) guidance before pushing so release-please can produce useful release notes. If the GitHub integration is unavailable or you intentionally need to test a local deployment, use [Local deploy while testing](/docs/web-site/local-development/#local-deploy-while-testing).
 
 ## Rollback
 

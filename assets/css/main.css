@@ -84,14 +84,14 @@
 
   /* ── Left sidebar ── */
   .sidebar-section {
-    @apply mb-1 rounded-lg;
+    @apply mb-1;
   }
   .sidebar-section[open] {
-    @apply bg-gray-50/70 dark:bg-gray-800/35;
+    @apply bg-transparent;
   }
   .sidebar-section-summary {
     @apply flex cursor-pointer list-none items-center justify-between gap-2 rounded-lg
-           px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500
+           px-3 py-2 text-[0.71875rem] font-semibold uppercase tracking-[0.08em] text-gray-500
            hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400
            dark:hover:bg-gray-800 dark:hover:text-gray-100 transition-colors duration-150;
   }
@@ -108,10 +108,10 @@
     @apply rotate-90;
   }
   .sidebar-section-panel {
-    @apply pb-2;
+    @apply ml-3 border-l border-gray-200/80 pb-2 pl-2 dark:border-gray-800;
   }
   .sidebar-section-link {
-    @apply text-xs;
+    @apply text-[0.8125rem] text-gray-500 dark:text-gray-500;
   }
   .sidebar-section-title {
     @apply block px-3 py-1 text-xs font-semibold text-gray-400
@@ -121,7 +121,7 @@
     @apply text-brand-700 dark:text-brand-300;
   }
   .sidebar-link {
-    @apply block px-3 py-1.5 text-sm text-gray-600 dark:text-gray-400 rounded-md
+    @apply block px-3 py-1.5 text-[0.875rem] leading-5 text-gray-600 dark:text-gray-400 rounded-md
            hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-100
            transition-colors duration-150;
   }
@@ -272,14 +272,47 @@
 }
 
 @layer utilities {
-  /* ── Docs content flow ── */
+  /* Shared Markdown content flow */
+  .content-flow,
   .docs-flow {
     font-size: var(--docs-step-0);
     line-height: var(--docs-line-body);
   }
 
+  .content-flow :where(p, ul, ol),
   .docs-flow :where(p, ul, ol) {
     line-height: var(--docs-line-body);
+  }
+
+  .content-flow > :where(p, ul, ol, blockquote, table, pre, .highlight, .not-prose),
+  .docs-flow > :where(p, ul, ol, blockquote, table, pre, .highlight, .not-prose) {
+    margin-top: var(--docs-space-s);
+    margin-bottom: 0;
+  }
+
+  .content-flow > :where(h2),
+  .docs-flow > :where(h2) {
+    margin-top: var(--docs-space-l);
+    margin-bottom: var(--docs-space-s);
+    line-height: var(--docs-line-tight);
+  }
+
+  .content-flow > :where(h3),
+  .docs-flow > :where(h3) {
+    margin-top: var(--docs-space-m);
+    margin-bottom: var(--docs-space-xs);
+    line-height: var(--docs-line-tight);
+  }
+
+  .content-flow > :where(:first-child),
+  .docs-flow > :where(:first-child) {
+    margin-top: 0;
+  }
+
+  .content-flow li,
+  .docs-flow li {
+    margin-top: var(--docs-space-2xs);
+    margin-bottom: 0;
   }
 }
 
@@ -1059,15 +1092,26 @@
      ════════════════════════════════════════ */
 
   .mermaid-wrap {
-    @apply flex justify-center overflow-x-auto py-2;
+    @apply w-full overflow-x-auto py-3;
   }
   .mermaid {
-    @apply max-w-full text-center;
-    /* Mermaid renders SVG — ensure it's readable in both modes */
-    font-size: 0.875rem;
+    @apply min-w-full text-center;
+    font-family: 'InterVariable', 'Inter', system-ui, sans-serif;
+    font-size: var(--docs-step-0);
+    line-height: var(--docs-line-tight);
   }
-  /* Light mode Mermaid colours are default */
-  /* Dark mode: we initialize with dark theme via JS in baseof */
+  .mermaid svg {
+    display: block;
+    width: 100%;
+    min-width: 48rem;
+    height: auto;
+    margin-inline: auto;
+  }
+  @media (max-width: 768px) {
+    .mermaid svg {
+      min-width: 40rem;
+    }
+  }
 
   /* ════════════════════════════════════════
      CODE BLOCKS — consistent across prose,

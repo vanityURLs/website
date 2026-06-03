@@ -7,7 +7,7 @@ description: "Find the vanityURLs setup, customization, command-line, demo, and 
 - [Setup](/docs/setup/) lists the prerequisites and decisions to make before installing.
 - [Quickstart](/docs/setup/quickstart/) walks the happy path from repository creation to the first deployed redirect.
 - [v8s.link](/docs/v8s-link/) is the official demo instance to compare against when setup values or runtime behavior differ.
-- [Web site](/docs/web-site/) covers maintaining this Hugo documentation site and its Cloudflare Workers deployment.
+- [Web site](/docs/web-site/) covers maintaining this Hugo documentation site and its Workers Static Assets with Cloudflare Workers deployment.
 
 ## Use the command line
 
@@ -35,4 +35,4 @@ description: "Find the vanityURLs setup, customization, command-line, demo, and 
 - [Web site](/docs/web-site/) documents the `vanityURLs/website` repository for contributors.
 - [Local development](/docs/web-site/local-development/) covers Hugo, Node.js, builds, tests, and common local failures.
 - [Content authoring](/docs/web-site/content-authoring/) covers docs pages, translations, shortcodes, assets, and i18n strings.
-- [Hosting and deployment](/docs/web-site/hosting-deployment/), [Website analytics](/docs/web-site/analytics/), and [Releases](/docs/web-site/releases/) cover the Cloudflare Workers deployment, Umami integration, and release-please workflow.
+- [Hosting and deployment](/docs/web-site/hosting-deployment/), [Website analytics](/docs/web-site/analytics/), and [Releases](/docs/web-site/releases/) cover the Workers Static Assets with Cloudflare Workers deployment, Umami integration, and release-please workflow.

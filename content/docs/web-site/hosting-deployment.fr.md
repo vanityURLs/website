@@ -1,26 +1,35 @@
 ---
 aside: false
 title: "Hébergement et déploiement"
-description: "Comment vanityURLs.link est hébergé, déployé et opéré sur Cloudflare Workers."
+description: "Comment vanityURLs.link est hébergé, déployé et opéré sur Workers Static Assets avec Cloudflare Workers."
 weight: 30
 ---
 
-Le site de documentation fonctionne sur Cloudflare Workers avec Workers Static Assets. Ce n'est pas un projet Cloudflare Pages. Un Worker sert le site statique généré par Hugo et gère les analytics côté serveur pour les pages HTML.
+Le site de documentation fonctionne sur Workers Static Assets avec Cloudflare Workers. Ce n'est pas un projet Cloudflare Pages. Un Worker sert le site statique généré par Hugo et gère les analytics côté serveur pour les pages HTML.
 
 ## Architecture
 
-```text
-GitHub: vanityURLs/website (main)
-  -> intégration GitHub Cloudflare
-  -> build.sh
-  -> build Hugo et index Pagefind
-  -> wrangler deploy
-  -> Worker: vanityurls-website
-  -> binding Static Assets: ./public
-  -> domaine custom: vanityurls.link
-```
+{{< mermaid >}}
+flowchart LR
+  A[Branche main<br/>GitHub]
+  B[Intégration GitHub<br/>Cloudflare]
+  C[build.sh]
+  D[Build Hugo<br/>et index Pagefind]
+  E[wrangler deploy]
+  F[Worker<br/>vanityurls-website]
+  G[Binding Static Assets<br/>./public]
+  H[Domaine custom<br/>vanityurls.link]
 
-Le Worker est configuré pour que les assets statiques évitent le code Worker lorsque possible. Les requêtes HTML passent par `src/worker.mjs`; CSS, fontes, bundles JavaScript, images, fichiers Pagefind et sitemaps devraient rester du trafic Static Assets peu coûteux.
+  A --> B
+  B --> C
+  C --> D
+  D --> E
+  E --> F
+  F --> G
+  F --> H
+{{< /mermaid >}}
+
+Le Worker est configuré pour que les requêtes HTML passent par `src/worker.mjs`; tout le reste est du trafic d'assets statiques peu coûteux, comme CSS, fontes, bundles JavaScript, images, fichiers Pagefind et sitemaps, qui évite le code Worker.
 
 ## Fichiers importants pour l'hébergement
 
@@ -33,6 +42,8 @@ Le Worker est configuré pour que les assets statiques évitent le code Worker l
 | `public/` | Sortie de build Hugo servie comme assets statiques; régénérée et non commitée |
 | `static/_headers` | En-têtes de réponse copiés dans le site généré |
 | `static/_redirects` | Règles de redirection copiées dans le site généré |
+
+`static/_redirects` n'est pas la seule source de redirections. Hugo peut aussi générer des redirections à partir des `aliases` dans le front matter du contenu, ce qui est utile lorsqu'une page est déplacée mais doit conserver une ancienne URL publique.
 
 {{< callout type="warning" title="wrangler.toml est la source de vérité" >}}
 Ne dupliquez pas les réglages de build ou de déploiement dans le tableau de bord Cloudflare sauf si le réglage ne peut pas vivre dans Git, comme les secrets chiffrés.
@@ -48,7 +59,6 @@ Pour recréer le projet de production :
 4. Confirmez que le nom de projet correspond à `wrangler.toml`
 5. Laissez les réglages de build contrôlés par le dépôt
 6. Désélectionnez les builds pour les branches non production sauf si vous voulez déployer chaque branche
-7. Ajoutez le domaine custom du site public
 
 Les variables et secrets runtime appartiennent à **Settings** > **Variables and Secrets**, pas à **Settings** > **Build** > **Variables and secrets**.
 
@@ -67,18 +77,7 @@ git push origin main
 
 Cloudflare détecte le push, lance le build du dépôt, puis déploie avec Wrangler. Suivez les déploiements dans **Workers & Pages** > `vanityurls-website` > **Deployments**.
 
-## Déploiement manuel
-
-Utilisez-le seulement lorsque l'intégration GitHub est indisponible ou lorsque vous voulez tester volontairement un déploiement local :
-
-```bash
-npm install
-npm run build
-npx wrangler login
-npx wrangler deploy
-```
-
-Les déploiements manuels utilisent le même `wrangler.toml` et les mêmes secrets runtime. Cloudflare les marque comme déploiements manuels plutôt que liés à Git.
+Utilisez les conseils de [style des commits](/fr/docs/web-site/local-development/#style-des-commits) avant de pousser afin que release-please produise des notes de release utiles. Si l'intégration GitHub est indisponible ou si vous devez tester volontairement un déploiement local, utilisez [Déploiement local pendant les tests](/fr/docs/web-site/local-development/#déploiement-local-pendant-les-tests).
 
 ## Rollback
 

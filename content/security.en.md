@@ -15,7 +15,7 @@ vanityURLs.link is a static documentation website for the open-source project. v
 - **No third-party advertising** — no ad networks, no programmatic advertising
 - **No CDN-injected scripts** — Cloudflare's [Zaraz](https://www.cloudflare.com/products/zaraz/) and Rocket Loader are not enabled
 
-No external network requests are made by the visitor's browser. Mermaid diagrams (when present on documentation pages) load from a self-hosted, fingerprinted bundle at `/js/mermaid.min.<hash>.js` with SRI integrity. Fonts are served directly from vanityurls.link. Search is handled client-side by [Pagefind](https://pagefind.app/) — queries never leave your browser.
+No external network requests are made by the visitor's browser. Mermaid diagrams (when present on documentation pages) load from self-hosted, fingerprinted JavaScript under `/js/` with SRI integrity. Fonts are served directly from vanityurls.link. Search is handled client-side by [Pagefind](https://pagefind.app/) — queries never leave your browser.
 
 The source code for this website is public. You can audit every line of it at: [github.com/vanityURLs/website](https://github.com/vanityURLs/website).
 

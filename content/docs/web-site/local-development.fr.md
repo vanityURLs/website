@@ -82,6 +82,19 @@ Wrangler sert à `http://localhost:8787/` et recharge les changements Worker.
 Les appels analytics sont ignorés lorsque les valeurs d'environnement nécessaires manquent. C'est correct pour le travail de layout et de routage d'assets. Ajoutez des secrets locaux seulement lorsque vous déboguez précisément les analytics.
 {{< /callout >}}
 
+## Déploiement local pendant les tests
+
+Utilisez-le seulement lorsque l'intégration GitHub est indisponible ou lorsque vous voulez tester volontairement un déploiement local :
+
+```bash
+npm install
+npm run build
+npx wrangler login
+npx wrangler deploy
+```
+
+Les déploiements locaux utilisent le même `wrangler.toml` et les mêmes secrets runtime documentés dans [Hébergement et déploiement](/fr/docs/web-site/hosting-deployment/). Cloudflare les marque comme déploiements manuels plutôt que liés à Git.
+
 ## Corrections courantes
 
 | Symptôme | Vérifier |

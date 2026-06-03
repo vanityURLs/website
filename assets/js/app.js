@@ -98,7 +98,7 @@
     '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
 
   document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('pre').forEach(function (pre) {
+    document.querySelectorAll('pre:not(.mermaid)').forEach(function (pre) {
       if (!navigator.clipboard) return;
       var btn = document.createElement('button');
       btn.className = 'copy-btn';

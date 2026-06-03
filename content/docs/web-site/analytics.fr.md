@@ -37,13 +37,26 @@ Le compromis est que le comportement analytics vit dans le code Worker et doit �
 
 ## Flux de requête
 
-1. Un visiteur demande une page HTML.
-2. Cloudflare route la requête vers `src/worker.mjs`.
-3. Le Worker récupère le HTML généré depuis le binding Static Assets.
-4. Le Worker appelle `ctx.waitUntil(...)` pour envoyer la requête analytics sans retarder la réponse visiteur.
-5. Umami enregistre l'événement.
+{{< mermaid >}}
+flowchart TD
+  A[Visiteur demande<br/>page HTML]
+  B[Requête atteint Worker]
+  C[Worker récupère HTML]
+  D[Réponse HTML retourne]
+  E[Analytics<br/>en arrière-plan]
+  F[Umami enregistre événement]
+  G[Requête asset statique]
+  H[Aucun événement analytics]
 
-Les requêtes d'assets statiques ne devraient pas produire d'événements analytics.
+  A --> B
+  B --> C
+  C --> D
+  C --> E
+  E --> F
+  G --> H
+{{< /mermaid >}}
+
+Les requêtes HTML passent par `src/worker.mjs`, qui utilise `ctx.waitUntil(...)` pour envoyer les analytics sans retarder la réponse visiteur. Les requêtes d'assets statiques ne devraient pas produire d'événements analytics.
 
 ## Noms d'événements
 

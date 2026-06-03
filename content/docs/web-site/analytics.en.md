@@ -37,13 +37,26 @@ The tradeoff is that analytics behavior lives in Worker code and needs tests.
 
 ## Request flow
 
-1. A visitor requests an HTML page.
-2. Cloudflare routes the request through `src/worker.mjs`.
-3. The Worker fetches the generated HTML from the Static Assets binding.
-4. The Worker calls `ctx.waitUntil(...)` to send the analytics request without delaying the visitor response.
-5. Umami records the event.
+{{< mermaid >}}
+flowchart TD
+  A[Visitor requests<br/>HTML page]
+  B[Request reaches Worker]
+  C[Worker fetches HTML]
+  D[HTML response returns]
+  E[Analytics runs<br/>in background]
+  F[Umami records event]
+  G[Static asset request]
+  H[No analytics event]
 
-Static asset requests should not produce analytics events.
+  A --> B
+  B --> C
+  C --> D
+  C --> E
+  E --> F
+  G --> H
+{{< /mermaid >}}
+
+HTML requests pass through `src/worker.mjs`, which uses `ctx.waitUntil(...)` to send analytics without delaying the visitor response. Static asset requests should not produce analytics events.
 
 ## Event names
 

@@ -37,6 +37,7 @@ public/
 ehthumbs.db
 ignore.*
 package-lock.json
+assets/jsconfig.json
 Thumbs.db
 
 ##### Environment variables and secret keys #####

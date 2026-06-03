@@ -5,13 +5,13 @@ description: "Write website docs, translations, shortcodes, and UI strings for v
 weight: 20
 ---
 
-Use this page when you add or update website content in `content/`, `i18n/`, `data/`, or Hugo layouts.
+Use this page when you add or update website content in `content/`, `i18n/`, `data/`, or Hugo `layouts/`.
 
 ## Repository areas
 
 | Path | Purpose |
 | ---- | ------- |
-| `content/` | Markdown pages, blog posts, legal pages, showcase entries, and docs |
+| `content/` | Pages, blog posts, showcase entries, and documentation |
 | `layouts/` | Hugo templates, partials, and shortcodes |
 | `assets/` | Processed CSS and JavaScript that Hugo fingerprints |
 | `static/` | Files copied as-is with stable public URLs |
@@ -99,31 +99,84 @@ Buttons, badges, navigation labels, shortcode labels, and repeated template text
 Common documentation shortcodes include:
 
 ```markdown
-{{< callout type="warning" title="Breaking change" >}}
+{{</* callout type="warning" title="Breaking change" */>}}
 This option was removed in v3.
-{{< /callout >}}
+{{</* /callout */>}}
 
-{{< details title="Why this matters" >}}
+{{</* details title="Why this matters" */>}}
 Longer explanation that should stay available without taking over the page.
-{{< /details >}}
+{{</* /details */>}}
 
-{{< cards cols="3" >}}
-{{< card title="Setup" icon="download" href="/docs/setup/" >}}
+{{</* cards cols="3" */>}}
+{{</* card title="Setup" icon="download" href="/docs/setup/" */>}}
 Start here.
-{{< /card >}}
-{{< /cards >}}
+{{</* /card */>}}
+{{</* /cards */>}}
 ```
 
 Use callouts for operational warnings, safety limits, first-time setup notes, and versioned behavior changes. Keep ordinary explanatory paragraphs as prose.
+
+## Page images
+
+Keep images beside the page or blog post they support when possible. This keeps the Markdown and its media together when the content moves, and makes it easier to review page-specific assets.
+
+For a blog post with local images, create a page bundle by moving the Markdown file into a directory and renaming it `_index.md`:
+
+```text
+content/blog/my-new-post/
+├── _index.en.md
+├── _index.fr.md
+└── hero.png
+```
+
+Then reference the image with a relative Markdown path:
+
+```markdown
+![Alt text](hero.png)
+```
+
+Use `static/` when an image needs a stable public URL, is shared across many pages, or must be referenced outside the content bundle:
+
+```text
+static/images/docs/cloudflare-dashboard.png
+```
+
+Reference static images from the site root:
+
+```markdown
+![Alt text](/images/docs/cloudflare-dashboard.png)
+```
 
 ## Assets
 
 Use `assets/` when Hugo should process, fingerprint, or bundle a file. Use `static/` for files that need a stable URL.
 
+{{< mermaid >}}
+flowchart LR
+  A[New file<br/>or old URL]
+  B{Should Hugo process<br/>or fingerprint it?}
+  C[Use assets]
+  D{Needs a stable<br/>public path?}
+  E[Use static]
+  F{Moved<br/>content page?}
+  G[Use front matter<br/>aliases]
+  H[Keep beside<br/>the page bundle]
+
+  A --> B
+  B -->|Yes| C
+  B -->|No| D
+  D -->|Yes| E
+  D -->|No| F
+  F -->|Yes| G
+  F -->|No| H
+{{< /mermaid >}}
+
 | Put it here | When |
 | ----------- | ---- |
 | `assets/` | CSS, JavaScript, or media referenced by templates through Hugo resources |
 | `static/` | `favicon.ico`, `social.png`, `humans.txt`, `_headers`, `_redirects`, or public files that must keep a fixed path |
+
+Use `static/_redirects` for redirect rules that belong in a fixed static file. It is not the only redirect mechanism: content pages can also define `aliases` in front matter when an old URL should redirect to a moved page.
 
 ## Before publishing
 
@@ -135,3 +188,5 @@ npm run lint
 ```
 
 Use `npm run lint:all` when the change affects many links, navigation, or generated HTML.
+
+When the content change is ready to commit, use the [Commit style](/docs/web-site/local-development/#commit-style) guidance so release-please can classify the work correctly.

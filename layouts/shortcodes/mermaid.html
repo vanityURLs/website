@@ -11,6 +11,5 @@
       E --> F[Swap traffic]
     {{< /mermaid >}}
 */ -}}
-<div class="mermaid-wrap not-prose my-5">
-  <pre class="mermaid">{{- .Inner | htmlUnescape | safeHTML -}}</pre>
-</div>
+{{- $diagram := strings.TrimSpace .Inner -}}
+<div class="mermaid-wrap not-prose my-5"><pre class="mermaid">{{ $diagram | htmlUnescape | safeHTML }}</pre></div>

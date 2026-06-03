@@ -5,13 +5,13 @@ description: "Rédiger les docs, traductions, shortcodes et chaînes UI du site 
 weight: 20
 ---
 
-Utilisez cette page lorsque vous ajoutez ou modifiez du contenu dans `content/`, `i18n/`, `data/` ou les layouts Hugo.
+Utilisez cette page lorsque vous ajoutez ou modifiez du contenu dans `content/`, `i18n/`, `data/` ou les `layouts/` Hugo.
 
 ## Zones du dépôt
 
 | Chemin | Rôle |
 | ------ | ---- |
-| `content/` | Pages Markdown, articles, pages légales, vitrines et docs |
+| `content/` | Pages, articles, entrées de vitrine et documentation |
 | `layouts/` | Templates Hugo, partials et shortcodes |
 | `assets/` | CSS et JavaScript traités et fingerprintés par Hugo |
 | `static/` | Fichiers copiés tels quels avec des URLs publiques stables |
@@ -99,31 +99,84 @@ Boutons, badges, libellés de navigation, libellés de shortcode et texte répé
 Les shortcodes de documentation courants incluent :
 
 ```markdown
-{{< callout type="warning" title="Breaking change" >}}
+{{</* callout type="warning" title="Breaking change" */>}}
 Cette option a été supprimée en v3.
-{{< /callout >}}
+{{</* /callout */>}}
 
-{{< details title="Pourquoi c'est important" >}}
+{{</* details title="Pourquoi c'est important" */>}}
 Explication plus longue qui doit rester disponible sans prendre toute la page.
-{{< /details >}}
+{{</* /details */>}}
 
-{{< cards cols="3" >}}
-{{< card title="Setup" icon="download" href="/fr/docs/setup/" >}}
+{{</* cards cols="3" */>}}
+{{</* card title="Setup" icon="download" href="/fr/docs/setup/" */>}}
 Commencer ici.
-{{< /card >}}
-{{< /cards >}}
+{{</* /card */>}}
+{{</* /cards */>}}
 ```
 
 Utilisez les callouts pour les avertissements opérationnels, limites de sécurité, notes de premier setup et changements de comportement versionnés. Gardez les explications ordinaires en prose.
+
+## Images de page
+
+Gardez les images à côté de la page ou de l'article qu'elles accompagnent lorsque possible. Cela garde le Markdown et ses médias ensemble lorsque le contenu bouge, et rend les assets propres à une page plus faciles à réviser.
+
+Pour un article avec des images locales, créez un page bundle en déplaçant le fichier Markdown dans un dossier et en le renommant `_index.md` :
+
+```text
+content/blog/my-new-post/
+├── _index.en.md
+├── _index.fr.md
+└── hero.png
+```
+
+Référencez ensuite l'image avec un chemin Markdown relatif :
+
+```markdown
+![Texte alternatif](hero.png)
+```
+
+Utilisez `static/` lorsqu'une image a besoin d'une URL publique stable, est partagée par plusieurs pages, ou doit être référencée hors du bundle de contenu :
+
+```text
+static/images/docs/cloudflare-dashboard.png
+```
+
+Référencez les images statiques depuis la racine du site :
+
+```markdown
+![Texte alternatif](/images/docs/cloudflare-dashboard.png)
+```
 
 ## Assets
 
 Utilisez `assets/` lorsque Hugo doit traiter, fingerprintér ou grouper un fichier. Utilisez `static/` pour les fichiers qui doivent garder une URL stable.
 
+{{< mermaid >}}
+flowchart LR
+  A[Nouveau fichier<br/>ou ancienne URL]
+  B{Hugo doit-il traiter<br/>ou fingerprintér?}
+  C[Utiliser assets]
+  D{Chemin public<br/>stable requis?}
+  E[Utiliser static]
+  F{Page de contenu<br/>déplacée?}
+  G[Utiliser aliases<br/>en front matter]
+  H[Garder avec<br/>le page bundle]
+
+  A --> B
+  B -->|Oui| C
+  B -->|Non| D
+  D -->|Oui| E
+  D -->|Non| F
+  F -->|Oui| G
+  F -->|Non| H
+{{< /mermaid >}}
+
 | Placez-le ici | Quand |
 | ------------- | ----- |
 | `assets/` | CSS, JavaScript ou média référencé par les templates via les ressources Hugo |
 | `static/` | `favicon.ico`, `social.png`, `humans.txt`, `_headers`, `_redirects`, ou fichiers publics qui doivent garder un chemin fixe |
+
+Utilisez `static/_redirects` pour les règles de redirection qui appartiennent à un fichier statique fixe. Ce n'est pas le seul mécanisme de redirection : les pages de contenu peuvent aussi définir des `aliases` dans le front matter lorsqu'une ancienne URL doit rediriger vers une page déplacée.
 
 ## Avant publication
 
@@ -135,3 +188,5 @@ npm run lint
 ```
 
 Utilisez `npm run lint:all` lorsque le changement touche beaucoup de liens, la navigation ou le HTML généré.
+
+Lorsque le changement de contenu est prêt à être commité, utilisez les conseils de [style des commits](/fr/docs/web-site/local-development/#style-des-commits) afin que release-please puisse classer le travail correctement.

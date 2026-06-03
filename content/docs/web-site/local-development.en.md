@@ -82,6 +82,19 @@ Wrangler serves at `http://localhost:8787/` and hot-reloads Worker changes.
 Analytics calls skip when required environment values are missing. That is fine for layout and asset-routing work. Add local secrets only when you are specifically debugging analytics behavior.
 {{< /callout >}}
 
+## Local deploy while testing
+
+Use this only when the GitHub integration is unavailable or you intentionally need to test a local deployment:
+
+```bash
+npm install
+npm run build
+npx wrangler login
+npx wrangler deploy
+```
+
+Local deploys use the same `wrangler.toml` and runtime secrets documented in [Hosting and deployment](/docs/web-site/hosting-deployment/). Cloudflare marks them as manually deployed instead of Git-backed.
+
 ## Common fixes
 
 | Symptom | Check |
