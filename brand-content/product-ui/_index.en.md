@@ -2,7 +2,7 @@
 title: "Product UI"
 description: "Interface patterns for generated pages and operator-facing controls."
 type: brand
-weight: 3
+weight: 40
 ---
 
 ## Generated pages

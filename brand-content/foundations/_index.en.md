@@ -2,7 +2,7 @@
 title: "Foundations"
 description: "Voice, naming, accessibility, and system principles."
 type: brand
-weight: 1
+weight: 50
 ---
 
 ## Brand platform

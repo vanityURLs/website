@@ -2,7 +2,7 @@
 title: "Interface produit"
 description: "Modeles d'interface pour les pages generees et les controles operateur."
 type: brand
-weight: 3
+weight: 40
 ---
 
 ## Pages generees

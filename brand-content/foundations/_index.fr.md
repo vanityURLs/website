@@ -2,7 +2,7 @@
 title: "Fondations"
 description: "Voix, nommage, accessibilite et principes systeme."
 type: brand
-weight: 1
+weight: 50
 ---
 
 ## Plateforme de marque

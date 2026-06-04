@@ -24,17 +24,17 @@ languages:
         col2:
           title: Standards
           links:
-            - name: Foundations
-              url: /foundations/
-            - name: Identity
-              url: /identity/
+            - name: Design Language
+              url: /design-language/
+            - name: Logo
+              url: /logo/
         col3:
-          title: Product
+          title: Resources
           links:
-            - name: Product UI
-              url: /product-ui/
-            - name: Assets
-              url: /assets/
+            - name: Downloads
+              url: /resources/downloads/
+            - name: Social Media
+              url: /resources/social-media/
         col4:
           title: Project
           links:
@@ -48,17 +48,17 @@ languages:
               external: true
     menu:
       main:
-        - name: Foundations
-          pageRef: /foundations
+        - name: Design Language
+          pageRef: /design-language
           weight: 1
-        - name: Identity
-          pageRef: /identity
+        - name: Logo
+          pageRef: /logo
           weight: 2
+        - name: Resources
+          pageRef: /resources
+          weight: 3
         - name: Product UI
           pageRef: /product-ui
-          weight: 3
-        - name: Assets
-          pageRef: /assets
           weight: 4
         - name: Web Site
           pageRef: /web-site
@@ -73,17 +73,17 @@ languages:
         col2:
           title: Normes
           links:
-            - name: Fondations
-              url: /fr/foundations/
-            - name: Identite
-              url: /fr/identity/
+            - name: Langage visuel
+              url: /fr/design-language/
+            - name: Logo
+              url: /fr/logo/
         col3:
-          title: Produit
+          title: Ressources
           links:
-            - name: Interface produit
-              url: /fr/product-ui/
-            - name: Assets
-              url: /fr/assets/
+            - name: Telechargements
+              url: /fr/resources/downloads/
+            - name: Medias sociaux
+              url: /fr/resources/social-media/
         col4:
           title: Projet
           links:
@@ -97,17 +97,17 @@ languages:
               external: true
     menu:
       main:
-        - name: Fondations
-          pageRef: /foundations
+        - name: Langage visuel
+          pageRef: /design-language
           weight: 1
-        - name: Identite
-          pageRef: /identity
+        - name: Logo
+          pageRef: /logo
           weight: 2
+        - name: Ressources
+          pageRef: /resources
+          weight: 3
         - name: Interface produit
           pageRef: /product-ui
-          weight: 3
-        - name: Assets
-          pageRef: /assets
           weight: 4
         - name: Site web
           pageRef: /web-site
