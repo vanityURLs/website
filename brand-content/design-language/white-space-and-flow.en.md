@@ -13,6 +13,19 @@ The documentation uses `content-flow` and `docs-flow` patterns to create steady 
 
 Use that rhythm for long-form pages. Avoid manually stacking ad hoc margins unless a reusable component needs a new spacing rule.
 
+## Flow pattern rules
+
+Use `content-flow` on Markdown-style content containers that need readable prose spacing. It sets the shared body size, line height, child spacing, heading rhythm, and list-item rhythm for paragraphs, lists, quotes, tables, code blocks, highlighted code, and non-prose inserts.
+
+Use `docs-flow` with `content-flow` on documentation and brand reference pages. It keeps docs pages aligned with the same rhythm while leaving room for docs-specific behavior in the future.
+
+- Let direct children create the vertical rhythm; avoid putting one-off top and bottom margins on every nested element.
+- Start the first visible child flush with the container by relying on the first-child reset.
+- Use larger gaps before `h2` headings, medium gaps before `h3` headings, and smaller gaps between a heading and its supporting text.
+- Keep paragraphs, unordered lists, and ordered lists on the shared body line height.
+- Keep list items close enough to scan as one list, but separated enough that multi-line items remain readable.
+- Add a reusable component rule when a new pattern needs different spacing; do not solve it with page-local margin overrides.
+
 ## Line length
 
 Keep explanatory content in a comfortable reading column. Dense operational panels can be wider when users need to compare values, but prose should not stretch across the full viewport.

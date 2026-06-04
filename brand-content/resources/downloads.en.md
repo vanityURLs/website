@@ -1,6 +1,6 @@
 ---
-title: "Downloads"
-description: "Downloadable brand files and packaged assets."
+title: "Brand & assets"
+heading: "Downloadable brand files and packaged assets"
 type: brand
 weight: 10
 ---

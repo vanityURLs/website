@@ -13,6 +13,19 @@ La documentation utilise les motifs `content-flow` et `docs-flow` pour creer un 
 
 Utilisez ce rythme pour les pages longues. Evitez d'empiler des marges manuelles sauf si un composant reutilisable a besoin d'une nouvelle regle d'espacement.
 
+## Regles des motifs de flux
+
+Utilisez `content-flow` sur les conteneurs de contenu de style Markdown qui ont besoin d'un espacement de prose lisible. Il definit la taille de corps partagee, la hauteur de ligne, l'espacement des enfants, le rythme des titres et le rythme des elements de liste pour les paragraphes, listes, citations, tableaux, blocs de code, code avec coloration et inserts hors prose.
+
+Utilisez `docs-flow` avec `content-flow` sur les pages de documentation et de reference de marque. Il garde les pages docs alignees sur le meme rythme tout en laissant de la place pour des comportements propres aux docs plus tard.
+
+- Laissez les enfants directs creer le rythme vertical; evitez les marges ponctuelles en haut et en bas sur chaque element imbrique.
+- Commencez le premier enfant visible au ras du conteneur avec la remise a zero du premier enfant.
+- Utilisez des espaces plus grands avant les titres `h2`, des espaces moyens avant les titres `h3` et des espaces plus petits entre un titre et son texte d'appui.
+- Gardez les paragraphes, listes non ordonnees et listes ordonnees sur la hauteur de ligne de corps partagee.
+- Gardez les elements de liste assez proches pour etre lus comme une seule liste, mais assez separes pour que les elements sur plusieurs lignes restent lisibles.
+- Ajoutez une regle de composant reutilisable quand un nouveau motif a besoin d'un espacement different; ne le resolvez pas avec des marges locales a une page.
+
 ## Longueur de ligne
 
 Gardez le contenu explicatif dans une colonne de lecture confortable. Les panneaux operationnels peuvent etre plus larges lorsqu'il faut comparer des valeurs, mais la prose ne doit pas couvrir toute la largeur de l'ecran.

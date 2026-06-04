@@ -1,6 +1,6 @@
 ---
-title: "Telechargements"
-description: "Fichiers de marque telechargeables et assets regroupes."
+title: "Marque et assets"
+heading: "Fichiers de marque telechargeables et assets regroupes"
 type: brand
 weight: 10
 ---

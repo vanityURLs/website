@@ -11,8 +11,8 @@ Utilisez cette section pour trouver les fichiers telechargeables et suivre les e
 
 ## Groupes de ressources
 
-| Groupe | Contenu |
-| --- | --- |
-| Telechargements | Logos, badges, icones et fichiers de marque regroupes |
-| Medias sociaux | Images Open Graph, avatars, bannieres et modeles de publication |
-| Fonds d'ecran et arriere-plans | Fonds desktop, mobile, presentation et appel video |
+| Groupe                         | Contenu                                                         |
+| ------------------------------ | --------------------------------------------------------------- |
+| Marque et assets               | Logos, badges, icones et fichiers de marque regroupes           |
+| Medias sociaux                 | Images Open Graph, avatars, bannieres et modeles de publication |
+| Fonds d'ecran et arriere-plans | Fonds desktop, mobile, presentation et appel video              |

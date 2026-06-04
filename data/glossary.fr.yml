@@ -5,6 +5,12 @@ terms:
   - id: access-policy
     term: Politique Access
     definition: Une règle Cloudflare Zero Trust qui decide quelles identités peuvent atteindre une application Access protégée.
+  - id: alias
+    term: Alias
+    definition: Le chemin court ou mot-cle utilise pour atteindre une destination configuree.
+  - id: badge
+    term: Badge
+    definition: Un lien visuel compact qui annonce, previsualise ou partage un alias.
   - id: block-policy
     term: Politique de blocage
     definition: Les règles propres à l'instance dans `custom/v8s-policies.json` qui bloquent les domaines dangereux, mots-cles, chemins de scanner ou trafic indesirable avant la recherche de redirection.
@@ -23,6 +29,9 @@ terms:
   - id: generated-registry
     term: Registre génère
     definition: Le registre runtime de redirection écrit dans `build/v8s.json` pendant le build à partir des liens, horaires, politiques et configurations.
+  - id: generated-page
+    term: Page generee
+    definition: Une page emise par le redirecteur pour l'expansion, le repli, le statut de lien, les pages legales, la confidentialite ou d'autres surfaces publiques runtime.
   - id: hardening
     term: Hardening
     definition: Réduction de la surface d'attaque disponible en désactivant les fonctionnalités inutilisées, en resserrant les politiques navigateur et en gardant les contrôles de sécurité dans une source de vérité claire.
@@ -50,6 +59,9 @@ terms:
   - id: random-slug
     term: Slug aléatoire
     definition: Un slug génère par `lnk` lorsque vous fournissez une destination sans choisir vous-même le chemin court.
+  - id: redirect
+    term: Redirection
+    definition: Une requete de lien court qui resout vers une destination configuree.
   - id: route
     term: Route
     definition: Le mappage Cloudflare Workers qui envoie les requêtes pour votre domaine court vers le Worker vanityURLs.

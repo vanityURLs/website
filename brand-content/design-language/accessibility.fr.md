@@ -1,5 +1,6 @@
 ---
-title: "Accessibilite"
+title: "A11Y"
+heading: "Accessibilite"
 description: "Expression de marque accessible pour les couleurs, textes, mises en page, actifs, pages generees et documentation."
 type: brand
 weight: 50

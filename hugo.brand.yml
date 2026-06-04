@@ -31,7 +31,7 @@ languages:
         col3:
           title: Resources
           links:
-            - name: Downloads
+            - name: Brand & assets
               url: /resources/downloads/
             - name: Social Media
               url: /resources/social-media/
@@ -80,7 +80,7 @@ languages:
         col3:
           title: Ressources
           links:
-            - name: Telechargements
+            - name: Marque et assets
               url: /fr/resources/downloads/
             - name: Medias sociaux
               url: /fr/resources/social-media/

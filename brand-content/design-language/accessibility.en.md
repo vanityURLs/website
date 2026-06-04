@@ -1,5 +1,6 @@
 ---
-title: "Accessibility"
+title: "A11Y"
+heading: "Accessibility"
 description: "Accessible brand expression across color, copy, layout, assets, generated pages, and documentation."
 type: brand
 weight: 50
