@@ -30,9 +30,9 @@ Ces fichiers sont des references de marque locales a cette page. Le site princip
 
 | Asset                   | Fichier            | Taille       |
 | ----------------------- | ------------------ | ------------ |
-| Favicon, surface claire | `favicon.png`      | `513 x 513`  |
+| Favicon, surface claire | `favicon.png`      | `512 x 512`  |
 | Favicon, surface sombre | `favicon-dark.png` | `513 x 513`  |
-| Open Graph defaut       | `og-default.png`   | `1201 x 631` |
+| Open Graph defaut       | `og-default.png`   | `1200 x 630` |
 | Apercu social           | `social.png`       | `1280 x 641` |
 
 ## Recommandations d'export PNG
@@ -45,4 +45,4 @@ Ces fichiers sont des references de marque locales a cette page. Le site princip
 | Avatar social carre           | `1024 x 1024`                      |
 | Banniere sociale              | `1500 x 500`                       |
 
-Les fichiers favicon copies mesurent `513 x 513`, et le fichier Open Graph copie mesure `1201 x 631`. Reexportez des versions exactes `512 x 512` et `1200 x 630` lorsque ces fichiers passent de references a assets de production.
+`favicon.png` et `og-default.png` ont les dimensions de production. Reexportez `favicon-dark.png` en `512 x 512` exact avant de l'utiliser comme icone sombre de production.

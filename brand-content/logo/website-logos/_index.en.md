@@ -30,9 +30,9 @@ These files are page-local brand references. The main site can keep using its gl
 
 | Asset                  | File               | Size         |
 | ---------------------- | ------------------ | ------------ |
-| Favicon, light surface | `favicon.png`      | `513 x 513`  |
+| Favicon, light surface | `favicon.png`      | `512 x 512`  |
 | Favicon, dark surface  | `favicon-dark.png` | `513 x 513`  |
-| Open Graph default     | `og-default.png`   | `1201 x 631` |
+| Open Graph default     | `og-default.png`   | `1200 x 630` |
 | Social preview         | `social.png`       | `1280 x 641` |
 
 ## PNG export guidance
@@ -45,4 +45,4 @@ These files are page-local brand references. The main site can keep using its gl
 | Square social avatar        | `1024 x 1024`                |
 | Social banner               | `1500 x 500`                 |
 
-The copied favicon files are `513 x 513`, and the copied Open Graph file is `1201 x 631`. Re-export exact `512 x 512` and `1200 x 630` versions when these files move from reference assets to production assets.
+`favicon.png` and `og-default.png` are production-sized. Re-export `favicon-dark.png` to exact `512 x 512` before using it as a production dark-surface icon.
