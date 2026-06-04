@@ -5,160 +5,52 @@
 {{ $designLanguageURL := printf "%s/design-language/" $langPrefix }}
 {{ $logoURL := printf "%s/logo/" $langPrefix }}
 {{ $resourcesURL := printf "%s/resources/" $langPrefix }}
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12" data-pagefind-body>
-  <div class="mb-10">
-    {{ with .Params.eyebrow }}
-    <p class="text-xs font-semibold text-brand-700 dark:text-brand-400 mb-3">
-      {{ . }}
-    </p>
-    {{ end }}
-    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-      {{ .Title }}
-    </h1>
-    {{ with .Description }}
-    <p class="text-lg text-gray-500 dark:text-gray-400">{{ . }}</p>
-    {{ end }}
-  </div>
-
-  <div
-    class="rounded-xl border-2 border-brand-200 dark:border-brand-800 bg-brand-50 dark:bg-brand-900/20 p-6 mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
-  >
-    <div>
-      <h2
-        class="text-base font-semibold text-brand-900 dark:text-brand-100 mb-1"
-      >
-        {{ if eq .Site.Language.Lang "fr" }}Commencer par le systeme{{ else
-        }}Start with the system{{ end }}
-      </h2>
-      <p class="text-sm text-brand-700 dark:text-brand-300">
-        {{ if eq .Site.Language.Lang "fr" }}Utilisez les couleurs, logos et
-        ressources avant de creer de nouvelles surfaces.{{ else }}Use the color,
-        logo, and resource guidance before creating new public surfaces.{{ end
-        }}
-      </p>
-    </div>
-    <a
-      href="{{ $designLanguageURL }}"
-      class="inline-flex shrink-0 items-center gap-2 px-4 py-2.5 rounded-lg bg-brand-700 hover:bg-brand-800 dark:bg-brand-800 dark:hover:bg-brand-700 text-white font-medium text-sm transition-colors"
-    >
-      {{ if eq .Site.Language.Lang "fr" }}Ouvrir le langage visuel{{ else }}Open
-      design language{{ end }}
-    </a>
-  </div>
-
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
-    <a
-      href="{{ $designLanguageURL }}"
-      class="group flex flex-col gap-2 p-5 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
-    >
-      <div
-        class="w-8 h-8 rounded-lg bg-brand-50 dark:bg-brand-900/40 group-hover:bg-brand-100 dark:group-hover:bg-brand-900/60 flex items-center justify-center transition-colors"
-      >
-        <svg
-          class="w-4 h-4 text-brand-600 dark:text-brand-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10-1h6m-3-3v6"
-          />
-        </svg>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="flex gap-8">
+    <aside class="hidden lg:block w-56 xl:w-60 shrink-0">
+      <div class="sticky top-20 overflow-y-auto max-h-[calc(100vh-6rem)] pb-8">
+        {{ partial "brand/sidebar.html" (dict "Page" . "Sections" $sections) }}
       </div>
-      <h2
-        class="font-semibold text-sm text-gray-900 dark:text-gray-100 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors"
-      >
-        {{ if eq .Site.Language.Lang "fr" }}Langage visuel{{ else }}Design language{{ end }}
-      </h2>
-      <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-        {{ if eq .Site.Language.Lang "fr" }}Couleurs, typographie, grille, espacement et accessibilite.{{ else }}Color, typography, grid, spacing, and accessibility standards.{{ end }}
-      </p>
-    </a>
-    <a
-      href="{{ $logoURL }}"
-      class="group flex flex-col gap-2 p-5 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
-    >
-      <div
-        class="w-8 h-8 rounded-lg bg-brand-50 dark:bg-brand-900/40 group-hover:bg-brand-100 dark:group-hover:bg-brand-900/60 flex items-center justify-center transition-colors"
-      >
-        <svg
-          class="w-4 h-4 text-brand-600 dark:text-brand-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h10v10H7z M4 4h16v16H4z" />
-        </svg>
-      </div>
-      <h2 class="font-semibold text-sm text-gray-900 dark:text-gray-100 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
-        Logo
-      </h2>
-      <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-        {{ if eq .Site.Language.Lang "fr" }}Logo produit, logos d'instance, badges de redirection et icones du site.{{ else }}Product logo, instance logos, redirected badges, and website icon assets.{{ end }}
-      </p>
-    </a>
-    <a
-      href="{{ $resourcesURL }}"
-      class="group flex flex-col gap-2 p-5 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-700 transition-colors"
-    >
-      <div
-        class="w-8 h-8 rounded-lg bg-brand-50 dark:bg-brand-900/40 group-hover:bg-brand-100 dark:group-hover:bg-brand-900/60 flex items-center justify-center transition-colors"
-      >
-        <svg
-          class="w-4 h-4 text-brand-600 dark:text-brand-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3 M5 20h14a2 2 0 002-2V8l-6-6H5a2 2 0 00-2 2v14a2 2 0 002 2z" />
-        </svg>
-      </div>
-      <h2 class="font-semibold text-sm text-gray-900 dark:text-gray-100 group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
-        {{ if eq .Site.Language.Lang "fr" }}Ressources{{ else }}Resources{{ end }}
-      </h2>
-      <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-        {{ if eq .Site.Language.Lang "fr" }}Telechargements, medias sociaux, fonds d'ecran et arriere-plans.{{ else }}Downloads, social media assets, wallpapers, and backgrounds.{{ end }}
-      </p>
-    </a>
-  </div>
+    </aside>
 
-  <div class="space-y-8">
-    {{ range $sections }}
-    <div>
-      <a
-        href="{{ .RelPermalink }}"
-        class="inline-flex text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-3 hover:text-brand-600 dark:hover:text-brand-400 transition-colors no-underline"
-      >
-        {{ .Title }}
-      </a>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
-        {{ range .RegularPages.ByWeight }}
-        <a
-          href="{{ .RelPermalink }}"
-          class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-brand-700 dark:hover:text-brand-400 transition-colors group"
-        >
-          <svg
-            class="w-3.5 h-3.5 text-gray-300 dark:text-gray-600 shrink-0 group-hover:text-brand-400 transition-colors"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-          <span>{{ .Title }}</span>
-        </a>
+    <div class="flex-1 min-w-0">
+      <nav class="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400 mb-6" aria-label="{{ i18n "nav_breadcrumb" }}">
+        <span class="text-gray-600 dark:text-gray-300">
+          {{ if eq .Site.Language.Lang "fr" }}Marque{{ else }}Brand{{ end }}
+        </span>
+      </nav>
+
+      <article class="content-flow docs-flow prose dark:prose-invert prose-headings:scroll-mt-24 max-w-none" data-pagefind-body>
+        {{ with .Params.eyebrow }}
+        <p class="text-xs font-semibold text-brand-700 dark:text-brand-400 mb-3">
+          {{ . }}
+        </p>
         {{ end }}
-      </div>
+        <h1>{{ .Title }}</h1>
+        {{ with .Description }}
+        <p class="lead">{{ . }}</p>
+        {{ end }}
+
+        <h2>{{ if eq .Site.Language.Lang "fr" }}Commencer par le systeme{{ else }}Start with the system{{ end }}</h2>
+        <ul>
+          <li><a href="{{ $designLanguageURL }}">{{ if eq .Site.Language.Lang "fr" }}Langage visuel{{ else }}Design language{{ end }}</a> {{ if eq .Site.Language.Lang "fr" }}couvre les couleurs, la typographie, la grille, l'espacement, l'accessibilite, les composants, les diagrammes et les themes.{{ else }}covers color, typography, grid, spacing, accessibility, components, diagrams, and themes.{{ end }}</li>
+          <li><a href="{{ $logoURL }}">Logo</a> {{ if eq .Site.Language.Lang "fr" }}documente les logos produit, d'instance, de site web et les actifs d'icone.{{ else }}documents product, instance, website logo, and icon assets.{{ end }}</li>
+          <li><a href="{{ $resourcesURL }}">{{ if eq .Site.Language.Lang "fr" }}Ressources{{ else }}Resources{{ end }}</a> {{ if eq .Site.Language.Lang "fr" }}regroupe les telechargements, medias sociaux, fonds d'ecran et arriere-plans.{{ else }}collects downloads, social media assets, wallpapers, and backgrounds.{{ end }}</li>
+        </ul>
+
+        {{ range $sections }}
+        <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{ with .Description }}<p>{{ . }}</p>{{ end }}
+        {{ if .RegularPages }}
+        <ul>
+          {{ range .RegularPages.ByWeight }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ with .Description }} {{ . }}{{ end }}</li>
+          {{ end }}
+        </ul>
+        {{ end }}
+        {{ end }}
+      </article>
     </div>
-    {{ end }}
   </div>
 </div>
 {{ else }} {{ $lang := .Site.Language.Lang }} {{ $data := index hugo.Data

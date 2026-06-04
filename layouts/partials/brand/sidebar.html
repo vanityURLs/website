@@ -1,0 +1,33 @@
+{{ $page := .Page }}
+{{ $sections := .Sections }}
+{{ $cur := $page.RelPermalink }}
+{{ $norm := strings.TrimSuffix "/" $cur }}
+{{ $homeURL := relLangURL "" }}
+
+<a href="{{ $homeURL }}" class="sidebar-link{{ if or (eq $cur $homeURL) (eq $norm (strings.TrimSuffix "/" $homeURL)) }} active{{ end }}">
+  {{ if eq $page.Site.Language.Lang "fr" }}Apercu{{ else }}Overview{{ end }}
+</a>
+
+{{ range $sections }}
+{{ $sectionURL := .RelPermalink }}
+{{ $sectionNorm := strings.TrimSuffix "/" $sectionURL }}
+{{ $sectionActive := or (eq $cur $sectionURL) (eq $norm $sectionNorm) (and $page.Parent (eq $page.Parent.RelPermalink $sectionURL)) }}
+<details class="sidebar-section"{{ if $sectionActive }} open{{ end }}>
+  <summary class="sidebar-section-summary{{ if $sectionActive }} active{{ end }}">
+    <span>{{ .Title }}</span>
+    <svg class="sidebar-section-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+  </summary>
+  <div class="sidebar-section-panel">
+    <a href="{{ $sectionURL }}" class="sidebar-link sidebar-section-link{{ if or (eq $cur $sectionURL) (eq $norm $sectionNorm) }} active{{ end }}">
+      {{ if eq $page.Site.Language.Lang "fr" }}Apercu{{ else }}Overview{{ end }}
+    </a>
+    {{ range .RegularPages.ByWeight }}
+    {{ $pageURL := .RelPermalink }}
+    {{ $pageActive := or (eq $cur $pageURL) (eq $norm (strings.TrimSuffix "/" $pageURL)) }}
+    <a href="{{ $pageURL }}" class="sidebar-link{{ if $pageActive }} active{{ end }}">{{ .Title }}</a>
+    {{ end }}
+  </div>
+</details>
+{{ end }}
