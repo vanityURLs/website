@@ -27,7 +27,7 @@ description: "Find the vanityURLs setup, customization, command-line, demo, and 
 - [Reference](/docs/reference/) documents files, runtime artifacts, security behavior, link formats, schedules, and upgrades.
 - [Repository layout](/docs/reference/repository-layout/) shows where source, custom, generated, and Worker files live.
 - [Custom overrides](/docs/reference/custom-overrides/) maps instance-owned files to configuration surfaces.
-- [Public pages and status pages](/docs/reference/public-pages/) covers `custom/public/`, CSP expectations, and status-page placeholders.
+- [Public and status pages](/docs/reference/public-pages/) covers `custom/public/`, CSP expectations, and status-page placeholders.
 - [Upgrading an instance](/docs/reference/upgrading/) keeps an existing instance current.
 
 ## Contribute to the web site

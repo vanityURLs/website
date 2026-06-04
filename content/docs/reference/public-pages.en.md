@@ -1,6 +1,6 @@
 ---
 aside: false
-title: "Public pages and status pages"
+title: "Public and status pages"
 description: "Customize public HTML, shared assets, status pages, and custom page security under custom/public/."
 weight: 41
 aliases:
