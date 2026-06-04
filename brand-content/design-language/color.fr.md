@@ -1,6 +1,6 @@
 ---
 title: "Couleur"
-heading: "Tokens de couleur principaux et regles d'usage pour les surfaces vanityURLs"
+heading: "Tokens de couleur principaux et regles d'usage pour les surfaces"
 type: brand
 weight: 10
 ---
@@ -29,37 +29,37 @@ weight: 10
   <tbody>
     <tr>
       <td>Encre</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-ink"></span><code>#111827</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-ink"></span>#111827</span></td>
       <td>Texte principal, badges sur surface claire, interface a forte emphase</td>
     </tr>
     <tr>
       <td>Papier</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-paper"></span><code>#FFFFFF</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-paper"></span>#FFFFFF</span></td>
       <td>Fond de page principal et texte de badge sur surface sombre</td>
     </tr>
     <tr>
       <td>Teal vanityURLs</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-700"></span><code>#0F766E</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-700"></span>#0F766E</span></td>
       <td>Emphase de marque, liens, etats selectionnes, accents principaux</td>
     </tr>
     <tr>
       <td>Teal swoop</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-500"></span><code>#14B8A6</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-500"></span>#14B8A6</span></td>
       <td>Accent secondaire et detail de mouvement ou d'illustration</td>
     </tr>
     <tr>
       <td>Texte discret</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-muted"></span><code>#6B7280</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-muted"></span>#6B7280</span></td>
       <td>Descriptions secondaires et aide contextuelle</td>
     </tr>
     <tr>
       <td>Ligne</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-line"></span><code>#E5E7EB</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-line"></span>#E5E7EB</span></td>
       <td>Bordures et separateurs</td>
     </tr>
     <tr>
       <td>Surface sombre</td>
-      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-ink"></span><code>#111827</code></span></td>
+      <td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-ink"></span>#111827</span></td>
       <td>Surfaces de documentation sombres, panneaux proches du code, badges</td>
     </tr>
   </tbody>
@@ -81,15 +81,15 @@ Le site web etend Tailwind avec une echelle teal `brand`. Utilisez ces valeurs l
     </tr>
   </thead>
   <tbody>
-    <tr><td>brand-50</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-50"></span><code>#f0fdfa</code></span></td></tr>
-    <tr><td>brand-100</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-100"></span><code>#ccfbf1</code></span></td></tr>
-    <tr><td>brand-200</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-200"></span><code>#99f6e4</code></span></td></tr>
-    <tr><td>brand-300</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-300"></span><code>#5eead4</code></span></td></tr>
-    <tr><td>brand-400</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-400"></span><code>#2dd4bf</code></span></td></tr>
-    <tr><td>brand-500</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-500"></span><code>#14b8a6</code></span></td></tr>
-    <tr><td>brand-600</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-600"></span><code>#0d9488</code></span></td></tr>
-    <tr><td>brand-700</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-700"></span><code>#0f766e</code></span></td></tr>
-    <tr><td>brand-800</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-800"></span><code>#115e59</code></span></td></tr>
-    <tr><td>brand-900</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-900"></span><code>#134e4a</code></span></td></tr>
+    <tr><td>brand-50</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-50"></span>#f0fdfa</span></td></tr>
+    <tr><td>brand-100</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-100"></span>#ccfbf1</span></td></tr>
+    <tr><td>brand-200</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-200"></span>#99f6e4</span></td></tr>
+    <tr><td>brand-300</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-300"></span>#5eead4</span></td></tr>
+    <tr><td>brand-400</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-400"></span>#2dd4bf</span></td></tr>
+    <tr><td>brand-500</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-500"></span>#14b8a6</span></td></tr>
+    <tr><td>brand-600</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-600"></span>#0d9488</span></td></tr>
+    <tr><td>brand-700</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-700"></span>#0f766e</span></td></tr>
+    <tr><td>brand-800</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-800"></span>#115e59</span></td></tr>
+    <tr><td>brand-900</td><td><span class="brand-color-value"><span class="brand-color-token-swatch brand-color-brand-900"></span>#134e4a</span></td></tr>
   </tbody>
 </table>
