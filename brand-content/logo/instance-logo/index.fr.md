@@ -5,9 +5,9 @@ type: brand
 weight: 20
 ---
 
-## Images de redirection de marque
+## Images de redirection d'instance
 
-Les images de redirection de marque sont des assets locaux a cette page pour documenter comment vanityURLs communique une redirection localisee. Elles restent dans ce bundle de page Hugo afin d'etre disponibles sur le site de marque sans etre copiees dans le dossier `static/images/` partage avec le site principal.
+Les images de redirection d'instance sont des assets locaux a cette page pour documenter comment une instance communique une redirection localisee. Elles restent dans ce bundle de page Hugo afin d'etre disponibles sur le site de marque sans etre copiees dans le dossier `static/images/` partage avec le site principal.
 
 <div class="brand-system">
   <section class="brand-section">
@@ -15,13 +15,13 @@ Les images de redirection de marque sont des assets locaux a cette page pour doc
       <div class="brand-panel">
         <h3>Surface claire</h3>
         <div class="brand-badge-stage brand-badge-stage-light">
-          <img src="/logo/instance-logo/vanityurls-link-redirected-fr.svg" alt="Image redirige par vanityURLs.link">
+          <img src="/logo/instance-logo/v8s-redirected-fr.svg" alt="Image redirige par vanityURLs.link">
         </div>
       </div>
       <div class="brand-panel">
         <h3>Surface sombre</h3>
         <div class="brand-badge-stage brand-badge-stage-dark">
-          <img src="/logo/instance-logo/vanityurls-link-redirected-fr-dark.svg" alt="Image redirige par vanityURLs.link pour surfaces sombres">
+          <img src="/logo/instance-logo/v8s-redirected-fr-dark.svg" alt="Image redirige par vanityURLs.link pour surfaces sombres">
         </div>
       </div>
     </div>
@@ -30,16 +30,16 @@ Les images de redirection de marque sont des assets locaux a cette page pour doc
 
 ## Fichiers de redirection localises
 
-| Langue   | Clair                                      | Sombre                                                                    |
-| -------- | ------------------------------------------ | ------------------------------------------------------------------------- |
-| Anglais  | `vanityurls-link-redirected-en.svg`        | `vanityurls-link-redirected-en-dark.svg`                                  |
-| Francais | `vanityurls-link-redirected-fr.svg`        | `vanityurls-link-redirected-fr-dark.svg`                                  |
-| Espagnol | `vanityurls-link-redirected-es.svg`        | `vanityurls-link-redirected-es-dark.svg`                                  |
-| Italien  | `vanityurls-link-redirected-it.svg`        | `vanityurls-link-redirected-it-dark.svg`                                  |
-| Allemand | `vanityurls-link-redirected-de.svg`        | `vanityurls-link-redirected-de-dark.svg`                                  |
-| Anglais  | `vanityurls-link-redirected-en.png` apercu | Ajouter un apercu PNG sombre seulement si un apercu raster est necessaire |
+| Langue   | SVG clair               | SVG sombre                   | PNG clair                               | PNG sombre                                   |
+| -------- | ----------------------- | ---------------------------- | --------------------------------------- | -------------------------------------------- |
+| Anglais  | `v8s-redirected-en.svg` | `v8s-redirected-en-dark.svg` | `v8s-redirected-en-1125-721.png`        | `v8s-redirected-en-dark-1125-721.png`        |
+| Francais | `v8s-redirected-fr.svg` | `v8s-redirected-fr-dark.svg` | `v8s-redirected-fr-1125-721.png`        | `v8s-redirected-fr-dark-1125-721.png`        |
+| Espagnol | `v8s-redirected-es.svg` | `v8s-redirected-es-dark.svg` | `v8s-redirected-es-1125-721.png`        | `v8s-redirected-es-dark-1125-721.png`        |
+| Italien  | `v8s-redirected-it.svg` | `v8s-redirected-it-dark.svg` | `v8s-redirected-it-1125-721.png`        | `v8s-redirected-it-dark-1125-721.png`        |
+| Allemand | `v8s-redirected-de.svg` | `v8s-redirected-de-dark.svg` | `v8s-redirected-de-1125-721.png`        | `v8s-redirected-de-dark-1125-721.png`        |
+| Apercu   | n/a                     | n/a                          | `v8s-redirected-{language}-512-328.png` | `v8s-redirected-{language}-dark-512-328.png` |
 
-Tous les SVG fournis utilisent un viewBox de `1125 x 721`. L'apercu PNG anglais actuel mesure `512 x 328`.
+Tous les SVG fournis utilisent un viewBox de `1125 x 721`. Les exports PNG canoniques mesurent `1125 x 721`; les exports PNG d'apercu mesurent `512 x 328`.
 
 ## Badges de redirection d'execution
 
@@ -105,16 +105,18 @@ Cette page de marque garde ses assets de reference a cote de la source Markdown.
 {{< filetree/folder name="instance-logo" annotation="bundle de page" >}}
 {{< filetree/file name="index.en.md" >}}
 {{< filetree/file name="index.fr.md" >}}
-{{< filetree/file name="vanityurls-link-redirected-en.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-en-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-fr.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-fr-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-es.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-es-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-it.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-it-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-de.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-de-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-en.svg" >}}
+{{< filetree/file name="v8s-redirected-en-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-en-1125-721.png" >}}
+{{< filetree/file name="v8s-redirected-en-512-328.png" >}}
+{{< filetree/file name="v8s-redirected-fr.svg" >}}
+{{< filetree/file name="v8s-redirected-fr-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-es.svg" >}}
+{{< filetree/file name="v8s-redirected-es-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-it.svg" >}}
+{{< filetree/file name="v8s-redirected-it-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-de.svg" >}}
+{{< filetree/file name="v8s-redirected-de-dark.svg" >}}
 {{< /filetree/folder >}}
 {{< /filetree/folder >}}
 {{< /filetree/folder >}}

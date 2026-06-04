@@ -5,9 +5,9 @@ type: brand
 weight: 20
 ---
 
-## Brand redirected images
+## Instance redirected images
 
-The brand redirected images are page-local assets for documenting how vanityURLs communicates a localized redirect. They stay in this Hugo page bundle so they are available to the brand site without being copied into the shared `static/images/` output used by the main site.
+The instance redirected images are page-local assets for documenting how an instance communicates a localized redirect. They stay in this Hugo page bundle so they are available to the brand site without being copied into the shared `static/images/` output used by the main site.
 
 <div class="brand-system">
   <section class="brand-section">
@@ -15,13 +15,13 @@ The brand redirected images are page-local assets for documenting how vanityURLs
       <div class="brand-panel">
         <h3>Light surface</h3>
         <div class="brand-badge-stage brand-badge-stage-light">
-          <img src="/logo/instance-logo/vanityurls-link-redirected-en.svg" alt="Redirected by vanityURLs.link image">
+          <img src="/logo/instance-logo/v8s-redirected-en.svg" alt="Redirected by vanityURLs.link image">
         </div>
       </div>
       <div class="brand-panel">
         <h3>Dark surface</h3>
         <div class="brand-badge-stage brand-badge-stage-dark">
-          <img src="/logo/instance-logo/vanityurls-link-redirected-en-dark.svg" alt="Redirected by vanityURLs.link image for dark surfaces">
+          <img src="/logo/instance-logo/v8s-redirected-en-dark.svg" alt="Redirected by vanityURLs.link image for dark surfaces">
         </div>
       </div>
     </div>
@@ -30,16 +30,16 @@ The brand redirected images are page-local assets for documenting how vanityURLs
 
 ## Localized redirected files
 
-| Language | Light                                       | Dark                                                    |
-| -------- | ------------------------------------------- | ------------------------------------------------------- |
-| English  | `vanityurls-link-redirected-en.svg`         | `vanityurls-link-redirected-en-dark.svg`                |
-| French   | `vanityurls-link-redirected-fr.svg`         | `vanityurls-link-redirected-fr-dark.svg`                |
-| Spanish  | `vanityurls-link-redirected-es.svg`         | `vanityurls-link-redirected-es-dark.svg`                |
-| Italian  | `vanityurls-link-redirected-it.svg`         | `vanityurls-link-redirected-it-dark.svg`                |
-| German   | `vanityurls-link-redirected-de.svg`         | `vanityurls-link-redirected-de-dark.svg`                |
-| English  | `vanityurls-link-redirected-en.png` preview | Add dark PNG preview only if a raster preview is needed |
+| Language | SVG light               | SVG dark                     | PNG light                               | PNG dark                                     |
+| -------- | ----------------------- | ---------------------------- | --------------------------------------- | -------------------------------------------- |
+| English  | `v8s-redirected-en.svg` | `v8s-redirected-en-dark.svg` | `v8s-redirected-en-1125-721.png`        | `v8s-redirected-en-dark-1125-721.png`        |
+| French   | `v8s-redirected-fr.svg` | `v8s-redirected-fr-dark.svg` | `v8s-redirected-fr-1125-721.png`        | `v8s-redirected-fr-dark-1125-721.png`        |
+| Spanish  | `v8s-redirected-es.svg` | `v8s-redirected-es-dark.svg` | `v8s-redirected-es-1125-721.png`        | `v8s-redirected-es-dark-1125-721.png`        |
+| Italian  | `v8s-redirected-it.svg` | `v8s-redirected-it-dark.svg` | `v8s-redirected-it-1125-721.png`        | `v8s-redirected-it-dark-1125-721.png`        |
+| German   | `v8s-redirected-de.svg` | `v8s-redirected-de-dark.svg` | `v8s-redirected-de-1125-721.png`        | `v8s-redirected-de-dark-1125-721.png`        |
+| Preview  | n/a                     | n/a                          | `v8s-redirected-{language}-512-328.png` | `v8s-redirected-{language}-dark-512-328.png` |
 
-All supplied SVG files use a `1125 x 721` viewBox. The current English PNG preview is `512 x 328`.
+All supplied SVG files use a `1125 x 721` viewBox. The canonical PNG exports are `1125 x 721`; preview PNG exports are `512 x 328`.
 
 ## Runtime redirected badges
 
@@ -105,16 +105,18 @@ This brand page stores its own reference assets beside the Markdown source.
 {{< filetree/folder name="instance-logo" annotation="page bundle" >}}
 {{< filetree/file name="index.en.md" >}}
 {{< filetree/file name="index.fr.md" >}}
-{{< filetree/file name="vanityurls-link-redirected-en.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-en-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-fr.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-fr-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-es.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-es-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-it.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-it-dark.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-de.svg" >}}
-{{< filetree/file name="vanityurls-link-redirected-de-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-en.svg" >}}
+{{< filetree/file name="v8s-redirected-en-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-en-1125-721.png" >}}
+{{< filetree/file name="v8s-redirected-en-512-328.png" >}}
+{{< filetree/file name="v8s-redirected-fr.svg" >}}
+{{< filetree/file name="v8s-redirected-fr-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-es.svg" >}}
+{{< filetree/file name="v8s-redirected-es-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-it.svg" >}}
+{{< filetree/file name="v8s-redirected-it-dark.svg" >}}
+{{< filetree/file name="v8s-redirected-de.svg" >}}
+{{< filetree/file name="v8s-redirected-de-dark.svg" >}}
 {{< /filetree/folder >}}
 {{< /filetree/folder >}}
 {{< /filetree/folder >}}
