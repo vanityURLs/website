@@ -869,6 +869,21 @@
   }
   .brand-swatch-vanity { background: #0f766e; }
   .brand-swatch-swoop { background: #14b8a6; }
+  .brand-color-token {
+    display: inline-block;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-right: 0.45rem;
+    vertical-align: -0.18rem;
+    border: 1px solid rgba(17, 24, 39, 0.18);
+    border-radius: 9999px;
+    background: var(--brand-color-token);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.72) inset;
+  }
+  .dark .brand-color-token {
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.5) inset;
+  }
   .brand-badge-stage {
     display: grid;
     place-items: center;
