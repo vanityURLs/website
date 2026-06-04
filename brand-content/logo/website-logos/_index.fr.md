@@ -31,7 +31,7 @@ Ces fichiers sont des references de marque locales a cette page. Le site princip
 | Asset                   | Fichier            | Taille       |
 | ----------------------- | ------------------ | ------------ |
 | Favicon, surface claire | `favicon.png`      | `512 x 512`  |
-| Favicon, surface sombre | `favicon-dark.png` | `513 x 513`  |
+| Favicon, surface sombre | `favicon-dark.png` | `512 x 512`  |
 | Open Graph defaut       | `og-default.png`   | `1200 x 630` |
 | Apercu social           | `social.png`       | `1280 x 641` |
 
@@ -45,4 +45,4 @@ Ces fichiers sont des references de marque locales a cette page. Le site princip
 | Avatar social carre           | `1024 x 1024`                      |
 | Banniere sociale              | `1500 x 500`                       |
 
-`favicon.png` et `og-default.png` ont les dimensions de production. Reexportez `favicon-dark.png` en `512 x 512` exact avant de l'utiliser comme icone sombre de production.
+`favicon.png`, `favicon-dark.png` et `og-default.png` ont les dimensions de reference de production.
