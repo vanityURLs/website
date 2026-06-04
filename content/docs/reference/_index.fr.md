@@ -27,6 +27,7 @@ Commencez ici lorsque votre instance fonctionne déjà et que vous voulez compre
 | [Pages publiques et pages de statut](/fr/docs/reference/public-pages/) | Chemins de surcharges publiques, guidance CSP custom et placeholders des pages de statut       |
 | [Structure du dépôt](/fr/docs/reference/repository-layout/)            | Emplacement des defaults produit, fichiers custom, sorties générées et source Worker           |
 | [Sécurité runtime](/fr/docs/reference/runtime-security/)               | Garde-fous Worker, ordre de résolution et contrôles edge                                       |
+| [Modèle de sécurité](/fr/docs/reference/security-model/)               | Frontières de confiance, couches d'application et cartographie des contrôles pour les revues   |
 | [Liens planifiés](/fr/docs/reference/schedules/)                       | Regles de destination selon l'horaire                                                          |
 | [Fuseaux horaires](/fr/docs/reference/timezones/)                      | Noms de fuseaux horaires acceptés par setup et les contrôles runtime                           |
 | [Mise à jour d'une instance](/fr/docs/reference/upgrading/)            | Garder une instance existante à jour                                                           |

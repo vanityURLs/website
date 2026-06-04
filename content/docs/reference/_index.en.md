@@ -27,6 +27,7 @@ Start here when you already have an instance running and want to understand how 
 | [Public pages and status pages](/docs/reference/public-pages/) | Public override paths, custom page CSP guidance, and status-page placeholders                   |
 | [Repository layout](/docs/reference/repository-layout/)        | Where product defaults, custom files, generated output, and Worker source live                  |
 | [Runtime security](/docs/reference/runtime-security/)          | Worker guardrails, resolution order, and edge controls                                          |
+| [Security model](/docs/reference/security-model/)              | Trust boundaries, enforcement layers, and reviewer-oriented control mapping                     |
 | [Scheduled links](/docs/reference/schedules/)                  | Time-based destination rules                                                                    |
 | [Timezones](/docs/reference/timezones/)                        | Operator and schedule timezone names accepted by setup and runtime checks                       |
 | [Upgrading an instance](/docs/reference/upgrading/)            | Keeping an existing instance current                                                            |
