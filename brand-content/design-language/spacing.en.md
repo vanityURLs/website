@@ -1,6 +1,6 @@
 ---
 title: "Spacing"
-description: "Spacing scale and density guidance."
+heading: "Spacing scale and density guidance"
 type: brand
 weight: 40
 ---
