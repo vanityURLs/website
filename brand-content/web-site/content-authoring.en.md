@@ -1,30 +1,33 @@
 ---
 aside: false
+type: brand
 title: "Content authoring"
 description: "Write website docs, translations, shortcodes, and UI strings for vanityURLs.link."
 weight: 20
+aliases:
+  - /docs/web-site/content-authoring/
 ---
 
 Use this page when you add or update website content in `content/`, `i18n/`, `data/`, or Hugo `layouts/`.
 
 ## Repository areas
 
-| Path | Purpose |
-| ---- | ------- |
-| `content/` | Pages, blog posts, showcase entries, and documentation |
-| `layouts/` | Hugo templates, partials, and shortcodes |
-| `assets/` | Processed CSS and JavaScript that Hugo fingerprints |
-| `static/` | Files copied as-is with stable public URLs |
-| `data/` | Structured page data such as home, FAQ, glossary, trust, and audits |
-| `i18n/` | UI strings used by templates and shortcodes |
+| Path       | Purpose                                                             |
+| ---------- | ------------------------------------------------------------------- |
+| `content/` | Pages, blog posts, showcase entries, and documentation              |
+| `layouts/` | Hugo templates, partials, and shortcodes                            |
+| `assets/`  | Processed CSS and JavaScript that Hugo fingerprints                 |
+| `static/`  | Files copied as-is with stable public URLs                          |
+| `data/`    | Structured page data such as home, FAQ, glossary, trust, and audits |
+| `i18n/`    | UI strings used by templates and shortcodes                         |
 
 ## Content files
 
 Use language-specific filenames:
 
 ```text
-content/docs/web-site/content-authoring.en.md
-content/docs/web-site/content-authoring.fr.md
+brand-content/web-site/content-authoring.en.md
+brand-content/web-site/content-authoring.fr.md
 ```
 
 Hugo pairs translations when the base filename and directory match. A language switcher may fall back to the language root when a sibling translation is missing.
@@ -34,7 +37,7 @@ Hugo pairs translations when the base filename and directory match. A language s
 Create a page in the matching section:
 
 ```bash
-hugo new docs/web-site/example.en.md
+hugo new web-site/example.en.md --config hugo.brand.yml
 ```
 
 Then set front matter:
@@ -153,28 +156,28 @@ Use `assets/` when Hugo should process, fingerprint, or bundle a file. Use `stat
 
 {{< mermaid >}}
 flowchart LR
-  A[New file<br/>or old URL]
-  B{Should Hugo process<br/>or fingerprint it?}
-  C[Use assets]
-  D{Needs a stable<br/>public path?}
-  E[Use static]
-  F{Moved<br/>content<br/>page?}
-  G[Use front<br/>matter aliases]
-  H[Keep beside<br/>the page bundle]
+A[New file<br/>or old URL]
+B{Should Hugo process<br/>or fingerprint it?}
+C[Use assets]
+D{Needs a stable<br/>public path?}
+E[Use static]
+F{Moved<br/>content<br/>page?}
+G[Use front<br/>matter aliases]
+H[Keep beside<br/>the page bundle]
 
-  A --> B
-  B -->|Yes| C
-  B -->|No| D
-  D -->|Yes| E
-  D -->|No| F
-  F -->|Yes| G
-  F -->|No| H
+A --> B
+B -->|Yes| C
+B -->|No| D
+D -->|Yes| E
+D -->|No| F
+F -->|Yes| G
+F -->|No| H
 {{< /mermaid >}}
 
-| Put it here | When |
-| ----------- | ---- |
-| `assets/` | CSS, JavaScript, or media referenced by templates through Hugo resources |
-| `static/` | `favicon.ico`, `social.png`, `humans.txt`, `_headers`, `_redirects`, or public files that must keep a fixed path |
+| Put it here | When                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- |
+| `assets/`   | CSS, JavaScript, or media referenced by templates through Hugo resources                                         |
+| `static/`   | `favicon.ico`, `social.png`, `humans.txt`, `_headers`, `_redirects`, or public files that must keep a fixed path |
 
 Use `static/_redirects` for redirect rules that belong in a fixed static file. It is not the only redirect mechanism: content pages can also define `aliases` in front matter when an old URL should redirect to a moved page.
 
@@ -189,4 +192,4 @@ npm run lint
 
 Use `npm run lint:all` when the change affects many links, navigation, or generated HTML.
 
-When the content change is ready to commit, use the [Commit style](/docs/web-site/local-development/#commit-style) guidance so release-please can classify the work correctly.
+When the content change is ready to commit, use the [Commit style](/web-site/local-development/#commit-style) guidance so release-please can classify the work correctly.

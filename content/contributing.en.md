@@ -8,7 +8,7 @@ Contributions are welcome! vanityURLs recognizes [all types of contributions](ht
 ## Ways to contribute
 
 - **Bug reports** — open an issue in the [GitHub repository](https://github.com/vanityURLs/vanityURLs/issues)
-- **Documentation** — improve or translate docs in the [website repository](https://github.com/vanityURLs/website). Start with the [Web site documentation](/docs/web-site/) for the local Hugo workflow.
+- **Documentation** — improve or translate docs in the [website repository](https://github.com/vanityURLs/website). Start with the [Web site documentation](https://brand.vanityurls.link/web-site/) for the local Hugo workflow.
 - **Code** — submit a [pull request](https://github.com/vanityURLs/vanityURLs/pulls) with fixes or new features
 - **Community** — help others in [GitHub Discussions](https://github.com/orgs/vanityURLs/discussions)
 

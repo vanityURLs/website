@@ -25,6 +25,10 @@ description: "The identity, product UI, and usage standards for vanityURLs."
         <h3>Product UI</h3>
         <p>Interface patterns for redirect pages, controls, tables, and status states.</p>
       </a>
+      <a class="brand-panel" href="/web-site/">
+        <h3>Web Site</h3>
+        <p>Contributor documentation for the Hugo site, deployment, analytics, and release flow.</p>
+      </a>
     </div>
   </section>
 

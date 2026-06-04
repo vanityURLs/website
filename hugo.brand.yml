@@ -3,7 +3,7 @@ title: "vanityURLs Brand"
 
 min_version: "0.158.0"
 
-contentDir: "content/brand"
+contentDir: "brand-content"
 enableRobotsTXT: true
 disableHugoGeneratorInject: false
 enableGitInfo: true
@@ -38,6 +38,8 @@ languages:
         col4:
           title: Project
           links:
+            - name: Web Site Docs
+              url: /web-site/
             - name: Main Site
               url: https://www.vanityurls.link/
               external: true
@@ -58,6 +60,9 @@ languages:
         - name: Assets
           pageRef: /assets
           weight: 4
+        - name: Web Site
+          pageRef: /web-site
+          weight: 5
   fr:
     locale: fr-CA
     label: Francais
@@ -82,6 +87,8 @@ languages:
         col4:
           title: Projet
           links:
+            - name: Docs du site
+              url: /fr/web-site/
             - name: Site principal
               url: https://www.vanityurls.link/fr/
               external: true
@@ -102,13 +109,16 @@ languages:
         - name: Assets
           pageRef: /assets
           weight: 4
+        - name: Site web
+          pageRef: /web-site
+          weight: 5
 
 params:
   siteKind: "brand"
   github: "https://github.com/vanityURLs/website"
   discussions: "https://github.com/orgs/vanityURLs/discussions"
   website_repo: "https://github.com/vanityURLs/website"
-  editBaseURL: "https://github.com/vanityURLs/website/edit/main/content/brand"
+  editBaseURL: "https://github.com/vanityURLs/website/edit/main/brand-content"
 
 sitemap:
   changefreq: weekly

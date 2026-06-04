@@ -22,16 +22,19 @@ The current public brand assets live in the website repository under `static/`.
 
 Instance-owned brand assets belong under `custom/public/` in the redirector code repository so they overlay default public assets during build.
 
-```text
-custom/
-└── public/
-    ├── v8s-logo.svg
-    ├── favicon.svg
-    ├── site.webmanifest
-    ├── apple-touch-icon.png
-    ├── icon-192.png
-    ├── icon-512.png
-    └── en/
-        ├── v8s-redirected.svg
-        └── v8s-redirected-dark.svg
-```
+{{< filetree/container >}}
+{{< filetree/folder name="custom" >}}
+{{< filetree/folder name="public" annotation="instance-owned public asset overrides" >}}
+{{< filetree/file name="v8s-logo.svg" >}}
+{{< filetree/file name="favicon.svg" >}}
+{{< filetree/file name="site.webmanifest" >}}
+{{< filetree/file name="apple-touch-icon.png" >}}
+{{< filetree/file name="icon-192.png" >}}
+{{< filetree/file name="icon-512.png" >}}
+{{< filetree/folder name="en" annotation="localized badge overrides" >}}
+{{< filetree/file name="v8s-redirected.svg" >}}
+{{< filetree/file name="v8s-redirected-dark.svg" >}}
+{{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}

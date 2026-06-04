@@ -62,6 +62,7 @@ function mkRequest(path = "/en/docs/", opts = {}) {
 const fullEnv = {
   ASSETS: mockAssets("<html>...</html>"),
   UMAMI_WEBSITE_ID: "deadbeef-1111-2222-3333-444455556666",
+  UMAMI_WEBSITE_ID2: "cafebabe-1111-2222-3333-444455556666",
   UMAMI_ENDPOINT: "https://cloud.umami.is/api/send",
 };
 
@@ -130,8 +131,17 @@ await run("Brand host HTML requests read from /brand subtree", async () => {
   await worker.fetch(mkRequest("/identity/", { baseURL: "https://brand.vanityurls.link" }), env, ctx);
   await ctx._flush();
   assert(assets.seen[0] === "/brand/identity/", `asset path ${assets.seen[0]}`);
+  assert(umamiCalls[0].body.payload.website === fullEnv.UMAMI_WEBSITE_ID2, "brand website ID");
   assert(umamiCalls[0].body.payload.hostname === "brand.vanityurls.link", "tracked brand hostname");
   assert(umamiCalls[0].body.payload.url === "/identity/", "tracked original brand URL");
+});
+
+await run("Brand host falls back to main Umami website ID when ID2 is missing", async () => {
+  const env = { ...fullEnv, UMAMI_WEBSITE_ID2: undefined };
+  const ctx = mockCtx();
+  await worker.fetch(mkRequest("/", { baseURL: "https://brand.vanityurls.link" }), env, ctx);
+  await ctx._flush();
+  assert(umamiCalls[0].body.payload.website === fullEnv.UMAMI_WEBSITE_ID, "fallback website ID");
 });
 
 await run("Brand host scoped assets read from /brand subtree", async () => {
@@ -152,6 +162,40 @@ await run("Brand host shared static assets stay at root", async () => {
   await ctx._flush();
   assert(assets.seen[0] === "/css/main.css", `asset path ${assets.seen[0]}`);
   assert(umamiCalls.length === 0, "no tracking for CSS");
+});
+
+await run("Moved English web-site docs redirect to brand host", async () => {
+  const ctx = mockCtx();
+  const res = await worker.fetch(mkRequest("/en/docs/web-site/local-development/?x=1"), fullEnv, ctx);
+  await ctx._flush();
+  assert(res.status === 301, "redirect status");
+  assert(
+    res.headers.get("location") === "https://brand.vanityurls.link/web-site/local-development/?x=1",
+    `location ${res.headers.get("location")}`,
+  );
+  assert(umamiCalls.length === 0, "redirect is not tracked");
+});
+
+await run("Moved French web-site docs redirect to brand host with language prefix", async () => {
+  const ctx = mockCtx();
+  const res = await worker.fetch(mkRequest("/fr/docs/web-site/analytics/"), fullEnv, ctx);
+  await ctx._flush();
+  assert(res.status === 301, "redirect status");
+  assert(
+    res.headers.get("location") === "https://brand.vanityurls.link/fr/web-site/analytics/",
+    `location ${res.headers.get("location")}`,
+  );
+});
+
+await run("Unmoved main docs paths do not redirect to brand host", async () => {
+  const assets = mockAssetsRecorder("<html>docs</html>");
+  const env = { ...fullEnv, ASSETS: assets };
+  const ctx = mockCtx();
+  const res = await worker.fetch(mkRequest("/en/docs/setup/"), env, ctx);
+  await ctx._flush();
+  assert(res.status === 200, "response status");
+  assert(assets.seen[0] === "/en/docs/setup/", `asset path ${assets.seen[0]}`);
+  assert(umamiCalls.length === 1, "normal docs request still tracked");
 });
 
 await run("POST method bypasses tracking", async () => {

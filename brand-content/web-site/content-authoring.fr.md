@@ -1,30 +1,33 @@
 ---
 aside: false
+type: brand
 title: "Rédaction de contenu"
 description: "Rédiger les docs, traductions, shortcodes et chaînes UI du site vanityURLs.link."
 weight: 20
+aliases:
+  - /fr/docs/web-site/content-authoring/
 ---
 
 Utilisez cette page lorsque vous ajoutez ou modifiez du contenu dans `content/`, `i18n/`, `data/` ou les `layouts/` Hugo.
 
 ## Zones du dépôt
 
-| Chemin | Rôle |
-| ------ | ---- |
-| `content/` | Pages, articles, entrées de vitrine et documentation |
-| `layouts/` | Templates Hugo, partials et shortcodes |
-| `assets/` | CSS et JavaScript traités et fingerprintés par Hugo |
-| `static/` | Fichiers copiés tels quels avec des URLs publiques stables |
-| `data/` | Données structurées pour accueil, FAQ, glossaire, confiance et audits |
-| `i18n/` | Chaînes UI utilisées par les templates et shortcodes |
+| Chemin     | Rôle                                                                  |
+| ---------- | --------------------------------------------------------------------- |
+| `content/` | Pages, articles, entrées de vitrine et documentation                  |
+| `layouts/` | Templates Hugo, partials et shortcodes                                |
+| `assets/`  | CSS et JavaScript traités et fingerprintés par Hugo                   |
+| `static/`  | Fichiers copiés tels quels avec des URLs publiques stables            |
+| `data/`    | Données structurées pour accueil, FAQ, glossaire, confiance et audits |
+| `i18n/`    | Chaînes UI utilisées par les templates et shortcodes                  |
 
 ## Fichiers de contenu
 
 Utilisez des noms de fichiers propres à la langue :
 
 ```text
-content/docs/web-site/content-authoring.en.md
-content/docs/web-site/content-authoring.fr.md
+brand-content/web-site/content-authoring.en.md
+brand-content/web-site/content-authoring.fr.md
 ```
 
 Hugo associe les traductions lorsque le nom de base et le dossier correspondent. Le sélecteur de langue peut revenir à la racine de langue lorsqu'une traduction soeur manque.
@@ -34,7 +37,7 @@ Hugo associe les traductions lorsque le nom de base et le dossier correspondent.
 Créez une page dans la section correspondante :
 
 ```bash
-hugo new docs/web-site/example.fr.md
+hugo new web-site/example.fr.md --config hugo.brand.yml
 ```
 
 Puis définissez le front matter :
@@ -153,28 +156,28 @@ Utilisez `assets/` lorsque Hugo doit traiter, fingerprintér ou grouper un fichi
 
 {{< mermaid >}}
 flowchart LR
-  A[Nouveau fichier<br/>ou ancienne URL]
-  B{Hugo doit-il traiter<br/>ou fingerprintér?}
-  C[Utiliser assets]
-  D{Chemin public<br/>stable requis?}
-  E[Utiliser static]
-  F{Page de<br/>contenu<br/>déplacée?}
-  G[Utiliser front<br/>matter aliases]
-  H[Garder avec<br/>le page bundle]
+A[Nouveau fichier<br/>ou ancienne URL]
+B{Hugo doit-il traiter<br/>ou fingerprintér?}
+C[Utiliser assets]
+D{Chemin public<br/>stable requis?}
+E[Utiliser static]
+F{Page de<br/>contenu<br/>déplacée?}
+G[Utiliser front<br/>matter aliases]
+H[Garder avec<br/>le page bundle]
 
-  A --> B
-  B -->|Oui| C
-  B -->|Non| D
-  D -->|Oui| E
-  D -->|Non| F
-  F -->|Oui| G
-  F -->|Non| H
+A --> B
+B -->|Oui| C
+B -->|Non| D
+D -->|Oui| E
+D -->|Non| F
+F -->|Oui| G
+F -->|Non| H
 {{< /mermaid >}}
 
-| Placez-le ici | Quand |
-| ------------- | ----- |
-| `assets/` | CSS, JavaScript ou média référencé par les templates via les ressources Hugo |
-| `static/` | `favicon.ico`, `social.png`, `humans.txt`, `_headers`, `_redirects`, ou fichiers publics qui doivent garder un chemin fixe |
+| Placez-le ici | Quand                                                                                                                      |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `assets/`     | CSS, JavaScript ou média référencé par les templates via les ressources Hugo                                               |
+| `static/`     | `favicon.ico`, `social.png`, `humans.txt`, `_headers`, `_redirects`, ou fichiers publics qui doivent garder un chemin fixe |
 
 Utilisez `static/_redirects` pour les règles de redirection qui appartiennent à un fichier statique fixe. Ce n'est pas le seul mécanisme de redirection : les pages de contenu peuvent aussi définir des `aliases` dans le front matter lorsqu'une ancienne URL doit rediriger vers une page déplacée.
 
@@ -189,4 +192,4 @@ npm run lint
 
 Utilisez `npm run lint:all` lorsque le changement touche beaucoup de liens, la navigation ou le HTML généré.
 
-Lorsque le changement de contenu est prêt à être commité, utilisez les conseils de [style des commits](/fr/docs/web-site/local-development/#style-des-commits) afin que release-please puisse classer le travail correctement.
+Lorsque le changement de contenu est prêt à être commité, utilisez les conseils de [style des commits](/fr/web-site/local-development/#style-des-commits) afin que release-please puisse classer le travail correctement.

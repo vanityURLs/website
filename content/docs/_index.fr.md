@@ -7,7 +7,6 @@ description: "Trouver les pages de setup, personnalisation, ligne de commande, d
 - [Setup](/fr/docs/setup/) liste les prérequis et les décisions à prendre avant l'installation.
 - [Demarrage rapide](/fr/docs/setup/quickstart/) suit le chemin simple depuis la création du dépôt jusqu'à la première redirection déployée.
 - [v8s.link](/fr/docs/v8s-link/) est l'instance demo officielle a comparer lorsque des valeurs de setup ou des comportements runtime différent.
-- [Web site](/fr/docs/web-site/) couvre la maintenance de ce site de documentation Hugo et son déploiement Workers Static Assets avec Cloudflare Workers.
 
 ## Utiliser la ligne de commande
 
@@ -31,9 +30,6 @@ description: "Trouver les pages de setup, personnalisation, ligne de commande, d
 - [Pages publiques et pages de statut](/fr/docs/reference/public-pages/) couvre `custom/public/`, les attentes CSP et les placeholders des pages de statut.
 - [Mettre à jour une instance](/fr/docs/reference/upgrading/) garde une instance existante à jour.
 
-## Maintenir le site web
+## Contribuer au site web
 
-- [Web site](/fr/docs/web-site/) documente le dépôt `vanityURLs/website` pour les contributeurs.
-- [Développement local](/fr/docs/web-site/local-development/) couvre Hugo, Node.js, les builds, tests et erreurs locales courantes.
-- [Rédaction de contenu](/fr/docs/web-site/content-authoring/) couvre les pages docs, traductions, shortcodes, assets et chaînes i18n.
-- [Hébergement et déploiement](/fr/docs/web-site/hosting-deployment/), [Analytics du site](/fr/docs/web-site/analytics/) et [Releases](/fr/docs/web-site/releases/) couvrent le déploiement Workers Static Assets avec Cloudflare Workers, l'intégration Umami et le flux release-please.
+La documentation contributeur du site Hugo vit maintenant sur le site de marque dedie : [brand.vanityurls.link/fr/web-site/](https://brand.vanityurls.link/fr/web-site/).

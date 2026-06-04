@@ -22,16 +22,19 @@ Les assets publics actuels de marque vivent dans le depot du site sous `static/`
 
 Les assets de marque propres a une instance doivent vivre sous `custom/public/` dans le depot code du redirecteur pour remplacer les assets publics par defaut pendant le build.
 
-```text
-custom/
-└── public/
-    ├── v8s-logo.svg
-    ├── favicon.svg
-    ├── site.webmanifest
-    ├── apple-touch-icon.png
-    ├── icon-192.png
-    ├── icon-512.png
-    └── fr/
-        ├── v8s-redirected.svg
-        └── v8s-redirected-dark.svg
-```
+{{< filetree/container >}}
+{{< filetree/folder name="custom" >}}
+{{< filetree/folder name="public" annotation="surcharges d'assets publics propres a l'instance" >}}
+{{< filetree/file name="v8s-logo.svg" >}}
+{{< filetree/file name="favicon.svg" >}}
+{{< filetree/file name="site.webmanifest" >}}
+{{< filetree/file name="apple-touch-icon.png" >}}
+{{< filetree/file name="icon-192.png" >}}
+{{< filetree/file name="icon-512.png" >}}
+{{< filetree/folder name="fr" annotation="surcharges de badges localises" >}}
+{{< filetree/file name="v8s-redirected.svg" >}}
+{{< filetree/file name="v8s-redirected-dark.svg" >}}
+{{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/folder >}}
+{{< /filetree/container >}}

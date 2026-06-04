@@ -24,6 +24,7 @@ import { detectBot } from "./lib/analytics-policy.mjs";
  *
  * Required secrets (set with `wrangler secret put ...`):
  *   - UMAMI_WEBSITE_ID  : UUID from Umami dashboard → Settings → Websites
+ *   - UMAMI_WEBSITE_ID2 : UUID for brand.vanityurls.link (optional fallback to UMAMI_WEBSITE_ID)
  *   - UMAMI_ENDPOINT    : e.g. "https://cloud.umami.is/api/send"
  *
  * Umami's /api/send requires a User-Agent on the outbound request or the
@@ -41,6 +42,7 @@ const HOST_SCOPED_ASSET_RE =
   /^\/(?:robots\.txt|sitemap\.xml|index\.xml)$|^\/[^/]+\/(?:sitemap\.xml|index\.xml)$/i;
 
 const BRAND_HOSTS = new Set(["brand.vanityurls.link"]);
+const MAIN_HOSTS = new Set(["vanityurls.link", "www.vanityurls.link"]);
 
 const WORKER_UA_FALLBACK =
   // Has to be a real-looking browser UA to bypass Umami's isbot filter on the
@@ -56,7 +58,7 @@ const WORKER_UA_FALLBACK =
 export default {
   /**
    * @param {Request} request
-   * @param {{ ASSETS: Fetcher, UMAMI_WEBSITE_ID?: string, UMAMI_ENDPOINT?: string }} env
+   * @param {{ ASSETS: Fetcher, UMAMI_WEBSITE_ID?: string, UMAMI_WEBSITE_ID2?: string, UMAMI_ENDPOINT?: string }} env
    * @param {ExecutionContext} ctx
    */
   async fetch(request, env, ctx) {
@@ -66,6 +68,11 @@ export default {
     }
 
     const url = new URL(request.url);
+
+    const movedWebSiteDocs = redirectMovedWebSiteDocs(url);
+    if (movedWebSiteDocs) {
+      return movedWebSiteDocs;
+    }
 
     // Guard against any asset request that slipped past the wrangler glob.
     if (ASSET_EXT_RE.test(url.pathname)) {
@@ -114,11 +121,14 @@ export default {
  * Other query params are passed through unchanged.
  *
  * @param {Request} request
- * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_ENDPOINT?: string }} env
+ * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_WEBSITE_ID2?: string, UMAMI_ENDPOINT?: string }} env
  * @param {number} status
  */
 async function trackPageview(request, env, status) {
-  if (!env.UMAMI_WEBSITE_ID || !env.UMAMI_ENDPOINT) {
+  const url = new URL(request.url);
+  const websiteId = getUmamiWebsiteId(url.hostname, env);
+
+  if (!websiteId || !env.UMAMI_ENDPOINT) {
     // Secrets missing — silently skip. Makes `wrangler dev` quiet too.
     //
     // OPERATIONS NOTE: Cloudflare's dashboard exposes "Variables and Secrets"
@@ -127,10 +137,11 @@ async function trackPageview(request, env, status) {
     //   ✓ Settings → Variables and Secrets         ← runtime, available as env.*
     //   ✗ Settings → Build → Variables and secrets ← build-time only, NOT in env
     //
-    // Both UMAMI_WEBSITE_ID and UMAMI_ENDPOINT must be defined at the runtime
-    // level (the first one) for this Worker to receive them. Putting them in
-    // the Build section produces no error at deploy time but the Worker sees
-    // them as undefined and silently skips analytics.
+    // UMAMI_WEBSITE_ID and UMAMI_ENDPOINT must be defined at the runtime
+    // level (the first one) for this Worker to receive them. UMAMI_WEBSITE_ID2
+    // is optional for brand.vanityurls.link and falls back to UMAMI_WEBSITE_ID.
+    // Putting these in the Build section produces no error at deploy time but
+    // the Worker sees them as undefined and silently skips analytics.
     //
     // To configure: Workers & Pages → vanityurls-website → Settings →
     // Variables and Secrets → + Add → Type: Secret.
@@ -138,7 +149,6 @@ async function trackPageview(request, env, status) {
   }
 
   try {
-    const url = new URL(request.url);
     const headers = request.headers;
 
     // Strip recognized UTM campaign params from the URL we report, and
@@ -157,7 +167,7 @@ async function trackPageview(request, env, status) {
       language: firstLanguage(headers.get("accept-language")),
       referrer: headers.get("referer") || "",
       url: url.pathname + cleanedSearch,
-      website: env.UMAMI_WEBSITE_ID,
+      website: websiteId,
     };
 
     const visitorUA = headers.get("user-agent");
@@ -221,6 +231,24 @@ async function trackPageview(request, env, status) {
 }
 
 /**
+ * Choose the Umami website ID for the current host.
+ *
+ * `UMAMI_WEBSITE_ID2` is reserved for brand.vanityurls.link. Falling back to
+ * the main website ID keeps analytics working during staged secret rollout.
+ *
+ * @param {string} hostname
+ * @param {{ UMAMI_WEBSITE_ID?: string, UMAMI_WEBSITE_ID2?: string }} env
+ * @returns {string | undefined}
+ */
+function getUmamiWebsiteId(hostname, env) {
+  if (BRAND_HOSTS.has(hostname.toLowerCase())) {
+    return env.UMAMI_WEBSITE_ID2 || env.UMAMI_WEBSITE_ID;
+  }
+
+  return env.UMAMI_WEBSITE_ID;
+}
+
+/**
  * Route dedicated hostnames to their generated subtree in the shared asset
  * bucket. Static assets remain at root and are handled before this rewrite.
  *
@@ -236,6 +264,33 @@ function requestForAssetHost(request, url) {
   const assetUrl = new URL(url);
   assetUrl.pathname = "/brand" + assetUrl.pathname;
   return new Request(assetUrl, request);
+}
+
+/**
+ * The website-contributor docs moved from the main docs tree to the brand
+ * standards site. Preserve old main-host URLs as external redirects.
+ *
+ * @param {URL} url
+ * @returns {Response | undefined}
+ */
+function redirectMovedWebSiteDocs(url) {
+  if (!MAIN_HOSTS.has(url.hostname.toLowerCase())) {
+    return undefined;
+  }
+
+  const match = url.pathname.match(
+    /^\/(?:(en|fr)\/)?docs\/web-?site(?<rest>\/.*)?$/i,
+  );
+  if (!match) {
+    return undefined;
+  }
+
+  const lang = match[1] === "fr" ? "/fr" : "";
+  const rest = match.groups?.rest || "/";
+  const target = new URL(url);
+  target.hostname = "brand.vanityurls.link";
+  target.pathname = `${lang}/web-site${rest}`;
+  return Response.redirect(target, 301);
 }
 
 /**

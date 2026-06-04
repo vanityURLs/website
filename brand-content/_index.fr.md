@@ -25,6 +25,10 @@ description: "L'identite, l'interface produit et les regles d'usage pour vanityU
         <h3>Interface produit</h3>
         <p>Modeles d'interface pour les pages de redirection, controles, tableaux et etats.</p>
       </a>
+      <a class="brand-panel" href="/fr/web-site/">
+        <h3>Site web</h3>
+        <p>Documentation contributeur pour le site Hugo, le deploiement, les analytics et les releases.</p>
+      </a>
     </div>
   </section>
 

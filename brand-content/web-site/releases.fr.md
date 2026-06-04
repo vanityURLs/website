@@ -1,30 +1,33 @@
 ---
 aside: false
+type: brand
 title: "Releases"
 description: "Comment les releases, changelogs, versions package et release-please du site fonctionnent ensemble."
 weight: 50
+aliases:
+  - /fr/docs/web-site/releases/
 ---
 
 Le dépôt website utilise [release-please](https://github.com/googleapis/release-please) avec [GitHub Actions](https://github.com/vanityURLs/website/actions). Les releases sont pilotées par l'historique de commits et les métadonnées release-please, pas par des changements manuels de version package.
 
 {{< mermaid >}}
 flowchart LR
-  A[Conventional<br/>commits]
-  B[GitHub<br/>Actions]
-  C[release-please]
-  D[PR de release]
-  E[CHANGELOG.md]
-  F[Versions<br/>package]
-  G[Manifest<br/>release]
-  H[Release<br/>GitHub]
+A[Conventional<br/>commits]
+B[GitHub<br/>Actions]
+C[release-please]
+D[PR de release]
+E[CHANGELOG.md]
+F[Versions<br/>package]
+G[Manifest<br/>release]
+H[Release<br/>GitHub]
 
-  A --> B
-  B --> C
-  C --> D
-  D --> E
-  D --> F
-  D --> G
-  D --> H
+A --> B
+B --> C
+C --> D
+D --> E
+D --> F
+D --> G
+D --> H
 {{< /mermaid >}}
 
 Avant de merger un changement website orienté release :
@@ -40,13 +43,13 @@ Avant de merger un changement website orienté release :
 
 ## Ce que release-please possède
 
-| Fichier | Propriété |
-| ------- | --------- |
-| `CHANGELOG.md` | Historique de release généré par release-please |
-| `package.json` | Version package mise à jour par release-please |
-| `package-lock.json` | Version package du lockfile mise à jour avec `package.json` |
-| `.release-please-manifest.json` | Baseline de release actuelle lue par release-please |
-| `release-please-config.json` | Type de release, sections de changelog et bump map |
+| Fichier                         | Propriété                                                   |
+| ------------------------------- | ----------------------------------------------------------- |
+| `CHANGELOG.md`                  | Historique de release généré par release-please             |
+| `package.json`                  | Version package mise à jour par release-please              |
+| `package-lock.json`             | Version package du lockfile mise à jour avec `package.json` |
+| `.release-please-manifest.json` | Baseline de release actuelle lue par release-please         |
+| `release-please-config.json`    | Type de release, sections de changelog et bump map          |
 
 {{< callout type="warning" title="Ne changez pas la version package du site à la main" >}}
 Lorsque la version du site diverge de `.release-please-manifest.json`, release-please peut proposer la mauvaise prochaine version. Laissez release-please mettre à jour les versions package sauf si vous réparez délibérément les métadonnées de release.
@@ -54,7 +57,7 @@ Lorsque la version du site diverge de `.release-please-manifest.json`, release-p
 
 ## Messages de commit
 
-Utilisez les conventional commits. Pour le flux contributeur autour des vérifications locales et des commits, consultez [Style des commits](/fr/docs/web-site/local-development/#style-des-commits).
+Utilisez les conventional commits. Pour le flux contributeur autour des vérifications locales et des commits, consultez [Style des commits](/fr/web-site/local-development/#style-des-commits).
 
 ```text
 docs: update access-control setup flow

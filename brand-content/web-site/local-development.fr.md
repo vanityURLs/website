@@ -1,20 +1,23 @@
 ---
 aside: false
+type: brand
 title: "Développement local"
 description: "Executer, construire, tester et déboguer le site Hugo vanityURLs localement."
 weight: 10
+aliases:
+  - /fr/docs/web-site/local-development/
 ---
 
 Utilisez cette page lorsque vous modifiez les layouts, le contenu, les styles, la recherche ou le petit Worker Cloudflare qui sert le site de documentation.
 
 ## Prérequis
 
-| Outil | Version | Pourquoi |
-| ----- | ------- | -------- |
-| Hugo Extended | `0.158.0+` | Le site utilise des fonctions du pipeline d'assets Hugo qui demandent une version extended moderne |
-| Node.js | `20+` | Scripts npm, Tailwind, PostCSS, Pagefind, Wrangler et tests |
-| Git | Version moderne | `enableGitInfo` utilise les métadonnées de commit pour les dates de dernière modification |
-| Go | Optionnel | Seulement nécessaire si vous construisez Hugo vous-même |
+| Outil         | Version         | Pourquoi                                                                                           |
+| ------------- | --------------- | -------------------------------------------------------------------------------------------------- |
+| Hugo Extended | `0.158.0+`      | Le site utilise des fonctions du pipeline d'assets Hugo qui demandent une version extended moderne |
+| Node.js       | `20+`           | Scripts npm, Tailwind, PostCSS, Pagefind, Wrangler et tests                                        |
+| Git           | Version moderne | `enableGitInfo` utilise les métadonnées de commit pour les dates de dernière modification          |
+| Go            | Optionnel       | Seulement nécessaire si vous construisez Hugo vous-même                                            |
 
 {{< callout type="warning" title="Utilisez Hugo Extended" >}}
 Le binaire Hugo non extended peut échouer ou produire du CSS différent de la production. Confirmez que `hugo version` contient `+extended`.
@@ -57,12 +60,12 @@ npm run lint:all
 npm test
 ```
 
-| Commande | Utilisez-la quand |
-| -------- | ----------------- |
-| `npm run build` | Vérifier Hugo, les assets générés et Pagefind |
-| `npm run lint` | Lancer les vérifications format, Markdown, YAML et orthographe |
+| Commande           | Utilisez-la quand                                                                       |
+| ------------------ | --------------------------------------------------------------------------------------- |
+| `npm run build`    | Vérifier Hugo, les assets générés et Pagefind                                           |
+| `npm run lint`     | Lancer les vérifications format, Markdown, YAML et orthographe                          |
 | `npm run lint:all` | Ajouter la vérification des liens du site généré avant une release ou un gros nettoyage |
-| `npm test` | Lancer les tests Worker dans `src/worker.test.mjs` |
+| `npm test`         | Lancer les tests Worker dans `src/worker.test.mjs`                                      |
 
 La vérification des liens externes peut être lente ou limitée par les sites distants. Gardez-la séparée du travail d'édition normal sauf pendant une passe de release.
 
@@ -93,17 +96,17 @@ npx wrangler login
 npx wrangler deploy
 ```
 
-Les déploiements locaux utilisent le même `wrangler.toml` et les mêmes secrets runtime documentés dans [Hébergement et déploiement](/fr/docs/web-site/hosting-deployment/). Cloudflare les marque comme déploiements manuels plutôt que liés à Git.
+Les déploiements locaux utilisent le même `wrangler.toml` et les mêmes secrets runtime documentés dans [Hébergement et déploiement](/fr/web-site/hosting-deployment/). Cloudflare les marque comme déploiements manuels plutôt que liés à Git.
 
 ## Corrections courantes
 
-| Symptôme | Vérifier |
-| -------- | -------- |
-| Une nouvelle page n'apparait pas | Le fichier n'est pas `draft: true`, utilise `name.en.md` ou `name.fr.md`, et possède un poids de section s'il appartient à la navigation docs |
-| Les traductions ne se jumellent pas | Le nom de base et le dossier doivent correspondre, par exemple `content/docs/foo.en.md` et `content/docs/foo.fr.md` |
-| La recherche locale est vide | Utilisez `npm run dev:search` ou vérifiez après un build de type production |
-| Les changements CSS n'apparaissent pas | Rechargez complètement, confirmez que Hugo a reconstruit, et vérifiez si Tailwind a purgé une classe seulement présente dynamiquement |
-| Hugo ne démarre pas | Confirmez Hugo Extended et essayez de supprimer `resources/_gen` avant de reconstruire |
+| Symptôme                               | Vérifier                                                                                                                                      |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Une nouvelle page n'apparait pas       | Le fichier n'est pas `draft: true`, utilise `name.en.md` ou `name.fr.md`, et possède un poids de section s'il appartient à la navigation docs |
+| Les traductions ne se jumellent pas    | Le nom de base et le dossier doivent correspondre, par exemple `content/docs/foo.en.md` et `content/docs/foo.fr.md`                           |
+| La recherche locale est vide           | Utilisez `npm run dev:search` ou vérifiez après un build de type production                                                                   |
+| Les changements CSS n'apparaissent pas | Rechargez complètement, confirmez que Hugo a reconstruit, et vérifiez si Tailwind a purgé une classe seulement présente dynamiquement         |
+| Hugo ne démarre pas                    | Confirmez Hugo Extended et essayez de supprimer `resources/_gen` avant de reconstruire                                                        |
 
 ## Style des commits
 
