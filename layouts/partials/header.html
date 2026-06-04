@@ -10,6 +10,11 @@
           <img src="/vanityURLs-link-logo-slim.svg" alt="" class="h-7 w-auto max-w-[11rem] sm:h-8 sm:max-w-[14rem] dark:hidden" width="222" height="32" aria-hidden="true">
           <img src="/vanityURLs-link-logo-dark-slim.svg" alt="" class="hidden h-7 w-auto max-w-[11rem] sm:h-8 sm:max-w-[14rem] dark:block" width="222" height="32" aria-hidden="true">
         </a>
+        {{ if eq .Site.Params.siteKind "brand" }}
+        <span class="hidden rounded-md border border-brand-200 bg-brand-50 px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.08em] text-brand-800 dark:border-brand-800/70 dark:bg-brand-900/30 dark:text-brand-300 sm:inline-flex">
+          Brand
+        </span>
+        {{ end }}
       </div>
 
       <!-- Desktop: search (docs/blog only) -->
@@ -22,6 +27,12 @@
       <!-- Desktop nav -->
       <div class="hidden md:flex items-center gap-1 shrink-0">
         <nav class="flex items-center">
+          {{ if eq .Site.Params.siteKind "brand" }}
+          <a href="https://www.vanityurls.link{{ if eq .Site.Language.Lang "fr" }}/fr/{{ else }}/{{ end }}"
+             class="nav-link px-3 py-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+            {{ if eq .Site.Language.Lang "fr" }}Site principal{{ else }}Main site{{ end }}
+          </a>
+          {{ end }}
           {{/* Build menu: top-level items only, then attach children */}}
           {{ range .Site.Menus.main }}
           {{ if .HasChildren }}
@@ -127,6 +138,13 @@
   <!-- Mobile nav — mirrors desktop hierarchy using .HasChildren / .Children -->
   <nav id="mobile-menu"
        class="hidden md:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-900 px-4 py-3 space-y-1">
+    {{ if eq .Site.Params.siteKind "brand" }}
+    <a href="https://www.vanityurls.link{{ if eq .Site.Language.Lang "fr" }}/fr/{{ else }}/{{ end }}"
+       class="block px-2 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
+              hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded">
+      {{ if eq .Site.Language.Lang "fr" }}Site principal{{ else }}Main site{{ end }}
+    </a>
+    {{ end }}
     {{ range .Site.Menus.main }}
     {{ if .HasChildren }}
     <p class="px-2 pt-2 pb-1 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">

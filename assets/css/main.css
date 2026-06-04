@@ -1103,6 +1103,21 @@
     background-color: rgba(15, 118, 110, 0.36);
     box-shadow: inset 0 -0.22em 0 rgba(45, 212, 191, 0.28);
   }
+  .dark .prose {
+    color: #d1d5db;
+  }
+  .dark .prose :where(p, li, blockquote, td, figcaption) {
+    color: #d1d5db;
+  }
+  .dark .prose :where(h1, h2, h3, h4, h5, h6, strong, th) {
+    color: #f9fafb;
+  }
+  .dark .prose :where(a) {
+    color: #2dd4bf;
+  }
+  .dark .prose :where(a:hover) {
+    color: #99f6e4;
+  }
 
   /* ════════════════════════════════════════
      MERMAID DIAGRAMS
@@ -1116,6 +1131,7 @@
     font-family: 'InterVariable', 'Inter', system-ui, sans-serif;
     font-size: var(--docs-step-0);
     line-height: var(--docs-line-tight);
+    color: #111827;
   }
   .mermaid svg {
     display: block;
@@ -1128,6 +1144,119 @@
     .mermaid svg {
       min-width: 40rem;
     }
+  }
+  .mermaid svg,
+  .mermaid svg * {
+    font-family: 'InterVariable', 'Inter', system-ui, sans-serif !important;
+  }
+  .mermaid svg .node rect,
+  .mermaid svg .node circle,
+  .mermaid svg .node ellipse,
+  .mermaid svg .node polygon,
+  .mermaid svg .node path {
+    fill: #ccfbf1 !important;
+    stroke: #0d9488 !important;
+    stroke-width: 1.5px !important;
+  }
+  .mermaid svg .node .label,
+  .mermaid svg .node .nodeLabel,
+  .mermaid svg .nodeLabel,
+  .mermaid svg .label,
+  .mermaid svg text,
+  .mermaid svg tspan {
+    color: #111827 !important;
+    fill: #111827 !important;
+  }
+  .mermaid svg foreignObject,
+  .mermaid svg foreignObject div,
+  .mermaid svg foreignObject span,
+  .mermaid svg foreignObject p {
+    color: #111827 !important;
+  }
+  .mermaid svg .edgePath .path,
+  .mermaid svg .flowchart-link {
+    stroke: #0f766e !important;
+    stroke-width: 1.7px !important;
+  }
+  .mermaid svg marker path,
+  .mermaid svg .arrowheadPath {
+    fill: #0f766e !important;
+    stroke: #0f766e !important;
+  }
+  .mermaid svg .edgeLabel,
+  .mermaid svg .edgeLabel p,
+  .mermaid svg .edgeLabel span {
+    color: #111827 !important;
+    background-color: #ffffff !important;
+  }
+  .mermaid svg .edgeLabel rect,
+  .mermaid svg .labelBkg {
+    fill: #ffffff !important;
+    opacity: 0.92 !important;
+  }
+  .mermaid svg .cluster rect {
+    fill: #f8fafc !important;
+    stroke: #cbd5e1 !important;
+  }
+  .mermaid svg .cluster text,
+  .mermaid svg .cluster span {
+    color: #374151 !important;
+    fill: #374151 !important;
+  }
+  .dark .mermaid {
+    color: #f8fafc;
+  }
+  .dark .mermaid svg .node rect,
+  .dark .mermaid svg .node circle,
+  .dark .mermaid svg .node ellipse,
+  .dark .mermaid svg .node polygon,
+  .dark .mermaid svg .node path {
+    fill: #134e4a !important;
+    stroke: #2dd4bf !important;
+  }
+  .dark .mermaid svg .node .label,
+  .dark .mermaid svg .node .nodeLabel,
+  .dark .mermaid svg .nodeLabel,
+  .dark .mermaid svg .label,
+  .dark .mermaid svg text,
+  .dark .mermaid svg tspan {
+    color: #f8fafc !important;
+    fill: #f8fafc !important;
+  }
+  .dark .mermaid svg foreignObject,
+  .dark .mermaid svg foreignObject div,
+  .dark .mermaid svg foreignObject span,
+  .dark .mermaid svg foreignObject p {
+    color: #f8fafc !important;
+  }
+  .dark .mermaid svg .edgePath .path,
+  .dark .mermaid svg .flowchart-link {
+    stroke: #5eead4 !important;
+  }
+  .dark .mermaid svg marker path,
+  .dark .mermaid svg .arrowheadPath {
+    fill: #5eead4 !important;
+    stroke: #5eead4 !important;
+  }
+  .dark .mermaid svg .edgeLabel,
+  .dark .mermaid svg .edgeLabel p,
+  .dark .mermaid svg .edgeLabel span {
+    color: #f8fafc !important;
+    background-color: #111827 !important;
+  }
+  .dark .mermaid svg .edgeLabel rect,
+  .dark .mermaid svg .labelBkg {
+    fill: #111827 !important;
+    opacity: 0.94 !important;
+  }
+  .dark .mermaid svg .cluster rect {
+    fill: #0f172a !important;
+    stroke: #334155 !important;
+  }
+  .dark .mermaid svg .cluster text,
+  .dark .mermaid svg .cluster span {
+    color: #e5e7eb !important;
+    fill: #e5e7eb !important;
   }
 
   /* ════════════════════════════════════════

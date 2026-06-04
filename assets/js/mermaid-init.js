@@ -11,6 +11,11 @@ function getMermaidConfig() {
     themeVariables: dark
       ? {
           background: '#111827',
+          mainBkg: '#134e4a',
+          nodeBorder: '#2dd4bf',
+          nodeTextColor: '#f8fafc',
+          textColor: '#f8fafc',
+          titleColor: '#f8fafc',
           primaryColor: '#134e4a',
           primaryTextColor: '#f1f5f9',
           primaryBorderColor: '#2dd4bf',
@@ -28,6 +33,11 @@ function getMermaidConfig() {
         }
       : {
           background: '#ffffff',
+          mainBkg: '#ccfbf1',
+          nodeBorder: '#0d9488',
+          nodeTextColor: '#111827',
+          textColor: '#111827',
+          titleColor: '#111827',
           primaryColor: '#ccfbf1',
           primaryTextColor: '#111827',
           primaryBorderColor: '#0d9488',
