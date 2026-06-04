@@ -1,13 +1,13 @@
 ---
 title: "Grille"
-description: "Grilles de mise en page, largeur des pages et structure responsive."
+heading: "Grilles de mise en page, largeur des pages et structure responsive"
 type: brand
 weight: 30
 ---
 
-## Grille de page
-
 Utilisez une colonne de contenu centree pour les pages de documentation et de reference. Gardez les surfaces de lecture assez etroites pour rester faciles a parcourir.
+
+La mise en page de documentation standard utilise une navigation a gauche, une colonne de lecture principale et une table des matieres optionnelle. Les pages de marque devraient reutiliser cette mise en page sauf lorsqu'une page sert specifiquement de previsualisation d'assets.
 
 ## Comportement responsive
 

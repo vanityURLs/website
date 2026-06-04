@@ -1,11 +1,9 @@
 ---
 title: "Grid"
-description: "Layout grids, page width, and responsive structure."
+heading: "Layout grids, page width, and responsive structure"
 type: brand
 weight: 30
 ---
-
-## Page grid
 
 Use a centered content column for documentation and reference pages. Keep long-form reading surfaces narrow enough to scan comfortably.
 
