@@ -21,15 +21,18 @@ Les pratiques de sécurité de l'infrastructure Cloudflare sont documentées sur
 
 Chaque réponse de vanityURLs.link inclut les en-têtes suivants, définis dans `static/_headers` et appliqués par le déploiement Cloudflare Worker :
 
-| En-tête                   | Valeur                                     | Objectif                                                                 |
-| ------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
-| `X-Frame-Options`         | `DENY`                                     | Empêche le site d'être intégré dans des iframes — bloque le clickjacking |
-| `X-Content-Type-Options`  | `nosniff`                                  | Prévient les attaques de reniflage de type MIME                          |
-| `X-XSS-Protection`        | `1; mode=block`                            | Filtre XSS hérité pour les navigateurs anciens                           |
-| `Referrer-Policy`         | `strict-origin-when-cross-origin`          | Limite les informations de référent envoyées aux tiers                   |
-| `Permissions-Policy`      | `camera=(), microphone=(), geolocation=()` | Désactive explicitement l'accès aux API du périphérique                  |
-| `Content-Security-Policy` | (voir ci-dessous)                          | Restreint les ressources que le navigateur peut charger                  |
-| `frame-ancestors`         | `none`                                     | Remplacement moderne de X-Frame-Options                                  |
+| En-tête                     | Valeur                                     | Objectif                                                                 |
+| --------------------------- | ------------------------------------------ | ------------------------------------------------------------------------ |
+| `X-Frame-Options`           | `DENY`                                     | Empêche le site d'être intégré dans des iframes — bloque le clickjacking |
+| `X-Content-Type-Options`    | `nosniff`                                  | Prévient les attaques de reniflage de type MIME                          |
+| `X-XSS-Protection`          | `1; mode=block`                            | Filtre XSS hérité pour les navigateurs anciens                           |
+| `Referrer-Policy`           | `strict-origin-when-cross-origin`          | Limite les informations de référent envoyées aux tiers                   |
+| `Permissions-Policy`        | `camera=(), microphone=(), geolocation=()` | Désactive explicitement l'accès aux API du périphérique                  |
+| `Strict-Transport-Security` | `max-age=31536000`                         | Indique aux navigateurs d'utiliser HTTPS pour cet hôte pendant un an     |
+| `Content-Security-Policy`   | (voir ci-dessous)                          | Restreint les ressources que le navigateur peut charger                  |
+| `frame-ancestors`           | `none`                                     | Remplacement moderne de X-Frame-Options                                  |
+
+La politique HSTS est limitée à l'hôte. `includeSubDomains` et `preload` ne sont pas définis ici parce que ce sont des engagements opérationnels à l'échelle de la zone.
 
 ### Politique de sécurité du contenu
 

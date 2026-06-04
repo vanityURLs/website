@@ -44,15 +44,18 @@ Cloudflare's infrastructure security practices are documented at [cloudflare.com
 
 Every response from vanityURLs.link includes the following headers, defined in `static/_headers` and enforced by the Cloudflare Worker deployment:
 
-| Header                    | Value                                      | Purpose                                                                |
-| ------------------------- | ------------------------------------------ | ---------------------------------------------------------------------- |
-| `X-Frame-Options`         | `DENY`                                     | Prevents the site from being embedded in iframes — blocks clickjacking |
-| `X-Content-Type-Options`  | `nosniff`                                  | Prevents MIME-type sniffing attacks                                    |
-| `X-XSS-Protection`        | `1; mode=block`                            | Legacy XSS filter for older browsers                                   |
-| `Referrer-Policy`         | `strict-origin-when-cross-origin`          | Limits referrer information sent to third parties                      |
-| `Permissions-Policy`      | `camera=(), microphone=(), geolocation=()` | Explicitly disables access to device APIs                              |
-| `Content-Security-Policy` | (see below)                                | Restricts which resources the browser may load                         |
-| `frame-ancestors`         | `none`                                     | Modern replacement for X-Frame-Options                                 |
+| Header                      | Value                                      | Purpose                                                                |
+| --------------------------- | ------------------------------------------ | ---------------------------------------------------------------------- |
+| `X-Frame-Options`           | `DENY`                                     | Prevents the site from being embedded in iframes — blocks clickjacking |
+| `X-Content-Type-Options`    | `nosniff`                                  | Prevents MIME-type sniffing attacks                                    |
+| `X-XSS-Protection`          | `1; mode=block`                            | Legacy XSS filter for older browsers                                   |
+| `Referrer-Policy`           | `strict-origin-when-cross-origin`          | Limits referrer information sent to third parties                      |
+| `Permissions-Policy`        | `camera=(), microphone=(), geolocation=()` | Explicitly disables access to device APIs                              |
+| `Strict-Transport-Security` | `max-age=31536000`                         | Tells browsers to use HTTPS for this host for one year                 |
+| `Content-Security-Policy`   | (see below)                                | Restricts which resources the browser may load                         |
+| `frame-ancestors`           | `none`                                     | Modern replacement for X-Frame-Options                                 |
+
+The HSTS policy is host-scoped. `includeSubDomains` and `preload` are intentionally not set here because those are zone-wide operational commitments.
 
 ### Content Security Policy
 
