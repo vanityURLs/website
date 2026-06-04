@@ -23,6 +23,9 @@ terms:
   - id: generated-registry
     term: Generated registry
     definition: The runtime redirect registry written to `build/v8s.json` during build from links, inline schedules, policies, and configuration.
+  - id: hardening
+    term: Hardening
+    definition: Reducing the available attack surface by disabling unused features, tightening browser policies, and keeping security controls owned by one clear source of truth.
   - id: identity-provider
     term: Identity provider
     definition: A login source used by Cloudflare Access, such as GitHub, Google, or one-time PIN, to confirm who is trying to reach a protected page.
@@ -133,6 +136,10 @@ abbreviations:
     abbr: SLA
     term: Service-Level Agreement
     definition: A formal service commitment; vanityURLs docs warn operators not to promise one casually.
+  - id: sri
+    abbr: SRI
+    term: Subresource Integrity
+    definition: A browser integrity check that lets HTML pin the expected hash of a loaded script or stylesheet.
   - id: tls
     abbr: TLS
     term: Transport Layer Security

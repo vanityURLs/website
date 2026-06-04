@@ -27,7 +27,8 @@ description: "Trouver les pages de setup, personnalisation, ligne de commande, d
 
 - [Reference](/fr/docs/reference/) documente les fichiers, artefacts runtime, comportements sécurité, formats de liens, horaires et mises à jour.
 - [Structure du dépôt](/fr/docs/reference/repository-layout/) montre ou vivent les fichiers source, custom, génères et Worker.
-- [Surcharges custom](/fr/docs/reference/custom-overrides/) associe les fichiers propres à l'instance aux surfaces qu'ils remplacent.
+- [Surcharges custom](/fr/docs/reference/custom-overrides/) associe les fichiers propres à l'instance aux surfaces de configuration.
+- [Pages publiques et pages de statut](/fr/docs/reference/public-pages/) couvre `custom/public/`, les attentes CSP et les placeholders des pages de statut.
 - [Mettre à jour une instance](/fr/docs/reference/upgrading/) garde une instance existante à jour.
 
 ## Maintenir le site web

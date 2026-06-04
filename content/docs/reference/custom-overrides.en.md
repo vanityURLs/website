@@ -1,7 +1,7 @@
 ---
 aside: false
 title: "Custom overrides"
-description: "Map instance-owned files under custom/ to the vanityURLs pages that document each customization surface."
+description: "Map instance-owned files under custom/ to the vanityURLs configuration and public override surfaces."
 weight: 40
 aliases:
   - /docs/custom-overrides/
@@ -20,54 +20,15 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 
 ## Custom file map
 
-| File or path                   | Use it for                                        | Details                                                                                                                             |
-| ------------------------------ | ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `custom/v8s-links.txt`         | Redirect inventory                                | [Link format](/docs/reference/link-format/) and [LNK](/docs/command-line-interface/lnk/)                                            |
-| `custom/v8s-schedules.json`    | Legacy scheduled link rules for 3.x compatibility | [Scheduled links](/docs/reference/schedules/)                                                                                       |
-| `custom/v8s-policies.json`     | Instance allow and block policy                   | [Policy and blocklist](/docs/customize/blocklist/)                                                                                  |
-| `custom/v8s-site-config.json`  | Site settings written by setup                    | [Configuration files](/docs/reference/configuration-files/)                                                                         |
-| `custom/v8s-local-config.json` | Workstation helper paths                          | [Local helper](/docs/command-line-interface/local-helper/)                                                                          |
-| `custom/public/`               | Public page and asset overrides                   | [Brand](/docs/reference/brand/), [Footer & pages](/docs/customize/footer-pages/), and [Internationalization](/docs/reference/i18n/) |
+| File or path                   | Use it for                                            | Details                                                                                                                                                                                             |
+| ------------------------------ | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `custom/v8s-links.txt`         | Redirect inventory                                    | [Link format](/docs/reference/link-format/) and [LNK](/docs/command-line-interface/lnk/)                                                                                                            |
+| `custom/v8s-schedules.json`    | Legacy scheduled link rules for 3.x compatibility     | [Scheduled links](/docs/reference/schedules/)                                                                                                                                                       |
+| `custom/v8s-policies.json`     | Instance allow and block policy                       | [Policy and blocklist](/docs/customize/blocklist/)                                                                                                                                                  |
+| `custom/v8s-site-config.json`  | Site settings written by setup                        | [Configuration files](/docs/reference/configuration-files/)                                                                                                                                         |
+| `custom/v8s-local-config.json` | Workstation helper paths                              | [Local helper](/docs/command-line-interface/local-helper/)                                                                                                                                          |
+| `custom/public/`               | Public page, asset, status-page, and header overrides | [Public pages and status pages](/docs/reference/public-pages/), [Brand](/docs/reference/brand/), [Footer & pages](/docs/customize/footer-pages/), and [Internationalization](/docs/reference/i18n/) |
 
-## Public override map
+## Public pages
 
-{{< callout type="warning" title="Avoid replacing shared public assets casually" >}}
-Default public pages share product-level assets such as `/style.css` and `/script.js`. If you add JavaScript or CSS for custom pages, use instance-specific filenames such as `/custom-home.css`, `/brand-pages.css`, or `/operator-tools.js` instead of replacing `style.css` or `script.js` casually. Replacing those shared files affects every default page you have not overridden yet.
-{{< /callout >}}
-
-{{< callout type="warning" title="Custom pages must fit the CSP" >}}
-Default pages use external JavaScript and CSS so the shipped Content Security Policy can omit `'unsafe-inline'`. If a custom page uses inline `<script>`, inline `<style>`, event-handler attributes such as `onclick`, or `style=""` attributes, move that code to custom external files or ship a deliberate `custom/public/_headers` CSP override for the affected instance.
-{{< /callout >}}
-
-| Override                           | Path                                                                                                                | Details                                                                                                                              |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Brand assets and redirected badges | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg`            | [Brand](/docs/reference/brand/)                                                                                                      |
-| Footer and legal pages             | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Footer & pages](/docs/customize/footer-pages/)                                                                                      |
-| Localized public pages             | `custom/public/fr/index.html`, `custom/public/es/404.html`, and similar language paths                              | [Internationalization](/docs/reference/i18n/)                                                                                        |
-| Lookup page                        | `custom/public/lookup/index.html`                                                                                   | [Link format](/docs/reference/link-format/)                                                                                          |
-| Dashboard shell                    | `custom/public/_stats/index.html`                                                                                   | [Reading your vanityURLs admin dashboard](/blog/reading-your-admin-dashboard/) and [Access control](/docs/customize/access-control/) |
-| Headers                            | `custom/public/_headers`                                                                                            | [Runtime security approach](/docs/reference/runtime-security/)                                                                       |
-
-## Status pages
-
-The Worker serves specific files for link and routing states. To build custom status pages from scratch, place the files at these exact paths:
-
-| File                             | Used for                              | Status |
-| -------------------------------- | ------------------------------------- | ------ |
-| `custom/public/404.html`         | Unknown short links and missing pages | 404    |
-| `custom/public/disabled.html`    | Disabled links                        | 403    |
-| `custom/public/expired.html`     | Expired links                         | 410    |
-| `custom/public/maintenance.html` | Temporarily unavailable links         | 503    |
-
-Localized versions use the [language code](/docs/reference/i18n/#supported-languages) as the first directory segment, for example `custom/public/fr/404.html`. You only need to add the localized pages you actually support. If a localized page is missing, the Worker can fall back to the default page for the requested state.
-
-Only `404.html` has runtime placeholders. If you replace it, include these placeholders where you want runtime context to appear:
-
-```html
-<!-- {{SLUG_MESSAGE}} -->
-<!-- {{REFERENCE_LINE}} -->
-```
-
-`{{SLUG_MESSAGE}}` is replaced with a safe message about the requested slug. `{{REFERENCE_LINE}}` is replaced with a correlation reference that helps with support and log review.
-
-`disabled.html`, `expired.html`, and `maintenance.html` are served as static state pages. They do not require runtime placeholders.
+Use [Public pages and status pages](/docs/reference/public-pages/) for the exact `custom/public/` paths, status-page placeholders, shared asset cautions, and CSP guidance for custom HTML.

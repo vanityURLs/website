@@ -23,6 +23,9 @@ terms:
   - id: generated-registry
     term: Registre génère
     definition: Le registre runtime de redirection écrit dans `build/v8s.json` pendant le build à partir des liens, horaires, politiques et configurations.
+  - id: hardening
+    term: Hardening
+    definition: Réduction de la surface d'attaque disponible en désactivant les fonctionnalités inutilisées, en resserrant les politiques navigateur et en gardant les contrôles de sécurité dans une source de vérité claire.
   - id: identity-provider
     term: Fournisseur d'identité
     definition: Une source de connexion utilisee par Cloudflare Access, comme GitHub, Google ou un code à usage unique, pour confirmer qui essaie d'acceder à une page protégée.
@@ -133,6 +136,10 @@ abbreviations:
     abbr: SLA
     term: Service-Level Agreement
     definition: Un engagement de service formel; la documentation vanityURLs recommande de ne pas en promettre un à la legere.
+  - id: sri
+    abbr: SRI
+    term: Subresource Integrity
+    definition: Un contrôle d'intégrité navigateur qui permet au HTML d'épingler le hash attendu d'un script ou d'une feuille de style chargée.
   - id: tls
     abbr: TLS
     term: Transport Layer Security

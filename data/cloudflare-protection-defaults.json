@@ -678,7 +678,7 @@
             "no_sniff_header": false
           },
           "action": "Change HSTS Settings",
-          "website_documentation": "Document that Enable HSTS with max-age 0 is a non-enforcing or reset state, not production browser-enforced HSTS. Recommend a non-zero max age only after all public hostnames are HTTPS-ready, and includeSubDomains/preload only when the whole zone is intentionally HTTPS-only."
+          "website_documentation": "Document Cloudflare dashboard HSTS disabled for the baseline because the repository ships host-scoped HSTS in Worker and _headers policy. Operators should enable dashboard HSTS only when they deliberately want a stronger zone-level policy; includeSubDomains and preload require the whole zone to be HTTPS-only."
         },
         "Minimum TLS Version": {
           "captured_state": "TLS 1.2",
@@ -949,7 +949,7 @@
           {
             "name": "Continuous script monitoring",
             "captured_state": "off",
-            "website_documentation": "Document Off for the default instance. The generated pages load one local script for UI niceness; enable only after adding third-party scripts or if the operator wants Cloudflare script inventory alerts."
+            "website_documentation": "Document Off for the default instance. The baseline uses same-origin, fingerprinted scripts with CSP and SRI; enable inventory alerts only after intentionally adding third-party scripts."
           },
           {
             "name": "Custom fallthrough rules",
@@ -960,7 +960,8 @@
             "name": "Email Address Obfuscation",
             "captured_state": "on",
             "configuration": "API",
-            "website_documentation": "Document On. It is harmless without matching rules and useful when generated public pages expose role emails."
+            "recommended_state": "off",
+            "website_documentation": "Document Off. Cloudflare may rewrite matching email addresses and inject helper code, which conflicts with deterministic repo-owned HTML, strict CSP, and SRI expectations."
           },
           {
             "name": "Endpoint Labels",
@@ -1024,7 +1025,8 @@
             "captured_state": "on",
             "configuration": "API",
             "current_scope_note": "Primarily relevant to known third-party libraries such as polyfill",
-            "website_documentation": "Document On as low-risk future-proofing."
+            "recommended_state": "off",
+            "website_documentation": "Document Off. The baseline serves self-hosted, fingerprinted JavaScript with SRI; Cloudflare should not rewrite script URLs or bytes unless the operator intentionally gives up repo-owned integrity hashes."
           },
           {
             "name": "Schema validation",
@@ -1041,7 +1043,7 @@
             "name": "Security.txt",
             "default_state": "off",
             "configuration": "Security.txt undefined",
-            "website_documentation": "Document Configure before release."
+            "website_documentation": "Document Cloudflare dashboard Security.txt off for the baseline. The repository generates and deploys /.well-known/security.txt so the machine-readable contact, footer pages, and security page stay in one source of truth."
           },
           {
             "name": "SSL/TLS DDoS attack protection",
@@ -1581,10 +1583,10 @@
             {
               "group": "Add security headers",
               "default_state": "off",
-              "baseline": "Keep off by default; vanityURLs owns security headers in the Worker and defaults/public/_headers."
+              "baseline": "Keep off by default; vanityURLs owns security headers in the Worker and repository _headers files."
             }
           ],
-          "website_documentation": "Document category rows for Managed Transforms. Recommend Remove X-Powered-By on as defense-in-depth. Keep visitor location headers off for privacy because analytics providers do not need precise Cloudflare location headers. Keep Add security headers off by default because the Worker and defaults/public/_headers own the app header policy."
+          "website_documentation": "Document category rows for Managed Transforms. Recommend Remove X-Powered-By on as defense-in-depth. Keep visitor location headers off for privacy because analytics providers do not need precise Cloudflare location headers. Keep Add security headers off by default because the Worker and repository _headers files own the app header policy."
         },
         "Bulk Redirects": {
           "available": true,
@@ -1680,12 +1682,13 @@
       "Keep mail policy DNS records DNS-only.",
       "Use DNSSEC when the registrar delegation is configured correctly.",
       "Use Full strict SSL/TLS mode, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites and a minimum TLS version of 1.2 or stricter for production.",
-      "Enable HSTS only after every production hostname and subdomain is ready for HTTPS.",
+      "Keep Cloudflare dashboard HSTS off for the baseline because the repository owns host-scoped HSTS. Enable dashboard HSTS only for deliberate zone-level policy.",
       "Use AI Crawl Control Security toggles only when the operator intentionally wants Cloudflare to block specific crawlers before the Worker.",
       "Use Security Analytics and sampled logs for traffic blocked before the Worker.",
       "Use custom security rules and rate limiting for scanner-like traffic and repeated short-link misses.",
-      "Keep Browser Integrity Check, Cloudflare managed ruleset, HTTP DDoS protection, Network-layer DDoS protection, SSL/TLS DDoS protection, Replace insecure JavaScript libraries and the new application security dashboard enabled.",
-      "Configure Security.txt before release.",
+      "Keep Browser Integrity Check, Cloudflare managed ruleset, HTTP DDoS protection, Network-layer DDoS protection, SSL/TLS DDoS protection and the new application security dashboard enabled.",
+      "Keep Email Address Obfuscation and Replace insecure JavaScript libraries off for the baseline because they can rewrite repo-owned HTML or scripts and conflict with CSP/SRI assumptions.",
+      "Keep Cloudflare dashboard Security.txt off for the baseline because the repository generates and deploys /.well-known/security.txt.",
       "Use Cloudflare Access for private vanityURLs paths such as admin, tests, or operator-only pages.",
       "Use Speed Observatory and synthetic tests as optional diagnostics, not required setup.",
       "Keep HTTP/2, HTTP/3, HTTP/2 to Origin and TLS 1.3 enabled when available.",
@@ -1713,6 +1716,7 @@
       "Zone-level Workers Routes as a default requirement when the Worker custom domain is active.",
       "Rules templates, Snippets, Cloud Connector, legacy Page Rules, Bulk Redirects and Cloudflare Custom Errors as default requirements.",
       "True-Client-IP and visitor IP/location managed transforms as default requirements.",
+      "Cloudflare dashboard HSTS, Security.txt, Email Address Obfuscation, Replace insecure JavaScript libraries, managed robots.txt and Add security headers transforms as default requirements when the repository owns those files and headers.",
       "Per-crawler activity counts from an idle zone.",
       "Web3 Gateways as a default requirement."
     ]

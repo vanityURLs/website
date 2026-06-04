@@ -38,15 +38,22 @@ La politique HSTS est limitée à l'hôte. `includeSubDomains` et `preload` ne s
 
 ```
 default-src 'self';
+base-uri 'self';
+object-src 'none';
 script-src  'self' 'wasm-unsafe-eval';
+script-src-attr 'none';
 style-src   'self';
 font-src    'self';
 img-src     'self' data:;
 connect-src 'self';
-frame-ancestors 'none'
+worker-src  'self';
+frame-src   'none';
+frame-ancestors 'none';
+form-action 'self';
+manifest-src 'self'
 ```
 
-`'self'` partout — aucune origine externe n'est autorisée. `'wasm-unsafe-eval'` dans `script-src` est requis par le moteur de recherche client Pagefind, qui utilise WebAssembly. La seule dérogation à la politique.
+`'self'` partout — aucune origine externe n'est autorisée. `'wasm-unsafe-eval'` dans `script-src` est requis par le moteur de recherche client Pagefind, qui utilise WebAssembly. Le Worker propre à Pagefind est limité au code même origine par `worker-src 'self'`. `object-src 'none'`, `frame-src 'none'`, `script-src-attr 'none'` et `base-uri 'self'` ferment des chemins d'injection HTML et d'anciens navigateurs que le site n'utilise pas.
 
 ## Protection du domaine email
 

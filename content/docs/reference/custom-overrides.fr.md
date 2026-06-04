@@ -1,7 +1,7 @@
 ---
 aside: false
 title: "Surcharges custom"
-description: "Associer les fichiers propres à l'instance sous custom/ aux pages vanityURLs qui documentent chaque surface de personnalisation."
+description: "Associer les fichiers propres à l'instance sous custom/ aux surfaces de configuration et de pages publiques vanityURLs."
 weight: 40
 aliases:
   - /docs/custom-overrides/
@@ -22,54 +22,15 @@ Gardez les changements produit dans `defaults/` seulement lorsque vous contribue
 
 ## Carte des fichiers custom
 
-| Fichier ou chemin              | Utilisation                                      | Détails                                                                                                                                            |
-| ------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `custom/v8s-links.txt`         | Inventaire de redirection                        | [Format des liens](/fr/docs/reference/link-format/) et [LNK](/fr/docs/command-line-interface/lnk/)                                                 |
-| `custom/v8s-schedules.json`    | Règles d'horaire héritées pour compatibilité 3.x | [Liens planifiés](/fr/docs/reference/schedules/)                                                                                                   |
-| `custom/v8s-policies.json`     | Politique allow/block de l'instance              | [Politique et blocklist](/fr/docs/customize/blocklist/)                                                                                            |
-| `custom/v8s-site-config.json`  | Réglages de site écrits par setup                | [Fichiers de configuration](/fr/docs/reference/configuration-files/)                                                                               |
-| `custom/v8s-local-config.json` | Chemins de helper propres au poste               | [Helper local](/fr/docs/command-line-interface/local-helper/)                                                                                      |
-| `custom/public/`               | Surcharges de pages publiques et d'assets        | [Marque](/fr/docs/reference/brand/), [Pied de page et pages](/fr/docs/customize/footer-pages/) et [Internationalisation](/fr/docs/reference/i18n/) |
+| Fichier ou chemin              | Utilisation                                                       | Détails                                                                                                                                                                                                                    |
+| ------------------------------ | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `custom/v8s-links.txt`         | Inventaire de redirection                                         | [Format des liens](/fr/docs/reference/link-format/) et [LNK](/fr/docs/command-line-interface/lnk/)                                                                                                                         |
+| `custom/v8s-schedules.json`    | Règles d'horaire héritées pour compatibilité 3.x                  | [Liens planifiés](/fr/docs/reference/schedules/)                                                                                                                                                                           |
+| `custom/v8s-policies.json`     | Politique allow/block de l'instance                               | [Politique et blocklist](/fr/docs/customize/blocklist/)                                                                                                                                                                    |
+| `custom/v8s-site-config.json`  | Réglages de site écrits par setup                                 | [Fichiers de configuration](/fr/docs/reference/configuration-files/)                                                                                                                                                       |
+| `custom/v8s-local-config.json` | Chemins de helper propres au poste                                | [Helper local](/fr/docs/command-line-interface/local-helper/)                                                                                                                                                              |
+| `custom/public/`               | Surcharges de pages publiques, assets, pages de statut et headers | [Pages publiques et pages de statut](/fr/docs/reference/public-pages/), [Marque](/fr/docs/reference/brand/), [Pied de page et pages](/fr/docs/customize/footer-pages/) et [Internationalisation](/fr/docs/reference/i18n/) |
 
-## Carte des surcharges publiques
+## Pages publiques
 
-{{< callout type="warning" title="Évitez de remplacer les assets publics partagés trop facilement" >}}
-Les pages publiques par défaut partagent des assets produit comme `/style.css` et `/script.js`. Si vous ajoutez du JavaScript ou du CSS pour des pages custom, utilisez des noms propres à l'instance, comme `/custom-home.css`, `/brand-pages.css` ou `/operator-tools.js`, au lieu de remplacer `style.css` ou `script.js` trop facilement. Remplacer ces fichiers partagés affecte toutes les pages par défaut que vous n'avez pas encore surchargées.
-{{< /callout >}}
-
-{{< callout type="warning" title="Les pages custom doivent respecter la CSP" >}}
-Les pages par défaut utilisent du JavaScript et du CSS externes afin que la Content Security Policy livrée puisse omettre `'unsafe-inline'`. Si une page custom utilise `<script>` inline, `<style>` inline, des attributs d'événement comme `onclick`, ou des attributs `style=""`, déplacez ce code vers des fichiers custom externes ou livrez une surcharge CSP volontaire dans `custom/public/_headers` pour l'instance concernée.
-{{< /callout >}}
-
-| Surcharge                            | Chemin                                                                                                              | Détails                                                                                                                              |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Assets de marque et badges redirigés | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg`            | [Marque](/fr/docs/reference/brand/)                                                                                                  |
-| Pied de page et pages légales        | `custom/public/privacy.html`, `custom/public/terms.html`, `custom/public/abuse.html`, `custom/public/security.html` | [Pied de page et pages](/fr/docs/customize/footer-pages/)                                                                            |
-| Pages publiques localisées           | `custom/public/fr/index.html`, `custom/public/es/404.html`, et chemins de langue similaires                         | [Internationalisation](/fr/docs/reference/i18n/)                                                                                     |
-| Page de consultation                 | `custom/public/lookup/index.html`                                                                                   | [Format des liens](/fr/docs/reference/link-format/)                                                                                  |
-| Shell du tableau admin               | `custom/public/_stats/index.html`                                                                                   | [Lire le tableau admin vanityURLs](/fr/blog/reading-your-admin-dashboard/) et [Contrôle d'accès](/fr/docs/customize/access-control/) |
-| Headers                              | `custom/public/_headers`                                                                                            | [Approche sécurité du runtime](/fr/docs/reference/runtime-security/)                                                                 |
-
-## Pages de statut
-
-Le Worker sert des fichiers précis pour les états de lien et de routage. Pour créer des pages de statut custom, placez les fichiers à ces chemins exacts :
-
-| Fichier                          | Utilisé pour                              | Statut |
-| -------------------------------- | ----------------------------------------- | ------ |
-| `custom/public/404.html`         | Liens courts inconnus et pages manquantes | 404    |
-| `custom/public/disabled.html`    | Liens désactivés                          | 403    |
-| `custom/public/expired.html`     | Liens expirés                             | 410    |
-| `custom/public/maintenance.html` | Liens temporairement indisponibles        | 503    |
-
-Les versions localisées utilisent le [code langue](/fr/docs/reference/i18n/#langues-supportees) comme premier segment de répertoire, par exemple `custom/public/fr/404.html`. Vous devez seulement ajouter les pages localisées que vous supportez vraiment. Si une page localisée manque, le Worker peut revenir à la page par défaut pour l'état demandé.
-
-Seul `404.html` à des placeholders runtime. Si vous le remplacez, incluez ces placeholders ou vous voulez afficher le contexte runtime :
-
-```html
-<!-- {{SLUG_MESSAGE}} -->
-<!-- {{REFERENCE_LINE}} -->
-```
-
-`{{SLUG_MESSAGE}}` est remplacé par un message sécuritaire au sujet du slug demandé. `{{REFERENCE_LINE}}` est remplacé par une référence de corrélation utile pour le support et la revue des logs.
-
-`disabled.html`, `expired.html` et `maintenance.html` sont servis comme pages d'état statiques. Ils ne demandent pas de placeholders runtime.
+Utilisez [Pages publiques et pages de statut](/fr/docs/reference/public-pages/) pour les chemins exacts sous `custom/public/`, les placeholders de pages de statut, les avertissements sur les assets partagés et la guidance CSP pour le HTML custom.

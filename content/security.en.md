@@ -61,15 +61,22 @@ The HSTS policy is host-scoped. `includeSubDomains` and `preload` are intentiona
 
 ```
 default-src 'self';
+base-uri 'self';
+object-src 'none';
 script-src  'self' 'wasm-unsafe-eval';
+script-src-attr 'none';
 style-src   'self';
 font-src    'self';
 img-src     'self' data:;
 connect-src 'self';
-frame-ancestors 'none'
+worker-src  'self';
+frame-src   'none';
+frame-ancestors 'none';
+form-action 'self';
+manifest-src 'self'
 ```
 
-`'self'` everywhere — no external origins are allowed. `'wasm-unsafe-eval'` in `script-src` is required by the client-side Pagefind search engine, which uses WebAssembly. The only relaxation in the policy.
+`'self'` everywhere — no external origins are allowed. `'wasm-unsafe-eval'` in `script-src` is required by the client-side Pagefind search engine, which uses WebAssembly. Pagefind's own Worker is limited to same-origin code by `worker-src 'self'`. `object-src 'none'`, `frame-src 'none'`, `script-src-attr 'none'`, and `base-uri 'self'` close older browser and markup injection paths that the site does not use.
 
 ## Email Domain Protection
 
