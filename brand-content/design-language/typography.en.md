@@ -21,3 +21,15 @@ The website self-hosts Inter Variable for interface and prose text, plus JetBrai
 ## Rhythm
 
 Use consistent spacing between headings, descriptions, cards, and tables. Favor clear grouping over decorative density.
+
+The documentation CSS defines fluid prose steps and line-height tokens:
+
+| Token               | Purpose                                |
+| ------------------- | -------------------------------------- |
+| `--docs-step--1`    | Small supporting text                  |
+| `--docs-step-0`     | Body copy                              |
+| `--docs-step-1`     | Compact section headings and lead text |
+| `--docs-line-body`  | Long-form reading rhythm               |
+| `--docs-line-tight` | Headings and dense UI labels           |
+
+Use a generous line height for explanatory prose and tighter line height for navigation, cards, badges, and controls.
