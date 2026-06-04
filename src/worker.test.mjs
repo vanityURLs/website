@@ -27,6 +27,17 @@ function mockAssets(body, status = 200, contentType = "text/html; charset=utf-8"
   };
 }
 
+function mockAssetsRecorder(body, status = 200, contentType = "text/html; charset=utf-8") {
+  const seen = [];
+  return {
+    seen,
+    fetch: async (request) => {
+      seen.push(new URL(request.url).pathname);
+      return new Response(body, { status, headers: { "content-type": contentType } });
+    },
+  };
+}
+
 function mockCtx() {
   const deferred = [];
   return {
@@ -36,7 +47,7 @@ function mockCtx() {
 }
 
 function mkRequest(path = "/en/docs/", opts = {}) {
-  const url = new URL(path, "https://www.vanityurls.link");
+  const url = new URL(path, opts.baseURL || "https://www.vanityurls.link");
   return new Request(url, {
     method: opts.method || "GET",
     headers: {
@@ -110,6 +121,37 @@ await run("Asset extension bypasses tracking", async () => {
   await worker.fetch(mkRequest("/css/main.abc123.css"), fullEnv, ctx);
   await ctx._flush();
   assert(umamiCalls.length === 0, "no tracking for .css");
+});
+
+await run("Brand host HTML requests read from /brand subtree", async () => {
+  const assets = mockAssetsRecorder("<html>brand</html>");
+  const env = { ...fullEnv, ASSETS: assets };
+  const ctx = mockCtx();
+  await worker.fetch(mkRequest("/identity/", { baseURL: "https://brand.vanityurls.link" }), env, ctx);
+  await ctx._flush();
+  assert(assets.seen[0] === "/brand/identity/", `asset path ${assets.seen[0]}`);
+  assert(umamiCalls[0].body.payload.hostname === "brand.vanityurls.link", "tracked brand hostname");
+  assert(umamiCalls[0].body.payload.url === "/identity/", "tracked original brand URL");
+});
+
+await run("Brand host scoped assets read from /brand subtree", async () => {
+  const assets = mockAssetsRecorder("sitemap", 200, "application/xml");
+  const env = { ...fullEnv, ASSETS: assets };
+  const ctx = mockCtx();
+  await worker.fetch(mkRequest("/sitemap.xml", { baseURL: "https://brand.vanityurls.link" }), env, ctx);
+  await ctx._flush();
+  assert(assets.seen[0] === "/brand/sitemap.xml", `asset path ${assets.seen[0]}`);
+  assert(umamiCalls.length === 0, "no tracking for XML");
+});
+
+await run("Brand host shared static assets stay at root", async () => {
+  const assets = mockAssetsRecorder("css", 200, "text/css");
+  const env = { ...fullEnv, ASSETS: assets };
+  const ctx = mockCtx();
+  await worker.fetch(mkRequest("/css/main.css", { baseURL: "https://brand.vanityurls.link" }), env, ctx);
+  await ctx._flush();
+  assert(assets.seen[0] === "/css/main.css", `asset path ${assets.seen[0]}`);
+  assert(umamiCalls.length === 0, "no tracking for CSS");
 });
 
 await run("POST method bypasses tracking", async () => {

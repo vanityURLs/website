@@ -1,4 +1,11 @@
 {{ define "main" }}
+{{ if eq .Site.Params.siteKind "brand" }}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <article class="content-flow docs-flow prose prose-gray dark:prose-invert max-w-none" data-pagefind-body>
+    {{ .Content }}
+  </article>
+</div>
+{{ else }}
 {{ $lang    := .Site.Language.Lang }}
 {{ $data    := index hugo.Data (printf "home.%s" $lang) }}
 {{ $docsURL := "/docs/" | relLangURL }}
@@ -130,4 +137,5 @@
 
 
 
+{{ end }}
 {{ end }}

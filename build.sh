@@ -101,9 +101,9 @@ main() {
     git fetch --unshallow
   fi
 
-  # Build the site
-  echo "Building the site..."
-  hugo build --gc --minify
+  # Build the main site.
+  echo "Building the main site..."
+  hugo build --config hugo.yml --gc --minify
 
   # Top-level /404.html fallback for URLs that don't carry a language prefix.
   # Cloudflare's `not_found_handling = "404-page"` walks up the directory tree
@@ -111,6 +111,12 @@ main() {
   # this copy handles misses at the root (e.g. /typo).
   echo "Copying default-language 404 to site root..."
   cp public/en/404.html public/404.html
+
+  # Build the dedicated brand standards site into a host-specific subtree.
+  # The Worker rewrites brand.vanityurls.link HTML requests to /brand/* while
+  # shared static assets remain available from the root asset bucket.
+  echo "Building the brand site..."
+  hugo build --config hugo.brand.yml --destination public/brand --gc --minify
 
   # Build the search index
   # Pagefind is a devDependency; the Cloudflare Worker runs `npm ci` automatically.

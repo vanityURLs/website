@@ -1,0 +1,143 @@
+baseURL: "https://brand.vanityurls.link/"
+title: "vanityURLs Brand"
+
+min_version: "0.158.0"
+
+contentDir: "content/brand"
+enableRobotsTXT: true
+disableHugoGeneratorInject: false
+enableGitInfo: true
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+disableKinds:
+  - taxonomy
+  - term
+
+languages:
+  en:
+    locale: en-CA
+    label: English
+    weight: 1
+    params:
+      description: "Brand standards and design system for vanityURLs"
+      footer:
+        col2:
+          title: Standards
+          links:
+            - name: Foundations
+              url: /foundations/
+            - name: Identity
+              url: /identity/
+        col3:
+          title: Product
+          links:
+            - name: Product UI
+              url: /product-ui/
+            - name: Assets
+              url: /assets/
+        col4:
+          title: Project
+          links:
+            - name: Main Site
+              url: https://www.vanityurls.link/
+              external: true
+            - name: Source Code
+              url: https://github.com/vanityURLs/website
+              external: true
+    menu:
+      main:
+        - name: Foundations
+          pageRef: /foundations
+          weight: 1
+        - name: Identity
+          pageRef: /identity
+          weight: 2
+        - name: Product UI
+          pageRef: /product-ui
+          weight: 3
+        - name: Assets
+          pageRef: /assets
+          weight: 4
+  fr:
+    locale: fr-CA
+    label: Francais
+    weight: 2
+    params:
+      description: "Normes de marque et systeme de design pour vanityURLs"
+      footer:
+        col2:
+          title: Normes
+          links:
+            - name: Fondations
+              url: /fr/foundations/
+            - name: Identite
+              url: /fr/identity/
+        col3:
+          title: Produit
+          links:
+            - name: Interface produit
+              url: /fr/product-ui/
+            - name: Assets
+              url: /fr/assets/
+        col4:
+          title: Projet
+          links:
+            - name: Site principal
+              url: https://www.vanityurls.link/fr/
+              external: true
+            - name: Code source
+              url: https://github.com/vanityURLs/website
+              external: true
+    menu:
+      main:
+        - name: Fondations
+          pageRef: /foundations
+          weight: 1
+        - name: Identite
+          pageRef: /identity
+          weight: 2
+        - name: Interface produit
+          pageRef: /product-ui
+          weight: 3
+        - name: Assets
+          pageRef: /assets
+          weight: 4
+
+params:
+  siteKind: "brand"
+  github: "https://github.com/vanityURLs/website"
+  discussions: "https://github.com/orgs/vanityURLs/discussions"
+  website_repo: "https://github.com/vanityURLs/website"
+  editBaseURL: "https://github.com/vanityURLs/website/edit/main/content/brand"
+
+sitemap:
+  changefreq: weekly
+  priority: 0.6
+  filename: sitemap.xml
+
+markup:
+  highlight:
+    style: "github"
+    lineNos: false
+    tabWidth: 2
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+    ordered: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+  section:
+    - HTML
+    - RSS
+  page:
+    - HTML
+
+pagination:
+  pagerSize: 9

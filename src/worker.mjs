@@ -37,6 +37,11 @@ import { detectBot } from "./lib/analytics-policy.mjs";
 const ASSET_EXT_RE =
   /\.(css|js|mjs|map|json|xml|txt|ico|svg|png|jpg|jpeg|gif|webp|avif|woff2?|ttf|otf|eot|pdf|zip|wasm|webmanifest)$/i;
 
+const HOST_SCOPED_ASSET_RE =
+  /^\/(?:robots\.txt|sitemap\.xml|index\.xml)$|^\/[^/]+\/(?:sitemap\.xml|index\.xml)$/i;
+
+const BRAND_HOSTS = new Set(["brand.vanityurls.link"]);
+
 const WORKER_UA_FALLBACK =
   // Has to be a real-looking browser UA to bypass Umami's isbot filter on the
   // INCOMING request to Umami. Without this, Umami's is-bot package would
@@ -64,10 +69,17 @@ export default {
 
     // Guard against any asset request that slipped past the wrangler glob.
     if (ASSET_EXT_RE.test(url.pathname)) {
+      if (
+        BRAND_HOSTS.has(url.hostname.toLowerCase()) &&
+        HOST_SCOPED_ASSET_RE.test(url.pathname)
+      ) {
+        return env.ASSETS.fetch(requestForAssetHost(request, url));
+      }
       return env.ASSETS.fetch(request);
     }
 
-    const response = await env.ASSETS.fetch(request);
+    const assetRequest = requestForAssetHost(request, url);
+    const response = await env.ASSETS.fetch(assetRequest);
 
     const contentType = response.headers.get("content-type") || "";
     const isHtml = contentType.toLowerCase().startsWith("text/html");
@@ -206,6 +218,24 @@ async function trackPageview(request, env, status) {
   } catch (err) {
     console.error("umami tracking failed:", err);
   }
+}
+
+/**
+ * Route dedicated hostnames to their generated subtree in the shared asset
+ * bucket. Static assets remain at root and are handled before this rewrite.
+ *
+ * @param {Request} request
+ * @param {URL} url
+ * @returns {Request}
+ */
+function requestForAssetHost(request, url) {
+  if (!BRAND_HOSTS.has(url.hostname.toLowerCase())) {
+    return request;
+  }
+
+  const assetUrl = new URL(url);
+  assetUrl.pathname = "/brand" + assetUrl.pathname;
+  return new Request(assetUrl, request);
 }
 
 /**

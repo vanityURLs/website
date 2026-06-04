@@ -1,12 +1,14 @@
 ---
 aside: false
 title: "Brand"
-description: "Decide the public branding values applied to vanityURLs pages at build time."
+description: "Configure instance branding values and use the dedicated brand standards site."
 weight: 12
 aliases:
   - /docs/brand/
   - /docs/customize/brand/
 ---
+
+The vanityURLs brand standards now live at [brand.vanityurls.link](https://brand.vanityurls.link/). Use that site for logo, color, typography, badge, product UI, and asset guidance.
 
 Branding controls the public wordmark and the short line under generated public pages. These values live in `custom/v8s-site-config.json` and are applied at build time, so a normal branded instance does not need to copy default pages into `custom/public/`.
 
@@ -60,127 +62,8 @@ The installer records those choices in `custom/v8s-site-config.json` so repeated
 
 When you use `custom/public/`, keep `i18n.supported_languages` aligned with the localized pages you actually support. See [Internationalization](/docs/reference/i18n/) for the language directory rules.
 
-## vanityURLs visual system
+## Visual standards
 
-The vanityURLs visual system currently covers badge colors, localized badge files, typography notes, instance wordmark configuration, and instance-owned asset overrides. For the customization narrative, read [Branding your short-link domain](/blog/branding-your-short-link-domain/).
+For the current color tokens, localized badge files, typography notes, product UI rules, and downloadable asset paths, use [brand.vanityurls.link](https://brand.vanityurls.link/).
 
-<div class="brand-system">
-  <section class="brand-section">
-    <h3>Badge color tokens</h3>
-    <p>The redirected badges use transparent backgrounds. Choose the light badge for light surfaces and the dark badge for dark surfaces.</p>
-    <div class="brand-grid brand-grid-3">
-      <div class="brand-panel">
-        <div class="brand-swatch brand-swatch-redirected-light" aria-hidden="true"></div>
-        <h4>Redirected, light badge</h4>
-        <p><code>#111827</code></p>
-      </div>
-      <div class="brand-panel">
-        <div class="brand-swatch brand-swatch-vanity" aria-hidden="true"></div>
-        <h4>vanityURLs</h4>
-        <p><code>#0F766E</code></p>
-      </div>
-      <div class="brand-panel">
-        <div class="brand-swatch brand-swatch-swoop" aria-hidden="true"></div>
-        <h4>Swoop</h4>
-        <p><code>#14B8A6</code></p>
-      </div>
-      <div class="brand-panel">
-        <div class="brand-swatch brand-swatch-redirected-dark" aria-hidden="true"></div>
-        <h4>Redirected, dark badge</h4>
-        <p><code>#FFFFFF</code></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="brand-section">
-    <h3>Badge examples</h3>
-    <div class="brand-grid">
-      <div class="brand-panel">
-        <h4>Light surface</h4>
-        <div class="brand-badge-stage brand-badge-stage-light">
-          <img src="/images/v8s-redirected-en.svg" alt="Redirected by vanityURLs.link badge">
-        </div>
-      </div>
-      <div class="brand-panel">
-        <h4>Dark surface</h4>
-        <div class="brand-badge-stage brand-badge-stage-dark">
-          <img src="/images/v8s-redirected-en-dark.svg" alt="Redirected by vanityURLs.link badge for dark surfaces">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="brand-section">
-    <h3>Localized badge files</h3>
-    <p>The website mirrors the redirector badge SVGs from the code repository under <code>/static/images/</code>. The source of truth for deployed user instances remains <code>defaults/public/{language}/</code> in the code repository.</p>
-    <div class="brand-asset-grid">
-      <div class="brand-asset">
-        <img src="/images/v8s-redirected-en.svg" alt="English redirected badge">
-        <code>v8s-redirected-en.svg</code>
-        <code>v8s-redirected-en-dark.svg</code>
-      </div>
-      <div class="brand-asset">
-        <img src="/images/v8s-redirected-fr.svg" alt="French redirected badge">
-        <code>v8s-redirected-fr.svg</code>
-        <code>v8s-redirected-fr-dark.svg</code>
-      </div>
-      <div class="brand-asset">
-        <img src="/images/v8s-redirected-es.svg" alt="Spanish redirected badge">
-        <code>v8s-redirected-es.svg</code>
-        <code>v8s-redirected-es-dark.svg</code>
-      </div>
-      <div class="brand-asset">
-        <img src="/images/v8s-redirected-it.svg" alt="Italian redirected badge">
-        <code>v8s-redirected-it.svg</code>
-        <code>v8s-redirected-it-dark.svg</code>
-      </div>
-      <div class="brand-asset">
-        <img src="/images/v8s-redirected-de.svg" alt="German redirected badge">
-        <code>v8s-redirected-de.svg</code>
-        <code>v8s-redirected-de-dark.svg</code>
-      </div>
-    </div>
-  </section>
-
-  <section class="brand-section">
-    <h3>Typography</h3>
-    <h4>Current website fonts</h4>
-    <p>The website currently self-hosts Inter Variable for interface and prose text, plus JetBrains Mono for code. The files live under <code>/static/fonts/</code> and are declared in <code>assets/css/main.css</code>.</p>
-    <h4>Reference typography</h4>
-    <p>The <code>bhdicaire-com</code> implementation uses Red Hat Display, Red Hat Text, Red Hat Mono, and Source Serif 4 with Utopia-style fluid type and spacing tokens. This brand page adopts the fluid token approach only, scoped to <code>.brand-system</code>, so the broader website typography stays stable until the logo refresh lands.</p>
-  </section>
-
-  <section class="brand-section">
-    <h3>Instance wordmark configuration</h3>
-    <p>Installer-managed instances can store a split-color wordmark in <code>custom/v8s-site-config.json</code>. The green portion should use the vanityURLs brand teal unless the instance has a deliberate local brand system.</p>
-    <p>When branding is enabled, the installer stores localized slogans and the split-color wordmark in <code>custom/v8s-site-config.json</code>. The build applies those values to generated public pages without requiring copied templates in <code>custom/public</code>.</p>
-    <pre class="brand-code"><code>{
-  "branding": {
-    "domain": "example.link",
-    "slogan": {
-      "en": "A short-link service for Example Inc.'s projects",
-      "fr": "Un service de liens courts pour les projets de Example Inc."
-    },
-    "wordmark": {
-      "black": "example.",
-      "green": "link"
-    }
-  }
-}</code></pre>
-    <p><img src="/images/docs/split-color-domain-wordmark.svg" alt="Split-color domain wordmark example"></p>
-  </section>
-
-  <section class="brand-section">
-    <h3>Usage notes</h3>
-    <ul>
-      <li>Use SVG badges.</li>
-      <li>Keep badge backgrounds transparent.</li>
-      <li>Preserve the localized badge text.</li>
-      <li>Run <code>npm run optimize:badges</code> after editing default badge SVGs in the code repository.</li>
-      <li>Do not rasterize the badges.</li>
-      <li>Do not add opaque backgrounds.</li>
-      <li>Do not recolor only one language.</li>
-      <li>Do not treat the current logo set as final while the logo refresh is still underway.</li>
-    </ul>
-  </section>
-</div>
+For the customization narrative, read [Branding your short-link domain](/blog/branding-your-short-link-domain/).

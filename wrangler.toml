@@ -24,19 +24,17 @@ run_worker_first = [
   "!/logo.svg",
   "!/favicon.ico",
   "!/humans.txt",
-  "!/robots.txt",
-  "!/sitemap.xml",
   "!/site.webmanifest",
   "!/social.png",
   "!/_redirects",
-  # Per-language RSS/sitemap feeds
-  "!/*/sitemap.xml",
-  "!/*/index.xml",
-  "!/**/index.xml",
 ]
 
 [[routes]]
 pattern = "vanityurls.link"
+custom_domain = true
+
+[[routes]]
+pattern = "brand.vanityurls.link"
 custom_domain = true
 
 [observability]
