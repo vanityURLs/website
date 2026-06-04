@@ -65,6 +65,8 @@ HSTS is the easy place to misread the UI. The repository ships a host-scoped `St
 
 {{< callout type="warning" title="Avoid competing header sources" >}}
 Keep CSP, HSTS, frame, referrer, and permissions policy in the repository unless there is a deliberate zone-level reason to manage one of them in Cloudflare. If Cloudflare Transform Rules, Snippets, Zaraz, Rocket Loader, managed HSTS, or other dashboard features add or rewrite the same headers or inject scripts, they can conflict with the Worker and `_headers` policy.
+
+This follows [ADR 0014: Prefer repository-owned configuration](https://github.com/vanityURLs/code/blob/main/docs/adr/0014-prefer-repository-owned-configuration.md): use the Cloudflare dashboard for controls that cannot reasonably live in Git, and leave dashboard duplicates disabled when the repository already owns the behavior.
 {{< /callout >}}
 
 ### Enable baseline security controls
@@ -157,6 +159,28 @@ not lower(http.request.uri.path) contains ".woff"</code></pre>
       <td>Create this first. It counts likely short-link candidates while excluding operator paths, policy pages, well-known files, and static assets.</td>
     </tr>
     <tr>
+      <td>Rate limit lookup resolution<br><small>Rate limiting rule</small></td>
+      <td>Block for 60 seconds when the rate exceeds 30 requests per minute</td>
+      <td>
+        <pre><code>http.host eq "v8s.link" and
+http.request.method eq "GET" and
+http.request.uri.path eq "/_lookup" and
+not cf.client.bot</code></pre>
+      </td>
+      <td>`/_lookup` is exact-match only and returns no list, but it can reveal destinations for guessed slugs. Keep it much tighter than ordinary redirects.</td>
+    </tr>
+    <tr>
+      <td>Rate limit lookup analytics<br><small>Rate limiting rule</small></td>
+      <td>Block for 60 seconds when the rate exceeds 60 requests per minute</td>
+      <td>
+        <pre><code>http.host eq "v8s.link" and
+http.request.method eq "POST" and
+http.request.uri.path eq "/_analytics/lookup" and
+not cf.client.bot</code></pre>
+      </td>
+      <td>Protects Umami/Fathom quota from direct beacon abuse. This endpoint does not resolve links; it only records lookup activity that reached the Worker.</td>
+    </tr>
+    <tr>
       <td>Block scanner probes<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
@@ -233,6 +257,10 @@ http.request.uri.path ne "/robots.txt" and (
 </table>
 
 Paste and validate one complete expression at a time. Deploy rules disabled while tuning if traffic is already flowing, then enable them after checking Security Events.
+
+{{< callout type="note" title="Lookup is public, not an inventory endpoint" >}}
+The lookup page and `/_lookup` endpoint intentionally let a visitor inspect one exact slug before clicking. They do not list links or autocomplete slugs, and the shipped `X-Frame-Options: DENY` plus `frame-ancestors 'none'` headers prevent clickjacking. The remaining risk is bulk guessing from scripts, so protect `/_lookup` and `/_analytics/lookup` with explicit rate limits.
+{{< /callout >}}
 
 ### Decide crawler controls
 

@@ -875,7 +875,27 @@
           "Rate limiting rules": {
             "used": "0/1",
             "default_state": "No Rate limiting rules created",
-            "website_documentation": "Document rate limiting as an optional control for repeated misses or scanner-like traffic."
+            "website_documentation": "Document rate limiting as baseline edge protection for repeated misses, scanner-like traffic, lookup target resolution, and lookup analytics beacons.",
+            "baseline_rules": [
+              {
+                "name": "Rate limit short-link candidates",
+                "threshold": "20 requests per 10 seconds",
+                "mitigation_timeout": "10 seconds",
+                "expression_scope": "Likely public short-link candidates, excluding protected paths, policy pages, well-known files, and static assets"
+              },
+              {
+                "name": "Rate limit lookup resolution",
+                "threshold": "30 requests per minute",
+                "mitigation_timeout": "60 seconds",
+                "expression": "http.host eq \"v8s.link\" and http.request.method eq \"GET\" and http.request.uri.path eq \"/_lookup\" and not cf.client.bot"
+              },
+              {
+                "name": "Rate limit lookup analytics",
+                "threshold": "60 requests per minute",
+                "mitigation_timeout": "60 seconds",
+                "expression": "http.host eq \"v8s.link\" and http.request.method eq \"POST\" and http.request.uri.path eq \"/_analytics/lookup\" and not cf.client.bot"
+              }
+            ]
           },
           "Managed rules": {
             "active": 0,
@@ -1686,6 +1706,7 @@
       "Use AI Crawl Control Security toggles only when the operator intentionally wants Cloudflare to block specific crawlers before the Worker.",
       "Use Security Analytics and sampled logs for traffic blocked before the Worker.",
       "Use custom security rules and rate limiting for scanner-like traffic and repeated short-link misses.",
+      "Use explicit rate limiting for /_lookup and /_analytics/lookup because lookup target resolution and analytics beacons have different abuse economics than ordinary redirects.",
       "Keep Browser Integrity Check, Cloudflare managed ruleset, HTTP DDoS protection, Network-layer DDoS protection, SSL/TLS DDoS protection and the new application security dashboard enabled.",
       "Keep Email Address Obfuscation and Replace insecure JavaScript libraries off for the baseline because they can rewrite repo-owned HTML or scripts and conflict with CSP/SRI assumptions.",
       "Keep Cloudflare dashboard Security.txt off for the baseline because the repository generates and deploys /.well-known/security.txt.",

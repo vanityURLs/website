@@ -65,6 +65,8 @@ HSTS est l'endroit le plus facile a mal lire dans l'interface. Le dépôt fourni
 
 {{< callout type="warning" title="Éviter les sources d'en-têtes concurrentes" >}}
 Gardez CSP, HSTS, framing, referrer policy et permissions policy dans le dépôt sauf raison explicite de gérer l'une de ces politiques au niveau de la zone Cloudflare. Si Cloudflare Transform Rules, Snippets, Zaraz, Rocket Loader, HSTS géré ou d'autres fonctions du tableau de bord ajoutent ou réécrivent les mêmes en-têtes, ou injectent des scripts, elles peuvent entrer en conflit avec la politique du Worker et de `_headers`.
+
+Cela suit [ADR 0014 : Prefer repository-owned configuration](https://github.com/vanityURLs/code/blob/main/docs/adr/0014-prefer-repository-owned-configuration.md) : utilisez le tableau de bord Cloudflare pour les contrôles qui ne peuvent pas raisonnablement vivre dans Git, et laissez les doublons du tableau de bord désactivés lorsque le dépôt possède déjà le comportement.
 {{< /callout >}}
 
 ### Activer les contrôles de sécurité de base
@@ -157,6 +159,28 @@ not lower(http.request.uri.path) contains ".woff"</code></pre>
       <td>Créez cette règle en premier. Elle compte les candidats probables de liens courts tout en excluant les chemins opérateur, pages de politiques, fichiers well-known et assets statiques.</td>
     </tr>
     <tr>
+      <td>Rate limiter la résolution lookup<br><small>Rate limiting rule</small></td>
+      <td>Block pendant 60 secondes quand le taux depasse 30 requêtes par minute</td>
+      <td>
+        <pre><code>http.host eq "v8s.link" and
+http.request.method eq "GET" and
+http.request.uri.path eq "/_lookup" and
+not cf.client.bot</code></pre>
+      </td>
+      <td>`/_lookup` est exact-match seulement et ne retourne aucune liste, mais il peut révéler des destinations pour des slugs devinés. Gardez-le beaucoup plus strict que les redirections ordinaires.</td>
+    </tr>
+    <tr>
+      <td>Rate limiter les analytics lookup<br><small>Rate limiting rule</small></td>
+      <td>Block pendant 60 secondes quand le taux depasse 60 requêtes par minute</td>
+      <td>
+        <pre><code>http.host eq "v8s.link" and
+http.request.method eq "POST" and
+http.request.uri.path eq "/_analytics/lookup" and
+not cf.client.bot</code></pre>
+      </td>
+      <td>Protège le quota Umami/Fathom contre l'abus direct du beacon. Cet endpoint ne résout pas les liens; il enregistre seulement l'activité lookup qui atteint le Worker.</td>
+    </tr>
+    <tr>
       <td>Bloquer les probes scanner<br><small>Custom rule</small></td>
       <td>Block</td>
       <td>
@@ -233,6 +257,10 @@ http.request.uri.path ne "/robots.txt" and (
 </table>
 
 Collez et validez une expression complété à la fois. Deployer les règles désactivées pendant le calibrage si du trafic circule déjà, puis activez-les après verification dans Security Events.
+
+{{< callout type="note" title="Lookup est public, pas un inventaire" >}}
+La page lookup et l'endpoint `/_lookup` permettent volontairement à un visiteur d'inspecter un slug exact avant de cliquer. Ils ne listent pas les liens et n'autocomplètent pas les slugs, et les headers livrés `X-Frame-Options: DENY` plus `frame-ancestors 'none'` empêchent le clickjacking. Le risque restant est le guessing en volume depuis des scripts; protégez donc `/_lookup` et `/_analytics/lookup` avec des rate limits explicites.
+{{< /callout >}}
 
 ### Decider des contrôles de crawlers
 
