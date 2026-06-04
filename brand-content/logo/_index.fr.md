@@ -9,6 +9,8 @@ aliases:
 
 Utilisez cette section pour choisir le bon asset de logo vanityURLs et comprendre ce qui manque encore dans le kit de marque.
 
+Gardez les pages Logo centrees sur les standards d'usage, le contexte d'apercu et les tailles d'export requises. Placez les telechargements packages, les bundles ZIP et les inventaires larges d'assets dans [Ressources](/fr/resources/downloads/).
+
 ## Groupes de logos actuels
 
 | Groupe                | Usage                                                                            |

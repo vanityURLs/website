@@ -25,13 +25,13 @@
         {{ .Content }}
       </article>
 
-      {{ if .RegularPages }}
+      {{ if .Pages }}
       <div class="mt-10 pt-8 border-t border-gray-100 dark:border-gray-800">
         <h2 class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
           {{ if eq .Site.Language.Lang "fr" }}Dans cette section{{ else }}In this section{{ end }}
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {{ range .RegularPages.ByWeight }}
+          {{ range .Pages.ByWeight }}
           <a href="{{ .RelPermalink }}"
              class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm
                     text-gray-700 dark:text-gray-300

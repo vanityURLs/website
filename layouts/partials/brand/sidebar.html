@@ -23,7 +23,7 @@
     <a href="{{ $sectionURL }}" class="sidebar-link sidebar-section-link{{ if or (eq $cur $sectionURL) (eq $norm $sectionNorm) }} active{{ end }}">
       {{ if eq $page.Site.Language.Lang "fr" }}Apercu{{ else }}Overview{{ end }}
     </a>
-    {{ range .RegularPages.ByWeight }}
+    {{ range .Pages.ByWeight }}
     {{ $pageURL := .RelPermalink }}
     {{ $pageActive := or (eq $cur $pageURL) (eq $norm (strings.TrimSuffix "/" $pageURL)) }}
     <a href="{{ $pageURL }}" class="sidebar-link{{ if $pageActive }} active{{ end }}">{{ .Title }}</a>
