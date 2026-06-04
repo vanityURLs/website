@@ -8,6 +8,8 @@ dist/
 Network Trash Folder
 node_modules/
 resources/
+!brand-content/resources/
+!brand-content/resources/**
 temp/
 Temporary Items
 var/
