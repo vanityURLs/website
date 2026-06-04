@@ -35,6 +35,10 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 Default public pages share product-level assets such as `/style.css` and `/script.js`. If you add JavaScript or CSS for custom pages, use instance-specific filenames such as `/custom-home.css`, `/brand-pages.css`, or `/operator-tools.js` instead of replacing `style.css` or `script.js` casually. Replacing those shared files affects every default page you have not overridden yet.
 {{< /callout >}}
 
+{{< callout type="warning" title="Custom pages must fit the CSP" >}}
+Default pages use external JavaScript and CSS so the shipped Content Security Policy can omit `'unsafe-inline'`. If a custom page uses inline `<script>`, inline `<style>`, event-handler attributes such as `onclick`, or `style=""` attributes, move that code to custom external files or ship a deliberate `custom/public/_headers` CSP override for the affected instance.
+{{< /callout >}}
+
 | Override                           | Path                                                                                                                | Details                                                                                                                              |
 | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Brand assets and redirected badges | `custom/public/v8s-logo.svg`, `custom/public/favicon.svg`, `custom/public/{language}/v8s-redirected.svg`            | [Brand](/docs/reference/brand/)                                                                                                      |

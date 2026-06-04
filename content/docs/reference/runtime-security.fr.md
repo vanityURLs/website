@@ -57,7 +57,7 @@ La validation verifie que les lignes de liens ont la forme attendue, que les URL
 
 Le registre génère et la politique runtime sont traites comme des données, pas comme du code executable. Les changements propres à l'instance vivent dans `custom/`; les defaults produit restent dans `defaults/`; la source canonique du Worker reste dans `scripts/workers/`; `src/` est génère seulement pour Wrangler. Cela garde les mises à jour revues et rend le rollback normal dans Git.
 
-Les headers par défaut incluent `X-Generated-By: vanityURLs.link`. Si vous surchargez `custom/public/_headers`, gardez cette identité de génération, des règles cache et sécurité compatibles, et les blocages des fichiers runtime bruts sauf raison explicite.
+Les headers par défaut incluent `X-Generated-By: vanityURLs.link`, des règles no-index, HSTS limité à l'hôte, `nosniff`, une protection contre le clickjacking, des politiques referrer et permissions, et une CSP qui bloque le JavaScript inline et le CSS inline. Si vous surchargez `custom/public/_headers`, gardez cette identité de génération, des règles cache et sécurité compatibles, et les blocages des fichiers runtime bruts sauf raison explicite.
 
 ## Gardes des fichiers opérationnels
 

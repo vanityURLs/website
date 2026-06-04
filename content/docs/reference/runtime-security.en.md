@@ -57,7 +57,7 @@ Validation verifies that link rows have the expected shape, URL targets normaliz
 
 The generated registry and runtime policy are treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`; canonical Worker source stays in `scripts/workers/`; generated `src/` is only for Wrangler compatibility. That keeps updates reviewable and makes rollback a normal Git operation.
 
-Default response headers include `X-Generated-By: vanityURLs.link`. If you override `custom/public/_headers`, keep that generator identity, compatible cache and security rules, and the raw runtime-file blocks unless you have a deliberate public-disclosure reason.
+Default response headers include `X-Generated-By: vanityURLs.link`, no-index rules, host-scoped HSTS, `nosniff`, clickjacking protection, referrer and permissions policies, and a CSP that blocks inline JavaScript and inline CSS. If you override `custom/public/_headers`, keep that generator identity, compatible cache and security rules, and the raw runtime-file blocks unless you have a deliberate public-disclosure reason.
 
 ## Operational file guards
 

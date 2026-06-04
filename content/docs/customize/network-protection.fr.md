@@ -17,15 +17,15 @@ Pour les fonctionnalites volontairement exclues du setup par défaut, lisez [Fon
 
 {{< mermaid >}}
 flowchart LR
-  A["Requête visiteur"] --> B["Edge Cloudflare"]
-  B --> C["TLS, DDoS,<br/>règles managées"]
-  C --> D["WAF, rate limit,<br/>contrôles bot"]
-  D --> E{"Autorisé à<br/>atteindre le Worker ?"}
-  E -->|"non"| F["Réponse bloquée,<br/>challenge ou rate limit"]
-  E -->|"oui"| G["Worker vanityURLs"]
-  G --> H["Rediriger un lien court"]
-  G --> I["Page locale publique"]
-  G --> J["Chemin protégé<br/>vers le tableau"]
+A["Requête visiteur"] --> B["Edge Cloudflare"]
+B --> C["TLS, DDoS,<br/>règles managées"]
+C --> D["WAF, rate limit,<br/>contrôles bot"]
+D --> E{"Autorisé à<br/>atteindre le Worker ?"}
+E -->|"non"| F["Réponse bloquée,<br/>challenge ou rate limit"]
+E -->|"oui"| G["Worker vanityURLs"]
+G --> H["Rediriger un lien court"]
+G --> I["Page locale publique"]
+G --> J["Chemin protégé<br/>vers le tableau"]
 {{< /mermaid >}}
 
 {{% steps %}}
@@ -51,7 +51,7 @@ Ensuite, ouvrez **SSL/TLS** > **Edge Certificates** et parcourez les options dan
 | Total TLS                             | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager                                                |
 | Cipher suites                         | Aucune action pour la base du plan gratuit; requiert Advanced Certificate Manager                                                |
 | Always Use HTTPS                      | On                                                                                                                               |
-| HTTP Strict Transport Security (HSTS) | Commencer sans HSTS enforce par les navigateurs tant que chaque hostname et sous-domaine de production n'est pas prêt pour HTTPS |
+| HTTP Strict Transport Security (HSTS) | Laisser le HSTS du tableau de bord Cloudflare désactivé sauf besoin volontaire d'une politique de zone au-delà du header du repo |
 | Minimum TLS Version                   | TLS 1.2 ou plus strict                                                                                                           |
 | Opportunistic Encryption              | On convient; aucune action spécifique a vanityURLs                                                                               |
 | TLS 1.3                               | On                                                                                                                               |
@@ -60,7 +60,11 @@ Ensuite, ouvrez **SSL/TLS** > **Edge Certificates** et parcourez les options dan
 | Disable Universal SSL                 | Ne cliquez pas dessus; voir cette action signifie que Universal SSL est actuellement active                                      |
 
 {{< callout type="warning" title="HSTS peut sembler actif sans l'être" >}}
-HSTS est l'endroit le plus facile a mal lire dans l'interface. **Enable HSTS** avec **Max Age Header (max-age)** a **0 (Disable)** ne donne pas aux navigateurs une politique HSTS durable; c'est un état non enforce ou de rémise a zero. Utilisez-le pendant la validation de la zone. Pour l'enforcement en production, choisissez un max age non nul après que chaque hostname public soit prêt pour HTTPS. Un max age d'un mois est un bon premier réglage; activez **includeSubDomains** et **Preload** seulement quand toute la zone est volontairement HTTPS-only.
+HSTS est l'endroit le plus facile a mal lire dans l'interface. Le dépôt fournit un header `Strict-Transport-Security: max-age=31536000` limité à l'hôte pour les réponses Worker et assets statiques. Préférez ce header géré par le repo comme source de vérité. Activez le HSTS du tableau de bord Cloudflare seulement si vous voulez délibérément que Cloudflare possède ou renforce la politique sur toute la zone. Utilisez `includeSubDomains` et **Preload** seulement quand toute la zone est volontairement HTTPS-only.
+{{< /callout >}}
+
+{{< callout type="warning" title="Éviter les sources d'en-têtes concurrentes" >}}
+Gardez CSP, HSTS, framing, referrer policy et permissions policy dans le dépôt sauf raison explicite de gérer l'une de ces politiques au niveau de la zone Cloudflare. Si Cloudflare Transform Rules, Snippets, Zaraz, Rocket Loader, HSTS géré ou d'autres fonctions du tableau de bord ajoutent ou réécrivent les mêmes en-têtes, ou injectent des scripts, elles peuvent entrer en conflit avec la politique du Worker et de `_headers`.
 {{< /callout >}}
 
 ### Activer les contrôles de sécurité de base
@@ -267,16 +271,16 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Rules** > **Se
 
 Reglages Rules recommandes :
 
-| Categorie          | Reglage                                | Recommandation                                                                                                                                                                                                                    |
-| ------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Managed Transforms | Remove `X-Powered-By` response headers | On comme defense en profondeur; Cloudflare ne semble pas l'activer par défaut, et vanityURLs n'émet pas intentionnellement `X-Powered-By`                                                                                         |
-| Managed Transforms | Add visitor location headers           | Off; Umami et Fathom n'ont pas besoin des en-têtes ville/latitude/longitude de Cloudflare, et les ajouter augmente l'exposition des données de localisation                                                                       |
-| Managed Transforms | Remove visitor IP headers              | Off sauf si une origine derrière le Worker les recoit                                                                                                                                                                             |
-| Managed Transforms | Add security headers transform         | Off par défaut; vanityURLs contrôle ses en-têtes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre à la politique applicative                         |
+| Categorie          | Reglage                                | Recommandation                                                                                                                                                                                                                             |
+| ------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Managed Transforms | Remove `X-Powered-By` response headers | On comme defense en profondeur; Cloudflare ne semble pas l'activer par défaut, et vanityURLs n'émet pas intentionnellement `X-Powered-By`                                                                                                  |
+| Managed Transforms | Add visitor location headers           | Off; Umami et Fathom n'ont pas besoin des en-têtes ville/latitude/longitude de Cloudflare, et les ajouter augmente l'exposition des données de localisation                                                                                |
+| Managed Transforms | Remove visitor IP headers              | Off sauf si une origine derrière le Worker les recoit                                                                                                                                                                                      |
+| Managed Transforms | Add security headers transform         | Off par défaut; vanityURLs contrôle ses en-têtes dans le Worker et `defaults/public/_headers`, et le transform Cloudflare ajoute un ensemble fixe qui peut ne pas correspondre à la politique applicative                                  |
 | Bulk Redirects     | Bulk Redirect Lists                    | Aucune action pour vanityURLs base sur Worker; utile pour de grandes listes statiques, mais contourne le cycle de vie du registre, les analytics, les pages de consultation, les horaires, les splats et le workflow de publication locale |
-| URL Normalization  | URL normalization type                 | Cloudflare                                                                                                                                                                                                                        |
-| URL Normalization  | Normalize incoming URLs                | On, utilisé par Access, les règles WAF et Workers                                                                                                                                                                                 |
-| URL Normalization  | Normalize URLs to origin               | Off                                                                                                                                                                                                                               |
+| URL Normalization  | URL normalization type                 | Cloudflare                                                                                                                                                                                                                                 |
+| URL Normalization  | Normalize incoming URLs                | On, utilisé par Access, les règles WAF et Workers                                                                                                                                                                                          |
+| URL Normalization  | Normalize URLs to origin               | Off                                                                                                                                                                                                                                        |
 
 ### Configurer Network
 

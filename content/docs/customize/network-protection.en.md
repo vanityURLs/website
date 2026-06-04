@@ -17,15 +17,15 @@ For the features intentionally left out of the default setup, read [Cloudflare f
 
 {{< mermaid >}}
 flowchart LR
-  A["Visitor request"] --> B["Cloudflare edge"]
-  B --> C["TLS, DDoS,<br/>managed rules"]
-  C --> D["WAF, rate limit,<br/>bot controls"]
-  D --> E{"Allowed to<br/>reach Worker?"}
-  E -->|"no"| F["Block, challenge,<br/>or rate-limit response"]
-  E -->|"yes"| G["vanityURLs Worker"]
-  G --> H["Redirect short link"]
-  G --> I["Public local page"]
-  G --> J["Protected path<br/>to the dashboard"]
+A["Visitor request"] --> B["Cloudflare edge"]
+B --> C["TLS, DDoS,<br/>managed rules"]
+C --> D["WAF, rate limit,<br/>bot controls"]
+D --> E{"Allowed to<br/>reach Worker?"}
+E -->|"no"| F["Block, challenge,<br/>or rate-limit response"]
+E -->|"yes"| G["vanityURLs Worker"]
+G --> H["Redirect short link"]
+G --> I["Public local page"]
+G --> J["Protected path<br/>to the dashboard"]
 {{< /mermaid >}}
 
 {{% steps %}}
@@ -44,23 +44,27 @@ In Cloudflare, open **Domains** > **your short domain** > **SSL/TLS** > **Overvi
 
 Then open **SSL/TLS** > **Edge Certificates** and review the options in dashboard order:
 
-| Dashboard option                      | Recommendation                                                                                                   |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| Manage Edge Certificates              | Confirm an active Universal certificate covers the apex domain and wildcard, such as `v8s.link` and `*.v8s.link` |
-| Advanced Certificate Manager          | No action unless the instance needs paid custom certificate controls                                             |
-| Total TLS                             | No action on the Free baseline; it requires Advanced Certificate Manager                                         |
-| Cipher suites                         | No action on the Free baseline; it requires Advanced Certificate Manager                                         |
-| Always Use HTTPS                      | On                                                                                                               |
-| HTTP Strict Transport Security (HSTS) | Start with no browser-enforced HSTS until every production hostname and subdomain is HTTPS-ready                 |
-| Minimum TLS Version                   | TLS 1.2 or stricter                                                                                              |
-| Opportunistic Encryption              | On is fine; no vanityURLs-specific action required                                                               |
-| TLS 1.3                               | On                                                                                                               |
-| Automatic HTTPS Rewrites              | On                                                                                                               |
-| Certificate Transparency Monitoring   | Optional, useful for unexpected certificate alerts                                                               |
-| Disable Universal SSL                 | Do not click it; seeing this action means Universal SSL is currently enabled                                     |
+| Dashboard option                      | Recommendation                                                                                                    |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Manage Edge Certificates              | Confirm an active Universal certificate covers the apex domain and wildcard, such as `v8s.link` and `*.v8s.link`  |
+| Advanced Certificate Manager          | No action unless the instance needs paid custom certificate controls                                              |
+| Total TLS                             | No action on the Free baseline; it requires Advanced Certificate Manager                                          |
+| Cipher suites                         | No action on the Free baseline; it requires Advanced Certificate Manager                                          |
+| Always Use HTTPS                      | On                                                                                                                |
+| HTTP Strict Transport Security (HSTS) | Leave Cloudflare dashboard HSTS disabled unless you intentionally want a zone-level policy beyond the repo header |
+| Minimum TLS Version                   | TLS 1.2 or stricter                                                                                               |
+| Opportunistic Encryption              | On is fine; no vanityURLs-specific action required                                                                |
+| TLS 1.3                               | On                                                                                                                |
+| Automatic HTTPS Rewrites              | On                                                                                                                |
+| Certificate Transparency Monitoring   | Optional, useful for unexpected certificate alerts                                                                |
+| Disable Universal SSL                 | Do not click it; seeing this action means Universal SSL is currently enabled                                      |
 
 {{< callout type="warning" title="HSTS can look enabled when it is not" >}}
-HSTS is the easy place to misread the UI. **Enable HSTS** with **Max Age Header (max-age)** set to **0 (Disable)** does not give browsers a durable HSTS policy; it is a non-enforcing or reset state. Use that while validating the zone. For production enforcement, choose a non-zero max age after every public hostname is HTTPS-ready. A one-month max age is a practical first setting; enable **includeSubDomains** and **Preload** only when the whole zone is intentionally HTTPS-only.
+HSTS is the easy place to misread the UI. The repository ships a host-scoped `Strict-Transport-Security: max-age=31536000` header for Worker and static-asset responses. Prefer that repo-managed header as the source of truth. Enable Cloudflare dashboard HSTS only when you deliberately want Cloudflare to own or strengthen the policy across the zone. Use `includeSubDomains` and **Preload** only when the whole zone is intentionally HTTPS-only.
+{{< /callout >}}
+
+{{< callout type="warning" title="Avoid competing header sources" >}}
+Keep CSP, HSTS, frame, referrer, and permissions policy in the repository unless there is a deliberate zone-level reason to manage one of them in Cloudflare. If Cloudflare Transform Rules, Snippets, Zaraz, Rocket Loader, managed HSTS, or other dashboard features add or rewrite the same headers or inject scripts, they can conflict with the Worker and `_headers` policy.
 {{< /callout >}}
 
 ### Enable baseline security controls
