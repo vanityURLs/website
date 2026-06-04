@@ -884,6 +884,54 @@
     border-color: rgba(255, 255, 255, 0.22);
     box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.5) inset;
   }
+  .brand-color-table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  .brand-color-table col.brand-color-table-token {
+    width: 30%;
+  }
+  .brand-color-table col.brand-color-table-value {
+    width: 20%;
+  }
+  .brand-color-table col.brand-color-table-use {
+    width: 50%;
+  }
+  .brand-color-table col.brand-color-table-value-wide {
+    width: 70%;
+  }
+  .brand-color-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    white-space: nowrap;
+  }
+  .brand-color-token-swatch {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 1px solid rgba(17, 24, 39, 0.18);
+    border-radius: 9999px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.72) inset;
+  }
+  .dark .brand-color-token-swatch {
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 0 0 1px rgba(17, 24, 39, 0.5) inset;
+  }
+  .brand-color-ink { background-color: #111827; }
+  .brand-color-paper { background-color: #ffffff; }
+  .brand-color-brand-50 { background-color: #f0fdfa; }
+  .brand-color-brand-100 { background-color: #ccfbf1; }
+  .brand-color-brand-200 { background-color: #99f6e4; }
+  .brand-color-brand-300 { background-color: #5eead4; }
+  .brand-color-brand-400 { background-color: #2dd4bf; }
+  .brand-color-brand-500 { background-color: #14b8a6; }
+  .brand-color-brand-600 { background-color: #0d9488; }
+  .brand-color-brand-700 { background-color: #0f766e; }
+  .brand-color-brand-800 { background-color: #115e59; }
+  .brand-color-brand-900 { background-color: #134e4a; }
+  .brand-color-muted { background-color: #6b7280; }
+  .brand-color-line { background-color: #e5e7eb; }
   .brand-badge-stage {
     display: grid;
     place-items: center;
