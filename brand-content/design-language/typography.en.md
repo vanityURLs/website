@@ -1,22 +1,20 @@
 ---
 title: "Fonts and typography"
-description: "Typeface choices, hierarchy, and typographic rhythm."
+heading: "Typefaces, hierarchy, and rhythm"
 type: brand
 weight: 20
 aliases:
   - /design-language/fonts-and-typography/
 ---
 
-## Current fonts
-
-The website self-hosts Inter Variable for interface and prose text, plus JetBrains Mono for code. Font files live under `static/fonts/` and are declared in `assets/css/main.css`.
+The website self-hosts [Inter Variable](https://rsms.me/inter/) for interface and prose text, plus [JetBrains Mono](https://www.jetbrains.com/lp/mono/) for code. Font files live under `static/fonts/` and are declared in `assets/css/main.css`.
 
 ## Hierarchy
 
 - Use large display text only for page openings and major brand moments.
 - Use smaller, tighter headings inside cards, panels, tables, and tool surfaces.
 - Keep body copy direct and readable.
-- Use JetBrains Mono for code, file paths, commands, tokens, and generated examples.
+- Use [JetBrains Mono](https://www.jetbrains.com/lp/mono/) for code, file paths, commands, tokens, and generated examples.
 
 ## Rhythm
 
