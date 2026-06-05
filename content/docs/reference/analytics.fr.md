@@ -37,13 +37,13 @@ Configurez les analytics avec des variables Worker dans `wrangler.toml` et des s
 
 ## Événements
 
-| Événement         | Moment d'envoi                                                                        |
-| ----------------- | ------------------------------------------------------------------------------------- |
-| `pageview`        | Une page HTML statique ou d'état est servie avec succès                               |
-| `redirect`        | Un lien court résout vers une cible                                                   |
-| `short-link-miss` | Une requête ressemble à un slug de lien court, mais rien ne correspond                |
-| `lookup`          | La page `/lookup` demande au Worker d'inspecter un slug via `POST /_analytics/lookup` |
-| `bot`             | Un bot connu déclenche un événement et la normalisation bot est activée               |
+| Événement         | Moment d'envoi                                                                                                                               |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pageview`        | Une page HTML statique ou d'état est servie avec succès                                                                                      |
+| `redirect`        | Un lien court résout vers une cible                                                                                                          |
+| `short-link-miss` | Une requête ressemble à un slug de lien court, mais rien ne correspond                                                                       |
+| `lookup`          | La page `/lookup` enregistre l'activité de consultation via `POST /_analytics/lookup` après avoir résolu un slug avec `POST /lookup/resolve` |
+| `bot`             | Un bot connu déclenche un événement et la normalisation bot est activée                                                                      |
 
 Les pages de consultation localisées utilisent ces chemins publics :
 

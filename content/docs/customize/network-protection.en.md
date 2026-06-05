@@ -163,11 +163,11 @@ not lower(http.request.uri.path) contains ".woff"</code></pre>
       <td>Block for 60 seconds when the rate exceeds 30 requests per minute</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
-http.request.method eq "GET" and
-http.request.uri.path eq "/_lookup" and
+http.request.method eq "POST" and
+http.request.uri.path eq "/lookup/resolve" and
 not cf.client.bot</code></pre>
       </td>
-      <td>`/_lookup` is exact-match only and returns no list, but it can reveal destinations for guessed slugs. Keep it much tighter than ordinary redirects.</td>
+      <td>`/lookup/resolve` is exact-match only and returns no list, but it can reveal destinations for guessed slugs. Keep it much tighter than ordinary redirects.</td>
     </tr>
     <tr>
       <td>Rate limit lookup analytics<br><small>Rate limiting rule</small></td>
@@ -259,7 +259,7 @@ http.request.uri.path ne "/robots.txt" and (
 Paste and validate one complete expression at a time. Deploy rules disabled while tuning if traffic is already flowing, then enable them after checking Security Events.
 
 {{< callout type="note" title="Lookup is public, not an inventory endpoint" >}}
-The lookup page and `/_lookup` endpoint intentionally let a visitor inspect one exact slug before clicking. They do not list links or autocomplete slugs, and the shipped `X-Frame-Options: DENY` plus `frame-ancestors 'none'` headers prevent clickjacking. The remaining risk is bulk guessing from scripts, so protect `/_lookup` and `/_analytics/lookup` with explicit rate limits.
+The lookup page and `/lookup/resolve` endpoint intentionally let a visitor inspect one exact slug before clicking. They do not list links or autocomplete slugs, and the shipped `X-Frame-Options: DENY` plus `frame-ancestors 'none'` headers prevent clickjacking. The remaining risk is bulk guessing from scripts, so protect `/lookup/resolve` and `/_analytics/lookup` with explicit rate limits.
 {{< /callout >}}
 
 ### Decide crawler controls

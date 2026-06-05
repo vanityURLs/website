@@ -413,7 +413,7 @@
       path: content/docs/reference/runtime-security.en.md
       note: "Runtime security docs list accepted public methods."
   answer: >
-    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /_analytics/lookup` reserved for the lookup-page beacon.
+    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /lookup/resolve` reserved for lookup resolution and `POST /_analytics/lookup` reserved for the lookup-page beacon.
   related: [analytics-default, runtime-security-layers]
   tags: [http, runtime-security, architectural]
   last_reviewed: 2026-05-27

@@ -37,13 +37,13 @@ Configure analytics with Worker variables in `wrangler.toml` and Worker secrets 
 
 ## Events
 
-| Event             | When it is sent                                                                        |
-| ----------------- | -------------------------------------------------------------------------------------- |
-| `pageview`        | A static or status HTML page returns successfully                                      |
-| `redirect`        | A short link resolves to a target                                                      |
-| `short-link-miss` | A request looks like a short-link candidate but no slug matches                        |
-| `lookup`          | The `/lookup` page asks the Worker to inspect a slug through `POST /_analytics/lookup` |
-| `bot`             | A known bot triggers an event and bot normalization is enabled                         |
+| Event             | When it is sent                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `pageview`        | A static or status HTML page returns successfully                                                                               |
+| `redirect`        | A short link resolves to a target                                                                                               |
+| `short-link-miss` | A request looks like a short-link candidate but no slug matches                                                                 |
+| `lookup`          | The `/lookup` page records lookup activity through `POST /_analytics/lookup` after resolving a slug with `POST /lookup/resolve` |
+| `bot`             | A known bot triggers an event and bot normalization is enabled                                                                  |
 
 Localized lookup pages use these public paths:
 

@@ -15,7 +15,7 @@ For the design rationale, read [Runtime security for a small redirector](/blog/r
 
 The Worker keeps the runtime path narrow:
 
-- only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus the dedicated `POST /_analytics/lookup` beacon
+- only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus `POST /lookup/resolve` for lookup resolution and the dedicated `POST /_analytics/lookup` beacon
 - direct access to `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` returns 404
 - redirects allow only `http:` and `https:` targets
 - redirect targets with credentials, missing hostnames, control characters, or unsupported protocols fail closed
