@@ -13,14 +13,14 @@ Pour le raisonnement confiance et sécurité, lisez [Protéger la réputation d'
 
 {{< mermaid >}}
 flowchart LR
-  A["defaults/<br/>politique source"] --> C["generate:blocklist"]
-  B["custom/<br/>politique locale"] --> D["validation<br/>des liens"]
-  C --> E["artefacts blocklist<br/>runtime"]
-  E --> D
-  F["liens courts<br/>configurés"] --> D
-  D --> G{"Validation<br/>réussie ?"}
-  G -->|"oui"| H["Build et déploiement"]
-  G -->|"non"| I["Corriger lien<br/>ou politique"]
+A["defaults/<br/>politique source"] --> C["generate:blocklist"]
+B["custom/<br/>politique locale"] --> D["validation<br/>des liens"]
+C --> E["artefacts blocklist<br/>runtime"]
+E --> D
+F["liens courts<br/>configurés"] --> D
+D --> G{"Validation<br/>réussie ?"}
+G -->|"oui"| H["Build et déploiement"]
+G -->|"non"| I["Corriger lien<br/>ou politique"]
 {{< /mermaid >}}
 
 {{% steps %}}

@@ -13,14 +13,14 @@ Le Worker vanityURLs bloque l'accès au tableau de bord privé et aux tests tant
 
 {{< mermaid >}}
 flowchart LR
-  A["Chemin privé"] --> B["Application<br/>Cloudflare Access"]
-  B --> C{"Identité<br/>autorisée ?"}
-  C -->|"non"| D["Connexion Access<br/>ou refus"]
-  C -->|"oui"| E["Assertion JWT"]
-  E --> F["Worker valide<br/>AUD et secret"]
-  F --> G{"JWT valide ?"}
-  G -->|"oui"| H["Servir tableau<br/>ou tests"]
-  G -->|"non"| I["Échec fermé avec<br/>réponse non configuré"]
+A["Chemin privé"] --> B["Application<br/>Cloudflare Access"]
+B --> C{"Identité<br/>autorisée ?"}
+C -->|"non"| D["Connexion Access<br/>ou refus"]
+C -->|"oui"| E["Assertion JWT"]
+E --> F["Worker valide<br/>AUD et secret"]
+F --> G{"JWT valide ?"}
+G -->|"oui"| H["Servir tableau<br/>ou tests"]
+G -->|"non"| I["Échec fermé avec<br/>réponse non configuré"]
 {{< /mermaid >}}
 
 [^access-not-configured]: Le Worker valide l'en-tête `Cf-Access-Jwt-Assertion` sur ces chemins; consultez [Stocker l'audience Access](#stocker-laudience-access) ci-dessous. Si le secret est absent ou invalide, le chemin protégé échoue fermé.

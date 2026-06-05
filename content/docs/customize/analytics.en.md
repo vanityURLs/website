@@ -14,20 +14,20 @@ For provider selection and privacy tradeoffs, read [Choosing privacy-friendly an
 
 {{< mermaid >}}
 flowchart LR
-  A["Request<br/>reaches<br/>Worker"] --> B{"Request type"}
-  B -->|"valid short link"| C["Redirect<br/>response"]
-  C --> D["redirect event"]
-  B -->|"valid local page"| E["Public page<br/>response"]
-  E --> F["pageview event"]
-  B -->|"unknown slug"| G["404 page"]
-  G --> H["short-link-miss<br/>event"]
-  B -->|"lookup"| I["Lookup response"]
-  I --> J["pageview event"]
-  D --> K["ctx.waitUntil<br/>analytics send"]
-  F --> K
-  H --> K
-  J --> K
-  K --> L["Umami or Fathom"]
+A["Request<br/>reaches<br/>Worker"] --> B{"Request type"}
+B -->|"valid short link"| C["Redirect<br/>response"]
+C --> D["redirect event"]
+B -->|"valid local page"| E["Public page<br/>response"]
+E --> F["pageview event"]
+B -->|"unknown slug"| G["404 page"]
+G --> H["short-link-miss<br/>event"]
+B -->|"lookup"| I["Lookup response"]
+I --> J["pageview event"]
+D --> K["ctx.waitUntil<br/>analytics send"]
+F --> K
+H --> K
+J --> K
+K --> L["Umami or Fathom"]
 {{< /mermaid >}}
 
 {{% steps %}}

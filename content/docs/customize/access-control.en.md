@@ -13,14 +13,14 @@ The vanityURLs Worker blocks access to the private dashboard and tests until Clo
 
 {{< mermaid >}}
 flowchart LR
-  A["Private path"] --> B["Cloudflare Access<br/>application"]
-  B --> C{"Allowed<br/>identity?"}
-  C -->|"no"| D["Access login<br/>or deny"]
-  C -->|"yes"| E["JWT assertion"]
-  E --> F["Worker validates<br/>AUD and secret"]
-  F --> G{"JWT valid?"}
-  G -->|"yes"| H["Serve dashboard<br/>or tests"]
-  G -->|"no"| I["Fail closed with<br/>not-configured response"]
+A["Private path"] --> B["Cloudflare Access<br/>application"]
+B --> C{"Allowed<br/>identity?"}
+C -->|"no"| D["Access login<br/>or deny"]
+C -->|"yes"| E["JWT assertion"]
+E --> F["Worker validates<br/>AUD and secret"]
+F --> G{"JWT valid?"}
+G -->|"yes"| H["Serve dashboard<br/>or tests"]
+G -->|"no"| I["Fail closed with<br/>not-configured response"]
 {{< /mermaid >}}
 
 [^access-not-configured]: The Worker validates the `Cf-Access-Jwt-Assertion` header on those paths; refer to [Store the Access audience](#store-the-access-audience) below. If the secret is missing or invalid, the protected path fails closed.

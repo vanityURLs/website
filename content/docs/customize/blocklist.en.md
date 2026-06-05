@@ -13,14 +13,14 @@ For the trust-and-safety rationale, read [Protecting the reputation of a short-l
 
 {{< mermaid >}}
 flowchart LR
-  A["defaults/<br/>source policy"] --> C["generate:blocklist"]
-  B["custom/<br/>local policy"] --> D["link validation"]
-  C --> E["runtime blocklist<br/>artifacts"]
-  E --> D
-  F["configured<br/>short links"] --> D
-  D --> G{"Validation<br/>passes?"}
-  G -->|"yes"| H["Build and deploy"]
-  G -->|"no"| I["Fix link<br/>or policy"]
+A["defaults/<br/>source policy"] --> C["generate:blocklist"]
+B["custom/<br/>local policy"] --> D["link validation"]
+C --> E["runtime blocklist<br/>artifacts"]
+E --> D
+F["configured<br/>short links"] --> D
+D --> G{"Validation<br/>passes?"}
+G -->|"yes"| H["Build and deploy"]
+G -->|"no"| I["Fix link<br/>or policy"]
 {{< /mermaid >}}
 
 {{% steps %}}

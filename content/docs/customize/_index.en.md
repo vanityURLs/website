@@ -15,9 +15,9 @@ The important rule is simple: edit `custom/`, not generated files in `build/`. P
 
 {{< mermaid >}}
 flowchart LR
-  A["defaults/<br/>Product baseline"] --> C["npm run build"]
-  B["custom/<br/>Instance choices"] --> C
-  C --> D["build/<br/>Generated output"]
-  D --> E["Worker assets<br/>and runtime JSON"]
-  E --> F["Cloudflare<br/>deployment"]
+A["defaults/<br/>Product baseline"] --> C["npm run build"]
+B["custom/<br/>Instance choices"] --> C
+C --> D["build/<br/>Generated output"]
+D --> E["Worker assets<br/>and runtime JSON"]
+E --> F["Cloudflare<br/>deployment"]
 {{< /mermaid >}}

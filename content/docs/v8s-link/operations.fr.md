@@ -14,8 +14,8 @@ Le dépôt source est [vanityURLs/v8s.link](https://github.com/vanityURLs/v8s.li
 
 L'anglais (`en`) est la langue principale et de fallback lorsqu'une page localisée n'est pas actuellement [supportée](/fr/docs/reference/i18n/) ou installée pendant le setup.
 
-| Chemin                                                                 | Ce que cela prouve                                                 |
-| ---------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Chemin                                                                         | Ce que cela prouve                                                 |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | [v8s.link](https://v8s.link)                                                   | Page d'accueil par défaut pour chercher ou ouvrir les liens courts |
 | [v8s.link/lookup/](https://v8s.link/lookup/)                                   | Consulter la destination d'un lien court sans l'ouvrir             |
 | [v8s.link/404.html](https://v8s.link/404.html)                                 | Page de lien manquant localisée                                    |

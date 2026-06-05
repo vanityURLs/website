@@ -15,9 +15,9 @@ La règle importante est simple : modifiez `custom/`, pas les fichiers génères
 
 {{< mermaid >}}
 flowchart LR
-  A["defaults/<br/>Base produit"] --> C["npm run build"]
-  B["custom/<br/>Choix de l'instance"] --> C
-  C --> D["build/<br/>Sortie générée"]
-  D --> E["Assets Worker<br/>et JSON runtime"]
-  E --> F["Déploiement<br/>Cloudflare"]
+A["defaults/<br/>Base produit"] --> C["npm run build"]
+B["custom/<br/>Choix de l'instance"] --> C
+C --> D["build/<br/>Sortie générée"]
+D --> E["Assets Worker<br/>et JSON runtime"]
+E --> F["Déploiement<br/>Cloudflare"]
 {{< /mermaid >}}

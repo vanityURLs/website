@@ -15,20 +15,20 @@ Pour le choix du fournisseur et les compromis de confidentialité, lisez [Choisi
 
 {{< mermaid >}}
 flowchart LR
-  A["Requête<br/>atteint<br/>le Worker"] --> B{"Type de requête"}
-  B -->|"lien court valide"| C["Réponse de<br/>redirection"]
-  C --> D["Événement<br/>redirect"]
-  B -->|"page locale valide"| E["Réponse page<br/>publique"]
-  E --> F["Événement<br/>pageview"]
-  B -->|"slug manquant"| G["Page 404"]
-  G --> H["Événement<br/>short-link-miss"]
-  B -->|"consultation"| I["Réponse consultation"]
-  I --> J["Événement<br/>pageview"]
-  D --> K["Envoi analytics<br/>ctx.waitUntil"]
-  F --> K
-  H --> K
-  J --> K
-  K --> L["Umami ou Fathom"]
+A["Requête<br/>atteint<br/>le Worker"] --> B{"Type de requête"}
+B -->|"lien court valide"| C["Réponse de<br/>redirection"]
+C --> D["Événement<br/>redirect"]
+B -->|"page locale valide"| E["Réponse page<br/>publique"]
+E --> F["Événement<br/>pageview"]
+B -->|"slug manquant"| G["Page 404"]
+G --> H["Événement<br/>short-link-miss"]
+B -->|"consultation"| I["Réponse consultation"]
+I --> J["Événement<br/>pageview"]
+D --> K["Envoi analytics<br/>ctx.waitUntil"]
+F --> K
+H --> K
+J --> K
+K --> L["Umami ou Fathom"]
 {{< /mermaid >}}
 
 {{% steps %}}

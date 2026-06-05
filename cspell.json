@@ -3,6 +3,7 @@
   "version": "0.2",
   "language": "en",
   "ignorePaths": [
+    "CHANGELOG.md",
     "content/**/*.fr.md",
     "brand-content/**/*.fr.md",
     "data/**/*.fr.yml",
