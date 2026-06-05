@@ -23,4 +23,4 @@ Le site web est un site de documentation Hugo déployé avec Workers Static Asse
 | Analytics Umami côté serveur et dépannage                                                | [Analytics du site](./analytics/)                   |
 | Notes de release, versions et attentes release-please                                    | [Releases](./releases/)                             |
 
-L'application de redirecteur vit dans le dépôt [vanityURLs/code](https://github.com/vanityURLs/code). Utilisez les sections principales [Setup](/fr/docs/setup/), [Personnalisation](/fr/docs/customize/) et [Référence](/fr/docs/reference/) lorsque vous opérez une instance vanityURLs.
+L'application de redirecteur vit dans le dépôt [vanityURLs/code](https://github.com/vanityURLs/code). Utilisez les sections principales du site principal [Setup](https://www.vanityurls.link/fr/docs/setup/), [Personnalisation](https://www.vanityurls.link/fr/docs/customize/) et [Référence](https://www.vanityurls.link/fr/docs/reference/) lorsque vous opérez une instance vanityURLs.

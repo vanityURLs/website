@@ -22,4 +22,4 @@ The web site is a Hugo documentation site deployed through Workers Static Assets
 | Server-side Umami analytics and troubleshooting                                       | [Website analytics](./analytics/)               |
 | Release notes, versioning, and release-please expectations                            | [Releases](./releases/)                         |
 
-The redirector application lives in the [vanityURLs/code](https://github.com/vanityURLs/code) repository. Use the main [Setup](/docs/setup/), [Customize](/docs/customize/), and [Reference](/docs/reference/) sections when you are operating a vanityURLs instance.
+The redirector application lives in the [vanityURLs/code](https://github.com/vanityURLs/code) repository. Use the main site [Setup](https://www.vanityurls.link/docs/setup/), [Customize](https://www.vanityurls.link/docs/customize/), and [Reference](https://www.vanityurls.link/docs/reference/) sections when you are operating a vanityURLs instance.

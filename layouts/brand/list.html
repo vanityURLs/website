@@ -20,7 +20,7 @@
       </nav>
 
       <article class="content-flow docs-flow prose dark:prose-invert prose-headings:scroll-mt-24 max-w-none" data-pagefind-body>
-        <h1>{{ .Title }}</h1>
+        <h1>{{ default .Title .Params.heading }}</h1>
         {{ with .Description }}<p class="lead">{{ . }}</p>{{ end }}
         {{ .Content }}
       </article>

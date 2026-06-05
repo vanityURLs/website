@@ -1,5 +1,6 @@
 ---
 title: "Resources"
+heading: "Overview"
 description: "Downloadable brand assets, social media files, wallpapers, and background resources."
 type: brand
 weight: 30
@@ -7,12 +8,4 @@ aliases:
   - /assets/
 ---
 
-Use this section to find downloadable files and track missing resource exports.
-
-## Resource groups
-
-| Group                      | Contents                                                  |
-| -------------------------- | --------------------------------------------------------- |
-| Brand & assets             | Logos, badges, icons, and packaged brand files            |
-| Social media               | Open Graph images, avatars, banners, and post templates   |
-| Wallpapers and backgrounds | Desktop, mobile, presentation, and video-call backgrounds |
+Use this section to find downloadable assets.
