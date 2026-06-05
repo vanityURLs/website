@@ -11,6 +11,17 @@ weight: 10
 - Associez les accents de marque aux gris neutres, au blanc et aux surfaces encre foncee afin que les pages ne deviennent pas des compositions uniquement teal.
 - Testez les combinaisons de couleurs selon les exigences de contraste WCAG avant publication.
 
+La palette vanityURLs suit la meme intention que la [fondation couleur de Red Hat](https://ux.redhat.com/foundations/color/) : la couleur sert l'expression de marque, la hierarchie, les etats et l'accessibilite. Traitez la palette comme un ensemble de decisions nommees, pas comme une reserve decorative interchangeable.
+
+## Principes d'usage
+
+- Utilisez des noms semantiques dans l'implementation lorsqu'une couleur decrit un role : texte, surface, bordure, lien, selection, succes, avertissement, danger et desactive.
+- Utilisez les valeurs de palette fixes seulement au niveau des tokens ou dans les notes de production d'assets.
+- Evitez le noir pur dans les grandes surfaces d'interface. Utilisez le token encre pour le texte sombre et les panneaux sombres.
+- Reservez les teals plus lumineux aux accents, illustrations, anneaux de focus, details hover et etats actifs.
+- N'utilisez pas le teal de marque pour les erreurs, dangers ou etats d'abus. Ces etats ont besoin de couleurs semantiques propres.
+- Verifiez les combinaisons en themes clair et sombre avant publication, surtout les badges, liens, anneaux de focus et graphiques.
+
 ## Palette principale
 
 <table class="brand-color-table">
@@ -64,6 +75,27 @@ weight: 10
     </tr>
   </tbody>
 </table>
+
+## Correspondance semantique
+
+| Role             | Token prefere                                  | Recommandation                                                                                               |
+| ---------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Canvas de page   | Papier                                         | Utilisez pour les surfaces de lecture normales et les pages publiques generees.                              |
+| Texte principal  | Encre                                          | Utilisez pour les titres, le texte courant, les libelles et les valeurs importantes.                         |
+| Texte secondaire | Texte discret                                  | Utilisez pour l'aide, les metadonnees et les descriptions de tableau.                                        |
+| Bordures         | Ligne                                          | Utilisez pour les separateurs, bordures de tableau, contours de carte et regles discretes.                   |
+| Liens            | Teal vanityURLs                                | Utilisez pour les liens inline et la navigation selectionnee. Gardez un souligne ou un autre indice visible. |
+| Focus            | Teal vanityURLs ou anneau semantique contraste | Rendez le focus visible sur la surface voisine.                                                              |
+| Surfaces sombres | Surface sombre avec texte Papier               | Utilisez avec retenue pour panneaux proches du code, apercus de badge et moments de marque contrastes.       |
+
+## Couleurs de statut
+
+Les couleurs de statut doivent communiquer le sens avant la marque. Un lien bloque, une redirection expiree, un avertissement d'abus, un etat de maintenance ou une note de securite doivent rester comprehensibles meme si la couleur est ignoree.
+
+- Associez chaque couleur de statut a du texte, une icone ou un libelle clair.
+- Gardez succes, avertissement, danger et information visuellement distincts du teal de marque.
+- Utilisez des bordures ou fonds discrets pour les avis de faible severite; renforcez le traitement seulement lorsque l'etat change la prochaine action.
+- Testez les couleurs de statut dans les deux themes et pres des liens.
 
 ## Echelle Tailwind
 

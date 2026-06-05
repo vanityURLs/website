@@ -11,6 +11,17 @@ weight: 10
 - Pair brand accents with neutral gray, white, and dark ink surfaces so pages do not become one-note teal compositions.
 - Test color combinations against WCAG contrast requirements before publishing.
 
+The vanityURLs palette follows the same intent as the [Red Hat color foundation](https://ux.redhat.com/foundations/color/): color is a practical system for brand expression, hierarchy, state, and accessibility. Treat the palette as a set of named decisions, not a drawer of interchangeable decoration.
+
+## Usage principles
+
+- Use semantic names in implementation when a color describes purpose: text, surface, border, link, selected, success, warning, danger, and disabled.
+- Use hard-coded palette values only at the token layer or in one-off asset production notes.
+- Keep pure black out of large UI surfaces. Use the ink token for dark text and dark panels so contrast stays strong without harsh visual vibration.
+- Reserve the brighter teal steps for accents, illustrations, focus rings, hover details, and active states.
+- Do not use brand teal for error, danger, or abuse states. Those states need their own semantic colors.
+- Check light and dark theme combinations before publishing, especially badges, link text, focus rings, and charts.
+
 ## Core palette
 
 <table class="brand-color-table">
@@ -64,6 +75,27 @@ weight: 10
     </tr>
   </tbody>
 </table>
+
+## Semantic mapping
+
+| Role           | Preferred token                                | Guidance                                                                                        |
+| -------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Page canvas    | Paper                                          | Use for normal reading surfaces and generated public pages.                                     |
+| Primary text   | Ink                                            | Use for headings, body copy, labels, and high-emphasis values.                                  |
+| Secondary text | Muted text                                     | Use for helper copy, metadata, and table descriptions.                                          |
+| Borders        | Line                                           | Use for separators, table borders, card edges, and subdued rules.                               |
+| Links          | vanityURLs teal                                | Use for inline links and selected navigation. Preserve underline or another visible affordance. |
+| Focus          | vanityURLs teal or high-contrast semantic ring | Make focus visible against the surrounding surface.                                             |
+| Dark surfaces  | Dark surface plus Paper text                   | Use sparingly for code-adjacent panels, badge previews, and high-contrast brand moments.        |
+
+## Status colors
+
+Status colors should communicate meaning before brand. A blocked link, expired redirect, abuse warning, maintenance state, or security notice must remain understandable if the visitor ignores color entirely.
+
+- Pair every status color with text, iconography, or a clear label.
+- Keep success, warning, danger, and informational states visually distinct from brand teal.
+- Use muted borders or backgrounds for low-severity notices; use stronger treatment only when the state changes what the visitor should do next.
+- Test status colors in both themes and against adjacent links.
 
 ## Tailwind scale
 
