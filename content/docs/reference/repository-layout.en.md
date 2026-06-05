@@ -49,7 +49,7 @@ The public [v8s.link repository](https://github.com/vanityURLs/v8s.link) follows
 {{< /filetree/folder >}}
 {{< filetree/file name="lnk" annotation="CLI for links, schedules, and policy workflows" >}}
 {{< filetree/file name="build.mjs" annotation="build defaults plus custom into deploy output" >}}
-{{< filetree/file name="install.mjs" annotation="npm run setup" >}}
+{{< filetree/file name="setup.mjs" annotation="npm run setup" >}}
 {{< filetree/file name="upgrade.mjs" annotation="npm run upgrade" >}}
 {{< filetree/file name="local-install.mjs" annotation="local helper setup" >}}
 {{< filetree/file name="v8s.sh" annotation="read-only local helper" >}}
