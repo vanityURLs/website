@@ -31,7 +31,7 @@ Les ADR n'ont pas de standard canonique unique. vanityURLs suit la convention pr
 
 La décision appartient la ou l'implementation change.
 
-Si un commit modifie `scripts/install.mjs`, `defaults/v8s-site-config.json` et une règle de schéma, l'ADR peut voyager avec ce commit. Les reviewers voient le code et la raison ensemble.
+Si un commit modifie `scripts/setup.mjs`, `defaults/v8s-site-config.json` et une règle de schéma, l'ADR peut voyager avec ce commit. Les reviewers voient le code et la raison ensemble.
 
 Cela garde le site public plus court. Le site peut dire quoi faire. L'ADR peut conserver pourquoi le produit fonctionne ainsi.
 

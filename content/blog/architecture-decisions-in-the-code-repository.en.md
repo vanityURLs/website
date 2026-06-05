@@ -31,7 +31,7 @@ ADRs have no single canonical standard. vanityURLs follows the practical convent
 
 The decision belongs where the implementation changes.
 
-If a commit modifies `scripts/install.mjs`, `defaults/v8s-site-config.json`, and a schema rule, the ADR can travel with that commit. Reviewers see the code and the reason together.
+If a commit modifies `scripts/setup.mjs`, `defaults/v8s-site-config.json`, and a schema rule, the ADR can travel with that commit. Reviewers see the code and the reason together.
 
 That keeps the public website shorter. The website can say what to do. The ADR can preserve why the product behaves that way.
 
