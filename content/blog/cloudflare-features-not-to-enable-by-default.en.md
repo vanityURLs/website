@@ -19,7 +19,7 @@ Do not configure legacy Page Rules, Bulk Redirects, redirect templates, or zone-
 
 vanityURLs already has a [link registry](/docs/reference/glossary/#link-registry), generated runtime data, lifecycle states, schedules, splats, lookup pages, and Worker-side analytics. Another redirect surface turns troubleshooting into archaeology.
 
-Use a second redirect system only when it has a documented boundary. For example: a one-time migration rule, a hostname outside the vanityURLs Worker, or a static list that is intentionally not part of the repository-managed registry.
+Use a second redirect system only when it has a documented boundary. For example: a one-time migration rule, a `www` to apex hostname redirect before the Worker, a hostname outside the vanityURLs Worker, or a static list that is intentionally not part of the repository-managed registry.
 
 ## Keep The Browser Out Of Analytics
 

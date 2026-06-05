@@ -436,9 +436,9 @@
       "Records": {
         "Recommendations": [
           {
-            "message": "Add an A, AAAA, or CNAME record for www and optionally create a redirect rule to send visitors to v8s.link.",
+            "message": "Add an A, AAAA, or CNAME record for www and create a Cloudflare redirect rule or forwarding Page Rule to send visitors to v8s.link.",
             "label": "New Alert",
-            "website_documentation": "Document the www decision as optional. The apex Worker record is the required redirector path."
+            "website_documentation": "Document the recommended canonical-host pattern: apex is the only Worker hostname; www is a proxied DNS record redirected to the apex before the Worker."
           }
         ],
         "DNS management": {
@@ -1576,7 +1576,7 @@
           "Compression Rules",
           "End user"
         ],
-        "website_documentation": "Do not document legacy Page Rules as the preferred setup path; use modern Rules or Worker behavior instead."
+        "website_documentation": "Do not document legacy Page Rules as the preferred link-management path; use modern Redirect Rules for hostname canonicalization when available, and use the Worker registry for vanityURLs links."
       },
       "Settings": {
         "Managed Transforms": {
@@ -1702,6 +1702,7 @@
       "Keep Cloudflare Managed robots.txt off when the vanityURLs repository ships robots.txt.",
       "Confirm /robots.txt returns 200 OK after deployment.",
       "Use the proxied Worker DNS record for the apex short domain.",
+      "Redirect www to the apex in Cloudflare before the Worker so Worker, WAF, and rate-limit rules can stay scoped to one hostname.",
       "Keep mail policy DNS records DNS-only.",
       "Use DNSSEC when the registrar delegation is configured correctly.",
       "Use Full strict SSL/TLS mode, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites and a minimum TLS version of 1.2 or stricter for production.",
@@ -1738,7 +1739,7 @@
       "Cloudflare RUM, Origin Analytics, Smart Shield, Speed Brain, Polish, Argo, Zaraz and synthetic test scores as default requirements.",
       "Cache Analytics, Cache Reserve, Crawler Hints, Always Online, Query String Sort, Tiered Cache and captured cache usage as default requirements.",
       "Zone-level Workers Routes as a default requirement when the Worker custom domain is active.",
-      "Rules templates, Snippets, Cloud Connector, legacy Page Rules, Bulk Redirects and Cloudflare Custom Errors as default requirements.",
+      "Rules templates, Snippets, Cloud Connector, legacy Page Rules beyond simple hostname canonicalization, Bulk Redirects and Cloudflare Custom Errors as default requirements.",
       "True-Client-IP and visitor IP/location managed transforms as default requirements.",
       "Cloudflare dashboard HSTS, Security.txt, Email Address Obfuscation, Replace insecure JavaScript libraries, managed robots.txt and Add security headers transforms as default requirements when the repository owns those files and headers.",
       "Per-crawler activity counts from an idle zone.",

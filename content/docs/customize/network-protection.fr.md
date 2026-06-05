@@ -36,7 +36,23 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **DNS** > **Reco
 
 Supprimez les anciens records synthetiques `AAAA 100::` pour le même hostname une fois le Custom Domain actif. Gardez les records mail, DKIM, DMARC, MTA-STS et verification de propriété en DNS-only sauf si le fournisseur exige explicitement le proxy.
 
-Utilisez des records proxifies séparés seulement pour de vrais sous-domaines web, comme `mta-sts`, `www` ou un site de documentation.
+Utilisez le hostname apex comme seul hostname Worker vanityURLs. Si vous publiez `www`, créez un record DNS proxifie pour `www` et redirigez-le vers l'apex dans Cloudflare avant le Worker. Utilisez des records proxifies séparés seulement pour de vrais sous-domaines web, comme `mta-sts` ou un site de documentation.
+
+### Rediriger www vers l'apex
+
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Rules**. Préférez **Redirect Rules** lorsque disponible. Si votre zone utilise déjà les **Page Rules** legacy, une seule règle forwarding URL convient aussi pour cette canonicalisation de hostname parce qu'elle s'exécute avant le Worker et reste hors du registre de liens vanityURLs.
+
+Configurez la redirection avec ces valeurs :
+
+| Champ       | Valeur                      |
+| ----------- | --------------------------- |
+| Nom         | `Redirect www to apex`      |
+| Source      | `www.v8s.link/*`            |
+| Destination | `https://v8s.link/$1`       |
+| Statut      | `301 - Permanent Redirect`  |
+| Ordre       | Avant Worker/WAF evaluation |
+
+Gardez le record DNS `www` proxifie pour que Cloudflare recoive la requête et applique la redirection. N'ajoutez pas `www` au domaine custom du Worker ni aux expressions WAF/rate-limit ci-dessous sauf si vous servez volontairement le Worker sur les deux hostnames.
 
 ### Etablir la base HTTPS
 
@@ -125,7 +141,7 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Security** > *
 
 Les règles de sécurité Cloudflare s'executent avant le Worker. Utilisez-les pour le trafic qui ne devrait jamais atteindre le code applicatif.
 
-Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname apex. Si `www.v8s.link` passe aussi par Cloudflare avant sa redirection, incluez-le aussi, par exemple `http.host in {"v8s.link" "www.v8s.link"}`. Un CNAME DNS alias un hostname; il ne crée pas une redirection HTTP par lui-même.
+Les expressions ci-dessous utilisent `v8s.link` et ciblent volontairement seulement le hostname apex. Redirigez `www.v8s.link` vers l'apex avant le Worker au lieu d'ajouter `www` à chaque règle Worker, WAF et rate-limit. Un CNAME DNS alias un hostname; il ne crée pas une redirection HTTP par lui-même.
 
 Pour la règle de rate limiting du plan gratuit, utilisez **Rate limit short-link candidates** comme nom de règle, **IP** comme caractéristique, **20 requêtes** par **10 secondes**, **Block** comme action, **10 secondes** comme durée, et **First** comme ordre. L'expression exclut la page `/lookup` mais pas `/lookup/resolve`, donc la résolution lookup reste couverte par l'unique règle de rate limiting disponible.
 

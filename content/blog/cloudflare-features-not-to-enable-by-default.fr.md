@@ -19,7 +19,7 @@ Ne configurez pas les Page Rules legacy, Bulk Redirects, modèles de redirection
 
 vanityURLs a dejà un [registre de liens](/fr/docs/reference/glossary/#link-registry), des données runtime générées, des états de cycle de vie, des horaires, des splats, des pages de consultation et des analytics côté Worker. Une autre surface de redirection transforme le diagnostic en archeologie.
 
-Utilisez un deuxieme système de redirection seulement lorsqu'il à une limite documentee. Par exemple : une règle de migration temporaire, un hostname hors du Worker vanityURLs ou une liste statique volontairement séparée du registre gere dans le dépôt.
+Utilisez un deuxieme système de redirection seulement lorsqu'il à une limite documentee. Par exemple : une règle de migration temporaire, une redirection de hostname `www` vers apex avant le Worker, un hostname hors du Worker vanityURLs ou une liste statique volontairement séparée du registre gere dans le dépôt.
 
 ## Garder Le Navigateur Hors Des Analytics
 
