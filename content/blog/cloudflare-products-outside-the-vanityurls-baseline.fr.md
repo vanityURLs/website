@@ -9,7 +9,7 @@ featured: false
 
 Cloudflare a plus de produits utiles qu'un redirecteur de liens courts devrait en utiliser.
 
-Ce n'est pas une critique de Cloudflare. C'est une limite opérationnelle. vanityURLs utilise [Cloudflare DNS](https://www.cloudflare.com/products/dns/), [Cloudflare Workers](https://www.cloudflare.com/products/workers/), [Cloudflare Access](https://www.cloudflare.com/products/access/), SSL/TLS et certaines protections edge. La liste baseline vit dans [Produits Cloudflare](/fr/docs/reference/cloudflare-products/). Le setup detaille vit dans [Protection réseau](/fr/docs/customize/network-protection/).
+Ce n'est pas une critique de Cloudflare. C'est une limite opérationnelle. vanityURLs utilise [Cloudflare DNS](https://www.cloudflare.com/products/dns/), [Cloudflare Workers](https://www.cloudflare.com/products/workers/), [Cloudflare Access](https://www.cloudflare.com/products/access/), [Cloudflare Turnstile](https://www.cloudflare.com/application-services/products/turnstile/) pour le lookup public, SSL/TLS et certaines protections edge. La liste baseline vit dans [Produits Cloudflare](/fr/docs/reference/cloudflare-products/). Le setup detaille vit dans [Protection réseau](/fr/docs/customize/network-protection/).
 
 Cette page documente l'autre côté de la décision : des produits visibles, utiles dans le bon déploiement, mais hors du setup vanityURLs par défaut.
 
@@ -21,6 +21,7 @@ Un produit Cloudflare appartient au baseline seulement s'il protège ou sert une
 - le runtime Worker
 - les pages opérationnelles protégées comme `/en/_stats/`, les autres chemins stats localisés et `/_tests`
 - les contrôles edge qui rejettent le trafic avant le Worker
+- la verification visiteur pour la résolution lookup publique
 
 Le reste exige une raison locale précise.
 
@@ -31,10 +32,9 @@ Le reste exige une raison locale précise.
 | [Cloudflare Web Analytics](/fr/docs/reference/cloudflare-products/) et [Real User Monitoring](/fr/docs/customize/network-protection/) | Ils ajoutent de la telémetrie navigateur. vanityURLs utilise des événements côté serveur depuis le Worker lorsque les analytics sont activées.                          |
 | [Bulk Redirects](https://developers.cloudflare.com/web-analytics/)                                                                    | Ils creent un deuxieme système de redirection a côté du registre de liens gere dans Git et du resolver Worker.                                                          |
 | [Cache Rules](https://developers.cloudflare.com/speed/observatory/rum/) et Cache Response Rules                                       | Ils peuvent conserver des décisions de redirection, des états de cycle de vie ou des trous analytics perimes. Les ressources statiques ont déjà leurs propres en-têtes. |
-| [Cloudflare Turnstile](https://developers.cloudflare.com/rules/url-forwarding/bulk-redirects/)                                        | Il protège les formulaires et les flux interactifs. Le redirecteur standard n'a pas de formulaire public, login visiteur, checkout ou zone de commentaires.             |
 | [Workers Analytics](https://developers.cloudflare.com/cache/how-to/cache-rules/)                                                      | C'est une surface d'observabilite, pas une etape de setup. Utilisez-la après déploiement pour la sante Worker, pas pour les événements applicatifs.                     |
 
-Dans la capture du tableau de bord du 2026-05-29, ces exclusions sont aussi suivies dans [`data/cloudflare-protection-defaults.json`](https://www.cloudflare.com/application-services/products/turnstile/). `Last verified: 2026-05-29`
+Dans la capture du tableau de bord du 2026-05-29, ces exclusions sont aussi suivies dans [`data/cloudflare-protection-defaults.json`](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json). `Last verified: 2026-05-29`
 
 ## Le Compromis
 

@@ -40,7 +40,7 @@ La forme souhaitee :
 
 La documentation Cloudflare et la documentation d'instance ont des travaux différents.
 
-Cloudflare doit documenter ce que chaque produit peut faire. vanityURLs doit documenter la posture etroite qui convient à un redirecteur : Workers, DNS, SSL/TLS, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/), [WAF](https://developers.cloudflare.com/waf/), contrôles de crawlers IA, cache, normalisation d'URL et les endroits ou réviser le trafic bloque.
+Cloudflare doit documenter ce que chaque produit peut faire. vanityURLs doit documenter la posture etroite qui convient à un redirecteur : Workers, DNS, SSL/TLS, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/), [WAF](https://developers.cloudflare.com/waf/), [Turnstile](https://developers.cloudflare.com/turnstile/), contrôles de crawlers IA, cache, normalisation d'URL et les endroits ou réviser le trafic bloque.
 
 Ce ne sont pas les mêmes choses.
 
@@ -75,6 +75,7 @@ Au 2026-05-29, voici les sources Cloudflare a surveiller pour vanityURLs :
 | UI DNS, DNSSEC, enregistrements proxifies et routage de domaine                      | - [DNS](https://developers.cloudflare.com/dns/changelog/)                                                                                                                          |
 | SSL/TLS, certificats, contrôles proches de HSTS et comportement des certificats edge | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/)                                                                                                                      |
 | Access, navigation Zero Trust et comportement des politiques                         | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
+| Comportement des widgets Turnstile, validation des tokens et navigation du dashboard | - [Turnstile changelog](https://developers.cloudflare.com/changelog/?product=turnstile)<br>- [Turnstile docs](https://developers.cloudflare.com/turnstile/)                        |
 
 Ces flux ne répondent pas aux mêmes questions.
 

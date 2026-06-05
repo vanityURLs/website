@@ -15,13 +15,14 @@ Pour le raisonnement de design, lisez [Sécurité runtime pour un petit redirect
 
 Le Worker garde un chemin runtime etroit :
 
-- seules les requêtes publiques `GET`, `HEAD`, et `OPTIONS` silencieuses sont acceptees, plus `POST /lookup/resolve` pour la resolution lookup et le beacon dedie `POST /_analytics/lookup`
+- seules les requêtes publiques `GET`, `HEAD`, et `OPTIONS` silencieuses sont acceptees, plus `POST /lookup/resolve` protégé par Turnstile pour la resolution lookup et le beacon dedie `POST /_analytics/lookup`
 - l'accès direct a `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` retourne 404
 - les redirections acceptent seulement les cibles `http:` et `https:`
 - les cibles avec identifiants, hostname manquant, caracteres de contrôle, ou protocoles non supportes échouent ferme
 - les valeurs splat sont encodees segment par segment avant insertion
 - les états de cycle de vie passent par des règles de routage explicites
 - les chemins opérationnels protégés verifient les JWT Cloudflare Access et échouent ferme si Access n'est pas configure
+- la résolution lookup publique verifie les tokens [Cloudflare Turnstile](/fr/docs/customize/network-protection/#configurer-turnstile-pour-lookup) et échoue ferme si le secret Turnstile n'est pas configure
 - les probes scanner retournent un 404 simple no-store avant lookup ou analytics
 - les analytics sont envoyés avec `ctx.waitUntil()` pour qu'une panne fournisseur ne ralentisse pas les redirections
 
@@ -40,7 +41,7 @@ Les protections runtime par défaut incluent :
 Pour chaque requête, le Worker suit un chemin volontairement etroit :
 
 1. refuse les assets runtime bruts et les probes de scanners
-2. accepte seulement `GET`, `HEAD`, et `OPTIONS` pour les routes publiques, plus `POST /lookup/resolve` et `POST /_analytics/lookup`
+2. accepte seulement `GET`, `HEAD`, et `OPTIONS` pour les routes publiques, plus `POST /lookup/resolve` protégé par Turnstile et `POST /_analytics/lookup`
 3. normalise le chemin entrant
 4. cherche un lien exact
 5. cherche un lien splat si aucun exact ne correspond

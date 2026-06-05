@@ -17,7 +17,7 @@ Le Worker ne devrait pas être le premier endroit ou ce bruit devient couteux. v
 
 Le Worker valide toujours les destinations et la politique runtime. C'est la dernière ligne de defense, pas la première.
 
-Utilisez les règles WAF Cloudflare, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules et Access lorsque cela correspond à la couche. L'abus courant devrait s'arrétér avant le code applicatif.
+Utilisez les règles WAF Cloudflare, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules, Turnstile et Access lorsque cela correspond à la couche. L'abus courant devrait s'arrétér avant le code applicatif.
 
 Cette séparation garde les preuves propres :
 
@@ -26,6 +26,8 @@ Cette séparation garde les preuves propres :
 - Umami ou Fathom montre les événements applicatifs émis après le filtrage vanityURLs
 
 Si une requête est bloquee à l'edge, elle ne devrait pas ressembler a du comportement produit ni consommer le quota du fournisseur analytics.
+
+Turnstile correspond à la couche lookup publique, pas au chemin de redirection. Utilisez-le pour `/lookup` et `POST /lookup/resolve` afin que les visiteurs puissent prévisualiser une destination exacte, tandis que les redirections `/{slug}` restent rapides et sans challenge. Le raisonnement propre à lookup est dans [Protéger le lookup public sans challenger les redirections](/fr/blog/protecting-public-lookup-with-turnstile/).
 
 ## Rendre La Politique Crawler Applicable
 
@@ -45,7 +47,7 @@ Pour la plupart des instances, le défaut sur est simple : laissez le Worker dec
 
 ## Utiliser Le Bon Tableau De Bord
 
-Cloudflare analytics et Security Events répondent aux questions d'infrastructure : DNS, TLS, WAF, rate limiting, bots, blocages crawler IA, connexions Access, CPU Worker et erreurs Worker.
+Cloudflare analytics et Security Events répondent aux questions d'infrastructure : DNS, TLS, WAF, rate limiting, bots, blocages crawler IA, résultats Turnstile, connexions Access, CPU Worker et erreurs Worker.
 
 Les analytics vanityURLs répondent aux questions applicatives : redirections, misses, consultations, pageviews et événements bot normalises qui ont atteint le Worker.
 

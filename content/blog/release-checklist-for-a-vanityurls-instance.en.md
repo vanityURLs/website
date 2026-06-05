@@ -36,6 +36,7 @@ CI should run `npm run check` before deployment. Use grouped commands for focuse
 - Confirm the custom domain points to the Worker
 - Disable public `workers.dev` and preview URLs if they are not part of the service
 - Protect `*/_stats`, `*/_stats/*`, `/_tests`, and `/_tests/*` with [Access control](/docs/customize/access-control/)
+- Configure [Turnstile for public lookup](/blog/protecting-public-lookup-with-turnstile/), including `V8S_TURNSTILE_SITE_KEY` and the `V8S_TURNSTILE_SECRET_KEY` Worker secret, before relying on public lookup
 - Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS` on public routes, plus `POST /lookup/resolve` and `POST /_analytics/lookup`
 - Confirm raw runtime files return 404: `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json`
 - Confirm response headers include `X-Generated-By: vanityURLs.link` unless intentionally overridden
@@ -46,7 +47,7 @@ Cloudflare settings are split across three areas:
 
 - **Zero Trust**: Access applications, policies, identity providers, and settings
 - **Workers & Pages**: deployment, assets binding, variables, observability, custom domains, and build settings
-- **Domain configuration**: AI Crawl Control, Analytics, Caching, DNS, Network, Rules, Security, SSL/TLS, and WAF
+- **Domain configuration**: AI Crawl Control, Analytics, Caching, DNS, Network, Rules, Security, SSL/TLS, Turnstile, and WAF
 
 Use [Access control](/docs/customize/access-control/) for private operational paths, [Network protection](/docs/customize/network-protection/) for domain settings, and [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/) for Worker naming and `wrangler.toml` guidance.
 

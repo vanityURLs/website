@@ -24,7 +24,7 @@ At build time, v8s generates a schema `3.0` registry from the link file, schedul
 The Worker does very little by design:
 
 1. reject private implementation assets and known scanner probes
-2. accept only `GET`, `HEAD`, and `OPTIONS`, plus the public lookup `POST` endpoints
+2. accept only `GET`, `HEAD`, and `OPTIONS`, plus the Turnstile-protected public lookup `POST` endpoints
 3. resolve exact links before splat links
 4. apply schedules and lifecycle states
 5. emit non-blocking server-side analytics when enabled
@@ -37,6 +37,7 @@ This is the security posture. Simplicity is not decoration; it is part of the th
 The Worker is only one layer. A production instance should also use Cloudflare's domain security tools:
 
 - [Zero Trust Access](/docs/customize/access-control/) for localized stats paths such as `/en/_stats/` and for `/_tests`
+- [Cloudflare Turnstile](/blog/protecting-public-lookup-with-turnstile/) for public lookup resolution
 - WAF rules for scanner probes and unexpected methods
 - rate limiting for short-link candidates
 - bot controls and AI crawler controls

@@ -53,6 +53,10 @@ vanityURLs is a URL shortener that runs on Cloudflare's edge network with your _
       <td>Rate limiting for abuse patterns that should not spend Worker resources</td>
     </tr>
     <tr>
+      <td><a href="https://www.cloudflare.com/application-services/products/turnstile/">Cloudflare Turnstile</a></td>
+      <td>Browser verification token for public lookup resolution. The Worker validates tokens with server-side `siteverify`; redirects remain outside Turnstile.</td>
+    </tr>
+    <tr>
       <td><a href="https://www.cloudflare.com/ddos/">Distributed Denial-of-Service (DDoS) Protection</a></td>
       <td>Always-on network protection</td>
     </tr>
@@ -76,3 +80,5 @@ vanityURLs is a URL shortener that runs on Cloudflare's edge network with your _
 </table>
 
 Cloudflare is an evergreen SaaS platform: features, APIs, dashboard labels, and navigation can change continuously without major version numbers. To keep the documentation aligned with that moving surface, vanityURLs maintains a structured [Cloudflare dashboard capture](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json) in JSON. The capture helps maintainers compare UI changes over time and update the documentation deliberately. For the maintenance rationale, see [ADR 0012](https://github.com/vanityURLs/code/blob/main/docs/adr/0012-maintain-cloudflare-dashboard-capture.md) and [The JSON audit ledger behind the Cloudflare setup docs](/blog/json-audit-ledger-for-cloudflare-docs/).
+
+Turnstile setup lives in [Network protection](/docs/customize/network-protection/#configure-turnstile-for-lookup). The lookup-specific design rationale lives in [Protect public lookup without challenging redirects](/blog/protecting-public-lookup-with-turnstile/).

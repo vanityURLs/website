@@ -18,6 +18,7 @@
     "baseline_protection_surfaces": [
       "Cloudflare WAF",
       "Cloudflare Rate Limiting",
+      "Cloudflare Turnstile",
       "Cloudflare DDoS Protection",
       "Cloudflare Bot Management",
       "Cloudflare AI Crawl Control",
@@ -28,7 +29,6 @@
       "Cloudflare Web Analytics / RUM",
       "Cloudflare Bulk Redirects",
       "Cloudflare Cache Rules",
-      "Cloudflare Turnstile",
       "Cloudflare Workers Analytics"
     ],
     "reference_only_blog": "/blog/cloudflare-products-outside-the-vanityurls-baseline/",
@@ -1097,6 +1097,85 @@
         ]
       }
     },
+    "Turnstile": {
+      "Widgets": {
+        "dashboard_path": "Protect & Connect > Application security > Turnstile",
+        "captured_at": "2026-06-05",
+        "empty_state": {
+          "title": "Turnstile widgets",
+          "description": "Turnstile can be embedded into any website without sending traffic through Cloudflare and works without showing visitors a CAPTCHA",
+          "primary_action": "Add widget",
+          "secondary_action": "Video guide",
+          "get_started_card": "Add a site to get started with Turnstile"
+        },
+        "Add Widget": {
+          "fields": [
+            {
+              "name": "Widget name",
+              "recommendation": "Use a recognizable instance and surface name, such as v8s-lookup-protection."
+            },
+            {
+              "name": "Hostname Management",
+              "captured_limit": "0 out of 10 available hostnames configured",
+              "recommendation": "Add only the apex vanityURLs hostname, such as v8s.link. Keep www redirected to the apex before the Worker instead of adding it as a second widget hostname."
+            },
+            {
+              "name": "Widget Mode",
+              "options": [
+                {
+                  "name": "Managed",
+                  "captured_state": "selected",
+                  "recommendation": "Baseline recommendation for lookup. Cloudflare decides whether a visitor sees a non-interactive check or an additional challenge based on risk."
+                },
+                {
+                  "name": "Non-interactive",
+                  "recommendation": "Optional only when the operator wants a visible loading verification experience without prompting visitors."
+                },
+                {
+                  "name": "Invisible",
+                  "recommendation": "Optional only when the operator intentionally wants no visible security check; keep Managed as the safer default for public lookup."
+                }
+              ]
+            },
+            {
+              "name": "Skip future security rule challenges for verified visitors",
+              "captured_state": "off",
+              "description": "Pre-clearance allows visitors who pass Turnstile to also bypass security rules that have the same or lower clearance level. Bypass duration follows the domain Challenge Passage setting, default 30 minutes.",
+              "recommendation": "Keep off for the baseline because vanityURLs validates the Turnstile token directly in the Worker for /lookup/resolve."
+            }
+          ],
+          "actions": ["Cancel", "Create"]
+        },
+        "recommended_lookup_widget": {
+          "name": "v8s-lookup-protection",
+          "hostnames": ["v8s.link"],
+          "mode": "Managed",
+          "pre_clearance": "Off",
+          "worker_variables": ["V8S_TURNSTILE_SITE_KEY"],
+          "worker_secrets": ["V8S_TURNSTILE_SECRET_KEY"],
+          "worker_validation": "POST /lookup/resolve must call Turnstile siteverify before returning lookup results, then verify the returned hostname and lookup action. Missing secret fails closed with 503; missing or invalid tokens return 403.",
+          "paths_not_protected_by_turnstile": [
+            "/{slug}",
+            "www hostname redirects"
+          ],
+          "website_documentation": "Document Turnstile as lookup-specific visitor verification."
+        },
+        "redirector_best_practice": {
+          "recommended_pattern": "Embedded Turnstile widget on /lookup with Worker siteverify on POST /lookup/resolve.",
+          "why": [
+            "Redirects remain challenge-free for published short links, QR codes, CLI clients, previews, and uptime checks.",
+            "Lookup resolution carries a per-request token that the Worker validates before revealing a destination.",
+            "Missing Turnstile configuration fails closed, matching the Cloudflare Access posture for private operational paths.",
+            "The rate limiting rule still covers repeated redirect guessing and valid-token lookup abuse."
+          ],
+          "avoid": [
+            "Do not apply Turnstile to /{slug} redirects.",
+            "Do not add www as a second Worker or widget hostname when Cloudflare redirects www to the apex.",
+            "Do not enable pre-clearance for the baseline lookup widget."
+          ]
+        }
+      }
+    },
     "Access": {
       "Cloudflare Access": {
         "description": "Put your applications behind a login screen.",
@@ -1711,6 +1790,7 @@
       "Use Security Analytics and sampled logs for traffic blocked before the Worker.",
       "Use custom security rules and rate limiting for scanner-like traffic and repeated short-link misses.",
       "On plans with one rate limiting rule, use the short-link candidate rule to cover /lookup/resolve and ordinary redirect guessing. On plans with multiple rate limiting rules, split /lookup/resolve and /_analytics/lookup into tighter endpoint-specific rules because lookup target resolution and analytics beacons have different abuse economics than ordinary redirects.",
+      "Use Cloudflare Turnstile only for public lookup resolution, fail closed when the Worker secret is missing, and keep ordinary /{slug} redirects outside Turnstile.",
       "Keep Browser Integrity Check, Cloudflare managed ruleset, HTTP DDoS protection, Network-layer DDoS protection, SSL/TLS DDoS protection and the new application security dashboard enabled.",
       "Keep Email Address Obfuscation and Replace insecure JavaScript libraries off for the baseline because they can rewrite repo-owned HTML or scripts and conflict with CSP/SRI assumptions.",
       "Keep Cloudflare dashboard Security.txt off for the baseline because the repository generates and deploys /.well-known/security.txt.",

@@ -284,6 +284,37 @@ Paste and validate one complete expression at a time. Deploy rules disabled whil
 The lookup page and `/lookup/resolve` endpoint intentionally let a visitor inspect one exact slug before clicking. They do not list links or autocomplete slugs, and the shipped `X-Frame-Options: DENY` plus `frame-ancestors 'none'` headers prevent clickjacking. The remaining risk is bulk guessing from scripts, so protect `/lookup/resolve` and `/_analytics/lookup` with explicit rate limits.
 {{< /callout >}}
 
+### Configure Turnstile for lookup
+
+Turnstile belongs on the lookup interaction, not on short-link redirects. Keep `/{slug}` redirect paths free of challenges so published links, QR codes, and automation-safe redirects keep working. Use Turnstile only for visitor-driven lookup pages such as `/lookup` and the resolver request to `/lookup/resolve`.
+
+The Worker fails lookup closed when Turnstile is not configured. That matches the Access pattern for private operational pages: missing protection configuration should block the protected surface, not expose it.
+
+In Cloudflare, open **Domains** > **your short domain** > **Turnstile**, create a widget for the apex hostname, and use **Managed** widget mode unless you have a specific reason to tune it differently. Keep **Skip future security rule challenges for verified visitors** off. Do not create a zone-wide challenge rule.
+
+Configure the Worker with these values:
+
+| Value                      | Where to store it                             | Notes                                                                |
+| -------------------------- | --------------------------------------------- | -------------------------------------------------------------------- |
+| `V8S_TURNSTILE_SITE_KEY`   | Worker variable                               | Public site key used by `/lookup/turnstile-config` and the browser   |
+| `V8S_TURNSTILE_SECRET_KEY` | Worker secret, for example with Wrangler/Dash | Server-side secret used only by the Worker when calling `siteverify` |
+
+The Worker also accepts `TURNSTILE_SITE` and `TURNSTILE_SECRET` when you create both values from the Cloudflare dashboard.
+
+The runtime flow is:
+
+1. Visitor opens `/lookup`
+2. Browser obtains a Cloudflare Turnstile token
+3. Browser submits the slug and token to `POST /lookup/resolve`
+4. Worker verifies the token with Cloudflare Turnstile `siteverify` and confirms the returned hostname/action
+5. Worker returns the exact-match lookup result only after a valid token
+
+If `V8S_TURNSTILE_SECRET_KEY` is missing, `POST /lookup/resolve` returns `503`. If a visitor omits the token, sends an invalid token, or the verification metadata does not match the lookup host/action, it returns `403`. Redirects such as `/{slug}` do not require Turnstile and continue to work without these variables.
+
+{{< callout type="warning" title="Keep rate limits after Turnstile" >}}
+Turnstile blocks a lot of automation, but it is not a replacement for rate limiting. A real browser can obtain valid tokens and repeat expensive exact-slug lookups, so keep the **Rate limit short-link candidates** rule in place.
+{{< /callout >}}
+
 ### Decide crawler controls
 
 In Cloudflare, use **Domains** > **your short domain** > **AI Crawl Control** for crawler-specific controls. This is separate from the broad **Security** > **Settings** > **Block AI bots** toggle covered earlier.

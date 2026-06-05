@@ -24,7 +24,7 @@ Au build, v8s génère un registre schéma `3.0` à partir du fichier de liens, 
 Le Worker fait tres peu, volontairement :
 
 1. rejétér les assets d'implementation privés et les probes scanner connus
-2. accepter seulement `GET`, `HEAD`, et `OPTIONS`, plus les endpoints `POST` publics de lookup
+2. accepter seulement `GET`, `HEAD`, et `OPTIONS`, plus les endpoints `POST` publics de lookup protégés par Turnstile
 3. resoudre les liens exacts avant les liens splat
 4. appliquer les planifications et états de cycle de vie
 5. émettre les analytics serveur non bloquants quand ils sont actifs
@@ -37,6 +37,7 @@ C'est une posture de sécurité. La simplicité n'est pas decorative; elle fait 
 Le Worker n'est qu'une couche. Une instance production devrait aussi utiliser les outils sécurité du domaine Cloudflare :
 
 - Zero Trust Access pour les chemins stats localisés comme `/en/_stats/` et pour `/_tests`
+- [Cloudflare Turnstile](/fr/blog/protecting-public-lookup-with-turnstile/) pour la résolution lookup publique
 - règles WAF pour les probes scanner et methodes inattendues
 - rate limiting pour les candidats de liens courts
 - contrôles bot et contrôles crawler IA

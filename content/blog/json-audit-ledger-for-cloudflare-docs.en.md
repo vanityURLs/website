@@ -40,7 +40,7 @@ That is the shape we want:
 
 Cloudflare documentation and instance documentation have different jobs.
 
-Cloudflare needs to document what every product can do. vanityURLs needs to document the narrow posture that makes sense for a redirector: Workers, DNS, SSL/TLS, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/), [WAF](https://developers.cloudflare.com/waf/), AI crawler controls, cache settings, URL normalization, and the places where blocked traffic can be reviewed.
+Cloudflare needs to document what every product can do. vanityURLs needs to document the narrow posture that makes sense for a redirector: Workers, DNS, SSL/TLS, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/), [WAF](https://developers.cloudflare.com/waf/), [Turnstile](https://developers.cloudflare.com/turnstile/), AI crawler controls, cache settings, URL normalization, and the places where blocked traffic can be reviewed.
 
 Those are not the same thing.
 
@@ -75,6 +75,7 @@ As of 2026-05-29, these are the Cloudflare sources worth watching for vanityURLs
 | DNS zone UI, DNSSEC, proxied records, and domain routing                     | - [DNS](https://developers.cloudflare.com/dns/changelog/)                                                                                                                          |
 | SSL/TLS, certificates, HSTS-adjacent controls, and edge certificate behavior | - [SSL/TLS](https://developers.cloudflare.com/ssl/changelog/)                                                                                                                      |
 | Access, Zero Trust dashboard navigation, and policy behavior                 | - [Cloudflare One](https://developers.cloudflare.com/cloudflare-one/changelog/)<br>- [Cloudflare One product](https://developers.cloudflare.com/changelog/product/cloudflare-one/) |
+| Turnstile widget behavior, token validation, and dashboard navigation        | - [Turnstile changelog](https://developers.cloudflare.com/changelog/?product=turnstile)<br>- [Turnstile docs](https://developers.cloudflare.com/turnstile/)                        |
 
 These feeds answer different questions.
 

@@ -53,6 +53,10 @@ vanityURLs est un raccourcisseur d'URL qui fonctionne sur le réseau edge de Clo
       <td>Limitation de debit pour les comportements abusifs qui ne devraient pas consommer de ressources Worker</td>
     </tr>
     <tr>
+      <td><a href="https://www.cloudflare.com/application-services/products/turnstile/">Cloudflare Turnstile</a></td>
+      <td>Token de vérification navigateur pour la résolution lookup publique. Le Worker valide les tokens avec `siteverify` côté serveur; les redirections restent hors Turnstile.</td>
+    </tr>
+    <tr>
       <td><a href="https://www.cloudflare.com/ddos/">Distributed Denial-of-Service (DDoS) Protection</a></td>
       <td>Protection réseau toujours active</td>
     </tr>
@@ -76,3 +80,5 @@ vanityURLs est un raccourcisseur d'URL qui fonctionne sur le réseau edge de Clo
 </table>
 
 Cloudflare est une plateforme de type logiciel-service en évolution continue : fonctionnalites, API, libellés du tableau de bord et navigation peuvent changer sans numero de version majeur. Pour garder la documentation alignee avec cette surface mouvante, vanityURLs maintient une [capture structuree du tableau de bord Cloudflare](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json) en JSON. Cette capture aide les mainteneurs a comparer les changements d'interface dans le temps et a mettre la documentation à jour de facon délibérée. Pour le raisonnement de maintenance, consultez [ADR 0012](https://github.com/vanityURLs/code/blob/main/docs/adr/0012-maintain-cloudflare-dashboard-capture.md) et [The JSON audit ledger behind the Cloudflare setup docs](/blog/json-audit-ledger-for-cloudflare-docs/).
+
+La configuration Turnstile vit dans [Protection réseau](/fr/docs/customize/network-protection/#configurer-turnstile-pour-lookup). Le raisonnement propre au lookup vit dans [Protéger le lookup public sans challenger les redirections](/fr/blog/protecting-public-lookup-with-turnstile/).

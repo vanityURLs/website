@@ -35,6 +35,7 @@ La CI devrait lancer `npm run check` avant le déploiement. Utilisez les command
 - Confirmez que le domaine custom pointe vers le Worker
 - Desactivez les URL publiques `workers.dev` et preview si elles ne font pas partie du service
 - Protegez `*/_stats`, `*/_stats/*`, `/_tests`, et `/_tests/*` avec [Contrôle d'accès](/fr/docs/customize/access-control/)
+- Configurez [Turnstile pour le lookup public](/fr/blog/protecting-public-lookup-with-turnstile/), incluant `V8S_TURNSTILE_SITE_KEY` et le secret Worker `V8S_TURNSTILE_SECRET_KEY`, avant de compter sur le lookup public
 - Confirmez que le Worker accepte seulement `GET`, `HEAD`, et `OPTIONS` sur les routes publiques, plus `POST /lookup/resolve` et `POST /_analytics/lookup`
 - Confirmez que les fichiers runtime bruts retournent 404 : `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json`
 - Confirmez que les headers incluent `X-Generated-By: vanityURLs.link` sauf surcharge intentionnelle
@@ -45,7 +46,7 @@ Les réglages Cloudflare sont repartis dans trois zones :
 
 - **Zero Trust** : applications Access, politiques, fournisseurs d'identité et réglages
 - **Workers & Pages** : déploiement, binding assets, variables, observabilite, domaines custom et réglages de build
-- **Configuration du domaine** : AI Crawl Control, Analytics, Caching, DNS, Network, Rules, Security, SSL/TLS et WAF
+- **Configuration du domaine** : AI Crawl Control, Analytics, Caching, DNS, Network, Rules, Security, SSL/TLS, Turnstile et WAF
 
 Utilisez [Contrôle d'accès](/fr/docs/customize/access-control/) pour les chemins opérationnels privés, [Protection réseau](/fr/docs/customize/network-protection/) pour les réglages de domaine, et [Wrangler Without Shooting Yourself in the Foot](/blog/wrangler/) pour le nom du Worker et `wrangler.toml`.
 

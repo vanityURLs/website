@@ -15,13 +15,14 @@ For the design rationale, read [Runtime security for a small redirector](/blog/r
 
 The Worker keeps the runtime path narrow:
 
-- only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus `POST /lookup/resolve` for lookup resolution and the dedicated `POST /_analytics/lookup` beacon
+- only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus Turnstile-protected `POST /lookup/resolve` for lookup resolution and the dedicated `POST /_analytics/lookup` beacon
 - direct access to `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` returns 404
 - redirects allow only `http:` and `https:` targets
 - redirect targets with credentials, missing hostnames, control characters, or unsupported protocols fail closed
 - splat values are URL-encoded segment by segment before insertion
 - lifecycle states resolve through explicit routing rules
 - protected operational paths verify [Cloudflare Access](/docs/customize/access-control/) JWTs and fail closed when Access is not configured
+- public lookup resolution verifies [Cloudflare Turnstile](/docs/customize/network-protection/#configure-turnstile-for-lookup) tokens and fails closed when the Turnstile secret is not configured
 - scanner probes return a plain no-store 404 before short-link lookup or analytics
 - analytics is sent with `ctx.waitUntil()` so provider failure does not delay redirects
 
@@ -40,7 +41,7 @@ Default runtime protections include:
 For each request, the Worker follows a deliberately narrow path:
 
 1. Reject raw runtime assets and known scanner probes
-2. Accept only `GET`, `HEAD`, and `OPTIONS` for public routes, plus `POST /lookup/resolve` and `POST /_analytics/lookup`
+2. Accept only `GET`, `HEAD`, and `OPTIONS` for public routes, plus Turnstile-protected `POST /lookup/resolve` and `POST /_analytics/lookup`
 3. Normalize the incoming path
 4. Look for an exact link
 5. If no exact link matches, look for a splat link

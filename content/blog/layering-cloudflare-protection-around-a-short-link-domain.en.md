@@ -17,7 +17,7 @@ The Worker should not be the first place that noise gets expensive. vanityURLs k
 
 The Worker still validates destinations and runtime policy. That is the last line of defense, not the first.
 
-Use Cloudflare WAF rules, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules, and Access where they match the layer. Commodity abuse should stop before application code runs.
+Use Cloudflare WAF rules, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules, Turnstile, and Access where they match the layer. Commodity abuse should stop before application code runs.
 
 That separation keeps the evidence clean:
 
@@ -26,6 +26,8 @@ That separation keeps the evidence clean:
 - Umami or Fathom shows application events emitted after vanityURLs filtering
 
 If a request is blocked at the edge, it should not look like product behavior or consume analytics provider quota.
+
+Turnstile fits the public lookup layer, not the redirect path. Use it for `/lookup` and `POST /lookup/resolve` so visitors can preview one exact destination, while `/{slug}` redirects stay fast and challenge-free. The lookup-specific rationale is in [Protect public lookup without challenging redirects](/blog/protecting-public-lookup-with-turnstile/).
 
 ## Make Crawler Policy Enforceable
 
@@ -45,7 +47,7 @@ For most instances, the safe default is simple: let the Worker decide redirects 
 
 ## Use The Right Dashboard
 
-Cloudflare analytics and Security Events answer infrastructure questions: DNS, TLS, WAF, rate limiting, bots, AI crawler blocks, Access logins, Worker CPU, and Worker errors.
+Cloudflare analytics and Security Events answer infrastructure questions: DNS, TLS, WAF, rate limiting, bots, AI crawler blocks, Turnstile outcomes, Access logins, Worker CPU, and Worker errors.
 
 vanityURLs analytics answers application questions: redirects, misses, lookup requests, pageviews, and normalized bot events that reached the Worker.
 

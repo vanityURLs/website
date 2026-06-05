@@ -284,6 +284,37 @@ Collez et validez une expression complété à la fois. Deployer les règles dé
 La page lookup et l'endpoint `/lookup/resolve` permettent volontairement à un visiteur d'inspecter un slug exact avant de cliquer. Ils ne listent pas les liens et n'autocomplètent pas les slugs, et les headers livrés `X-Frame-Options: DENY` plus `frame-ancestors 'none'` empêchent le clickjacking. Le risque restant est le guessing en volume depuis des scripts; protégez donc `/lookup/resolve` et `/_analytics/lookup` avec des rate limits explicites.
 {{< /callout >}}
 
+### Configurer Turnstile pour lookup
+
+Turnstile appartient à l'interaction lookup, pas aux redirections de liens courts. Gardez les chemins de redirection `/{slug}` sans challenge pour que les liens publiés, QR codes et redirections compatibles avec l'automatisation continuent de fonctionner. Utilisez Turnstile seulement pour les pages lookup visiteur comme `/lookup` et la requête resolver vers `/lookup/resolve`.
+
+Le Worker bloque lookup par défaut lorsque Turnstile n'est pas configuré. C'est le même modèle qu'Access pour les pages opérationnelles privées : une configuration de protection manquante doit bloquer la surface protégée, pas l'exposer.
+
+Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Turnstile**, créez un widget pour le hostname apex, et utilisez le mode **Managed** sauf si vous avez une raison précise de le régler autrement. Gardez **Skip future security rule challenges for verified visitors** désactivé. Ne créez pas de règle de challenge sur toute la zone.
+
+Configurez le Worker avec ces valeurs :
+
+| Valeur                     | Où la stocker                                 | Notes                                                                      |
+| -------------------------- | --------------------------------------------- | -------------------------------------------------------------------------- |
+| `V8S_TURNSTILE_SITE_KEY`   | Variable Worker                               | Site key publique utilisée par `/lookup/turnstile-config` et le navigateur |
+| `V8S_TURNSTILE_SECRET_KEY` | Secret Worker, par exemple avec Wrangler/Dash | Secret serveur utilisé seulement par le Worker pour appeler `siteverify`   |
+
+Le Worker accepte aussi `TURNSTILE_SITE` et `TURNSTILE_SECRET` lorsque vous créez les deux valeurs depuis le tableau de bord Cloudflare.
+
+Le flux runtime est :
+
+1. Le visiteur ouvre `/lookup`
+2. Le navigateur obtient un token Cloudflare Turnstile
+3. Le navigateur envoie le slug et le token vers `POST /lookup/resolve`
+4. Le Worker vérifie le token avec Cloudflare Turnstile `siteverify` et confirme le hostname/action retournes
+5. Le Worker retourne le résultat exact-match seulement après un token valide
+
+Si `V8S_TURNSTILE_SECRET_KEY` manque, `POST /lookup/resolve` retourne `503`. Si un visiteur omet le token, envoie un token invalide, ou si les métadonnées de vérification ne correspondent pas au hostname/action lookup, il retourne `403`. Les redirections comme `/{slug}` n'exigent pas Turnstile et continuent de fonctionner sans ces variables.
+
+{{< callout type="warning" title="Gardez les rate limits après Turnstile" >}}
+Turnstile bloque beaucoup d'automatisation, mais il ne remplace pas le rate limiting. Un vrai navigateur peut obtenir des tokens valides et répéter des lookups exact-slug coûteux, donc gardez la règle **Rate limit short-link candidates** en place.
+{{< /callout >}}
+
 ### Decider des contrôles de crawlers
 
 Dans Cloudflare, utilisez **Domains** > **votre domaine court** > **AI Crawl Control** pour les contrôles spécifiques aux crawlers. C'est séparé du contrôle large **Security** > **Settings** > **Block AI bots** couvert plus haut.
