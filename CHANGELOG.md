@@ -5,6 +5,63 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.17.0](https://github.com/vanityURLs/website/compare/v2.16.3...v2.17.0) (2026-06-05)
+
+
+### ✨ Features
+
+* add brand logo asset bundles ([c7bee65](https://github.com/vanityURLs/website/commit/c7bee6549eda5cf00bc23ef9939defd65118556a))
+* add brand redirected image bundle ([e062774](https://github.com/vanityURLs/website/commit/e0627741623d84ebd6066152143e43f5b9859824))
+* add brand.vanityurls.link ([566a32e](https://github.com/vanityURLs/website/commit/566a32e2e3391c274a9e0b3042b4dbe4e404e545))
+* add instance redirected image exports ([ac3741e](https://github.com/vanityURLs/website/commit/ac3741ed522f143ec9c8f255e0ee8070014f0a37))
+* expand brand documentation structure ([7d731ab](https://github.com/vanityURLs/website/commit/7d731ab358bff5786533751270a90232f4453c6a))
+* improve brand site experience ([1839faf](https://github.com/vanityURLs/website/commit/1839fafd34b3e244e613b08a324f4bdeb4e4ab1f))
+* move website docs to brand site ([053a855](https://github.com/vanityURLs/website/commit/053a8551eeb2e77e0ffee2ab700df6376503f8a0))
+* restore brand experience improvements ([3e32d7d](https://github.com/vanityURLs/website/commit/3e32d7d0eec852409a641e31c02c5be0af3eed00))
+* use documentation layout for brand site ([61e2e54](https://github.com/vanityURLs/website/commit/61e2e54223099280c1aae02d2ccd251bd7e3583c))
+
+
+### 🐛 Bug Fixes
+
+* add website hsts header ([1666653](https://github.com/vanityURLs/website/commit/166665337449f316533d31fdf6548bd0fba88253))
+* render brand color swatches ([905eda2](https://github.com/vanityURLs/website/commit/905eda2bb738b367a2b28386e5b58e0d2b2dbf09))
+* update dark favicon dimensions ([aa55f49](https://github.com/vanityURLs/website/commit/aa55f499519fdc246c3f4161927bcc2997e543bf))
+* update website logo asset dimensions ([a92eece](https://github.com/vanityURLs/website/commit/a92eece7d10506760c4cf1e020769d749a024588))
+
+
+### 📚 Documentation
+
+* add security model reference ([3cfea23](https://github.com/vanityURLs/website/commit/3cfea233e48535fbe299607e116c3b6ae5c90fbf))
+* clarify free plan rate limiting setup ([2d5de4c](https://github.com/vanityURLs/website/commit/2d5de4c5539aaf7119d1ea48ed5eedb65de05c0c))
+* clarify header ownership and CSP overrides ([3757e21](https://github.com/vanityURLs/website/commit/3757e215e220cdba0a72ad9b2d1a82976068e480))
+* clarify lookup edge protection ([16862f4](https://github.com/vanityURLs/website/commit/16862f48425bd608c606bee365e6fc64961c6f93))
+* document apex canonical redirect setup ([5fbd92c](https://github.com/vanityURLs/website/commit/5fbd92c7ef03ca37e03cc146b31ae7b79596c6d9))
+* expand brand design language guidance ([a913b5b](https://github.com/vanityURLs/website/commit/a913b5bd417acd3ec6c089f4b548fb58f4219562))
+* expand brand standards guidance ([666a834](https://github.com/vanityURLs/website/commit/666a8346ab3939882f773cbe0b05339fa62ee376))
+* harden website security guidance ([804a7fb](https://github.com/vanityURLs/website/commit/804a7fbee21e6570898b877cc8b45feca8f8c7f8))
+* improve brand color reference ([59977d3](https://github.com/vanityURLs/website/commit/59977d3def44f8db0b3c8a9ac51a4aee72b49a19))
+* improve brand grid reference ([f0e9bc1](https://github.com/vanityURLs/website/commit/f0e9bc1537cb31de54b66b1e2fbd6b90fe6dda4e))
+* improve brand spacing reference ([6684856](https://github.com/vanityURLs/website/commit/66848563acef2e49e54a310374d69557cde5b2a8))
+* improve brand typography and logo navigation ([84b7725](https://github.com/vanityURLs/website/commit/84b772519c5883dd7af1fe74372fe8ce13867092))
+* improve brand typography reference ([1f5e659](https://github.com/vanityURLs/website/commit/1f5e659131c772a4a4251464ce02164e2da4fb67))
+* refine brand documentation labels ([501028b](https://github.com/vanityURLs/website/commit/501028b8afd68ebae87b12c55852d4966985be77))
+* rename public status pages label ([228dc3b](https://github.com/vanityURLs/website/commit/228dc3b31c3bbc3e9218009fbad26a83832a6d5b))
+* simplify brand color values ([c151890](https://github.com/vanityURLs/website/commit/c151890dffd2f66ec260a0d5abd54e7ccc472d67))
+* update brand resources assets ([bf120d3](https://github.com/vanityURLs/website/commit/bf120d31e96e443b7aa941e1f1fdb1ed35859498))
+* update lookup resolver endpoint ([a750738](https://github.com/vanityURLs/website/commit/a750738056738a37e4d38edb0339771afaa853f4))
+* update setup script references ([ec78959](https://github.com/vanityURLs/website/commit/ec78959cb92a323f580ecbdb387c3ef0b0950119))
+* update setup script references ([028ef71](https://github.com/vanityURLs/website/commit/028ef71a61edd7250b20abf382947d57ff963592))
+
+
+### 💚 Continuous Integration
+
+* upgrade release-please action ([76d9a5b](https://github.com/vanityURLs/website/commit/76d9a5b0080c6c851f4ad23206ebac8f6189344d))
+
+
+### 🧹 Chores
+
+* exclude changelog from linting ([9850ff5](https://github.com/vanityURLs/website/commit/9850ff53efd3828bc843fd7dab895406388b0e63))
+
 ## [2.16.3](https://github.com/vanityURLs/website/compare/v2.16.2...v2.16.3) (2026-06-03)
 
 
