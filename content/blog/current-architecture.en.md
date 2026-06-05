@@ -24,7 +24,7 @@ At build time, v8s generates a schema `3.0` registry from the link file, schedul
 The Worker does very little by design:
 
 1. reject private implementation assets and known scanner probes
-2. accept only `GET`, `HEAD`, and `OPTIONS`
+2. accept only `GET`, `HEAD`, and `OPTIONS`, plus the public lookup `POST` endpoints
 3. resolve exact links before splat links
 4. apply schedules and lifecycle states
 5. emit non-blocking server-side analytics when enabled

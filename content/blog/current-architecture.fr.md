@@ -24,7 +24,7 @@ Au build, v8s génère un registre schéma `3.0` à partir du fichier de liens, 
 Le Worker fait tres peu, volontairement :
 
 1. rejétér les assets d'implementation privés et les probes scanner connus
-2. accepter seulement `GET`, `HEAD`, et `OPTIONS`
+2. accepter seulement `GET`, `HEAD`, et `OPTIONS`, plus les endpoints `POST` publics de lookup
 3. resoudre les liens exacts avant les liens splat
 4. appliquer les planifications et états de cycle de vie
 5. émettre les analytics serveur non bloquants quand ils sont actifs

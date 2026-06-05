@@ -40,7 +40,7 @@ Default runtime protections include:
 For each request, the Worker follows a deliberately narrow path:
 
 1. Reject raw runtime assets and known scanner probes
-2. Accept only `GET`, `HEAD`, and `OPTIONS` for public routes
+2. Accept only `GET`, `HEAD`, and `OPTIONS` for public routes, plus `POST /lookup/resolve` and `POST /_analytics/lookup`
 3. Normalize the incoming path
 4. Look for an exact link
 5. If no exact link matches, look for a splat link

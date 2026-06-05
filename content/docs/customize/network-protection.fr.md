@@ -127,6 +127,8 @@ Les règles de sécurité Cloudflare s'executent avant le Worker. Utilisez-les p
 
 Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname apex. Si `www.v8s.link` passe aussi par Cloudflare avant sa redirection, incluez-le aussi, par exemple `http.host in {"v8s.link" "www.v8s.link"}`. Un CNAME DNS alias un hostname; il ne crée pas une redirection HTTP par lui-même.
 
+Pour la règle de rate limiting du plan gratuit, utilisez **Rate limit short-link candidates** comme nom de règle, **IP** comme caractéristique, **20 requêtes** par **10 secondes**, **Block** comme action, **10 secondes** comme durée, et **First** comme ordre. L'expression exclut la page `/lookup` mais pas `/lookup/resolve`, donc la résolution lookup reste couverte par l'unique règle de rate limiting disponible.
+
 <table class="waf-rules-table">
   <thead>
     <tr>
@@ -139,7 +141,7 @@ Les expressions ci-dessous utilisent `v8s.link` et ciblent seulement le hostname
   <tbody>
     <tr>
       <td>Rate limiter les candidats de liens courts<br><small>Rate limiting rule</small></td>
-      <td>Block pendant 10 secondes quand le taux depasse 20 requêtes par 10 secondes</td>
+      <td>Caractéristique : IP<br>Seuil : 20 requêtes par 10 secondes<br>Action : Block<br>Durée : 10 secondes<br>Ordre : First</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
@@ -156,7 +158,7 @@ not lower(http.request.uri.path) contains ".txt" and
 not lower(http.request.uri.path) contains ".webmanifest" and
 not lower(http.request.uri.path) contains ".woff"</code></pre>
       </td>
-      <td>Créez cette règle en premier. Elle compte les candidats probables de liens courts tout en excluant les chemins opérateur, pages de politiques, fichiers well-known et assets statiques.</td>
+      <td>Créez cette règle en premier. Elle compte les candidats probables de liens courts et les requêtes de résolution lookup tout en excluant les chemins opérateur, pages de politiques, fichiers well-known, la page lookup, les beacons analytics et les assets statiques. Sur les plans avec une seule règle de rate limiting, utilisez cette règle comme base.</td>
     </tr>
     <tr>
       <td>Rate limiter la résolution lookup<br><small>Rate limiting rule</small></td>
@@ -167,7 +169,7 @@ http.request.method eq "POST" and
 http.request.uri.path eq "/lookup/resolve" and
 not cf.client.bot</code></pre>
       </td>
-      <td>`/lookup/resolve` est exact-match seulement et ne retourne aucune liste, mais il peut révéler des destinations pour des slugs devinés. Gardez-le beaucoup plus strict que les redirections ordinaires.</td>
+      <td>`/lookup/resolve` est exact-match seulement et ne retourne aucune liste, mais il peut révéler des destinations pour des slugs devinés. Ajoutez cette règle plus stricte seulement lorsque votre plan Cloudflare permet plusieurs règles de rate limiting.</td>
     </tr>
     <tr>
       <td>Rate limiter les analytics lookup<br><small>Rate limiting rule</small></td>
@@ -206,9 +208,13 @@ not cf.client.bot</code></pre>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
-not http.request.method in {"GET" "HEAD" "OPTIONS"}</code></pre>
+not http.request.method in {"GET" "HEAD" "OPTIONS"} and
+not (
+  http.request.method eq "POST" and
+  http.request.uri.path in {"/lookup/resolve" "/_analytics/lookup"}
+)</code></pre>
       </td>
-      <td>Autorise seulement les methodes attendues par le hostname public de redirection.</td>
+      <td>Autorise seulement les methodes attendues par le hostname public de redirection, plus les deux endpoints POST publics de lookup.</td>
     </tr>
     <tr>
       <td>Challenger les clients suspects<br><small>Custom rule</small></td>

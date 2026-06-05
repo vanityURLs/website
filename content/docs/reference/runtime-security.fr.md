@@ -40,7 +40,7 @@ Les protections runtime par défaut incluent :
 Pour chaque requête, le Worker suit un chemin volontairement etroit :
 
 1. refuse les assets runtime bruts et les probes de scanners
-2. accepte seulement `GET`, `HEAD`, et `OPTIONS` pour les routes publiques
+2. accepte seulement `GET`, `HEAD`, et `OPTIONS` pour les routes publiques, plus `POST /lookup/resolve` et `POST /_analytics/lookup`
 3. normalise le chemin entrant
 4. cherche un lien exact
 5. cherche un lien splat si aucun exact ne correspond

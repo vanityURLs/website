@@ -35,7 +35,7 @@ La CI devrait lancer `npm run check` avant le déploiement. Utilisez les command
 - Confirmez que le domaine custom pointe vers le Worker
 - Desactivez les URL publiques `workers.dev` et preview si elles ne font pas partie du service
 - Protegez `*/_stats`, `*/_stats/*`, `/_tests`, et `/_tests/*` avec [Contrôle d'accès](/fr/docs/customize/access-control/)
-- Confirmez que le Worker accepte seulement `GET`, `HEAD`, et `OPTIONS` sur les routes publiques
+- Confirmez que le Worker accepte seulement `GET`, `HEAD`, et `OPTIONS` sur les routes publiques, plus `POST /lookup/resolve` et `POST /_analytics/lookup`
 - Confirmez que les fichiers runtime bruts retournent 404 : `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json`
 - Confirmez que les headers incluent `X-Generated-By: vanityURLs.link` sauf surcharge intentionnelle
 

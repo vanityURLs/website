@@ -408,7 +408,7 @@
   evidence:
     - repo: vanityURLs/code
       path: scripts/workers/worker.mjs
-      note: "Worker accepts GET, HEAD, and OPTIONS; other methods return 405 except the lookup analytics endpoint."
+      note: "Worker accepts GET, HEAD, OPTIONS, POST /lookup/resolve, and POST /_analytics/lookup; other methods return 405."
     - repo: vanityURLs/website
       path: content/docs/reference/runtime-security.en.md
       note: "Runtime security docs list accepted public methods."

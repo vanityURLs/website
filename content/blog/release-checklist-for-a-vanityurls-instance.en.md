@@ -36,7 +36,7 @@ CI should run `npm run check` before deployment. Use grouped commands for focuse
 - Confirm the custom domain points to the Worker
 - Disable public `workers.dev` and preview URLs if they are not part of the service
 - Protect `*/_stats`, `*/_stats/*`, `/_tests`, and `/_tests/*` with [Access control](/docs/customize/access-control/)
-- Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS` on public routes
+- Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS` on public routes, plus `POST /lookup/resolve` and `POST /_analytics/lookup`
 - Confirm raw runtime files return 404: `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json`
 - Confirm response headers include `X-Generated-By: vanityURLs.link` unless intentionally overridden
 
