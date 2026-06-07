@@ -1,7 +1,7 @@
 terms:
   - id: access-application
     term: Access application
-    definition: A Cloudflare Zero Trust application that protects selected paths, such as localized stats paths like `/en/_stats/` and `/fr/_stats/`, localized test paths like `/en/_tests/`, plus root `/_tests/*`, before the Worker serves those pages.
+    definition: A Cloudflare Zero Trust application that protects selected paths, such as localized stats paths like `/en/_stats/` and `/fr/_stats/`, plus localized test paths like `/en/_tests/`, before the Worker serves those pages.
   - id: access-policy
     term: Access policy
     definition: A Cloudflare Zero Trust rule that decides which identities can reach a protected Access application.

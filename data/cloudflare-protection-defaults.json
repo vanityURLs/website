@@ -1108,7 +1108,7 @@
           "Grant access without a VPN or code changes"
         ],
         "WAF comparison": "Access decides who gets to the application before WAF inspects allowed requests.",
-        "website_documentation": "Document Cloudflare Access as the primary control for private paths such as admin, tests, or operator-only pages."
+        "website_documentation": "Document Cloudflare Access as the primary control for localized private operational paths such as `*/_stats`, `*/_stats/*`, `*/_tests`, and `*/_tests/*`."
       },
       "Access controls": {
         "Overview": {
@@ -1714,7 +1714,7 @@
       "Keep Browser Integrity Check, Cloudflare managed ruleset, HTTP DDoS protection, Network-layer DDoS protection, SSL/TLS DDoS protection and the new application security dashboard enabled.",
       "Keep Email Address Obfuscation and Replace insecure JavaScript libraries off for the baseline because they can rewrite repo-owned HTML or scripts and conflict with CSP/SRI assumptions.",
       "Keep Cloudflare dashboard Security.txt off for the baseline because the repository generates and deploys /.well-known/security.txt.",
-      "Use Cloudflare Access for private vanityURLs paths such as admin, tests, or operator-only pages.",
+      "Use Cloudflare Access for localized private vanityURLs paths such as */_stats, */_stats/*, */_tests, and */_tests/*.",
       "Use Speed Observatory and synthetic tests as optional diagnostics, not required setup.",
       "Keep HTTP/2, HTTP/3, HTTP/2 to Origin and TLS 1.3 enabled when available.",
       "Keep Cloudflare caching conservative: leave dynamic redirects to the Worker, keep Development Mode off except while debugging, and keep Cache Rules and Cache Response Rules empty.",

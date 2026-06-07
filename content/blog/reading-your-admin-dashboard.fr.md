@@ -45,6 +45,6 @@ Le design en lecture seule garde le workflow simple :
 
 ## Le protéger
 
-Le tableau devrait être derrière Cloudflare Access. Protegez `*/_stats`, `*/_stats/*`, `/_tests`, et `/_tests/*`, puis utilisez [Contrôle d'accès](/fr/docs/customize/access-control/) comme configuration attendue. Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`.
+Le tableau devrait être derrière Cloudflare Access. Protegez `*/_stats`, `*/_stats/*`, `*/_tests`, et `*/_tests/*`, puis utilisez [Contrôle d'accès](/fr/docs/customize/access-control/) comme configuration attendue. Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`, et les anciennes requêtes `/_tests` redirigent vers `/en/_tests/`.
 
 Pour les details de configuration autour de la protection des chemins stats localisés, utilisez [Contrôle d'accès](/fr/docs/customize/access-control/).

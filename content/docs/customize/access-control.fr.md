@@ -96,13 +96,11 @@ Remplacez `v8s.link` par _votre_ domaine court partout.
 |              | `v8s.link` | `*/_stats/*` |
 |              | `v8s.link` | `*/_tests`   |
 |              | `v8s.link` | `*/_tests/*` |
-|              | `v8s.link` | `_tests`     |
-|              | `v8s.link` | `_tests/*`   |
 
-Cloudflare Access accepte les wildcards dans le champ chemin. Les entrées `*/_stats` couvrent les chemins de tableau de bord localisés comme `/en/_stats/` et `/fr/_stats/`; les entrées `*/_tests` couvrent les chemins QA localisés comme `/en/_tests/` et `/fr/_tests/`. Les entrées racine `_tests` gardent aussi l'ancien chemin QA protégé, tout en laissant les liens courts publics hors Access.
+Cloudflare Access accepte les wildcards dans le champ chemin. Les entrées `*/_stats` couvrent les chemins de tableau de bord localisés comme `/en/_stats/` et `/fr/_stats/`; les entrées `*/_tests` couvrent les chemins QA localisés comme `/en/_tests/` et `/fr/_tests/`, tout en laissant les liens courts publics hors Access.
 
 {{< callout type="note" title="Comportement des anciens chemins" changed="3.0.0" >}}
-Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`; elles n'ont pas besoin de destinations Access séparées.
+Les anciennes requêtes `/_stats` redirigent vers `/en/_stats/`, et les anciennes requêtes `/_tests` redirigent vers `/en/_tests/`; elles n'ont pas besoin de destinations Access séparées.
 {{< /callout >}}
 
 ### Créer la politique Access
@@ -139,7 +137,7 @@ Avant la release :
 2. Utilisez le testeur de politique pour confirmer qu'une identité refusée échoue
 3. Visitez `/en/_stats/` depuis un profil de navigateur déconnecté ou privé
 4. Visitez un autre chemin stats localisé, par exemple `/fr/_stats/`
-5. Visitez `/_tests` et `/en/_tests/` depuis un profil de navigateur déconnecté ou privé
+5. Visitez `/_tests` pour confirmer la redirection, puis `/en/_tests/` depuis un profil de navigateur déconnecté ou privé
 6. Confirmez que Cloudflare Access apparaît avant le tableau de bord ou la page de test
 7. Connectez-vous avec une identité autorisée et confirmez que la page charge
 
@@ -153,6 +151,6 @@ Après le déploiement, répétez le test de navigateur déconnecté contre le v
 
 Pour information : Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Pour le tableau complet des gardes, lisez [Sécurité runtime](/fr/docs/reference/runtime-security/). Pour la revue continue, lisez [Exploiter Cloudflare Access pour un domaine de liens courts](/fr/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, les chemins de test localisés comme `/en/_tests/`, ainsi que le chemin racine `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une **raison délibérée de divulgation publique**. C'est une note de conception, pas une activité de configuration séparée.
+Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, les chemins de test localisés comme `/en/_tests/`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une **raison délibérée de divulgation publique**. C'est une note de conception, pas une activité de configuration séparée.
 
 {{% /steps %}}

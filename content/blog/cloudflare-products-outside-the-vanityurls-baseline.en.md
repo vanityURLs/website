@@ -19,7 +19,7 @@ A Cloudflare product belongs in the baseline only if it protects or serves one o
 
 - DNS and TLS for the short domain
 - the Worker runtime
-- protected operational pages such as `/en/_stats/`, other localized stats paths, and `/_tests`
+- protected operational pages such as `/en/_stats/`, other localized stats paths, and `/en/_tests/`
 - edge controls that reject traffic before the Worker runs
 
 Everything else needs a specific local reason.

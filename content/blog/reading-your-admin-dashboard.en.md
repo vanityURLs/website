@@ -45,6 +45,6 @@ The read-only design keeps the workflow boring in the best way:
 
 ## Protect it
 
-The dashboard should sit behind Cloudflare Access. Protect `*/_stats`, `*/_stats/*`, `/_tests`, and `/_tests/*`, then use [Access control](/docs/customize/access-control/) as the expected configuration. Legacy `/_stats` requests redirect to `/en/_stats/`.
+The dashboard should sit behind Cloudflare Access. Protect `*/_stats`, `*/_stats/*`, `*/_tests`, and `*/_tests/*`, then use [Access control](/docs/customize/access-control/) as the expected configuration. Legacy `/_stats` requests redirect to `/en/_stats/`, and legacy `/_tests` requests redirect to `/en/_tests/`.
 
 For the configuration details around protecting localized stats paths, use [Access control](/docs/customize/access-control/).

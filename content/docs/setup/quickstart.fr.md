@@ -144,7 +144,7 @@ Dans Cloudflare, ouvrez **Build** > **Compute** > **Workers & Pages** depuis le 
 ### Configurer le contrôle d'accès
 
 {{< callout type="warning" title="Protéger les pages opérationnelles privées" >}}
-L'accès au [Dashboard](https://v8s.link/en/_stats/) et à la [matrice de test](https://v8s.link/_tests) doit être protégé par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
+L'accès au [Dashboard](https://v8s.link/en/_stats/) et à la [matrice de test](https://v8s.link/en/_tests/) doit être protégé par [Cloudflare Access](https://www.cloudflare.com/products/access/), une solution Zero Trust Network Access (ZTNA).
 {{< /callout >}}
 
 Ouvrez [Contrôle d'accès](../customize/access-control/) dans un autre onglet et complétéz les activités de cette page. Assurez-vous d'avoir copie le **Application Audience (AUD) Tag** dans votre gestionnaire de mots de passe.
@@ -190,6 +190,6 @@ Si `custom/v8s-links.txt` n'existe pas, setup le crée depuis `defaults/v8s-link
 
 Testez au moins un lien initial, comme `https://<short-domain>/docs`, et confirmez qu'il redirige vers le lien long indiqué dans le tableau. Testez `https://<short-domain>/contact` lorsque vous voulez voir l'horaire de départ remplacer cette cible pendant la fenêtre 9 à 5 configurée.
 
-Testez ensuite `/en/_stats/`, un autre chemin stats localisé comme `/fr/_stats/`, et `/_tests` depuis un profil de navigateur déconnecté ou privé. Vous devriez voir Cloudflare Access avant le tableau de bord protégé ou la page de test. L'ancien chemin `/_stats` redirige vers `/en/_stats/`.
+Testez ensuite `/en/_stats/`, un autre chemin stats localisé comme `/fr/_stats/`, et `/en/_tests/` depuis un profil de navigateur déconnecté ou privé. Vous devriez voir Cloudflare Access avant le tableau de bord protégé ou la page de test. L'ancien chemin `/_stats` redirige vers `/en/_stats/`, et l'ancien chemin `/_tests` redirige vers `/en/_tests/`.
 
 {{% /steps %}}

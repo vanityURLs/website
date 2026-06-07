@@ -61,7 +61,7 @@ Default response headers include `X-Generated-By: vanityURLs.link`, no-index rul
 
 ## Operational file guards
 
-Cloudflare Access is not the only layer that limits operational file access. Keep controlled access on localized stats paths such as `/en/_stats/` and `/fr/_stats/`, plus `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a deliberate public-disclosure reason.
+Cloudflare Access is not the only layer that limits operational file access. Keep controlled access on localized stats paths such as `/en/_stats/` and `/fr/_stats/`, localized test paths such as `/en/_tests/`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a deliberate public-disclosure reason.
 
 | Control                            | Paths                                                                                   | What it does                                                             |
 | ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |

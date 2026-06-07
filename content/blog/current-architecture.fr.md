@@ -36,7 +36,7 @@ C'est une posture de sécurité. La simplicité n'est pas decorative; elle fait 
 
 Le Worker n'est qu'une couche. Une instance production devrait aussi utiliser les outils sécurité du domaine Cloudflare :
 
-- Zero Trust Access pour les chemins stats localisés comme `/en/_stats/` et pour `/_tests`
+- Zero Trust Access pour les chemins stats localisés comme `/en/_stats/` et les chemins de test localisés comme `/en/_tests/`
 - règles WAF pour les probes scanner et methodes inattendues
 - rate limiting pour les candidats de liens courts
 - contrôles bot et contrôles crawler IA

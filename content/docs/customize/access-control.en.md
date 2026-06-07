@@ -96,13 +96,11 @@ Replace `v8s.link` with _your_ short domain everywhere.
 |           | `v8s.link` | `*/_stats/*` |
 |           | `v8s.link` | `*/_tests`   |
 |           | `v8s.link` | `*/_tests/*` |
-|           | `v8s.link` | `_tests`     |
-|           | `v8s.link` | `_tests/*`   |
 
-Cloudflare Access supports wildcards in the path field. The `*/_stats` entries cover localized dashboard paths such as `/en/_stats/` and `/fr/_stats/`; the `*/_tests` entries cover localized QA paths such as `/en/_tests/` and `/fr/_tests/`. The root `_tests` entries keep the legacy QA path protected too, while leaving ordinary public short links outside Access.
+Cloudflare Access supports wildcards in the path field. The `*/_stats` entries cover localized dashboard paths such as `/en/_stats/` and `/fr/_stats/`; the `*/_tests` entries cover localized QA paths such as `/en/_tests/` and `/fr/_tests/`, while leaving ordinary public short links outside Access.
 
 {{< callout type="note" title="Legacy path behavior" changed="3.0.0" >}}
-Legacy `/_stats` requests redirect to `/en/_stats/`; they do not need separate Access destinations.
+Legacy `/_stats` requests redirect to `/en/_stats/`, and legacy `/_tests` requests redirect to `/en/_tests/`; they do not need separate Access destinations.
 {{< /callout >}}
 
 ### Create the Access policy
@@ -139,7 +137,7 @@ Before release:
 2. Use the policy tester to confirm a denied identity fails
 3. Visit `/en/_stats/` from a signed-out or private browser profile
 4. Visit one other localized stats path, for example `/fr/_stats/`
-5. Visit `/_tests` and `/en/_tests/` from a signed-out or private browser profile
+5. Visit `/_tests` to confirm the redirect, then `/en/_tests/` from a signed-out or private browser profile
 6. Confirm Cloudflare Access appears before the dashboard or test page
 7. Sign in with an allowed identity and confirm the page loads
 
@@ -153,6 +151,6 @@ After deployment, repeat the signed-out browser test against the real short doma
 
 For your information: Cloudflare Access is not the only layer that limits operational file access. For the complete guard table, read [Runtime security](/docs/reference/runtime-security/). For ongoing review, read [Operating Cloudflare Access for a short-link domain](/blog/operating-cloudflare-access-for-a-short-link-domain/).
 
-Keep controlled access on localized stats paths such as `/en/_stats/` and `/fr/_stats/`, localized test paths such as `/en/_tests/`, plus root `/_tests`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**. This is a design note, not a separate setup activity.
+Keep controlled access on localized stats paths such as `/en/_stats/` and `/fr/_stats/`, localized test paths such as `/en/_tests/`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a **deliberate public-disclosure reason**. This is a design note, not a separate setup activity.
 
 {{% /steps %}}

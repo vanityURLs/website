@@ -163,8 +163,8 @@ Pour la règle de rate limiting du plan gratuit, utilisez **Rate limit short-lin
       <td>
         <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
-not starts_with(http.request.uri.path, "/_stats") and
-not starts_with(http.request.uri.path, "/_tests") and
+not http.request.uri.path contains "/_stats" and
+not http.request.uri.path contains "/_tests" and
 not starts_with(http.request.uri.path, "/_analytics") and
 not http.request.uri.path in {"/" "/index" "/lookup" "/privacy" "/terms" "/abuse" "/security" "/404" "/expired" "/disabled" "/maintenance" "/security.txt" "/.well-known/security.txt" "/robots.txt" "/favicon.svg"} and
 not lower(http.request.uri.path) contains ".css" and
@@ -240,8 +240,8 @@ not (
       <td>
         <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
-not starts_with(http.request.uri.path, "/_stats") and
-not starts_with(http.request.uri.path, "/_tests") and
+not http.request.uri.path contains "/_stats" and
+not http.request.uri.path contains "/_tests" and
 (
   lower(http.user_agent) contains "curl" or
   lower(http.user_agent) contains "wget" or

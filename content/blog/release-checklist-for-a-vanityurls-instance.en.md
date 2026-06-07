@@ -35,7 +35,7 @@ CI should run `npm run check` before deployment. Use grouped commands for focuse
 - Confirm the Worker has an `ASSETS` binding
 - Confirm the custom domain points to the Worker
 - Disable public `workers.dev` and preview URLs if they are not part of the service
-- Protect `*/_stats`, `*/_stats/*`, `/_tests`, and `/_tests/*` with [Access control](/docs/customize/access-control/)
+- Protect `*/_stats`, `*/_stats/*`, `*/_tests`, and `*/_tests/*` with [Access control](/docs/customize/access-control/)
 - Confirm the Worker accepts only `GET`, `HEAD`, and `OPTIONS` on public routes, plus `POST /lookup/resolve` and `POST /_analytics/lookup`
 - Confirm raw runtime files return 404: `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json`
 - Confirm response headers include `X-Generated-By: vanityURLs.link` unless intentionally overridden
@@ -85,7 +85,7 @@ Use [Footer & pages](/docs/customize/footer-pages/), [Internationalization](/doc
 - Confirm a known active short link returns the expected redirect
 - Confirm a hidden or missing slug returns 404
 - Confirm a blocked target fails validation
-- Confirm `/en/_stats/`, one other localized stats path, and `/_tests` are protected
+- Confirm `/en/_stats/`, one other localized stats path, and `/en/_tests/` are protected
 - Confirm server-side analytics receive one test event when analytics are enabled
 - Confirm Cloudflare blocks commodity scanner traffic before it reaches the Worker
 

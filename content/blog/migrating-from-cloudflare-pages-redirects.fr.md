@@ -22,7 +22,7 @@ Cette migration ne reinvente pas votre domaine court. Elle déplace proprement u
 - Le build copie `defaults/`, applique `custom/`, et génère `build/v8s.json`, `build/v8s-blocklist.json`, et `build/v8s-site-config.json`
 - `custom/v8s-links.txt` est préfère quand il existe; sinon le build utilise `defaults/v8s-links.txt`
 - la politique source éditable est `v8s-policies.json`; `build/v8s-blocklist.json` est une sortie runtime générée
-- `/en/_stats/`, les autres chemins stats localisés et `/_tests` sont protégés par [Cloudflare Access](/fr/docs/customize/access-control/)
+- `/en/_stats/`, les autres chemins stats localisés et `/en/_tests/` sont protégés par [Cloudflare Access](/fr/docs/customize/access-control/)
 - les analytics serveur sont émis par le Worker
 - les probes et destinations risquées sont bloquées par la politique runtime générée
 

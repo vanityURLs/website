@@ -9,7 +9,7 @@ The failure mode is ordinary. Someone opens `/en/_stats/` from a private browser
 
 That is the whole problem. Public redirects should stay public. Operational pages should not.
 
-For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) has one narrow job: keep localized stats paths such as `/en/_stats/`, `/_tests`, and similar operator surfaces private before the Worker serves them. Treat it as an access boundary, not a setup souvenir.
+For vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) has one narrow job: keep localized stats paths such as `/en/_stats/`, localized test paths such as `/en/_tests/`, and similar operator surfaces private before the Worker serves them. Treat it as an access boundary, not a setup souvenir.
 
 ## Review It When Ownership Changes
 
@@ -52,7 +52,7 @@ Then test the thing that matters:
 1. Open a signed-out or private browser profile.
 2. Visit `https://<short-domain>/en/_stats/`.
 3. Confirm Cloudflare Access appears before the dashboard.
-4. Repeat for `/_tests`.
+4. Repeat for `https://<short-domain>/en/_tests/`.
 
 Move to GitHub, Google, or a corporate IdP when the team or workflow justifies it. Replace long individual allowlists with maintained groups when offboarding becomes a real concern.
 

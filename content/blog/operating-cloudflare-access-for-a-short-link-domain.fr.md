@@ -9,7 +9,7 @@ Le mode d'echec est ordinaire. Quelqu'un ouvre `/en/_stats/` dans une fenêtre d
 
 C'est tout le probleme. Les redirections publiques doivent rester publiques. Les pages opérationnelles ne devraient pas l'être.
 
-Pour vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) à un travail etroit : garder les chemins stats localisés comme `/en/_stats/`, `/_tests` et les surfaces opérateur similaires privées avant que le Worker les serve. Traitez-le comme une frontiere d'accès, pas comme un souvenir de setup.
+Pour vanityURLs, [Cloudflare Access](https://developers.cloudflare.com/cloudflare-one/applications/) à un travail etroit : garder les chemins stats localisés comme `/en/_stats/`, les chemins de test localisés comme `/en/_tests/` et les surfaces opérateur similaires privées avant que le Worker les serve. Traitez-le comme une frontiere d'accès, pas comme un souvenir de setup.
 
 ## Revoir Quand La Propriété Change
 
@@ -52,7 +52,7 @@ Ensuite, testez ce qui compte :
 1. Ouvrez un profil de navigateur deconnecte ou privé.
 2. Visitez `https://<short-domain>/en/_stats/`.
 3. Confirmez que Cloudflare Access apparait avant le tableau de bord.
-4. Repétéz pour `/_tests`.
+4. Repétéz pour `https://<short-domain>/en/_tests/`.
 
 Passez a GitHub, Google ou un IdP corporatif lorsque l'équipe ou le workflow le justifie. Remplacez les longues listes individuelles par des groupes maintenus lorsque l'offboarding devient un vrai enjeu.
 

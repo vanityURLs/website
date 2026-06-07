@@ -4,8 +4,6 @@ locals {
     "*/_stats/*",
     "*/_tests",
     "*/_tests/*",
-    "_tests",
-    "_tests/*",
   ]
 
   public_pages = [
@@ -40,8 +38,8 @@ locals {
   rate_limit_expression = join(" and\n", concat([
     "http.host eq \"${var.apex_hostname}\"",
     "not cf.client.bot",
-    "not starts_with(http.request.uri.path, \"/_stats\")",
-    "not starts_with(http.request.uri.path, \"/_tests\")",
+    "not http.request.uri.path contains \"/_stats\"",
+    "not http.request.uri.path contains \"/_tests\"",
     "not starts_with(http.request.uri.path, \"/_analytics\")",
     "not http.request.uri.path in {${join(" ", formatlist("\"%s\"", local.public_pages))}}",
   ], [
@@ -78,8 +76,8 @@ locals {
   suspicious_clients_expression = <<-EOT
     http.host eq "${var.apex_hostname}" and
     not cf.client.bot and
-    not starts_with(http.request.uri.path, "/_stats") and
-    not starts_with(http.request.uri.path, "/_tests") and
+    not http.request.uri.path contains "/_stats" and
+    not http.request.uri.path contains "/_tests" and
     (
       lower(http.user_agent) contains "curl" or
       lower(http.user_agent) contains "wget" or

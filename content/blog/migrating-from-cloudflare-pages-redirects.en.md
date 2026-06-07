@@ -23,7 +23,7 @@ This migration is not a reinvention of your short domain. It is a controlled mov
 - The build copies `defaults/`, overlays `custom/`, and generates `build/v8s.json`, `build/v8s-blocklist.json`, and `build/v8s-site-config.json`
 - `custom/v8s-links.txt` is preferred when it exists; otherwise the build uses `defaults/v8s-links.txt`
 - Editable source policy is `v8s-policies.json`; `build/v8s-blocklist.json` is generated runtime output
-- `/en/_stats/`, other localized stats paths, and `/_tests` are protected by [Cloudflare Access](/docs/customize/access-control/)
+- `/en/_stats/`, other localized stats paths, and `/en/_tests/` are protected by [Cloudflare Access](/docs/customize/access-control/)
 - Analytics events are emitted by the Worker
 - Scanner probes and risky destinations are blocked by the generated runtime policy
 

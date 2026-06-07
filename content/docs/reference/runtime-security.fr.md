@@ -61,7 +61,7 @@ Les headers par défaut incluent `X-Generated-By: vanityURLs.link`, des règles 
 
 ## Gardes des fichiers opérationnels
 
-Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, ainsi que `/_tests`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une raison délibérée de divulgation publique.
+Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, les chemins de test localisés comme `/en/_tests/`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une raison délibérée de divulgation publique.
 
 | Contrôle                               | Chemins                                                                                 | Ce qu'il fait                                                                            |
 | -------------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
