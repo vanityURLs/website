@@ -1,6 +1,6 @@
 ---
 title: "Runtime link registry"
-description: "The generated build/v8s.json schema 3.0 link registry consumed by the vanityURLs Worker."
+description: "The generated build/v8s.json schema 3.1 link registry consumed by the vanityURLs Worker."
 weight: 35
 aside: false
 ---
@@ -11,37 +11,34 @@ Humans edit the source link registry, normally `custom/v8s-links.txt`. The build
 
 ## Cleanup Path
 
-The 3.x direction is:
+The cleanup direction is:
 
 1. Keep `custom/v8s-links.txt` flat and human-readable.
 2. Compile it during `npm run build` into a tree-first runtime link registry.
 3. Treat `tree` as the canonical runtime lookup shape.
-4. Keep `links[]` as a derived compatibility and dashboard view during the 3.x series.
-5. Validate that `tree` and `links[]` agree before deployment.
+4. Flatten `tree` only inside tools that need tabular output.
+5. Do not emit a second runtime link shape.
 
 Exact and splat source entries can share the same base slug. For example, `docs` and `docs/*` are valid together: `/docs` should resolve the exact link, while `/docs/install` should resolve the splat link. The runtime tree stores those separately as `link` and `splat_link`.
 
-## Schema 3.0
+## Schema 3.1
 
-Schema `3.0` is tree-first:
+Schema `3.1` is tree-only:
 
 | Field                | Purpose                                                                   |
 | -------------------- | ------------------------------------------------------------------------- |
-| `schema_version`     | Runtime registry contract version, currently `3.0`                        |
+| `schema_version`     | Runtime registry contract version, currently `3.1`                        |
 | `generated_at`       | Build timestamp                                                           |
 | `generated_timezone` | Operator timezone used by protected dashboards when displaying build time |
 | `default_state`      | Fallback lifecycle state, normally `permanent`                            |
 | `routing`            | State-to-outcome map used by the Worker                                   |
 | `tree`               | Canonical nested lookup structure for runtime resolution                  |
-| `links[]`            | Compatibility array for dashboards, local helpers, and review workflows   |
 
-Each tree node has a `children` object, may have an exact `link`, and may have a `splat_link`. Each link object keeps the same fields exposed in `links[]`, including `slug`, `match`, `target`, `state`, metadata, and optional `schedule`.
+Each tree node has a `children` object, may have an exact `link`, and may have a `splat_link`. Each link object includes `slug`, `match`, `target`, `state`, metadata, and optional `schedule`.
 
-## Compatibility
+## Tooling
 
-The Worker prefers `tree` when present and falls back to `links[]` when absent. That keeps rollback safe across the 2.x to 3.x boundary and lets local tools continue using the compatibility array during the 3.x series.
-
-`links[]` remains part of the 3.x compatibility contract, but it is not the runtime source of truth when `tree` is present. Removing it would require a future major release.
+The Worker reads `tree` directly. Dashboards, local helpers, validators, and maintenance scripts flatten `tree` when they need a list view. That keeps the generated runtime registry singular while preserving ergonomic review and table workflows.
 
 ## Validation
 
@@ -49,8 +46,7 @@ The Worker prefers `tree` when present and falls back to `links[]` when absent. 
 
 - required routing states
 - tree shape
-- compatibility `links[]`
-- agreement between exact and splat source links and their runtime tree representation
+- exact and splat source links and their runtime tree representation
 - safe redirect targets
 - splat target placeholders
 - schedule rule shape

@@ -91,4 +91,4 @@ Use [Footer & pages](/docs/customize/footer-pages/), [Internationalization](/doc
 
 ## Rollback versus migration
 
-Migration instructions explain how to move forward. A rollback note explains how to retreat safely when production traffic reveals a problem after deployment. For vanityURLs, rollback should stay boring: return to the previous Git commit or Cloudflare deployment, confirm the Worker still reads the previous `links[]` registry shape, and rerun the smoke checks.
+Migration instructions explain how to move forward. A rollback note explains how to retreat safely when production traffic reveals a problem after deployment. For vanityURLs, rollback should stay boring: return to the previous Git commit or Cloudflare deployment, confirm the Worker reads the deployed runtime link registry, and rerun the smoke checks.

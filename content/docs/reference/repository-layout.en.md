@@ -99,7 +99,7 @@ The build prefers `custom/v8s-links.txt` when it exists. If it does not, the bui
 
 `build/` and `src/` are generated. Do not edit them by hand.
 
-`build/v8s.json` is the runtime redirect registry. It contains normalized link targets, the schema 3.0 `tree`, routing rules, lifecycle states, metadata, generated timestamps, and optional schedule blocks.
+`build/v8s.json` is the runtime redirect registry. It contains normalized link targets, the schema 3.1 `tree`, routing rules, lifecycle states, metadata, generated timestamps, and optional schedule blocks.
 
 `build/v8s-blocklist.json` is the runtime policy artifact consumed by the Worker. It is generated from the selected policy source and optional generated feed data.
 

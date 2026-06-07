@@ -99,7 +99,7 @@ Le build préfère `custom/v8s-links.txt` lorsqu'il existe. Sinon, il utilise `d
 
 `build/` et `src/` sont générés. Ne les modifiez pas à la main.
 
-`build/v8s.json` est le registre runtime de redirection. Il contient les cibles normalisées, le `tree` schéma 3.0, les règles de routage, états de cycle de vie, métadonnées, timestamps générés et blocs de planification optionnels.
+`build/v8s.json` est le registre runtime de redirection. Il contient les cibles normalisées, le `tree` schéma 3.1, les règles de routage, états de cycle de vie, métadonnées, timestamps générés et blocs de planification optionnels.
 
 `build/v8s-blocklist.json` est l'artefact de politique runtime consommé par le Worker. Il est généré depuis la source de politique sélectionnée et les données optionnelles de flux générés.
 

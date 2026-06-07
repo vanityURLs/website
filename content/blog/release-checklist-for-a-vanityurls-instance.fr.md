@@ -90,4 +90,4 @@ Utilisez [Pied de page et pages](/fr/docs/customize/footer-pages/), [Internation
 
 ## Rollback versus migration
 
-Les instructions de migration expliquent comment avancer. Une note de rollback explique comment reculer proprement lorsque le trafic de production révèle un problème après déploiement. Pour vanityURLs, le rollback devrait rester sobre : revenir au commit Git ou au déploiement Cloudflare précédent, confirmer que le Worker lit encore l'ancien registre `links[]`, puis relancer les smoke checks.
+Les instructions de migration expliquent comment avancer. Une note de rollback explique comment reculer proprement lorsque le trafic de production révèle un problème après déploiement. Pour vanityURLs, le rollback devrait rester sobre : revenir au commit Git ou au déploiement Cloudflare précédent, confirmer que le Worker lit le registre runtime des liens déployé, puis relancer les smoke checks.
