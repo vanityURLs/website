@@ -82,7 +82,7 @@ Exemple :
       "en": "A short-link service for Example Inc.'s projects",
       "fr": "Un service de liens courts pour les projets de Example Inc."
     },
-    "custom_public": true,
+    "custom_mode": "full",
     "wordmark": {
       "black": "example.",
       "green": "link"

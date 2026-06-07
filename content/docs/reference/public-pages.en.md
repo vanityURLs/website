@@ -56,7 +56,7 @@ Only `404.html` has runtime placeholders. If you replace it, include these place
 
 ## Doctor ignores
 
-`npm run doctor` warns when copied public files look stale compared with product defaults. When a file is intentionally instance-owned, document that choice in `custom/v8s-maintenance.json` instead of copying more defaults just to silence the warning:
+`npm run doctor` warns when copied public files look stale compared with product defaults. When a file is intentionally instance-owned, document that choice in `custom/v8s-custom-overrides.json` instead of copying more defaults just to silence the warning:
 
 ```json
 {

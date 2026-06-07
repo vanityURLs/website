@@ -56,7 +56,7 @@ Seul `404.html` a des placeholders runtime. Si vous le remplacez, incluez ces pl
 
 ## Ignorer doctor volontairement
 
-`npm run doctor` avertit lorsque des fichiers publics copiés semblent désynchronisés des defaults produit. Lorsqu'un fichier appartient volontairement à l'instance, documentez ce choix dans `custom/v8s-maintenance.json` au lieu de copier plus de defaults seulement pour faire disparaître l'avertissement :
+`npm run doctor` avertit lorsque des fichiers publics copiés semblent désynchronisés des defaults produit. Lorsqu'un fichier appartient volontairement à l'instance, documentez ce choix dans `custom/v8s-custom-overrides.json` au lieu de copier plus de defaults seulement pour faire disparaître l'avertissement :
 
 ```json
 {
