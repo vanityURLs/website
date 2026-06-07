@@ -24,7 +24,7 @@ variable "maintainer_emails" {
 }
 
 variable "enable_ai_crawler_block_rule" {
-  description = "Whether to create the aggressive custom user-agent crawler block rule."
+  description = "Whether to create the optional static user-agent AI crawler fallback rule. Prefer Cloudflare AI Crawl Control for default crawler blocking."
   type        = bool
-  default     = true
+  default     = false
 }

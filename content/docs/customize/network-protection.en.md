@@ -11,7 +11,7 @@ aliases:
 
 Use this page when you are ready to configure Cloudflare controls in front of the Worker. Network protection keeps commodity abuse, unexpected methods, scanner probes, unwanted crawlers, and infrastructure noise away from application code.
 
-Prefer the Terraform starter in [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) for repeatable setup. It covers the Access baseline, the `Redirect www to apex` redirect rule, the `Rate limit short-link candidates` rate limit, and the `Block scanner probes`, `Block unexpected methods`, `Challenge suspicious clients`, and `Block unwanted AI crawlers` WAF rules. Use the dashboard steps below as the human-readable checklist and fallback for settings that still need visual review.
+Prefer the Terraform starter in [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) for repeatable setup. It covers the Access baseline, the `Redirect www to apex` redirect rule, the `Rate limit short-link candidates` rate limit, and the `Block scanner probes`, `Block unexpected methods`, and `Challenge suspicious clients` WAF rules. Use Cloudflare **AI Crawl Control** for AI crawler blocking so Cloudflare can keep the crawler list current. Use the dashboard steps below as the human-readable checklist and fallback for settings that still need visual review.
 
 For the layered security rationale, read [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/). The raw Cloudflare dashboard capture lives in [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json); use it to track Cloudflare menu changes, not as an operator checklist.
 
@@ -268,7 +268,7 @@ not http.request.uri.path contains "/_tests" and
       <td>Challenges common script and HTTP-client user agents without challenging every ordinary non-verified browser.</td>
     </tr>
     <tr>
-      <td>Block unwanted AI crawlers<br><small>Custom rule</small></td>
+      <td>Block unwanted AI crawlers<br><small>Optional fallback custom rule</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -290,7 +290,7 @@ http.request.uri.path ne "/robots.txt" and (
   lower(http.user_agent) contains "terracotta"
 )</code></pre>
       </td>
-      <td>Aggressive crawler blocklist. Remove search-engine crawlers such as `googlebot` and `bingbot` if public indexing matters.</td>
+      <td>Optional static fallback only. Prefer AI Crawl Control so Cloudflare-managed crawler updates continue to apply.</td>
     </tr>
   </tbody>
 </table>
@@ -304,6 +304,8 @@ The lookup page and `/lookup/resolve` endpoint intentionally let a visitor inspe
 ### Decide crawler controls
 
 In Cloudflare, use **Domains** > **your short domain** > **AI Crawl Control** for crawler-specific controls. This is separate from the broad **Security** > **Settings** > **Block AI bots** toggle covered earlier.
+
+Prefer AI Crawl Control over a hand-maintained custom WAF rule for AI crawlers. Cloudflare updates the crawler inventory over time, while a static user-agent expression only blocks the names you typed into it. If the dashboard says the AI crawler rule was modified outside AI Crawl Control, review the underlying WAF rule and remove local edits that make AI Crawl Control unable to parse the expression. Keep any custom additions narrow and parseable, or put them in a separate fallback rule below the Cloudflare-managed AI Crawl Control rule.
 
 Use **AI Crawl Control** > **Security** to block named crawlers and configure the blocked-crawler response. If you use this page, set the block response allowed paths to:
 

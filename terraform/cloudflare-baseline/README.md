@@ -7,9 +7,14 @@ It is intentionally small:
 
 - Cloudflare Access protects private operational paths.
 - A redirect rule sends `www` traffic to the apex hostname.
-- WAF custom rules block scanner probes, unexpected methods, and selected
-  crawler traffic before requests reach the Worker.
+- WAF custom rules block scanner probes, unexpected methods, and suspicious
+  script clients before requests reach the Worker.
 - A rate limiting rule protects likely short-link candidates.
+
+Use Cloudflare AI Crawl Control for AI crawler blocking. The optional static
+user-agent rule is disabled by default because it can drift from Cloudflare's
+managed crawler inventory and can cause the AI Crawl Control dashboard to report
+that the underlying WAF rule was modified outside AI Crawl Control.
 
 Use this directory as the long-term automation path. The dashboard instructions
 in the documentation remain useful for review, migration, and troubleshooting,

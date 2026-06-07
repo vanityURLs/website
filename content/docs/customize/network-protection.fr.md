@@ -11,7 +11,7 @@ aliases:
 
 Utilisez cette page lorsque vous êtes prêt a configurér les contrôles Cloudflare devant le Worker. La protection réseau garde les abus courants, les methodes inattendues, les probes de scanners, les crawlers non désirés et le bruit d'infrastructure loin du code applicatif.
 
-Préférez le starter Terraform dans [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) pour une configuration répétable. Il couvre la base Access, la règle de redirection `Redirect www to apex`, la limite `Rate limit short-link candidates`, ainsi que les règles WAF `Block scanner probes`, `Block unexpected methods`, `Challenge suspicious clients` et `Block unwanted AI crawlers`. Utilisez les étapes du tableau de bord ci-dessous comme checklist lisible et fallback pour les réglages qui demandent encore une revue visuelle.
+Préférez le starter Terraform dans [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) pour une configuration répétable. Il couvre la base Access, la règle de redirection `Redirect www to apex`, la limite `Rate limit short-link candidates`, ainsi que les règles WAF `Block scanner probes`, `Block unexpected methods` et `Challenge suspicious clients`. Utilisez **AI Crawl Control** de Cloudflare pour bloquer les crawlers IA afin que Cloudflare garde la liste de crawlers à jour. Utilisez les étapes du tableau de bord ci-dessous comme checklist lisible et fallback pour les réglages qui demandent encore une revue visuelle.
 
 Pour le raisonnement de sécurité par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/). La capture brute du tableau de bord Cloudflare se trouve dans [data/cloudflare-protection-defaults.json](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/); utilisez-la pour suivre les changements de menus Cloudflare, pas comme checklist opérateur.
 
@@ -268,7 +268,7 @@ not http.request.uri.path contains "/_tests" and
       <td>Challenge les user agents de scripts et clients HTTP courants sans challenger tous les navigateurs ordinaires non verifies.</td>
     </tr>
     <tr>
-      <td>Bloquer les crawlers IA non désirés<br><small>Custom rule</small></td>
+      <td>Bloquer les crawlers IA non désirés<br><small>Règle custom fallback optionnelle</small></td>
       <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
@@ -290,7 +290,7 @@ http.request.uri.path ne "/robots.txt" and (
   lower(http.user_agent) contains "terracotta"
 )</code></pre>
       </td>
-      <td>Blocklist de crawlers agressive. Retirez les crawlers de moteurs de recherche comme `googlebot` et `bingbot` si l'indexation publique est importante.</td>
+      <td>Fallback statique optionnel seulement. Préférez AI Crawl Control pour continuer à profiter des mises à jour de crawlers gérées par Cloudflare.</td>
     </tr>
   </tbody>
 </table>
@@ -304,6 +304,8 @@ La page lookup et l'endpoint `/lookup/resolve` permettent volontairement à un v
 ### Decider des contrôles de crawlers
 
 Dans Cloudflare, utilisez **Domains** > **votre domaine court** > **AI Crawl Control** pour les contrôles spécifiques aux crawlers. C'est séparé du contrôle large **Security** > **Settings** > **Block AI bots** couvert plus haut.
+
+Préférez AI Crawl Control à une règle WAF custom maintenue à la main pour les crawlers IA. Cloudflare met l'inventaire de crawlers à jour avec le temps, alors qu'une expression statique de user-agent bloque seulement les noms que vous avez tapés. Si le tableau de bord indique que la règle de crawlers IA a été modifiée hors AI Crawl Control, révisez la règle WAF sous-jacente et retirez les modifications locales qui rendent l'expression impossible à analyser. Gardez les ajouts custom étroits et analysables, ou placez-les dans une règle fallback séparée sous la règle AI Crawl Control gérée par Cloudflare.
 
 Utilisez **AI Crawl Control** > **Security** pour bloquer des crawlers nommes et configurer la réponse aux crawlers bloques. Si vous utilisez cette page, règlez les chemins autorises de la réponse de blocage sur :
 

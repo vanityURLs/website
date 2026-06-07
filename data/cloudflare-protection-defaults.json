@@ -1707,7 +1707,7 @@
       "Use DNSSEC when the registrar delegation is configured correctly.",
       "Use Full strict SSL/TLS mode, Universal SSL, TLS 1.3, Automatic HTTPS Rewrites and a minimum TLS version of 1.2 or stricter for production.",
       "Keep Cloudflare dashboard HSTS off for the baseline because the repository owns host-scoped HSTS. Enable dashboard HSTS only for deliberate zone-level policy.",
-      "Use AI Crawl Control Security toggles only when the operator intentionally wants Cloudflare to block specific crawlers before the Worker.",
+      "Use AI Crawl Control Security as the preferred AI crawler blocking surface so Cloudflare-managed crawler inventory updates continue to apply. Keep static user-agent WAF rules optional and separate from the AI Crawl Control-managed rule.",
       "Use Security Analytics and sampled logs for traffic blocked before the Worker.",
       "Use custom security rules and rate limiting for scanner-like traffic and repeated short-link misses.",
       "On plans with one rate limiting rule, use the short-link candidate rule to cover /lookup/resolve and ordinary redirect guessing. On plans with multiple rate limiting rules, split /lookup/resolve and /_analytics/lookup into tighter endpoint-specific rules because lookup target resolution and analytics beacons have different abuse economics than ordinary redirects.",
