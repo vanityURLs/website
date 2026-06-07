@@ -49,6 +49,8 @@ In your instance repository, create `custom/v8s-policies.json` when the instance
 ```
 
 `custom/v8s-policies.json` replaces the default source policy. It is not merged over `defaults/v8s-policies.json`.
+An empty or minimal custom policy is valid. If you want the product defaults as a starting point, copy
+`defaults/v8s-policies.json` to `custom/v8s-policies.json` and edit that copy.
 
 ### Keep allow rules narrow
 

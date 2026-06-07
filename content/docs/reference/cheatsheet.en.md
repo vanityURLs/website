@@ -103,7 +103,7 @@ Use this cheatsheet when you already know the product and need the shortest path
         </tr>
         <tr>
           <td><code>defaults/</code></td>
-          <td>Product baseline copied or merged during build.</td>
+          <td>Product baseline used by build unless an explicit custom source replaces it.</td>
           <td>Product</td>
         </tr>
       </tbody>

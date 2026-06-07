@@ -49,6 +49,8 @@ Dans le dépôt de votre instance, créez `custom/v8s-policies.json` lorsque l'i
 ```
 
 `custom/v8s-policies.json` remplace la politique source par défaut. Il ne fusionne pas par-dessus `defaults/v8s-policies.json`.
+Une politique custom vide ou minimale est valide. Si vous voulez les defaults produit comme point de départ, copiez
+`defaults/v8s-policies.json` vers `custom/v8s-policies.json`, puis modifiez cette copie.
 
 ### Garder les règles allow étroites
 

@@ -103,7 +103,7 @@ Utilisez cet aide-mémoire lorsque vous connaissez déjà le produit et voulez r
         </tr>
         <tr>
           <td><code>defaults/</code></td>
-          <td>Baseline produit copiée ou fusionnée par le build.</td>
+          <td>Baseline produit utilisée par le build sauf quand une source custom explicite la remplace.</td>
           <td>Produit</td>
         </tr>
       </tbody>

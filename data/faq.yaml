@@ -676,7 +676,7 @@
       path: docs/adr/0003-custom-policy-replaces-default-policy.md
       note: "ADR records replacement semantics for custom policy."
   answer: >
-    No. When `custom/v8s-policies.json` exists, it replaces the selected default policy source for the instance. This makes local policy ownership explicit and prevents removed local decisions from reappearing through an implicit merge.
+    No. When `custom/v8s-policies.json` exists, it replaces the selected default policy source for the instance. This makes local policy ownership explicit and prevents removed local decisions from reappearing through an implicit merge. An empty or minimal custom policy is valid; copy `defaults/v8s-policies.json` into `custom/` only when you want the defaults as an editable template.
   related: [destination-policy, defaults-vs-custom]
   tags: [policy, blocklist, custom]
   last_reviewed: 2026-05-27
