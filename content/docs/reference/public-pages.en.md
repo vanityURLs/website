@@ -54,6 +54,27 @@ Only `404.html` has runtime placeholders. If you replace it, include these place
 
 `disabled.html`, `expired.html`, and `maintenance.html` are served as static state pages. They do not require runtime placeholders.
 
+## Doctor ignores
+
+`npm run doctor` warns when copied public files look stale compared with product defaults. When a file is intentionally instance-owned, document that choice in `custom/v8s-maintenance.json` instead of copying more defaults just to silence the warning:
+
+```json
+{
+  "schema_version": "1.0",
+  "doctor": {
+    "ignore": [
+      {
+        "path": "custom/public/404.html",
+        "codes": ["html-head-assets-stale"],
+        "reason": "The instance intentionally uses a custom home-style 404 page."
+      }
+    ]
+  }
+}
+```
+
+Use exact paths for single files, or `custom/public/fr/**` for a directory. Keep ignores narrow by `codes` or `fixes` so doctor still reports unrelated drift.
+
 ## Custom page security
 
 The default CSP protects custom pages too unless `custom/public/_headers` changes it. That is intentional: a custom status page can otherwise become the easiest place to accidentally add XSS-prone HTML.

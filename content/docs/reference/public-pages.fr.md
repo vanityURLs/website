@@ -54,6 +54,27 @@ Seul `404.html` a des placeholders runtime. Si vous le remplacez, incluez ces pl
 
 `disabled.html`, `expired.html` et `maintenance.html` sont servis comme pages d'état statiques. Ils ne demandent pas de placeholders runtime.
 
+## Ignorer doctor volontairement
+
+`npm run doctor` avertit lorsque des fichiers publics copiés semblent désynchronisés des defaults produit. Lorsqu'un fichier appartient volontairement à l'instance, documentez ce choix dans `custom/v8s-maintenance.json` au lieu de copier plus de defaults seulement pour faire disparaître l'avertissement :
+
+```json
+{
+  "schema_version": "1.0",
+  "doctor": {
+    "ignore": [
+      {
+        "path": "custom/public/404.html",
+        "codes": ["html-head-assets-stale"],
+        "reason": "L'instance utilise volontairement une page 404 custom qui ressemble à l'accueil."
+      }
+    ]
+  }
+}
+```
+
+Utilisez des chemins exacts pour les fichiers uniques, ou `custom/public/fr/**` pour un répertoire. Gardez les ignores étroits avec `codes` ou `fixes` afin que doctor continue de signaler les dérives sans rapport.
+
 ## Sécurité des pages custom
 
 La CSP par défaut protège aussi les pages custom sauf si `custom/public/_headers` la modifie. C'est volontaire : une page de statut custom peut sinon devenir l'endroit le plus facile où ajouter accidentellement du HTML vulnérable au XSS.
