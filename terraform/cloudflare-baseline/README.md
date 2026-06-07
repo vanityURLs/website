@@ -24,12 +24,32 @@ Use this directory as the long-term automation path. The dashboard instructions
 in the documentation remain useful for review, migration, and troubleshooting,
 but Terraform should own repeatable setup.
 
-## Usage
+## Install tools on macOS
 
-Install Terraform or OpenTofu with a platform tool such as Homebrew, asdf, tfenv,
-mise, or the CI runner image. The website repo does not install the Terraform
-binary through `package.json`; npm scripts only provide consistent command names
-after the binary is available.
+Use Homebrew for local operator workstations. Choose one CLI: Terraform or
+OpenTofu. You do not need both.
+
+Install HashiCorp Terraform for the default path:
+
+```bash
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
+terraform version
+```
+
+Or install OpenTofu as the open-source Terraform-compatible alternative:
+
+```bash
+brew install opentofu
+tofu version
+```
+
+Both CLIs download the Cloudflare provider during
+`terraform init` or `tofu init`. The website repo does not install these
+binaries through `package.json`; npm scripts only provide consistent command
+names after the binary is available.
+
+## Usage
 
 Copy `terraform.tfvars.example` to `terraform.tfvars`, replace the placeholders,
 then run:
