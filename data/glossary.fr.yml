@@ -13,13 +13,13 @@ terms:
     definition: Un lien visuel compact qui annonce, previsualise ou partage un alias.
   - id: block-policy
     term: Politique de blocage
-    definition: Les règles propres à l'instance dans `custom/v8s-policies.json` qui bloquent les domaines dangereux, mots-cles, chemins de scanner ou trafic indesirable avant la recherche de redirection.
+    definition: La politique source qui bloque les domaines dangereux, mots-cles, chemins de scanner ou trafic indesirable avant la recherche de redirection; `custom/v8s-policies.json` remplace la politique source par défaut lorsqu'il existe.
   - id: build-artifact
     term: Artefact de build
     definition: Un fichier génère sous `build/` ou `src/`. Modifiez les fichiers source dans `custom/` ou `defaults/`, puis reconstruisez au lieu de modifier les artefacts directement.
   - id: custom-overlay
     term: Overlay custom
-    definition: La couche propre à l'instance sous `custom/`. Elle remplace ou éténd les defaults produit sans modifier les fichiers upstream.
+    definition: La couche propre à l'instance sous `custom/`. Elle stocke les liens explicites, la configuration du site, la politique de remplacement et les surcharges publiques optionnelles sans modifier les fichiers upstream.
   - id: default-target
     term: Cible par défaut
     definition: La destination fallback utilisee par un lien planifié lorsqu'aucune règle horaire n'est active.

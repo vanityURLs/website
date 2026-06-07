@@ -13,13 +13,13 @@ terms:
     definition: A compact visual link that advertises, previews, or shares an alias.
   - id: block-policy
     term: Block policy
-    definition: The instance-owned rules in `custom/v8s-policies.json` that block unsafe domains, keywords, scanner paths, or unwanted traffic before redirect lookup.
+    definition: The source policy that blocks unsafe domains, keywords, scanner paths, or unwanted traffic before redirect lookup; `custom/v8s-policies.json` replaces the default source policy when present.
   - id: build-artifact
     term: Build artifact
     definition: A generated file under `build/` or `src/`. Edit source files in `custom/` or `defaults/`, then rebuild instead of editing artifacts directly.
   - id: custom-overlay
     term: Custom overlay
-    definition: The instance-owned layer under `custom/`. It overrides or extends product defaults without editing upstream files.
+    definition: The instance-owned layer under `custom/`. It stores explicit links, site config, replacement policy, and optional public-file overlays without editing upstream files.
   - id: default-target
     term: Default target
     definition: The fallback destination used by a scheduled link when no time-based rule is currently active.

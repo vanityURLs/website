@@ -28,7 +28,7 @@ Choose `Y` when you are ready to publish privacy, terms, and security language f
 
 ### Review generated outputs
 
-In your instance repository, review the generated public files under `custom/public/` or `build/` after setup runs.
+In your instance repository, review the generated public files under `build/` after setup runs. Use `custom/public/` only when you intentionally maintain custom HTML or public assets.
 
 | Output                      | Purpose                                                    |
 | --------------------------- | ---------------------------------------------------------- |

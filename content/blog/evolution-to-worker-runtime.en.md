@@ -24,7 +24,7 @@ The project moved through experiments with generated files, HTML pages, client-s
 
 ## Why the Worker became the center
 
-The current major release moves the runtime into a Cloudflare Worker backed by static assets and a generated schema `3.0` registry.
+The current major release moves the runtime into a Cloudflare Worker backed by static assets and a generated schema `3.1` runtime link registry.
 
 That change is not about making the system bigger. It is about making the simple version stronger:
 

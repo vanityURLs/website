@@ -28,7 +28,7 @@ Choisissez `Y` lorsque vous êtes prêt a publier le texte de confidentialité, 
 
 ### Réviser les sorties générées
 
-Dans le dépôt de votre instance, vérifiez les fichiers publics génères sous `custom/public/` ou `build/` après l'execution du setup.
+Dans le dépôt de votre instance, vérifiez les fichiers publics génères sous `build/` après l'execution du setup. Utilisez `custom/public/` seulement lorsque vous maintenez volontairement du HTML custom ou des assets publics.
 
 | Sortie                      | Role                                                                           |
 | --------------------------- | ------------------------------------------------------------------------------ |

@@ -13,13 +13,13 @@ La release v8s actuelle repose sur un contrat simple : garder le runtime petit, 
 Une instance a deux types de fichiers :
 
 - `defaults/` contient les defaults du produit, les pages opérationnelles publiques, les defaults de blocklist, les consignes robots et crawlers LLM, et les scripts qui doivent être mis à jour depuis upstream
-- `custom/` contient les liens propres à l'instance, les planifications, les surcharges de politique, l'habillage, les pages légales, et les fichiers publics locaux
+- `custom/` contient les liens propres à l'instance, les planifications, le remplacement de politique, l'habillage, les pages légales, et les fichiers publics volontairement locaux
 
 Cette séparation est l'histoire de mise à jour. Si les propriétaires gardent leur travail dans `custom/`, les futures releases peuvent rafraichir `defaults/` et `scripts/` sans écraser le contenu local.
 
 ## Le runtime
 
-Au build, v8s génère un registre schéma `3.0` à partir du fichier de liens, des planifications, de la blocklist, et des assets statiques. Le Cloudflare Worker utilise ce registre génère pour resoudre les requêtes.
+Au build, v8s génère un registre runtime des liens schéma `3.1` à partir du fichier de liens, des planifications, de la politique, et des assets statiques. Le Cloudflare Worker utilise ce registre génère pour resoudre les requêtes.
 
 Le Worker fait tres peu, volontairement :
 
