@@ -2,6 +2,8 @@ locals {
   protected_paths = [
     "*/_stats",
     "*/_stats/*",
+    "*/_tests",
+    "*/_tests/*",
     "_tests",
     "_tests/*",
   ]
