@@ -44,6 +44,17 @@ Use the apex hostname as the only vanityURLs Worker hostname. If you publish `ww
 
 In Cloudflare, open **Domains** > **your short domain** > **Rules**. Prefer **Redirect Rules** when available. If your zone already uses legacy **Page Rules**, a single forwarding URL rule is also fine for this hostname canonicalization because it runs before the Worker and stays outside the vanityURLs link registry.
 
+If Cloudflare asks you to create a proxied DNS record for `www`, use these DNS values in the same zone as the apex short domain:
+
+| DNS field    | Value                 |
+| ------------ | --------------------- |
+| Type         | `A`                   |
+| Name         | `www`                 |
+| IPv4 address | `192.0.2.1`           |
+| Proxy status | Proxied, orange cloud |
+
+`192.0.2.1` is a documentation/test address and is safe here because the proxied redirect rule handles the request at Cloudflare before any origin connection is needed. In the DNS form, use `www`, not the full hostname. For example, entering `www.v8s.link` while you are inside another zone would create the wrong name, such as `www.v8s.link.example.com`.
+
 Configure the redirect with these values:
 
 | Field                      | Value                        |
@@ -56,7 +67,7 @@ Configure the redirect with these values:
 | Preserve query string      | Enabled                      |
 | Order                      | Before Worker/WAF evaluation |
 
-Use **Wildcard pattern**, not **All incoming requests**, because this rule should only match the `www` hostname. Include `https://` in the **Request URL** field; the dashboard rejects a host-only value such as `www.v8s.link/*`. The wildcard capture is referenced as `${1}` in the **Target URL**, so `/foo` becomes `https://v8s.link/foo`. Enable **Preserve query string** so `https://www.v8s.link/foo?x=1` becomes `https://v8s.link/foo?x=1`.
+Use **Wildcard pattern**, not **All incoming requests**, because this rule should only match the `www` hostname. Replace `v8s.link` with your current short domain, such as `a6z.link` when you are working in the `a6z.link` zone. Include `https://` in the **Request URL** field; the dashboard rejects a host-only value such as `www.v8s.link/*`. The wildcard capture is referenced as `${1}` in the **Target URL**, so `/foo` becomes `https://v8s.link/foo`. Enable **Preserve query string** so `https://www.v8s.link/foo?x=1` becomes `https://v8s.link/foo?x=1`.
 
 Keep the `www` DNS record proxied so Cloudflare can receive the request and apply the redirect. Do not add `www` to the Worker custom domain or to the WAF/rate-limit expressions below unless you intentionally serve the Worker on both hostnames.
 
