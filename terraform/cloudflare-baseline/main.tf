@@ -122,8 +122,8 @@ locals {
       expression  = local.unexpected_methods_expression
     },
     {
-      action      = "managed_challenge"
-      description = "Challenge suspicious clients"
+      action      = "block"
+      description = "Block suspicious script clients"
       enabled     = true
       expression  = local.suspicious_clients_expression
     },

@@ -68,7 +68,7 @@ for (const ruleName of [
   "Rate limit short-link candidates",
   "Block scanner probes",
   "Block unexpected methods",
-  "Challenge suspicious clients",
+  "Block suspicious script clients",
   "Block unwanted AI crawlers",
 ]) {
   assertIncludes(terraformMain, ruleName, files.terraformMain);

@@ -11,6 +11,10 @@ It is intentionally small:
   script clients before requests reach the Worker.
 - A rate limiting rule protects likely short-link candidates.
 
+The baseline uses `block`, not `managed_challenge`, for script-client rules.
+Managed challenges can inject Cloudflare JavaScript into matching HTML responses,
+which conflicts with repository-owned CSP and deterministic public pages.
+
 Use Cloudflare AI Crawl Control for AI crawler blocking. The optional static
 user-agent rule is disabled by default because it can drift from Cloudflare's
 managed crawler inventory and can cause the AI Crawl Control dashboard to report

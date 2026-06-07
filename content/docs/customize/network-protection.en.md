@@ -11,7 +11,7 @@ aliases:
 
 Use this page when you are ready to configure Cloudflare controls in front of the Worker. Network protection keeps commodity abuse, unexpected methods, scanner probes, unwanted crawlers, and infrastructure noise away from application code.
 
-Prefer the Terraform starter in [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) for repeatable setup. It covers the Access baseline, the `Redirect www to apex` redirect rule, the `Rate limit short-link candidates` rate limit, and the `Block scanner probes`, `Block unexpected methods`, and `Challenge suspicious clients` WAF rules. Use Cloudflare **AI Crawl Control** for AI crawler blocking so Cloudflare can keep the crawler list current. Use the dashboard steps below as the human-readable checklist and fallback for settings that still need visual review.
+Prefer the Terraform starter in [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) for repeatable setup. It covers the Access baseline, the `Redirect www to apex` redirect rule, the `Rate limit short-link candidates` rate limit, and the `Block scanner probes`, `Block unexpected methods`, and `Block suspicious script clients` WAF rules. Use Cloudflare **AI Crawl Control** for AI crawler blocking so Cloudflare can keep the crawler list current. Use the dashboard steps below as the human-readable checklist and fallback for settings that still need visual review.
 
 For the layered security rationale, read [Layering Cloudflare protection around a short-link domain](/blog/layering-cloudflare-protection-around-a-short-link-domain/). The raw Cloudflare dashboard capture lives in [data/cloudflare-protection-defaults.json](https://github.com/vanityURLs/website/blob/main/data/cloudflare-protection-defaults.json); use it to track Cloudflare menu changes, not as an operator checklist.
 
@@ -100,6 +100,10 @@ HSTS is the easy place to misread the UI. The repository ships a host-scoped `St
 Keep CSP, HSTS, frame, referrer, and permissions policy in the repository unless there is a deliberate zone-level reason to manage one of them in Cloudflare. If Cloudflare Transform Rules, Snippets, Zaraz, Rocket Loader, managed HSTS, or other dashboard features add or rewrite the same headers or inject scripts, they can conflict with the Worker and `_headers` policy.
 
 This follows [ADR 0014: Prefer repository-owned configuration](https://github.com/vanityURLs/code/blob/main/docs/adr/0014-prefer-repository-owned-configuration.md): use the Cloudflare dashboard for controls that cannot reasonably live in Git, and leave dashboard duplicates disabled when the repository already owns the behavior.
+{{< /callout >}}
+
+{{< callout type="warning" title="Avoid Managed Challenge on public HTML" >}}
+Do not use **Managed Challenge** as the baseline action for public redirect, lookup, or status pages. Cloudflare can inject challenge JavaScript into matching HTML responses, which makes repo-owned HTML and CSP behavior non-deterministic. For narrow script-client rules, use **Block** or leave the rule disabled.
 {{< /callout >}}
 
 ### Enable baseline security controls
@@ -250,8 +254,8 @@ not (
       <td>Allows only methods expected by the public redirect hostname, plus the two public lookup POST endpoints.</td>
     </tr>
     <tr>
-      <td>Challenge suspicious clients<br><small>Custom rule</small></td>
-      <td>Managed Challenge</td>
+      <td>Block suspicious script clients<br><small>Custom rule</small></td>
+      <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
@@ -265,7 +269,7 @@ not http.request.uri.path contains "/_tests" and
   lower(http.user_agent) contains "httpclient"
 )</code></pre>
       </td>
-      <td>Challenges common script and HTTP-client user agents without challenging every ordinary non-verified browser.</td>
+      <td>Blocks common script and HTTP-client user agents without injecting challenge JavaScript into public HTML.</td>
     </tr>
     <tr>
       <td>Block unwanted AI crawlers<br><small>Optional fallback custom rule</small></td>

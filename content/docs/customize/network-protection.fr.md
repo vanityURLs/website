@@ -11,7 +11,7 @@ aliases:
 
 Utilisez cette page lorsque vous êtes prêt a configurér les contrôles Cloudflare devant le Worker. La protection réseau garde les abus courants, les methodes inattendues, les probes de scanners, les crawlers non désirés et le bruit d'infrastructure loin du code applicatif.
 
-Préférez le starter Terraform dans [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) pour une configuration répétable. Il couvre la base Access, la règle de redirection `Redirect www to apex`, la limite `Rate limit short-link candidates`, ainsi que les règles WAF `Block scanner probes`, `Block unexpected methods` et `Challenge suspicious clients`. Utilisez **AI Crawl Control** de Cloudflare pour bloquer les crawlers IA afin que Cloudflare garde la liste de crawlers à jour. Utilisez les étapes du tableau de bord ci-dessous comme checklist lisible et fallback pour les réglages qui demandent encore une revue visuelle.
+Préférez le starter Terraform dans [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) pour une configuration répétable. Il couvre la base Access, la règle de redirection `Redirect www to apex`, la limite `Rate limit short-link candidates`, ainsi que les règles WAF `Block scanner probes`, `Block unexpected methods` et `Block suspicious script clients`. Utilisez **AI Crawl Control** de Cloudflare pour bloquer les crawlers IA afin que Cloudflare garde la liste de crawlers à jour. Utilisez les étapes du tableau de bord ci-dessous comme checklist lisible et fallback pour les réglages qui demandent encore une revue visuelle.
 
 Pour le raisonnement de sécurité par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/). La capture brute du tableau de bord Cloudflare se trouve dans [data/cloudflare-protection-defaults.json](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/); utilisez-la pour suivre les changements de menus Cloudflare, pas comme checklist opérateur.
 
@@ -100,6 +100,10 @@ HSTS est l'endroit le plus facile a mal lire dans l'interface. Le dépôt fourni
 Gardez CSP, HSTS, framing, referrer policy et permissions policy dans le dépôt sauf raison explicite de gérer l'une de ces politiques au niveau de la zone Cloudflare. Si Cloudflare Transform Rules, Snippets, Zaraz, Rocket Loader, HSTS géré ou d'autres fonctions du tableau de bord ajoutent ou réécrivent les mêmes en-têtes, ou injectent des scripts, elles peuvent entrer en conflit avec la politique du Worker et de `_headers`.
 
 Cela suit [ADR 0014 : Prefer repository-owned configuration](https://github.com/vanityURLs/code/blob/main/docs/adr/0014-prefer-repository-owned-configuration.md) : utilisez le tableau de bord Cloudflare pour les contrôles qui ne peuvent pas raisonnablement vivre dans Git, et laissez les doublons du tableau de bord désactivés lorsque le dépôt possède déjà le comportement.
+{{< /callout >}}
+
+{{< callout type="warning" title="Éviter Managed Challenge sur le HTML public" >}}
+N'utilisez pas **Managed Challenge** comme action baseline pour les pages publiques de redirection, lookup ou statut. Cloudflare peut injecter du JavaScript de challenge dans les réponses HTML qui matchent, ce qui rend le HTML possédé par le repo et le comportement CSP non déterministes. Pour les règles étroites visant des clients scriptés, utilisez **Block** ou laissez la règle désactivée.
 {{< /callout >}}
 
 ### Activer les contrôles de sécurité de base
@@ -250,8 +254,8 @@ not (
       <td>Autorise seulement les methodes attendues par le hostname public de redirection, plus les deux endpoints POST publics de lookup.</td>
     </tr>
     <tr>
-      <td>Challenger les clients suspects<br><small>Custom rule</small></td>
-      <td>Managed Challenge</td>
+      <td>Bloquer les clients scriptés suspects<br><small>Custom rule</small></td>
+      <td>Block</td>
       <td>
         <pre><code>http.host eq "v8s.link" and
 not cf.client.bot and
@@ -265,7 +269,7 @@ not http.request.uri.path contains "/_tests" and
   lower(http.user_agent) contains "httpclient"
 )</code></pre>
       </td>
-      <td>Challenge les user agents de scripts et clients HTTP courants sans challenger tous les navigateurs ordinaires non verifies.</td>
+      <td>Bloque les user agents de scripts et clients HTTP courants sans injecter de JavaScript de challenge dans le HTML public.</td>
     </tr>
     <tr>
       <td>Bloquer les crawlers IA non désirés<br><small>Règle custom fallback optionnelle</small></td>
