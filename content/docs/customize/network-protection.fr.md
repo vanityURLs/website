@@ -46,13 +46,17 @@ Dans Cloudflare, ouvrez **Domains** > **votre domaine court** > **Rules**. Préf
 
 Configurez la redirection avec ces valeurs :
 
-| Champ       | Valeur                      |
-| ----------- | --------------------------- |
-| Nom         | `Redirect www to apex`      |
-| Source      | `www.v8s.link/*`            |
-| Destination | `https://v8s.link/$1`       |
-| Statut      | `301 - Permanent Redirect`  |
-| Ordre       | Avant Worker/WAF evaluation |
+| Champ                              | Valeur                      |
+| ---------------------------------- | --------------------------- |
+| Nom                                | `Redirect www to apex`      |
+| Si les requêtes entrantes matchent | `Wildcard pattern`          |
+| Request URL                        | `https://www.v8s.link/*`    |
+| Target URL                         | `https://v8s.link/${1}`     |
+| Statut                             | `301 - Permanent Redirect`  |
+| Preserve query string              | Activé                      |
+| Ordre                              | Avant Worker/WAF evaluation |
+
+Utilisez **Wildcard pattern**, pas **All incoming requests**, parce que cette règle doit seulement matcher le hostname `www`. Incluez `https://` dans le champ **Request URL**; le tableau de bord refuse une valeur hostname seulement comme `www.v8s.link/*`. La capture wildcard est référencée avec `${1}` dans le champ **Target URL**, donc `/foo` devient `https://v8s.link/foo`. Activez **Preserve query string** pour que `https://www.v8s.link/foo?x=1` devienne `https://v8s.link/foo?x=1`.
 
 Gardez le record DNS `www` proxifie pour que Cloudflare recoive la requête et applique la redirection. N'ajoutez pas `www` au domaine custom du Worker ni aux expressions WAF/rate-limit ci-dessous sauf si vous servez volontairement le Worker sur les deux hostnames.
 
