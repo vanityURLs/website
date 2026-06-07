@@ -17,6 +17,22 @@ npm run upgrade
 
 La commande récupère la source upstream configurée, rafraîchit les fichiers produit comme `defaults/` et `scripts/`, lance les vérifications du projet et laisse un diff Git normal à réviser. Si les définitions de dépendances changent pendant le rafraîchissement, l'upgrade lance `npm install` avant la validation afin que l'outillage local corresponde aux fichiers produit mis à jour.
 
+## Source de release
+
+Par défaut, `npm run upgrade` résout le dernier tag de release stable upstream, comme `v3.3.1`, et rafraîchit les fichiers produit depuis ce tag. Il ne devrait pas récupérer les commits non publiés de `main` sauf si vous le demandez.
+
+Utilisez une release explicite lorsque vous voulez épingler une mise à jour :
+
+```bash
+npm run upgrade -- --ref v3.3.1
+```
+
+Utilisez `main` seulement pour les instances de test ou la validation mainteneur :
+
+```bash
+npm run upgrade -- --ref main
+```
+
 {{< callout type="note" title="Les valeurs par défaut sont héritées" >}}
 Vous n'avez pas besoin de relancer setup seulement pour recevoir de nouvelles valeurs par défaut produit. Le build fusionne `defaults/v8s-site-config.json` avec `custom/v8s-site-config.json`, donc les champs additifs absents héritent de la base produit. Relancez `npm run setup` seulement lorsque vous voulez changer des réponses propres à l'instance.
 {{< /callout >}}
