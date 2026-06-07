@@ -17,6 +17,11 @@ but Terraform should own repeatable setup.
 
 ## Usage
 
+Install Terraform or OpenTofu with a platform tool such as Homebrew, asdf, tfenv,
+mise, or the CI runner image. The website repo does not install the Terraform
+binary through `package.json`; npm scripts only provide consistent command names
+after the binary is available.
+
 Copy `terraform.tfvars.example` to `terraform.tfvars`, replace the placeholders,
 then run:
 
@@ -24,6 +29,15 @@ then run:
 terraform init
 terraform plan
 terraform apply
+```
+
+Equivalent npm aliases are available from the website repo root:
+
+```bash
+npm run terraform:fmt:check
+npm run terraform:validate
+npm run tofu:fmt:check
+npm run tofu:validate
 ```
 
 The Cloudflare provider expects an API token with the least permissions needed
