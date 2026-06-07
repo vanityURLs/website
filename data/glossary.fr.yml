@@ -27,8 +27,8 @@ terms:
     term: Destination
     definition: La longue URL vers laquelle un lien court redirige. Dans le format de lien, elle est stockee dans la colonne `target`.
   - id: generated-registry
-    term: Registre génère
-    definition: Le registre runtime de redirection écrit dans `build/v8s.json` pendant le build à partir des liens, horaires, politiques et configurations.
+    term: Registre runtime des liens
+    definition: Les données de redirection générées dans `build/v8s.json` pendant le build à partir du registre source des liens, des horaires inline, des politiques et de la configuration. Le Worker consomme ce fichier au runtime.
   - id: generated-page
     term: Page generee
     definition: Une page emise par le redirecteur pour l'expansion, le repli, le statut de lien, les pages legales, la confidentialite ou d'autres surfaces publiques runtime.
@@ -45,8 +45,8 @@ terms:
     term: IDNA
     definition: Internationalized Domain Names in Applications, le standard qui permet aux logiciels de représenter les noms de domaine non ASCII dans une forme ASCII compatible avec DNS.
   - id: link-registry
-    term: Registre de liens
-    definition: L'ensemble des enregistrements de liens courts utilisés par vanityURLs. Les humains modifient `custom/v8s-links.txt`; le build produit le registre génère consomme par le Worker.
+    term: Registre source des liens
+    definition: Les enregistrements de liens courts, modifies par les humains, dans `custom/v8s-links.txt`. Le build compile ce fichier vers le registre runtime des liens consomme par le Worker.
   - id: operator
     term: Operateur
     definition: La personne, l'équipe ou l'organisation responsable de l'instance vanityURLs, des pages publiques, des contacts de confiance et de la configuration des pages légales.

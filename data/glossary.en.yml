@@ -27,8 +27,8 @@ terms:
     term: Destination
     definition: The long URL a short link redirects to. In the link format, it is stored in the `target` column.
   - id: generated-registry
-    term: Generated registry
-    definition: The runtime redirect registry written to `build/v8s.json` during build from links, inline schedules, policies, and configuration.
+    term: Runtime link registry
+    definition: The generated redirect data written to `build/v8s.json` during build from the source link registry, inline schedules, policies, and configuration. The Worker consumes this file at runtime.
   - id: generated-page
     term: Generated page
     definition: A page emitted by the redirector for expansion, fallback, link status, legal, privacy, or other public runtime surfaces.
@@ -45,8 +45,8 @@ terms:
     term: IDNA
     definition: Internationalized Domain Names in Applications, the standard that lets software represent non-ASCII domain names in DNS-compatible ASCII form.
   - id: link-registry
-    term: Link registry
-    definition: The set of short-link records used by vanityURLs. Humans edit `custom/v8s-links.txt`; the build produces the generated registry consumed by the Worker.
+    term: Source link registry
+    definition: The human-edited short-link records in `custom/v8s-links.txt`. The build compiles this file into the runtime link registry consumed by the Worker.
   - id: operator
     term: Operator
     definition: The person, team, or organization responsible for the vanityURLs instance, public pages, trust contacts, and legal-page configuration.

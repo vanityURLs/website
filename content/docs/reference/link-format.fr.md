@@ -1,17 +1,19 @@
 ---
 aside: false
-title: "Format des liens"
-description: "Le format v8s-links.txt pour liens exacts, splat, états, metadonnées, expiration et v8s.json génère."
+title: "Format du registre source des liens"
+description: "Le format v8s-links.txt, édite par les humains, pour liens exacts, splat, états, métadonnées et expiration."
 weight: 70
 aliases:
   - /docs/link-format/
 ---
 
-`v8s-links.txt` est la source de vérité humaine pour les liens. Chaque ligne non vide et non commentee est séparée par des pipes :
+`v8s-links.txt` est le registre source des liens : la source de vérité humaine pour les liens. Chaque ligne non vide et non commentee est séparée par des pipes :
 
 ```text
 slug|target|state|title|description|tags|owner|expires_at|notes
 ```
+
+Le Worker ne lit pas ce fichier directement à chaque requête. `npm run build` le compile vers le registre runtime des liens génère, `build/v8s.json`, documente dans [Registre runtime des liens](/fr/docs/reference/runtime-registry/).
 
 | Champ         | Requis     | Description                                                                   |
 | ------------- | ---------- | ----------------------------------------------------------------------------- |
@@ -54,6 +56,15 @@ github/*|https://github.com/vanityURLs/:splat|permanent|GitHub|Namespace|git|v8s
 ```
 
 `/github/website` redirige vers `https://github.com/vanityURLs/website`.
+
+Un lien exact et un lien splat peuvent partager le même slug de base :
+
+```text
+docs|https://docs.example.com|permanent|Docs|Accueil docs|docs|team||
+docs/*|https://docs.example.com/:splat|permanent|Pages docs|Namespace docs|docs|team||
+```
+
+`/docs` résout le lien exact. `/docs/install` résout le lien splat.
 
 ## États
 

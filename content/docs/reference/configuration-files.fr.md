@@ -101,7 +101,7 @@ Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis 
 
 | Fichier                           | Format                                                      | Forme de schéma                                                                                                                                                                          | Genere par                              |
 | --------------------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `build/v8s.json`                  | Registre runtime JSON, `schema_version: "3.0"`              | `generated_at`, `generated_timezone`, `default_state`, `routing`, `tree`, `links[]`; chaque lien contient `slug`, `match`, `target`, `state`, les metadonnées et un `schedule` optionnel | `scripts/build-redirect-targets.mjs`    |
+| `build/v8s.json`                  | Registre runtime des liens JSON, `schema_version: "3.0"`    | `generated_at`, `generated_timezone`, `default_state`, `routing`, `tree`, `links[]`; chaque lien contient `slug`, `match`, `target`, `state`, les metadonnées et un `schedule` optionnel | `scripts/build-redirect-targets.mjs`    |
 | `build/v8s-blocklist.json`        | Politique runtime JSON, `schema_version: "1.0"`             | `defaults` normalises, `allow_domains`, `blocked_keywords`, `block_domains` fusionnes                                                                                                    | `scripts/build.mjs`                     |
 | `build/v8s-site-config.json`      | Configuration de site runtime JSON, `schema_version: "1.0"` | Configuration de site effective après fusion des valeurs par défaut et custom                                                                                                            | `scripts/build.mjs`                     |
 | `build/blocklist.generated.json`  | Feed de politique génère JSON, `schema_version: "1.0"`      | `generated_at`, `sources[]`, `block_domains[]` génères                                                                                                                                   | `npm run generate:blocklist`            |
@@ -127,11 +127,11 @@ Le build des assets publics est détérministe :
 
 ## Artefacts runtime
 
-Le Worker ne lit pas `v8s-links.txt` à chaque requête. Le build crée les artefacts runtime depuis les fichiers source, les valide, puis les deploie avec les assets Worker.
+Le Worker ne lit pas le registre source des liens, `v8s-links.txt`, à chaque requête. Le build crée les artefacts runtime depuis les fichiers source, les valide, puis les deploie avec les assets Worker.
 
 Les entrées de build incluent :
 
-- `defaults/v8s-links.txt`, remplace par `custom/v8s-links.txt` quand present, avec les blocs `@schedule` inline
+- `defaults/v8s-links.txt`, remplace par le registre source des liens `custom/v8s-links.txt` quand present, avec les blocs `@schedule` inline
 - `custom/v8s-schedules.json` si present comme source de compatibilité 3.x dépréciée
 - `defaults/v8s-policies.json`, remplace par `custom/v8s-policies.json` quand present
 - `defaults/v8s-site-config.json`, avec `custom/v8s-site-config.json` fusionne pour les choix de site
@@ -142,7 +142,7 @@ Le build écrit :
 
 | Artefact                     | Role                                                          |
 | ---------------------------- | ------------------------------------------------------------- |
-| `build/v8s.json`             | Registre de redirection consomme par le Worker                |
+| `build/v8s.json`             | Registre runtime des liens consomme par le Worker             |
 | `build/v8s-blocklist.json`   | Artefact de politique runtime consomme par le Worker          |
 | `build/v8s-site-config.json` | Configuration de site utilisee par le build                   |
 | `src/worker.mjs`             | Entree Worker générée depuis `scripts/workers/` pour Wrangler |

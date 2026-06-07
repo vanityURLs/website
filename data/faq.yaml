@@ -120,12 +120,12 @@
   evidence:
     - repo: vanityURLs/code
       path: scripts/build.mjs
-      note: "buildRedirectTargets writes build/v8s.json from custom/v8s-links.txt or defaults/v8s-links.txt."
+      note: "buildRedirectTargets writes the generated runtime link registry, build/v8s.json, from custom/v8s-links.txt or defaults/v8s-links.txt."
     - repo: vanityURLs/code
       path: scripts/validate-runtime-registry.mjs
-      note: "Runtime registry schema 3.0 validates links, routing, states, and tree shape."
+      note: "Runtime link registry schema 3.0 validates links, routing, states, and tree shape."
   answer: >
-    `build/v8s.json` is the generated redirect registry consumed by the Worker. It is built from source files, validated before deployment, and should be treated as generated output rather than hand-edited source.
+    `build/v8s.json` is the generated runtime link registry consumed by the Worker. Humans edit the source link registry in `custom/v8s-links.txt`; the build validates that source and compiles it into this runtime JSON. Treat `build/v8s.json` as generated output, not hand-edited source.
   related: [stateless-architecture, link-source-of-truth, generated-files]
   tags: [registry, generated, architectural]
   last_reviewed: 2026-05-27

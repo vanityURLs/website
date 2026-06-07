@@ -1,17 +1,19 @@
 ---
 aside: false
-title: "Link format"
-description: "The v8s-links.txt source format for exact links, splat links, states, metadata, expiry, and generated v8s.json."
+title: "Source link registry format"
+description: "The human-edited v8s-links.txt source link registry format for exact links, splat links, states, metadata, and expiry."
 weight: 70
 aliases:
   - /docs/link-format/
 ---
 
-`v8s-links.txt` is the human-authored source of truth for links. Each non-empty, non-comment row is pipe-delimited:
+`v8s-links.txt` is the source link registry: the human-authored source of truth for links. Each non-empty, non-comment row is pipe-delimited:
 
 ```text
 slug|target|state|title|description|tags|owner|expires_at|notes
 ```
+
+The Worker does not read this file directly at request time. `npm run build` compiles it into the generated runtime link registry, `build/v8s.json`, documented in [Runtime link registry](/docs/reference/runtime-registry/).
 
 | Field         | Required    | Description                                                                   |
 | ------------- | ----------- | ----------------------------------------------------------------------------- |
@@ -54,6 +56,15 @@ github/*|https://github.com/vanityURLs/:splat|permanent|GitHub|Repo namespace|gi
 ```
 
 `/github/website` redirects to `https://github.com/vanityURLs/website`.
+
+An exact link and a splat link can share the same base slug:
+
+```text
+docs|https://docs.example.com|permanent|Docs|Docs home|docs|team||
+docs/*|https://docs.example.com/:splat|permanent|Docs pages|Docs namespace|docs|team||
+```
+
+`/docs` resolves the exact link. `/docs/install` resolves the splat link.
 
 ## States
 
