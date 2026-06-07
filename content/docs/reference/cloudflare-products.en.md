@@ -45,7 +45,7 @@ vanityURLs is a URL shortener that runs on Cloudflare's edge network with your _
   </thead>
   <tbody>
     <tr>
-      <td><a href="https://www.cloudflare.com/products/waf/">Web Application Firewall</a></td>
+      <td><a href="https://www.cloudflare.com/products/waf/">Cloudflare WAF</a></td>
       <td>Custom security rules for scanner probes, unexpected methods, suspicious clients, unwanted AI crawlers, and other edge-blocked traffic</td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@ vanityURLs is a URL shortener that runs on Cloudflare's edge network with your _
       <td>Rate limiting for abuse patterns that should not spend Worker resources</td>
     </tr>
     <tr>
-      <td><a href="https://www.cloudflare.com/ddos/">Distributed Denial-of-Service (DDoS) Protection</a></td>
+      <td><a href="https://www.cloudflare.com/ddos/">Cloudflare DDoS Protection</a></td>
       <td>Always-on network protection</td>
     </tr>
     <tr>

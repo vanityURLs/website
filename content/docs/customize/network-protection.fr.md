@@ -11,6 +11,8 @@ aliases:
 
 Utilisez cette page lorsque vous êtes prêt a configurér les contrôles Cloudflare devant le Worker. La protection réseau garde les abus courants, les methodes inattendues, les probes de scanners, les crawlers non désirés et le bruit d'infrastructure loin du code applicatif.
 
+Préférez le starter Terraform dans [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) pour une configuration répétable. Il couvre la base Access, la règle de redirection `Redirect www to apex`, la limite `Rate limit short-link candidates`, ainsi que les règles WAF `Block scanner probes`, `Block unexpected methods`, `Challenge suspicious clients` et `Block unwanted AI crawlers`. Utilisez les étapes du tableau de bord ci-dessous comme checklist lisible et fallback pour les réglages qui demandent encore une revue visuelle.
+
 Pour le raisonnement de sécurité par couches, lisez [Ajouter des couches de protection Cloudflare autour d'un domaine court](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/). La capture brute du tableau de bord Cloudflare se trouve dans [data/cloudflare-protection-defaults.json](/fr/blog/layering-cloudflare-protection-around-a-short-link-domain/); utilisez-la pour suivre les changements de menus Cloudflare, pas comme checklist opérateur.
 
 Pour les fonctionnalites volontairement exclues du setup par défaut, lisez [Fonctionnalités Cloudflare à ne pas activer par défaut](/fr/blog/cloudflare-features-not-to-enable-by-default/).

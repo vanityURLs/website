@@ -1,0 +1,10 @@
+cloudflare_account_id = "00000000000000000000000000000000"
+cloudflare_zone_id    = "00000000000000000000000000000000"
+apex_hostname         = "v8s.link"
+worker_name           = "v8s-link"
+
+maintainer_emails = [
+  "owner@example.com",
+]
+
+enable_ai_crawler_block_rule = true

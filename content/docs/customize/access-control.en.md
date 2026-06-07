@@ -9,6 +9,8 @@ aliases:
 
 The vanityURLs Worker blocks access to the private dashboard and tests until Cloudflare Access is configured. Anyone who tries to open those pages sees the Cloudflare Access not-configured response[^access-not-configured] shown below, so public redirects stay open while operational pages fail closed.
 
+Prefer the Terraform starter in [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) when you are setting up a repeatable instance. It creates the Access application and policy for the protected paths below, then outputs the audience value that you store as `CF_ACCESS_AUD`. Use the manual steps on this page when reviewing an existing zone, troubleshooting, or migrating a setup that was originally configured in the Cloudflare dashboard.
+
 ![protected path fails closed](../cf-access-not-configured.png)
 
 {{< mermaid >}}
