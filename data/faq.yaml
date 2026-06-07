@@ -93,6 +93,25 @@
   last_reviewed: 2026-05-27
   reviewed_against: { code: f1c997f, website: 79f31f6 }
 
+- id: release-vs-main-upgrades
+  question: Should I run `npm run update` or `npm run update -- --ref main`?
+  category: deployment
+  audience: [operator, contributor]
+  priority: high
+  evidence:
+    - repo: vanityURLs/code
+      path: scripts/upgrade.mjs
+      note: "Default upgrades resolve the latest stable upstream release tag; `--ref main` opts into a mutable branch."
+    - repo: vanityURLs/website
+      path: content/docs/reference/upgrading.en.md
+      note: "The upgrading reference documents release-tag upgrades and the maintainer/testing use of `--ref main`."
+  answer: >
+    For a normal production instance, run `npm run update`. It refreshes product-owned files from the latest stable vanityURLs release tag. Use `npm run update -- --ref main` only when you intentionally want unreleased code, usually on a test instance or while validating a fix with maintainers. If you upgrade from `main`, commit that choice clearly and switch back to the normal command after the next release is published. See [Upgrading an instance](/docs/reference/upgrading/) for the full workflow.
+  related: [worker-deployment, what-to-commit]
+  tags: [upgrade, release, git]
+  last_reviewed: 2026-06-07
+  reviewed_against: { code: d395ed1, website: 28158ae }
+
 - id: static-assets-binding
   question: Does vanityURLs use Cloudflare Pages?
   category: deployment
