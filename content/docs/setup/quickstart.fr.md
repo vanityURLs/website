@@ -31,14 +31,17 @@ Assurez-vous que votre compte GitHub est configuré pour [SSH](/fr/docs/setup/) 
 
 Créez un nouveau dépôt GitHub public ou privé pour votre redirecteur avant l'étape finale de push. Ne l'initialisez pas avec un README, une licence ou un `.gitignore`; l'instance locale fournira le contenu initial.
 
-### Cloner le code vanityURLs
+### Cloner la dernière release vanityURLs
 
 Vous pouvez utiliser n'importe quel nom de répertoire au lieu de `v8s-link`. Choisissez un nom qui restera clair si vous l'alignez ensuite avec votre dépôt GitHub et le nom du Worker.
 
 ```bash
-git clone https://github.com/vanityURLs/code.git v8s-link
+release_tag="$(git ls-remote --tags --refs --sort='v:refname' https://github.com/vanityURLs/code.git 'v*' | tail -n 1 | awk -F/ '{print $3}')"
+git clone --depth 1 --branch "$release_tag" https://github.com/vanityURLs/code.git v8s-link
 cd v8s-link
 ```
+
+Cette commande démarre votre instance depuis le dernier tag de release signé, plutôt que depuis le contenu courant de la branche de développement.
 
 ### Détacher le clone du projet upstream
 
