@@ -65,4 +65,6 @@ In your instance repository, replace generated pages only when you need fully cu
 
 English pages also have extension-free aliases such as `/privacy`, `/terms`, `/trust-safety`, and `/security`. Localized pages use the language directory, for example `custom/public/fr/privacy.html`.
 
+Custom legal and trust pages follow the same custom HTML rules as other public overrides. Before adding inline JavaScript, inline CSS, forms, or a custom `custom/public/_headers` policy, review [Public and status pages](/docs/reference/public-pages/#custom-page-security/) for the sandboxed CSP profile and what custom pages can access.
+
 {{% /steps %}}

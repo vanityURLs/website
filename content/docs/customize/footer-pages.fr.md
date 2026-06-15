@@ -65,4 +65,6 @@ Dans le dépôt de votre instance, remplacez les pages générées seulement lor
 
 Les pages anglaises ont aussi des alias sans extension comme `/privacy`, `/terms`, `/trust-safety`, et `/security`. Les pages localisées utilisent le répertoire de langue, par exemple `custom/public/fr/privacy.html`.
 
+Les pages légales et de confiance custom suivent les mêmes règles de HTML custom que les autres surcharges publiques. Avant d'ajouter du JavaScript inline, du CSS inline, des formulaires ou une politique `custom/public/_headers` personnalisée, consultez [Pages publiques et pages de statut](/fr/docs/reference/public-pages/#securite-des-pages-custom/) pour le profil CSP sandboxé et ce à quoi les pages custom peuvent accéder.
+
 {{% /steps %}}
