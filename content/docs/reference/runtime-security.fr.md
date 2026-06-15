@@ -16,7 +16,7 @@ Pour le raisonnement de design, lisez [Sécurité runtime pour un petit redirect
 Le Worker garde un chemin runtime etroit :
 
 - seules les requêtes publiques `GET`, `HEAD`, et `OPTIONS` silencieuses sont acceptees, plus `POST /lookup/resolve` pour la resolution lookup et le beacon dedie `POST /_analytics/lookup`
-- l'accès direct a `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` retourne 404
+- l'accès direct a `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, et `/v8s-custom-assets.json` retourne 404
 - les redirections acceptent seulement les cibles `http:` et `https:`
 - les cibles avec identifiants, hostname manquant, caracteres de contrôle, ou protocoles non supportes échouent ferme
 - les valeurs splat sont encodees segment par segment avant insertion
@@ -57,18 +57,20 @@ La validation verifie que les lignes de liens ont la forme attendue, que les URL
 
 Le registre génère et la politique runtime sont traites comme des données, pas comme du code executable. Les changements propres à l'instance vivent dans `custom/`; les defaults produit restent dans `defaults/`; la source canonique du Worker reste dans `scripts/workers/`; `src/` est génère seulement pour Wrangler. Cela garde les mises à jour revues et rend le rollback normal dans Git.
 
-Les headers par défaut incluent `X-Generated-By: vanityURLs.link`, des règles no-index, HSTS limité à l'hôte, `nosniff`, une protection contre le clickjacking, des politiques referrer et permissions, et une CSP qui bloque le JavaScript inline et le CSS inline. Si vous surchargez `custom/public/_headers`, gardez cette identité de génération, des règles cache et sécurité compatibles, et les blocages des fichiers runtime bruts sauf raison explicite.
+Les headers par défaut incluent `X-Generated-By: vanityURLs.link`, des règles no-index, HSTS limité à l'hôte, `nosniff`, une protection contre le clickjacking, des politiques referrer et permissions, et une CSP stricte pour les pages produit qui bloque le JavaScript inline et le CSS inline. Les assets HTML venant de `custom/public/` reçoivent une CSP compatible séparée, sandboxée, afin que les pages d'instance copiées puissent utiliser du code custom inline sans devenir des pairs same-origin entièrement fiables des pages intégrées. Si vous surchargez `custom/public/_headers`, gardez cette identité de génération, des règles cache et sécurité compatibles, et les blocages des fichiers runtime bruts sauf raison explicite.
 
 ## Gardes des fichiers opérationnels
 
 Cloudflare Access n'est pas la seule couche qui limite l'accès aux fichiers opérationnels. Gardez l'accès contrôle sur les chemins stats localisés comme `/en/_stats/` et `/fr/_stats/`, les chemins de test localisés comme `/en/_tests/`, les entrées de fichiers runtime dans `_headers` et le garde Worker des fichiers runtime actifs, sauf si vous avez une raison délibérée de divulgation publique.
 
-| Contrôle                               | Chemins                                                                                 | Ce qu'il fait                                                                            |
-| -------------------------------------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                             | Retourne `404` pour les requêtes publiques directes                                      |
-| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/lookup/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
-| API stats protégée                     | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                | Expose le registre génère seulement a travers la surface stats protégée                  |
-| Validation des slugs réserves          | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`     | Empeche la création de liens courts sous les chemins opérationnels réserves              |
+| Contrôle                               | Chemins                                                                                                            | Ce qu'il fait                                                                            |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| Garde Worker des assets runtime privés | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/v8s-custom-assets.json`                             | Retourne `404` pour les requêtes publiques directes                                      |
+| Fallback statique `_headers`           | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/v8s-custom-assets.json`, `/*/_stats/*`, `/lookup/*` | Ajoute des en-têtes no-cache et no-index si des assets statiques sont servis directement |
+| API stats protégée                     | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                                           | Expose le registre génère seulement a travers la surface stats protégée                  |
+| Validation des slugs réserves          | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-custom-assets.json`     | Empeche la création de liens courts sous les chemins opérationnels réserves              |
+
+Le HTML custom sandboxé fait ressembler les appels `fetch()` du navigateur à des requêtes venant de `Origin: null`. Le Worker ajoute cette autorisation CORS seulement pour les endpoints lookup publics, `POST /lookup/resolve` et `POST /_analytics/lookup`; les stats protégées, les tests et les assets runtime bruts ne reçoivent pas cette autorisation.
 
 ## Contrôles edge Cloudflare
 

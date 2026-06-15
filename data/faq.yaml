@@ -12,7 +12,7 @@
       note: "Links, schedules, destination policies, localized pages, and operator configuration live in Git."
     - repo: vanityURLs/code
       path: scripts/build.mjs
-      note: "Build writes build/v8s.json, build/v8s-blocklist.json, and build/v8s-site-config.json for the Worker."
+      note: "Build writes build/v8s.json, build/v8s-blocklist.json, build/v8s-site-config.json, and build/v8s-custom-assets.json for the Worker."
   answer: >
     vanityURLs compiles link and policy source files into static runtime JSON that the Cloudflare Worker reads from the Static Assets binding. There is no account database or mutable click store in the default runtime; Git is the system of record.
   related: [runtime-registry, what-to-commit, generated-files]
@@ -432,7 +432,7 @@
       path: content/docs/reference/runtime-security.en.md
       note: "Runtime security docs list accepted public methods."
   answer: >
-    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /lookup/resolve` reserved for lookup resolution and `POST /_analytics/lookup` reserved for the lookup-page beacon.
+    Public redirect and page requests use `GET` or `HEAD`; `OPTIONS` receives a quiet `204`. Other methods return `405 Method not allowed`, with `POST /lookup/resolve` reserved for lookup resolution and `POST /_analytics/lookup` reserved for the lookup-page beacon. Sandboxed custom HTML can call those two public lookup endpoints with `Origin: null`; protected endpoints remain locked down.
   related: [analytics-default, runtime-security-layers]
   tags: [http, runtime-security, architectural]
   last_reviewed: 2026-05-27
@@ -763,12 +763,12 @@
   evidence:
     - repo: vanityURLs/code
       path: scripts/build.mjs
-      note: "copyPublic overlays custom/public/ on top of defaults/public/ when custom public files exist."
+      note: "copyPublic overlays custom/public/ on top of defaults/public/ when custom public files exist and records them in build/v8s-custom-assets.json."
     - repo: vanityURLs/website
       path: content/docs/reference/custom-overrides.en.md
       note: "Custom overrides docs explain instance-owned file overlays."
   answer: >
-    Put instance-owned public assets and page replacements under `custom/public/`. During build, vanityURLs copies `defaults/public/` first and then overlays `custom/public/`, so custom files win without editing upstream defaults.
+    Put instance-owned public assets and page replacements under `custom/public/`. During build, vanityURLs copies `defaults/public/` first and then overlays `custom/public/`, so custom files win without editing upstream defaults. Product-owned default CSS and JavaScript use `v8s-` filenames, while custom HTML receives a sandboxed compatibility profile that still allows same-host custom CSS, JavaScript, inline styles, inline scripts, forms, popups, downloads, and public lookup calls.
   related: [defaults-vs-custom, localization-fallback]
   tags: [custom-public, branding, localization]
   last_reviewed: 2026-05-27

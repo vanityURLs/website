@@ -19,8 +19,9 @@ Le dépôt public [v8s.link](https://github.com/vanityURLs/v8s.link) suit cette 
 {{< filetree/folder name="public" annotation="pages, assets, badges, pages d'état et headers par défaut" >}}
 {{< filetree/file name="_headers" annotation="headers cache et no-index des assets statiques" >}}
 {{< filetree/file name="robots.txt" >}}
-{{< filetree/file name="style.css" >}}
-{{< filetree/file name="script.js" >}}
+{{< filetree/file name="v8s-style.css" >}}
+{{< filetree/file name="v8s-script.js" >}}
+{{< filetree/file name="v8s-lookup.js" >}}
 {{< /filetree/folder >}}
 {{< filetree/file name="v8s-links.txt" annotation="inventaire de liens et horaires inline de départ" >}}
 {{< filetree/file name="v8s-policies.json" annotation="politique trust-and-safety par défaut" >}}
@@ -36,8 +37,8 @@ Le dépôt public [v8s.link](https://github.com/vanityURLs/v8s.link) suit cette 
 {{< filetree/folder name="public" annotation="marque, pages, assets et headers de l'instance" >}}
 {{< filetree/file name="_headers" >}}
 {{< filetree/file name="robots.txt" >}}
-{{< filetree/file name="style.css" >}}
-{{< filetree/file name="script.js" >}}
+{{< filetree/file name="style.css" annotation="exemple optionnel de stylesheet d'instance" >}}
+{{< filetree/file name="script.js" annotation="exemple optionnel de script d'instance" >}}
 {{< /filetree/folder >}}
 {{< filetree/file name="v8s-links.txt" annotation="source de vérité humaine des liens" >}}
 {{< filetree/file name="v8s-site-config.json" annotation="langues, marque, valeurs opérateur et contacts" >}}
@@ -61,6 +62,7 @@ Le dépôt public [v8s.link](https://github.com/vanityURLs/v8s.link) suit cette 
 {{< filetree/file name="v8s.json" annotation="registre runtime de redirection" >}}
 {{< filetree/file name="v8s-blocklist.json" annotation="artefact runtime de politique" >}}
 {{< filetree/file name="v8s-site-config.json" annotation="configuration runtime du site" >}}
+{{< filetree/file name="v8s-custom-assets.json" annotation="manifeste des assets publics custom pour les profils de sécurité Worker" >}}
 {{< filetree/file name="_headers" >}}
 {{< filetree/file name="index.html" >}}
 {{< filetree/folder name="_stats" annotation="shell stats protégé" >}}
@@ -104,6 +106,8 @@ Le build préfère `custom/v8s-links.txt` lorsqu'il existe. Sinon, il utilise `d
 `build/v8s-blocklist.json` est l'artefact de politique runtime consommé par le Worker. Il est généré depuis la source de politique sélectionnée et les données optionnelles de flux générés.
 
 `build/v8s-site-config.json` garde la configuration de site utilisée pour le build, incluant les langues supportées, la marque, l'information opérateur et les réglages de contact.
+
+`build/v8s-custom-assets.json` consigne les chemins publics finaux qui viennent de `custom/public/`. Le Worker l'utilise pour appliquer le profil de sécurité HTML custom après la copie des pages localisées et des pages anglaises racine vers leurs chemins de déploiement.
 
 `build/v8s-release-manifest.json` consigne la version du package de release, le commit Git, les versions de schéma, la date de compatibilité Cloudflare et les hashs SHA-256 des entrées et sorties de release.
 

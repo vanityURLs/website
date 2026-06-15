@@ -99,15 +99,16 @@ Ne modifiez pas les fichiers générés dans `build/`. Modifiez `custom/`, puis 
 
 ## Configuration générée
 
-| Fichier                           | Format                                                      | Forme de schéma                                                                                                                                                                           | Genere par                              |
-| --------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| `build/v8s.json`                  | Registre runtime des liens JSON, `schema_version: "3.1"`    | `generated_at`, `generated_timezone`, `default_state`, `routing`, `tree`; les liens de l'arbre contiennent `slug`, `match`, `target`, `state`, les metadonnées et un `schedule` optionnel | `scripts/build-redirect-targets.mjs`    |
-| `build/v8s-blocklist.json`        | Politique runtime JSON, `schema_version: "1.0"`             | Politique source sélectionnée depuis `custom/v8s-policies.json` ou `defaults/v8s-policies.json`, plus données de feed généré optionnelles                                                 | `scripts/build.mjs`                     |
-| `build/v8s-site-config.json`      | Configuration de site runtime JSON, `schema_version: "1.0"` | Configuration de site effective après fusion des valeurs par défaut et custom                                                                                                             | `scripts/build.mjs`                     |
-| `build/blocklist.generated.json`  | Feed de politique génère JSON, `schema_version: "1.0"`      | `generated_at`, `sources[]`, `block_domains[]` génères                                                                                                                                    | `npm run generate:blocklist`            |
-| `build/v8s-release-manifest.json` | Manifeste de release JSON, `schema_version: "1.0"`          | Version du package, commit Git, date de compatibilité Cloudflare, versions de schéma et hashs SHA-256 des entrées et sorties de release                                                   | `scripts/generate-release-manifest.mjs` |
-| `src/worker.mjs`                  | Module Worker génère                                        | Source Worker copiee depuis `scripts/workers/worker.mjs` avec constantes de langues générées                                                                                              | `scripts/build.mjs`                     |
-| `src/lib/analytics-policy.mjs`    | Module de support Worker génère                             | Politique de détection des bots analytics copiee depuis `scripts/workers/lib/analytics-policy.mjs`                                                                                        | `scripts/build.mjs`                     |
+| Fichier                           | Format                                                            | Forme de schéma                                                                                                                                                                           | Genere par                              |
+| --------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `build/v8s.json`                  | Registre runtime des liens JSON, `schema_version: "3.1"`          | `generated_at`, `generated_timezone`, `default_state`, `routing`, `tree`; les liens de l'arbre contiennent `slug`, `match`, `target`, `state`, les metadonnées et un `schedule` optionnel | `scripts/build-redirect-targets.mjs`    |
+| `build/v8s-blocklist.json`        | Politique runtime JSON, `schema_version: "1.0"`                   | Politique source sélectionnée depuis `custom/v8s-policies.json` ou `defaults/v8s-policies.json`, plus données de feed généré optionnelles                                                 | `scripts/build.mjs`                     |
+| `build/v8s-site-config.json`      | Configuration de site runtime JSON, `schema_version: "1.0"`       | Configuration de site effective après fusion des valeurs par défaut et custom                                                                                                             | `scripts/build.mjs`                     |
+| `build/v8s-custom-assets.json`    | Manifeste runtime des assets custom JSON, `schema_version: "1.0"` | Chemins publics finaux copiés depuis `custom/public/` afin que le Worker applique le profil de sécurité HTML custom                                                                       | `scripts/build.mjs`                     |
+| `build/blocklist.generated.json`  | Feed de politique génère JSON, `schema_version: "1.0"`            | `generated_at`, `sources[]`, `block_domains[]` génères                                                                                                                                    | `npm run generate:blocklist`            |
+| `build/v8s-release-manifest.json` | Manifeste de release JSON, `schema_version: "1.0"`                | Version du package, commit Git, date de compatibilité Cloudflare, versions de schéma et hashs SHA-256 des entrées et sorties de release                                                   | `scripts/generate-release-manifest.mjs` |
+| `src/worker.mjs`                  | Module Worker génère                                              | Source Worker copiee depuis `scripts/workers/worker.mjs` avec constantes de langues générées                                                                                              | `scripts/build.mjs`                     |
+| `src/lib/analytics-policy.mjs`    | Module de support Worker génère                                   | Politique de détection des bots analytics copiee depuis `scripts/workers/lib/analytics-policy.mjs`                                                                                        | `scripts/build.mjs`                     |
 
 {{< callout type="warning" title="Les fichiers générés sont des sorties de build" >}}
 Les fichiers génères sont des sorties de build. Ne les modifiez pas directement.
@@ -122,7 +123,7 @@ Le build des assets publics est détérministe :
 3. copier le `defaults/public/_stats/index.html` par défaut
 4. appliquer `custom/public/_stats/index.html` lorsqu'il existe
 5. retirer les répertoires de langues non supportées selon `v8s-site-config.json`
-6. construire `v8s.json`, `v8s-blocklist.json`, et `v8s-site-config.json`
+6. construire `v8s.json`, `v8s-blocklist.json`, `v8s-site-config.json`, et `v8s-custom-assets.json`
 7. génèrer `src/` depuis `scripts/workers/` pour Wrangler
 
 ## Artefacts runtime
@@ -140,11 +141,12 @@ Les entrées de build incluent :
 
 Le build écrit :
 
-| Artefact                     | Role                                                          |
-| ---------------------------- | ------------------------------------------------------------- |
-| `build/v8s.json`             | Registre runtime des liens consomme par le Worker             |
-| `build/v8s-blocklist.json`   | Artefact de politique runtime consomme par le Worker          |
-| `build/v8s-site-config.json` | Configuration de site utilisee par le build                   |
-| `src/worker.mjs`             | Entree Worker générée depuis `scripts/workers/` pour Wrangler |
+| Artefact                       | Role                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------ |
+| `build/v8s.json`               | Registre runtime des liens consomme par le Worker                              |
+| `build/v8s-blocklist.json`     | Artefact de politique runtime consomme par le Worker                           |
+| `build/v8s-site-config.json`   | Configuration de site utilisee par le build                                    |
+| `build/v8s-custom-assets.json` | Manifeste des assets publics custom utilise par les profils de sécurité Worker |
+| `src/worker.mjs`               | Entree Worker générée depuis `scripts/workers/` pour Wrangler                  |
 
-`scripts/workers/` est la source de vérité du Worker. `src/` est une sortie générée. Les requêtes publiques directes vers les fichiers runtime bruts comme `/v8s.json`, `/v8s-blocklist.json`, et `/v8s-site-config.json` devraient retourner 404.
+`scripts/workers/` est la source de vérité du Worker. `src/` est une sortie générée. Les requêtes publiques directes vers les fichiers runtime bruts comme `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, et `/v8s-custom-assets.json` devraient retourner 404.

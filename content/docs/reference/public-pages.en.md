@@ -14,11 +14,11 @@ Use `custom/public/` when an instance needs to replace generated public pages, a
 ## Public override map
 
 {{< callout type="warning" title="Avoid replacing shared public assets casually" >}}
-Default public pages share product-level assets such as `/style.css` and `/script.js`. If you add JavaScript or CSS for custom pages, use instance-specific filenames such as `/custom-home.css`, `/brand-pages.css`, or `/operator-tools.js` instead of replacing `style.css` or `script.js` casually. Replacing shared files affects every default page you have not overridden yet.
+Default public pages share product-level assets such as `/v8s-style.css` and `/v8s-script.js`. Product-owned default CSS and JavaScript uses the `v8s-` prefix so instance assets like `/script.js`, `/style.css`, `/brand-pages.css`, or `/operator-tools.js` can coexist without replacing the shipped defaults.
 {{< /callout >}}
 
-{{< callout type="warning" title="Custom pages must fit the CSP" >}}
-Default pages use external JavaScript and CSS so the shipped Content Security Policy can omit `'unsafe-inline'`. If a custom page uses inline `<script>`, inline `<style>`, event-handler attributes such as `onclick`, or `style=""` attributes, move that code to custom external files or ship a deliberate `custom/public/_headers` CSP override for the affected instance.
+{{< callout type="info" title="Custom HTML uses a compatibility CSP" >}}
+Default product HTML keeps the strict product CSP. HTML files that come from `custom/public/` get a separate sandboxed compatibility profile that allows custom inline scripts and styles while omitting `allow-same-origin`. That keeps the page on the same visible host while preventing it from becoming a fully trusted same-origin peer of the built-in pages.
 {{< /callout >}}
 
 | Override                           | Path                                                                                                                | Details                                                                                                                              |
@@ -77,16 +77,21 @@ Use exact paths for single files, or `custom/public/fr/**` for a directory. Keep
 
 ## Custom page security
 
-The default CSP protects custom pages too unless `custom/public/_headers` changes it. That is intentional: a custom status page can otherwise become the easiest place to accidentally add XSS-prone HTML.
+During build, vanityURLs writes `build/v8s-custom-assets.json` with the final public paths that came from `custom/public/`. The Worker uses that manifest to apply the custom HTML profile even when an English custom page is copied to the root path, such as `custom/public/en/index.html` becoming `/index.html`.
 
-Prefer these patterns:
+Only custom HTML documents receive the sandboxed profile. Referenced CSS, JavaScript, images, fonts, and manifests are served as normal assets, while the HTML page's CSP controls what it can load.
 
-- Put custom CSS in a file such as `custom/public/brand-pages.css` and link it with `<link rel="stylesheet" href="/brand-pages.css">`
-- Put custom JavaScript in a file such as `custom/public/operator-tools.js` and load it with `<script src="/operator-tools.js" defer></script>`
-- Replace `onclick`, `onload`, and similar attributes with event listeners in the external script
-- Replace `style=""` attributes with classes from the custom stylesheet
+The custom HTML profile allows:
 
-Only loosen CSP in `custom/public/_headers` when the instance deliberately accepts that weaker policy. If you do, keep `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'`, and the security headers from the default file unless there is a specific reason to change them.
+- same-host custom CSS and JavaScript, such as `/style.css`, `/script.js`, or instance-specific names
+- inline `<script>` and `<style>` for copied or hand-authored custom pages
+- forms, popups, popup escape, and downloads
+- public lookup calls from the sandboxed opaque origin to `POST /lookup/resolve`
+- lookup analytics beacons to `POST /_analytics/lookup`
+
+Because the sandbox does not include `allow-same-origin`, custom JavaScript should not depend on reading host cookies, host `localStorage`, or protected same-origin APIs. Ordinary links such as `<a href="/test">` and JavaScript navigation such as `window.location.href = "/test"` still go through the Worker and can redirect normally.
+
+Only override CSP in `custom/public/_headers` when the instance deliberately accepts a different policy. If you do, keep `frame-ancestors 'none'`, `base-uri 'self'`, and the security headers from the default file unless there is a specific reason to change them. Avoid removing the sandbox for arbitrary custom HTML unless you are intentionally making those pages fully trusted peers of the product pages.
 
 ## Build-time SRI
 

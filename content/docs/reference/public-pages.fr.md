@@ -14,11 +14,11 @@ Utilisez `custom/public/` lorsqu'une instance doit remplacer des pages publiques
 ## Carte des surcharges publiques
 
 {{< callout type="warning" title="Évitez de remplacer les assets publics partagés trop facilement" >}}
-Les pages publiques par défaut partagent des assets produit comme `/style.css` et `/script.js`. Si vous ajoutez du JavaScript ou du CSS pour des pages custom, utilisez des noms propres à l'instance, comme `/custom-home.css`, `/brand-pages.css` ou `/operator-tools.js`, au lieu de remplacer `style.css` ou `script.js` trop facilement. Remplacer des fichiers partagés affecte toutes les pages par défaut que vous n'avez pas encore surchargées.
+Les pages publiques par défaut partagent des assets produit comme `/v8s-style.css` et `/v8s-script.js`. Le CSS et le JavaScript des defaults produit utilisent le préfixe `v8s-` afin que les assets d'instance comme `/script.js`, `/style.css`, `/brand-pages.css` ou `/operator-tools.js` puissent coexister sans remplacer les defaults livres.
 {{< /callout >}}
 
-{{< callout type="warning" title="Les pages custom doivent respecter la CSP" >}}
-Les pages par défaut utilisent du JavaScript et du CSS externes afin que la Content Security Policy livrée puisse omettre `'unsafe-inline'`. Si une page custom utilise `<script>` inline, `<style>` inline, des attributs d'événement comme `onclick`, ou des attributs `style=""`, déplacez ce code vers des fichiers custom externes ou livrez une surcharge CSP volontaire dans `custom/public/_headers` pour l'instance concernée.
+{{< callout type="info" title="Le HTML custom utilise une CSP compatible" >}}
+Le HTML produit par défaut garde la CSP stricte du produit. Les fichiers HTML venant de `custom/public/` reçoivent un profil compatible séparé, sandboxé, qui autorise les scripts et styles inline custom sans inclure `allow-same-origin`. La page reste sur le même hôte visible, mais ne devient pas un pair same-origin entièrement fiable des pages intégrées.
 {{< /callout >}}
 
 | Surcharge                            | Chemin                                                                                                              | Détails                                                                                                                              |
@@ -77,16 +77,21 @@ Utilisez des chemins exacts pour les fichiers uniques, ou `custom/public/fr/**` 
 
 ## Sécurité des pages custom
 
-La CSP par défaut protège aussi les pages custom sauf si `custom/public/_headers` la modifie. C'est volontaire : une page de statut custom peut sinon devenir l'endroit le plus facile où ajouter accidentellement du HTML vulnérable au XSS.
+Pendant le build, vanityURLs écrit `build/v8s-custom-assets.json` avec les chemins publics finaux qui viennent de `custom/public/`. Le Worker utilise ce manifeste pour appliquer le profil HTML custom même lorsqu'une page anglaise custom est copiée vers la racine, par exemple `custom/public/en/index.html` qui devient `/index.html`.
 
-Préférez ces patterns :
+Seuls les documents HTML custom reçoivent le profil sandboxé. Le CSS, le JavaScript, les images, les polices et les manifests référencés sont servis comme assets normaux, tandis que la CSP de la page HTML contrôle ce qu'elle peut charger.
 
-- Placez le CSS custom dans un fichier comme `custom/public/brand-pages.css` et liez-le avec `<link rel="stylesheet" href="/brand-pages.css">`
-- Placez le JavaScript custom dans un fichier comme `custom/public/operator-tools.js` et chargez-le avec `<script src="/operator-tools.js" defer></script>`
-- Remplacez `onclick`, `onload` et les attributs similaires par des event listeners dans le script externe
-- Remplacez les attributs `style=""` par des classes du stylesheet custom
+Le profil HTML custom autorise :
 
-Assouplissez la CSP dans `custom/public/_headers` seulement lorsque l'instance accepte volontairement cette politique plus faible. Si vous le faites, gardez `frame-ancestors 'none'`, `object-src 'none'`, `base-uri 'self'` et les headers de sécurité du fichier par défaut sauf raison précise de les changer.
+- le CSS et JavaScript custom du même hôte, comme `/style.css`, `/script.js`, ou des noms propres à l'instance
+- les `<script>` et `<style>` inline pour les pages custom copiées ou écrites à la main
+- les formulaires, popups, sortie de sandbox pour popups et téléchargements
+- les appels lookup publics depuis l'origine opaque sandboxée vers `POST /lookup/resolve`
+- les beacons analytics lookup vers `POST /_analytics/lookup`
+
+Comme le sandbox n'inclut pas `allow-same-origin`, le JavaScript custom ne devrait pas dépendre de la lecture des cookies de l'hôte, du `localStorage` de l'hôte, ou d'APIs same-origin protégées. Les liens ordinaires comme `<a href="/test">` et la navigation JavaScript comme `window.location.href = "/test"` passent toujours par le Worker et peuvent rediriger normalement.
+
+Surchargez la CSP dans `custom/public/_headers` seulement lorsque l'instance accepte volontairement une politique différente. Si vous le faites, gardez `frame-ancestors 'none'`, `base-uri 'self'` et les headers de sécurité du fichier par défaut sauf raison précise de les changer. Évitez de retirer le sandbox pour du HTML custom arbitraire sauf si vous voulez intentionnellement que ces pages soient des pairs entièrement fiables des pages produit.
 
 ## SRI au build
 

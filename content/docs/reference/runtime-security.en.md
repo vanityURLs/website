@@ -16,7 +16,7 @@ For the design rationale, read [Runtime security for a small redirector](/blog/r
 The Worker keeps the runtime path narrow:
 
 - only public `GET`, `HEAD`, and quiet `OPTIONS` requests are accepted, plus `POST /lookup/resolve` for lookup resolution and the dedicated `POST /_analytics/lookup` beacon
-- direct access to `/v8s.json`, `/v8s-blocklist.json`, and `/v8s-site-config.json` returns 404
+- direct access to `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, and `/v8s-custom-assets.json` returns 404
 - redirects allow only `http:` and `https:` targets
 - redirect targets with credentials, missing hostnames, control characters, or unsupported protocols fail closed
 - splat values are URL-encoded segment by segment before insertion
@@ -57,18 +57,20 @@ Validation verifies that link rows have the expected shape, URL targets normaliz
 
 The generated registry and runtime policy are treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`; canonical Worker source stays in `scripts/workers/`; generated `src/` is only for Wrangler compatibility. That keeps updates reviewable and makes rollback a normal Git operation.
 
-Default response headers include `X-Generated-By: vanityURLs.link`, no-index rules, host-scoped HSTS, `nosniff`, clickjacking protection, referrer and permissions policies, and a CSP that blocks inline JavaScript and inline CSS. If you override `custom/public/_headers`, keep that generator identity, compatible cache and security rules, and the raw runtime-file blocks unless you have a deliberate public-disclosure reason.
+Default response headers include `X-Generated-By: vanityURLs.link`, no-index rules, host-scoped HSTS, `nosniff`, clickjacking protection, referrer and permissions policies, and a strict product-page CSP that blocks inline JavaScript and inline CSS. HTML assets that come from `custom/public/` get a separate sandboxed compatibility CSP so copied instance pages can use inline custom code without becoming fully trusted same-origin peers of the built-in pages. If you override `custom/public/_headers`, keep that generator identity, compatible cache and security rules, and the raw runtime-file blocks unless you have a deliberate public-disclosure reason.
 
 ## Operational file guards
 
 Cloudflare Access is not the only layer that limits operational file access. Keep controlled access on localized stats paths such as `/en/_stats/` and `/fr/_stats/`, localized test paths such as `/en/_tests/`, the `_headers` runtime-file entries, and the Worker runtime-file guard enabled unless you have a deliberate public-disclosure reason.
 
-| Control                            | Paths                                                                                   | What it does                                                             |
-| ---------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`                             | Returns `404` for direct public requests                                 |
-| Static `_headers` fallback         | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/*/_stats/*`, `/lookup/*` | Adds no-cache and no-index headers if static assets are served directly  |
-| Protected stats API                | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                | Exposes the generated registry only through the protected stats surface  |
-| Reserved slug validation           | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`     | Prevents short links from being created under reserved operational paths |
+| Control                            | Paths                                                                                                              | What it does                                                             |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| Worker private runtime asset guard | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/v8s-custom-assets.json`                             | Returns `404` for direct public requests                                 |
+| Static `_headers` fallback         | `/v8s.json`, `/v8s-blocklist.json`, `/v8s-site-config.json`, `/v8s-custom-assets.json`, `/*/_stats/*`, `/lookup/*` | Adds no-cache and no-index headers if static assets are served directly  |
+| Protected stats API                | `/en/_stats/api/v8s.json`, `/<lang>/_stats/api/v8s.json`                                                           | Exposes the generated registry only through the protected stats surface  |
+| Reserved slug validation           | `/_stats`, `/<lang>/_stats`, `/api`, `/_worker`, `/v8s.json`, `/v8s-blocklist.json`, `/v8s-custom-assets.json`     | Prevents short links from being created under reserved operational paths |
+
+Sandboxed custom HTML makes browser `fetch()` calls look like they come from `Origin: null`. The Worker only adds that CORS allowance for the public lookup endpoints, `POST /lookup/resolve` and `POST /_analytics/lookup`; protected stats, tests, and raw runtime assets do not receive that allowance.
 
 ## Cloudflare edge controls
 
