@@ -6,6 +6,7 @@ description: "What a full custom vanityURLs theme buys, what it costs, and how t
 tags: ["branding", "customization", "case-study"]
 featured: false
 ---
+
 I have been [using vanityURLs since 2024](/showcase/f-l-ca/). That is the useful boundary. The engine stays boring and the public surface gets personality.
 
 For [f-l.ca](https://f-l.ca/), I wanted something else, the engine stays boring and the public surface feel unmistakably mine.
@@ -38,7 +39,6 @@ When a path is invalid, the screen _shake_ & show the path back to the visitor i
 ## Full custom mode has a cost
 
 This is not the quickest path, you can ask my co-maintainer {{< emoji name="smiling" decorative="true" >}}. Full custom mode means the instance provides its own public pages under `custom/public`, including English and French variants, lookup pages, and status pages.
-
 
 That makes reading [internationalization](/docs/reference/i18n/) part of the theme work. Localized pages need to stay equivalent, not merely translated once.
 
@@ -78,7 +78,6 @@ The brand work is the restraint around it: a warm background, a monospace URL, a
 
 My theme supports light and dark mode, but it does it differently from the default vanityURLs pages. I uses CSS variables with [`prefers-color-scheme`](https://www.w3.org/TR/mediaqueries-5/#prefers-color-scheme) directly in `flstyle.css`. It's good enough.
 
-
 The default pages use the product `v8s-theme.js` helper so QA links can force previews with `?theme=light` and `?theme=dark`; see [Custom overrides](/docs/reference/custom-overrides/) and [Access control](/docs/customize/access-control/) when testing protected `_tests` previews. You can see below the default QA Links.
 
 ![Protected vanityURLs test matrix showing page and status checks for a short-link instance](/blog/v8s-link-tests.png)
@@ -89,7 +88,7 @@ I did not customize the operator pages: `_stats` and `_tests`. They are not publ
 
 The maintenance file is `custom/v8s-custom-overrides.json`. vanityURLs uses that JSON so [npm run doctor](/docs/reference/public-pages/#doctor-ignores)[^doctor] and [v8s-fix](/docs/reference/repository-layout/#instance-files) know which custom differences should not be fixed back to `/defaults`.
 
-That record matters because the 404 experience is not a separate default-looking error document. It is the same redirect surface. When a path is not found, the page can show the entered path and shake the form. 
+That record matters because the 404 experience is not a separate default-looking error document. It is the same redirect surface. When a path is not found, the page can show the entered path and shake the form.
 
 Without the override record, maintenance tooling has to treat those differences as possible drift, the current manifest is explicit:
 
@@ -165,7 +164,6 @@ Without the override record, maintenance tooling has to treat those differences 
 
 That is the fine line in full custom mode: document the differences you mean to own, link back to the product docs for the defaults you still rely on, and let the tooling keep helping everywhere else.
 
-
 [^overlay]: See the vanityURLs [Internationalization](/docs/reference/i18n/) documentation for the build behavior: default public assets are copied, `custom/public` is overlaid, and unsupported language directories are removed from `build/`.
 
 [^csp]: [Content Security Policy Level 3](https://www.w3.org/TR/CSP3/) was a W3C Working Draft dated May 5, 2026 when this post was prepared. For the vanityURLs implementation, see [Runtime security approach](/docs/reference/runtime-security/) and [Public and status pages](/docs/reference/public-pages/#custom-page-security). The custom-page behavior is an implementation detail, not a CSP requirement.
@@ -173,4 +171,3 @@ That is the fine line in full custom mode: document the differences you mean to 
 [^doctor]: See [Public and status pages](/docs/reference/public-pages/#doctor-ignores) for the `doctor.ignore` shape. For asset integrity, refer to [W3C Subresource Integrity](https://www.w3.org/TR/SRI/) handling.
 
 [^operator-pages]: `_stats` is the protected read-only dashboard; `_tests` is the protected runtime test matrix. See [Reading your vanityURLs admin dashboard](/blog/reading-your-admin-dashboard/) and [Access control](/docs/customize/access-control/).
-

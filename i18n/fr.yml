@@ -67,6 +67,7 @@ blog_posts_label: articles
 blog_categories_label: Catégories du blog
 blog_latest: Articles récents
 blog_sorted_by_date: Triés par date de publication initiale
+blog_all_posts: Tous les articles
 
 # ── Vitrine ──────────────────────────────────────────────
 showcase_title: Vitrine

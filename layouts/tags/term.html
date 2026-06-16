@@ -1,33 +1,41 @@
-{{ define "main" }}
-{{ $lang := .Site.Language.Lang }}
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+{{ define "main" }} {{ $posts := .Pages.ByDate.Reverse }} {{ $allPostsURL :=
+"/blog/" | relLangURL }}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">
+    <a
+      href="{{ $allPostsURL }}"
+      class="mb-5 inline-flex items-center gap-1.5 text-sm text-gray-400 transition-colors hover:text-brand-600 dark:text-gray-500 dark:hover:text-brand-400"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 19l-7-7 7-7"
+        />
+      </svg>
+      {{ i18n "blog_all_posts" }}
+    </a>
     <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
       #{{ .Title }}
     </h1>
     <p class="text-gray-500 dark:text-gray-400 text-sm">
-      {{ i18n "tag_post_count" (dict "Count" (len .Pages)) }}
+      {{ i18n "tag_post_count" (dict "Count" (len $posts)) }}
     </p>
   </div>
-  {{ if .Pages }}
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-    {{ range .Pages.ByPublishDate.Reverse }}
-    <a href="{{ .RelPermalink }}" class="blog-card group">
-      <div class="blog-cover {{ with .Params.tags }}{{ if in . "release" }}blog-cover-release{{ else if in . "guide" }}blog-cover-guide{{ else if in . "tutorial" }}blog-cover-tutorial{{ else }}blog-cover-default{{ end }}{{ else }}blog-cover-default{{ end }}"></div>
-      <div class="blog-card-body">
-        <div class="blog-card-meta">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (i18n "date_format_long") }}</time>
-        </div>
-        <h2 class="blog-card-title">{{ .Title }}</h2>
-        <p class="blog-card-excerpt">{{ .Description | default (.Summary | plainify | truncate 120) }}</p>
-      </div>
-    </a>
-    {{ end }}
+
+  {{ if $posts }}
+  <div class="divide-y divide-gray-200 dark:divide-gray-800">
+    {{ range $posts }} {{ partial "blog/list-item.html" . }} {{ end }}
   </div>
   {{ else }}
-  <p class="text-gray-500 dark:text-gray-400">
-    {{ i18n "term_empty" }}
-  </p>
+  <p class="text-gray-500 dark:text-gray-400">{{ i18n "term_empty" }}</p>
   {{ end }}
 </div>
 {{ end }}

@@ -11,9 +11,6 @@ disableHugoGeneratorInject: false
 enableGitInfo: true
 defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
-disableKinds:
-  - taxonomy
-  - term
 
 languages:
   en:

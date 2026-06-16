@@ -7,6 +7,7 @@ tags: ["marque", "personnalisation", "cas-pratique"]
 draft: true
 featured: false
 ---
+
 J'utilise [vanityURLs depuis 2024](/fr/showcase/f-l-ca/). C'est la frontière utile. Le moteur reste ennuyeux et la surface publique gagne de la personnalité.
 
 Pour [f-l.ca](https://f-l.ca/), je voulais autre chose : un moteur ennuyeux, mais une surface publique qui me ressemble immédiatement.
@@ -163,7 +164,6 @@ Sans ce registre d'override, l'outillage de maintenance doit traiter ces différ
 ```
 
 C'est la ligne fine du mode custom complet : documenter les différences que vous voulez posséder, pointer vers la documentation produit pour les défauts sur lesquels vous comptez encore, et laisser l'outillage aider partout ailleurs.
-
 
 [^overlay]: Consultez la documentation vanityURLs sur [l'internationalisation](/fr/docs/reference/i18n/) pour le comportement de build : les assets publics par défaut sont copiés, `custom/public` est superposé, puis les répertoires de langue non supportés sont retirés de `build/`.
 

@@ -67,6 +67,7 @@ blog_posts_label: posts
 blog_categories_label: Blog categories
 blog_latest: Latest articles
 blog_sorted_by_date: Sorted by original publication date
+blog_all_posts: All posts
 
 # ── Showcase ─────────────────────────────────────────────
 showcase_title: Showcase
