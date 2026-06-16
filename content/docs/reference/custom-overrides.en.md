@@ -29,9 +29,12 @@ Keep product changes in `defaults/` only when you are contributing back to vanit
 | `custom/v8s-local-config.json`     | Workstation helper paths                                | [Local helper](/docs/command-line-interface/local-helper/)                                                                                                                                    |
 | `custom/v8s-custom-overrides.json` | Intentional maintenance ignores for custom public files | [Public and status pages](/docs/reference/public-pages/#doctor-ignores/) and [v8s-fix](/docs/command-line-interface/v8s-fix/)                                                                 |
 | `custom/public/`                   | Public page, asset, status-page, and header overrides   | [Public and status pages](/docs/reference/public-pages/), [Brand](/docs/reference/brand/), [Footer & pages](/docs/customize/footer-pages/), and [Internationalization](/docs/reference/i18n/) |
+| `custom/public/_headers`           | Advanced public response header and CSP overrides       | [Runtime security approach](/docs/reference/runtime-security/#content-security-policy/)                                                                                                       |
 
 ## Public pages
 
 Use [Public and status pages](/docs/reference/public-pages/) for the exact `custom/public/` paths, status-page placeholders, shared asset cautions, and CSP guidance for custom HTML.
+
+Use `custom/public/_headers` only when the instance deliberately accepts a different header or CSP policy. The default Worker and static headers already provide the strict product-page CSP, the sandboxed custom-page CSP, no-index rules, HSTS, referrer policy, permissions policy, and raw runtime-file blocks.
 
 Use `custom/v8s-custom-overrides.json` only for deliberate maintenance exceptions. It tells `npm run doctor` that a specific custom file is intentionally different, so you do not need to run [v8s-fix](/docs/command-line-interface/v8s-fix/) against work that belongs to the instance.

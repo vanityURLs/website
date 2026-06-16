@@ -106,6 +106,8 @@ Cela suit [ADR 0014 : Prefer repository-owned configuration](https://github.com/
 N'utilisez pas **Managed Challenge**, **Bot Fight Mode** ni **JavaScript Detections** a l'echelle de la zone comme baseline pour les pages publiques de redirection, lookup ou statut. Cloudflare peut injecter du code Challenge Platform comme `/cdn-cgi/challenge-platform/scripts/jsd/main.js` dans les réponses HTML qui matchent, ce qui rend le HTML possédé par le repo et le comportement CSP non déterministes. vanityURLs envoie `Cache-Control: no-transform` sur les réponses HTML comme garde-fou côté produit, mais les contrôles du tableau de bord devraient quand même rester désactivés sauf si l'instance accepte volontairement l'injection de scripts Cloudflare. Pour les règles étroites visant des clients scriptés, utilisez **Block** ou laissez la règle désactivée.
 {{< /callout >}}
 
+La référence CSP canonique est [Content Security Policy](/fr/docs/reference/runtime-security/#content-security-policy/). Gardez les fonctions Cloudflare de réécriture de page désactivées sauf si vous voulez intentionnellement que le tableau de bord modifie du HTML que le dépôt s'attend à garder autonome.
+
 Sur le plan gratuit, **JavaScript Detections** est contrôlé par **Bot Fight Mode** dans **Security** > **Settings**. Désactivez **Bot Fight Mode** pour les instances vanityURLs à CSP stricte. Sur les plans avec Super Bot Fight Mode ou Bot Management, JavaScript Detections peut aussi apparaître sous **Security** > **Bots** > **Configure Bot Management** > **JavaScript Detections**.
 
 ### Activer les contrôles de sécurité de base

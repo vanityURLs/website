@@ -31,9 +31,12 @@ Gardez les changements produit dans `defaults/` seulement lorsque vous contribue
 | `custom/v8s-local-config.json`     | Chemins de helper propres au poste                                     | [Helper local](/fr/docs/command-line-interface/local-helper/)                                                                                                                                                              |
 | `custom/v8s-custom-overrides.json` | Exceptions de maintenance volontaires pour les fichiers publics custom | [Pages publiques et pages de statut](/fr/docs/reference/public-pages/#ignorer-doctor-volontairement/) et [v8s-fix](/fr/docs/command-line-interface/v8s-fix/)                                                               |
 | `custom/public/`                   | Surcharges de pages publiques, assets, pages de statut et headers      | [Pages publiques et pages de statut](/fr/docs/reference/public-pages/), [Marque](/fr/docs/reference/brand/), [Pied de page et pages](/fr/docs/customize/footer-pages/) et [Internationalisation](/fr/docs/reference/i18n/) |
+| `custom/public/_headers`           | Surcharges avancées des headers publics et de la CSP                   | [Approche sécurité du runtime](/fr/docs/reference/runtime-security/#content-security-policy/)                                                                                                                              |
 
 ## Pages publiques
 
 Utilisez [Pages publiques et pages de statut](/fr/docs/reference/public-pages/) pour les chemins exacts sous `custom/public/`, les placeholders de pages de statut, les avertissements sur les assets partagés et la guidance CSP pour le HTML custom.
+
+Utilisez `custom/public/_headers` seulement lorsque l'instance accepte volontairement une politique de headers ou de CSP différente. Les headers Worker et statiques par défaut fournissent déjà la CSP stricte des pages produit, la CSP sandboxée des pages custom, les règles no-index, HSTS, referrer policy, permissions policy et les blocages des fichiers runtime bruts.
 
 Utilisez `custom/v8s-custom-overrides.json` seulement pour des exceptions de maintenance volontaires. Il indique à `npm run doctor` qu'un fichier custom précis est volontairement différent, afin de ne pas lancer [v8s-fix](/fr/docs/command-line-interface/v8s-fix/) contre un travail qui appartient à l'instance.

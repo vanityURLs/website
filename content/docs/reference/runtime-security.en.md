@@ -57,7 +57,42 @@ Validation verifies that link rows have the expected shape, URL targets normaliz
 
 The generated registry and runtime policy are treated as data, not executable code. Local instance changes belong in `custom/`; product defaults stay in `defaults/`; canonical Worker source stays in `scripts/workers/`; generated `src/` is only for Wrangler compatibility. That keeps updates reviewable and makes rollback a normal Git operation.
 
-Default response headers include `X-Generated-By: vanityURLs.link`, no-index rules, host-scoped HSTS, `nosniff`, clickjacking protection, referrer and permissions policies, and a strict product-page CSP that blocks inline JavaScript and inline CSS. HTML assets that come from `custom/public/` get a separate sandboxed compatibility CSP so copied instance pages can use inline custom code without becoming fully trusted same-origin peers of the built-in pages. If you override `custom/public/_headers`, keep that generator identity, compatible cache and security rules, and the raw runtime-file blocks unless you have a deliberate public-disclosure reason.
+Default response headers include `X-Generated-By: vanityURLs.link`, no-index rules, host-scoped HSTS, `nosniff`, clickjacking protection, referrer and permissions policies, and a strict product-page Content Security Policy. HTML assets that come from `custom/public/` get a separate sandboxed compatibility CSP so copied instance pages can use inline custom code without becoming fully trusted same-origin peers of the built-in pages.
+
+## Content Security Policy
+
+vanityURLs uses two CSP profiles for public HTML:
+
+| Profile                   | Applies to                                                                               | Purpose                                                                                                         |
+| ------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Strict product-page CSP   | Default generated pages, lookup, stats shell, tests, legal pages, and other product HTML | Keep repo-owned HTML deterministic by allowing only self-hosted scripts, styles, fonts, images, and data images |
+| Sandboxed custom-page CSP | HTML files that came from `custom/public/`                                               | Let instance-owned pages use inline CSS and JavaScript while isolating them from built-in same-origin pages     |
+
+The strict product-page CSP has this shape:
+
+```text
+default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self';
+img-src 'self' data:; connect-src 'self' https://api.github.com;
+base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+```
+
+That profile blocks inline `<script>` and `<style>`. Product pages should use shipped `v8s-*` assets and self-hosted fonts, not third-party font or script hosts.
+
+The sandboxed custom-page CSP has this shape:
+
+```text
+sandbox allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads;
+default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https:;
+style-src 'self' 'unsafe-inline' https:; img-src 'self' https: data: blob:;
+connect-src 'self' https:; base-uri 'self'; form-action 'self' https:;
+frame-ancestors 'none'
+```
+
+The sandbox deliberately omits `allow-same-origin`. In the browser, that makes custom HTML run with an opaque origin even though the user still sees the same short-link hostname. Custom pages can load their own same-host CSS and JavaScript, run inline snippets, submit forms, open popups, download files, and navigate links through the Worker. They should not expect to read host cookies, host `localStorage`, protected stats APIs, or other same-origin-only product surfaces.
+
+Sandboxed custom pages send browser `fetch()` requests with `Origin: null`. The Worker only permits that origin for public lookup endpoints, `POST /lookup/resolve` and `POST /_analytics/lookup`. Protected stats, tests, and raw runtime files stay locked down.
+
+Only override CSP in `custom/public/_headers` when the instance deliberately accepts a different trust model. If you do, keep `frame-ancestors 'none'`, `base-uri 'self'`, the no-index rules, host-scoped HSTS, and raw runtime-file blocks unless there is a specific reason to change them. Removing the sandbox turns custom HTML into a fully trusted same-origin peer of the built-in pages; that is a conscious security decision, not a theme tweak.
 
 ## Operational file guards
 

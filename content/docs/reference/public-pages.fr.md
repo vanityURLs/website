@@ -18,7 +18,7 @@ Les pages publiques par défaut partagent des assets produit comme `/v8s-style.c
 {{< /callout >}}
 
 {{< callout type="info" title="Le HTML custom utilise une CSP compatible" >}}
-Le HTML produit par défaut garde la CSP stricte du produit. Les fichiers HTML venant de `custom/public/` reçoivent un profil compatible séparé, sandboxé, qui autorise les scripts et styles inline custom sans inclure `allow-same-origin`. La page reste sur le même hôte visible, mais ne devient pas un pair same-origin entièrement fiable des pages intégrées.
+Le HTML produit par défaut garde la CSP stricte du produit. Les fichiers HTML venant de `custom/public/` reçoivent un profil compatible séparé, sandboxé, qui autorise les scripts et styles inline custom sans inclure `allow-same-origin`. La page reste sur le même hôte visible, mais ne devient pas un pair same-origin entièrement fiable des pages intégrées. Consultez [Content Security Policy](/fr/docs/reference/runtime-security/#content-security-policy/) pour les détails canoniques des politiques.
 {{< /callout >}}
 
 | Surcharge                            | Chemin                                                                                                              | Détails                                                                                                                              |
@@ -81,7 +81,7 @@ Utilisez [v8s-fix](/fr/docs/command-line-interface/v8s-fix/) pour les dérives q
 
 Pendant le build, vanityURLs écrit `build/v8s-custom-assets.json` avec les chemins publics finaux qui viennent de `custom/public/`. Le Worker utilise ce manifeste pour appliquer le profil HTML custom même lorsqu'une page anglaise custom est copiée vers la racine, par exemple `custom/public/en/index.html` qui devient `/index.html`.
 
-Seuls les documents HTML custom reçoivent le profil sandboxé. Le CSS, le JavaScript, les images, les polices et les manifests référencés sont servis comme assets normaux, tandis que la CSP de la page HTML contrôle ce qu'elle peut charger.
+Seuls les documents HTML custom reçoivent le profil sandboxé. Le CSS, le JavaScript, les images, les polices et les manifests référencés sont servis comme assets normaux, tandis que la CSP de la page HTML contrôle ce qu'elle peut charger. La référence CSP canonique vit dans [Approche sécurité du runtime](/fr/docs/reference/runtime-security/#content-security-policy/).
 
 Le profil HTML custom autorise :
 

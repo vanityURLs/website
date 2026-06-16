@@ -57,7 +57,42 @@ La validation verifie que les lignes de liens ont la forme attendue, que les URL
 
 Le registre génère et la politique runtime sont traites comme des données, pas comme du code executable. Les changements propres à l'instance vivent dans `custom/`; les defaults produit restent dans `defaults/`; la source canonique du Worker reste dans `scripts/workers/`; `src/` est génère seulement pour Wrangler. Cela garde les mises à jour revues et rend le rollback normal dans Git.
 
-Les headers par défaut incluent `X-Generated-By: vanityURLs.link`, des règles no-index, HSTS limité à l'hôte, `nosniff`, une protection contre le clickjacking, des politiques referrer et permissions, et une CSP stricte pour les pages produit qui bloque le JavaScript inline et le CSS inline. Les assets HTML venant de `custom/public/` reçoivent une CSP compatible séparée, sandboxée, afin que les pages d'instance copiées puissent utiliser du code custom inline sans devenir des pairs same-origin entièrement fiables des pages intégrées. Si vous surchargez `custom/public/_headers`, gardez cette identité de génération, des règles cache et sécurité compatibles, et les blocages des fichiers runtime bruts sauf raison explicite.
+Les headers par défaut incluent `X-Generated-By: vanityURLs.link`, des règles no-index, HSTS limité à l'hôte, `nosniff`, une protection contre le clickjacking, des politiques referrer et permissions, et une Content Security Policy stricte pour les pages produit. Les assets HTML venant de `custom/public/` reçoivent une CSP compatible séparée, sandboxée, afin que les pages d'instance copiées puissent utiliser du code custom inline sans devenir des pairs same-origin entièrement fiables des pages intégrées.
+
+## Content Security Policy
+
+vanityURLs utilise deux profils CSP pour le HTML public :
+
+| Profil                         | S'applique à                                                                               | Objectif                                                                                                                                   |
+| ------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| CSP stricte des pages produit  | Pages générées par défaut, lookup, shell stats, tests, pages légales et autre HTML produit | Garder le HTML possédé par le dépôt déterministe en autorisant seulement les scripts, styles, polices, images et images data auto-hébergés |
+| CSP sandboxée des pages custom | Fichiers HTML venant de `custom/public/`                                                   | Permettre aux pages propres à l'instance d'utiliser du CSS et JavaScript inline tout en les isolant des pages same-origin intégrées        |
+
+La CSP stricte des pages produit a cette forme :
+
+```text
+default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self';
+img-src 'self' data:; connect-src 'self' https://api.github.com;
+base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+```
+
+Ce profil bloque les `<script>` et `<style>` inline. Les pages produit devraient utiliser les assets `v8s-*` livrés et des polices auto-hébergées, pas des hôtes tiers pour les polices ou scripts.
+
+La CSP sandboxée des pages custom a cette forme :
+
+```text
+sandbox allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads;
+default-src 'self' https: data: blob:; script-src 'self' 'unsafe-inline' https:;
+style-src 'self' 'unsafe-inline' https:; img-src 'self' https: data: blob:;
+connect-src 'self' https:; base-uri 'self'; form-action 'self' https:;
+frame-ancestors 'none'
+```
+
+Le sandbox omet volontairement `allow-same-origin`. Dans le navigateur, cela fait tourner le HTML custom avec une origine opaque même si l'utilisateur voit toujours le même hostname court. Les pages custom peuvent charger leur propre CSS et JavaScript du même hôte, exécuter des snippets inline, soumettre des formulaires, ouvrir des popups, télécharger des fichiers et naviguer par des liens qui passent par le Worker. Elles ne devraient pas s'attendre à lire les cookies de l'hôte, le `localStorage` de l'hôte, les APIs stats protégées ou les autres surfaces produit réservées au same-origin.
+
+Les pages custom sandboxées envoient les requêtes `fetch()` du navigateur avec `Origin: null`. Le Worker autorise cette origine seulement pour les endpoints lookup publics, `POST /lookup/resolve` et `POST /_analytics/lookup`. Les stats protégées, les tests et les fichiers runtime bruts restent verrouillés.
+
+Surchargez la CSP dans `custom/public/_headers` seulement lorsque l'instance accepte volontairement un modèle de confiance différent. Si vous le faites, gardez `frame-ancestors 'none'`, `base-uri 'self'`, les règles no-index, le HSTS limité à l'hôte et les blocages des fichiers runtime bruts sauf raison précise de les changer. Retirer le sandbox transforme le HTML custom en pair same-origin entièrement fiable des pages intégrées; c'est une décision de sécurité consciente, pas un ajustement de thème.
 
 ## Gardes des fichiers opérationnels
 

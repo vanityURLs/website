@@ -18,7 +18,7 @@ Default public pages share product-level assets such as `/v8s-style.css` and `/v
 {{< /callout >}}
 
 {{< callout type="info" title="Custom HTML uses a compatibility CSP" >}}
-Default product HTML keeps the strict product CSP. HTML files that come from `custom/public/` get a separate sandboxed compatibility profile that allows custom inline scripts and styles while omitting `allow-same-origin`. That keeps the page on the same visible host while preventing it from becoming a fully trusted same-origin peer of the built-in pages.
+Default product HTML keeps the strict product CSP. HTML files that come from `custom/public/` get a separate sandboxed compatibility profile that allows custom inline scripts and styles while omitting `allow-same-origin`. That keeps the page on the same visible host while preventing it from becoming a fully trusted same-origin peer of the built-in pages. See [Content Security Policy](/docs/reference/runtime-security/#content-security-policy/) for the canonical policy details.
 {{< /callout >}}
 
 | Override                           | Path                                                                                                                | Details                                                                                                                              |
@@ -81,7 +81,7 @@ Use [v8s-fix](/docs/command-line-interface/v8s-fix/) for drift that should be re
 
 During build, vanityURLs writes `build/v8s-custom-assets.json` with the final public paths that came from `custom/public/`. The Worker uses that manifest to apply the custom HTML profile even when an English custom page is copied to the root path, such as `custom/public/en/index.html` becoming `/index.html`.
 
-Only custom HTML documents receive the sandboxed profile. Referenced CSS, JavaScript, images, fonts, and manifests are served as normal assets, while the HTML page's CSP controls what it can load.
+Only custom HTML documents receive the sandboxed profile. Referenced CSS, JavaScript, images, fonts, and manifests are served as normal assets, while the HTML page's CSP controls what it can load. The canonical CSP reference lives in [Runtime security approach](/docs/reference/runtime-security/#content-security-policy/).
 
 The custom HTML profile allows:
 
