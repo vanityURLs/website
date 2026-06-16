@@ -1,0 +1,9 @@
+{{- $name := . | default "Benoît H. Dicaire" -}}
+{{- $data := index hugo.Data.authors $name -}}
+{{- $person := dict "@type" "Person" "name" $name -}}
+{{- with $data -}}
+  {{- $person = dict "@type" "Person" "name" (.name | default $name) -}}
+  {{- with .url -}}{{- $person = merge $person (dict "url" .) -}}{{- end -}}
+  {{- with .sameAs -}}{{- $person = merge $person (dict "sameAs" .) -}}{{- end -}}
+{{- end -}}
+{{- return $person -}}

@@ -1,37 +1,65 @@
 {{ define "main" }}
-{{ $lang     := .Site.Language.Lang }}
-{{ $allPosts := where .Site.RegularPages "Section" "blog" }}
-
-{{ $featured  := where $allPosts "Params.featured" true | first 1 }}
-{{ $featSlug  := "" }}
-{{ range $featured }}{{ $featSlug = .File.UniqueID }}{{ end }}
-
-{{ $regular   := where $allPosts "Params.featured" "ne" true }}
+{{ $allPosts := (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
+{{ $featured := where $allPosts "Params.featured" true | first 1 }}
+{{ $regular := where $allPosts "Params.featured" "ne" true }}
+{{ $sample := cond (gt (len $regular) 0) (index $regular 0) . }}
+{{ $categoryMeta := partial "blog/category.html" $sample }}
+{{ $categoryOrder := $categoryMeta.order }}
+{{ $categoryLabels := $categoryMeta.labels }}
 
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-  <!-- Header -->
-  <div class="text-center mb-12">
-    <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-      {{ i18n "blog_title" }}
-    </h1>
-    <p class="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
-      {{ i18n "blog_subtitle" }}
-    </p>
-  </div>
+  <header class="mb-12">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-wider text-brand-700 dark:text-brand-300 mb-3">
+        {{ len $regular }} {{ i18n "blog_posts_label" }}
+      </p>
+      <h1 class="text-4xl font-bold tracking-tight text-gray-950 dark:text-gray-50 mb-4">
+        {{ i18n "blog_title" }}
+      </h1>
+      <p class="text-lg leading-8 text-gray-600 dark:text-gray-300">
+        {{ i18n "blog_subtitle" }}
+      </p>
+    </div>
+  </header>
 
-  {{ $paginator := .Paginate $regular 9 }}
+  <nav class="not-prose mb-10 flex flex-wrap gap-2" aria-label="{{ i18n "blog_categories_label" }}">
+    <a href="#latest"
+       class="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors hover:border-brand-300 hover:text-brand-700 dark:border-gray-700 dark:text-gray-300 dark:hover:border-brand-500 dark:hover:text-brand-300">
+      <span>{{ i18n "blog_latest" }}</span>
+      <span class="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-400">{{ len $regular }}</span>
+    </a>
+    {{ range $catID := $categoryOrder }}
+      {{ $count := 0 }}
+      {{ range $regular }}
+        {{ $cat := partial "blog/category.html" . }}
+        {{ if eq $cat.id $catID }}{{ $count = add $count 1 }}{{ end }}
+      {{ end }}
+      {{ if gt $count 0 }}
+      <a href="#{{ $catID }}"
+         class="inline-flex items-center gap-2 rounded-md border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 no-underline transition-colors hover:border-brand-300 hover:text-brand-700 dark:border-gray-700 dark:text-gray-300 dark:hover:border-brand-500 dark:hover:text-brand-300">
+        <span>{{ index $categoryLabels $catID }}</span>
+        <span class="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-400">{{ $count }}</span>
+      </a>
+      {{ end }}
+    {{ end }}
+  </nav>
 
-  {{ if and (eq $paginator.PageNumber 1) (gt (len $featured) 0) }}
-  <!-- Featured post — only on page 1, only once -->
+  {{ if gt (len $featured) 0 }}
   {{ $f := index $featured 0 }}
-  {{ $coverClass := "blog-cover-default" }}
-  <a href="{{ $f.RelPermalink }}" class="blog-card-featured group block mb-10">
-    <div class="blog-cover {{ $coverClass }}"></div>
+  {{ $fCat := partial "blog/category.html" $f }}
+  {{ $fAuthor := $f.Params.author | default "Benoît H. Dicaire" }}
+  {{ with index hugo.Data.authors $fAuthor }}{{ $fAuthor = .name }}{{ end }}
+  {{ $fInitials := partial "blog/author-initials.html" $fAuthor }}
+  <a href="{{ $f.RelPermalink }}" class="blog-card-featured group block mb-12">
+    <div class="blog-cover blog-cover-default"></div>
     <div class="blog-card-featured-inner">
-      <span class="inline-block text-xs font-semibold uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-3">
-        {{ i18n "blog_featured" }}
-      </span>
+      <div class="mb-4 flex flex-wrap items-center gap-2">
+        <span class="inline-flex rounded bg-brand-50 px-2 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700 dark:bg-brand-950 dark:text-brand-300">
+          {{ i18n "blog_featured" }}
+        </span>
+        <span class="blog-category-chip">{{ $fCat.label }}</span>
+      </div>
       <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3 leading-tight
                  group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors">
         {{ $f.Title }}
@@ -39,67 +67,51 @@
       <p class="text-gray-500 dark:text-gray-400 text-base leading-relaxed mb-5 max-w-3xl">
         {{ $f.Description | default ($f.Summary | plainify | truncate 200) }}
       </p>
-      <div class="flex flex-wrap items-center gap-4">
-        <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-500">
-          {{ with $f.Params.author }}
-          <span class="author-avatar text-xs">{{ substr . 0 1 | upper }}</span>
-          <span class="font-medium text-gray-700 dark:text-gray-300">{{ . }}</span>
-          <span>·</span>
-          {{ end }}
-          <time datetime="{{ $f.Date.Format "2006-01-02" }}">{{ $f.Date.Format (i18n "date_format_long") }}</time>
-          {{ with $f.ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
-        </div>
+      <div class="flex flex-wrap items-center gap-3 text-sm text-gray-400 dark:text-gray-500">
+        <span class="author-avatar author-avatar-wide text-xs">{{ $fInitials }}</span>
+        <span class="font-medium text-gray-700 dark:text-gray-300">{{ $fAuthor }}</span>
+        <span>·</span>
+        <time datetime="{{ $f.Date.Format "2006-01-02" }}">{{ $f.Date.Format (i18n "date_format_long") }}</time>
+        {{ with $f.ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
       </div>
     </div>
   </a>
   {{ end }}
 
-  <!-- Regular post grid -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    {{ range $paginator.Pages }}
-    {{ $coverClass := "blog-cover-default" }}
-    <a href="{{ .RelPermalink }}" class="blog-card group">
-      <div class="blog-cover {{ $coverClass }}"></div>
-      <div class="blog-card-body">
-        <div class="blog-card-meta">
-          {{ with .Params.author }}<span>{{ . }}</span><span>·</span>{{ end }}
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (i18n "date_format_long") }}</time>
-          {{ with .ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
+  <section id="latest" class="scroll-mt-24">
+    <div class="mb-5 flex items-end justify-between gap-4 border-b border-gray-200 pb-3 dark:border-gray-800">
+      <h2 class="text-2xl font-semibold tracking-tight text-gray-950 dark:text-gray-50">{{ i18n "blog_latest" }}</h2>
+      <span class="text-sm text-gray-500 dark:text-gray-400">{{ i18n "blog_sorted_by_date" }}</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ range first 9 $regular }}
+      {{ partial "blog/card.html" . }}
+      {{ end }}
+    </div>
+  </section>
+
+  <div class="mt-14 space-y-14">
+    {{ range $catID := $categoryOrder }}
+      {{ $categoryPosts := slice }}
+      {{ range $regular }}
+        {{ $cat := partial "blog/category.html" . }}
+        {{ if eq $cat.id $catID }}{{ $categoryPosts = $categoryPosts | append . }}{{ end }}
+      {{ end }}
+      {{ if gt (len $categoryPosts) 0 }}
+      <section id="{{ $catID }}" class="scroll-mt-24">
+        <div class="mb-5 flex items-end justify-between gap-4 border-b border-gray-200 pb-3 dark:border-gray-800">
+          <h2 class="text-2xl font-semibold tracking-tight text-gray-950 dark:text-gray-50">{{ index $categoryLabels $catID }}</h2>
+          <span class="text-sm text-gray-500 dark:text-gray-400">{{ len $categoryPosts }}</span>
         </div>
-        <h2 class="blog-card-title">{{ .Title }}</h2>
-        <p class="blog-card-excerpt">
-          {{ .Description | default (.Summary | plainify | truncate 120) }}
-        </p>
-      </div>
-    </a>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {{ range $categoryPosts }}
+          {{ partial "blog/card.html" . }}
+          {{ end }}
+        </div>
+      </section>
+      {{ end }}
     {{ end }}
   </div>
-
-  {{ if gt $paginator.TotalPages 1 }}
-  <nav class="mt-12 flex items-center justify-between" aria-label="{{ i18n "nav_blog_pagination" }}">
-    <div>
-      {{ if $paginator.HasPrev }}
-      <a href="{{ $paginator.Prev.URL }}"
-         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
-                border border-gray-200 dark:border-gray-700 rounded-lg
-                hover:border-brand-300 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
-        ← {{ i18n "blog_newer" }}
-      </a>
-      {{ end }}
-    </div>
-    <span class="text-sm text-gray-400 dark:text-gray-500">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
-    <div>
-      {{ if $paginator.HasNext }}
-      <a href="{{ $paginator.Next.URL }}"
-         class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400
-                border border-gray-200 dark:border-gray-700 rounded-lg
-                hover:border-brand-300 hover:text-brand-700 dark:hover:text-brand-400 transition-colors">
-        {{ i18n "blog_older" }} →
-      </a>
-      {{ end }}
-    </div>
-  </nav>
-  {{ end }}
 
 </div>
 {{ end }}

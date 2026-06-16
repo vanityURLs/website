@@ -444,6 +444,11 @@
     @apply text-sm text-gray-500 dark:text-gray-400 leading-relaxed flex-1 mb-4;
   }
 
+  .blog-category-chip {
+    @apply inline-flex rounded bg-gray-100 px-2 py-1 text-xs font-semibold
+           text-gray-600 dark:bg-gray-800 dark:text-gray-300;
+  }
+
   /* Featured post card */
   .blog-card-featured {
     @apply bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700
@@ -466,6 +471,10 @@
   .author-avatar {
     @apply w-8 h-8 rounded-full bg-brand-600 dark:bg-brand-700 text-white
            flex items-center justify-center text-sm font-bold shrink-0;
+  }
+
+  .author-avatar-wide {
+    @apply min-w-8 w-auto px-2 rounded-full;
   }
 
   /* ════════════════════════════════════════

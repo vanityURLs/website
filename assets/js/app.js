@@ -17,6 +17,7 @@
     if (el) cfg = JSON.parse(el.textContent || '{}');
   } catch (e) { /* fall through with empty cfg */ }
   var t = cfg.i18n || {};
+  var searchScope = cfg.search || {};
 
   // ── Dark mode toggle ─────────────────────────────────────
   function setTheme(theme) {
@@ -259,7 +260,15 @@
     Promise.all(results.slice(0, 20).map(function (r) { return r.data(); }))
       .then(function (items) {
         var relevant = items.filter(function (item) {
-          return excerptMatchesQuery(item.excerpt);
+          if (!excerptMatchesQuery(item.excerpt)) return false;
+          var paths = searchScope.paths || [];
+          if (!paths.length) return true;
+          try {
+            var path = new URL(item.url, window.location.origin).pathname;
+            return paths.some(function (prefix) { return path.indexOf(prefix) === 0; });
+          } catch (e) {
+            return true;
+          }
         });
 
         if (!relevant.length) {

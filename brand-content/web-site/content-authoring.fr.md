@@ -73,6 +73,18 @@ draft: true
 
 Créez la traduction française comme `content/blog/my-new-post.fr.md` lorsque le contenu traduit est prêt.
 
+Les articles sont triés par leur `date` initiale. Gardez cette date stable après publication. Utilisez `lastmod` seulement lorsqu'un signal visible de dernière modification est utile; la page article garde la date de publication près du titre et affiche `lastmod` dans le pied de page.
+
+L'index du blog regroupe les articles dans des catégories éditoriales déduites des étiquettes existantes, sauf si un article fournit un `category` explicite. Préférez l'un de ces identifiants lorsque vous devez remplacer la catégorie déduite :
+
+```yaml
+category: customization
+```
+
+Les catégories actuelles sont `getting-started`, `releases`, `comparisons`, `operations`, `customization`, `security`, `cloudflare` et `architecture`. Les étiquettes peuvent rester plus précises; les catégories devraient rester assez larges pour la page d'archive. Les versions et comparaisons sont détectées avant les étiquettes opérationnelles ou Cloudflare plus larges, afin qu'un article puisse garder des étiquettes secondaires pratiques sans perdre sa catégorie d'archive.
+
+Les auteurs devraient utiliser un nom d'affichage stable. Ajoutez les auteurs récurrents dans `data/authors.yml` afin que les templates et les données structurées puissent inclure des URLs de profil lorsqu'elles existent.
+
 ## Ajouter du texte UI
 
 Ajoutez les libellés de template dans les deux fichiers i18n :
@@ -118,6 +130,10 @@ Commencer ici.
 ```
 
 Utilisez les callouts pour les avertissements opérationnels, limites de sécurité, notes de premier setup et changements de comportement versionnés. Gardez les explications ordinaires en prose.
+
+Les articles peuvent utiliser le même shortcode de callout, mais plus sobrement que la documentation de référence. Les bons callouts dans un article signalent une précaution pratique, une décision pour le lecteur ou une note du type "faites ceci avant de copier le pattern". Évitez les callouts pour de la simple emphase; un article devrait encore se lire comme un essai.
+
+Le dossier source reste nommé `content/` parce que c'est la racine de contenu conventionnelle de Hugo et qu'elle est déjà distinguée du site de marque par `brand-content/`. Ne le renommez pas en `website-content/` sans migrer en même temps le build, les liens, les docs de contribution et le déploiement Cloudflare.
 
 ## Images de page
 

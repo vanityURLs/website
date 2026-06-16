@@ -33,11 +33,23 @@
        (type=application/json is not executable — CSP ignores it).
        We build a map and jsonify once so Hugo's contextual escaping inside
        <script> doesn't double-encode the individual values. */}}
+  {{ $searchLabel := i18n "search_placeholder" }}
+  {{ $searchPaths := slice }}
+  {{ if eq .Section "docs" }}
+    {{ $searchLabel = i18n "search_docs" }}
+    {{ $searchPaths = slice ("docs/" | relLangURL) }}
+  {{ else if or (eq .Section "blog") (eq .Section "faq") }}
+    {{ $searchLabel = i18n "search_blog_faq" }}
+    {{ $searchPaths = slice ("blog/" | relLangURL) ("faq/" | relLangURL) }}
+  {{ end }}
   {{ $cfg := dict
+      "search" (dict
+          "label" $searchLabel
+          "paths" $searchPaths)
       "i18n" (dict
           "anchor_link"        (i18n "anchor_link")
           "copy_code"          (i18n "copy_code")
-          "search_placeholder" (i18n "search_placeholder")
+          "search_placeholder" $searchLabel
           "search_unavailable" (i18n "search_unavailable")
           "search_error"       (i18n "search_error")
           "search_no_results"  (i18n "search_no_results"))

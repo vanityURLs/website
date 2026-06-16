@@ -5,6 +5,8 @@ toggle_menu: Ouvrir le menu
 
 # ── Header / recherche ──────────────────────────────────
 search_placeholder: Rechercher dans la doc
+search_docs: Rechercher dans la doc
+search_blog_faq: Rechercher blog et FAQ
 search_no_results: "Aucun résultat pour « %s »"
 search_error: Erreur de recherche. Essayez de reconstruire l'index.
 search_unavailable: Exécutez « npm run index » pour activer la recherche.
@@ -61,6 +63,10 @@ blog_back: Retour au blog
 blog_newer: Articles récents
 blog_older: Articles précédents
 blog_related: Plus d'articles
+blog_posts_label: articles
+blog_categories_label: Catégories du blog
+blog_latest: Articles récents
+blog_sorted_by_date: Triés par date de publication initiale
 
 # ── Vitrine ──────────────────────────────────────────────
 showcase_title: Vitrine

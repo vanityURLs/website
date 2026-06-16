@@ -5,6 +5,8 @@ toggle_menu: Toggle menu
 
 # ── Header / search ─────────────────────────────────────
 search_placeholder: Search docs
+search_docs: Search docs
+search_blog_faq: Search blog and FAQ
 search_no_results: 'No results for "%s"'
 search_error: Search error. Try rebuilding the index.
 search_unavailable: Run "npm run index" once to enable search.
@@ -61,6 +63,10 @@ blog_back: Back to blog
 blog_newer: Newer posts
 blog_older: Older posts
 blog_related: More articles
+blog_posts_label: posts
+blog_categories_label: Blog categories
+blog_latest: Latest articles
+blog_sorted_by_date: Sorted by original publication date
 
 # ── Showcase ─────────────────────────────────────────────
 showcase_title: Showcase

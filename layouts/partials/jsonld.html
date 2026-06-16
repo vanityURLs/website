@@ -8,14 +8,10 @@
 {{- $lang      := .Site.Language.Lang -}}
 {{- $langCode  := .Site.Language.Locale -}}
 {{- $docsBase  := "/docs/" | absLangURL -}}
+{{- $blogBase  := "/blog/" | absLangURL -}}
 
 {{/* ── Person (reused across types) ─────────────────────────── */}}
-{{- $author := dict
-    "@type" "Person"
-    "name"  "Benoît H. Dicaire"
-    "url"   "https://github.com/bhdicaire"
-    "sameAs" (slice "https://github.com/bhdicaire" "https://linkedin.com/in/bhdicaire")
--}}
+{{- $author := partial "blog/author-jsonld.html" "Benoît H. Dicaire" -}}
 
 {{/* ── Organization / Publisher ──────────────────────────────── */}}
 {{- $org := dict
@@ -76,7 +72,7 @@
       "CI/CD integration via GitHub Actions",
       "Free to operate"
     ],
-    "author": {{ $author | jsonify }},
+    "author": {{ $author | jsonify | safeJS }},
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -102,8 +98,8 @@
   "description": "{{ i18n "blog_subtitle" }}",
   "url": "{{ .Permalink }}",
   "inLanguage": "{{ $langCode }}",
-  "author": {{ $author | jsonify }},
-  "publisher": {{ $org | jsonify }}
+  "author": {{ $author | jsonify | safeJS }},
+  "publisher": {{ $org | jsonify | safeJS }}
 }
 </script>
 {{- end }}
@@ -112,26 +108,33 @@
      BLOG POST — BlogPosting
      ════════════════════════════════════════════════════════════ */}}
 {{ if and (eq .Section "blog") .IsPage -}}
-{{- $postAuthor := $author -}}
-{{- with .Params.author -}}
-  {{- $postAuthor = dict "@type" "Person" "name" . -}}
+{{- $postAuthor := partial "blog/author-jsonld.html" (.Params.author | default "Benoît H. Dicaire") -}}
+{{- $englishTranslation := "" -}}
+{{- range .Translations -}}
+  {{- if eq .Lang "en" -}}{{- $englishTranslation = .Permalink -}}{{- end -}}
 {{- end -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "@id": "{{ .Permalink }}#post",
-  "headline": {{ .Title | jsonify }},
-  "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Summary | jsonify }}{{ end }},
+  "headline": {{ .Title | jsonify | safeJS }},
+  "description": {{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ .Summary | jsonify | safeJS }}{{ end }},
   "url": "{{ .Permalink }}",
   "inLanguage": "{{ $langCode }}",
   "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
   {{ with .Lastmod }}"dateModified": "{{ .Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
-  "author": {{ $postAuthor | jsonify }},
-  "publisher": {{ $org | jsonify }},
+  "author": {{ $postAuthor | jsonify | safeJS }},
+  "publisher": {{ $org | jsonify | safeJS }},
+  {{ if and .IsTranslated (ne .Lang "en") $englishTranslation -}}
+  "translationOfWork": {
+    "@type": "BlogPosting",
+    "@id": "{{ $englishTranslation }}#post"
+  },
+  {{- end }}
   "isPartOf": {
     "@type": "Blog",
-    "@id": "{{ (printf "%sblog/" $baseURL) }}#blog",
+    "@id": "{{ $blogBase }}#blog",
     "name": "{{ .Site.Title }} Blog"
   }
 }
@@ -176,14 +179,14 @@
     "@context": "https://schema.org",
     "@type": "TechArticle",
     "@id": "{{ .Permalink }}#article",
-    "headline": {{ .Title | jsonify }},
-    "description": {{ with .Description }}{{ . | jsonify }}{{ else }}{{ .Site.Params.description | jsonify }}{{ end }},
+    "headline": {{ .Title | jsonify | safeJS }},
+    "description": {{ with .Description }}{{ . | jsonify | safeJS }}{{ else }}{{ .Site.Params.description | jsonify | safeJS }}{{ end }},
     "url": "{{ .Permalink }}",
     "inLanguage": "{{ $langCode }}",
     {{ if not .Date.IsZero }}"datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
     {{ with .Lastmod }}"dateModified": "{{ .Format "2006-01-02T15:04:05Z07:00" }}",{{ end }}
-    "author": {{ $author | jsonify }},
-    "publisher": {{ $org | jsonify }},
+    "author": {{ $author | jsonify | safeJS }},
+    "publisher": {{ $org | jsonify | safeJS }},
     "isPartOf": {
       "@type": "TechArticle",
       "@id": "{{ $docsBase }}#docs",
@@ -199,7 +202,7 @@
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": {{ $crumbs | jsonify }}
+    "itemListElement": {{ $crumbs | jsonify | safeJS }}
   }
 ]
 </script>

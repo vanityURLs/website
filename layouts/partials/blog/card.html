@@ -1,0 +1,20 @@
+{{- $cat := partial "blog/category.html" . -}}
+{{- $author := .Params.author | default "Benoît H. Dicaire" -}}
+{{- with index hugo.Data.authors $author }}{{ $author = .name }}{{ end -}}
+<a href="{{ .RelPermalink }}" class="blog-card group">
+  <div class="blog-cover blog-cover-default"></div>
+  <div class="blog-card-body">
+    <div class="mb-3 flex flex-wrap items-center gap-2">
+      <span class="blog-category-chip">{{ $cat.label }}</span>
+    </div>
+    <div class="blog-card-meta">
+      <span>{{ $author }}</span><span>·</span>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format (i18n "date_format_long") }}</time>
+      {{ with .ReadingTime }}<span>·</span><span>{{ . }} {{ i18n "blog_min_read" }}</span>{{ end }}
+    </div>
+    <h3 class="blog-card-title">{{ .Title }}</h3>
+    <p class="blog-card-excerpt">
+      {{ .Description | default (.Summary | plainify | truncate 120) }}
+    </p>
+  </div>
+</a>

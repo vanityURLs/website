@@ -1,0 +1,9 @@
+{{- $author := . | default "" -}}
+{{- $initials := "" -}}
+{{- range split $author " " -}}
+  {{- $part := replaceRE "[^[:alpha:]]" "" . -}}
+  {{- if and $part (lt (len $initials) 3) -}}
+    {{- $initials = printf "%s%s" $initials (substr $part 0 1 | upper) -}}
+  {{- end -}}
+{{- end -}}
+{{- return ($initials | default "?") -}}

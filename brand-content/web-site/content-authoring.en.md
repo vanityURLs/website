@@ -73,6 +73,18 @@ draft: true
 
 Create the French translation as `content/blog/my-new-post.fr.md` when the translated content is ready.
 
+Blog posts are sorted by their original `date`. Keep that date stable after publication. Use `lastmod` only when a visible "last modified" signal is useful; the single-post layout keeps the publication date near the title and shows `lastmod` in the footer.
+
+The blog index groups posts into editorial categories derived from existing tags unless a post provides an explicit `category`. Prefer one of these category IDs when you need to override the derived category:
+
+```yaml
+category: customization
+```
+
+Current categories are `getting-started`, `releases`, `comparisons`, `operations`, `customization`, `security`, `cloudflare`, and `architecture`. Tags can stay more specific; categories should stay broad enough for the archive page. Releases and comparisons are matched before broader operational or Cloudflare tags, so a post can still carry practical secondary tags without losing its archive bucket.
+
+Authors should use a stable display name. Add recurring authors to `data/authors.yml` so templates and structured data can include profile URLs when available.
+
 ## Add UI text
 
 Add template labels to both i18n files:
@@ -118,6 +130,10 @@ Start here.
 ```
 
 Use callouts for operational warnings, safety limits, first-time setup notes, and versioned behavior changes. Keep ordinary explanatory paragraphs as prose.
+
+Blog posts can use the same callout shortcode, but use it more sparingly than in reference documentation. Good blog callouts highlight practical cautions, reader decisions, or "do this before you copy the pattern" notes. Avoid callouts for ordinary emphasis; blog posts should still read like essays.
+
+The source directory remains named `content/` because it is Hugo's conventional content root and is already mirrored by the brand site's `brand-content/`. Do not rename it to `website-content/` unless the whole build, links, contributor docs, and Cloudflare deployment flow are migrated together.
 
 ## Page images
 

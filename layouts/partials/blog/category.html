@@ -1,0 +1,49 @@
+{{- $page := . -}}
+{{- $lang := $page.Site.Language.Lang -}}
+{{- $labels := dict
+  "en" (dict
+    "getting-started" "Getting Started"
+    "operations" "Operations"
+    "customization" "Customization"
+    "security" "Security"
+    "cloudflare" "Cloudflare"
+    "architecture" "Architecture"
+    "comparisons" "Comparisons"
+    "releases" "Releases")
+  "fr" (dict
+    "getting-started" "Démarrage"
+    "operations" "Opérations"
+    "customization" "Personnalisation"
+    "security" "Sécurité"
+    "cloudflare" "Cloudflare"
+    "architecture" "Architecture"
+    "comparisons" "Comparaisons"
+    "releases" "Versions")
+-}}
+{{- $order := slice "getting-started" "releases" "comparisons" "operations" "customization" "security" "cloudflare" "architecture" -}}
+{{- $tagMap := dict
+  "getting-started" (slice "guide" "tutorial" "setup" "configuration" "domains" "identity")
+  "operations" (slice "operations" "opérations" "admin" "governance" "links" "liens-courts" "scheduled-links" "liens-planifiés" "timezones" "fuseaux-horaires" "upgrades" "mises-a-jour" "git" "maintenance")
+  "customization" (slice "customization" "personnalisation" "branding" "marque" "case-study" "cas-pratique")
+  "security" (slice "security" "sécurité" "trust-and-safety" "confiance" "blocklist" "privacy" "confidentialité" "runtime")
+  "cloudflare" (slice "cloudflare" "wrangler" "workers" "access" "cloudflare-access" "network" "réseau" "analytics")
+  "architecture" (slice "architecture" "adr" "history" "historique" "roadmap" "baseline" "documentation")
+  "comparisons" (slice "comparison" "alternatives")
+  "releases" (slice "release")
+-}}
+{{- $id := $page.Params.category | default "" -}}
+{{- $tags := $page.Params.tags | default slice -}}
+{{- if not $id -}}
+  {{- range $candidate := $order -}}
+    {{- if not $id -}}
+      {{- range index $tagMap $candidate -}}
+        {{- if in $tags . -}}
+          {{- $id = $candidate -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $id -}}{{- $id = "operations" -}}{{- end -}}
+{{- $langLabels := index $labels $lang | default (index $labels "en") -}}
+{{- return (dict "id" $id "label" (index $langLabels $id) "order" $order "labels" $langLabels) -}}
