@@ -97,6 +97,8 @@ Le build préfère `custom/v8s-links.txt` lorsqu'il existe. Sinon, il utilise `d
 
 Les assets runtime publics gérés par le produit utilisent des noms `v8s-` et restent normalement dans `defaults/public/`. Ne copiez pas des fichiers comme `v8s-style.css`, `v8s-script.js`, `v8s-lookup.js` ou `v8s-theme.js` dans `custom/public/` pendant les mises à jour courantes. Le build inclut déjà l'asset produit depuis `defaults/public/`; un fichier équivalent sous `custom/public/` est une surcharge qui masque l'asset de release, et `npm run doctor` la signale. Utilisez `./scripts/v8s-fix --assets` pour retirer les shadows `custom/public/v8s-*` obsolètes.
 
+Lorsqu'un fichier public custom est volontairement différent, consignez cette décision dans `custom/v8s-custom-overrides.json` au lieu de forcer doctor à passer. Consultez [v8s-fix](/fr/docs/command-line-interface/v8s-fix/) pour le workflow de maintenance.
+
 `wrangler.toml` appartient aussi à l'instance. Il définit le nom du Worker, la route ou le domaine personnalisé, la commande de build et le domaine d'équipe Cloudflare Access.
 
 ## Sortie générée

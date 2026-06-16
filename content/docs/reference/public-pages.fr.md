@@ -75,6 +75,8 @@ Seul `404.html` a des placeholders runtime. Si vous le remplacez, incluez ces pl
 
 Utilisez des chemins exacts pour les fichiers uniques, ou `custom/public/fr/**` pour un répertoire. Gardez les ignores étroits avec `codes` ou `fixes` afin que doctor continue de signaler les dérives sans rapport.
 
+Utilisez [v8s-fix](/fr/docs/command-line-interface/v8s-fix/) pour les dérives qui doivent être réparées, et `custom/v8s-custom-overrides.json` pour les dérives qui documentent un design custom volontaire. Par exemple, une instance peut omettre volontairement `custom/public/404.html` afin que le comportement 404 par défaut fasse trembler la page custom courante; cette décision appartient au fichier d'override plutôt qu'a des assets par défaut copiés.
+
 ## Sécurité des pages custom
 
 Pendant le build, vanityURLs écrit `build/v8s-custom-assets.json` avec les chemins publics finaux qui viennent de `custom/public/`. Le Worker utilise ce manifeste pour appliquer le profil HTML custom même lorsqu'une page anglaise custom est copiée vers la racine, par exemple `custom/public/en/index.html` qui devient `/index.html`.

@@ -97,6 +97,8 @@ The build prefers `custom/v8s-links.txt` when it exists. If it does not, the bui
 
 Product-managed public runtime assets use `v8s-` filenames and normally stay in `defaults/public/`. Do not copy files such as `v8s-style.css`, `v8s-script.js`, `v8s-lookup.js`, or `v8s-theme.js` into `custom/public/` during routine upgrades. The build already includes the product asset from `defaults/public/`; a matching file under `custom/public/` is a shadow override and `npm run doctor` reports it. Use `./scripts/v8s-fix --assets` to remove stale `custom/public/v8s-*` shadows.
 
+When a custom public file is intentionally different, record that decision in `custom/v8s-custom-overrides.json` instead of forcing doctor to pass. See [v8s-fix](/docs/command-line-interface/v8s-fix/) for the maintenance workflow.
+
 `wrangler.toml` also belongs to the instance. It defines the Worker name, route or custom domain, build command, and Cloudflare Access team domain.
 
 ## Generated Output

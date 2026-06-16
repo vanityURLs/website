@@ -75,6 +75,8 @@ Only `404.html` has runtime placeholders. If you replace it, include these place
 
 Use exact paths for single files, or `custom/public/fr/**` for a directory. Keep ignores narrow by `codes` or `fixes` so doctor still reports unrelated drift.
 
+Use [v8s-fix](/docs/command-line-interface/v8s-fix/) for drift that should be repaired, and `custom/v8s-custom-overrides.json` for drift that documents a deliberate custom design. For example, an instance can intentionally omit `custom/public/404.html` so the default 404 behavior shakes the current custom page; that decision belongs in the override file rather than in copied default assets.
+
 ## Custom page security
 
 During build, vanityURLs writes `build/v8s-custom-assets.json` with the final public paths that came from `custom/public/`. The Worker uses that manifest to apply the custom HTML profile even when an English custom page is copied to the root path, such as `custom/public/en/index.html` becoming `/index.html`.
