@@ -257,19 +257,5 @@
     </div>
   </nav>
 
-  <!-- Related posts -->
-  {{ $related := .Site.RegularPages.Related . | first 3 }}
-  {{ with $related }}
-  <section class="mt-12 pt-10 border-t border-gray-100 dark:border-gray-800">
-    <h2 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-5">
-      {{ i18n "blog_related" }}
-    </h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      {{ range . }}
-        {{ partial "blog/card.html" . }}
-      {{ end }}
-    </div>
-  </section>
-  {{ end }}
 </article>
 {{ end }}
