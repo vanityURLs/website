@@ -1,0 +1,24 @@
+{{- $items := slice -}}
+{{- range split .Inner "\n" -}}
+  {{- $line := trim . " \t\r\n" -}}
+  {{- if $line -}}
+    {{- $parts := split $line "|" -}}
+    {{- $src := trim (index $parts 0) " \t\r\n" -}}
+    {{- $alt := cond (ge (len $parts) 2) (trim (index $parts 1) " \t\r\n") "" -}}
+    {{- $caption := cond (ge (len $parts) 3) (trim (index $parts 2) " \t\r\n") $alt -}}
+    {{- $items = $items | append (dict "src" $src "alt" $alt "caption" $caption) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if gt (len $items) 0 -}}
+  <div class="not-prose media-carousel" aria-label="{{ .Get "label" | default "Image carousel" }}">
+    <div class="media-carousel-track" tabindex="0">
+      {{- range $index, $item := $items }}
+        <figure class="media-carousel-slide">
+          <img src="{{ $item.src }}" alt="{{ $item.alt }}" loading="{{ cond (eq $index 0) "eager" "lazy" }}" />
+          <figcaption>{{ $item.caption | markdownify }}</figcaption>
+        </figure>
+      {{- end }}
+    </div>
+  </div>
+{{- end -}}
