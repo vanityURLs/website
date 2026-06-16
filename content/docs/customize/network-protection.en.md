@@ -102,8 +102,8 @@ Keep CSP, HSTS, frame, referrer, and permissions policy in the repository unless
 This follows [ADR 0014: Prefer repository-owned configuration](https://github.com/vanityURLs/code/blob/main/docs/adr/0014-prefer-repository-owned-configuration.md): use the Cloudflare dashboard for controls that cannot reasonably live in Git, and leave dashboard duplicates disabled when the repository already owns the behavior.
 {{< /callout >}}
 
-{{< callout type="warning" title="Avoid Managed Challenge on public HTML" >}}
-Do not use **Managed Challenge** as the baseline action for public redirect, lookup, or status pages. Cloudflare can inject challenge JavaScript into matching HTML responses, which makes repo-owned HTML and CSP behavior non-deterministic. For narrow script-client rules, use **Block** or leave the rule disabled.
+{{< callout type="warning" title="Avoid challenge JavaScript on public HTML" >}}
+Do not use **Managed Challenge** or **Bot Fight Mode** as the baseline for public redirect, lookup, or status pages. Cloudflare can inject challenge or JavaScript Detections code into matching HTML responses, which makes repo-owned HTML and CSP behavior non-deterministic. For narrow script-client rules, use **Block** or leave the rule disabled.
 {{< /callout >}}
 
 ### Enable baseline security controls
@@ -116,7 +116,7 @@ The free-plan security settings should stay boring and explicit. Turn on protect
 | ------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | AI Labyrinth                          | Off                                                 | It intentionally modifies pages for bots; keep public redirect and policy pages deterministic                                                                           |
 | Block AI bots                         | Block on all pages                                  | Blocks AI training crawlers across the zone without maintaining a custom user-agent rule list                                                                           |
-| Bot Fight Mode                        | On, default configuration                           | The Free-plan control is on/off; there are no per-rule options to tune                                                                                                  |
+| Bot Fight Mode                        | Off for strict-CSP instances                        | It enables Cloudflare JavaScript Detections, which can inject challenge code into public HTML and conflict with repo-owned `script-src 'self'`                          |
 | Browser Integrity Check               | On, default configuration                           | Blocks malformed or suspicious browser requests before Worker code runs                                                                                                 |
 | Challenge Passage                     | 30 minutes                                          | Keeps managed challenges useful without making repeat legitimate visits too noisy                                                                                       |
 | Cloudflare Managed Free Ruleset       | On                                                  | Cloudflare maintains and updates this free managed ruleset; it is generic baseline coverage, not vanityURLs-specific posture                                            |

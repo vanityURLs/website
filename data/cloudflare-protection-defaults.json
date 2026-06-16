@@ -943,9 +943,9 @@
           {
             "name": "Bot Fight mode",
             "captured_state": "off",
-            "recommended_state": "on",
-            "configuration": "On/off only on Free plan; no per-rule options",
-            "website_documentation": "Document On with the default configuration because there is no separate tuning UI."
+            "recommended_state": "off",
+            "configuration": "On/off only on Free plan; JavaScript Detections are enabled when Bot Fight Mode is on",
+            "website_documentation": "Document Off for strict-CSP instances because JavaScript Detections can inject Cloudflare challenge code into public HTML."
           },
           {
             "name": "Browser integrity check",
