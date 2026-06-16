@@ -11,7 +11,22 @@ L'apparence normale de vanityURLs est volontairement facile à publier. On confi
 
 Pour `f-l.ca`, je voulais autre chose. Je voulais que le domaine de liens courts ressemble à une petite surface personnelle, pas seulement à un outil de redirection. C'est plus difficile, parce qu'un thème personnalisé veut dire posséder le HTML public, le CSS, le JavaScript, les pages localisées, les icônes et tous les petits états que les gens remarquent seulement quand ils cassent. Mais cela rend aussi le domaine immédiatement reconnaissable.
 
-![Page d'accueil f-l.ca avec fond crème minimal, grand préfixe de domaine monospace et petite marque jaune en bas à gauche](/blog/felix-flca-home.png)
+Voici l'ensemble des pages web et d'état personnalisées que j'ai testées sur `a6z.link` avant d'envoyer le thème vers `f-l.ca`. Le domaine dans les captures est l'instance de test; les mêmes fichiers personnalisés lisent le domaine courant au runtime.
+
+{{< carousel label="Captures des pages personnalisées de Félix" >}}
+/blog/felix-en-home.png|Page d'accueil anglaise avec la surface de redirection personnalisée|Accueil anglais
+/blog/felix-en-lookup.png|Page de consultation anglaise avec la même surface personnalisée|Consultation anglaise
+/blog/felix-en-not-found.png|Page 404 anglaise avec le fallback de style accueil|Fallback 404 anglais
+/blog/felix-en-expired.png|Page anglaise de lien expiré avec la surface personnalisée|État expiré anglais
+/blog/felix-en-disabled.png|Page anglaise de lien désactivé avec la surface personnalisée|État désactivé anglais
+/blog/felix-en-maintenance.png|Page anglaise de maintenance avec la surface personnalisée|État maintenance anglais
+/blog/felix-fr-home.png|Page d'accueil française avec la surface de redirection personnalisée|Accueil français
+/blog/felix-fr-lookup.png|Page de consultation française avec la même surface personnalisée|Consultation française
+/blog/felix-fr-not-found.png|Page 404 française avec le fallback de style accueil|Fallback 404 français
+/blog/felix-fr-expired.png|Page française de lien expiré avec la surface personnalisée|État expiré français
+/blog/felix-fr-disabled.png|Page française de lien désactivé avec la surface personnalisée|État désactivé français
+/blog/felix-fr-maintenance.png|Page française de maintenance avec la surface personnalisée|État maintenance français
+{{< /carousel >}}
 
 ## L'URL Est L'Interface
 
@@ -42,23 +57,6 @@ Cela veut aussi dire que le thème doit se comporter comme du code produit :
 Les pages par défaut de vanityURLs absorbent la majorité de cette maintenance pour vous. Un thème personnalisé donne plus de contrôle, mais retire aussi quelques garde-fous.
 
 ![Page confiance et sécurité de f-l.ca avec le même fond crème, le même wordmark fort et la même typographie personnalisée que la surface de redirection](/blog/felix-flca-trust.png)
-
-Voici l'ensemble des pages web et d'état personnalisées que j'ai testées sur `a6z.link` avant d'envoyer le thème vers `f-l.ca`. Le domaine dans les captures est l'instance de test; les mêmes fichiers personnalisés lisent le domaine courant au runtime.
-
-{{< carousel label="Captures des pages personnalisées de Félix" >}}
-/blog/felix-en-home.png|Page d'accueil anglaise avec la surface de redirection personnalisée|Accueil anglais
-/blog/felix-en-lookup.png|Page de consultation anglaise avec la même surface personnalisée|Consultation anglaise
-/blog/felix-en-not-found.png|Page 404 anglaise avec le fallback de style accueil|Fallback 404 anglais
-/blog/felix-en-expired.png|Page anglaise de lien expiré avec la surface personnalisée|État expiré anglais
-/blog/felix-en-disabled.png|Page anglaise de lien désactivé avec la surface personnalisée|État désactivé anglais
-/blog/felix-en-maintenance.png|Page anglaise de maintenance avec la surface personnalisée|État maintenance anglais
-/blog/felix-fr-home.png|Page d'accueil française avec la surface de redirection personnalisée|Accueil français
-/blog/felix-fr-lookup.png|Page de consultation française avec la même surface personnalisée|Consultation française
-/blog/felix-fr-not-found.png|Page 404 française avec le fallback de style accueil|Fallback 404 français
-/blog/felix-fr-expired.png|Page française de lien expiré avec la surface personnalisée|État expiré français
-/blog/felix-fr-disabled.png|Page française de lien désactivé avec la surface personnalisée|État désactivé français
-/blog/felix-fr-maintenance.png|Page française de maintenance avec la surface personnalisée|État maintenance français
-{{< /carousel >}}
 
 ## Garder Les Noms Produit Hors Des Fichiers Custom
 

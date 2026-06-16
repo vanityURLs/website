@@ -11,7 +11,22 @@ The regular vanityURLs look is intentionally easy to ship. You configure the dom
 
 For `f-l.ca`, I wanted something else. I wanted the short-link domain to feel like a small personal surface, not only a redirect utility. That is harder, because a custom theme means owning the public HTML, CSS, JavaScript, localized pages, icons, and all the little states that people only notice when they break. But it also makes the domain feel unmistakably mine.
 
-![f-l.ca homepage with a minimal cream background, large monospace domain prefix, and a small yellow mark in the lower-left corner](/blog/felix-flca-home.png)
+Here is the set of customized web and status pages I tested on `a6z.link` before sending the theme to `f-l.ca`. The host in the screenshots is the test instance; the same custom files read the current host at runtime.
+
+{{< carousel label="Félix custom page screenshots" >}}
+/blog/felix-en-home.png|English home page using the custom redirect shell|English home page
+/blog/felix-en-lookup.png|English lookup page using the same custom shell|English lookup page
+/blog/felix-en-not-found.png|English 404 page using the home-style fallback shell|English 404 fallback
+/blog/felix-en-expired.png|English expired-link status page using the custom shell|English expired status
+/blog/felix-en-disabled.png|English disabled-link status page using the custom shell|English disabled status
+/blog/felix-en-maintenance.png|English maintenance status page using the custom shell|English maintenance status
+/blog/felix-fr-home.png|French home page using the custom redirect shell|French home page
+/blog/felix-fr-lookup.png|French lookup page using the same custom shell|French lookup page
+/blog/felix-fr-not-found.png|French 404 page using the home-style fallback shell|French 404 fallback
+/blog/felix-fr-expired.png|French expired-link status page using the custom shell|French expired status
+/blog/felix-fr-disabled.png|French disabled-link status page using the custom shell|French disabled status
+/blog/felix-fr-maintenance.png|French maintenance status page using the custom shell|French maintenance status
+{{< /carousel >}}
 
 ## The URL Is The Interface
 
@@ -42,23 +57,6 @@ That also means the theme has to behave like product code:
 The default vanityURLs pages absorb most of that maintenance for you. A custom theme gives you more control, but it also removes some guardrails.
 
 ![f-l.ca trust and safety page using the same cream background, bold wordmark, and custom typography as the redirect surface](/blog/felix-flca-trust.png)
-
-Here is the set of customized web and status pages I tested on `a6z.link` before sending the theme to `f-l.ca`. The host in the screenshots is the test instance; the same custom files read the current host at runtime.
-
-{{< carousel label="Félix custom page screenshots" >}}
-/blog/felix-en-home.png|English home page using the custom redirect shell|English home page
-/blog/felix-en-lookup.png|English lookup page using the same custom shell|English lookup page
-/blog/felix-en-not-found.png|English 404 page using the home-style fallback shell|English 404 fallback
-/blog/felix-en-expired.png|English expired-link status page using the custom shell|English expired status
-/blog/felix-en-disabled.png|English disabled-link status page using the custom shell|English disabled status
-/blog/felix-en-maintenance.png|English maintenance status page using the custom shell|English maintenance status
-/blog/felix-fr-home.png|French home page using the custom redirect shell|French home page
-/blog/felix-fr-lookup.png|French lookup page using the same custom shell|French lookup page
-/blog/felix-fr-not-found.png|French 404 page using the home-style fallback shell|French 404 fallback
-/blog/felix-fr-expired.png|French expired-link status page using the custom shell|French expired status
-/blog/felix-fr-disabled.png|French disabled-link status page using the custom shell|French disabled status
-/blog/felix-fr-maintenance.png|French maintenance status page using the custom shell|French maintenance status
-{{< /carousel >}}
 
 ## Keep Product Names Out Of Custom Files
 
