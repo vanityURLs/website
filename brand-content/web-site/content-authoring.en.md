@@ -122,6 +122,8 @@ This option was removed in v3.
 Longer explanation that should stay available without taking over the page.
 {{</* /details */>}}
 
+{{</* emoji "smiling" */>}}
+
 {{</* cards cols="3" */>}}
 {{</* card title="Setup" icon="download" href="/docs/setup/" */>}}
 Start here.
@@ -132,6 +134,8 @@ Start here.
 Use callouts for operational warnings, safety limits, first-time setup notes, and versioned behavior changes. Keep ordinary explanatory paragraphs as prose.
 
 Blog posts can use the same callout shortcode, but use it more sparingly than in reference documentation. Good blog callouts highlight practical cautions, reader decisions, or "do this before you copy the pattern" notes. Avoid callouts for ordinary emphasis; blog posts should still read like essays.
+
+Use the emoji shortcode when a small visual cue supports the tone of a blog post without becoming the message. For example, {{< emoji name="smiling" decorative="true" >}} can soften a sentence without needing an image asset. Prefer named emojis such as `{{</* emoji "smiling" */>}}`, `{{</* emoji "thinking" */>}}`, `{{</* emoji "rocket" */>}}`, and `{{</* emoji "link" */>}}`. The shortcode adds an accessible label by default; use `decorative="true"` only when the emoji repeats meaning already present in nearby text.
 
 The source directory remains named `content/` because it is Hugo's conventional content root and is already mirrored by the brand site's `brand-content/`. Do not rename it to `website-content/` unless the whole build, links, contributor docs, and Cloudflare deployment flow are migrated together.
 

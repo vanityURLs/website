@@ -1,0 +1,60 @@
+{{/* {{< emoji "smiling" >}} or {{< emoji name="smiling" label="Smiling face" >}} */}}
+{{- $name := "smiling" -}}
+{{- $isNamed := reflect.IsMap .Params -}}
+{{- if $isNamed -}}
+  {{- $name = .Get "name" | default $name -}}
+{{- else -}}
+  {{- $name = .Get 0 | default $name -}}
+{{- end -}}
+{{- $name = lower $name -}}
+{{- $emoji := dict
+  "smiling" "🙂"
+  "smile" "🙂"
+  "happy" "🙂"
+  "wink" "😉"
+  "thinking" "🤔"
+  "note" "📝"
+  "tip" "💡"
+  "warning" "⚠️"
+  "check" "✅"
+  "cross" "❌"
+  "rocket" "🚀"
+  "link" "🔗"
+  "lock" "🔒"
+  "key" "🔑"
+  "sparkles" "✨"
+  "eyes" "👀"
+  "party" "🎉"
+  "heart" "💚"
+-}}
+{{- $labels := dict
+  "smiling" "Smiling face"
+  "smile" "Smiling face"
+  "happy" "Smiling face"
+  "wink" "Winking face"
+  "thinking" "Thinking face"
+  "note" "Memo"
+  "tip" "Light bulb"
+  "warning" "Warning"
+  "check" "Check mark"
+  "cross" "Cross mark"
+  "rocket" "Rocket"
+  "link" "Link"
+  "lock" "Lock"
+  "key" "Key"
+  "sparkles" "Sparkles"
+  "eyes" "Eyes"
+  "party" "Party popper"
+  "heart" "Green heart"
+-}}
+{{- $char := index $emoji $name -}}
+{{- if not $char -}}
+  {{- errorf "unknown emoji shortcode name %q on %s" $name .Page.Path -}}
+{{- end -}}
+{{- $label := cond $isNamed (.Get "label") "" | default (index $labels $name) -}}
+{{- $decorative := and $isNamed (eq (.Get "decorative") "true") -}}
+{{- if $decorative -}}
+<span class="not-prose inline-block align-[-0.1em]" aria-hidden="true">{{ $char }}</span>
+{{- else -}}
+<span class="not-prose inline-block align-[-0.1em]" role="img" aria-label="{{ $label }}">{{ $char }}</span>
+{{- end -}}

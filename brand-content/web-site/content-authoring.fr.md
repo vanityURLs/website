@@ -122,6 +122,8 @@ Cette option a été supprimée en v3.
 Explication plus longue qui doit rester disponible sans prendre toute la page.
 {{</* /details */>}}
 
+{{</* emoji "smiling" */>}}
+
 {{</* cards cols="3" */>}}
 {{</* card title="Setup" icon="download" href="/fr/docs/setup/" */>}}
 Commencer ici.
@@ -132,6 +134,8 @@ Commencer ici.
 Utilisez les callouts pour les avertissements opérationnels, limites de sécurité, notes de premier setup et changements de comportement versionnés. Gardez les explications ordinaires en prose.
 
 Les articles peuvent utiliser le même shortcode de callout, mais plus sobrement que la documentation de référence. Les bons callouts dans un article signalent une précaution pratique, une décision pour le lecteur ou une note du type "faites ceci avant de copier le pattern". Évitez les callouts pour de la simple emphase; un article devrait encore se lire comme un essai.
+
+Utilisez le shortcode emoji lorsqu'un petit repère visuel soutient le ton d'un article sans devenir le message. Par exemple, {{< emoji name="smiling" decorative="true" >}} peut adoucir une phrase sans nécessiter d'image. Préférez des emojis nommés comme `{{</* emoji "smiling" */>}}`, `{{</* emoji "thinking" */>}}`, `{{</* emoji "rocket" */>}}` et `{{</* emoji "link" */>}}`. Le shortcode ajoute un libellé accessible par défaut; utilisez `decorative="true"` seulement lorsque l'emoji répète un sens déjà présent dans le texte voisin.
 
 Le dossier source reste nommé `content/` parce que c'est la racine de contenu conventionnelle de Hugo et qu'elle est déjà distinguée du site de marque par `brand-content/`. Ne le renommez pas en `website-content/` sans migrer en même temps le build, les liens, les docs de contribution et le déploiement Cloudflare.
 
