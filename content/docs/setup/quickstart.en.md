@@ -31,25 +31,26 @@ Make sure your GitHub account is configured for either [SSH](https://docs.github
 
 Create a new public or private GitHub repository for your redirector before the final push step. Do not initialize it with a README, license, or `.gitignore`; the local instance will provide the initial content.
 
-### Clone the latest vanityURLs release
+### Clone vanityURLs
 
 You can use any directory name instead of `v8s-link`. Choose a name that will still make sense if you later align it with your GitHub repository and Worker name.
 
 ```bash
-release_tag="$(git ls-remote --tags --refs --sort='v:refname' https://github.com/vanityURLs/code.git 'v*' | tail -n 1 | awk -F/ '{print $3}')"
-git clone --depth 1 --branch "$release_tag" https://github.com/vanityURLs/code.git v8s-link
+git clone https://github.com/vanityURLs/code.git v8s-link
 cd v8s-link
 ```
 
-This starts your instance from the latest signed release tag instead of whatever happens to be on the development branch.
-
 ### Detach the clone from the upstream project
 
-Run the detach helper before creating your own Git history. It removes upstream project metadata that is useful for vanityURLs development but not for your personal instance:
+Run the detach helper before configuring the instance:
 
 ```bash
 npm run detach
 ```
+
+Detach switches the checkout to the latest stable vanityURLs release, removes upstream project metadata that is useful for vanityURLs development but not for your personal instance, removes the upstream Git history, and initializes a fresh local Git repository for your instance.
+
+If you are intentionally testing unreleased code, run `npm run detach -- --current-ref` instead. The Quickstart should use the stable release path above.
 
 ### Confirm required tools are available on the workstation
 
@@ -111,7 +112,6 @@ unset V8S_REPO
 ### Create your first commit
 
 ```bash
-git init
 git add .
 git commit -m "first commit"
 git branch -M main
