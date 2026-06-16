@@ -6,7 +6,6 @@
 {{ range $i, $p := $allPosts }}{{ if eq $p.Permalink $.Permalink }}{{ $curIdx = $i }}{{ end }}{{ end }}
 {{ $nextPost := index $allPosts (sub $curIdx 1) }}
 {{ $prevPost := index $allPosts (add $curIdx 1) }}
-{{ $coverClass := "blog-cover-default" }}
 {{ $category := partial "blog/category.html" . }}
 {{ $author := .Params.author | default "Benoît H. Dicaire" }}
 {{ with index hugo.Data.authors $author }}{{ $author = .name }}{{ end }}
@@ -44,9 +43,6 @@
     </svg>
     {{ i18n "blog_back" }}
   </a>
-
-  <!-- Cover stripe -->
-  <div class="rounded-lg h-1.5 mb-8 {{ $coverClass }}"></div>
 
   {{ $visibleTags := slice }}
   {{ with .Params.tags }}
