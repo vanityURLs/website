@@ -103,8 +103,10 @@ This follows [ADR 0014: Prefer repository-owned configuration](https://github.co
 {{< /callout >}}
 
 {{< callout type="warning" title="Avoid challenge JavaScript on public HTML" >}}
-Do not use **Managed Challenge** or **Bot Fight Mode** as the baseline for public redirect, lookup, or status pages. Cloudflare can inject challenge or JavaScript Detections code into matching HTML responses, which makes repo-owned HTML and CSP behavior non-deterministic. For narrow script-client rules, use **Block** or leave the rule disabled.
+Do not use **Managed Challenge**, **Bot Fight Mode**, or zone-wide **JavaScript Detections** as the baseline for public redirect, lookup, or status pages. Cloudflare can inject Challenge Platform code such as `/cdn-cgi/challenge-platform/scripts/jsd/main.js` into matching HTML responses, which makes repo-owned HTML and CSP behavior non-deterministic. vanityURLs sends `Cache-Control: no-transform` on HTML responses as a product-side guard, but the dashboard controls should still stay off unless the instance deliberately accepts Cloudflare-owned script injection. For narrow script-client rules, use **Block** or leave the rule disabled.
 {{< /callout >}}
+
+On the Free plan, **JavaScript Detections** is controlled by **Bot Fight Mode** on **Security** > **Settings**. Turn **Bot Fight Mode** off for strict-CSP vanityURLs instances. On plans with Super Bot Fight Mode or Bot Management, JavaScript Detections can also appear under **Security** > **Bots** > **Configure Bot Management** > **JavaScript Detections**.
 
 ### Enable baseline security controls
 
@@ -116,7 +118,7 @@ The free-plan security settings should stay boring and explicit. Turn on protect
 | ------------------------------------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | AI Labyrinth                          | Off                                                 | It intentionally modifies pages for bots; keep public redirect and policy pages deterministic                                                                           |
 | Block AI bots                         | Block on all pages                                  | Blocks AI training crawlers across the zone without maintaining a custom user-agent rule list                                                                           |
-| Bot Fight Mode                        | Off for strict-CSP instances                        | It enables Cloudflare JavaScript Detections, which can inject challenge code into public HTML and conflict with repo-owned `script-src 'self'`                          |
+| Bot Fight Mode                        | Off for strict-CSP instances                        | It enables Cloudflare JavaScript Detections, which can inject Challenge Platform code into public HTML and conflict with repo-owned `script-src 'self'`                 |
 | Browser Integrity Check               | On, default configuration                           | Blocks malformed or suspicious browser requests before Worker code runs                                                                                                 |
 | Challenge Passage                     | 30 minutes                                          | Keeps managed challenges useful without making repeat legitimate visits too noisy                                                                                       |
 | Cloudflare Managed Free Ruleset       | On                                                  | Cloudflare maintains and updates this free managed ruleset; it is generic baseline coverage, not vanityURLs-specific posture                                            |

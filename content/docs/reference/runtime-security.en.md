@@ -74,6 +74,6 @@ Sandboxed custom HTML makes browser `fetch()` calls look like they come from `Or
 
 ## Cloudflare edge controls
 
-Cloudflare should reject commodity abuse before the Worker runs. Use [Network protection](/docs/customize/network-protection/) for the operator workflow around WAF custom rules, rate limiting, Bot Fight Mode, AI crawler controls, Browser Integrity Check, managed rules, and related domain settings. Use [Access control](/docs/customize/access-control/) for private operational paths.
+Cloudflare should reject commodity abuse before the Worker runs. Use [Network protection](/docs/customize/network-protection/) for the operator workflow around WAF custom rules, rate limiting, AI crawler controls, Browser Integrity Check, managed rules, and related domain settings. Avoid challenge-style or page-rewriting controls, including Managed Challenge, Bot Fight Mode, and zone-wide JavaScript Detections, on public strict-CSP HTML unless the instance deliberately accepts Cloudflare script injection. vanityURLs HTML responses include `Cache-Control: no-transform` so intermediaries should not rewrite the repository-built page. Use [Access control](/docs/customize/access-control/) for private operational paths.
 
 Keep the Worker blocklist as the fallback, not the first line of defense for high-volume abuse. The canonical WAF, AI crawler, Rules, Network, DNS, SSL/TLS, Security, Caching, and Cloudflare analytics settings live in [Network protection](/docs/customize/network-protection/).

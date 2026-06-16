@@ -17,7 +17,7 @@ The Worker should not be the first place that noise gets expensive. vanityURLs k
 
 The Worker still validates destinations and runtime policy. That is the last line of defense, not the first.
 
-Use Cloudflare WAF rules, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules, and Access where they match the layer. Commodity abuse should stop before application code runs.
+Use Cloudflare WAF rules, rate limiting, Browser Integrity Check, managed rules, AI crawler controls, and Access where they match the layer. Commodity abuse should stop before application code runs. Avoid challenge-style or page-rewriting controls on strict-CSP public HTML; blocking suspicious traffic is safer than asking Cloudflare to inject Challenge Platform JavaScript into redirector pages. vanityURLs HTML also sends `Cache-Control: no-transform` so edge features should not rewrite the built page.
 
 That separation keeps the evidence clean:
 
@@ -31,7 +31,7 @@ If a request is blocked at the edge, it should not look like product behavior or
 
 `robots.txt`, `llms.txt`, and `llms-full.txt` are useful for transparency. They are not enforcement.
 
-For a private, family, team, or internal short-link domain, blocking most crawler families can be reasonable. Mirror the policy in public files so the intent is visible. Enforce it with Cloudflare AI Crawl Control or WAF user-agent rules.
+For a private, family, team, or internal short-link domain, blocking most crawler families can be reasonable. Mirror the policy in public files so the intent is visible. Enforce it with Cloudflare's managed **Block AI bots** control and AI Crawl Control so Cloudflare's crawler inventory updates continue to apply. Keep static WAF user-agent rules only as narrow fallbacks.
 
 Keep the exact crawler list in Cloudflare. Crawler names, product behavior, and local policy can change faster than public docs should.
 

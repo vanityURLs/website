@@ -17,7 +17,7 @@ Le Worker ne devrait pas être le premier endroit ou ce bruit devient couteux. v
 
 Le Worker valide toujours les destinations et la politique runtime. C'est la dernière ligne de defense, pas la première.
 
-Utilisez les règles WAF Cloudflare, rate limiting, Bot Fight Mode, Browser Integrity Check, managed rules et Access lorsque cela correspond à la couche. L'abus courant devrait s'arrétér avant le code applicatif.
+Utilisez les règles WAF Cloudflare, rate limiting, Browser Integrity Check, managed rules, contrôles crawler IA et Access lorsque cela correspond à la couche. L'abus courant devrait s'arrêter avant le code applicatif. Évitez les contrôles de type challenge ou réécriture de page sur le HTML public à CSP stricte; bloquer le trafic suspect est plus sûr que demander à Cloudflare d'injecter du JavaScript Challenge Platform dans les pages du redirecteur. Le HTML vanityURLs envoie aussi `Cache-Control: no-transform` afin que les fonctions edge ne réécrivent pas la page construite.
 
 Cette séparation garde les preuves propres :
 
@@ -31,7 +31,7 @@ Si une requête est bloquee à l'edge, elle ne devrait pas ressembler a du compo
 
 `robots.txt`, `llms.txt` et `llms-full.txt` sont utiles pour la transparence. Ce ne sont pas des mecanismes d'application.
 
-Pour un domaine court privé, familial, d'équipe ou interne, bloquer la plupart des familles de crawlers peut être raisonnable. Reproduisez la politique dans les fichiers publics pour rendre l'intention visible. Appliquez-la avec Cloudflare AI Crawl Control ou des règles WAF sur user-agent.
+Pour un domaine court privé, familial, d'équipe ou interne, bloquer la plupart des familles de crawlers peut être raisonnable. Reproduisez la politique dans les fichiers publics pour rendre l'intention visible. Appliquez-la avec le contrôle Cloudflare géré **Block AI bots** et AI Crawl Control afin de continuer à bénéficier des mises à jour de l'inventaire de crawlers Cloudflare. Gardez les règles WAF statiques sur user-agent seulement comme fallbacks étroits.
 
 Gardez la liste exacte des crawlers dans Cloudflare. Les noms de crawlers, comportements de produits et politiques locales peuvent changer plus vite que la documentation publique.
 

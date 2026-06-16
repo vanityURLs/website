@@ -95,6 +95,8 @@ Le build préfère `custom/v8s-links.txt` lorsqu'il existe. Sinon, il utilise `d
 
 `custom/v8s-policies.json` remplace la politique par défaut lorsqu'il est présent. Il ne fusionne pas avec `defaults/v8s-policies.json`; les décisions de politique custom retirées ne devraient pas réapparaître par une fusion des defaults.
 
+Les assets runtime publics gérés par le produit utilisent des noms `v8s-` et restent normalement dans `defaults/public/`. Ne copiez pas des fichiers comme `v8s-style.css`, `v8s-script.js`, `v8s-lookup.js` ou `v8s-theme.js` dans `custom/public/` pendant les mises à jour courantes. Le build inclut déjà l'asset produit depuis `defaults/public/`; un fichier équivalent sous `custom/public/` est une surcharge qui masque l'asset de release, et `npm run doctor` la signale. Utilisez `./scripts/v8s-fix --assets` pour retirer les shadows `custom/public/v8s-*` obsolètes.
+
 `wrangler.toml` appartient aussi à l'instance. Il définit le nom du Worker, la route ou le domaine personnalisé, la commande de build et le domaine d'équipe Cloudflare Access.
 
 ## Sortie générée
@@ -107,7 +109,7 @@ Le build préfère `custom/v8s-links.txt` lorsqu'il existe. Sinon, il utilise `d
 
 `build/v8s-site-config.json` garde la configuration de site utilisée pour le build, incluant les langues supportées, la marque, l'information opérateur et les réglages de contact.
 
-`build/v8s-custom-assets.json` consigne les chemins publics finaux qui viennent de `custom/public/`. Le Worker l'utilise pour appliquer le profil de sécurité HTML custom après la copie des pages localisées et des pages anglaises racine vers leurs chemins de déploiement.
+`build/v8s-custom-assets.json` consigne les chemins publics finaux qui viennent de `custom/public/`. Le Worker l'utilise pour appliquer le profil de sécurité HTML custom après la copie des pages localisées et des pages anglaises racine vers leurs chemins de déploiement. Les assets produit `v8s-*` ne devraient pas apparaître dans ce manifeste sauf si l'instance maintient volontairement un fork local.
 
 `build/v8s-release-manifest.json` consigne la version du package de release, le commit Git, les versions de schéma, la date de compatibilité Cloudflare et les hashs SHA-256 des entrées et sorties de release.
 

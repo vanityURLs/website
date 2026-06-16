@@ -945,7 +945,7 @@
             "captured_state": "off",
             "recommended_state": "off",
             "configuration": "On/off only on Free plan; JavaScript Detections are enabled when Bot Fight Mode is on",
-            "website_documentation": "Document Off for strict-CSP instances because JavaScript Detections can inject Cloudflare challenge code into public HTML."
+            "website_documentation": "Document Off for strict-CSP instances because JavaScript Detections can inject Cloudflare Challenge Platform code into public HTML. vanityURLs HTML sends Cache-Control: no-transform as a repository-owned guard, but the dashboard control should still remain off for the public redirector baseline."
           },
           {
             "name": "Browser integrity check",
@@ -981,7 +981,7 @@
           },
           {
             "name": "Email Address Obfuscation",
-            "captured_state": "on",
+            "captured_state": "off",
             "configuration": "API",
             "recommended_state": "off",
             "website_documentation": "Document Off. Cloudflare may rewrite matching email addresses and inject helper code, which conflicts with deterministic repo-owned HTML, strict CSP, and SRI expectations."
@@ -1045,7 +1045,7 @@
           },
           {
             "name": "Replace insecure JavaScript libraries",
-            "captured_state": "on",
+            "captured_state": "off",
             "configuration": "API",
             "current_scope_note": "Primarily relevant to known third-party libraries such as polyfill",
             "recommended_state": "off",

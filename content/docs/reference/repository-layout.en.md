@@ -95,6 +95,8 @@ The build prefers `custom/v8s-links.txt` when it exists. If it does not, the bui
 
 `custom/v8s-policies.json` replaces the default policy source when present. It is not merged with `defaults/v8s-policies.json`; removed custom policy decisions should not reappear through a default merge.
 
+Product-managed public runtime assets use `v8s-` filenames and normally stay in `defaults/public/`. Do not copy files such as `v8s-style.css`, `v8s-script.js`, `v8s-lookup.js`, or `v8s-theme.js` into `custom/public/` during routine upgrades. The build already includes the product asset from `defaults/public/`; a matching file under `custom/public/` is a shadow override and `npm run doctor` reports it. Use `./scripts/v8s-fix --assets` to remove stale `custom/public/v8s-*` shadows.
+
 `wrangler.toml` also belongs to the instance. It defines the Worker name, route or custom domain, build command, and Cloudflare Access team domain.
 
 ## Generated Output
@@ -107,7 +109,7 @@ The build prefers `custom/v8s-links.txt` when it exists. If it does not, the bui
 
 `build/v8s-site-config.json` records the site configuration used for the build, including supported languages, branding, operator information, and contact settings.
 
-`build/v8s-custom-assets.json` records the final public paths that came from `custom/public/`. The Worker uses it to apply the custom HTML security profile after localized pages and root English pages have been copied into their deployment paths.
+`build/v8s-custom-assets.json` records the final public paths that came from `custom/public/`. The Worker uses it to apply the custom HTML security profile after localized pages and root English pages have been copied into their deployment paths. Product-managed `v8s-*` assets should not appear in that manifest unless the instance is deliberately maintaining a local fork.
 
 `build/v8s-release-manifest.json` records the release package version, Git commit, schema versions, Cloudflare compatibility date, and SHA-256 hashes for release inputs and outputs.
 

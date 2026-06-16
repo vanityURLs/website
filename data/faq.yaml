@@ -768,7 +768,7 @@
       path: content/docs/reference/custom-overrides.en.md
       note: "Custom overrides docs explain instance-owned file overlays."
   answer: >
-    Put instance-owned public assets and page replacements under `custom/public/`. During build, vanityURLs copies `defaults/public/` first and then overlays `custom/public/`, so custom files win without editing upstream defaults. Product-owned default CSS and JavaScript use `v8s-` filenames, while custom HTML receives a sandboxed compatibility profile that still allows same-host custom CSS, JavaScript, inline styles, inline scripts, forms, popups, downloads, and public lookup calls.
+    Put instance-owned public assets and page replacements under `custom/public/`. During build, vanityURLs copies `defaults/public/` first and then overlays `custom/public/`, so custom files win without editing upstream defaults. Product-owned runtime CSS and JavaScript use `v8s-` filenames and should normally stay in `defaults/public/`; copying them to `custom/public/` creates a local shadow that can go stale after upgrades. Custom HTML receives a sandboxed compatibility profile that still allows same-host custom CSS, JavaScript, inline styles, inline scripts, forms, popups, downloads, and public lookup calls.
   related: [defaults-vs-custom, localization-fallback]
   tags: [custom-public, branding, localization]
   last_reviewed: 2026-05-27
