@@ -9,7 +9,7 @@ aliases:
 
 Le Worker vanityURLs bloque l'accès au tableau de bord privé et aux tests tant que Cloudflare Access n'est pas configuré. Toute personne qui essaie d'ouvrir ces pages voit la réponse Cloudflare Access non configuré[^access-not-configured] affichée ci-dessous; les redirections publiques restent donc ouvertes pendant que les pages opérationnelles échouent fermées.
 
-Préférez le starter Terraform dans [`terraform/cloudflare-baseline`](https://github.com/vanityURLs/website/tree/main/terraform/cloudflare-baseline) lorsque vous configurez une instance répétable. Il crée l'application Access et la politique pour les chemins protégés ci-dessous, puis expose la valeur d'audience à stocker dans `CF_ACCESS_AUD`. Utilisez les étapes manuelles de cette page pour revoir une zone existante, dépanner, ou migrer une configuration créée initialement dans le tableau de bord Cloudflare.
+Utilisez le repo Terraform [`vanityURLs/v8s-config`](https://github.com/vanityURLs/v8s-config) comme configuration de référence pour l'instance de démonstration v8s.link en production. Il crée l'application Access et la politique pour les chemins protégés ci-dessous, puis expose la valeur d'audience à stocker dans `CF_ACCESS_AUD`. Utilisez les étapes manuelles de cette page pour revoir une zone existante, dépanner, ou migrer une configuration créée initialement dans le tableau de bord Cloudflare.
 
 ![le chemin protégé échoue fermé](../cf-access-not-configured.fr.png)
 
