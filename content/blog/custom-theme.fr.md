@@ -4,10 +4,8 @@ date: 2026-06-16
 author: "Félix Léger"
 description: "Ce qu'un thème vanityURLs entièrement personnalisé apporte, ce qu'il coûte, et comment garder l'instance maintenable."
 tags: ["marque", "personnalisation", "cas-pratique"]
-draft: true
 featured: false
 ---
-
 J'utilise [vanityURLs depuis 2024](/fr/showcase/f-l-ca/). C'est la frontière utile. Le moteur reste ennuyeux et la surface publique gagne de la personnalité.
 
 Pour [f-l.ca](https://f-l.ca/), je voulais autre chose : un moteur ennuyeux, mais une surface publique qui me ressemble immédiatement.
@@ -29,7 +27,7 @@ Pour [f-l.ca](https://f-l.ca/), je voulais autre chose : un moteur ennuyeux, mai
 
 Pour le chemin mécanique, consultez [Marque](/fr/docs/reference/brand/) et [Surcharges custom](/fr/docs/reference/custom-overrides/).
 
-## L'URL Est L'Interface
+## L'url est l'interface
 
 Mon thème tourne autour d'une idée simple : le lien lui-même devrait être l'objet principal de la page.
 
@@ -37,7 +35,7 @@ Quand quelqu'un tape un slug, la flèche ronde devient l'action.
 
 Quand un chemin est invalide, l'écran _shake_ et montre le chemin au visiteur au lieu de changer de système visuel.
 
-## Le Mode Custom Complet A Un Coût
+## Le mode custom complet a un coût
 
 Ce n'est pas le chemin le plus rapide, vous pouvez demander à mon co-mainteneur {{< emoji name="smiling" decorative="true" >}}. Le mode custom complet veut dire que l'instance fournit ses propres pages publiques dans `custom/public`, y compris les variantes anglaises et françaises, les pages de consultation et les pages d'état.
 
@@ -53,7 +51,7 @@ Cela veut aussi dire que le thème doit se comporter comme du code produit :
 
 Les pages par défaut de vanityURLs absorbent la majorité de cette maintenance. Un thème custom donne plus de contrôle. Il retire aussi quelques garde-fous.
 
-## Garder Les Noms Produit Hors Des Fichiers Custom
+## Garder les noms produit hors des fichiers custom
 
 Une frontière que je ne franchirais pas concerne les noms de fichiers. Cette frontière compte au build.
 
@@ -63,7 +61,7 @@ Le build copie `defaults/public` d'abord, puis superpose `custom/public`.[^overl
 
 La séparation est simple : donner leurs propres noms d'assets aux pages web et d'état custom, et laisser les pages qui restent vanilla utiliser les fichiers `v8s-*` gérés.
 
-## C'est Une Autre Frontière De Confiance
+## C'est une autre frontière de confiance
 
 Au 16 juin 2026, la documentation des pages publiques de vanityURLs indique que le HTML custom reçoit un profil CSP compatible et sandboxé, tandis que le CSS, le JavaScript, les images, les polices et les manifests référencés sont servis comme assets normaux.[^csp]
 
@@ -71,7 +69,7 @@ C'est le bon défaut pour des pages copiées ou écrites à la main. Il permet d
 
 Il y a un coût. Le JavaScript custom ne devrait pas dépendre des cookies de l'hôte, de `localStorage` côté hôte, ou d'API same-origin protégées quand le sandbox omet `allow-same-origin`. Heureusement, vanityURLs n'utilise pas ces capacités.
 
-## La Marque Vit Dans Les Petits Choix
+## La marque vit dans les petits choix
 
 Le travail de marque n'est pas le formulaire de slug. Ça, c'est l'interface.
 
@@ -85,7 +83,7 @@ Les pages par défaut utilisent le helper produit `v8s-theme.js` pour que les li
 
 Je n'ai pas personnalisé les pages opérateur : `_stats` et `_tests`. Ce ne sont pas des surfaces de marque publiques.
 
-## Dire A La Maintenance Ce Qui Est Intentionnel
+## Dire à la maintenance ce qui est intentionnel
 
 Le fichier de maintenance est `custom/v8s-custom-overrides.json`. vanityURLs utilise ce JSON pour que [npm run doctor](/fr/docs/reference/public-pages/#ignorer-doctor-volontairement)[^doctor] et [v8s-fix](/fr/docs/command-line-interface/v8s-fix/) sachent quelles différences custom ne doivent pas être réparées vers `/defaults`.
 

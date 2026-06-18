@@ -4,9 +4,7 @@ date: 2026-06-16
 author: "Felix Leger"
 description: "What a full custom vanityURLs theme buys, what it costs, and how to keep the instance upgradeable."
 tags: ["branding", "customization", "case-study"]
-featured: false
 ---
-
 I have been [using vanityURLs since 2024](/showcase/f-l-ca/). That is the useful boundary. The engine stays boring and the public surface gets personality.
 
 For [f-l.ca](https://f-l.ca/), I wanted something else, the engine stays boring and the public surface feel unmistakably mine.
