@@ -5,6 +5,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.18.0](https://github.com/vanityURLs/website/compare/v2.17.0...v2.18.0) (2026-06-18)
+
+
+### ✨ Features
+
+* add Cloudflare Terraform baseline ([3cf6857](https://github.com/vanityURLs/website/commit/3cf6857ccddb6123ad64ac794facf760e78ae27e))
+* **blog:** organize archive by editorial category ([b6752a6](https://github.com/vanityURLs/website/commit/b6752a60a2acb2d56549b07aeda2c28cef899281))
+* **blog:** simplify archive layout ([a6ef371](https://github.com/vanityURLs/website/commit/a6ef371cab199b134fe0368c86abcc6715d8b175))
+* **content:** add emoji shortcode ([5afeb3f](https://github.com/vanityURLs/website/commit/5afeb3ff77000530ba86cc04228582dd2d842c0e))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** remove post header separator ([5b67bd2](https://github.com/vanityURLs/website/commit/5b67bd2f5d3d57aaf084f3995f8610d6f0e4495c))
+* **blog:** remove related posts section ([9a4caca](https://github.com/vanityURLs/website/commit/9a4caca849acc1d5a7aad011c603f97b5a2435f6))
+
+
+### 📚 Documentation
+
+* add felix custom theme case study ([dede9f9](https://github.com/vanityURLs/website/commit/dede9f948d68e5ee62877c463bd357d86009c59e))
+* add macos terraform install steps ([9dad594](https://github.com/vanityURLs/website/commit/9dad594ae1d3a3d9ed1a7132620115a2f24df6fe))
+* avoid managed challenge injection ([94666ba](https://github.com/vanityURLs/website/commit/94666ba68b39c0b02a937bc92c57f55274cb366b))
+* clarify explicit custom policy and public files ([370c9d3](https://github.com/vanityURLs/website/commit/370c9d3bcd1da7358b372f75e7195acbb3f8e32c))
+* clarify managed ai crawler controls ([afaec9a](https://github.com/vanityURLs/website/commit/afaec9a1ad97e54361a7663699635a20cdd536c7))
+* clarify runtime blocklist source policy ([7b71d39](https://github.com/vanityURLs/website/commit/7b71d39c6aaec85fea90dd9c3f0acc74ff33541c))
+* clarify upgrade release source ([c37bd38](https://github.com/vanityURLs/website/commit/c37bd389cf11faf8e658500f0657c87d398ce739))
+* clarify www apex redirect rule ([9179489](https://github.com/vanityURLs/website/commit/9179489e41944aaa60726f34f92f8b99f41a6f74))
+* clone latest code release in quickstart ([0c51061](https://github.com/vanityURLs/website/commit/0c51061a6a8e9f25dec54bb0f54a084483c27dcf))
+* disable bot fight mode for strict csp ([5e9f1bb](https://github.com/vanityURLs/website/commit/5e9f1bb435fbc919d725617352a2270d2398a945))
+* distinguish source and runtime link registries ([16cc536](https://github.com/vanityURLs/website/commit/16cc5363535e2de840db9a86480c9248ee0a4618))
+* document content security policy ([4a172b6](https://github.com/vanityURLs/website/commit/4a172b6e3457392421ab1b98a947f83865fb7a53))
+* document custom page security profiles ([7fbe415](https://github.com/vanityURLs/website/commit/7fbe415567893d57445c5e5cebb486bc70e3ed5b))
+* document custom public doctor ignores ([d33b459](https://github.com/vanityURLs/website/commit/d33b4598f34199f7bd95ab91e4b21040e7de7827))
+* document edge transformation controls ([470135a](https://github.com/vanityURLs/website/commit/470135aaffe8811b41e5e80ab2253dbf92ac5735))
+* document localized tests protection ([6f989fd](https://github.com/vanityURLs/website/commit/6f989fd7e2ecdd6486a63f3d197200eac9f8d0ac))
+* document proxied www dns record ([6552c7d](https://github.com/vanityURLs/website/commit/6552c7df81d4ce1cfeed94404ebc42d40336659b))
+* document tree-only runtime link registry ([7c983aa](https://github.com/vanityURLs/website/commit/7c983aad836fe054b63a3f76111b2644def263d7))
+* document v8s-fix maintenance workflow ([2d92f45](https://github.com/vanityURLs/website/commit/2d92f45bae59d4006bd639f953f424aa97fd6566))
+* expand felix custom theme case study ([d895be9](https://github.com/vanityURLs/website/commit/d895be94d86f21733ab456c53a4d2b105bc87e43))
+* explain release and main upgrades ([28158ae](https://github.com/vanityURLs/website/commit/28158ae435ec8eb6a4d85e6593f9ecfe29248c92))
+* feature felix page carousel ([d3b1e9d](https://github.com/vanityURLs/website/commit/d3b1e9d325749d09d1385b73cc42b06243d7c062))
+* link footer overrides to custom page security ([012c906](https://github.com/vanityURLs/website/commit/012c906e6d89166707e73a4cb7f9abaf4ee5dd05))
+* move Terraform reference to v8s-config ([6781bf1](https://github.com/vanityURLs/website/commit/6781bf158a95036c2111f31b7421e4d22f293fb0))
+* move upgrade faq into data ([91ae994](https://github.com/vanityURLs/website/commit/91ae994b49bf386aca03bf598709de15e80aaacd))
+* prefer ai crawl control ([f004c32](https://github.com/vanityURLs/website/commit/f004c32f3c11d45d599b7b273ce0dc6e9719514b))
+* protect localized tests paths ([f74da86](https://github.com/vanityURLs/website/commit/f74da866db062f8d16e51e9ddd0d6c177d939fce))
+* rename custom override settings ([585c3c5](https://github.com/vanityURLs/website/commit/585c3c51090068c029789a5579f8b408969d8c61))
+* **setup:** simplify quickstart clone flow ([4df19a3](https://github.com/vanityURLs/website/commit/4df19a3f2188f292a49ce40a1dc411a5737c8ed7))
+
+
+### 🧹 Chores
+
+* document Terraform tool commands ([d87c69b](https://github.com/vanityURLs/website/commit/d87c69b373795a85b8ab70291f17dca9f25b35f4))
+
 ## [2.17.0](https://github.com/vanityURLs/website/compare/v2.16.3...v2.17.0) (2026-06-05)
 
 
