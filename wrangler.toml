@@ -2,6 +2,11 @@ name = 'vanityurls'
 main = 'src/worker.mjs'
 compatibility_date = '2026-05-01'
 
+# workers.dev and preview URLs would serve a second, uncontrolled copy
+# (infra website baseline, section 2).
+workers_dev = false
+preview_urls = false
+
 [build]
 command = 'chmod a+x build.sh && ./build.sh'
 
