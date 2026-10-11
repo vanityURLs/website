@@ -48,3 +48,6 @@ Thumbs.db
 .dev.vars
 .dev.vars.*
 *.pem
+
+# Local Director identity and workstream state
+/.director/
